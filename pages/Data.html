@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Data &amp; Insights | Nigeria Energy Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Leaflet (real interactive map) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#2f3130",
+                        "tertiary": "#211600",
+                        "outline": "#717976",
+                        "primary-fixed": "#bdecde",
+                        "on-error": "#ffffff",
+                        "background": "#f9f9f7",
+                        "surface": "#f9f9f7",
+                        "primary": "#001d17",
+                        "on-secondary-fixed-variant": "#005312",
+                        "on-surface-variant": "#404846",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e8e8e6",
+                        "primary-container": "#00342b",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#3b2a00",
+                        "on-tertiary-container": "#bb8d00",
+                        "tertiary-fixed": "#ffdf9e",
+                        "surface-dim": "#d9dad8",
+                        "inverse-on-surface": "#f0f1ef",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "on-surface": "#1a1c1b",
+                        "surface-container-low": "#f3f4f2",
+                        "secondary": "#1b6d24",
+                        "surface-variant": "#e2e3e1",
+                        "surface-tint": "#3a665c",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "on-primary-container": "#709e91",
+                        "outline-variant": "#c0c8c4",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#87d982",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#261a00",
+                        "surface-container": "#edeeec",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary-fixed": "#00201a",
+                        "on-secondary-container": "#207128",
+                        "inverse-primary": "#a1d0c3",
+                        "on-background": "#1a1c1b",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#a3f69c",
+                        "secondary-container": "#a0f499",
+                        "surface-container-highest": "#e2e3e1",
+                        "surface-bright": "#f9f9f7",
+                        "on-primary-fixed-variant": "#214e44"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-tablet": "32px",
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "nav-link": ["Inter"],
+                        "h3": ["Manrope"],
+                        "h4": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "h1-mobile": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+        }
+
+        .table-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: #c0c8c4;
+            border-radius: 10px;
+        }
+
+        /* Donut chart interactivity */
+        .donut-seg {
+            transition: stroke-width .25s ease, opacity .25s ease;
+            transform-origin: center;
+            cursor: pointer;
+        }
+
+        .donut-chart-active .donut-seg {
+            opacity: 0.25;
+        }
+
+        .donut-chart-active .donut-seg.is-active {
+            opacity: 1;
+            stroke-width: 4.5;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+    <!-- Top Navigation Shell -->
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-[74px]">
+                <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto" src="Text.png"></a>
+                    <ul class="hidden lg:flex items-center">
+                        <li><a href="Sector.html"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES<span
+                                    class="absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]"></span></a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hidden lg:flex items-center gap-5"><a href="#"
+                        class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
+                        class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
+                        Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
+                    id="mobile-nav-toggle" aria-label="Open menu"
+                    class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
+            </div>
+            <!-- Mobile nav menu -->
+            <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
+                <ul class="flex flex-col">
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
+                    </li>
+                    <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
+                    <li class="px-2 pt-2"><a href="#"
+                            class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
+                            Now</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Side Navigation Shell (Desktop Only) -->
+    <!-- Main Content Area -->
+    <main class=" pb-24">
+        <!-- Hero Section -->
+        <section class="px-margin-mobile md:px-margin-desktop py-12">
+            <div class="max-w-4xl">
+                <h1 class="font-h1 text-h1-mobile md:text-h1 text-primary mb-4 leading-tight">Explore Nigeria’s Energy
+                    Investment &amp; Capacity Data</h1>
+                <p class="text-body-lg font-body-lg text-on-surface-variant">Providing transparency and real-time
+                    metrics across renewable and conventional energy sectors to empower global investors and policy
+                    makers.</p>
+            </div>
+        </section>
+        <!-- Filters & Key Metrics -->
+        <section class="px-margin-mobile md:px-margin-desktop pb-12">
+            <!-- Filter Bar -->
+            <div
+                class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl flex flex-col md:flex-row gap-6 mb-8 items-end">
+                <div class="w-full md:w-1/4">
+                    <label class="font-label-md text-label-md text-on-surface-variant uppercase mb-2 block">Fiscal
+                        Year</label>
+                    <select
+                        class="w-full bg-surface-container border border-outline-variant rounded-lg p-2.5 text-body-md">
+                        <option>2024 (Real-time)</option>
+                        <option>2023</option>
+                        <option>2022</option>
+                    </select>
+                </div>
+                <div class="w-full md:w-1/4">
+                    <label class="font-label-md text-label-md text-on-surface-variant uppercase mb-2 block">Energy
+                        Sector</label>
+                    <select
+                        class="w-full bg-surface-container border border-outline-variant rounded-lg p-2.5 text-body-md">
+                        <option>All Sectors</option>
+                        <option>Renewable Generation</option>
+                        <option>Grid Infrastructure</option>
+                        <option>Energy Storage</option>
+                    </select>
+                </div>
+                <div class="w-full md:w-1/4">
+                    <label
+                        class="font-label-md text-label-md text-on-surface-variant uppercase mb-2 block">Region</label>
+                    <select
+                        class="w-full bg-surface-container border border-outline-variant rounded-lg p-2.5 text-body-md">
+                        <option>All of Nigeria</option>
+                        <option>North Central</option>
+                        <option>North East</option>
+                        <option>South West</option>
+                    </select>
+                </div>
+                <button
+                    class="w-full md:w-auto bg-primary text-white px-8 py-2.5 rounded-lg font-bold flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]">filter_list</span>
+                    Apply Filters
+                </button>
+            </div>
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter md:grid-cols-4">
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant p-8 rounded-xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 h-full w-1.5 bg-tertiary-fixed-dim"></div>
+                    <p class="font-label-md text-label-md text-on-surface-variant mb-2">Total Investment Value</p>
+                    <h2 class="font-h2 text-h2 text-primary">$12.4B+</h2>
+                    <p class="text-secondary font-bold text-body-sm mt-2 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">trending_up</span> +14.2% YoY
+                    </p>
+                </div>
+                <div class="bg-surface-container-lowest border border-outline-variant p-8 rounded-xl">
+                    <p class="font-label-md text-label-md text-on-surface-variant mb-2">Active Projects</p>
+                    <h2 class="font-h2 text-h2 text-primary">140+</h2>
+                    <p class="text-on-surface-variant text-body-sm mt-2">Across 6 Geopolitical Zones</p>
+                </div>
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant p-8 rounded-xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 h-full w-1.5 bg-primary-container"></div>
+                    <p class="font-label-md text-label-md text-on-surface-variant mb-2">Installed Capacity</p>
+                    <h2 class="font-h2 text-h2 text-primary">2.1 GW</h2>
+                    <p class="text-on-surface-variant text-body-sm mt-2">Off-grid &amp; Grid integrated</p>
+                </div>
+                <div class="bg-surface-container-lowest border border-outline-variant p-8 rounded-xl">
+                    <p class="font-label-md text-label-md text-on-surface-variant mb-2">States Covered</p>
+                    <h2 class="font-h2 text-h2 text-primary">36+</h2>
+                    <p class="text-on-surface-variant text-body-sm mt-2">Federal Capital Territory incl.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Interactive Map Section -->
+        <section class="px-margin-mobile md:px-margin-desktop pb-12">
+            <div
+                class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm h-[600px] relative flex items-center justify-center">
+                <div id="nigeria-map" class="absolute inset-0 z-0"></div>
+                <!-- Map UI Overlays -->
+                <div
+                    class="absolute top-6 left-6 z-10 glass-card p-6 border border-outline-variant rounded-xl max-w-xs shadow-lg">
+                    <h4 class="font-h4 text-h4 text-primary mb-2">Project Hotspots</h4>
+                    <p class="text-body-sm font-body-sm text-on-surface-variant mb-4">Click on markers to view
+                        state-level details and available investment slots.</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-secondary"></span>
+                            <span class="text-body-sm">Operating Plants</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></span>
+                            <span class="text-body-sm">Under Construction</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-primary-fixed-dim"></span>
+                            <span class="text-body-sm">Planned / RFP Open</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute bottom-6 right-6 z-10 flex flex-col gap-2">
+                    <button id="map-zoom-in" aria-label="Zoom in"
+                        class="bg-white p-3 border border-outline-variant rounded-lg shadow-md hover:bg-surface-container transition-colors">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                    <button id="map-zoom-out" aria-label="Zoom out"
+                        class="bg-white p-3 border border-outline-variant rounded-lg shadow-md hover:bg-surface-container transition-colors">
+                        <span class="material-symbols-outlined">remove</span>
+                    </button>
+                    <button id="map-locate" aria-label="Reset view"
+                        class="bg-white p-3 border border-outline-variant rounded-lg shadow-md hover:bg-surface-container transition-colors">
+                        <span class="material-symbols-outlined">my_location</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Visualization Grid -->
+        <section class="px-margin-mobile md:px-margin-desktop pb-12">
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-gutter lg:grid-cols-3">
+                <!-- Investment by Sector -->
+                <div
+                    class="viz-card bg-surface-container-lowest border border-outline-variant p-8 rounded-xl flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary">
+                    <div class="flex justify-between items-center mb-6">
+                        <h4 class="font-h4 text-h4 text-primary">Investment by Sector</h4>
+                        <span class="material-symbols-outlined text-outline">info</span>
+                    </div>
+                    <div class="flex-grow space-y-8">
+                        <div class="space-y-2 group cursor-default">
+                            <div class="flex justify-between items-center text-body-sm font-medium transition-colors group-hover:text-primary">
+                                <span class="flex items-center gap-2.5">
+                                    <span class="w-9 h-9 rounded-lg bg-primary-container/10 text-primary-container flex items-center justify-center transition-colors group-hover:bg-primary-container group-hover:text-white">
+                                        <span class="material-symbols-outlined text-[20px]">solar_power</span>
+                                    </span>
+                                    Renewable Generation
+                                </span>
+                                <span class="font-bold">$6.8B</span>
+                            </div>
+                            <div class="relative h-2 bg-surface-container-high rounded-full overflow-visible">
+                                <div class="h-full bg-primary-container rounded-full transition-all duration-300 group-hover:brightness-125 group-hover:h-3 group-hover:-mt-0.5" style="width: 90%"></div>
+                                <span class="absolute -top-8 right-0 opacity-0 group-hover:opacity-100 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded transition-opacity">55%</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2 group cursor-default">
+                            <div class="flex justify-between items-center text-body-sm font-medium transition-colors group-hover:text-primary">
+                                <span class="flex items-center gap-2.5">
+                                    <span class="w-9 h-9 rounded-lg bg-primary-container/10 text-primary-container flex items-center justify-center transition-colors group-hover:bg-primary-container group-hover:text-white">
+                                        <span class="material-symbols-outlined text-[20px]">electrical_services</span>
+                                    </span>
+                                    Grid Infrastructure
+                                </span>
+                                <span class="font-bold">$3.9B</span>
+                            </div>
+                            <div class="relative h-2 bg-surface-container-high rounded-full overflow-visible">
+                                <div class="h-full bg-primary-container opacity-70 rounded-full transition-all duration-300 group-hover:opacity-100 group-hover:brightness-125 group-hover:h-3 group-hover:-mt-0.5" style="width: 52%"></div>
+                                <span class="absolute -top-8 right-0 opacity-0 group-hover:opacity-100 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded transition-opacity">31%</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2 group cursor-default">
+                            <div class="flex justify-between items-center text-body-sm font-medium transition-colors group-hover:text-primary">
+                                <span class="flex items-center gap-2.5">
+                                    <span class="w-9 h-9 rounded-lg bg-primary-container/10 text-primary-container flex items-center justify-center transition-colors group-hover:bg-primary-container group-hover:text-white">
+                                        <span class="material-symbols-outlined text-[20px]">battery_charging_full</span>
+                                    </span>
+                                    Energy Storage
+                                </span>
+                                <span class="font-bold">$1.7B</span>
+                            </div>
+                            <div class="relative h-2 bg-surface-container-high rounded-full overflow-visible">
+                                <div class="h-full bg-primary-container opacity-40 rounded-full transition-all duration-300 group-hover:opacity-100 group-hover:brightness-125 group-hover:h-3 group-hover:-mt-0.5" style="width: 22%"></div>
+                                <span class="absolute -top-8 right-0 opacity-0 group-hover:opacity-100 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded transition-opacity">14%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card footer summary -->
+                    <div class="mt-6 pt-5 border-t border-outline-variant flex items-center justify-between">
+                        <span class="flex items-center gap-2 text-body-sm text-on-surface-variant">
+                            <span class="material-symbols-outlined text-[18px] text-secondary">payments</span>
+                            Total Allocated
+                        </span>
+                        <span class="font-h4 text-h4 text-primary">$12.4B</span>
+                    </div>
+                </div>
+                <!-- Capacity Growth Trend -->
+                <div
+                    class="viz-card bg-surface-container-lowest border border-outline-variant p-8 rounded-xl flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary">
+                    <div class="flex justify-between items-center mb-6">
+                        <h4 class="font-h4 text-h4 text-primary">Capacity Growth (MW)</h4>
+                        <div class="flex gap-2">
+                            <span class="w-3 h-3 rounded-full bg-secondary"></span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider">Historical</span>
+                        </div>
+                    </div>
+                    <div class="flex-grow flex items-end gap-2 px-2">
+                        <!-- Bar chart visualization -->
+                        <div class="flex-1 bg-surface-container h-1/4 rounded-t-sm relative group cursor-pointer transition-all duration-300 hover:bg-primary">
+                            <div
+                                class="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap">
+                                450 MW</div>
+                        </div>
+                        <div class="flex-1 bg-surface-container h-1/3 rounded-t-sm relative group cursor-pointer transition-all duration-300 hover:bg-primary">
+                            <div class="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap">
+                                620 MW</div>
+                        </div>
+                        <div class="flex-1 bg-surface-container h-1/2 rounded-t-sm relative group cursor-pointer transition-all duration-300 hover:bg-primary">
+                            <div class="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap">
+                                910 MW</div>
+                        </div>
+                        <div class="flex-1 bg-surface-container-high h-[60%] rounded-t-sm relative group cursor-pointer transition-all duration-300 hover:bg-primary">
+                            <div class="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap">
+                                1,180 MW</div>
+                        </div>
+                        <div class="flex-1 bg-primary-container h-[75%] rounded-t-sm relative group cursor-pointer transition-all duration-300 hover:brightness-125">
+                            <div class="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap">
+                                1,575 MW</div>
+                        </div>
+                        <div class="flex-1 bg-secondary h-[90%] rounded-t-sm relative group cursor-pointer transition-all duration-300 hover:brightness-110">
+                            <div class="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap">
+                                2,100 MW</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-4 text-label-md font-label-md text-outline">
+                        <span>2019</span>
+                        <span>2020</span>
+                        <span>2021</span>
+                        <span>2022</span>
+                        <span>2023</span>
+                        <span>2024</span>
+                    </div>
+                </div>
+                <!-- Investment Source -->
+                <div id="investment-source"
+                    class="viz-card bg-surface-container-lowest border border-outline-variant p-8 rounded-xl flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary">
+                    <div class="flex justify-between items-center mb-6">
+                        <h4 class="font-h4 text-h4 text-primary">Investment Source</h4>
+                    </div>
+                    <div class="flex-grow flex flex-col items-center justify-center">
+                        <div class="relative w-48 h-48 mb-8">
+                            <!-- SVG Donut -->
+                            <svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+                                <circle cx="18" cy="18" fill="transparent" r="15.915" stroke="#e2e3e1" stroke-width="3">
+                                </circle>
+                                <circle class="donut-seg" data-seg="fdi" cx="18" cy="18" fill="transparent" r="15.915" stroke="#00342b"
+                                    stroke-dasharray="55 45" stroke-dashoffset="0" stroke-width="3"></circle>
+                                <circle class="donut-seg" data-seg="domestic" cx="18" cy="18" fill="transparent" r="15.915" stroke="#87d982"
+                                    stroke-dasharray="25 75" stroke-dashoffset="-55" stroke-width="3"></circle>
+                                <circle class="donut-seg" data-seg="public" cx="18" cy="18" fill="transparent" r="15.915" stroke="#f7be26"
+                                    stroke-dasharray="20 80" stroke-dashoffset="-80" stroke-width="3"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                                <span id="donut-value" class="text-h4 font-bold">100%</span>
+                                <span id="donut-label" class="text-[10px] text-outline font-bold">TOTAL</span>
+                            </div>
+                        </div>
+                        <div class="w-full grid grid-cols-2 gap-4">
+                            <div class="donut-legend flex items-center gap-2 cursor-pointer rounded-lg px-1 py-0.5 transition-colors hover:bg-surface-container"
+                                data-seg="fdi" data-value="55%" data-label="FDI">
+                                <div class="w-3 h-3 rounded-full bg-primary-container"></div>
+                                <span class="text-body-sm font-medium">FDI (55%)</span>
+                            </div>
+                            <div class="donut-legend flex items-center gap-2 cursor-pointer rounded-lg px-1 py-0.5 transition-colors hover:bg-surface-container"
+                                data-seg="domestic" data-value="25%" data-label="Domestic">
+                                <div class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></div>
+                                <span class="text-body-sm font-medium">Domestic (25%)</span>
+                            </div>
+                            <div class="donut-legend flex items-center gap-2 cursor-pointer rounded-lg px-1 py-0.5 transition-colors hover:bg-surface-container"
+                                data-seg="public" data-value="20%" data-label="Public">
+                                <div class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></div>
+                                <span class="text-body-sm font-medium">Public (20%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+       
+        <!-- Datasets Download Section -->
+        <section class="px-margin-mobile md:px-margin-desktop pb-12">
+            <h4 class="font-h4 text-h4 text-primary mb-6">Open Data Downloads</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl hover:border-primary transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center text-white mb-4">
+                        <span class="material-symbols-outlined">table_chart</span>
+                    </div>
+                    <h5 class="font-bold text-primary mb-1">State Investment 2024</h5>
+                    <p class="text-body-sm text-on-surface-variant mb-4">Detailed state-level financial breakdown.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-label-md text-outline">CSV | 4.2 MB</span>
+                        <button class="text-primary group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined">download</span>
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl hover:border-primary transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center text-white mb-4">
+                        <span class="material-symbols-outlined">bolt</span>
+                    </div>
+                    <h5 class="font-bold text-primary mb-1">Capacity Trends Q3</h5>
+                    <p class="text-body-sm text-on-surface-variant mb-4">Renewable grid contribution metrics.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-label-md text-outline">XLSX | 1.8 MB</span>
+                        <button class="text-primary group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined">download</span>
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl hover:border-primary transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center text-white mb-4">
+                        <span class="material-symbols-outlined">description</span>
+                    </div>
+                    <h5 class="font-bold text-primary mb-1">Impact Report 2023</h5>
+                    <p class="text-body-sm text-on-surface-variant mb-4">Comprehensive annual socio-economic study.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-label-md text-outline">PDF | 12.5 MB</span>
+                        <button class="text-primary group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined">download</span>
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl hover:border-primary transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center text-white mb-4">
+                        <span class="material-symbols-outlined">api</span>
+                    </div>
+                    <h5 class="font-bold text-primary mb-1">Energy API Docs</h5>
+                    <p class="text-body-sm text-on-surface-variant mb-4">Direct integration for developer access.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-label-md text-outline">JSON | Link</span>
+                        <button class="text-primary group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined">open_in_new</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Source Note -->
+        <section class="px-margin-mobile md:px-margin-desktop">
+            <div class="bg-surface-container-low border-l-4 border-tertiary-fixed-dim p-6 rounded-r-lg">
+                <p class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed">
+                    <strong>Note on Methodology:</strong> All data presented on this portal is aggregated from the
+                    Federal Ministry of Power, Nigerian Electricity Regulatory Commission (NERC), and verified private
+                    sector investment disclosures. Real-time metrics are updated every 24 hours. Historical data is
+                    adjusted quarterly to reflect finalized legislative audits.
+                </p>
+            </div>
+        </section>
+    </main>
+    <!-- Footer Shell -->
+   <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <div
+            class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
+            <div>
+                <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">OSIP</h3>
+                <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-sm">The official gateway for streamlining
+                    energy
+                    investments in Nigeria. Empowering investors with data, clarity, and sovereign support.</p>
+                <div class="flex flex-wrap gap-3"><a href="#" aria-label="LinkedIn"
+                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                            class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.74-2.46C21.6 7.73 24 10 24 14.4V24h-5v-8.5c0-2.03-.73-3.42-2.55-3.42-1.39 0-2.22.94-2.58 1.85-.13.32-.17.77-.17 1.22V24h-5V8z" />
+                        </svg></a><a href="#" aria-label="X"
+                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                            class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
+                        </svg></a></div>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy Policy</a>
+                    </li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
+                            Power</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
+                            Commission</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partner Logos</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                        <span class="material-symbols-outlined text-white text-[22px]">account_balance</span>
+                        <span class="text-white text-xs font-bold tracking-wide">FMP</span>
+                    </div>
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                        <span class="material-symbols-outlined text-white text-[22px]">bolt</span>
+                        <span class="text-white text-xs font-bold tracking-wide">NESP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
+                class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
+        </div>
+    </footer>
+    
+    <script>
+        // Micro-interactions for table and charts
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // Future implementation: row selection or detail expansion
+                console.log('Row details clicked');
+            });
+        });
+
+        // Investment Source donut: hover a legend item or a segment to highlight it.
+        (function () {
+            var card = document.getElementById('investment-source');
+            if (!card) return;
+            var svg = card.querySelector('svg');
+            var segs = card.querySelectorAll('.donut-seg');
+            var legends = card.querySelectorAll('.donut-legend');
+            var valueEl = document.getElementById('donut-value');
+            var labelEl = document.getElementById('donut-label');
+
+            function activate(key, value, label) {
+                svg.classList.add('donut-chart-active');
+                segs.forEach(function (s) { s.classList.toggle('is-active', s.getAttribute('data-seg') === key); });
+                if (value) valueEl.textContent = value;
+                if (label) labelEl.textContent = label.toUpperCase();
+            }
+            function reset() {
+                svg.classList.remove('donut-chart-active');
+                segs.forEach(function (s) { s.classList.remove('is-active'); });
+                valueEl.textContent = '100%';
+                labelEl.textContent = 'TOTAL';
+            }
+
+            legends.forEach(function (l) {
+                l.addEventListener('mouseenter', function () {
+                    activate(l.getAttribute('data-seg'), l.getAttribute('data-value'), l.getAttribute('data-label'));
+                });
+                l.addEventListener('mouseleave', reset);
+            });
+            segs.forEach(function (s) {
+                s.addEventListener('mouseenter', function () {
+                    var key = s.getAttribute('data-seg');
+                    var l = card.querySelector('.donut-legend[data-seg="' + key + '"]');
+                    activate(key, l && l.getAttribute('data-value'), l && l.getAttribute('data-label'));
+                });
+                s.addEventListener('mouseleave', reset);
+            });
+        })();
+    </script>
+
+    <!-- Real interactive map of Nigeria (Leaflet + OpenStreetMap) -->
+    <script>
+        (function () {
+            var el = document.getElementById('nigeria-map');
+            if (!el || typeof L === 'undefined') return;
+
+            var NIGERIA_VIEW = { center: [9.082, 8.6753], zoom: 6 };
+            var map = L.map(el, {
+                center: NIGERIA_VIEW.center,
+                zoom: NIGERIA_VIEW.zoom,
+                zoomControl: false,           // custom buttons drive the zoom
+                scrollWheelZoom: false        // avoid hijacking page scroll
+            });
+            map.on('click', function () { map.scrollWheelZoom.enable(); });
+            map.on('mouseout', function () { map.scrollWheelZoom.disable(); });
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Marker colours mirror the legend: operating / under construction / planned.
+            var COLORS = { operating: '#1b6d24', construction: '#f7be26', planned: '#a1d0c3' };
+            var SITES = [
+                { name: 'Lagos', cap: '420.5 MW', projects: 18, status: 'operating', ll: [6.5244, 3.3792] },
+                { name: 'Rivers', cap: '350.0 MW', projects: 15, status: 'operating', ll: [4.8156, 7.0498] },
+                { name: 'Kano', cap: '280.0 MW', projects: 12, status: 'construction', ll: [12.0022, 8.5920] },
+                { name: 'Kaduna', cap: '195.2 MW', projects: 9, status: 'construction', ll: [10.5105, 7.4165] },
+                { name: 'Enugu', cap: '110.5 MW', projects: 7, status: 'planned', ll: [6.5244, 7.5186] },
+                { name: 'Abuja (FCT)', cap: '160.0 MW', projects: 8, status: 'planned', ll: [9.0765, 7.3986] }
+            ];
+
+            SITES.forEach(function (s) {
+                L.circleMarker(s.ll, {
+                    radius: 9,
+                    color: '#ffffff',
+                    weight: 2,
+                    fillColor: COLORS[s.status],
+                    fillOpacity: 0.95
+                }).addTo(map).bindPopup(
+                    '<strong>' + s.name + '</strong><br>Capacity: ' + s.cap +
+                    '<br>Active projects: ' + s.projects
+                );
+            });
+
+            // Wire the custom map controls.
+            var zin = document.getElementById('map-zoom-in');
+            var zout = document.getElementById('map-zoom-out');
+            var loc = document.getElementById('map-locate');
+            if (zin) zin.addEventListener('click', function () { map.zoomIn(); });
+            if (zout) zout.addEventListener('click', function () { map.zoomOut(); });
+            if (loc) loc.addEventListener('click', function () { map.setView(NIGERIA_VIEW.center, NIGERIA_VIEW.zoom); });
+
+            // Ensure correct sizing once layout settles.
+            setTimeout(function () { map.invalidateSize(); }, 200);
+        })();
+    </script>
+
+    <!-- Shared nav: mobile toggle + active-page wiring -->
+    <script>
+        (function () {
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            if (navToggle && mobileNav) {
+                navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
+            }
+        })();
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'OpportunitiesNew.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'OpportunitiesNew.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu {
+            position: relative;
+        }
+
+        .nesp-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 300px;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22);
+            margin-top: 8px;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+            z-index: 60;
+        }
+
+        .nesp-has-menu:hover .nesp-dropdown,
+        .nesp-dropdown:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nesp-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nesp-dropdown::after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: #ffffff;
+            border-top: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-radius: 3px 0 0 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nesp-menu-head {
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #9aa39e;
+            padding: 8px 12px 6px;
+        }
+
+        .nesp-menu-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .15s ease;
+        }
+
+        .nesp-menu-item:hover {
+            background: #f1f8f4;
+        }
+
+        .nesp-menu-item .t {
+            display: block;
+            font-family: Manrope, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15241d;
+        }
+
+        .nesp-menu-item:hover .t {
+            color: #047857;
+        }
+
+        .nesp-menu-item .d {
+            display: block;
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #6b746f;
+            margin-top: 2px;
+        }
+
+        .nesp-has-menu>a::after {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 7px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            opacity: .6;
+            vertical-align: middle;
+            transition: transform .2s ease;
+        }
+
+        .nesp-has-menu:hover>a::after {
+            transform: translateY(0) rotate(225deg);
+        }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+                        { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'OpportunitiesNew.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'OpportunitiesNew.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'OpportunitiesNew.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'OpportunitiesNew.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations & Compliance', items: [
+                        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data & Insights', items: [
+                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;            // desktop top-level links only
+                var menu = MENU[(a.textContent || '').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+    <!-- Invest Now popup flow -->
+    <script src="investflow.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Contact Us | OSIP - Nigerian Energy Investment Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#001d17",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00342b",
+                        "on-primary-container": "#709e91",
+                        "secondary": "#1b6d24",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#211600",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "background": "#f9f9f7",
+                        "surface": "#f9f9f7",
+                        "surface-bright": "#f9f9f7",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f3f4f2",
+                        "surface-container": "#edeeec",
+                        "surface-container-high": "#e8e8e6",
+                        "on-surface": "#1a1c1b",
+                        "on-surface-variant": "#404846",
+                        "outline": "#717976",
+                        "outline-variant": "#c0c8c4",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "margin-tablet": "32px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "h4": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "nav-link": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .form-input-focus:focus {
+            outline: none;
+            border-color: #00342b;
+            border-width: 1px;
+            box-shadow: 0 0 0 2px rgba(0, 52, 43, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-surface font-body-md text-on-surface antialiased">
+    <!-- TopNavBar from COMPONENTS_5 -->
+   <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-[74px]">
+                <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto" src="Text.png"></a>
+                    <ul class="hidden lg:flex items-center">
+                        <li><a href="Sector.html"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES<span
+                                    class="absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]"></span></a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hidden lg:flex items-center gap-5"><a href="#"
+                        class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
+                        class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
+                        Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
+                    id="mobile-nav-toggle" aria-label="Open menu"
+                    class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
+            </div>
+            <!-- Mobile nav menu -->
+            <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
+                <ul class="flex flex-col">
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
+                    </li>
+                    <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
+                    <li class="px-2 pt-2"><a href="#"
+                            class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
+                            Now</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="max-w-7xl mx-auto px-margin-desktop py-20 min-h-screen">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            <!-- Left Side: Form Container -->
+            <div class="lg:col-span-7">
+                <header class="mb-12">
+                    <h1 class="font-h2 text-h2 text-primary mb-4">Contact Our Team</h1>
+                    <p class="font-body-lg text-on-surface-variant max-w-xl">Reach out for inquiries regarding energy
+                        investments, regulatory guidelines, or technical portal assistance.</p>
+                </header>
+                <form class="space-y-8" id="contactForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <!-- Dropdown: Who are you? -->
+                        <div class="md:col-span-2">
+                            <label
+                                class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Stakeholder
+                                Category <span class="text-error">*</span></label>
+                            <select
+                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all appearance-none">
+                                <option disabled="" selected="" value="">Select your category</option>
+                                <option value="investor">Institutional Investor</option>
+                                <option value="regulator">Regulatory Body</option>
+                                <option value="government">Government Agency</option>
+                                <option value="developer">Project Developer</option>
+                            </select>
+                        </div>
+                        <!-- Name -->
+                        <div>
+                            <label
+                                class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Full
+                                Name <span class="text-error">*</span></label>
+                            <input
+                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all"
+                                placeholder="e.g. John Doe" type="text" />
+                        </div>
+                        <!-- Email -->
+                        <div>
+                            <label
+                                class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Email
+                                Address <span class="text-error">*</span></label>
+                            <input
+                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all"
+                                placeholder="e.g. name@organization.com" type="email" />
+                        </div>
+                        <!-- Country -->
+                        <div>
+                            <label
+                                class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Country
+                                <span class="text-error">*</span></label>
+                            <select
+                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
+                                <option disabled="" selected="" value="">Select country</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="US">United States</option>
+                                <option value="CN">China</option>
+                            </select>
+                        </div>
+                        <!-- Sector -->
+                        <div>
+                            <label
+                                class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Energy
+                                Sector</label>
+                            <select
+                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
+                                <option disabled="" selected="" value="">Select sector</option>
+                                <option value="solar">Solar Energy</option>
+                                <option value="wind">Wind Energy</option>
+                                <option value="gas">Natural Gas</option>
+                                <option value="hydro">Hydroelectric</option>
+                            </select>
+                        </div>
+                        <!-- Query Type -->
+                        <div class="md:col-span-2">
+                            <label
+                                class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Inquiry
+                                Subject <span class="text-error">*</span></label>
+                            <select
+                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
+                                <option disabled="" selected="" value="">Select nature of inquiry</option>
+                                <option value="investment">Investment Opportunity</option>
+                                <option value="regulatory">Regulatory Inquiry</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="other">General Inquiry</option>
+                            </select>
+                        </div>
+                        <!-- Message -->
+                        <div class="md:col-span-2">
+                            <label
+                                class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Your
+                                Message <span class="text-error">*</span></label>
+                            <textarea
+                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all min-h-[160px]"
+                                placeholder="Briefly describe your request or query..."></textarea>
+                        </div>
+                        <!-- File Upload -->
+                        <div class="md:col-span-2">
+                            <label
+                                class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Attachments
+                                (Optional)</label>
+                            <div class="flex flex-col gap-2">
+                                <div
+                                    class="flex items-center justify-between border border-dashed border-outline-variant p-4 rounded bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer">
+                                    <div class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-outline">upload_file</span>
+                                        <span class="font-body-sm text-on-surface-variant">Click to upload or drag and
+                                            drop</span>
+                                    </div>
+                                    <input class="hidden" id="fileUpload" type="file" />
+                                    <label
+                                        class="bg-primary-container text-on-primary px-4 py-1.5 rounded text-label-md cursor-pointer"
+                                        for="fileUpload">Choose File</label>
+                                </div>
+                                <p class="text-[11px] text-on-surface-variant italic">Maximum size: 5MB. Accepted
+                                    formats: JPG, PNG, PDF.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="flex items-center gap-6 pt-6">
+                        <button
+                            class="bg-primary-container text-white px-12 py-3 rounded font-h4 text-body-md hover:bg-primary transition-all shadow-sm"
+                            type="submit">
+                            Submit Inquiry
+                        </button>
+                        <button
+                            class="text-on-surface-variant font-label-md uppercase tracking-widest hover:text-primary transition-colors flex items-center gap-2"
+                            type="reset">
+                            Clear Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- Right Side: Branded Portal Banner -->
+            <div class="lg:col-span-5 flex flex-col gap-8">
+                <div
+                    class="relative overflow-hidden bg-primary-container text-on-primary p-10 rounded shadow-sm border-t-4 border-tertiary-fixed-dim">
+                    <!-- Decorative glows -->
+                    <div
+                        class="pointer-events-none absolute -top-20 -right-20 w-60 h-60 rounded-full bg-tertiary-fixed-dim/10 blur-3xl">
+                    </div>
+                    <div
+                        class="pointer-events-none absolute -bottom-16 -left-16 w-52 h-52 rounded-full bg-secondary-fixed-dim/10 blur-3xl">
+                    </div>
+                    <!-- Subtle dot grid texture -->
+                    <div class="pointer-events-none absolute inset-0 opacity-[0.05]"
+                        style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 22px 22px;">
+                    </div>
+
+                    <!-- Brand lockup -->
+                    <div class="relative flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 bg-tertiary-fixed-dim text-primary flex items-center justify-center shrink-0 shadow-md">
+                            <span class="material-symbols-outlined text-[30px]"
+                                style="font-variation-settings: 'FILL' 1;">bolt</span>
+                        </div>
+                        <div>
+                            <p class="font-h3 text-h3 text-white leading-none">OSIP</p>
+                            <p class="font-label-md uppercase tracking-[0.18em] text-tertiary-fixed-dim mt-1.5">One Stop
+                                Investment Portal</p>
+                        </div>
+                    </div>
+                    <p class="relative font-body-md text-on-primary-container leading-relaxed mb-8">
+                        Nigeria's official gateway for energy investment — connecting global capital with verified,
+                        bankable projects under one sovereign-backed platform.
+                    </p>
+
+                    <!-- Key stats -->
+                    <div class="relative grid grid-cols-3 gap-3 mb-8">
+                        <div class="bg-white/5 border border-white/10 p-4 text-center">
+                            <p class="font-h4 text-h4 text-white leading-none">$12.4B+</p>
+                            <p class="text-[10px] uppercase tracking-wider text-on-primary-container mt-2">Investment</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-4 text-center">
+                            <p class="font-h4 text-h4 text-white leading-none">140+</p>
+                            <p class="text-[10px] uppercase tracking-wider text-on-primary-container mt-2">Projects</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-4 text-center">
+                            <p class="font-h4 text-h4 text-white leading-none">36</p>
+                            <p class="text-[10px] uppercase tracking-wider text-on-primary-container mt-2">States</p>
+                        </div>
+                    </div>
+
+                    <!-- Why OSIP highlights -->
+                    <div class="relative space-y-4 mb-8">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">verified</span>
+                            <span class="font-body-sm text-white">Verified, bankable investment opportunities</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">gavel</span>
+                            <span class="font-body-sm text-white">Clear regulatory &amp; licensing pathways</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">support_agent</span>
+                            <span class="font-body-sm text-white">Dedicated, sovereign-backed investor support</span>
+                        </div>
+                    </div>
+
+                    <!-- Contact essentials -->
+                    <!-- <div class="relative border-t border-white/10 pt-6 space-y-5">
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">location_on</span>
+                            <div>
+                                <p class="font-label-md text-on-primary-container uppercase tracking-widest mb-1">
+                                    Headquarters</p>
+                                <p class="font-body-sm text-white leading-relaxed">Ministry of Energy Annexe, Central
+                                    Business District, Abuja, Nigeria</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">call</span>
+                            <div>
+                                <p class="font-label-md text-on-primary-container uppercase tracking-widest mb-1">Investor
+                                    Helpline</p>
+                                <a class="font-body-md text-white font-semibold hover:text-tertiary-fixed-dim transition-colors"
+                                    href="tel:1800114556">1800 114 556</a>
+                                <span class="text-on-primary-container text-body-sm"> · Mon–Fri, 09:00–17:00 WAT</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span
+                                class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">mail</span>
+                            <div>
+                                <p class="font-label-md text-on-primary-container uppercase tracking-widest mb-1">Email
+                                </p>
+                                <a class="font-body-md text-white font-semibold hover:text-tertiary-fixed-dim transition-colors"
+                                    href="mailto:contact@osip.gov.ng">contact@osip.gov.ng</a>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer from COMPONENTS_5 -->
+    <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <div
+            class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
+            <div>
+                <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">OSIP</h3>
+                <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-sm">The official gateway for streamlining
+                    energy
+                    investments in Nigeria. Empowering investors with data, clarity, and sovereign support.</p>
+                <div class="flex flex-wrap gap-3"><a href="#" aria-label="LinkedIn"
+                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                            class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.74-2.46C21.6 7.73 24 10 24 14.4V24h-5v-8.5c0-2.03-.73-3.42-2.55-3.42-1.39 0-2.22.94-2.58 1.85-.13.32-.17.77-.17 1.22V24h-5V8z" />
+                        </svg></a><a href="#" aria-label="X"
+                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                            class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
+                        </svg></a></div>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy Policy</a>
+                    </li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
+                            Power</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
+                            Commission</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partner Logos</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                        <span class="material-symbols-outlined text-white text-[22px]">account_balance</span>
+                        <span class="text-white text-xs font-bold tracking-wide">FMP</span>
+                    </div>
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                        <span class="material-symbols-outlined text-white text-[22px]">bolt</span>
+                        <span class="text-white text-xs font-bold tracking-wide">NESP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
+                class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
+        </div>
+    </footer>
+    <!-- <script>
+        // Simple form interaction
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // In a real application, form validation and submission logic would go here
+            alert('Your inquiry has been successfully transmitted to the OSIP secretariat. A tracking number will be sent to your email address shortly.');
+        });
+    </script> -->
+
+    <!-- Shared nav: mobile toggle + active-page wiring -->
+    <script>
+        (function () {
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            if (navToggle && mobileNav) {
+                navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
+            }
+        })();
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'OpportunitiesNew.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (label === 'INVEST NOW') return;            // handled by investflow.js (opens popup)
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu { position: relative; }
+        .nesp-dropdown {
+            position: absolute; top: 100%; left: 50%; min-width: 300px;
+            background: #ffffff; border: 1px solid #e7e7e7;
+            border-radius: 12px; box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22); margin-top: 8px;
+            padding: 10px; opacity: 0; visibility: hidden; transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease; z-index: 60;
+        }
+        .nesp-has-menu:hover .nesp-dropdown, .nesp-dropdown:hover {
+            opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+        }
+        .nesp-dropdown::before { content: ""; position: absolute; top: -12px; left: 0; right: 0; height: 14px; }
+        .nesp-dropdown::after { content: ""; position: absolute; top: -7px; left: 50%; width: 13px; height: 13px; background: #ffffff; border-top: 1px solid #e7e7e7; border-left: 1px solid #e7e7e7; border-radius: 3px 0 0 0; transform: translateX(-50%) rotate(45deg); }
+        .nesp-menu-head { font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #9aa39e; padding: 8px 12px 6px; }
+        .nesp-menu-item { display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none; transition: background .15s ease; }
+        .nesp-menu-item:hover { background: #f1f8f4; }
+        .nesp-menu-item .t { display: block; font-family: Manrope, sans-serif; font-size: 13.5px; font-weight: 700; color: #15241d; }
+        .nesp-menu-item:hover .t { color: #047857; }
+        .nesp-menu-item .d { display: block; font-size: 11.5px; line-height: 1.45; color: #6b746f; margin-top: 2px; }
+        .nesp-has-menu > a::after { content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); opacity: .6; vertical-align: middle; transition: transform .2s ease; }
+        .nesp-has-menu:hover > a::after { transform: translateY(0) rotate(225deg); }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': { head: 'Strategic Priority Sectors', items: [
+                    { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+                    { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+                    { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                ]},
+                'OPPORTUNITIES': { head: 'Investment Opportunities', items: [
+                    { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'OpportunitiesNew.html' },
+                    { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'OpportunitiesNew.html' },
+                    { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'OpportunitiesNew.html' },
+                    { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'OpportunitiesNew.html' }
+                ]},
+                'REGULATIONS': { head: 'Regulations & Compliance', items: [
+                    { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                    { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                    { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                    { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                ]},
+                'DATA': { head: 'Data & Insights', items: [
+                    { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                    { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                    { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                ]},
+                'NEWS': { head: 'News Categories', items: [
+                    { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                    { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                    { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                    { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                    { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                ]}
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;            // desktop top-level links only
+                var menu = MENU[(a.textContent || '').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+    <!-- Invest Now popup flow -->
+    <script src="investflow.js"></script>
+</body>
+
+</html>

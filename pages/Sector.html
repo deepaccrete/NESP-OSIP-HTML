@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Investment Sectors | Nigerian Energy Investment Portal (NEIP)</title>
+    <!-- Fonts & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .sector-card-hover:hover .cta-arrow {
+            transform: translateX(4px);
+        }
+
+        .gold-border-accent {
+            border-left: 4px solid #f7be26;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(rgba(0, 52, 43, 0.85), rgba(0, 52, 43, 0.95)), url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#002204",
+                        "on-background": "#1a1c1b",
+                        "background": "#f9f9f7",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "on-primary-fixed": "#00201a",
+                        "surface": "#f9f9f7",
+                        "surface-container-low": "#f3f4f2",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "surface-container-high": "#e8e8e6",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#a1d0c3",
+                        "on-primary-container": "#709e91",
+                        "tertiary-container": "#3b2a00",
+                        "on-secondary-fixed-variant": "#005312",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#1b6d24",
+                        "on-surface-variant": "#404846",
+                        "surface-container-highest": "#e2e3e1",
+                        "secondary-fixed": "#a3f69c",
+                        "outline": "#717976",
+                        "on-surface": "#1a1c1b",
+                        "on-tertiary-container": "#bb8d00",
+                        "on-tertiary-fixed": "#261a00",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdf9e",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#a0f499",
+                        "tertiary": "#211600",
+                        "primary-container": "#00342b",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e2e3e1",
+                        "on-primary-fixed-variant": "#214e44",
+                        "primary": "#001d17",
+                        "surface-container": "#edeeec",
+                        "surface-bright": "#f9f9f7",
+                        "on-secondary-container": "#207128",
+                        "inverse-surface": "#2f3130",
+                        "outline-variant": "#c0c8c4",
+                        "surface-tint": "#3a665c",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d9dad8",
+                        "secondary-fixed-dim": "#87d982",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#bdecde",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f0f1ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-tablet": "32px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "nav-link": ["Inter"],
+                        "h3": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "h4": ["Manrope"],
+                        "h1-mobile": ["Manrope"],
+                        "body-sm": ["Inter"],
+                        "h2": ["Manrope"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md">
+    <!-- TopNavBar -->
+    <header class="bg-surface border-b border-outline-variant sticky top-0 z-50">
+        <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
+                <div class="flex items-center justify-between h-[74px]">
+                    <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto"
+                                src="Text.png"></a>
+                        <ul class="hidden lg:flex items-center">
+                            <li><a href="Sector.html"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="hidden lg:flex items-center gap-5"><a href="#"
+                            class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
+                            class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
+                            Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
+                        id="mobile-nav-toggle" aria-label="Open menu"
+                        class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
+                </div>
+                <!-- Mobile nav menu -->
+                <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
+                    <ul class="flex flex-col">
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
+                        </li>
+                        <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
+                        <li class="px-2 pt-2"><a href="#"
+                                class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
+                                Now</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <section class="relative py-24 md:py-32 overflow-hidden hero-overlay">
+            <div class="relative z-10 max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="max-w-3xl">
+                    <span class="text-tertiary-fixed-dim font-label-md tracking-widest uppercase mb-4 block">Strategic
+                        Focus Areas</span>
+                    <h1 class="font-h1 text-h1 md:text-h1 text-white mb-6">Nigeria's Energy Investment Landscape</h1>
+                    <p class="font-body-lg text-body-lg text-primary-fixed leading-relaxed">
+                        Nigeria's energy landscape is undergoing a historic transformation. Driven by the Electricity
+                        Act of 2023, the nation is opening massive opportunities for private capital across generation,
+                        transmission, and storage solutions to power the continent's largest economy.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- Intro Text Block -->
+        <section class="py-16 bg-surface-container-lowest">
+            <div class="max-w-4xl mx-auto px-margin-mobile text-center">
+                <h2 class="font-h2 text-h2 text-primary mb-6">Leading the African Transition</h2>
+                <p class="font-body-md text-on-surface-variant leading-relaxed italic">
+                    "Our goal is to create a market-driven energy sector that is reliable, sustainable, and accessible
+                    to every Nigerian business and household. We invite global partners to join us in this defining
+                    chapter of our industrial growth."
+                </p>
+            </div>
+        </section>
+        <!-- Sectors Grid -->
+        <section class="bg-[#f4f3f8] py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Card 1 -->
+            <a href="DetailedSector.html"
+                class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
+                <div class="h-[4px] w-full bg-[#1f5940]"></div>
+                <div class="p-5">
+                    <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
+                        <img alt="Renewable Generation"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgcTAzqPyzrgs14SruTmtAGAgJH7lk2zm2QlCe07afaV1Xe7PrEBm6Ja7BRLGuKH9sjLaqZgLUp0woNNdnyXtdSwjBZftRT7CrTs-qZw0Epsc4-VVcVxUikvdW1mVmsYKjdYMiDHfaC-MIpMCcqZsLpdjmOUFju2zi7Dkl2j-_zezLCMtKoEmfEEAhmU6bgfdoyOWqiq4ydtEJiTjKmkjRjVOOmXdEaz63T-R4uVzR-kkm7GFpYifJI6f53OEobttHOY4hog0goGoX">
+                    </div>
+                    <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
+                        style="font-family: Manrope, sans-serif;">Renewable Generation</h3>
+                    <p class="text-[#5f6368] text-[15px] leading-7 mb-6">Large-scale solar, wind, and geothermal
+                        projects designed for long-term sustainability and regional energy independence.</p>
+                    <span
+                        class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW IN DETAIL<span>→</span></span>
+                </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="DetailedSector.html"
+                class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
+                <div class="h-[4px] w-full bg-[#1f5940]"></div>
+                <div class="p-5">
+                    <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
+                        <img alt="Grid Infrastructure"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA489Be90pdxHT9w2eosFhCjRXz6yOMZxQ6ac4yUEnr36Qdiyq5EIBCBWvoXSVX3dmsI1xNxv915lX9Ced3kAhJy9tir1NGL9VHMdLo35F47cuL93K-fbY0O0lWCY7IB9rD0_49Mrbk1cBUgZfkrFxpOlPsDfiDInESWwtQTcNzJJ-YDuGQ5fFLfRWO33dEep-lGgVmleNgU0UEzTjNHwmUGT_2fnFM5ddGYovkDuCJNSa9RD2DA060iSsNpPY88vJ4kk7Ge4xTLf9q">
+                    </div>
+                    <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
+                        style="font-family: Manrope, sans-serif;">Grid Infrastructure</h3>
+                    <p class="text-[#5f6368] text-[15px] leading-7 mb-6">High-voltage transmission upgrades and
+                        smart grid implementation to reduce technical losses and improve reliability.</p>
+                    <span
+                        class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW IN DETAIL<span>→</span></span>
+                </div>
+            </a>
+
+            <!-- Card 3 -->
+            <a href="DetailedSector.html"
+                class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
+                <div class="h-[4px] w-full bg-[#1f5940]"></div>
+                <div class="p-5">
+                    <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
+                        <img alt="Energy Storage"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWYnQ9aSEThBmpTYNHgzXzyDx-9MLcAxSyG2TdKZE_HHPiiCbpmL9VIkD9X5xbyPzp1s27yUV9qItXAH8IlhUc8QTSdzOa5-KuHunUH_RPZY2Z8W_au5f9P6onvPC9tXJs7f5c-1Bvnd45qMIZeYIoSfDuPpV52N3FEmTc1MBmZi8ul5Xn88J0tQ9mfZOpKpKtr89jKPaFNKIJ-MW_Rbf0cNwFtEaalTGXn2cdlNvoUzOYWsWA8z0kXDSHwhSU2VcjkgSlabZih6-3">
+                    </div>
+                    <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
+                        style="font-family: Manrope, sans-serif;">Energy Storage</h3>
+                    <p class="text-[#5f6368] text-[15px] leading-7 mb-6">Strategic implementation of BESS
+                        (Battery Energy Storage Systems) and pumped hydro to balance intermittent supply.</p>
+                    <span
+                        class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW IN DETAIL<span>→</span></span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+       
+    </main>
+    <!-- Footer -->
+    <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <div
+            class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
+            <div>
+                <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">OSIP</h3>
+                <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-sm">The official gateway for streamlining
+                    energy
+                    investments in Nigeria. Empowering investors with data, clarity, and sovereign support.</p>
+                <div class="flex flex-wrap gap-3"><a href="#" aria-label="LinkedIn"
+                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                            class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.74-2.46C21.6 7.73 24 10 24 14.4V24h-5v-8.5c0-2.03-.73-3.42-2.55-3.42-1.39 0-2.22.94-2.58 1.85-.13.32-.17.77-.17 1.22V24h-5V8z" />
+                        </svg></a><a href="#" aria-label="X"
+                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                            class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
+                        </svg></a></div>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy Policy</a>
+                    </li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
+                            Power</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
+                            Commission</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partner Logos</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                        <span class="material-symbols-outlined text-white text-[22px]">account_balance</span>
+                        <span class="text-white text-xs font-bold tracking-wide">FMP</span>
+                    </div>
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                        <span class="material-symbols-outlined text-white text-[22px]">bolt</span>
+                        <span class="text-white text-xs font-bold tracking-wide">NESP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
+                class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
+        </div>
+    </footer>
+    <script>
+        // Micro-interactions for card depth
+        document.querySelectorAll('.sector-card-hover').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 40;
+                const rotateY = (centerX - x) / 40;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+            });
+        });
+    </script>
+    <!-- NESP nav wiring (mobile toggle + active golden bar) -->
+    <script>
+        (function () {
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            if (navToggle && mobileNav) {
+                navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
+            }
+        })();
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'OpportunitiesNew.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'OpportunitiesNew.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu {
+            position: relative;
+        }
+
+        .nesp-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 300px;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22);
+            margin-top: 8px;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+            z-index: 60;
+        }
+
+        .nesp-has-menu:hover .nesp-dropdown,
+        .nesp-dropdown:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nesp-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nesp-dropdown::after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: #ffffff;
+            border-top: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-radius: 3px 0 0 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nesp-menu-head {
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #9aa39e;
+            padding: 8px 12px 6px;
+        }
+
+        .nesp-menu-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .15s ease;
+        }
+
+        .nesp-menu-item:hover {
+            background: #f1f8f4;
+        }
+
+        .nesp-menu-item .t {
+            display: block;
+            font-family: Manrope, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15241d;
+        }
+
+        .nesp-menu-item:hover .t {
+            color: #047857;
+        }
+
+        .nesp-menu-item .d {
+            display: block;
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #6b746f;
+            margin-top: 2px;
+        }
+
+        .nesp-has-menu>a::after {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 7px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            opacity: .6;
+            vertical-align: middle;
+            transition: transform .2s ease;
+        }
+
+        .nesp-has-menu:hover>a::after {
+            transform: translateY(0) rotate(225deg);
+        }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+                        { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'OpportunitiesNew.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'OpportunitiesNew.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'OpportunitiesNew.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'OpportunitiesNew.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations & Compliance', items: [
+                        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data & Insights', items: [
+                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;            // desktop top-level links only
+                var menu = MENU[(a.textContent || '').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+    <!-- Invest Now popup flow -->
+    <script src="investflow.js"></script>
+</body>
+
+</html>

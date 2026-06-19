@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Regulations & Processes | OSIP - Nigerian Energy Investment Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#a0f499",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#005312",
+                        "inverse-on-surface": "#f0f1ef",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "tertiary": "#211600",
+                        "surface-container-low": "#f3f4f2",
+                        "surface": "#f9f9f7",
+                        "background": "#f9f9f7",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e8e8e6",
+                        "surface-container": "#edeeec",
+                        "on-surface-variant": "#404846",
+                        "on-tertiary-container": "#bb8d00",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1a1c1b",
+                        "on-background": "#1a1c1b",
+                        "inverse-primary": "#a1d0c3",
+                        "tertiary-fixed": "#ffdf9e",
+                        "on-tertiary-fixed": "#261a00",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "outline": "#717976",
+                        "surface-tint": "#3a665c",
+                        "inverse-surface": "#2f3130",
+                        "primary": "#001d17",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d9dad8",
+                        "on-primary-fixed": "#00201a",
+                        "on-secondary-fixed": "#002204",
+                        "secondary-fixed-dim": "#87d982",
+                        "secondary-fixed": "#a3f69c",
+                        "secondary": "#1b6d24",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c0c8c4",
+                        "surface-variant": "#e2e3e1",
+                        "on-primary-fixed-variant": "#214e44",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f9f9f7",
+                        "primary-container": "#00342b",
+                        "tertiary-container": "#3b2a00",
+                        "on-secondary-container": "#207128",
+                        "on-primary-container": "#709e91",
+                        "primary-fixed": "#bdecde"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-tablet": "32px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "nav-link": ["Inter"],
+                        "h2": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "h1-mobile": ["Manrope"],
+                        "h4": ["Manrope"],
+                        "body-sm": ["Inter"],
+                        "h3": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "h1": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        .active-gold-border {
+            border-left: 4px solid #f7be26;
+            /* tertiary-fixed-dim / Gold accent */
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f3f4f2;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #717976;
+            border-radius: 10px;
+        }
+
+        .filter-checkbox:checked {
+            background-color: #00342b;
+            border-color: #00342b;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed font-body-md overflow-x-hidden">
+    <!-- TopNavBar -->
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-[74px]">
+                <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto"
+                            src="Text.png"></a>
+                    <ul class="hidden lg:flex items-center">
+                        <li><a href="Sector.html"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES<span
+                                    class="absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]"></span></a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
+                        </li>
+                        <li><a href="#"
+                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hidden lg:flex items-center gap-5"><a href="#"
+                        class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
+                        class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
+                        Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
+                    id="mobile-nav-toggle" aria-label="Open menu"
+                    class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
+            </div>
+            <!-- Mobile nav menu -->
+            <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
+                <ul class="flex flex-col">
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
+                    </li>
+                    <li><a href="#"
+                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
+                    </li>
+                    <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
+                    <li class="px-2 pt-2"><a href="#"
+                            class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
+                            Now</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="flex min-h-screen">
+        <!-- Backdrop for the mobile filter drawer -->
+        <div id="filter-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden"></div>
+        <!-- Sidebar Filter — off-canvas drawer on mobile, static column on lg+ -->
+        <aside id="filter-sidebar"
+            class="fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85%] bg-surface-container-low border-r border-outline-variant flex flex-col p-6 gap-6 overflow-y-auto transform -translate-x-full transition-transform duration-300 lg:static lg:translate-x-0 lg:transform-none lg:z-auto lg:max-w-none lg:overflow-visible">
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary-container text-white p-2 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[20px]">filter_alt</span>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-[14px]">Filters</h2>
+                        <p class="text-[11px] text-on-surface-variant">Refine regulations</p>
+                    </div>
+                </div>
+                <button id="filter-close" type="button" aria-label="Close filters"
+                    class="lg:hidden text-on-surface-variant hover:text-primary">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <!-- Regulation Type -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Regulation
+                        Type</h3>
+                    <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">4</span>
+                </div>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer group"><input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" data-group="type" data-value="legislation" /><span
+                            class="text-body-sm text-on-surface group-hover:text-primary">Legislation</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer group"><input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" data-group="type" data-value="technical" /><span
+                            class="text-body-sm text-on-surface group-hover:text-primary">Technical
+                            Guidelines</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer group"><input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" data-group="type" data-value="tax" /><span
+                            class="text-body-sm text-on-surface group-hover:text-primary">Tax Policy</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer group"><input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" data-group="type" data-value="policy" /><span
+                            class="text-body-sm text-on-surface group-hover:text-primary">Policy</span></label>
+                </div>
+            </section>
+            <!-- Sector -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Sector</h3>
+                    <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">3</span>
+                </div>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer group"><input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" data-group="sector" data-value="renewables" /><span
+                            class="text-body-sm text-on-surface group-hover:text-primary">Renewable Generation
+                        </span></label>
+                    <label class="flex items-center gap-3 cursor-pointer group"><input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" data-group="sector" data-value="gas" /><span
+                            class="text-body-sm text-on-surface group-hover:text-primary">Grid
+                            Infrastructure</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer group"><input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" data-group="sector" data-value="transmission" /><span
+                            class="text-body-sm text-on-surface group-hover:text-primary">Energy Storage</span></label>
+                </div>
+            </section>
+
+            <div class="pt-6 border-t border-outline-variant">
+                <button id="reg-reset"
+                    class="w-full py-2 border border-outline text-on-surface font-bold text-sm hover:bg-surface-container transition-colors">Reset
+                    All</button>
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="flex-1 min-w-0 p-4 sm:p-margin-tablet lg:p-12 overflow-y-auto">
+            <!-- Mobile filter trigger (drawer toggle) -->
+            <button id="filter-open" type="button"
+                class="lg:hidden mb-6 inline-flex items-center gap-2 px-4 py-2 border border-outline-variant text-sm font-bold text-primary hover:bg-surface-container-low transition-colors">
+                <span class="material-symbols-outlined text-[18px]">filter_alt</span> Filters
+            </button>
+            <!-- Page Header + Search -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                    <div>
+                        <h1 class="font-h2 text-h3 sm:text-h2 text-primary">Regulations</h1>
+                        <p id="reg-count" class="text-body-sm text-on-surface-variant mt-0.5">Showing 6 frameworks</p>
+                    </div>
+                </div>
+                <div class="relative w-full md:w-96">
+                    <input id="reg-search"
+                        class="w-full pl-4 pr-10 py-2.5 border border-outline-variant focus:border-primary focus:ring-0 text-sm"
+                        placeholder="Search regulations" type="text" />
+                    <span
+                        class="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant">search</span>
+                </div>
+            </div>
+            <!-- Intro -->
+            <p class="font-body-md text-on-surface-variant leading-relaxed mb-10 max-w-3xl">
+                Nigeria's energy sector is undergoing a major transformation under the <strong>Petroleum Industry Act
+                    (PIA)</strong> and the <strong>Electricity Act 2023</strong>. Browse the core legal frameworks,
+                technical guidelines, and fiscal policies that govern investment across the value chain.
+            </p>
+            <!-- Regulation Cards Grid -->
+            <div id="reg-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+                <article
+                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                    data-type="legislation" data-sector="transmission renewables">
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-primary"
+                                    style="font-variation-settings: 'FILL' 1;">gavel</span></span>
+                            <span class="text-label-md text-on-surface-variant font-semibold">2023</span>
+                        </div>
+                        <span
+                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Legislation</span>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                            Electricity Act 2023</h3>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">The comprehensive
+                            legislation governing the power sector value chain.</p>
+                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="notDecided.html">View Full PDF <span
+                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                            <span
+                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                        </div>
+                    </div>
+                </article>
+                <article
+                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                    data-type="legislation" data-sector="gas">
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-primary"
+                                    style="font-variation-settings: 'FILL' 1;">oil_barrel</span></span>
+                            <span class="text-label-md text-on-surface-variant font-semibold">2021</span>
+                        </div>
+                        <span
+                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Legislation</span>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                            Petroleum Industry Act (PIA)</h3>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Fundamental reform of the
+                            oil &amp; gas regulatory and fiscal framework.</p>
+                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="notDecided.html">View Full PDF <span
+                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                            <span
+                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                        </div>
+                    </div>
+                </article>
+                <article
+                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                    data-type="policy" data-sector="renewables">
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-primary"
+                                    style="font-variation-settings: 'FILL' 1;">solar_power</span></span>
+                            <span class="text-label-md text-on-surface-variant font-semibold">2015</span>
+                        </div>
+                        <span
+                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Policy</span>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                            National Renewable Energy Policy (NREP)</h3>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Framework for achieving
+                            Nigeria's green energy mix targets by 2030.</p>
+                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="notDecided.html">View Full PDF <span
+                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                            <span
+                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                        </div>
+                    </div>
+                </article>
+                <article
+                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                    data-type="technical" data-sector="renewables transmission">
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-primary"
+                                    style="font-variation-settings: 'FILL' 1;">bolt</span></span>
+                            <span class="text-label-md text-on-surface-variant font-semibold">2016</span>
+                        </div>
+                        <span
+                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Technical
+                            Guidelines</span>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                            NERC Mini-Grid Regulations</h3>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Rules for developing and
+                            operating isolated and interconnected mini-grids.</p>
+                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="notDecided.html">View Full PDF <span
+                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                            <span
+                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                        </div>
+                    </div>
+                </article>
+                <article
+                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                    data-type="tax" data-sector="renewables gas">
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-primary"
+                                    style="font-variation-settings: 'FILL' 1;">savings</span></span>
+                            <span class="text-label-md text-on-surface-variant font-semibold">2022</span>
+                        </div>
+                        <span
+                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Tax
+                            Policy</span>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                            Pioneer Status Incentive (NIPC)</h3>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Tax holidays and fiscal
+                            incentives for qualifying energy investments.</p>
+                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="notDecided.html">View Full PDF <span
+                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                            <span
+                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                        </div>
+                    </div>
+                </article>
+                <article
+                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                    data-type="technical" data-sector="gas transmission">
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-primary"
+                                    style="font-variation-settings: 'FILL' 1;">groups</span></span>
+                            <span class="text-label-md text-on-surface-variant font-semibold">2010</span>
+                        </div>
+                        <span
+                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Technical
+                            Guidelines</span>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                            NOGICD Local Content Guidelines</h3>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Local workforce and
+                            procurement requirements across the value chain.</p>
+                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="notDecided.html">View Full PDF <span
+                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                            <span
+                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <!-- No results message -->
+            <div id="reg-no-results" class="hidden flex-col items-center justify-center text-center py-16">
+                <span class="material-symbols-outlined text-[56px] text-outline-variant mb-3">search_off</span>
+                <h3 class="font-h4 text-h4 text-primary mb-1">No regulations found</h3>
+                <p class="text-body-sm text-on-surface-variant">Try adjusting your filters or search terms.</p>
+            </div>
+            <!-- Key Regulatory Bodies -->
+            <section id="bodies" class="mt-20">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                    <div>
+                        <span class="text-label-md text-secondary font-bold tracking-widest uppercase">Governance</span>
+                        <h3 class="font-h3 text-h3 text-primary">Key Regulatory Bodies</h3>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">trending_up</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">NIPC</h4>
+                        <p class="text-body-sm text-on-surface-variant mb-4">Nigerian Investment Promotion Commission:
+                            Central hub for cross-border investments.</p>
+                        <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1"
+                            href="notDecided.html">Visit Website <span
+                                class="material-symbols-outlined text-sm">open_in_new</span></a>
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">solar_power</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">REA</h4>
+                        <p class="text-body-sm text-on-surface-variant mb-4">Rural Electrification Agency: Responsible
+                            for off-grid and renewable power deployments.</p>
+                        <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1"
+                            href="notDecided.html">Visit Website <span
+                                class="material-symbols-outlined text-sm">open_in_new</span></a>
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">account_balance</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">NERC</h4>
+                        <p class="text-body-sm text-on-surface-variant mb-4">Nigerian Electricity Regulatory Commission:
+                            Primary regulator for the power sector.</p>
+                        <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1"
+                            href="notDecided.html">Visit Website <span
+                                class="material-symbols-outlined text-sm">open_in_new</span></a>
+                    </div>
+
+                </div>
+            </section>
+            <!-- Implementation Journey -->
+            <section class="bg-surface-container-low p-8 rounded-2xl border border-outline-variant mt-20" id="process">
+                <h3 class="font-h3 text-h3 text-primary mb-10 text-center">Your Investment Journey</h3>
+                <div class="relative flex flex-col md:flex-row justify-between gap-8 md:gap-4">
+                    <div class="hidden md:block absolute top-10 left-0 w-full h-0.5 bg-outline-variant z-0"></div>
+                    <div class="relative z-10 flex-1 text-center group">
+                        <div
+                            class="w-16 h-16 bg-primary-container text-white rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined">corporate_fare</span>
+                        </div>
+                        <h5 class="font-bold text-primary mb-2">1.Registration</h5>
+                        <p class="text-body-sm text-on-surface-variant px-4">Onboard your entity
+                            and verify credentials
+                            via OSIP secure KYC.</p>
+                    </div>
+                    <div class="relative z-10 flex-1 text-center group">
+                        <div
+                            class="w-16 h-16 bg-primary-container text-white rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined">verified</span>
+                        </div>
+                        <h5 class="font-bold text-primary mb-2">2.Due Diligence</h5>
+                        <p class="text-body-sm text-on-surface-variant px-4">Enlist with NIPC to qualify for foreign
+                            investment protections.</p>
+                    </div>
+                    <div class="relative z-10 flex-1 text-center group">
+                        <div
+                            class="w-16 h-16 bg-primary-container text-white rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined">assignment_turned_in</span>
+                        </div>
+                        <h5 class="font-bold text-primary mb-2">3.Application</h5>
+                        <p class="text-body-sm text-on-surface-variant px-4">Submit bids for active
+                            licensing rounds or
+                            specific concessions.</p>
+                    </div>
+                    <div class="relative z-10 flex-1 text-center group">
+                        <div
+                            class="w-16 h-16 bg-primary-container text-white rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined">eco</span>
+                        </div>
+                        <h5 class="font-bold text-primary mb-2">4.Approval</h5>
+                        <p class="text-body-sm text-on-surface-variant px-4">Streamlined inter-
+                            agency sign-off and
+                            permit issuance.</p>
+                    </div>
+                    <div class="relative z-10 flex-1 text-center group">
+                        <div
+                            class="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-white shadow-md group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined">play_arrow</span>
+                        </div>
+                        <h5 class="font-bold text-primary mb-2">5.Execution</h5>
+                        <p class="text-body-sm text-on-surface-variant px-4">Financial close and
+                            physical deployment
+                            with OSIP monitoring.</p>
+                    </div>
+                </div>
+            </section>
+            <!-- FAQ -->
+            <section id="faq" class="mt-20">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                    <h3 class="font-h3 text-h3 text-primary">Regulatory FAQ</h3>
+                </div>
+                <div class="space-y-4">
+                    <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                        <summary
+                            class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                            How long does a typical licensing process take?<span
+                                class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                        </summary>
+                        <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                            Standard NERC generation license applications typically take 4-6 months from the submission
+                            of a complete dossier, including the public hearing phase.</p>
+                    </details>
+                    <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                        <summary
+                            class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                            Are there restrictions on foreign equity ownership?<span
+                                class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                        </summary>
+                        <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">Under
+                            the NIPC Act, 100% foreign ownership is permitted in most energy sectors, provided the
+                            company is duly registered with the CAC.</p>
+                    </details>
+                    <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                        <summary
+                            class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                            What are the requirements for local content compliance?<span
+                                class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                        </summary>
+                        <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                            Nigeria mandates specific levels of local workforce and technical service procurement under
+                            the NOGICD Act (for O&amp;G) and power sector guidelines.</p>
+                    </details>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
+            <div>
+                <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">OSIP</h3>
+                <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-sm">The official gateway for streamlining
+                    energy
+                    investments in Nigeria. Empowering investors with data, clarity, and sovereign support.</p>
+                <div class="flex flex-wrap gap-3"><a href="#"
+                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><img
+                            alt="" class="w-4 h-4 object-contain"
+                            src="http://192.168.120.47:1337/uploads/Icon_1_eed917bbf2.png"></a><a href="#"
+                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><img
+                            alt="" class="w-4 h-4 object-contain"
+                            src="http://192.168.120.47:1337/uploads/Icon_2_07379a837e.png"></a></div>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy Policy</a>
+                    </li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
+                            Power</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
+                            Commission</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partner Logos</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center hover:border-white/20 transition-colors p-3">
+                        <img alt="Partner" class="max-h-8 sm:max-h-10 object-contain opacity-60"
+                            src="http://192.168.120.47:1337/uploads/image_1_761e943319.png">
+                    </div>
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center hover:border-white/20 transition-colors p-3">
+                        <img alt="Partner" class="max-h-8 sm:max-h-10 object-contain opacity-60"
+                            src="http://192.168.120.47:1337/uploads/logo_3_giz_2x_2a5c16ddfbff937534ee_b1d6b71569.webp">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
+                class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
+        </div>
+    </footer>
+    <!-- Regulation filters (drawer + checkbox/search filtering) -->
+    <script>
+            (function () {
+                const sidebar = document.getElementById('filter-sidebar');
+                const backdrop = document.getElementById('filter-backdrop');
+                const openBtn = document.getElementById('filter-open');
+                const closeBtn = document.getElementById('filter-close');
+                function openDrawer() { sidebar.classList.add('translate-x-0'); sidebar.classList.remove('-translate-x-full'); backdrop.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+                function closeDrawer() { sidebar.classList.add('-translate-x-full'); sidebar.classList.remove('translate-x-0'); backdrop.classList.add('hidden'); document.body.style.overflow = ''; }
+                if (openBtn) openBtn.addEventListener('click', openDrawer);
+                if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+                if (backdrop) backdrop.addEventListener('click', closeDrawer);
+                window.addEventListener('resize', () => { if (window.innerWidth >= 1024) { backdrop.classList.add('hidden'); document.body.style.overflow = ''; } });
+
+                const grid = document.getElementById('reg-grid');
+                const cards = Array.from(document.querySelectorAll('.reg-card'));
+                const search = document.getElementById('reg-search');
+                const noResults = document.getElementById('reg-no-results');
+                const count = document.getElementById('reg-count');
+                const checks = Array.from(document.querySelectorAll('#filter-sidebar input[type="checkbox"]'));
+                function vals(group) { return checks.filter(c => c.dataset.group === group && c.checked).map(c => c.dataset.value); }
+                function apply() {
+                    const types = vals('type'), sectors = vals('sector');
+                    const q = (search.value || '').trim().toLowerCase();
+                    let shown = 0;
+                    cards.forEach(card => {
+                        const typeOk = !types.length || types.includes(card.dataset.type);
+                        const cardSectors = (card.dataset.sector || '').split(/\s+/);
+                        const sectorOk = !sectors.length || sectors.some(sv => cardSectors.includes(sv));
+                        const searchOk = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+                        const show = typeOk && sectorOk && searchOk;
+                        card.style.display = show ? '' : 'none';
+                        if (show) shown++;
+                    });
+                    if (count) count.textContent = 'Showing ' + shown + ' framework' + (shown === 1 ? '' : 's');
+                    if (noResults) { noResults.classList.toggle('hidden', shown !== 0); noResults.classList.toggle('flex', shown === 0); }
+                    if (grid) grid.classList.toggle('hidden', shown === 0);
+                }
+                checks.forEach(c => c.addEventListener('change', apply));
+                if (search) search.addEventListener('input', apply);
+                const reset = document.getElementById('reg-reset');
+                if (reset) reset.addEventListener('click', () => { checks.forEach(c => c.checked = false); if (search) search.value = ''; apply(); });
+            })();
+    </script>
+    <!-- NESP nav wiring (mobile toggle + active golden bar) -->
+    <script>
+        (function () {
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            if (navToggle && mobileNav) {
+                navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
+            }
+        })();
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'OpportunitiesNew.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'OpportunitiesNew.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu {
+            position: relative;
+        }
+
+        .nesp-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 300px;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22);
+            margin-top: 8px;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+            z-index: 60;
+        }
+
+        .nesp-has-menu:hover .nesp-dropdown,
+        .nesp-dropdown:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nesp-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nesp-dropdown::after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: #ffffff;
+            border-top: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-radius: 3px 0 0 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nesp-menu-head {
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #9aa39e;
+            padding: 8px 12px 6px;
+        }
+
+        .nesp-menu-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .15s ease;
+        }
+
+        .nesp-menu-item:hover {
+            background: #f1f8f4;
+        }
+
+        .nesp-menu-item .t {
+            display: block;
+            font-family: Manrope, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15241d;
+        }
+
+        .nesp-menu-item:hover .t {
+            color: #047857;
+        }
+
+        .nesp-menu-item .d {
+            display: block;
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #6b746f;
+            margin-top: 2px;
+        }
+
+        .nesp-has-menu>a::after {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 7px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            opacity: .6;
+            vertical-align: middle;
+            transition: transform .2s ease;
+        }
+
+        .nesp-has-menu:hover>a::after {
+            transform: translateY(0) rotate(225deg);
+        }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+                        { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'OpportunitiesNew.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'OpportunitiesNew.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'OpportunitiesNew.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'OpportunitiesNew.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations & Compliance', items: [
+                        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data & Insights', items: [
+                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;
+                var menu = MENU[(a.textContent || '').replace(/\s+/g, ' ').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+    <!-- Invest Now popup flow -->
+    <script src="investflow.js"></script>
+</body>
+
+</html>

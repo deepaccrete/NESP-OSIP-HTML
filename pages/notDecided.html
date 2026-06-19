@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OSIP - Coming Soon</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; background-color: #f9f9f7; color: #1a1c1b; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 48; }
+</style>
+</head>
+<body>
+<!-- TopNavBar (same as the rest of the site) -->
+<nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
+        <div class="flex items-center justify-between h-[74px]">
+            <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto" src="Text.png"></a>
+                <ul class="hidden lg:flex items-center">
+                    <li><a href="Sector.html"
+                            class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
+                    </li>
+                    <li><a href="#"
+                            class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES</a>
+                    </li>
+                    <li><a href="#"
+                            class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
+                    </li>
+                    <li><a href="#"
+                            class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
+                    </li>
+                    <li><a href="#"
+                            class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="hidden lg:flex items-center gap-5"><a href="#"
+                    class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
+                    class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
+                    Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
+                id="mobile-nav-toggle" aria-label="Open menu"
+                class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
+        </div>
+        <!-- Mobile nav menu -->
+        <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
+            <ul class="flex flex-col">
+                <li><a href="Sector.html"
+                        class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
+                </li>
+                <li><a href="#"
+                        class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
+                </li>
+                <li><a href="#"
+                        class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
+                </li>
+                <li><a href="#"
+                        class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
+                </li>
+                <li><a href="#"
+                        class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
+                </li>
+                <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
+                <li class="px-2 pt-2"><a href="#"
+                        class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
+                        Now</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Coming soon message -->
+<main class="min-h-[calc(100vh-74px)] flex flex-col items-center justify-center text-center px-6 py-20">
+    <span class="material-symbols-outlined text-[72px] text-[#047857]">construction</span>
+    <p class="mt-6 text-[12px] font-bold uppercase tracking-[0.25em] text-[#FFB955]">Coming Soon</p>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-bold text-[#001d17]" style="font-family: Manrope, sans-serif;">This page isn't ready yet</h1>
+    <p class="mt-4 max-w-md text-[15px] leading-relaxed text-[#5f6368]">We're still building this section of the OSIP portal. Please check back soon — in the meantime, explore the parts that are already live.</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="../homepage.html" class="px-6 py-2.5 bg-[#047857] text-white text-sm font-semibold rounded-sm hover:opacity-90 transition">Back to Home</a>
+        <a href="News.html" class="px-6 py-2.5 border border-[#047857] text-[#047857] text-sm font-semibold rounded-sm hover:bg-[#047857]/5 transition">Browse News</a>
+        <a href="OpportunitiesNew.html" class="px-6 py-2.5 border border-[#047857] text-[#047857] text-sm font-semibold rounded-sm hover:bg-[#047857]/5 transition">View Opportunities</a>
+    </div>
+</main>
+<script>
+    // Mobile top-nav hamburger toggle.
+    (function () {
+        const navToggle = document.getElementById('mobile-nav-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (navToggle && mobileNav) {
+            navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+            window.addEventListener('resize', () => {
+                if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden');
+            });
+        }
+    })();
+
+    // Active top-nav highlight + page wiring (golden bar follows the current page).
+    (function () {
+        const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'OpportunitiesNew.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'OpportunitiesNew.html' };
+        const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+        const file = (location.pathname.split('/').pop() || '').toLowerCase();
+        const active = PAGE_ACTIVE[file];
+        document.querySelectorAll('nav.bg-white a').forEach(a => {
+            const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+            if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]);
+            else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+            a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+            if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                const bar = document.createElement('span');
+                bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                a.appendChild(bar);
+            }
+        });
+    })();
+</script>
+<!-- NESP nav hover dropdowns (shared, injected) -->
+<style>
+  .nesp-has-menu { position: relative; }
+  .nesp-dropdown {
+    position: absolute; top: 100%; left: 50%; min-width: 300px;
+    background: #ffffff; border: 1px solid #e7e7e7;
+    border-radius: 12px; box-shadow: 0 18px 40px -16px rgba(6,20,16,0.22); margin-top: 8px;
+    padding: 10px; opacity: 0; visibility: hidden; transform: translateX(-50%) translateY(8px);
+    transition: opacity .22s ease, transform .22s ease, visibility .22s ease; z-index: 60;
+  }
+  .nesp-has-menu:hover .nesp-dropdown, .nesp-dropdown:hover {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  }
+  .nesp-dropdown::before { content: ""; position: absolute; top: -12px; left: 0; right: 0; height: 14px; }
+  .nesp-dropdown::after { content: ""; position: absolute; top: -7px; left: 50%; width: 13px; height: 13px; background: #ffffff; border-top: 1px solid #e7e7e7; border-left: 1px solid #e7e7e7; border-radius: 3px 0 0 0; transform: translateX(-50%) rotate(45deg); }
+  .nesp-menu-head {
+    font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase; color: #9aa39e; padding: 8px 12px 6px;
+  }
+  .nesp-menu-item { display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none; transition: background .15s ease; }
+  .nesp-menu-item:hover { background: #f1f8f4; }
+  .nesp-menu-item .t { display: block; font-family: Manrope, sans-serif; font-size: 13.5px; font-weight: 700; color: #15241d; }
+  .nesp-menu-item:hover .t { color: #047857; }
+  .nesp-menu-item .d { display: block; font-size: 11.5px; line-height: 1.45; color: #6b746f; margin-top: 2px; }
+  .nesp-has-menu > a::after {
+    content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 7px;
+    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg); opacity: .6; vertical-align: middle; transition: transform .2s ease;
+  }
+  .nesp-has-menu:hover > a::after { transform: translateY(0) rotate(225deg); }
+</style>
+<script>
+(function () {
+  var MENU = {
+    'SECTORS': { head: 'Strategic Priority Sectors', items: [
+      { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+      { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+      { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+    ]},
+    'OPPORTUNITIES': { head: 'Investment Opportunities', items: [
+      { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'OpportunitiesNew.html' },
+      { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'OpportunitiesNew.html' },
+      { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'OpportunitiesNew.html' },
+      { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'OpportunitiesNew.html' }
+    ]},
+    'REGULATIONS': { head: 'Regulations & Compliance', items: [
+      { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+      { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+      { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+      { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+    ]},
+    'DATA': { head: 'Data & Insights', items: [
+      { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+      { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+      { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+    ]},
+    'NEWS': { head: 'News Categories', items: [
+      { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+      { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+      { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+      { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+      { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+    ]}
+  };
+  document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+    if ((a.className || '').indexOf('px-5') === -1) return;            // desktop top-level links only
+    var menu = MENU[(a.textContent || '').trim().toUpperCase()];
+    if (!menu) return;
+    var li = a.closest('li'); if (!li) return;
+    li.classList.add('nesp-has-menu');
+    var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+    menu.items.forEach(function (it) {
+      html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+              (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+    });
+    var panel = document.createElement('div');
+    panel.className = 'nesp-dropdown';
+    panel.innerHTML = html;
+    li.appendChild(panel);
+  });
+})();
+</script>
+
+    <!-- Invest Now popup flow -->
+    <script src="investflow.js"></script>
+</body>
+</html>

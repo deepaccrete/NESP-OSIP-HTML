@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AKK Gas Pipeline Project | OSIP - Nigerian Energy Investment Portal</title>
+    <!-- Google Fonts: Manrope & Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS CDN with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#00342b',
+                            container: '#004d40',
+                            gold: '#dfa800',
+                            bg: '#f4fbf8',
+                            sidebar: '#eef5f2',
+                            accent: '#dfa800' // brand gold accent (on-theme)
+                        }
+                    },
+                    fontFamily: {
+                        manrope: ['Manrope', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    letterSpacing: {
+                        tightest: '-0.015em'
+                    }
+                }
+            }
+        }
+    </script>
+    <style data-purpose="custom-typography">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.015em;
+        }
+
+        /* Blur the page behind the login modal */
+        #page-wrapper {
+            transition: filter 0.3s ease;
+        }
+
+        #page-wrapper.content-blurred {
+            filter: blur(6px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @keyframes osipModalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .osip-modal-in {
+            animation: osipModalIn 0.22s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-brand-bg text-brand-green min-h-screen">
+    <div id="page-wrapper">
+        <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
+                <div class="flex items-center justify-between h-[74px]">
+                    <div class="flex items-center gap-10">
+                        <a href="../homepage.html"><img alt="Logo" class="h-5 w-auto" src="Text.png"></a>
+                        <ul class="hidden lg:flex items-center">
+                            <li><a href="Sector.html"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES<span
+                                        class="absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]"></span></a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="hidden lg:flex items-center gap-5"><a href="#"
+                            class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
+                            class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
+                            Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
+                        id="mobile-nav-toggle" aria-label="Open menu"
+                        class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
+                </div>
+                <!-- Mobile nav menu -->
+                <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
+                    <ul class="flex flex-col">
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
+                        </li>
+                        <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
+                        <li class="px-2 pt-2"><a href="#"
+                                class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
+                                Now</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- BEGIN: MainContainer -->
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-8 py-6 md:py-10">
+            <!-- BEGIN: Breadcrumbs -->
+            <nav aria-label="Breadcrumb" class="mb-6">
+                <ol class="flex list-none p-0 text-sm font-medium text-gray-500">
+                    <!-- <li class="flex items-center">
+                        <a class="hover:text-brand-green " href="#">Home</a>
+                        <svg class="w-4 h-4 mx-2" fill="currentColor" viewbox="0 0 20 20">
+                            <path
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z">
+                            </path>
+                        </svg>
+                    </li> -->
+                    <li class="flex items-center">
+                        <a class="hover:text-brand-green" href="OpportunitiesNew.html">Opportunities</a>
+                        <svg class="w-4 h-4 mx-2" fill="currentColor" viewbox="0 0 20 20">
+                            <path
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z">
+                            </path>
+                        </svg>
+                    </li>
+                    <li class="text-brand-green font-semibold">AKK Gas Pipeline Project</li>
+                </ol>
+            </nav>
+            <!-- END: Breadcrumbs -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- BEGIN: ProjectMainContent -->
+                <main class="lg:col-span-2 space-y-8">
+                    <!-- BEGIN: ProjectHero -->
+                    <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 relative">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <span
+                                    class="text-xs font-inter font-bold text-gray-400 uppercase tracking-widest">Project
+                                    ID: 2024-ENE-03</span>
+                                <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mt-2 flex items-center">
+                                    <span class="w-2 h-8 bg-brand-green mr-4 rounded-full"></span>
+                                    AKK Gas Pipeline Project
+                                </h1>
+                                <p class="text-xs text-gray-500 mt-2">Last Updated on: <span
+                                        class="font-bold">10-Nov-2024</span></p>
+                            </div>
+                            <!-- Views Badge -->
+                            <!-- <div
+                            class="bg-brand-container text-white px-4 py-2 rounded flex items-center space-x-3 shadow-md">
+                            <div class="p-1 border border-white/30 rounded">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2"></path>
+                                    <path
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-bold leading-none">1725</p>
+                                <p class="text-[10px] uppercase font-bold opacity-80">Views</p>
+                            </div>
+                        </div> -->
+                        </div>
+                        <!-- BEGIN: Timeline -->
+                        <div class="py-10 px-4  rounded-lg relative">
+                            <div class="relative flex items-center justify-between">
+                                <!-- Progress Line -->
+                                <div
+                                    class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-brand-accent rounded">
+                                </div>
+                                <!-- Timeline Items -->
+                                <div class="relative z-10 flex flex-col items-center group">
+                                    <div class="w-4 h-4 bg-brand-accent rounded-full ring-4 ring-white"></div>
+                                    <p
+                                        class="absolute -bottom-8 text-[11px] font-bold text-brand-green text-center w-32">
+                                        Under Conceptualization</p>
+                                </div>
+                                <div class="relative z-10 flex flex-col items-center">
+                                    <div class="w-4 h-4 bg-brand-accent rounded-full ring-4 ring-white"></div>
+                                    <p
+                                        class="absolute -bottom-8 text-[11px] font-bold text-brand-green text-center w-32">
+                                        Under Development</p>
+                                </div>
+                                <div class="relative z-10 flex flex-col items-center">
+                                    <div class="w-4 h-4 bg-brand-accent rounded-full ring-4 ring-white"></div>
+                                    <p
+                                        class="absolute -bottom-8 text-[11px] font-bold text-brand-green text-center w-32">
+                                        Under Implementation</p>
+                                </div>
+                                <div class="relative z-10 flex flex-col items-center">
+                                    <div class="w-4 h-4 bg-brand-accent rounded-full ring-4 ring-white"></div>
+                                    <p
+                                        class="absolute -bottom-8 text-[11px] font-bold text-brand-green text-center w-32">
+                                        Completed</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Timeline -->
+                    </section>
+                    <!-- END: ProjectHero -->
+                    <!-- BEGIN: MetadataGrid -->
+                    <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6">
+                            <!-- Sector -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Sector</h4>
+                                <p class="font-manrope font-bold text-brand-green">Oil &amp; Gas / Power</p>
+                            </div>
+
+                            <!-- State -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">State</h4>
+                                <p class="font-manrope font-bold text-brand-green">Kano</p>
+                            </div>
+                            <!-- Start Date -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Project Start Date</h4>
+                                <p class="font-manrope font-bold text-brand-green">15-Mar-2020</p>
+                            </div>
+                            <!-- End Date -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Project Completion Date
+                                </h4>
+                                <p class="font-manrope font-bold text-brand-green">31-Dec-2025</p>
+                            </div>
+                            <!-- Promoter -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Promoter/Sponsor Type
+                                </h4>
+                                <p class="font-manrope font-bold text-brand-green">Public-Private Partnership</p>
+                            </div>
+                            <!-- Project Status -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Project Status</h4>
+                                <p class="font-manrope font-bold text-brand-green">Under Construction</p>
+                            </div>
+                            <!-- Line Ministry -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Line Ministry</h4>
+                                <p class="font-manrope font-bold text-brand-green">Ministry of Petroleum Resources</p>
+                            </div>
+                        </div>
+                        <div class="mt-12 pt-6 border-t border-gray-100">
+                            <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-2">Is this an Externally Aided
+                                Project (EAP)?</h4>
+                            <p class="font-manrope font-bold text-brand-green">No</p>
+                        </div>
+                        <div class="mt-10">
+                            <p class="text-2xl font-manrope font-bold text-gray-500">
+                                Total Project Cost: <span class="text-brand-accent">USD 2.80 bn</span>
+                            </p>
+                        </div>
+                    </section>
+                    <!-- END: MetadataGrid -->
+                    <!-- BEGIN: ActionButtons -->
+                    <section class="flex flex-wrap items-center justify-between pt-6 border-t border-gray-200">
+                        <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                            <button id="connect-btn" type="button"
+                                class="bg-brand-container text-white px-8 py-3 rounded-md font-bold flex items-center space-x-2 shadow-lg shadow-brand-container/20 hover:opacity-90 transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path clip-rule="evenodd"
+                                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                                <span>Connect</span>
+                            </button>
+                            <!--                         
+                        <button class="p-3 text-gray-400 hover:text-brand-green transition-colors" title="Print">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                        </button>
+                        <button class="p-3 text-gray-400 hover:text-brand-green transition-colors" title="Favorite">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.382-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                        </button> -->
+                        </div>
+                        <!-- <div class="flex items-center space-x-4">
+                        <span class="text-sm font-bold text-gray-500">Share it on:</span>
+                        <a class="text-[#25D366] hover:scale-110 transition-transform" href="#"><svg class="w-6 h-6"
+                                fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412 0 6.556-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.669l.403.239c1.545.919 3.557 1.407 5.621 1.408 5.732 0 10.393-4.661 10.393-10.392 0-2.779-1.082-5.39-3.048-7.354-1.965-1.964-4.572-3.046-7.345-3.046-5.733 0-10.395 4.662-10.395 10.394 0 2.108.561 4.163 1.623 5.917l.265.438-1.097 4.009 4.108-1.077zm10.963-7.833c-.3-.149-1.774-.875-2.048-.975-.275-.1-.475-.149-.675.15s-.774.975-.95 1.174c-.175.2-.35.225-.65.075s-1.265-.467-2.41-1.487c-.89-.794-1.49-1.773-1.665-2.072s-.019-.462.13-.611c.135-.133.3-.35.45-.525s.2-.3.3-.5.05-.375-.025-.525-.675-1.625-.925-2.225c-.244-.582-.491-.503-.675-.512-.175-.01-.375-.01-.575-.01s-.525.075-.8.375c-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.115 3.23 5.124 4.532.715.31 1.273.495 1.708.633.717.228 1.37.195 1.886.118.575-.086 1.775-.724 2.025-1.424s.25-1.3.175-1.424c-.075-.124-.275-.2-.575-.349z">
+                                </path>
+                            </svg></a>
+                        <a class="text-[#1DA1F2] hover:scale-110 transition-transform" href="#"><svg class="w-6 h-6"
+                                fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z">
+                                </path>
+                            </svg></a>
+                        <button
+                            class="text-sm font-bold bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 transition-colors">More
+                            :</button>
+                    </div> -->
+                    </section>
+                    <!-- END: ActionButtons -->
+                </main>
+                <!-- END: ProjectMainContent -->
+                <!-- BEGIN: Sidebar -->
+                <aside class="space-y-6">
+                    <!-- BEGIN: ProjectLocation -->
+                    <div class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                        <div class="px-4 py-3 bg-brand-green/5 border-b border-brand-green/10">
+                            <h3 class="font-manrope font-bold text-sm text-brand-green">Project Location</h3>
+                        </div>
+                        <div class="p-0">
+                            <!-- Map Placeholder -->
+                            <div
+                                class="relative h-64 w-full flex flex-col items-center justify-center text-center p-6 overflow-hidden bg-gradient-to-br from-brand-green/10 via-brand-sidebar to-brand-gold/10">
+                                <span
+                                    class="material-symbols-outlined text-brand-green text-[56px] mb-2">location_on</span>
+                                <p class="font-manrope font-bold text-brand-green">Kano, Nigeria</p>
+                                <p class="text-xs text-gray-500 mt-1">Ajaokuta – Kaduna – Kano Gas Corridor</p>
+                            </div>
+                            <div class="p-6 bg-white">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Address 1:</h4>
+                                <p class="font-inter font-bold text-brand-green">Kano, Kano State, Nigeria</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: ProjectLocation -->
+                    <!-- BEGIN: ContactDetails -->
+                    <div class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                        <div class="px-4 py-3 bg-brand-green/5 border-b border-brand-green/10">
+                            <h3 class="font-manrope font-bold text-sm text-brand-green">Contact Details</h3>
+                        </div>
+                        <div class="p-6 bg-white relative">
+                            <!-- Blurred Contact Info (Restricted Access Visual) -->
+                            <div class="space-y-4 filter blur-sm select-none opacity-50">
+                                <div>
+                                    <p class="text-xs text-gray-400">Contact Person Name</p>
+                                    <p class="font-bold text-brand-green">Adebayo Okonkwo</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-400">Designation</p>
+                                    <p class="font-bold text-brand-green">Director of Operations</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-400">Phone</p>
+                                    <p class="font-bold text-brand-green">+234 000 000 0000</p>
+                                </div>
+                            </div>
+                            <!-- Login/Register CTA Overlay -->
+                            <div
+                                class="absolute inset-0 flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-[1px]">
+                                <div class="mb-4 text-brand-accent">
+                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                        <path
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                    </svg>
+                                </div>
+                                <p class="text-center font-bold text-brand-green text-sm leading-relaxed">
+                                    <a class="login-trigger cursor-pointer text-brand-accent border-b border-brand-accent hover:opacity-80 transition-opacity"
+                                        href="#">Login</a> /
+                                    <a class="login-trigger cursor-pointer text-brand-accent border-b border-brand-accent hover:opacity-80 transition-opacity"
+                                        href="#">Register</a>
+                                    to connect <br />with the promoter.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: ContactDetails -->
+                </aside>
+                <!-- END: Sidebar -->
+            </div>
+        </div>
+        <!-- END: MainContainer -->
+        <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
+            <div
+                class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
+                <div>
+                    <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">OSIP</h3>
+                    <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-sm">The official gateway for streamlining
+                        energy
+                        investments in Nigeria. Empowering investors with data, clarity, and sovereign support.</p>
+                    <div class="flex flex-wrap gap-3"><a href="#" aria-label="LinkedIn"
+                            class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                                class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.74-2.46C21.6 7.73 24 10 24 14.4V24h-5v-8.5c0-2.03-.73-3.42-2.55-3.42-1.39 0-2.22.94-2.58 1.85-.13.32-.17.77-.17 1.22V24h-5V8z" />
+                            </svg></a><a href="#" aria-label="X"
+                            class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                                class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
+                            </svg></a></div>
+                </div>
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
+                    <ul class="flex flex-col gap-3">
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy
+                                Policy</a>
+                        </li>
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
+                    <ul class="flex flex-col gap-3">
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
+                                Power</a></li>
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
+                                Commission</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partner Logos</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div
+                            class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                            <span class="material-symbols-outlined text-white text-[22px]">account_balance</span>
+                            <span class="text-white text-xs font-bold tracking-wide">FMP</span>
+                        </div>
+                        <div
+                            class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                            <span class="material-symbols-outlined text-white text-[22px]">bolt</span>
+                            <span class="text-white text-xs font-bold tracking-wide">NESP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
+                    class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
+            </div>
+        </footer>
+    </div>
+    <!-- /page-wrapper -->
+
+    <!-- BEGIN: Login Modal -->
+    <div id="login-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+        <div id="login-backdrop" class="absolute inset-0 bg-brand-green/40 backdrop-blur-sm"></div>
+        <div
+            class="osip-modal-in relative z-10 w-full max-w-5xl h-[88vh] bg-white rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5">
+            <button id="login-close" type="button" aria-label="Close login"
+                class="absolute top-3 right-3 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-brand-green shadow-md transition-all">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div id="login-frame-box" class="absolute inset-0 overflow-hidden rounded-2xl">
+                <iframe id="login-frame" title="Login" class="absolute top-0 left-0 w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- END: Login Modal -->
+
+    <script>
+            // Mobile navigation menu toggle
+            (function () {
+                const navToggle = document.getElementById('mobile-nav-toggle');
+                const mobileNav = document.getElementById('mobile-nav');
+                if (navToggle && mobileNav) {
+                    navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                    window.addEventListener('resize', () => {
+                        if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden');
+                    });
+                }
+            })();
+
+        // Login modal: open from Connect / Login / Register, blur background behind it,
+        // close with the X button, the backdrop, or the Esc key.
+        (function () {
+            const modal = document.getElementById('login-modal');
+            const frame = document.getElementById('login-frame');
+            const wrapper = document.getElementById('page-wrapper');
+            const closeBtn = document.getElementById('login-close');
+            const backdrop = document.getElementById('login-backdrop');
+
+            function openModal(e, view) {
+                if (e) e.preventDefault();
+                // Decide which view to open: explicit arg, else infer from the
+                // trigger's own text (so the "Register" link lands on Register).
+                if (!view && e && e.currentTarget) {
+                    view = /register/i.test(e.currentTarget.textContent || '') ? 'register' : 'login';
+                }
+                if (!frame.getAttribute('src')) {
+                    // First open: load the page already on the right view.
+                    frame.setAttribute('src', 'Login.html' + (view === 'register' ? '#register' : ''));
+                } else if (view) {
+                    // Already loaded: switch in-place, no reload (no blink).
+                    frame.contentWindow.postMessage('osip-show-' + view, '*');
+                }
+                modal.classList.remove('hidden');
+                wrapper.classList.add('content-blurred');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeModal() {
+                modal.classList.add('hidden');
+                wrapper.classList.remove('content-blurred');
+                document.body.style.overflow = '';
+            }
+
+            const connectBtn = document.getElementById('connect-btn');
+            if (connectBtn) connectBtn.addEventListener('click', openModal);
+            document.querySelectorAll('.login-trigger').forEach(el => el.addEventListener('click', openModal));
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (backdrop) backdrop.addEventListener('click', closeModal);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+            });
+
+            // Lets Login.html close the modal after auth: it can call
+            // window.parent.postMessage('osip-close','*')
+            window.addEventListener('message', (e) => {
+                if (e.data === 'osip-close' || e.data === 'osip-login-success') closeModal();
+            });
+        })();
+
+        // Active top-nav highlight + page wiring (golden bar follows the current page).
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'OpportunitiesNew.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'OpportunitiesNew.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+<!-- NESP nav hover dropdowns (shared, injected) -->
+<style>
+  .nesp-has-menu { position: relative; }
+  .nesp-dropdown {
+    position: absolute; top: 100%; left: 50%; min-width: 300px;
+    background: #ffffff; border: 1px solid #e7e7e7;
+    border-radius: 12px; box-shadow: 0 18px 40px -16px rgba(6,20,16,0.22); margin-top: 8px;
+    padding: 10px; opacity: 0; visibility: hidden; transform: translateX(-50%) translateY(8px);
+    transition: opacity .22s ease, transform .22s ease, visibility .22s ease; z-index: 60;
+  }
+  .nesp-has-menu:hover .nesp-dropdown, .nesp-dropdown:hover {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  }
+  .nesp-dropdown::before { content: ""; position: absolute; top: -12px; left: 0; right: 0; height: 14px; }
+  .nesp-dropdown::after { content: ""; position: absolute; top: -7px; left: 50%; width: 13px; height: 13px; background: #ffffff; border-top: 1px solid #e7e7e7; border-left: 1px solid #e7e7e7; border-radius: 3px 0 0 0; transform: translateX(-50%) rotate(45deg); }
+  .nesp-menu-head {
+    font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase; color: #9aa39e; padding: 8px 12px 6px;
+  }
+  .nesp-menu-item { display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none; transition: background .15s ease; }
+  .nesp-menu-item:hover { background: #f1f8f4; }
+  .nesp-menu-item .t { display: block; font-family: Manrope, sans-serif; font-size: 13.5px; font-weight: 700; color: #15241d; }
+  .nesp-menu-item:hover .t { color: #047857; }
+  .nesp-menu-item .d { display: block; font-size: 11.5px; line-height: 1.45; color: #6b746f; margin-top: 2px; }
+  .nesp-has-menu > a::after {
+    content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 7px;
+    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg); opacity: .6; vertical-align: middle; transition: transform .2s ease;
+  }
+  .nesp-has-menu:hover > a::after { transform: translateY(0) rotate(225deg); }
+</style>
+<script>
+(function () {
+  var MENU = {
+    'SECTORS': { head: 'Strategic Priority Sectors', items: [
+      { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+      { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+      { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+    ]},
+    'OPPORTUNITIES': { head: 'Investment Opportunities', items: [
+      { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'OpportunitiesNew.html' },
+      { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'OpportunitiesNew.html' },
+      { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'OpportunitiesNew.html' },
+      { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'OpportunitiesNew.html' }
+    ]},
+    'REGULATIONS': { head: 'Regulations & Compliance', items: [
+      { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+      { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+      { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+      { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+    ]},
+    'DATA': { head: 'Data & Insights', items: [
+      { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+      { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+      { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+    ]},
+    'NEWS': { head: 'News Categories', items: [
+      { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+      { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+      { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+      { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+      { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+    ]}
+  };
+  document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+    if ((a.className || '').indexOf('px-5') === -1) return;            // desktop top-level links only
+    var menu = MENU[(a.textContent || '').trim().toUpperCase()];
+    if (!menu) return;
+    var li = a.closest('li'); if (!li) return;
+    li.classList.add('nesp-has-menu');
+    var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+    menu.items.forEach(function (it) {
+      html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+              (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+    });
+    var panel = document.createElement('div');
+    panel.className = 'nesp-dropdown';
+    panel.innerHTML = html;
+    li.appendChild(panel);
+  });
+})();
+</script>
+
+    <!-- Invest Now popup flow -->
+    <script src="investflow.js"></script>
+</body>
+
+</html>
