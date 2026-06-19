@@ -366,7 +366,7 @@
                             <span class="material-symbols-outlined">arrow_back</span>
                             Back
                         </a>
-                        <a id="continue-link" href="OpportunitiesNew.html" target="_top"
+                        <a id="continue-link" href="Opportunities.html" target="_top"
                             class="bg-primary text-white px-8 py-3 font-bold text-body-md hover:scale-[1.02] transition-transform shadow-lg inline-flex items-center gap-3">
                             Continue to Project Details
                             <span class="material-symbols-outlined">arrow_forward</span>
@@ -439,7 +439,7 @@
             if (!link) return;
             let sectors = '';
             try { sectors = localStorage.getItem('osip_sectors') || ''; } catch (e) { }
-            link.setAttribute('href', 'OpportunitiesNew.html' + (sectors ? ('?sector=' + encodeURIComponent(sectors)) : ''));
+            link.setAttribute('href', 'Opportunities.html' + (sectors ? ('?sector=' + encodeURIComponent(sectors)) : ''));
         })();
     </script>
 </body>

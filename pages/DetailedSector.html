@@ -139,7 +139,7 @@
             background-color: #f3f4f2;
         }
 
-        /* Opportunity cards (mirrored from OpportunitiesNew.html) */
+        /* Opportunity cards (mirrored from Opportunities.html) */
         .opportunity-card { border-top: 4px solid #dfa800 !important; }
         .opportunity-card .inv-box {
             background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
@@ -356,7 +356,7 @@
                             <span class="text-body-md text-on-surface">Streamlined NERC licensing for generation &amp; mini-grids.</span>
                         </li>
                     </ul>
-                    <a href="OpportunitiesNew.html" class="inline-flex items-center gap-2 bg-primary-container text-white px-7 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
+                    <a href="Opportunities.html" class="inline-flex items-center gap-2 bg-primary-container text-white px-7 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
                         Explore Opportunities <span class="material-symbols-outlined text-lg">arrow_forward</span>
                     </a>
                 </div>
@@ -571,8 +571,8 @@
     }
 })();
 (function () {
-    const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'OpportunitiesNew.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'OpportunitiesNew.html' };
-    const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+    const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
+    const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
     const file = (location.pathname.split('/').pop() || '').toLowerCase();
     const active = PAGE_ACTIVE[file];
     document.querySelectorAll('nav.bg-white a').forEach(a => {
@@ -628,10 +628,10 @@
       { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
     ]},
     'OPPORTUNITIES': { head: 'Investment Opportunities', items: [
-      { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'OpportunitiesNew.html' },
-      { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'OpportunitiesNew.html' },
-      { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'OpportunitiesNew.html' },
-      { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'OpportunitiesNew.html' }
+      { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
+      { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
+      { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
+      { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
     ]},
     'REGULATIONS': { head: 'Regulations & Compliance', items: [
       { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },

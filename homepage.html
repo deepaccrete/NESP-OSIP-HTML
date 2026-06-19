@@ -3310,7 +3310,7 @@
               investors to discover,
               evaluate, and execute energy projects across Africa's
               largest economy.</p>
-            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"><a href="pages/OpportunitiesNew.html"
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"><a href="pages/Opportunities.html"
                 class="
                   bg-[#FFDDB4]
                   hover:bg-[#e6c78b]
@@ -3356,7 +3356,7 @@
       </section>
       <section class="bg-white py-14 lg:py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6"><a href="pages/OpportunitiesNew.html"
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6"><a href="pages/Opportunities.html"
               class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
               <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">savings</span></div>
               <h3
@@ -3364,7 +3364,7 @@
                 style="font-family: Manrope, sans-serif;">I Want to Invest</h3>
               <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7">Browse active tenders and
                 licensing rounds.</p>
-            </a><a href="pages/OpportunitiesNew.html"
+            </a><a href="pages/Opportunities.html"
               class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
               <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">travel_explore</span>
               </div>
@@ -3410,7 +3410,7 @@
               bottlenecks and foster transparent growth.
 
               Our mission is to catalyze over $20B in sustainable energy investments by 2030,
-              ensuring energy security and industrial prosperity for the nation.</p><a href="#"
+              ensuring energy security and industrial prosperity for the nation.</p><a href="pages/AboutOSIP.html"
               class="inline-flex items-center justify-center bg-[#004225] hover:bg-[#1a5c3a] text-white px-6 sm:px-7 py-3 text-sm font-medium tracking-wide transition-all duration-300 w-full sm:w-auto">Learn
               More About OSIP</a>
           </div>
@@ -3878,8 +3878,8 @@
 
     // Active top-nav highlight + page wiring (golden bar follows the current page).
     (function () {
-      const NAV_HREF = { 'SECTORS': 'pages/Sector.html', 'OPPORTUNITIES': 'pages/OpportunitiesNew.html', 'REGULATIONS': 'pages/Regulation.html', 'DATA': 'pages/Data.html', 'NEWS': 'pages/News.html', 'CONTACT': 'pages/Contact.html', 'INVEST NOW': 'pages/OpportunitiesNew.html' };
-      const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+      const NAV_HREF = { 'SECTORS': 'pages/Sector.html', 'OPPORTUNITIES': 'pages/Opportunities.html', 'REGULATIONS': 'pages/Regulation.html', 'DATA': 'pages/Data.html', 'NEWS': 'pages/News.html', 'CONTACT': 'pages/Contact.html', 'INVEST NOW': 'pages/Opportunities.html' };
+      const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
       const file = (location.pathname.split('/').pop() || '').toLowerCase();
       const active = PAGE_ACTIVE[file];
       document.querySelectorAll('nav.bg-white a').forEach(a => {
@@ -4034,10 +4034,10 @@
         },
         'OPPORTUNITIES': {
           head: 'Investment Opportunities', items: [
-            { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'pages/OpportunitiesNew.html' },
-            { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'pages/OpportunitiesNew.html' },
-            { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'pages/OpportunitiesNew.html' },
-            { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'pages/OpportunitiesNew.html' }
+            { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'pages/Opportunities.html' },
+            { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'pages/Opportunities.html' },
+            { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'pages/Opportunities.html' },
+            { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'pages/Opportunities.html' }
           ]
         },
         'REGULATIONS': {

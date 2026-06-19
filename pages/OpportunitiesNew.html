@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en" style="">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>OSIP - Nigerian Energy Investment Portal | Opportunities</title>
-    <!-- Google Fonts: Inter (body) + Manrope (headings) — matches Homepage -->
+    <title>AKK Gas Pipeline Project | OSIP - Nigerian Energy Investment Portal</title>
+    <!-- Google Fonts: Manrope & Inter -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
@@ -14,1278 +14,656 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS CDN with plugins -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
+    <script>
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "on-tertiary-container": "#dfa800",
-                        "tertiary": "#3c2b00",
-                        "inverse-primary": "#94d3c1",
-                        "background": "#f4fbf8",
-                        "primary-fixed-dim": "#94d3c1",
-                        "on-secondary-fixed-variant": "#005312",
-                        "secondary-container": "#a0f399",
-                        "outline-variant": "#bfc9c4",
-                        "on-surface": "#161d1b",
-                        "on-surface-variant": "#3f4945",
-                        "on-error": "#ffffff",
-                        "surface-container": "#e8efec",
-                        "on-background": "#161d1b",
-                        "on-primary-fixed-variant": "#065043",
-                        "outline": "#707975",
-                        "on-primary-container": "#7ebdac",
-                        "surface-container-highest": "#dde4e1",
-                        "on-primary": "#ffffff",
-                        "primary": "#00342b",
-                        "surface-container-high": "#e3eae7",
-                        "surface": "#f4fbf8",
-                        "on-error-container": "#93000a",
-                        "error": "#ba1a1a",
-                        "on-secondary-container": "#217128",
-                        "on-tertiary-fixed": "#261a00",
-                        "on-primary-fixed": "#00201a",
-                        "inverse-surface": "#2b3230",
-                        "tertiary-container": "#574000",
-                        "inverse-on-surface": "#ebf2ef",
-                        "error-container": "#ffdad6",
-                        "secondary-fixed": "#a3f69c",
-                        "primary-container": "#004d40",
-                        "primary-fixed": "#afefdd",
-                        "on-secondary": "#ffffff",
-                        "surface-container-low": "#eef5f2",
-                        "surface-dim": "#d4dcd9",
-                        "on-tertiary": "#ffffff",
-                        "on-tertiary-fixed-variant": "#5b4300",
-                        "tertiary-fixed-dim": "#fabd00",
-                        "surface-tint": "#29695b",
-                        "on-secondary-fixed": "#002204",
-                        "surface-variant": "#dde4e1",
-                        "surface-bright": "#f4fbf8",
-                        "surface-container-lowest": "#ffffff",
-                        "secondary": "#1b6d24",
-                        "secondary-fixed-dim": "#88d982",
-                        "tertiary-fixed": "#ffdf9e"
+                    colors: {
+                        brand: {
+                            green: '#00342b',
+                            container: '#004d40',
+                            gold: '#dfa800',
+                            bg: '#f4fbf8',
+                            sidebar: '#eef5f2',
+                            accent: '#dfa800' // brand gold accent (on-theme)
+                        }
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
+                    fontFamily: {
+                        manrope: ['Manrope', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
                     },
-                    "spacing": {
-                        "margin-mobile": "16px",
-                        "gutter": "24px",
-                        "stack-sm": "8px",
-                        "stack-lg": "32px",
-                        "stack-md": "16px",
-                        "margin-desktop": "48px",
-                        "container-max": "1280px"
-                    },
-                    "fontFamily": {
-                        "body-lg": ["Inter"],
-                        "title-md": ["Manrope", "Inter"],
-                        "label-sm": ["Inter"],
-                        "headline-lg-mobile": ["Manrope", "Inter"],
-                        "display-lg": ["Manrope", "Inter"],
-                        "headline-lg": ["Manrope", "Inter"],
-                        "label-md": ["Inter"],
-                        "body-md": ["Inter"]
-                    },
-                    "fontSize": {
-                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
-                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
-                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
-                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    letterSpacing: {
+                        tightest: '-0.015em'
                     }
-                },
-            },
+                }
+            }
         }
     </script>
-    <style>
-        body {
-            background-color: #f4fbf8;
-            /* level-0 base */
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Headings use Manrope to match the Homepage; body text stays Inter */
-        h1,
-        h2,
-        h3,
-        h4,
-        .font-display-lg,
-        .font-headline-lg,
-        .font-headline-lg-mobile,
-        .font-title-md {
-            font-family: 'Manrope', 'Inter', sans-serif !important;
-            letter-spacing: -0.015em;
-        }
-
-        /* Hide scrollbars everywhere but keep scrolling functional */
-        * {
-            scrollbar-width: none;
-            /* Firefox */
-            -ms-overflow-style: none;
-            /* IE / old Edge */
-
-        }
-
-        *::-webkit-scrollbar {
-            display: none;
-            /* Chrome, Safari, Edge */
-            width: 0;
-            height: 0;
-        }
-
+    <style data-purpose="custom-typography">
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
         }
 
-        .nav-active {
-            border-bottom: 2px solid #00342b;
-            padding-bottom: 4px;
-            font-weight: 600;
+        body {
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Custom transitions */
-        .transition-all {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.015em;
         }
 
-        /* Sidebar as overlay on mobile */
-        #sidebar.mobile-overlay {
-            position: fixed;
-            top: 74px;
-            /* below the 74px header */
-            left: 0;
-            bottom: 0;
-            height: auto;
-            z-index: 40;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        /* Blur the page behind the login modal */
+        #page-wrapper {
+            transition: filter 0.3s ease;
         }
 
-        /* Smooth slide for sidebar / mobile nav */
-        #sidebar {
-            transition: transform 0.25s ease;
+        #page-wrapper.content-blurred {
+            filter: blur(6px);
+            pointer-events: none;
+            user-select: none;
         }
 
-        /* On phones/tablets the sidebar is hidden until opened as an overlay
-           (prevents a layout flash before JS runs) */
-        @media (max-width: 1023.98px) {
-            #sidebar:not(.mobile-overlay) {
-                display: none !important;
+        @keyframes osipModalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
-        /* Horizontal card scroller arrows */
-        .card-scroller {
-            scroll-padding-left: 4px;
+        .osip-modal-in {
+            animation: osipModalIn 0.22s ease;
         }
 
-        .card-scroller-wrap {
-            position: relative;
+        /* ===== Status Tracker (signature element) ===== */
+        /* Pulsing ring around the current stage node */
+        @keyframes osipPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(223, 168, 0, 0.55);
+            }
+
+            70% {
+                box-shadow: 0 0 0 14px rgba(223, 168, 0, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(223, 168, 0, 0);
+            }
         }
 
-        .scroll-arrow {
+        .osip-node-current {
+            animation: osipPulse 2.2s infinite;
+        }
+
+        /* Animated gradient fill on the completed portion of the track */
+        @keyframes osipShimmer {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        .osip-progress-fill {
+            background: linear-gradient(90deg, #00342b 0%, #004d40 45%, #dfa800 100%);
+            background-size: 200% 100%;
+            animation: osipShimmer 4s linear infinite;
+        }
+
+        /* Little floating "current stage" pill above the active node */
+        .osip-current-pill::after {
+            content: "";
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 42px;
-            height: 42px;
-            border-radius: 9999px;
-            background: #ffffff;
-            border: 1px solid #bfc9c4;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00342b;
-            z-index: 20;
-            cursor: pointer;
-            transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease;
+            bottom: -5px;
+            left: 50%;
+            width: 9px;
+            height: 9px;
+            background: #dfa800;
+            transform: translateX(-50%) rotate(45deg);
         }
 
-        .scroll-arrow:hover {
-            background: #e3eae7;
-        }
+        @media (prefers-reduced-motion: reduce) {
 
-        .scroll-arrow:active {
-            transform: translateY(-50%) scale(0.92);
-        }
-
-        .scroll-arrow-prev {
-            left: 4px;
-        }
-
-        .scroll-arrow-next {
-            right: 4px;
-        }
-
-        /* Fade out an arrow when you can't scroll further that way */
-        .scroll-arrow.arrow-hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Hide both arrows entirely when the row fits without scrolling */
-        .card-scroller-wrap:not(.has-overflow) .scroll-arrow {
-            display: none;
-        }
-
-        /* Prevent horizontal overflow on small screens (Safari/Mac safe) */
-        html,
-        body {
-            overflow-x: hidden;
-            max-width: 100%;
-        }
-
-        /* Filter "View more" reveal (deterministic, independent of utility order) */
-        .filter-extra {
-            display: none !important;
-        }
-
-        .filter-group.show-extra .filter-extra {
-            display: flex !important;
-        }
-
-        /* Project card color accents (professional) */
-        .opportunity-card {
-            border-top: 4px solid #dfa800 !important;
-        }
-
-        .opportunity-card .inv-box {
-            background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
-            border: 1px solid rgba(0, 52, 43, 0.08);
-            border-radius: 8px;
-            padding: 12px 14px;
-        }
-
-        /* Highlighted sector chip on opportunity cards (gold accent ties to the card's top border) */
-        .sector-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 6px;
-            padding: 3px 10px;
-            border-radius: 9999px;
-            background: rgba(223, 168, 0, 0.14);
-            border: 1px solid rgba(223, 168, 0, 0.35);
-            color: #5b4300;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            line-height: 1.45;
-        }
-
-        .sector-badge .material-symbols-outlined {
-            font-size: 14px;
-            color: #c98a00;
+            .osip-node-current,
+            .osip-progress-fill {
+                animation: none;
+            }
         }
     </style>
 </head>
 
-<body class="text-on-surface">
-    <!-- Top Navigation Bar -->
-    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between h-[74px]">
-                <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto" src="Text.png"></a>
-                    <ul class="hidden lg:flex items-center">
-                        <li><a href="Sector.html"
-                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
+<body class="bg-brand-bg text-brand-green min-h-screen">
+    <div id="page-wrapper">
+        <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
+                <div class="flex items-center justify-between h-[74px]">
+                    <div class="flex items-center gap-10">
+                        <a href="../homepage.html"><img alt="Logo" class="h-5 w-auto" src="Text.png"></a>
+                        <ul class="hidden lg:flex items-center">
+                            <li><a href="Sector.html"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES<span
+                                        class="absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]"></span></a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="hidden lg:flex items-center gap-5"><a href="#"
+                            class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
+                            class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
+                            Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
+                        id="mobile-nav-toggle" aria-label="Open menu"
+                        class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
+                </div>
+                <!-- Mobile nav menu -->
+                <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
+                    <ul class="flex flex-col">
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
                         </li>
                         <li><a href="#"
-                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES<span
-                                    class="absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]"></span></a>
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
                         </li>
                         <li><a href="#"
-                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
                         </li>
                         <li><a href="#"
-                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
                         </li>
                         <li><a href="#"
-                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
+                        </li>
+                        <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
+                        <li class="px-2 pt-2"><a href="#"
+                                class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
+                                Now</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- BEGIN: MainContainer -->
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-8 py-6 md:py-10">
+            <!-- BEGIN: Breadcrumbs -->
+            <nav aria-label="Breadcrumb" class="mb-6">
+                <ol class="flex list-none p-0 text-sm font-medium text-gray-500">
+                    <li class="flex items-center">
+                        <a class="hover:text-brand-green" href="Opportunities.html">Opportunities</a>
+                        <svg class="w-4 h-4 mx-2" fill="currentColor" viewbox="0 0 20 20">
+                            <path
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z">
+                            </path>
+                        </svg>
+                    </li>
+                    <li class="text-brand-green font-semibold">AKK Gas Pipeline Project</li>
+                </ol>
+            </nav>
+            <!-- END: Breadcrumbs -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- BEGIN: ProjectMainContent -->
+                <main class="lg:col-span-2 space-y-8">
+                    <!-- BEGIN: ProjectHero -->
+                    <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 relative">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span
+                                    class="text-xs font-inter font-bold text-gray-400 uppercase tracking-widest">Project
+                                    ID: 2024-ENE-03</span>
+                                <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mt-2 flex items-center">
+                                    <span class="w-2 h-8 bg-brand-green mr-4 rounded-full"></span>
+                                    AKK Gas Pipeline Project
+                                </h1>
+                                <p class="text-xs text-gray-500 mt-2">Last Updated on: <span
+                                        class="font-bold">10-Nov-2024</span></p>
+                            </div>
+                        </div>
+
+                        <!-- BEGIN: StatusTracker (redesigned signature element) -->
+                        <div
+                            class="mt-8 rounded-xl border border-brand-gold/20 bg-gradient-to-br from-brand-sidebar via-white to-brand-gold/5 p-6 md:p-8">
+                            <!-- Header row: live status + stage count -->
+                            <div class="flex items-center justify-between flex-wrap gap-3 mb-12">
+                                <span
+                                    class="inline-flex items-center gap-2.5 bg-brand-accent/10 text-brand-green px-4 py-2 rounded-full text-xs font-bold uppercase tracking-[0.12em]">
+                                    <span class="relative flex h-2.5 w-2.5">
+                                        <span
+                                            class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
+                                        <span
+                                            class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-accent"></span>
+                                    </span>
+                                    Under Implementation
+                                </span>
+                                <div class="text-right leading-none">
+                                    <span class="text-2xl font-manrope font-extrabold text-brand-green">Stage 3</span>
+                                    <span class="text-sm font-manrope font-bold text-gray-400"> / 4</span>
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest mt-1">In
+                                        Progress</p>
+                                </div>
+                            </div>
+
+                            <!-- Track -->
+                            <div class="relative flex items-start justify-between">
+                                <!-- Base track -->
+                                <div
+                                    class="absolute left-[12.5%] right-[12.5%] top-4 -translate-y-1/2 h-1.5 bg-gray-200 rounded-full">
+                                </div>
+                                <!-- Completed (animated) fill: from node 1 center to node 3 center -->
+                                <div class="osip-progress-fill absolute left-[12.5%] top-4 -translate-y-1/2 h-1.5 rounded-full"
+                                    style="width: 50%;"></div>
+
+                                <!-- Node 1 — Done -->
+                                <div class="relative z-10 flex flex-col items-center" style="width:25%;">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shadow-md">
+                                        <span class="material-symbols-outlined text-white text-[18px]">check</span>
+                                    </div>
+                                    <p
+                                        class="mt-3 text-[11px] font-bold text-brand-green text-center leading-tight px-1">
+                                        Under<br>Conceptualization</p>
+                                    <span
+                                        class="mt-1 text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">Done</span>
+                                </div>
+
+                                <!-- Node 2 — Done -->
+                                <div class="relative z-10 flex flex-col items-center" style="width:25%;">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shadow-md">
+                                        <span class="material-symbols-outlined text-white text-[18px]">check</span>
+                                    </div>
+                                    <p
+                                        class="mt-3 text-[11px] font-bold text-brand-green text-center leading-tight px-1">
+                                        Under<br>Development</p>
+                                    <span
+                                        class="mt-1 text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">Done</span>
+                                </div>
+
+                                <!-- Node 3 — Current -->
+                                <div class="relative z-10 flex flex-col items-center" style="width:25%;">
+                                    <!-- floating pill -->
+                                    <span
+                                        class="osip-current-pill absolute -top-9 bg-brand-gold text-brand-green text-[9px] font-extrabold uppercase tracking-[0.1em] px-2.5 py-1 rounded-md shadow-md whitespace-nowrap">
+                                        Current Stage
+                                    </span>
+                                    <div
+                                        class="osip-node-current w-8 h-8 rounded-full bg-brand-gold flex items-center justify-center ring-4 ring-white shadow-lg">
+                                        <span
+                                            class="material-symbols-outlined text-brand-green text-[18px]">engineering</span>
+                                    </div>
+                                    <p
+                                        class="mt-3 text-[11px] font-extrabold text-brand-green text-center leading-tight px-1">
+                                        Under<br>Implementation</p>
+                                    <span
+                                        class="mt-1 text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">Active</span>
+                                </div>
+
+                                <!-- Node 4 — Upcoming -->
+                                <div class="relative z-10 flex flex-col items-center" style="width:25%;">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center ring-4 ring-white">
+                                        <span class="material-symbols-outlined text-gray-300 text-[18px]">flag</span>
+                                    </div>
+                                    <p class="mt-3 text-[11px] font-bold text-gray-400 text-center leading-tight px-1">
+                                        Completed</p>
+                                    <span
+                                        class="mt-1 text-[10px] font-bold text-gray-300 uppercase tracking-wider">Upcoming</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: StatusTracker -->
+                    </section>
+                    <!-- END: ProjectHero -->
+
+                    <!-- BEGIN: ProjectDescription -->
+                    <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
+                        <div class="flex items-center gap-3 mb-5">
+                            <span class="w-1.5 h-6 bg-brand-gold rounded-full"></span>
+                            <h2 class="text-xl font-manrope font-extrabold text-brand-green">Project Overview</h2>
+                        </div>
+                        <div class="space-y-4 text-[15px] leading-relaxed text-gray-600">
+                            <p>
+                                The <span class="font-semibold text-brand-green">Ajaokuta–Kaduna–Kano (AKK) Gas
+                                    Pipeline</span> is a flagship 614-kilometre natural gas transportation backbone
+                                designed to link Nigeria's gas-rich southern basins to industrial and power-generation
+                                hubs across the north. Once commissioned, the line is expected to carry up to
+                                2.2 billion standard cubic feet of gas per day, anchoring new gas-fired power plants,
+                                fertiliser production, and industrial clusters along the corridor.
+                            </p>
+                            <p>
+                                Structured as a public-private partnership under the Ministry of Petroleum Resources,
+                                the project opens opportunities for investors across construction, compression
+                                infrastructure, metering, and long-term gas off-take. It sits at the centre of Nigeria's
+                                gas-to-power strategy and the broader national decade of gas agenda.
+                            </p>
+                        </div>
+
+                        <!-- Key highlights -->
+                        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="rounded-lg bg-brand-sidebar p-4 text-center">
+                                <span
+                                    class="material-symbols-outlined text-brand-gold text-[26px] mb-1">conversion_path</span>
+                                <p class="font-manrope font-extrabold text-brand-green text-lg leading-none">614 km</p>
+                                <p class="text-[11px] text-gray-500 mt-1.5">Pipeline length</p>
+                            </div>
+                            <div class="rounded-lg bg-brand-sidebar p-4 text-center">
+                                <span
+                                    class="material-symbols-outlined text-brand-gold text-[26px] mb-1">gas_meter</span>
+                                <p class="font-manrope font-extrabold text-brand-green text-lg leading-none">2.2 bscf/d
+                                </p>
+                                <p class="text-[11px] text-gray-500 mt-1.5">Gas capacity</p>
+                            </div>
+                            <div class="rounded-lg bg-brand-sidebar p-4 text-center">
+                                <span class="material-symbols-outlined text-brand-gold text-[26px] mb-1">map</span>
+                                <p class="font-manrope font-extrabold text-brand-green text-lg leading-none">3 States
+                                </p>
+                                <p class="text-[11px] text-gray-500 mt-1.5">Kogi · Kaduna · Kano</p>
+                            </div>
+                            <div class="rounded-lg bg-brand-sidebar p-4 text-center">
+                                <span class="material-symbols-outlined text-brand-gold text-[26px] mb-1">payments</span>
+                                <p class="font-manrope font-extrabold text-brand-green text-lg leading-none">$2.80 bn
+                                </p>
+                                <p class="text-[11px] text-gray-500 mt-1.5">Total investment</p>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- END: ProjectDescription -->
+
+                    <!-- BEGIN: MetadataGrid -->
+                    <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6">
+                            <!-- Sector -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Sector</h4>
+                                <p class="font-manrope font-bold text-brand-green">Oil &amp; Gas / Power</p>
+                            </div>
+
+                            <!-- State -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">State</h4>
+                                <p class="font-manrope font-bold text-brand-green">Kano</p>
+                            </div>
+                            <!-- Start Date -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Project Start Date</h4>
+                                <p class="font-manrope font-bold text-brand-green">15-Mar-2020</p>
+                            </div>
+                            <!-- End Date -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Project Completion Date
+                                </h4>
+                                <p class="font-manrope font-bold text-brand-green">31-Dec-2025</p>
+                            </div>
+                            <!-- Promoter -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Promoter/Sponsor Type
+                                </h4>
+                                <p class="font-manrope font-bold text-brand-green">Public-Private Partnership</p>
+                            </div>
+                            <!-- Project Status -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Project Status</h4>
+                                <p class="font-manrope font-bold text-brand-green">Under Construction</p>
+                            </div>
+                            <!-- Line Ministry -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
+                                <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Line Ministry</h4>
+                                <p class="font-manrope font-bold text-brand-green">Ministry of Petroleum Resources</p>
+                            </div>
+                        </div>
+                        <div class="mt-12 pt-6 border-t border-gray-100">
+                            <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-2">Is this an Externally Aided
+                                Project (EAP)?</h4>
+                            <p class="font-manrope font-bold text-brand-green">No</p>
+                        </div>
+                        <div class="mt-10">
+                            <p class="text-2xl font-manrope font-bold text-gray-500">
+                                Total Project Cost: <span class="text-brand-accent">USD 2.80 bn</span>
+                            </p>
+                        </div>
+                    </section>
+                    <!-- END: MetadataGrid -->
+                    <!-- BEGIN: ActionButtons -->
+                    <section class="flex flex-wrap items-center justify-between pt-6 border-t border-gray-200">
+                        <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                            <button id="connect-btn" type="button"
+                                class="bg-brand-container text-white px-8 py-3 rounded-md font-bold flex items-center space-x-2 shadow-lg shadow-brand-container/20 hover:opacity-90 transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path clip-rule="evenodd"
+                                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                                <span>Connect</span>
+                            </button>
+                        </div>
+                    </section>
+                    <!-- END: ActionButtons -->
+                </main>
+                <!-- END: ProjectMainContent -->
+                <!-- BEGIN: Sidebar -->
+                <aside class="space-y-6">
+                    <!-- BEGIN: ContactDetails -->
+                    <div class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                        <div class="px-4 py-3 bg-brand-green/5 border-b border-brand-green/10">
+                            <h3 class="font-manrope font-bold text-sm text-brand-green">Contact Details</h3>
+                        </div>
+                        <div class="p-6 bg-white relative">
+                            <!-- Blurred Contact Info (Restricted Access Visual) -->
+                            <div class="space-y-4 filter blur-sm select-none opacity-50">
+                                <div>
+                                    <p class="text-xs text-gray-400">Contact Person Name</p>
+                                    <p class="font-bold text-brand-green">Adebayo Okonkwo</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-400">Designation</p>
+                                    <p class="font-bold text-brand-green">Director of Operations</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-400">Phone</p>
+                                    <p class="font-bold text-brand-green">+234 000 000 0000</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-400">Email</p>
+                                    <p class="font-bold text-brand-green">promoter@example.com</p>
+                                </div>
+                            </div>
+                            <!-- Login/Register CTA Overlay -->
+                            <div
+                                class="absolute inset-0 flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-[1px]">
+                                <div class="mb-4 text-brand-accent">
+                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                        <path
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                    </svg>
+                                </div>
+                                <p class="text-center font-bold text-brand-green text-sm leading-relaxed">
+                                    <a class="login-trigger cursor-pointer text-brand-accent border-b border-brand-accent hover:opacity-80 transition-opacity"
+                                        href="#">Login</a> /
+                                    <a class="login-trigger cursor-pointer text-brand-accent border-b border-brand-accent hover:opacity-80 transition-opacity"
+                                        href="#">Register</a>
+                                    to connect <br />with the promoter.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: ContactDetails -->
+                </aside>
+                <!-- END: Sidebar -->
+            </div>
+        </div>
+        <!-- END: MainContainer -->
+        <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
+            <div
+                class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
+                <div>
+                    <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">OSIP</h3>
+                    <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-sm">The official gateway for streamlining
+                        energy
+                        investments in Nigeria. Empowering investors with data, clarity, and sovereign support.</p>
+                    <div class="flex flex-wrap gap-3"><a href="#" aria-label="LinkedIn"
+                            class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                                class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.74-2.46C21.6 7.73 24 10 24 14.4V24h-5v-8.5c0-2.03-.73-3.42-2.55-3.42-1.39 0-2.22.94-2.58 1.85-.13.32-.17.77-.17 1.22V24h-5V8z" />
+                            </svg></a><a href="#" aria-label="X"
+                            class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                                class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
+                            </svg></a></div>
+                </div>
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
+                    <ul class="flex flex-col gap-3">
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy
+                                Policy</a>
+                        </li>
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Contact Us</a>
                         </li>
                     </ul>
                 </div>
-                <div class="hidden lg:flex items-center gap-5"><a href="#"
-                        class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
-                        class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
-                        Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
-                    id="mobile-nav-toggle" aria-label="Open menu"
-                    class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
-            </div>
-            <!-- Mobile nav menu -->
-            <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
-                <ul class="flex flex-col">
-                    <li><a href="#"
-                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
-                    </li>
-                    <li><a href="#"
-                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
-                    </li>
-                    <li><a href="#"
-                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
-                    </li>
-                    <li><a href="#"
-                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
-                    </li>
-                    <li><a href="#"
-                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
-                    </li>
-                    <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
-                    <li class="px-2 pt-2"><a href="#"
-                            class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
-                            Now</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-   
-</header>
-    <div class="flex w-full relative min-h-[calc(100dvh-74px)]">
-        <!-- Backdrop (mobile only, shown when sidebar is open) -->
-        <div id="sidebar-backdrop" class="hidden fixed left-0 right-0 bottom-0 top-[74px] bg-black/40 z-30 lg:hidden">
-        </div>
-        <!-- Side Navigation Bar (Filters) -->
-        <aside id="sidebar"
-            class="flex flex-col py-6 px-4 gap-y-stack-md w-[280px] max-w-[85vw] lg:w-[280px] flex-shrink-0 bg-surface-container-low border-r border-outline-variant overflow-hidden z-40">
-            <button id="sidebar-close"
-                class="absolute right-3 top-2.5 text-on-surface-variant hover:text-primary lg:hidden"><span
-                    class="material-symbols-outlined">close</span></button>
-            <div class="flex items-center gap-3 px-2 mb-4">
-                <div class="bg-primary-container text-white p-2 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-[20px]">filter_alt</span>
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
+                    <ul class="flex flex-col gap-3">
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
+                                Power</a></li>
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
+                                Commission</a></li>
+                    </ul>
                 </div>
                 <div>
-                    <h2 class="font-bold text-[14px]">Filters</h2>
-                    <p class="text-[11px] text-on-surface-variant">Refine opportunities</p>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partner Logos</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div
+                            class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                            <span class="material-symbols-outlined text-white text-[22px]">account_balance</span>
+                            <span class="text-white text-xs font-bold tracking-wide">FMP</span>
+                        </div>
+                        <div
+                            class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                            <span class="material-symbols-outlined text-white text-[22px]">bolt</span>
+                            <span class="text-white text-xs font-bold tracking-wide">NESP</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div
-                class="flex-1 min-h-0 space-y-6 overflow-y-auto pl-2 pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                <!-- Sectors -->
-                <div class="filter-group">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Sectors</h3>
-                        <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">3</span>
-                    </div>
-                    <div class="space-y-2.5">
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="sector" data-value="renewable" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Renewable
-                                Generation</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="sector" data-value="grid" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Grid
-                                Infrastructure</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="sector" data-value="storage" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Energy
-                                Storage</span>
-                        </label>
-                    </div>
-                </div>
-                <!-- States -->
-                <div class="filter-group">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">States</h3>
-                        <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">37</span>
-                    </div>
-                    <div class="space-y-2.5">
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="lagos" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Lagos</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="abuja" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Abuja
-                                (FCT)</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="rivers" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Rivers</span>
-                        </label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="abia" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Abia</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="adamawa" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Adamawa</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="akwa-ibom" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Akwa
-                                Ibom</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="anambra" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Anambra</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="bauchi" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Bauchi</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="bayelsa" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Bayelsa</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="benue" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Benue</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="borno" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Borno</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="cross-river" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Cross
-                                River</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="delta" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Delta</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="ebonyi" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Ebonyi</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="edo" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Edo</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="ekiti" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Ekiti</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="enugu" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Enugu</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="gombe" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Gombe</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="imo" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Imo</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="jigawa" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Jigawa</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="kaduna" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Kaduna</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="kano" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Kano</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="katsina" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Katsina</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="kebbi" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Kebbi</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="kogi" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Kogi</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="kwara" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Kwara</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="nasarawa" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Nasarawa</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="niger" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Niger</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="ogun" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Ogun</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="ondo" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Ondo</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="osun" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Osun</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="oyo" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Oyo</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="plateau" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Plateau</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="sokoto" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Sokoto</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="taraba" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Taraba</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="yobe" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Yobe</span></label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group"><input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="state" data-value="zamfara" type="checkbox" /><span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Zamfara</span></label>
-                    </div>
-                    <button type="button"
-                        class="view-more-btn mt-2 flex items-center gap-2 text-primary text-[12px] font-bold hover:underline"><span
-                            class="material-symbols-outlined text-[18px]">expand_more</span><span
-                            class="label-text">View more</span></button>
-                </div>
-                <!-- Project Stages -->
-                <div class="filter-group">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Project
-                            Stages</h3>
-                        <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">4</span>
-                    </div>
-                    <div class="space-y-2.5">
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="stage" data-value="planning" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Planning</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="stage" data-value="tendering" type="checkbox" />
-                            <span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Tendering</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="stage" data-value="execution" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Under
-                                Construction</span>
-                        </label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="stage" data-value="operational" type="checkbox" />
-                            <span
-                                class="text-label-md text-on-surface-variant group-hover:text-primary">Operational</span>
-                        </label>
-                    </div>
-                    <button type="button"
-                        class="view-more-btn mt-2 flex items-center gap-2 text-primary text-[12px] font-bold hover:underline"><span
-                            class="material-symbols-outlined text-[18px]">expand_more</span><span
-                            class="label-text">View more</span></button>
-                </div>
-                <!-- Reset All — flows directly below the filters (height-driven, not pinned) -->
-                <div class="pt-6 border-t border-outline-variant">
-                    <button id="reset-filters"
-                        class="w-full py-2 border border-outline text-on-surface font-bold text-sm hover:bg-surface-container transition-colors">Reset
-                        All</button>
-                </div>
+                class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
+                    class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
             </div>
-        </aside>
-        <!-- Main Content Area -->
-        <main class="flex-1 min-w-0 p-4 sm:p-8 lg:p-12 overflow-y-auto">
-            <!-- Mobile filter trigger (drawer toggle) -->
-            <button id="sidebar-toggle" type="button" aria-label="Toggle filters"
-                class="lg:hidden mb-6 inline-flex items-center gap-2 px-4 py-2 border border-outline-variant text-sm font-bold text-primary hover:bg-surface-container-low transition-colors">
-                <span class="material-symbols-outlined text-[18px]">filter_alt</span> Filters
-            </button>
-            <!-- Page Header + Search -->
-            <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
-                    <h1 class="font-headline-lg text-[28px] sm:text-[36px] font-bold text-primary">Opportunities</h1>
-                </div>
-                <div class="relative w-full md:w-96">
-                    <input id="search-opportunities"
-                        class="w-full pl-4 pr-10 py-2.5 border border-outline-variant focus:border-primary focus:ring-0 text-sm"
-                        placeholder="Search Opportunities" type="text" />
-                    <span class="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant">search</span>
-                </div>
-            </div>
-            <!-- Opportunities Grid — responsive, wraps & reflows like the News grid -->
-            <div id="opportunities-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
-                    <!-- Opportunity Card 1 -->
-                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                        data-sector="grid" data-state="kano" data-scheme="nipp" data-stage="execution"
-                        style="transform: scale(1);">
-                        <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
-                                2024-ENE-03</p>
-                            <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                                AKK Gas Pipeline Project</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid Infrastructure</span>
-                        </div>
-                        <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 2.80 <span
-                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
-                        </div>
-                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
-                                <span class="font-semibold">Ajaokuta - Kaduna - Kano</span>
-                            </div>
-                            <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">10 Nov
-                                    2024</span></div>
-                        </div>
-                        <div class="flex gap-2 mt-auto pt-2">
-                            <button
-                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                                in Detail</button>
-                            <button
-                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now</button>
-                        </div>
-                    </div>
-                    <!-- Opportunity Card 2 -->
-                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                        data-sector="grid" data-state="" data-scheme="ritcs" data-stage="tendering"
-                        style="transform: scale(1);">
-                        <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
-                                2024-002</p>
-                            <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                                Sokoto-Badagry Superhighway</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid Infrastructure</span>
-                        </div>
-                        <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 8.40 <span
-                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
-                        </div>
-                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
-                                <span class="font-semibold">North-South Corridor</span>
-                            </div>
-                            <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">22 Jan
-                                    2025</span></div>
-                        </div>
-                        <div class="flex gap-2 mt-auto pt-2"><button
-                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                                in Detail</button>
-                            <button
-                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now</button>
-                        </div>
-                    </div>
-                    <!-- Opportunity Card 7 -->
-                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                        data-sector="grid" data-state="lagos" data-scheme="rhidf" data-stage="tendering"
-                        style="transform: scale(1);">
-                        <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
-                                2024-003</p>
-                            <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                                Lagos Fourth Mainland Bridge</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid Infrastructure</span>
-                        </div>
-                        <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 2.50 <span
-                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
-                        </div>
-                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
-                                <span class="font-semibold">Lagos State</span>
-                            </div>
-                            <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">08 Apr
-                                    2024</span></div>
-                        </div>
-                        <div class="flex gap-2 mt-auto pt-2"><button
-                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                                in Detail</button>
-                            <button
-                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now</button>
-                        </div>
-                    </div>
-                    <!-- Opportunity Card 3 -->
-                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                        data-sector="grid" data-state="lagos" data-scheme="rhidf" data-stage="execution"
-                        style="transform: scale(1);">
-                        <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
-                                2024-001</p>
-                            <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                                Lagos-Calabar Coastal Highway</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid Infrastructure</span>
-                        </div>
-                        <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 11.06 <span
-                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
-                        </div>
-                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
-                                <span class="font-semibold">Lagos - Cross River</span>
-                            </div>
-                            <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">15 Mar
-                                    2024</span></div>
-                        </div>
-                        <div class="flex gap-2 mt-auto pt-2"><button
-                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                                in Detail</button>
-                            <button
-                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now</button>
-                        </div>
-                    </div>
-                    <!-- Opportunity Card 4 -->
-                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                        data-sector="renewable" data-state="" data-scheme="solar-naija" data-stage="planning"
-                        style="transform: scale(1);">
-                        <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
-                                2025-ENE-09</p>
-                            <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                                Solar Power Naija - Phase II</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Renewable Generation</span>
-                        </div>
-                        <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.24 <span
-                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
-                        </div>
-                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
-                                <span class="font-semibold">Multi-State Off-grid</span>
-                            </div>
-                            <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">05 Jan
-                                    2026</span></div>
-                        </div>
-                        <div class="flex gap-2 mt-auto pt-2"><button
-                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                                in Detail</button>
-                            <button
-                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now</button>
-                        </div>
-                    </div>
-                    <!-- Opportunity Card 8 -->
-                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                        data-sector="grid" data-state="delta" data-scheme="nipp" data-stage="execution"
-                        style="transform: scale(1);">
-                        <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
-                                2025-ENE-12</p>
-                            <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                                Delta Gas-to-Power Plant</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid Infrastructure</span>
-                        </div>
-                        <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 1.20 <span
-                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
-                        </div>
-                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
-                                <span class="font-semibold">Delta State</span>
-                            </div>
-                            <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">28 Mar
-                                    2025</span></div>
-                        </div>
-                        <div class="flex gap-2 mt-auto pt-2"><button
-                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                                in Detail</button>
-                            <button
-                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now</button>
-                        </div>
-                    </div>
-                    <!-- Opportunity Card 5 -->
-                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                        data-sector="storage" data-state="nasarawa" data-scheme="" data-stage="execution">
-                        <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
-                                2024-MIN-15</p>
-                            <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                                Nasarawa Lithium Processing Hub</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Energy Storage</span>
-                        </div>
-                        <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.15 <span
-                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
-                        </div>
-                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
-                                <span class="font-semibold">Nasarawa State</span>
-                            </div>
-                            <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">12 Aug
-                                    2024</span></div>
-                        </div>
-                        <div class="flex gap-2 mt-auto pt-2"><button
-                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                                in Detail</button>
-                            <button
-                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now</button>
-                        </div>
-                    </div>
-                    <!-- Opportunity Card 6 -->
-                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                        data-sector="renewable" data-state="rivers" data-scheme="" data-stage="tendering">
-                        <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
-                                2025-H2-01</p>
-                            <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                                Green Hydrogen Niger Delta Pilot</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Renewable Generation</span>
-                        </div>
-                        <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.40 <span
-                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
-                        </div>
-                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
-                                <span class="font-semibold">Rivers State</span>
-                            </div>
-                            <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">18 Feb
-                                    2025</span></div>
-                        </div>
-                        <div class="flex gap-2 mt-auto pt-2"><button
-                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                                in Detail</button>
-                            <button
-                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now</button>
-                        </div>
-                    </div>
-                    <!-- Opportunity Card 9 -->
-                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                        data-sector="storage" data-state="kano" data-scheme="" data-stage="planning"
-                        style="transform: scale(1);">
-                        <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
-                                2025-MIN-22</p>
-                            <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                                Kano Solid Minerals Processing Hub</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Energy Storage</span>
-                        </div>
-                        <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.30 <span
-                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
-                        </div>
-                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
-                                <span class="font-semibold">Kano State</span>
-                            </div>
-                            <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">14 Jan
-                                    2026</span></div>
-                        </div>
-                        <div class="flex gap-2 mt-auto pt-2"><button
-                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                                in Detail</button>
-                            <button
-                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now</button>
-                        </div>
-                    </div>
-            </div>
-            <!-- No Results Message -->
-            <div id="no-results" class="hidden flex-col items-center justify-center text-center py-20">
-                <span class="material-symbols-outlined text-[64px] text-outline-variant mb-4">search_off</span>
-                <h3 class="font-title-md text-title-md font-bold text-on-surface mb-2">No opportunities found</h3>
-                <p class="text-label-md text-on-surface-variant max-w-md">No projects match your current filters. Try
-                    removing some filters or click "Reset All" to see every opportunity.</p>
-                <button id="no-results-reset"
-                    class="mt-6 px-6 py-2.5 bg-primary-container text-white font-semibold text-label-md rounded hover:opacity-90 transition-all">Reset
-                    Filters</button>
-            </div>
-            <!-- Pagination -->
-            <div id="pagination" class="mt-stack-lg flex justify-center items-center gap-2">
-                <button
-                    class="w-10 h-10 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container-high transition-colors">
-                    <span class="material-symbols-outlined">chevron_left</span>
-                </button>
-                <button
-                    class="w-10 h-10 flex items-center justify-center bg-primary text-white font-bold rounded">1</button>
-                <button
-                    class="w-10 h-10 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container-high transition-colors">2</button>
-                <button
-                    class="w-10 h-10 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container-high transition-colors">3</button>
-                <span class="text-on-surface-variant px-2">...</span>
-                <button
-                    class="w-10 h-10 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container-high transition-colors">12</button>
-                <button
-                    class="w-10 h-10 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container-high transition-colors">
-                    <span class="material-symbols-outlined">chevron_right</span>
-                </button>
-            </div>
-        </main>
+        </footer>
     </div>
-    <!-- Footer -->
-    <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
+    <!-- /page-wrapper -->
+
+    <!-- BEGIN: Login Modal -->
+    <div id="login-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+        <div id="login-backdrop" class="absolute inset-0 bg-brand-green/40 backdrop-blur-sm"></div>
         <div
-            class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
-            <div>
-                <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">OSIP</h3>
-                <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-sm">The official gateway for streamlining
-                    energy
-                    investments in Nigeria. Empowering investors with data, clarity, and sovereign support.</p>
-                <div class="flex flex-wrap gap-3"><a href="#" aria-label="LinkedIn"
-                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
-                            class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.74-2.46C21.6 7.73 24 10 24 14.4V24h-5v-8.5c0-2.03-.73-3.42-2.55-3.42-1.39 0-2.22.94-2.58 1.85-.13.32-.17.77-.17 1.22V24h-5V8z" />
-                        </svg></a><a href="#" aria-label="X"
-                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
-                            class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
-                        </svg></a></div>
-            </div>
-            <div>
-                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
-                <ul class="flex flex-col gap-3">
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy Policy</a>
-                    </li>
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Contact Us</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
-                <ul class="flex flex-col gap-3">
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
-                            Power</a></li>
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
-                            Commission</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partner Logos</h4>
-                <div class="grid grid-cols-2 gap-3">
-                    <div
-                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
-                        <span class="material-symbols-outlined text-white text-[22px]">account_balance</span>
-                        <span class="text-white text-xs font-bold tracking-wide">FMP</span>
-                    </div>
-                    <div
-                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
-                        <span class="material-symbols-outlined text-white text-[22px]">bolt</span>
-                        <span class="text-white text-xs font-bold tracking-wide">NESP</span>
-                    </div>
-                </div>
+            class="osip-modal-in relative z-10 w-full max-w-5xl h-[88vh] bg-white rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5">
+            <button id="login-close" type="button" aria-label="Close login"
+                class="absolute top-3 right-3 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-brand-green shadow-md transition-all">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div id="login-frame-box" class="absolute inset-0 overflow-hidden rounded-2xl">
+                <iframe id="login-frame" title="Login" class="absolute top-0 left-0 w-full h-full border-0"></iframe>
             </div>
         </div>
-        <div
-            class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-            <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
-                class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
-        </div>
-    </footer>
+    </div>
+    <!-- END: Login Modal -->
+
     <script>
-        // ----- Micro-interaction for opportunity cards -----
-        document.querySelectorAll('.opportunity-card').forEach(card => {
-            card.addEventListener('mousedown', () => { card.style.transform = 'scale(0.98)'; });
-            card.addEventListener('mouseup', () => { card.style.transform = 'scale(1)'; });
-            card.addEventListener('mouseleave', () => { card.style.transform = 'scale(1)'; });
-        });
-
-        // ----- Hover animation for summary cards -----
-        document.querySelectorAll('.group').forEach(group => {
-            group.addEventListener('mouseenter', () => {
-                const icon = group.querySelector('.material-symbols-outlined.text-\\[120px\\]');
-                if (icon) { icon.style.transform = 'scale(1.4) rotate(15deg)'; icon.style.opacity = '0.15'; }
-            });
-            group.addEventListener('mouseleave', () => {
-                const icon = group.querySelector('.material-symbols-outlined.text-\\[120px\\]');
-                if (icon) { icon.style.transform = 'scale(1.25) rotate(0deg)'; icon.style.opacity = '0.1'; }
-            });
-        });
-
-        // ----- Collapsible sidebar -----
-        (function () {
-            const sidebar = document.getElementById('sidebar');
-            const backdrop = document.getElementById('sidebar-backdrop');
-            const toggleBtn = document.getElementById('sidebar-toggle');
-            const closeBtn = document.getElementById('sidebar-close');
-            const isDesktop = () => window.matchMedia('(min-width: 1024px)').matches;
-
-            function openSidebar() {
-                sidebar.classList.remove('hidden');
-                if (!isDesktop()) {
-                    sidebar.classList.add('mobile-overlay');
-                    backdrop.classList.remove('hidden');
-                }
-            }
-            function closeSidebar() {
-                sidebar.classList.add('hidden');
-                sidebar.classList.remove('mobile-overlay');
-                backdrop.classList.add('hidden');
-            }
-            function toggleSidebar() {
-                if (sidebar.classList.contains('hidden')) openSidebar(); else closeSidebar();
-                // Width may have changed -> recompute scroll arrows after reflow
-                if (typeof refreshAllScrollArrows === 'function') {
-                    setTimeout(refreshAllScrollArrows, 60);
-                }
-            }
-
-            // Start hidden on mobile, visible on desktop
-            function syncToViewport() {
-                if (isDesktop()) {
-                    sidebar.classList.remove('hidden', 'mobile-overlay');
-                    backdrop.classList.add('hidden');
-                } else {
-                    sidebar.classList.add('hidden');
-                    sidebar.classList.remove('mobile-overlay');
-                    backdrop.classList.add('hidden');
-                }
-            }
-            syncToViewport();
-
-            if (toggleBtn) toggleBtn.addEventListener('click', toggleSidebar);
-            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
-            backdrop.addEventListener('click', closeSidebar);
-            window.addEventListener('resize', syncToViewport);
-        })();
-
-        // ----- Horizontal card scrollers with aesthetic arrows -----
-        (function () {
-            document.querySelectorAll('.card-scroller').forEach(scroller => {
-                // Wrap the scroller so arrows can be positioned over it
-                const wrap = document.createElement('div');
-                wrap.className = 'card-scroller-wrap flex-1 min-w-0 overflow-hidden';
-                scroller.parentNode.insertBefore(wrap, scroller);
-                wrap.appendChild(scroller);
-
-                const prev = document.createElement('button');
-                prev.type = 'button';
-                prev.setAttribute('aria-label', 'Scroll left');
-                prev.className = 'scroll-arrow scroll-arrow-prev';
-                prev.innerHTML = '<span class="material-symbols-outlined">chevron_left</span>';
-
-                const next = document.createElement('button');
-                next.type = 'button';
-                next.setAttribute('aria-label', 'Scroll right');
-                next.className = 'scroll-arrow scroll-arrow-next';
-                next.innerHTML = '<span class="material-symbols-outlined">chevron_right</span>';
-
-                wrap.appendChild(prev);
-                wrap.appendChild(next);
-
-                const step = () => Math.max(scroller.clientWidth * 0.8, 300);
-                prev.addEventListener('click', () => scroller.scrollBy({ left: -step(), behavior: 'smooth' }));
-                next.addEventListener('click', () => scroller.scrollBy({ left: step(), behavior: 'smooth' }));
-
-                function update() {
-                    const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-                    const canScroll = maxScroll > 2;
-                    wrap.classList.toggle('has-overflow', canScroll);
-                    prev.classList.toggle('arrow-hidden', scroller.scrollLeft <= 2);
-                    next.classList.toggle('arrow-hidden', scroller.scrollLeft >= maxScroll - 2);
-                }
-
-                scroller.addEventListener('scroll', update, { passive: true });
-                window.addEventListener('resize', update);
-                // Re-check after layout settles (sidebar toggles, font load, filtering)
-                wrap._updateArrows = update;
-                update();
-            });
-        })();
-
-        // Recompute arrows whenever the sidebar is toggled (layout width changes)
-        function refreshAllScrollArrows() {
-            document.querySelectorAll('.card-scroller-wrap').forEach(w => {
-                if (typeof w._updateArrows === 'function') w._updateArrows();
-            });
-        }
-
-        // ----- Mobile navigation menu -----
-        (function () {
-            const navToggle = document.getElementById('mobile-nav-toggle');
-            const mobileNav = document.getElementById('mobile-nav');
-            if (navToggle && mobileNav) {
-                navToggle.addEventListener('click', () => {
-                    mobileNav.classList.toggle('hidden');
-                });
-                window.addEventListener('resize', () => {
-                    if (window.matchMedia('(min-width: 1024px)').matches) {
-                        mobileNav.classList.add('hidden');
-                    }
-                });
-            }
-        })();
-
-        // ----- "View more" toggles inside each filter group -----
-        (function () {
-            document.querySelectorAll('.view-more-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const group = btn.closest('.filter-group');
-                    if (!group) return;
-                    const expanded = group.classList.toggle('show-extra');
-                    const label = btn.querySelector('.label-text');
-                    const icon = btn.querySelector('.material-symbols-outlined');
-                    if (label) label.textContent = expanded ? 'View less' : 'View more';
-                    if (icon) icon.textContent = expanded ? 'expand_less' : 'expand_more';
-                });
-            });
-        })();
-
-        // ----- Interactive filtering -----
-        (function () {
-            const checkboxes = Array.from(document.querySelectorAll('.filter-checkbox'));
-            const cards = Array.from(document.querySelectorAll('.opportunity-card'));
-            const sectorGroups = Array.from(document.querySelectorAll('.sector-group'));
-            const noResults = document.getElementById('no-results');
-            const pagination = document.getElementById('pagination');
-            const searchInput = document.getElementById('search-opportunities');
-            const resetBtn = document.getElementById('reset-filters');
-            const noResultsReset = document.getElementById('no-results-reset');
-
-            function tokens(card, group) {
-                return (card.getAttribute('data-' + group) || '')
-                    .split(/\s+/).filter(Boolean);
-            }
-
-            function applyFilters() {
-                // Collect selected values per group (OR within a group, AND across groups)
-                const selected = {};
-                checkboxes.forEach(cb => {
-                    if (cb.checked) {
-                        const g = cb.dataset.group;
-                        (selected[g] = selected[g] || []).push(cb.dataset.value);
-                    }
-                });
-                const query = (searchInput && searchInput.value || '').trim().toLowerCase();
-
-                let visibleCount = 0;
-                cards.forEach(card => {
-                    let match = Object.keys(selected).every(group =>
-                        selected[group].some(val => tokens(card, group).includes(val))
-                    );
-                    if (match && query) {
-                        match = card.textContent.toLowerCase().includes(query);
-                    }
-                    card.style.display = match ? '' : 'none';
-                    if (match) visibleCount++;
-                });
-
-                // Hide a sector group entirely if none of its cards are visible
-                sectorGroups.forEach(group => {
-                    const anyVisible = group.querySelectorAll('.opportunity-card')
-                        .length && Array.from(group.querySelectorAll('.opportunity-card'))
-                            .some(c => c.style.display !== 'none');
-                    group.style.display = anyVisible ? '' : 'none';
-                });
-
-                // Toggle "no results" message + pagination
-                if (visibleCount === 0) {
-                    noResults.classList.remove('hidden');
-                    noResults.classList.add('flex');
-                    if (pagination) pagination.style.display = 'none';
-                } else {
-                    noResults.classList.add('hidden');
-                    noResults.classList.remove('flex');
-                    if (pagination) pagination.style.display = '';
-                }
-
-                // Visible card count changed -> refresh scroll arrows
-                if (typeof refreshAllScrollArrows === 'function') refreshAllScrollArrows();
-            }
-
-            function resetFilters() {
-                checkboxes.forEach(cb => { cb.checked = false; });
-                if (searchInput) searchInput.value = '';
-                applyFilters();
-            }
-
-            checkboxes.forEach(cb => cb.addEventListener('change', applyFilters));
-            if (searchInput) searchInput.addEventListener('input', applyFilters);
-            if (resetBtn) resetBtn.addEventListener('click', resetFilters);
-            if (noResultsReset) noResultsReset.addEventListener('click', resetFilters);
-
-            // Pre-select sector filters from the URL (e.g. ?sector=renewable,grid),
-            // used when arriving from the Invest Now flow.
-            try {
-                const pre = (new URLSearchParams(location.search).get('sector') || '')
-                    .split(',').map(s => s.trim()).filter(Boolean);
-                if (pre.length) {
-                    checkboxes.forEach(cb => {
-                        if (cb.dataset.group === 'sector' && pre.includes(cb.dataset.value)) cb.checked = true;
+            // Mobile navigation menu toggle
+            (function () {
+                const navToggle = document.getElementById('mobile-nav-toggle');
+                const mobileNav = document.getElementById('mobile-nav');
+                if (navToggle && mobileNav) {
+                    navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                    window.addEventListener('resize', () => {
+                        if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden');
                     });
                 }
-            } catch (e) { }
+            })();
 
-            applyFilters();
+        // Login modal: open from Connect / Login / Register, blur background behind it,
+        // close with the X button, the backdrop, or the Esc key.
+        (function () {
+            const modal = document.getElementById('login-modal');
+            const frame = document.getElementById('login-frame');
+            const wrapper = document.getElementById('page-wrapper');
+            const closeBtn = document.getElementById('login-close');
+            const backdrop = document.getElementById('login-backdrop');
+
+            function openModal(e, view) {
+                if (e) e.preventDefault();
+                // Decide which view to open: explicit arg, else infer from the
+                // trigger's own text (so the "Register" link lands on Register).
+                if (!view && e && e.currentTarget) {
+                    view = /register/i.test(e.currentTarget.textContent || '') ? 'register' : 'login';
+                }
+                if (!frame.getAttribute('src')) {
+                    // First open: load the page already on the right view.
+                    frame.setAttribute('src', 'Login.html' + (view === 'register' ? '#register' : ''));
+                } else if (view) {
+                    // Already loaded: switch in-place, no reload (no blink).
+                    frame.contentWindow.postMessage('osip-show-' + view, '*');
+                }
+                modal.classList.remove('hidden');
+                wrapper.classList.add('content-blurred');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeModal() {
+                modal.classList.add('hidden');
+                wrapper.classList.remove('content-blurred');
+                document.body.style.overflow = '';
+            }
+
+            const connectBtn = document.getElementById('connect-btn');
+            if (connectBtn) connectBtn.addEventListener('click', openModal);
+            document.querySelectorAll('.login-trigger').forEach(el => el.addEventListener('click', openModal));
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (backdrop) backdrop.addEventListener('click', closeModal);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+            });
+
+            // Lets Login.html close the modal after auth: it can call
+            // window.parent.postMessage('osip-close','*')
+            window.addEventListener('message', (e) => {
+                if (e.data === 'osip-close' || e.data === 'osip-login-success') closeModal();
+            });
         })();
 
         // Active top-nav highlight + page wiring (golden bar follows the current page).
         (function () {
-            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'OpportunitiesNew.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'OpportunitiesNew.html' };
-            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
             const file = (location.pathname.split('/').pop() || '').toLowerCase();
             const active = PAGE_ACTIVE[file];
             document.querySelectorAll('nav.bg-white a').forEach(a => {
@@ -1299,108 +677,183 @@
                 }
             });
         })();
-
-        // Wire every "View in Detail" button to the opportunity detail page.
-        document.querySelectorAll('.opportunity-card button').forEach(b => {
-            if (/view\s*in\s*detail/i.test(b.textContent)) {
-                b.style.cursor = 'pointer';
-                b.addEventListener('click', () => { window.location.href = 'detailedOppNew.html'; });
-            }
-        });
     </script>
-<!-- NESP nav hover dropdowns (shared, injected) -->
-<style>
-  .nesp-has-menu { position: relative; }
-  .nesp-dropdown {
-    position: absolute; top: 100%; left: 50%; min-width: 300px;
-    background: #ffffff; border: 1px solid #e7e7e7;
-    border-radius: 12px; box-shadow: 0 18px 40px -16px rgba(6,20,16,0.22); margin-top: 8px;
-    padding: 10px; opacity: 0; visibility: hidden; transform: translateX(-50%) translateY(8px);
-    transition: opacity .22s ease, transform .22s ease, visibility .22s ease; z-index: 60;
-  }
-  .nesp-has-menu:hover .nesp-dropdown, .nesp-dropdown:hover {
-    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
-  }
-  .nesp-dropdown::before { content: ""; position: absolute; top: -12px; left: 0; right: 0; height: 14px; }
-  .nesp-dropdown::after { content: ""; position: absolute; top: -7px; left: 50%; width: 13px; height: 13px; background: #ffffff; border-top: 1px solid #e7e7e7; border-left: 1px solid #e7e7e7; border-radius: 3px 0 0 0; transform: translateX(-50%) rotate(45deg); }
-  .nesp-menu-head {
-    font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700;
-    letter-spacing: .14em; text-transform: uppercase; color: #9aa39e; padding: 8px 12px 6px;
-  }
-  .nesp-menu-item { display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none; transition: background .15s ease; }
-  .nesp-menu-item:hover { background: #f1f8f4; }
-  .nesp-menu-item .t { display: block; font-family: Manrope, sans-serif; font-size: 13.5px; font-weight: 700; color: #15241d; }
-  .nesp-menu-item:hover .t { color: #047857; }
-  .nesp-menu-item .d { display: block; font-size: 11.5px; line-height: 1.45; color: #6b746f; margin-top: 2px; }
-  .nesp-has-menu > a::after {
-    content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 7px;
-    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-    transform: translateY(-2px) rotate(45deg); opacity: .6; vertical-align: middle; transition: transform .2s ease;
-  }
-  .nesp-has-menu:hover > a::after { transform: translateY(0) rotate(225deg); }
-</style>
-<script>
-(function () {
-  var MENU = {
-    'SECTORS': { head: 'Strategic Priority Sectors', items: [
-      { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
-      { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
-      { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
-    ]},
-    'OPPORTUNITIES': { head: 'Investment Opportunities', items: [
-      { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'OpportunitiesNew.html' },
-      { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'OpportunitiesNew.html' },
-      { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'OpportunitiesNew.html' },
-      { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'OpportunitiesNew.html' }
-    ]},
-    'REGULATIONS': { head: 'Regulations & Compliance', items: [
-      { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
-      { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
-      { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
-      { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
-    ]},
-    'DATA': { head: 'Data & Insights', items: [
-      { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
-      { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
-      { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
-    ]},
-    'NEWS': { head: 'News Categories', items: [
-      { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
-      { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
-      { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
-      { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
-      { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
-    ]}
-  };
-  document.querySelectorAll('nav.bg-white a').forEach(function (a) {
-    if ((a.className || '').indexOf('px-5') === -1) return;            // desktop top-level links only
-    var menu = MENU[(a.textContent || '').trim().toUpperCase()];
-    if (!menu) return;
-    var li = a.closest('li'); if (!li) return;
-    li.classList.add('nesp-has-menu');
-    var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
-    menu.items.forEach(function (it) {
-      html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
-              (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
-    });
-    var panel = document.createElement('div');
-    panel.className = 'nesp-dropdown';
-    panel.innerHTML = html;
-    li.appendChild(panel);
-  });
-})();
-</script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu {
+            position: relative;
+        }
 
-<!-- NESP button wiring -->
-<script>
-(function () {
-  document.querySelectorAll('#opportunities-grid button').forEach(function (b) {
-    var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
-    if (t === 'view in detail') b.addEventListener('click', function () { location.href = 'detailedOppNew.html'; });
-    else if (t === 'invest now') b.addEventListener('click', function () { location.href = '#'; });
-  });
-})();
-</script>
+        .nesp-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 300px;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22);
+            margin-top: 8px;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+            z-index: 60;
+        }
+
+        .nesp-has-menu:hover .nesp-dropdown,
+        .nesp-dropdown:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nesp-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nesp-dropdown::after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: #ffffff;
+            border-top: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-radius: 3px 0 0 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nesp-menu-head {
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #9aa39e;
+            padding: 8px 12px 6px;
+        }
+
+        .nesp-menu-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .15s ease;
+        }
+
+        .nesp-menu-item:hover {
+            background: #f1f8f4;
+        }
+
+        .nesp-menu-item .t {
+            display: block;
+            font-family: Manrope, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15241d;
+        }
+
+        .nesp-menu-item:hover .t {
+            color: #047857;
+        }
+
+        .nesp-menu-item .d {
+            display: block;
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #6b746f;
+            margin-top: 2px;
+        }
+
+        .nesp-has-menu>a::after {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 7px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            opacity: .6;
+            vertical-align: middle;
+            transition: transform .2s ease;
+        }
+
+        .nesp-has-menu:hover>a::after {
+            transform: translateY(0) rotate(225deg);
+        }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'notDecided.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'notDecided.html' },
+                        { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'notDecided.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations & Compliance', items: [
+                        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data & Insights', items: [
+                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;            // desktop top-level links only
+                var menu = MENU[(a.textContent || '').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+
     <!-- Invest Now popup flow -->
     <script src="investflow.js"></script>
 </body>

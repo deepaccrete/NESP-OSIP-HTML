@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>About OSIP | Nigerian Energy Investment Portal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(rgba(0, 52, 43, 0.45), rgba(0, 29, 23, 0.7)), url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-overlay h1,
+        .hero-overlay p {
+            text-shadow: 0 2px 18px rgba(0, 20, 14, 0.45);
+        }
+
+        .gold-bar {
+            display: inline-block;
+            width: 36px;
+            height: 3px;
+            background: #ffb955;
+            vertical-align: middle;
+        }
+
+        .feature-card {
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 24px 40px -22px rgba(6, 20, 16, 0.22);
+            border-color: #047857;
+        }
+
+        .pillar-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecf6f0;
+            color: #047857;
+        }
+
+        .pillar-icon .material-symbols-outlined {
+            font-size: 28px;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#001d17",
+                        "primary-container": "#00342b",
+                        "primary-fixed": "#bdecde",
+                        secondary: "#1b6d24",
+                        "secondary-container": "#a0f499",
+                        surface: "#f9f9f7",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f3f4f2",
+                        "surface-container": "#edeeec",
+                        "on-surface": "#1a1c1b",
+                        "on-surface-variant": "#404846",
+                        outline: "#717976",
+                        "outline-variant": "#c0c8c4",
+                        "tertiary-fixed-dim": "#f7be26"
+                    },
+                    fontFamily: {
+                        display: ["Manrope"],
+                        body: ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-surface text-on-surface" style="font-family: Inter, sans-serif;">
+    <!-- TopNavBar -->
+    <header class="bg-surface sticky top-0 z-50">
+        <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
+                <div class="flex items-center justify-between h-[74px]">
+                    <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto"
+                                src="Text.png"></a>
+                        <ul class="hidden lg:flex items-center">
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="hidden lg:flex items-center gap-5"><a href="#"
+                            class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
+                            class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
+                            Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div>
+                    <button id="mobile-nav-toggle" aria-label="Open menu"
+                        class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
+                </div>
+                <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
+                    <ul class="flex flex-col">
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
+                        </li>
+                        <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
+                        <li class="px-2 pt-2"><a href="#"
+                                class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
+                                Now</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="min-h-screen">
+        <!-- Hero -->
+        <section class="hero-overlay py-20 md:py-28 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="flex items-center gap-3 mb-5">
+                    <span class="gold-bar"></span>
+                    <span class="text-[#ffb955] text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase">Work
+                        Package 2 — One Stop Investment Portal</span>
+                </div>
+                <h1 class="text-white text-3xl sm:text-4xl lg:text-[52px] leading-[1.18] tracking-tight font-extrabold mb-8 max-w-[920px]"
+                    style="font-family: Manrope, sans-serif;">Accelerating Investment in Nigeria's Renewable Energy and
+                    Energy Efficiency Future</h1>
+                <p class="text-white/90 text-base sm:text-lg leading-8 max-w-3xl">
+                    The One Stop Investment Portal (OSIP) is NESP's flagship initiative — built in collaboration with
+                    its partners to give investors a single, authoritative window into Nigeria's energy market.
+                </p>
+                <div class="flex flex-wrap gap-3 mt-8">
+                    <a href="Opportunities.html"
+                        class="inline-flex items-center justify-center bg-[#ffb955] hover:bg-[#ffc878] text-[#001d17] px-6 py-3 text-sm font-semibold tracking-wide transition rounded-sm">Explore
+                        Opportunities</a>
+                    <a href="Regulation.html"
+                        class="inline-flex items-center justify-center border border-white/40 hover:border-white text-white px-6 py-3 text-sm font-semibold tracking-wide transition rounded-sm">Read
+                        the Regulations</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- What is OSIP -->
+        <section class="bg-white py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+                <div class="lg:col-span-5">
+                    <div class="flex items-center gap-3 mb-5"><span class="gold-bar"></span><span
+                            class="text-[#1f5840] text-[11px] font-semibold tracking-[0.2em] uppercase">The
+                            Mandate</span></div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] leading-tight"
+                        style="font-family: Manrope, sans-serif;">A single window for Renewable Energy & Energy
+                        Efficiency capital.</h2>
+                </div>
+                <div class="lg:col-span-7 space-y-5 text-[#404846] text-base sm:text-lg leading-8">
+                    <p>NESP, in collaboration with its partners, is designing and developing OSIP to accelerate
+                        investment in Renewable Energy and Energy Efficiency. The platform offers a comprehensive suite
+                        of tools and information for making informed investment decisions.</p>
+                    <p>It serves a diverse user base — local and international investors, novice and experienced
+                        stakeholders — through market intelligence, investment tools, and a user-friendly experience.
+                        With OSIP, NESP communicates Nigeria's energy investment potential directly to those positioned
+                        to act on it.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Who OSIP Serves -->
+        <section class="bg-[#f3f4f2] py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="flex items-center gap-3 mb-4"><span class="gold-bar"></span><span
+                        class="text-[#1f5840] text-[11px] font-semibold tracking-[0.2em] uppercase">Who We
+                        Serve</span></div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] mb-10 max-w-3xl"
+                    style="font-family: Manrope, sans-serif;">Built for every kind of energy investor.</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="feature-card bg-white border border-[#e7e7e7] rounded-sm p-6">
+                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">flag</span></div>
+                        <h3 class="text-[#001d17] text-lg font-bold mb-2"
+                            style="font-family: Manrope, sans-serif;">Local Investors</h3>
+                        <p class="text-[#404846] text-sm leading-6">Nigerian capital looking to deepen exposure to the
+                            domestic energy transition.</p>
+                    </div>
+                    <div class="feature-card bg-white border border-[#e7e7e7] rounded-sm p-6">
+                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">public</span></div>
+                        <h3 class="text-[#001d17] text-lg font-bold mb-2"
+                            style="font-family: Manrope, sans-serif;">International Investors</h3>
+                        <p class="text-[#404846] text-sm leading-6">Global funds and corporates seeking transparent
+                            access to one of Africa's largest power markets.</p>
+                    </div>
+                    <div class="feature-card bg-white border border-[#e7e7e7] rounded-sm p-6">
+                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">school</span></div>
+                        <h3 class="text-[#001d17] text-lg font-bold mb-2"
+                            style="font-family: Manrope, sans-serif;">Novice Stakeholders</h3>
+                        <p class="text-[#404846] text-sm leading-6">First-time market entrants who need plain-language
+                            guidance through the regulatory landscape.</p>
+                    </div>
+                    <div class="feature-card bg-white border border-[#e7e7e7] rounded-sm p-6">
+                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">workspace_premium</span>
+                        </div>
+                        <h3 class="text-[#001d17] text-lg font-bold mb-2"
+                            style="font-family: Manrope, sans-serif;">Experienced Stakeholders</h3>
+                        <p class="text-[#404846] text-sm leading-6">Established players who need fast, structured access
+                            to deal flow, data, and policy updates.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What OSIP Provides -->
+        <section class="bg-white py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="flex items-center gap-3 mb-4"><span class="gold-bar"></span><span
+                        class="text-[#1f5840] text-[11px] font-semibold tracking-[0.2em] uppercase">What OSIP
+                        Provides</span></div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] mb-10 max-w-3xl"
+                    style="font-family: Manrope, sans-serif;">A market catalyst for RE & EE — anchored in three core
+                    pillars.</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="feature-card border border-[#e7e7e7] rounded-sm p-7">
+                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">gavel</span></div>
+                        <h3 class="text-[#001d17] text-xl font-bold mb-3"
+                            style="font-family: Manrope, sans-serif;">Regulatory Guidance</h3>
+                        <p class="text-[#404846] text-sm sm:text-base leading-7">Legislation, technical guidelines,
+                            licensing rules, and the regulatory bodies that shape Nigeria's energy market — kept current
+                            and explained for investors.</p>
+                    </div>
+                    <div class="feature-card border border-[#e7e7e7] rounded-sm p-7">
+                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">savings</span></div>
+                        <h3 class="text-[#001d17] text-xl font-bold mb-3"
+                            style="font-family: Manrope, sans-serif;">Financial Guidance</h3>
+                        <p class="text-[#404846] text-sm sm:text-base leading-7">Tax, fiscal policy, pioneer-status
+                            incentives, and the financial instruments available to RE & EE projects — surfaced where
+                            investors actually look for them.</p>
+                    </div>
+                    <div class="feature-card border border-[#e7e7e7] rounded-sm p-7">
+                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">insights</span></div>
+                        <h3 class="text-[#001d17] text-xl font-bold mb-3"
+                            style="font-family: Manrope, sans-serif;">Market Information & Tools</h3>
+                        <p class="text-[#404846] text-sm sm:text-base leading-7">Live capacity and investment metrics,
+                            state-wise performance, opportunity listings, and decision-support tooling — built for
+                            informed action, not just browsing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OSIP × SE4ALL -->
+        <section class="bg-[#f3f4f2] py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="flex items-center gap-3 mb-4"><span class="gold-bar"></span><span
+                        class="text-[#1f5840] text-[11px] font-semibold tracking-[0.2em] uppercase">Companion
+                        Platforms</span></div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] mb-10 max-w-3xl"
+                    style="font-family: Manrope, sans-serif;">OSIP and Nigeria SE4ALL — two halves of one investment
+                    journey.</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white border-l-4 border-[#047857] p-7 rounded-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span
+                                class="text-[#047857] text-[11px] font-bold uppercase tracking-widest">OSIP</span>
+                            <span class="text-[#9aa39e] text-[11px]">— this portal</span>
+                        </div>
+                        <h3 class="text-[#001d17] text-2xl font-bold mb-3"
+                            style="font-family: Manrope, sans-serif;">Regulatory & Financial Guidance</h3>
+                        <p class="text-[#404846] text-base leading-7">OSIP brings together the legal, regulatory, and
+                            financial information investors need before committing capital — from acts and licenses to
+                            tax incentives and approval routes.</p>
+                    </div>
+                    <div class="bg-white border-l-4 border-[#ffb955] p-7 rounded-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span
+                                class="text-[#bb8d00] text-[11px] font-bold uppercase tracking-widest">Nigeria
+                                SE4ALL</span>
+                            <span class="text-[#9aa39e] text-[11px]">— companion platform</span>
+                        </div>
+                        <h3 class="text-[#001d17] text-2xl font-bold mb-3"
+                            style="font-family: Manrope, sans-serif;">Techno-economic Opportunities</h3>
+                        <p class="text-[#404846] text-base leading-7">Where OSIP guides on rules and finance, the
+                            Nigeria SE4ALL platform surfaces the techno-economic project pipeline — the bankable
+                            opportunities themselves.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design model -->
+        <section class="bg-white py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div>
+                    <div class="flex items-center gap-3 mb-5"><span class="gold-bar"></span><span
+                            class="text-[#1f5840] text-[11px] font-semibold tracking-[0.2em] uppercase">Built for
+                            Investors</span></div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] leading-tight mb-5"
+                        style="font-family: Manrope, sans-serif;">Designed around how investors actually work.</h2>
+                    <p class="text-[#404846] text-base sm:text-lg leading-8">OSIP brings clear navigation, structured
+                        market intelligence, and visible investment guidance together in one place — so that every
+                        visitor, from a first-time entrant to a seasoned developer, can find what they need without
+                        friction.</p>
+                </div>
+                <div class="bg-[#0d2318] text-white p-8 lg:p-10 rounded-sm">
+                    <h3 class="text-xl font-bold mb-6" style="font-family: Manrope, sans-serif;">What you'll find on
+                        OSIP</h3>
+                    <ul class="space-y-4">
+                        <li class="flex gap-3"><span class="material-symbols-outlined text-[#ffb955]">check_circle</span>
+                            <span class="text-sm sm:text-base leading-7">A landing page with topic-led entry points and
+                                a live news stream.</span>
+                        </li>
+                        <li class="flex gap-3"><span class="material-symbols-outlined text-[#ffb955]">check_circle</span>
+                            <span class="text-sm sm:text-base leading-7">A dedicated investment guide section explaining
+                                how to enter the market.</span>
+                        </li>
+                        <li class="flex gap-3"><span class="material-symbols-outlined text-[#ffb955]">check_circle</span>
+                            <span class="text-sm sm:text-base leading-7">A centrally located "How we can help" section
+                                connecting you to NESP and partners.</span>
+                        </li>
+                        <li class="flex gap-3"><span class="material-symbols-outlined text-[#ffb955]">check_circle</span>
+                            <span class="text-sm sm:text-base leading-7">An opportunities section listing tenders and
+                                active investment pipelines.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="bg-[#0d2318] py-14 lg:py-20 px-4 sm:px-6 lg:px-8">
+            <div
+                class="max-w-[1200px] mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-white text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight mb-3"
+                        style="font-family: Manrope, sans-serif;">Ready to look at the market?</h2>
+                    <p class="text-[#bdecde] text-sm sm:text-base leading-7">Browse open opportunities, scan the
+                        regulatory landscape, or speak with an institutional investment officer.</p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="Opportunities.html"
+                        class="inline-flex items-center justify-center bg-[#ffb955] hover:bg-[#ffc878] text-[#001d17] px-6 py-3 text-sm font-semibold tracking-wide transition rounded-sm">Browse
+                        Opportunities</a>
+                    <a href="Contact.html"
+                        class="inline-flex items-center justify-center border border-white/40 hover:border-white text-white px-6 py-3 text-sm font-semibold tracking-wide transition rounded-sm">Contact
+                        OSIP</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
+            <div>
+                <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">OSIP</h3>
+                <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-sm">The official gateway for streamlining
+                    energy investments in Nigeria. Empowering investors with data, clarity, and sovereign support.</p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#" aria-label="LinkedIn"
+                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.74-2.46C21.6 7.73 24 10 24 14.4V24h-5v-8.5c0-2.03-.73-3.42-2.55-3.42-1.39 0-2.22.94-2.58 1.85-.13.32-.17.77-.17 1.22V24h-5V8z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="X"
+                        class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy Policy</a>
+                    </li>
+                    <li><a href="Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Contact
+                            Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
+                            Power</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
+                            Commission</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partner Logos</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                        <span class="material-symbols-outlined text-white text-[22px]">account_balance</span>
+                        <span class="text-white text-xs font-bold tracking-wide">FMP</span>
+                    </div>
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                        <span class="material-symbols-outlined text-white text-[22px]">bolt</span>
+                        <span class="text-white text-xs font-bold tracking-wide">NESP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span>
+            <span class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
+        </div>
+    </footer>
+
+    <!-- NESP nav wiring (mobile toggle + nav rewrite + active gold bar) -->
+    <script>
+        (function () {
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            if (navToggle && mobileNav) {
+                navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
+            }
+        })();
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (label === 'INVEST NOW') return;            // handled by investflow.js (opens popup)
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu { position: relative; }
+        .nesp-dropdown { position: absolute; top: 100%; left: 50%; min-width: 300px; background: #ffffff; border: 1px solid #e7e7e7; border-radius: 12px; box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22); margin-top: 8px; padding: 10px; opacity: 0; visibility: hidden; transform: translateX(-50%) translateY(8px); transition: opacity .22s ease, transform .22s ease, visibility .22s ease; z-index: 60; }
+        .nesp-has-menu:hover .nesp-dropdown, .nesp-dropdown:hover { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .nesp-dropdown::before { content: ""; position: absolute; top: -12px; left: 0; right: 0; height: 14px; }
+        .nesp-dropdown::after { content: ""; position: absolute; top: -7px; left: 50%; width: 13px; height: 13px; background: #ffffff; border-top: 1px solid #e7e7e7; border-left: 1px solid #e7e7e7; border-radius: 3px 0 0 0; transform: translateX(-50%) rotate(45deg); }
+        .nesp-menu-head { font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #9aa39e; padding: 8px 12px 6px; }
+        .nesp-menu-item { display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none; transition: background .15s ease; }
+        .nesp-menu-item:hover { background: #f1f8f4; }
+        .nesp-menu-item .t { display: block; font-family: Manrope, sans-serif; font-size: 13.5px; font-weight: 700; color: #15241d; }
+        .nesp-menu-item:hover .t { color: #047857; }
+        .nesp-menu-item .d { display: block; font-size: 11.5px; line-height: 1.45; color: #6b746f; margin-top: 2px; }
+        .nesp-has-menu > a::after { content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); opacity: .6; vertical-align: middle; transition: transform .2s ease; }
+        .nesp-has-menu:hover > a::after { transform: translateY(0) rotate(225deg); }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+                        { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations & Compliance', items: [
+                        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data & Insights', items: [
+                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;
+                var menu = MENU[(a.textContent || '').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+
+    <!-- Invest Now popup flow -->
+    <script src="investflow.js"></script>
+</body>
+
+</html>

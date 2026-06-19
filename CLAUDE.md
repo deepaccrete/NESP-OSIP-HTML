@@ -34,11 +34,12 @@ Linking conventions that fall out of this split:
 `homepage.html` is the landing page. The site graph between `pages/`:
 
 - `Sector.html` → `DetailedSector.html` (Sectors)
-- `OpportunitiesNew.html` → `detailedOppNew.html` (Investment opportunities; "Browse all" target)
+- `Opportunities.html` (the list/grid page — what `OPPORTUNITIES` nav, "Browse all" CTAs and the Invest Now fallback route to) → `OpportunitiesNew.html` and `detailedOppNew.html` (both are the AKK Gas Pipeline project detail page; the list's "View in detail" buttons go to `detailedOppNew.html`)
 - `Regulation.html` (Regulations & compliance)
 - `Data.html` (Charts + Leaflet map; pulls `leaflet@1.9.4` from unpkg)
 - `News.html` → `NewsInDetail.html`
 - `Contact.html`
+- `AboutOSIP.html` (the "Learn More About OSIP" destination — linked from the homepage "THE MANDATE" CTA only; not in the top nav)
 - `Login.html` (auth modal mock; opened as an iframe from `detailedOppNew.html`, otherwise standalone)
 - `notDecided.html` (placeholder destination for nav items without a real target — used as the fallback in the nav rewriter)
 

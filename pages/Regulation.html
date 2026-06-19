@@ -134,10 +134,6 @@
             border-radius: 10px;
         }
 
-        .filter-checkbox:checked {
-            background-color: #00342b;
-            border-color: #00342b;
-        }
     </style>
 </head>
 
@@ -201,91 +197,9 @@
             </div>
         </div>
     </nav>
-    <div class="flex min-h-screen">
-        <!-- Backdrop for the mobile filter drawer -->
-        <div id="filter-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden"></div>
-        <!-- Sidebar Filter — off-canvas drawer on mobile, static column on lg+ -->
-        <aside id="filter-sidebar"
-            class="fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85%] bg-surface-container-low border-r border-outline-variant flex flex-col p-6 gap-6 overflow-y-auto transform -translate-x-full transition-transform duration-300 lg:static lg:translate-x-0 lg:transform-none lg:z-auto lg:max-w-none lg:overflow-visible">
-            <div class="flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                    <div class="bg-primary-container text-white p-2 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-[20px]">filter_alt</span>
-                    </div>
-                    <div>
-                        <h2 class="font-bold text-[14px]">Filters</h2>
-                        <p class="text-[11px] text-on-surface-variant">Refine regulations</p>
-                    </div>
-                </div>
-                <button id="filter-close" type="button" aria-label="Close filters"
-                    class="lg:hidden text-on-surface-variant hover:text-primary">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            <!-- Regulation Type -->
-            <section>
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Regulation
-                        Type</h3>
-                    <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">4</span>
-                </div>
-                <div class="space-y-3">
-                    <label class="flex items-center gap-3 cursor-pointer group"><input
-                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
-                            type="checkbox" data-group="type" data-value="legislation" /><span
-                            class="text-body-sm text-on-surface group-hover:text-primary">Legislation</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer group"><input
-                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
-                            type="checkbox" data-group="type" data-value="technical" /><span
-                            class="text-body-sm text-on-surface group-hover:text-primary">Technical
-                            Guidelines</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer group"><input
-                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
-                            type="checkbox" data-group="type" data-value="tax" /><span
-                            class="text-body-sm text-on-surface group-hover:text-primary">Tax Policy</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer group"><input
-                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
-                            type="checkbox" data-group="type" data-value="policy" /><span
-                            class="text-body-sm text-on-surface group-hover:text-primary">Policy</span></label>
-                </div>
-            </section>
-            <!-- Sector -->
-            <section>
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Sector</h3>
-                    <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">3</span>
-                </div>
-                <div class="space-y-3">
-                    <label class="flex items-center gap-3 cursor-pointer group"><input
-                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
-                            type="checkbox" data-group="sector" data-value="renewables" /><span
-                            class="text-body-sm text-on-surface group-hover:text-primary">Renewable Generation
-                        </span></label>
-                    <label class="flex items-center gap-3 cursor-pointer group"><input
-                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
-                            type="checkbox" data-group="sector" data-value="gas" /><span
-                            class="text-body-sm text-on-surface group-hover:text-primary">Grid
-                            Infrastructure</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer group"><input
-                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
-                            type="checkbox" data-group="sector" data-value="transmission" /><span
-                            class="text-body-sm text-on-surface group-hover:text-primary">Energy Storage</span></label>
-                </div>
-            </section>
-
-            <div class="pt-6 border-t border-outline-variant">
-                <button id="reg-reset"
-                    class="w-full py-2 border border-outline text-on-surface font-bold text-sm hover:bg-surface-container transition-colors">Reset
-                    All</button>
-            </div>
-        </aside>
+    <div class="min-h-screen">
         <!-- Main Content Area -->
-        <main class="flex-1 min-w-0 p-4 sm:p-margin-tablet lg:p-12 overflow-y-auto">
-            <!-- Mobile filter trigger (drawer toggle) -->
-            <button id="filter-open" type="button"
-                class="lg:hidden mb-6 inline-flex items-center gap-2 px-4 py-2 border border-outline-variant text-sm font-bold text-primary hover:bg-surface-container-low transition-colors">
-                <span class="material-symbols-outlined text-[18px]">filter_alt</span> Filters
-            </button>
+        <main class="min-w-0 max-w-[1440px] mx-auto p-4 sm:p-margin-tablet lg:p-12">
             <!-- Page Header + Search -->
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
                 <div class="flex items-center gap-4">
@@ -481,7 +395,7 @@
             <div id="reg-no-results" class="hidden flex-col items-center justify-center text-center py-16">
                 <span class="material-symbols-outlined text-[56px] text-outline-variant mb-3">search_off</span>
                 <h3 class="font-h4 text-h4 text-primary mb-1">No regulations found</h3>
-                <p class="text-body-sm text-on-surface-variant">Try adjusting your filters or search terms.</p>
+                <p class="text-body-sm text-on-surface-variant">Try adjusting your search terms.</p>
             </div>
             <!-- Key Regulatory Bodies -->
             <section id="bodies" class="mt-20">
@@ -690,37 +604,19 @@
                 class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
         </div>
     </footer>
-    <!-- Regulation filters (drawer + checkbox/search filtering) -->
+    <!-- Regulation search -->
     <script>
             (function () {
-                const sidebar = document.getElementById('filter-sidebar');
-                const backdrop = document.getElementById('filter-backdrop');
-                const openBtn = document.getElementById('filter-open');
-                const closeBtn = document.getElementById('filter-close');
-                function openDrawer() { sidebar.classList.add('translate-x-0'); sidebar.classList.remove('-translate-x-full'); backdrop.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
-                function closeDrawer() { sidebar.classList.add('-translate-x-full'); sidebar.classList.remove('translate-x-0'); backdrop.classList.add('hidden'); document.body.style.overflow = ''; }
-                if (openBtn) openBtn.addEventListener('click', openDrawer);
-                if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-                if (backdrop) backdrop.addEventListener('click', closeDrawer);
-                window.addEventListener('resize', () => { if (window.innerWidth >= 1024) { backdrop.classList.add('hidden'); document.body.style.overflow = ''; } });
-
                 const grid = document.getElementById('reg-grid');
                 const cards = Array.from(document.querySelectorAll('.reg-card'));
                 const search = document.getElementById('reg-search');
                 const noResults = document.getElementById('reg-no-results');
                 const count = document.getElementById('reg-count');
-                const checks = Array.from(document.querySelectorAll('#filter-sidebar input[type="checkbox"]'));
-                function vals(group) { return checks.filter(c => c.dataset.group === group && c.checked).map(c => c.dataset.value); }
                 function apply() {
-                    const types = vals('type'), sectors = vals('sector');
                     const q = (search.value || '').trim().toLowerCase();
                     let shown = 0;
                     cards.forEach(card => {
-                        const typeOk = !types.length || types.includes(card.dataset.type);
-                        const cardSectors = (card.dataset.sector || '').split(/\s+/);
-                        const sectorOk = !sectors.length || sectors.some(sv => cardSectors.includes(sv));
-                        const searchOk = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
-                        const show = typeOk && sectorOk && searchOk;
+                        const show = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
                         card.style.display = show ? '' : 'none';
                         if (show) shown++;
                     });
@@ -728,10 +624,7 @@
                     if (noResults) { noResults.classList.toggle('hidden', shown !== 0); noResults.classList.toggle('flex', shown === 0); }
                     if (grid) grid.classList.toggle('hidden', shown === 0);
                 }
-                checks.forEach(c => c.addEventListener('change', apply));
                 if (search) search.addEventListener('input', apply);
-                const reset = document.getElementById('reg-reset');
-                if (reset) reset.addEventListener('click', () => { checks.forEach(c => c.checked = false); if (search) search.value = ''; apply(); });
             })();
     </script>
     <!-- NESP nav wiring (mobile toggle + active golden bar) -->
@@ -745,8 +638,8 @@
             }
         })();
         (function () {
-            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'OpportunitiesNew.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'OpportunitiesNew.html' };
-            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
             const file = (location.pathname.split('/').pop() || '').toLowerCase();
             const active = PAGE_ACTIVE[file];
             document.querySelectorAll('nav.bg-white a').forEach(a => {
@@ -887,10 +780,10 @@
                 },
                 'OPPORTUNITIES': {
                     head: 'Investment Opportunities', items: [
-                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'OpportunitiesNew.html' },
-                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'OpportunitiesNew.html' },
-                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'OpportunitiesNew.html' },
-                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'OpportunitiesNew.html' }
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
                     ]
                 },
                 'REGULATIONS': {
