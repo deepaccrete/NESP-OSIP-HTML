@@ -1,133 +1,146 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>OSIP - News</title>
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<!-- Icons -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "surface": "#f9f9f7",
-                    "primary-container": "#00342b",
-                    "outline": "#717976",
-                    "on-error": "#ffffff",
-                    "inverse-primary": "#a1d0c3",
-                    "tertiary-fixed-dim": "#f7be26",
-                    "background": "#f9f9f7",
-                    "surface-container": "#edeeec",
-                    "outline-variant": "#c0c8c4",
-                    "secondary": "#1b6d24",
-                    "primary": "#001d17",
-                    "secondary-container": "#a0f499",
-                    "primary-fixed": "#bdecde",
-                    "surface-dim": "#d9dad8",
-                    "on-tertiary": "#ffffff",
-                    "surface-container-low": "#EEF5F2",
-                    "surface-tint": "#3a665c",
-                    "on-surface": "#1a1c1b",
-                    "on-secondary-fixed-variant": "#005312",
-                    "on-secondary-container": "#207128",
-                    "on-error-container": "#93000a",
-                    "error-container": "#ffdad6",
-                    "secondary-fixed": "#a3f69c",
-                    "on-primary": "#ffffff",
-                    "tertiary-container": "#3b2a00",
-                    "on-secondary": "#ffffff",
-                    "on-primary-fixed-variant": "#214e44",
-                    "on-background": "#1a1c1b",
-                    "on-tertiary-fixed": "#261a00",
-                    "surface-bright": "#f9f9f7",
-                    "surface-variant": "#e2e3e1",
-                    "error": "#ba1a1a",
-                    "tertiary-fixed": "#ffdf9e",
-                    "on-tertiary-container": "#bb8d00",
-                    "surface-container-high": "#e8e8e6",
-                    "tertiary": "#211600",
-                    "on-tertiary-fixed-variant": "#5b4300",
-                    "on-surface-variant": "#404846",
-                    "on-secondary-fixed": "#002204",
-                    "secondary-fixed-dim": "#87d982",
-                    "surface-container-lowest": "#ffffff",
-                    "primary-fixed-dim": "#a1d0c3",
-                    "inverse-surface": "#2f3130",
-                    "on-primary-container": "#709e91",
-                    "surface-container-highest": "#e2e3e1",
-                    "on-primary-fixed": "#00201a",
-                    "inverse-on-surface": "#f0f1ef"
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>OSIP - News</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f9f9f7",
+                        "primary-container": "#00342b",
+                        "outline": "#717976",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#a1d0c3",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "background": "#f9f9f7",
+                        "surface-container": "#edeeec",
+                        "outline-variant": "#c0c8c4",
+                        "secondary": "#1b6d24",
+                        "primary": "#001d17",
+                        "secondary-container": "#a0f499",
+                        "primary-fixed": "#bdecde",
+                        "surface-dim": "#d9dad8",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#EEF5F2",
+                        "surface-tint": "#3a665c",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-fixed-variant": "#005312",
+                        "on-secondary-container": "#207128",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#a3f69c",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#3b2a00",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#214e44",
+                        "on-background": "#1a1c1b",
+                        "on-tertiary-fixed": "#261a00",
+                        "surface-bright": "#f9f9f7",
+                        "surface-variant": "#e2e3e1",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdf9e",
+                        "on-tertiary-container": "#bb8d00",
+                        "surface-container-high": "#e8e8e6",
+                        "tertiary": "#211600",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "on-surface-variant": "#404846",
+                        "on-secondary-fixed": "#002204",
+                        "secondary-fixed-dim": "#87d982",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "inverse-surface": "#2f3130",
+                        "on-primary-container": "#709e91",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-primary-fixed": "#00201a",
+                        "inverse-on-surface": "#f0f1ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "unit": "8px",
+                        "margin-tablet": "32px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Manrope"],
+                        "h1-mobile": ["Manrope"],
+                        "nav-link": ["Inter"],
+                        "body-md": ["Inter"],
+                        "h1": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "h4": ["Manrope"],
+                        "label-md": ["Inter"],
+                        "h2": ["Manrope"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                },
             },
-            "borderRadius": {
-                    "DEFAULT": "0.125rem",
-                    "lg": "0.25rem",
-                    "xl": "0.5rem",
-                    "full": "0.75rem"
-            },
-            "spacing": {
-                    "gutter": "24px",
-                    "margin-desktop": "64px",
-                    "margin-mobile": "16px",
-                    "unit": "8px",
-                    "margin-tablet": "32px"
-            },
-            "fontFamily": {
-                    "h3": ["Manrope"],
-                    "h1-mobile": ["Manrope"],
-                    "nav-link": ["Inter"],
-                    "body-md": ["Inter"],
-                    "h1": ["Manrope"],
-                    "body-lg": ["Inter"],
-                    "h4": ["Manrope"],
-                    "label-md": ["Inter"],
-                    "h2": ["Manrope"],
-                    "body-sm": ["Inter"]
-            },
-            "fontSize": {
-                    "h3": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700"}],
-                    "h1-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800"}],
-                    "nav-link": ["15px", {"lineHeight": "20px", "fontWeight": "500"}],
-                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "h1": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800"}],
-                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                    "h4": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
-                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                    "h2": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700"}],
-                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
-            }
-          },
-        },
-      }
+        }
     </script>
-<style>
+    <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+
         body {
             background-color: #f4fbf8;
             color: #1a1c1b;
         }
+
         .active-nav-border {
             border-bottom: 2px solid #f7be26;
         }
+
         .filter-checkbox:checked {
             background-color: #00342b;
             border-color: #00342b;
         }
     </style>
 </head>
+
 <body class="font-body-md text-on-surface">
-<!-- TopNavBar Shell -->
-<nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <!-- TopNavBar Shell -->
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-[74px]">
-                <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto" src="Text.png"></a>
+                <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto"
+                            src="Text.png"></a>
                     <ul class="hidden lg:flex items-center">
                         <li><a href="Sector.html"
                                 class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
@@ -181,414 +194,573 @@
             </div>
         </div>
     </nav>
-<div class="flex min-h-screen">
-<!-- Backdrop for the mobile filter drawer -->
-<div id="filter-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden"></div>
-<!-- Sidebar Filter — off-canvas drawer on mobile, static column on lg+ -->
-<aside id="filter-sidebar" class="fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85%] bg-surface-container-low border-r border-outline-variant flex flex-col p-6 gap-6 overflow-y-auto transform -translate-x-full transition-transform duration-300 lg:static lg:translate-x-0 lg:transform-none lg:z-auto lg:max-w-none lg:overflow-visible">
-<div class="flex items-center justify-between gap-3">
-<div class="flex items-center gap-3">
-<div class="bg-primary-container text-white p-2 flex items-center justify-center">
-<span class="material-symbols-outlined text-[20px]">filter_alt</span>
-</div>
-<div>
-<h2 class="font-bold text-[14px]">Filters</h2>
-<p class="text-[11px] text-on-surface-variant">Refine news items</p>
-</div>
-</div>
-<button id="filter-close" type="button" aria-label="Close filters" class="lg:hidden text-on-surface-variant hover:text-primary">
-<span class="material-symbols-outlined">close</span>
-</button>
-</div>
-<!-- News Categories -->
-<section>
-<div class="flex justify-between items-center mb-4">
-<h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">News Categories</h3>
-<span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">5</span>
-</div>
-<div class="space-y-3">
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Policy &amp; Legislation</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Power &amp; Energy</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Renewables</span>
-</label>
-<div class="more-options space-y-3 hidden">
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Oil &amp; Gas</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Infrastructure</span>
-</label>
-</div>
-<button type="button" class="filter-more-btn flex items-center gap-2 text-primary text-[12px] font-bold mt-2 hover:underline">
-<span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span> <span class="more-label">View more</span>
+    <div class="flex min-h-screen">
+        <!-- Backdrop for the mobile filter drawer -->
+        <div id="filter-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden"></div>
+        <!-- Sidebar Filter — off-canvas drawer on mobile, static column on lg+ -->
+        <aside id="filter-sidebar"
+            class="fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85%] bg-surface-container-low border-r border-outline-variant flex flex-col p-6 gap-6 overflow-y-auto transform -translate-x-full transition-transform duration-300 lg:static lg:translate-x-0 lg:transform-none lg:z-auto lg:max-w-none lg:overflow-visible">
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary-container text-white p-2 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[20px]">filter_alt</span>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-[14px]">Filters</h2>
+                        <p class="text-[11px] text-on-surface-variant">Refine news items</p>
+                    </div>
+                </div>
+                <button id="filter-close" type="button" aria-label="Close filters"
+                    class="lg:hidden text-on-surface-variant hover:text-primary">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <!-- News Categories -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">News
+                        Categories</h3>
+                    <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">5</span>
+                </div>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" />
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Policy &amp;
+                            Legislation</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" />
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Power &amp; Energy</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" />
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Renewables</span>
+                    </label>
+                    <div class="more-options space-y-3 hidden">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Oil &amp; Gas</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Infrastructure</span>
+                        </label>
+                    </div>
+                    <button type="button"
+                        class="filter-more-btn flex items-center gap-2 text-primary text-[12px] font-bold mt-2 hover:underline">
+                        <span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span> <span
+                            class="more-label">View more</span>
                     </button>
-</div>
-</section>
-<!-- States -->
-<section>
-<div class="flex justify-between items-center mb-4">
-<h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">States</h3>
-<span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">37</span>
-</div>
-<div class="space-y-3">
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Lagos</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Abuja (FCT)</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Rivers</span>
-</label>
-<div class="more-options space-y-3 hidden">
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Abia</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Adamawa</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Akwa Ibom</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Anambra</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Bauchi</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Bayelsa</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Benue</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Borno</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Cross River</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Delta</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Ebonyi</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Edo</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Ekiti</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Enugu</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Gombe</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Imo</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Jigawa</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Kaduna</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Kano</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Katsina</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Kebbi</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Kogi</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Kwara</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Nasarawa</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Niger</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Ogun</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Ondo</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Osun</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Oyo</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Plateau</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Sokoto</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Taraba</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Yobe</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Zamfara</span>
-</label>
-</div>
-<button type="button" class="filter-more-btn flex items-center gap-2 text-primary text-[12px] font-bold mt-2 hover:underline">
-<span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span> <span class="more-label">View more</span>
+                </div>
+            </section>
+            <!-- States -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">States</h3>
+                    <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">37</span>
+                </div>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" />
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Lagos</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" />
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Abuja (FCT)</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" />
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Rivers</span>
+                    </label>
+                    <div class="more-options space-y-3 hidden">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Abia</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Adamawa</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Akwa Ibom</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Anambra</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Bauchi</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Bayelsa</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Benue</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Borno</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Cross River</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Delta</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Ebonyi</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Edo</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Ekiti</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Enugu</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Gombe</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Imo</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Jigawa</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Kaduna</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Kano</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Katsina</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Kebbi</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Kogi</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Kwara</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Nasarawa</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Niger</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Ogun</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Ondo</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Osun</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Oyo</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Plateau</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Sokoto</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Taraba</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Yobe</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Zamfara</span>
+                        </label>
+                    </div>
+                    <button type="button"
+                        class="filter-more-btn flex items-center gap-2 text-primary text-[12px] font-bold mt-2 hover:underline">
+                        <span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span> <span
+                            class="more-label">View more</span>
                     </button>
-</div>
-</section>
-<!-- Timeline -->
-<section>
-<div class="flex justify-between items-center mb-4">
-<h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Timeline</h3>
-<span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">4</span>
-</div>
-<div class="space-y-3">
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Last 30 Days</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Past Quarter</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">Archived</span>
-</label>
-<div class="more-options space-y-3 hidden">
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary" type="checkbox"/>
-<span class="text-body-sm text-on-surface group-hover:text-primary">This Year</span>
-</label>
-</div>
-<button type="button" class="filter-more-btn flex items-center gap-2 text-primary text-[12px] font-bold mt-2 hover:underline">
-<span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span> <span class="more-label">View more</span>
+                </div>
+            </section>
+            <!-- Timeline -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Timeline</h3>
+                    <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">4</span>
+                </div>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" />
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Last 30 Days</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" />
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Past Quarter</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input
+                            class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                            type="checkbox" />
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Archived</span>
+                    </label>
+                    <div class="more-options space-y-3 hidden">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">This Year</span>
+                        </label>
+                    </div>
+                    <button type="button"
+                        class="filter-more-btn flex items-center gap-2 text-primary text-[12px] font-bold mt-2 hover:underline">
+                        <span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span> <span
+                            class="more-label">View more</span>
                     </button>
-</div>
-</section>
-<!-- Reset All — flows directly below the filters (height-driven, not pinned) -->
-<div class="pt-6 border-t border-outline-variant">
-<button id="reset-filters" class="w-full py-2 border border-outline text-on-surface font-bold text-sm hover:bg-surface-container transition-colors">Reset All</button>
-</div>
-</aside>
-<!-- Main Content Area -->
-<main class="flex-1 min-w-0 p-4 sm:p-margin-tablet lg:p-12 overflow-y-auto">
-<!-- Breadcrumbs -->
-<!-- <div class="flex items-center gap-2 text-[13px] text-on-surface-variant mb-4">
+                </div>
+            </section>
+            <!-- Reset All — flows directly below the filters (height-driven, not pinned) -->
+            <div class="pt-6 border-t border-outline-variant">
+                <button id="reset-filters"
+                    class="w-full py-2 border border-outline text-on-surface font-bold text-sm hover:bg-surface-container transition-colors">Reset
+                    All</button>
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="flex-1 min-w-0 p-4 sm:p-margin-tablet lg:p-12 overflow-y-auto">
+            <!-- Breadcrumbs -->
+            <!-- <div class="flex items-center gap-2 text-[13px] text-on-surface-variant mb-4">
 <a class="hover:text-primary" href="#">Home</a>
 <span class="material-symbols-outlined text-[14px]">chevron_right</span>
 <span class="font-bold text-on-surface">News</span>
 </div> -->
-<!-- Mobile filter trigger (drawer toggle) -->
-<button id="filter-open" type="button" class="lg:hidden mb-6 inline-flex items-center gap-2 px-4 py-2 border border-outline-variant text-sm font-bold text-primary hover:bg-surface-container-low transition-colors">
-<span class="material-symbols-outlined text-[18px]">filter_alt</span> Filters
-</button>
-<!-- Page Header + Search -->
-<div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
-<div class="flex items-center gap-4">
-<div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
-<h1 class="font-h2 text-h3 sm:text-h2 text-primary">News</h1>
-</div>
-<div class="relative w-full md:w-96">
-<input id="news-search" class="w-full pl-4 pr-10 py-2.5 border border-outline-variant focus:border-primary focus:ring-0 text-sm" placeholder="Search News" type="text"/>
-<span class="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant">search</span>
-</div>
-</div>
-<!-- News Grid -->
-<div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
-<!-- News Card 1 -->
-<article class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
-<div class="aspect-video overflow-hidden relative shrink-0">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sweeping aerial shot of a vast solar farm in a semi-arid Nigerian landscape. Hundreds of blue photovoltaic panels are arranged in perfect geometric rows under a bright, clear sky. The lighting is warm and natural, emphasizing the scale of renewable energy infrastructure. The image has a clean, corporate, and optimistic industrial feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLpbdpkPXbcWdgaMpTEQENcSruVMS2I78c0y_H7tIjRn51--hy3r9OZRWEcZzeoR--p2J0JBJmMS7u2siAdVxFThENUr2-RqXpJSy0h9LCV130X-MIRbfblGa02ZtNo5HR-fs_425KVL5hu2Al-dH_8J494qVqMc42WdGCoRMFLyP3-MNVUDJYsl1lAwnhAb0IbXqzTGqm_TqN0dj0QIgiJbsmXpyKOGTM6_lhASm2Ig82azD79Xoc_-wK4-ob7JclSREYQ53JjvDc"/>
-</div>
-<div class="p-6 flex flex-col flex-1">
-<div class="flex items-center gap-2 mb-3">
-<span class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-<time class="text-label-md text-on-surface-variant" datetime="2024-11-20">20 Nov 2024</time>
-</div>
-<h3 data-category="Renewables,Power &amp; Energy" data-state="Niger" data-timeline="Last 30 Days" class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">Govt upbeat on Nyerere Hydropower Project completion</h3>
-<div class="mt-auto pt-6 flex justify-between items-center">
-<a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all" href="NewsInDetail.html">
+            <!-- Mobile filter trigger (drawer toggle) -->
+            <button id="filter-open" type="button"
+                class="lg:hidden mb-6 inline-flex items-center gap-2 px-4 py-2 border border-outline-variant text-sm font-bold text-primary hover:bg-surface-container-low transition-colors">
+                <span class="material-symbols-outlined text-[18px]">filter_alt</span> Filters
+            </button>
+            <!-- Page Header + Search -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                    <h1 class="font-h2 text-h3 sm:text-h2 text-primary">News</h1>
+                </div>
+                <div class="relative w-full md:w-96">
+                    <input id="news-search"
+                        class="w-full pl-4 pr-10 py-2.5 border border-outline-variant focus:border-primary focus:ring-0 text-sm"
+                        placeholder="Search News" type="text" />
+                    <span
+                        class="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant">search</span>
+                </div>
+            </div>
+            <!-- News Grid -->
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+                <!-- News Card 1 -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="A sweeping aerial shot of a vast solar farm in a semi-arid Nigerian landscape. Hundreds of blue photovoltaic panels are arranged in perfect geometric rows under a bright, clear sky. The lighting is warm and natural, emphasizing the scale of renewable energy infrastructure. The image has a clean, corporate, and optimistic industrial feel."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLpbdpkPXbcWdgaMpTEQENcSruVMS2I78c0y_H7tIjRn51--hy3r9OZRWEcZzeoR--p2J0JBJmMS7u2siAdVxFThENUr2-RqXpJSy0h9LCV130X-MIRbfblGa02ZtNo5HR-fs_425KVL5hu2Al-dH_8J494qVqMc42WdGCoRMFLyP3-MNVUDJYsl1lAwnhAb0IbXqzTGqm_TqN0dj0QIgiJbsmXpyKOGTM6_lhASm2Ig82azD79Xoc_-wK4-ob7JclSREYQ53JjvDc" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-20">20 Nov 2024</time>
+                        </div>
+                        <h3 data-category="Renewables,Power &amp; Energy" data-state="Niger"
+                            data-timeline="Last 30 Days"
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Govt upbeat on Nyerere Hydropower Project completion</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="NewsInDetail.html">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-</a>
-</div>
-</div>
-</article>
-<!-- News Card 2 -->
-<article class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
-<div class="aspect-video overflow-hidden relative shrink-0">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A professional close-up of modern offshore wind turbines rising from a deep blue ocean near a coastal metropolitan skyline. The sun is setting, casting a golden glow on the rotating blades. The atmosphere is professional and visionary, highlighting the intersection of urban growth and sustainable technology. High-key lighting ensures a clean, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgcTAzqPyzrgs14SruTmtAGAgJH7lk2zm2QlCe07afaV1Xe7PrEBm6Ja7BRLGuKH9sjLaqZgLUp0woNNdnyXtdSwjBZftRT7CrTs-qZw0Epsc4-VVcVxUikvdW1mVmsYKjdYMiDHfaC-MIpMCcqZsLpdjmOUFju2zi7Dkl2j-_zezLCMtKoEmfEEAhmU6bgfdoyOWqiq4ydtEJiTjKmkjRjVOOmXdEaz63T-R4uVzR-kkm7GFpYifJI6f53OEobttHOY4hog0goGoX"/>
-</div>
-<div class="p-6 flex flex-col flex-1">
-<div class="flex items-center gap-2 mb-3">
-<span class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-<time class="text-label-md text-on-surface-variant" datetime="2024-11-18">18 Nov 2024</time>
-</div>
-<h3 data-category="Renewables" data-state="Lagos" data-timeline="Last 30 Days" class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">Offshore Wind Potential in Lagos Coastline Explored by Global Investors</h3>
-<div class="mt-auto pt-6 flex justify-between items-center">
-<a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all" href="NewsInDetail.html">
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- News Card 2 -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="A professional close-up of modern offshore wind turbines rising from a deep blue ocean near a coastal metropolitan skyline. The sun is setting, casting a golden glow on the rotating blades. The atmosphere is professional and visionary, highlighting the intersection of urban growth and sustainable technology. High-key lighting ensures a clean, modern aesthetic."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgcTAzqPyzrgs14SruTmtAGAgJH7lk2zm2QlCe07afaV1Xe7PrEBm6Ja7BRLGuKH9sjLaqZgLUp0woNNdnyXtdSwjBZftRT7CrTs-qZw0Epsc4-VVcVxUikvdW1mVmsYKjdYMiDHfaC-MIpMCcqZsLpdjmOUFju2zi7Dkl2j-_zezLCMtKoEmfEEAhmU6bgfdoyOWqiq4ydtEJiTjKmkjRjVOOmXdEaz63T-R4uVzR-kkm7GFpYifJI6f53OEobttHOY4hog0goGoX" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-18">18 Nov 2024</time>
+                        </div>
+                        <h3 data-category="Renewables" data-state="Lagos" data-timeline="Last 30 Days"
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Offshore Wind Potential in Lagos Coastline Explored by Global Investors</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="NewsInDetail.html">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-</a>
-</div>
-</div>
-</article>
-<!-- News Card 3 -->
-<article class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
-<div class="aspect-video overflow-hidden relative shrink-0">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Construction site of a major gas pipeline project with large industrial pipes being laid in a prepared trench across a vast terrain. Workers in high-visibility gear are visible in the distance, suggesting active progress. The lighting is bright daylight, creating a sharp, high-resolution look that communicates stability and industrial development." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzYgYIi97LPW5C449jtABDQzPTtvk5_suYLGlSU5Gg-P4dJlGU9SoRdjyO-f7gx6A8xHMCABwb_5c_j8DksvwlzgWNYYU_0TafqYpmfm8mqCaojOq_BgfNVl3PixAU2y1RH1qwdQRaxr8ohi2RAkP2sJnk4o_H2t1SWJzxT6GOsGPmcoQ7ROprDYtlmsR71NxgU0Jnp2jwK4cymBMierFh4sFC2RXSHLAuH9DrDyc9J1JvzjBqq-nOfa-XeKbXcXgj-cxW7vZA_CTF"/>
-</div>
-<div class="p-6 flex flex-col flex-1">
-<div class="flex items-center gap-2 mb-3">
-<span class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-<time class="text-label-md text-on-surface-variant" datetime="2024-11-15">15 Nov 2024</time>
-</div>
-<h3 data-category="Power &amp; Energy" data-state="Kaduna" data-timeline="Past Quarter" class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">Major Update on AKK Gas Pipeline: Project Reaches 85% Completion Milestone</h3>
-<div class="mt-auto pt-6 flex justify-between items-center">
-<a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all" href="NewsInDetail.html">
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- News Card 3 -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Construction site of a major gas pipeline project with large industrial pipes being laid in a prepared trench across a vast terrain. Workers in high-visibility gear are visible in the distance, suggesting active progress. The lighting is bright daylight, creating a sharp, high-resolution look that communicates stability and industrial development."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzYgYIi97LPW5C449jtABDQzPTtvk5_suYLGlSU5Gg-P4dJlGU9SoRdjyO-f7gx6A8xHMCABwb_5c_j8DksvwlzgWNYYU_0TafqYpmfm8mqCaojOq_BgfNVl3PixAU2y1RH1qwdQRaxr8ohi2RAkP2sJnk4o_H2t1SWJzxT6GOsGPmcoQ7ROprDYtlmsR71NxgU0Jnp2jwK4cymBMierFh4sFC2RXSHLAuH9DrDyc9J1JvzjBqq-nOfa-XeKbXcXgj-cxW7vZA_CTF" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-15">15 Nov 2024</time>
+                        </div>
+                        <h3 data-category="Power &amp; Energy" data-state="Kaduna" data-timeline="Past Quarter"
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Major Update on AKK Gas Pipeline: Project Reaches 85% Completion Milestone</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="NewsInDetail.html">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-</a>
-</div>
-</div>
-</article>
-<!-- News Card 4 -->
-<article class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
-<div class="aspect-video overflow-hidden relative shrink-0">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High-level meeting room with government officials and international business executives in professional attire seated around a sleek, modern conference table. Large windows reveal a bright cityscape. The mood is serious and institutional, reflecting transparency and corporate partnership in the energy sector. Soft, professional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbqY8B4lIfdVheFuQ2sFtnIuFQp4h1KLqVt-ja_1elb_EuzzW0RjPXUr8Tyq_Tmwm19G7UyZpcGmH5f-e3euCMZw5q_Oda7gVL8jOW8GK6GLP8-f3WSdaa4rKNYcfQxXs4MOysHiaVVt6rOf6FgmAmYP1EovDLFhTNs5RUQeiFhnBcqE_oGN40-Tj-6GlL8q2OK5CdiTEnCETh_FE101oqI_RdUCxmPziF1TDZCkxrnTYNW39wgi25Z67tAOusMiL_mYZycSWdsq0p"/>
-</div>
-<div class="p-6 flex flex-col flex-1">
-<div class="flex items-center gap-2 mb-3">
-<span class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-<time class="text-label-md text-on-surface-variant" datetime="2024-11-10">10 Nov 2024</time>
-</div>
-<h3 data-category="Policy &amp; Legislation" data-state="Abuja (FCT)" data-timeline="Past Quarter" class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">New Electricity Act Signed into Law: What it Means for Private Investors</h3>
-<div class="mt-auto pt-6 flex justify-between items-center">
-<a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all" href="NewsInDetail.html">
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- News Card 4 -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="High-level meeting room with government officials and international business executives in professional attire seated around a sleek, modern conference table. Large windows reveal a bright cityscape. The mood is serious and institutional, reflecting transparency and corporate partnership in the energy sector. Soft, professional lighting."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbqY8B4lIfdVheFuQ2sFtnIuFQp4h1KLqVt-ja_1elb_EuzzW0RjPXUr8Tyq_Tmwm19G7UyZpcGmH5f-e3euCMZw5q_Oda7gVL8jOW8GK6GLP8-f3WSdaa4rKNYcfQxXs4MOysHiaVVt6rOf6FgmAmYP1EovDLFhTNs5RUQeiFhnBcqE_oGN40-Tj-6GlL8q2OK5CdiTEnCETh_FE101oqI_RdUCxmPziF1TDZCkxrnTYNW39wgi25Z67tAOusMiL_mYZycSWdsq0p" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-10">10 Nov 2024</time>
+                        </div>
+                        <h3 data-category="Policy &amp; Legislation" data-state="Abuja (FCT)"
+                            data-timeline="Past Quarter"
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            New Electricity Act Signed into Law: What it Means for Private Investors</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="NewsInDetail.html">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-</a>
-</div>
-</div>
-</article>
-<!-- News Card 5 -->
-<article class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
-<div class="aspect-video overflow-hidden relative shrink-0">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern green hydrogen processing plant featuring complex industrial machinery and large storage spheres under a clean, overcast sky. The facility is pristine and highly technological. The image uses a cool-toned palette with professional lighting, emphasizing sustainability and the future of clean energy innovation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWYnQ9aSEThBmpTYNHgzXzyDx-9MLcAxSyG2TdKZE_HHPiiCbpmL9VIkD9X5xbyPzp1s27yUV9qItXAH8IlhUc8QTSdzOa5-KuHunUH_RPZY2Z8W_au5f9P6onvPC9tXJs7f5c-1Bvnd45qMIZeYIoSfDuPpV52N3FEmTc1MBmZi8ul5Xn88J0tQ9mfZOpKpKtr89jKPaFNKIJ-MW_Rbf0cNwFtEaalTGXn2cdlNvoUzOYWsWA8z0kXDSHwhSU2VcjkgSlabZih6-3"/>
-</div>
-<div class="p-6 flex flex-col flex-1">
-<div class="flex items-center gap-2 mb-3">
-<span class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-<time class="text-label-md text-on-surface-variant" datetime="2024-11-05">05 Nov 2024</time>
-</div>
-<h3 data-category="Renewables" data-state="Rivers" data-timeline="Archived" class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">Niger Delta Pilot: Green Hydrogen Production Site Groundbreaking Ceremony</h3>
-<div class="mt-auto pt-6 flex justify-between items-center">
-<a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all" href="NewsInDetail.html">
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- News Card 5 -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="A modern green hydrogen processing plant featuring complex industrial machinery and large storage spheres under a clean, overcast sky. The facility is pristine and highly technological. The image uses a cool-toned palette with professional lighting, emphasizing sustainability and the future of clean energy innovation."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWYnQ9aSEThBmpTYNHgzXzyDx-9MLcAxSyG2TdKZE_HHPiiCbpmL9VIkD9X5xbyPzp1s27yUV9qItXAH8IlhUc8QTSdzOa5-KuHunUH_RPZY2Z8W_au5f9P6onvPC9tXJs7f5c-1Bvnd45qMIZeYIoSfDuPpV52N3FEmTc1MBmZi8ul5Xn88J0tQ9mfZOpKpKtr89jKPaFNKIJ-MW_Rbf0cNwFtEaalTGXn2cdlNvoUzOYWsWA8z0kXDSHwhSU2VcjkgSlabZih6-3" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-05">05 Nov 2024</time>
+                        </div>
+                        <h3 data-category="Renewables" data-state="Rivers" data-timeline="Archived"
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Niger Delta Pilot: Green Hydrogen Production Site Groundbreaking Ceremony</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="NewsInDetail.html">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-</a>
-</div>
-</div>
-</article>
-<!-- News Card 6 -->
-<article class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
-<div class="aspect-video overflow-hidden relative shrink-0">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Dynamic financial stock market chart displayed on a modern tablet held by an analyst in a professional office setting. The graphs show upward trends in green, symbolizing growth in the energy sector. The background is softly blurred to keep focus on the data and the sense of economic prosperity and transparent investment tracking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA489Be90pdxHT9w2eosFhCjRXz6yOMZxQ6ac4yUEnr36Qdiyq5EIBCBWvoXSVX3dmsI1xNxv915lX9Ced3kAhJy9tir1NGL9VHMdLo35F47cuL93K-fbY0O0lWCY7IB9rD0_49Mrbk1cBUgZfkrFxpOlPsDfiDInESWwtQTcNzJJ-YDuGQ5fFLfRWO33dEep-lGgVmleNgU0UEzTjNHwmUGT_2fnFM5ddGYovkDuCJNSa9RD2DA060iSsNpPY88vJ4kk7Ge4xTLf9q"/>
-</div>
-<div class="p-6 flex flex-col flex-1">
-<div class="flex items-center gap-2 mb-3">
-<span class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-<time class="text-label-md text-on-surface-variant" datetime="2024-11-01">01 Nov 2024</time>
-</div>
-<h3 data-category="Policy &amp; Legislation,Power &amp; Energy" data-state="Lagos" data-timeline="Archived" class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">Nigeria Energy Sector Reports 15% Increase in Foreign Direct Investment</h3>
-<div class="mt-auto pt-6 flex justify-between items-center">
-<a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all" href="NewsInDetail.html">
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- News Card 6 -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Dynamic financial stock market chart displayed on a modern tablet held by an analyst in a professional office setting. The graphs show upward trends in green, symbolizing growth in the energy sector. The background is softly blurred to keep focus on the data and the sense of economic prosperity and transparent investment tracking."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA489Be90pdxHT9w2eosFhCjRXz6yOMZxQ6ac4yUEnr36Qdiyq5EIBCBWvoXSVX3dmsI1xNxv915lX9Ced3kAhJy9tir1NGL9VHMdLo35F47cuL93K-fbY0O0lWCY7IB9rD0_49Mrbk1cBUgZfkrFxpOlPsDfiDInESWwtQTcNzJJ-YDuGQ5fFLfRWO33dEep-lGgVmleNgU0UEzTjNHwmUGT_2fnFM5ddGYovkDuCJNSa9RD2DA060iSsNpPY88vJ4kk7Ge4xTLf9q" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-01">01 Nov 2024</time>
+                        </div>
+                        <h3 data-category="Policy &amp; Legislation,Power &amp; Energy" data-state="Lagos"
+                            data-timeline="Archived"
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Nigeria Energy Sector Reports 15% Increase in Foreign Direct Investment</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="NewsInDetail.html">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-</a>
-</div>
-</div>
-</article>
-</div>
-<!-- No results message (shown when filters match nothing) -->
-<div id="news-empty" class="hidden text-center py-20">
-<span class="material-symbols-outlined text-[40px] text-on-surface-variant">search_off</span>
-<p class="mt-3 font-bold text-on-surface">No news items match your filters</p>
-<p class="text-sm text-on-surface-variant">Try removing a filter or clearing your search.</p>
-</div>
-<!-- Pagination -->
-<div class="mt-16 flex justify-center items-center gap-2">
-<button class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:bg-surface-container-low transition-colors">
-<span class="material-symbols-outlined text-[20px]">chevron_left</span>
-</button>
-<button class="w-10 h-10 flex items-center justify-center bg-primary-container text-white font-bold">1</button>
-<button class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:bg-surface-container-low transition-colors">2</button>
-<button class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:bg-surface-container-low transition-colors">3</button>
-<span class="px-2 text-on-surface-variant">...</span>
-<button class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:bg-surface-container-low transition-colors">12</button>
-<button class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:bg-surface-container-low transition-colors">
-<span class="material-symbols-outlined text-[20px]">chevron_right</span>
-</button>
-</div>
-</main>
-</div>
-<!-- Footer -->
- <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <!-- No results message (shown when filters match nothing) -->
+            <div id="news-empty" class="hidden text-center py-20">
+                <span class="material-symbols-outlined text-[40px] text-on-surface-variant">search_off</span>
+                <p class="mt-3 font-bold text-on-surface">No news items match your filters</p>
+                <p class="text-sm text-on-surface-variant">Try removing a filter or clearing your search.</p>
+            </div>
+            <!-- Pagination -->
+            <div class="mt-16 flex justify-center items-center gap-2">
+                <button
+                    class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:bg-surface-container-low transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                </button>
+                <button
+                    class="w-10 h-10 flex items-center justify-center bg-primary-container text-white font-bold">1</button>
+                <button
+                    class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:bg-surface-container-low transition-colors">2</button>
+                <button
+                    class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:bg-surface-container-low transition-colors">3</button>
+                <span class="px-2 text-on-surface-variant">...</span>
+                <button
+                    class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:bg-surface-container-low transition-colors">12</button>
+                <button
+                    class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:bg-surface-container-low transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                </button>
+            </div>
+        </main>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
         <div
             class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
             <div>
@@ -606,12 +778,27 @@
                             class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
-                        </svg></a></div>
+                        </svg></a>
+<a href="#" aria-label="Instagram"
+    class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+        class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+    </svg></a>
+<a href="#" aria-label="YouTube"
+    class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+        class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg></a>
+<a href="#" aria-label="Facebook"
+    class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+        class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.408.593 24 1.325 24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.099 1.894-4.785 4.659-4.785 1.325 0 2.464.099 2.797.143v3.24l-1.918.001c-1.504 0-1.795.716-1.795 1.764v2.31h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.592 1.323-1.325V1.325C24 .593 23.408 0 22.675 0z" />
+    </svg></a></div>
             </div>
             <div>
                 <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
                 <ul class="flex flex-col gap-3">
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Legal</a></li>
                     <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy Policy</a>
                     </li>
                     <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Contact Us</a></li>
@@ -620,11 +807,9 @@
             <div>
                 <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
                 <ul class="flex flex-col gap-3">
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
-                            Power</a></li>
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
-                            Commission</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">NIPC</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of Power</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy Commission</a></li>
                 </ul>
             </div>
             <div>
@@ -645,28 +830,28 @@
         </div>
         <div
             class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-            <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
+            <span class="text-xs sm:text-sm">© 2026 OSIP Nigeria. All rights reserved.</span><span
                 class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
         </div>
     </footer>
-<script>
-        // Active top-nav highlight + page wiring (golden bar follows the current page).
-        (function () {
-            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
-            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
-            const file = (location.pathname.split('/').pop() || '').toLowerCase();
-            const active = PAGE_ACTIVE[file];
-            document.querySelectorAll('nav.bg-white a').forEach(a => {
-                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
-                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
-                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
-                if (active && label === active && a.className.indexOf('px-5') !== -1) {
-                    const bar = document.createElement('span');
-                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
-                    a.appendChild(bar);
-                }
-            });
-        })();
+    <script>
+            // Active top-nav highlight + page wiring (golden bar follows the current page).
+            (function () {
+                const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
+                const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+                const file = (location.pathname.split('/').pop() || '').toLowerCase();
+                const active = PAGE_ACTIVE[file];
+                document.querySelectorAll('nav.bg-white a').forEach(a => {
+                    const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                    if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                    a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                    if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                        const bar = document.createElement('span');
+                        bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                        a.appendChild(bar);
+                    }
+                });
+            })();
 
         // Mobile top-nav hamburger toggle.
         (function () {
@@ -823,89 +1008,184 @@
             });
         });
     </script>
-<!-- NESP nav hover dropdowns (shared, injected) -->
-<style>
-  .nesp-has-menu { position: relative; }
-  .nesp-dropdown {
-    position: absolute; top: 100%; left: 50%; min-width: 300px;
-    background: #ffffff; border: 1px solid #e7e7e7;
-    border-radius: 12px; box-shadow: 0 18px 40px -16px rgba(6,20,16,0.22); margin-top: 8px;
-    padding: 10px; opacity: 0; visibility: hidden; transform: translateX(-50%) translateY(8px);
-    transition: opacity .22s ease, transform .22s ease, visibility .22s ease; z-index: 60;
-  }
-  .nesp-has-menu:hover .nesp-dropdown, .nesp-dropdown:hover {
-    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
-  }
-  .nesp-dropdown::before { content: ""; position: absolute; top: -12px; left: 0; right: 0; height: 14px; }
-  .nesp-dropdown::after { content: ""; position: absolute; top: -7px; left: 50%; width: 13px; height: 13px; background: #ffffff; border-top: 1px solid #e7e7e7; border-left: 1px solid #e7e7e7; border-radius: 3px 0 0 0; transform: translateX(-50%) rotate(45deg); }
-  .nesp-menu-head {
-    font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700;
-    letter-spacing: .14em; text-transform: uppercase; color: #9aa39e; padding: 8px 12px 6px;
-  }
-  .nesp-menu-item { display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none; transition: background .15s ease; }
-  .nesp-menu-item:hover { background: #f1f8f4; }
-  .nesp-menu-item .t { display: block; font-family: Manrope, sans-serif; font-size: 13.5px; font-weight: 700; color: #15241d; }
-  .nesp-menu-item:hover .t { color: #047857; }
-  .nesp-menu-item .d { display: block; font-size: 11.5px; line-height: 1.45; color: #6b746f; margin-top: 2px; }
-  .nesp-has-menu > a::after {
-    content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 7px;
-    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-    transform: translateY(-2px) rotate(45deg); opacity: .6; vertical-align: middle; transition: transform .2s ease;
-  }
-  .nesp-has-menu:hover > a::after { transform: translateY(0) rotate(225deg); }
-</style>
-<script>
-(function () {
-  var MENU = {
-    'SECTORS': { head: 'Strategic Priority Sectors', items: [
-      { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
-      { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
-      { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
-    ]},
-    'OPPORTUNITIES': { head: 'Investment Opportunities', items: [
-      { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
-      { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
-      { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
-      { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
-    ]},
-    'REGULATIONS': { head: 'Regulations & Compliance', items: [
-      { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
-      { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
-      { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
-      { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
-    ]},
-    'DATA': { head: 'Data & Insights', items: [
-      { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
-      { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
-      { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
-    ]},
-    'NEWS': { head: 'News Categories', items: [
-      { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
-      { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
-      { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
-      { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
-      { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
-    ]}
-  };
-  document.querySelectorAll('nav.bg-white a').forEach(function (a) {
-    if ((a.className || '').indexOf('px-5') === -1) return;            // desktop top-level links only
-    var menu = MENU[(a.textContent || '').trim().toUpperCase()];
-    if (!menu) return;
-    var li = a.closest('li'); if (!li) return;
-    li.classList.add('nesp-has-menu');
-    var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
-    menu.items.forEach(function (it) {
-      html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
-              (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
-    });
-    var panel = document.createElement('div');
-    panel.className = 'nesp-dropdown';
-    panel.innerHTML = html;
-    li.appendChild(panel);
-  });
-})();
-</script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu {
+            position: relative;
+        }
+
+        .nesp-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 300px;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22);
+            margin-top: 8px;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+            z-index: 60;
+        }
+
+        .nesp-has-menu:hover .nesp-dropdown,
+        .nesp-dropdown:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nesp-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nesp-dropdown::after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: #ffffff;
+            border-top: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-radius: 3px 0 0 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nesp-menu-head {
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #9aa39e;
+            padding: 8px 12px 6px;
+        }
+
+        .nesp-menu-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .15s ease;
+        }
+
+        .nesp-menu-item:hover {
+            background: #f1f8f4;
+        }
+
+        .nesp-menu-item .t {
+            display: block;
+            font-family: Manrope, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15241d;
+        }
+
+        .nesp-menu-item:hover .t {
+            color: #047857;
+        }
+
+        .nesp-menu-item .d {
+            display: block;
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #6b746f;
+            margin-top: 2px;
+        }
+
+        .nesp-has-menu>a::after {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 7px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            opacity: .6;
+            vertical-align: middle;
+            transition: transform .2s ease;
+        }
+
+        .nesp-has-menu:hover>a::after {
+            transform: translateY(0) rotate(225deg);
+        }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+                        { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations & Compliance', items: [
+                        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data & Insights', items: [
+                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;            // desktop top-level links only
+                var menu = MENU[(a.textContent || '').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
 
     <!-- Invest Now popup flow -->
     <script src="investflow.js"></script>
-</body></html>
+</body>
+
+</html>

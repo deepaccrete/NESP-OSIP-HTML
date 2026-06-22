@@ -110,6 +110,10 @@
             background: linear-gradient(90deg, #00342b 0%, #004d40 45%, #dfa800 100%);
         }
 
+        .osip-progress-fill-v {
+            background: linear-gradient(180deg, #00342b 0%, #004d40 45%, #dfa800 100%);
+        }
+
         /* Little floating "current stage" pill above the active node */
         .osip-current-pill::after {
             content: "";
@@ -127,6 +131,104 @@
                 animation: none;
             }
         }
+
+        /* ===== Members-only reveal =====
+           Toggled by `body.is-authenticated` after a click-through login in the iframe modal.
+           State lives in memory only — a hard refresh clears it (by design).
+           We only force-hide while locked, so unlocked elements keep their own display
+           (block, flex, grid, ...) from the Tailwind utility classes. */
+        body:not(.is-authenticated) .show-when-unlocked { display: none !important; }
+        body.is-authenticated .gated-content {
+            filter: none !important;
+            opacity: 1 !important;
+            user-select: auto !important;
+            pointer-events: auto !important;
+        }
+        body.is-authenticated .gated-overlay { display: none !important; }
+
+        .unlocked-toast {
+            position: fixed;
+            left: 50%;
+            top: 96px;
+            transform: translateX(-50%) translateY(-10px);
+            background: #00342b;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            box-shadow: 0 12px 30px -10px rgba(0, 52, 43, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s ease, transform .25s ease;
+            z-index: 200;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .unlocked-toast.is-visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ===== Image lightbox ===== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: rgba(0, 0, 0, 0.92);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .lightbox.is-open { display: flex; }
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+        }
+        .lightbox-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 9999px;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background .15s ease, transform .15s ease;
+            backdrop-filter: blur(4px);
+        }
+        .lightbox-btn:hover { background: rgba(255, 255, 255, 0.25); transform: scale(1.05); }
+        .lightbox-close { top: 18px; right: 18px; }
+        .lightbox-prev { left: 18px; top: 50%; transform: translateY(-50%); }
+        .lightbox-next { right: 18px; top: 50%; transform: translateY(-50%); }
+        .lightbox-prev:hover { transform: translateY(-50%) scale(1.05); }
+        .lightbox-next:hover { transform: translateY(-50%) scale(1.05); }
+        .lightbox-caption {
+            position: absolute;
+            left: 50%;
+            bottom: 22px;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 7px 14px;
+            border-radius: 9999px;
+            max-width: calc(100% - 120px);
+            text-align: center;
+        }
+
+        /* ===== Video facade (lazy YouTube swap) ===== */
+        .video-facade.is-playing > .facade-cover { display: none; }
+        .video-facade iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     </style>
 </head>
 
@@ -229,7 +331,7 @@
                         <div
                             class="mt-8 rounded-xl border border-brand-gold/20 bg-gradient-to-br from-brand-sidebar via-white to-brand-gold/5 p-6 md:p-8">
                             <!-- Header row: live status + stage count -->
-                            <div class="flex items-center justify-between flex-wrap gap-3 mb-12">
+                            <div class="flex items-center justify-between flex-wrap gap-3 mb-6 sm:mb-12">
                                 <span
                                     class="inline-flex items-center gap-2.5 bg-brand-accent/10 text-brand-green px-4 py-2 rounded-full text-xs font-bold uppercase tracking-[0.12em]">
                                     <span class="relative flex h-2.5 w-2.5">
@@ -248,13 +350,13 @@
                                 </div>
                             </div>
 
-                            <!-- Track -->
-                            <div class="relative flex items-start justify-between">
+                            <!-- Track — Desktop (horizontal) -->
+                            <div class="relative hidden sm:flex items-start justify-between">
                                 <!-- Base track -->
                                 <div
                                     class="absolute left-[12.5%] right-[12.5%] top-4 -translate-y-1/2 h-1.5 bg-gray-200 rounded-full">
                                 </div>
-                                <!-- Completed (animated) fill: from node 1 center to node 3 center -->
+                                <!-- Completed fill: from node 1 center to node 3 center -->
                                 <div class="osip-progress-fill absolute left-[12.5%] top-4 -translate-y-1/2 h-1.5 rounded-full"
                                     style="width: 50%;"></div>
 
@@ -286,7 +388,6 @@
 
                                 <!-- Node 3 — Current -->
                                 <div class="relative z-10 flex flex-col items-center" style="width:25%;">
-                                    <!-- floating pill -->
                                     <span
                                         class="osip-current-pill absolute -top-9 bg-brand-gold text-brand-green text-[9px] font-extrabold uppercase tracking-[0.1em] px-2.5 py-1 rounded-md shadow-md whitespace-nowrap">
                                         Current Stage
@@ -315,6 +416,76 @@
                                         class="mt-1 text-[10px] font-bold text-gray-300 uppercase tracking-wider">Upcoming</span>
                                 </div>
                             </div>
+
+                            <!-- Track — Mobile (vertical stack) -->
+                            <ol class="sm:hidden relative space-y-6">
+                                <!-- Base vertical track -->
+                                <div class="absolute left-[16.5px] top-4 bottom-4 w-[3px] bg-gray-200 rounded-full">
+                                </div>
+                                <!-- Completed fill: from node 1 center down to node 3 center (2 of 3 segments) -->
+                                <div class="osip-progress-fill-v absolute left-[16.5px] top-4 w-[3px] rounded-full"
+                                    style="height: calc(((100% - 32px) * 2) / 3);"></div>
+
+                                <!-- Node 1 — Done -->
+                                <li class="relative flex items-start gap-4">
+                                    <div
+                                        class="relative z-10 w-9 h-9 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shadow-md flex-shrink-0">
+                                        <span class="material-symbols-outlined text-white text-[20px]">check</span>
+                                    </div>
+                                    <div class="pt-1 min-w-0">
+                                        <p class="text-sm font-bold text-brand-green leading-tight">Under
+                                            Conceptualization</p>
+                                        <span
+                                            class="mt-1 inline-block text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">Done</span>
+                                    </div>
+                                </li>
+
+                                <!-- Node 2 — Done -->
+                                <li class="relative flex items-start gap-4">
+                                    <div
+                                        class="relative z-10 w-9 h-9 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shadow-md flex-shrink-0">
+                                        <span class="material-symbols-outlined text-white text-[20px]">check</span>
+                                    </div>
+                                    <div class="pt-1 min-w-0">
+                                        <p class="text-sm font-bold text-brand-green leading-tight">Under Development
+                                        </p>
+                                        <span
+                                            class="mt-1 inline-block text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">Done</span>
+                                    </div>
+                                </li>
+
+                                <!-- Node 3 — Current -->
+                                <li class="relative flex items-start gap-4">
+                                    <div
+                                        class="osip-node-current relative z-10 w-9 h-9 rounded-full bg-brand-gold flex items-center justify-center ring-4 ring-white shadow-lg flex-shrink-0">
+                                        <span
+                                            class="material-symbols-outlined text-brand-green text-[20px]">engineering</span>
+                                    </div>
+                                    <div class="pt-0.5 min-w-0">
+                                        <span
+                                            class="inline-flex items-center gap-1 mb-1 bg-brand-gold text-brand-green text-[9px] font-extrabold uppercase tracking-[0.1em] px-2 py-0.5 rounded-md shadow-sm">
+                                            Current Stage
+                                        </span>
+                                        <p class="text-sm font-extrabold text-brand-green leading-tight">Under
+                                            Implementation</p>
+                                        <span
+                                            class="mt-1 inline-block text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">Active</span>
+                                    </div>
+                                </li>
+
+                                <!-- Node 4 — Upcoming -->
+                                <li class="relative flex items-start gap-4">
+                                    <div
+                                        class="relative z-10 w-9 h-9 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center ring-4 ring-white flex-shrink-0">
+                                        <span class="material-symbols-outlined text-gray-300 text-[20px]">flag</span>
+                                    </div>
+                                    <div class="pt-1 min-w-0">
+                                        <p class="text-sm font-bold text-gray-400 leading-tight">Completed</p>
+                                        <span
+                                            class="mt-1 inline-block text-[10px] font-bold text-gray-300 uppercase tracking-wider">Upcoming</span>
+                                    </div>
+                                </li>
+                            </ol>
                         </div>
                         <!-- END: StatusTracker -->
                     </section>
@@ -416,11 +587,11 @@
                                 <p class="font-manrope font-bold text-brand-green">Ministry of Petroleum Resources</p>
                             </div>
                         </div>
-                        <div class="mt-12 pt-6 border-t border-gray-100">
+                        <!-- <div class="mt-12 pt-6 border-t border-gray-100">
                             <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-2">Is this an Externally Aided
                                 Project (EAP)?</h4>
                             <p class="font-manrope font-bold text-brand-green">No</p>
-                        </div>
+                        </div> -->
                         <div class="mt-10">
                             <p class="text-2xl font-manrope font-bold text-gray-500">
                                 Total Project Cost: <span class="text-brand-accent">USD 2.80 bn</span>
@@ -433,41 +604,54 @@
                     <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 relative">
                         <div class="flex items-center justify-between mb-6 gap-4 flex-wrap">
                             <h2 class="text-xl md:text-2xl font-extrabold text-brand-green flex items-center gap-3">
-                                <span class="w-9 h-9 rounded-md bg-brand-accent/15 text-brand-accent flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">info</span>
+                                <span
+                                    class="w-9 h-9 rounded-md bg-brand-accent/15 text-brand-accent flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-[22px]"
+                                        style="font-variation-settings: 'FILL' 1;">info</span>
                                 </span>
                                 More Details
                             </h2>
-                            <span class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-brand-accent bg-brand-accent/10 px-3 py-1 rounded-full">
+                            <span
+                                class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-brand-accent bg-brand-accent/10 px-3 py-1 rounded-full">
                                 <span class="material-symbols-outlined text-[14px]">lock</span>
                                 Members Only
                             </span>
                         </div>
                         <div class="relative">
-                            <div class="filter blur-sm select-none opacity-60 pointer-events-none">
+                            <div class="gated-content filter blur-sm select-none opacity-60 pointer-events-none">
                                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                                     <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
-                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Target IRR</p>
-                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">17.4%</p>
+                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">
+                                            Target IRR</p>
+                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">
+                                            17.4%</p>
                                     </div>
                                     <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
-                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Payback</p>
-                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">6.2 yrs</p>
+                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">
+                                            Payback</p>
+                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">
+                                            6.2 yrs</p>
                                     </div>
                                     <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
-                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Min. Ticket</p>
-                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">USD 5M</p>
+                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">
+                                            Min. Ticket</p>
+                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">
+                                            USD 5M</p>
                                     </div>
                                     <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
-                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Lock-up</p>
-                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">5 yrs</p>
+                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">
+                                            Lock-up</p>
+                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">5
+                                            yrs</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-[1px] rounded-md">
+                            <div
+                                class="gated-overlay absolute inset-0 flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-[1px] rounded-md">
                                 <div class="mb-4 text-brand-accent">
                                     <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                        <path
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
                                     </svg>
                                 </div>
@@ -476,12 +660,201 @@
                                         href="#">Login</a> /
                                     <a class="login-trigger cursor-pointer text-brand-accent border-b border-brand-accent hover:opacity-80 transition-opacity"
                                         href="#">Register</a>
-                                    to connect <br />with the promoter.
+                                    to unlock the full investor data room.
                                 </p>
                             </div>
                         </div>
                     </section>
                     <!-- END: GatedMoreDetails -->
+
+                    <!-- BEGIN: MembersOnlyContent (revealed after iframe login click) -->
+                    <section id="members-section"
+                        class="show-when-unlocked bg-white rounded-lg p-6 sm:p-8 shadow-sm border border-gray-100 space-y-10">
+                        <header class="flex items-start justify-between gap-4 flex-wrap">
+                            <div>
+                                <h2 class="text-xl md:text-2xl font-extrabold text-brand-green flex items-center gap-3">
+                                    <span class="w-9 h-9 rounded-md bg-brand-green text-white flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-[22px]"
+                                            style="font-variation-settings: 'FILL' 1;">lock_open</span>
+                                    </span>
+                                    Investor Data Room
+                                </h2>
+                                <p class="text-sm text-gray-500 mt-2 max-w-xl">Extended project brief, media, and
+                                    documents — available to signed-in members of the OSIP investor network.</p>
+                            </div>
+                            <span
+                                class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
+                                <span class="material-symbols-outlined text-[14px]">verified</span>
+                                Access Granted
+                            </span>
+                        </header>
+
+                        <!-- Extended brief -->
+                        <div>
+                            <h3 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-3">Extended
+                                Project Brief</h3>
+                            <p class="text-[15px] leading-relaxed text-gray-700">
+                                The Ajaokuta–Kaduna–Kano (AKK) Gas Pipeline is a 614&nbsp;km strategic backbone
+                                designed to monetise stranded gas in Nigeria's southern fields and deliver it to
+                                under-served industrial and power-generation hubs across the north. Total capital
+                                outlay is USD&nbsp;2.6&nbsp;Bn under a public-private structure, with sovereign cover
+                                from the Federal Ministry of Power and offtake commitments anchored by NIPCO
+                                and existing IPPs. The deal carries a 17.4% target IRR, a 6.2-year payback,
+                                a USD&nbsp;5M minimum investor ticket, and a 5-year lock-up.
+                            </p>
+                        </div>
+
+                        <!-- Image gallery — thumbnails open the in-page lightbox. -->
+                        <div>
+                            <h3 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-3">Project
+                                Imagery</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <button type="button" aria-label="Open image: Pipeline corridor"
+                                    data-lightbox-src="https://picsum.photos/seed/akk-pipeline/1600/1200"
+                                    data-caption="Pipeline corridor"
+                                    class="block aspect-[4/3] overflow-hidden rounded-md group cursor-zoom-in">
+                                    <img src="https://picsum.photos/seed/akk-pipeline/800/600"
+                                        alt="Pipeline corridor"
+                                        class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-300"
+                                        loading="lazy" />
+                                </button>
+                                <button type="button" aria-label="Open image: Compressor station"
+                                    data-lightbox-src="https://picsum.photos/seed/akk-compressor/1600/1200"
+                                    data-caption="Compressor station"
+                                    class="block aspect-[4/3] overflow-hidden rounded-md group cursor-zoom-in">
+                                    <img src="https://picsum.photos/seed/akk-compressor/800/600"
+                                        alt="Compressor station"
+                                        class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-300"
+                                        loading="lazy" />
+                                </button>
+                                <button type="button" aria-label="Open image: Project team"
+                                    data-lightbox-src="https://picsum.photos/seed/akk-team/1600/1200"
+                                    data-caption="Project team"
+                                    class="block aspect-[4/3] overflow-hidden rounded-md group cursor-zoom-in">
+                                    <img src="https://picsum.photos/seed/akk-team/800/600"
+                                        alt="Project team"
+                                        class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-300"
+                                        loading="lazy" />
+                                </button>
+                                <button type="button" aria-label="Open image: Right-of-way clearance"
+                                    data-lightbox-src="https://picsum.photos/seed/akk-site/1600/1200"
+                                    data-caption="Right-of-way clearance"
+                                    class="block aspect-[4/3] overflow-hidden rounded-md group cursor-zoom-in">
+                                    <img src="https://picsum.photos/seed/akk-site/800/600"
+                                        alt="Right-of-way clearance"
+                                        class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-300"
+                                        loading="lazy" />
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Video walkthrough — lazy-loads the YouTube iframe on click and plays in-page.
+                             Swap data-video-id with the real video id when available. -->
+                        <div>
+                            <h3 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-3">Project
+                                Walkthrough</h3>
+                            <div class="video-facade relative aspect-video rounded-md overflow-hidden bg-black"
+                                data-video-id="aqz-KE-bpKQ">
+                                <button type="button" aria-label="Play project walkthrough"
+                                    class="facade-cover absolute inset-0 group cursor-pointer w-full h-full">
+                                    <img src="https://picsum.photos/seed/akk-walkthrough/1600/900"
+                                        alt="Project walkthrough video thumbnail"
+                                        class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity"
+                                        loading="lazy" />
+                                    <span class="absolute inset-0 flex items-center justify-center">
+                                        <span
+                                            class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600 flex items-center justify-center shadow-2xl group-hover:scale-105 transition-transform"
+                                            aria-hidden="true">
+                                            <span class="material-symbols-outlined text-white text-[40px]"
+                                                style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                                        </span>
+                                    </span>
+                                    <span
+                                        class="absolute left-3 bottom-3 right-3 flex items-center justify-between text-white text-xs sm:text-sm pointer-events-none">
+                                        <span class="bg-black/55 px-2.5 py-1 rounded">AKK Pipeline — Walkthrough</span>
+                                        <span class="bg-red-600 px-2.5 py-1 rounded inline-flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[14px]">play_circle</span>
+                                            Play here
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Documents -->
+                        <div>
+                            <h3 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-3">Documents</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <a href="#" download="AKK-Investment-Memorandum.pdf"
+                                    class="flex items-center gap-4 p-4 border border-gray-200 rounded-md hover:bg-gray-50 hover:border-brand-green transition-colors">
+                                    <span class="material-symbols-outlined text-red-600 text-[36px] shrink-0"
+                                        style="font-variation-settings: 'FILL' 1;">picture_as_pdf</span>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-bold text-brand-green truncate">Investment Memorandum</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">PDF · 2.4 MB · 48 pages</p>
+                                    </div>
+                                    <span
+                                        class="material-symbols-outlined text-gray-400 group-hover:text-brand-green">download</span>
+                                </a>
+                                <a href="#" download="AKK-Technical-Feasibility.pdf"
+                                    class="flex items-center gap-4 p-4 border border-gray-200 rounded-md hover:bg-gray-50 hover:border-brand-green transition-colors">
+                                    <span class="material-symbols-outlined text-red-600 text-[36px] shrink-0"
+                                        style="font-variation-settings: 'FILL' 1;">picture_as_pdf</span>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-bold text-brand-green truncate">Technical Feasibility Report</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">PDF · 5.8 MB · 112 pages</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-gray-400">download</span>
+                                </a>
+                                <a href="#" download="AKK-EIA-Summary.pdf"
+                                    class="flex items-center gap-4 p-4 border border-gray-200 rounded-md hover:bg-gray-50 hover:border-brand-green transition-colors">
+                                    <span class="material-symbols-outlined text-red-600 text-[36px] shrink-0"
+                                        style="font-variation-settings: 'FILL' 1;">picture_as_pdf</span>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-bold text-brand-green truncate">Environmental Impact Summary</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">PDF · 1.7 MB · 32 pages</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-gray-400">download</span>
+                                </a>
+                                <a href="#" download="AKK-Term-Sheet.pdf"
+                                    class="flex items-center gap-4 p-4 border border-gray-200 rounded-md hover:bg-gray-50 hover:border-brand-green transition-colors">
+                                    <span class="material-symbols-outlined text-red-600 text-[36px] shrink-0"
+                                        style="font-variation-settings: 'FILL' 1;">picture_as_pdf</span>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-bold text-brand-green truncate">Indicative Term Sheet</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">PDF · 0.6 MB · 8 pages</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-gray-400">download</span>
+                                </a>
+                            </div>
+                            <p class="text-[11px] text-gray-400 mt-3">Documents are shared under NDA. Demo
+                                downloads are placeholders.</p>
+                        </div>
+                    </section>
+                    <!-- END: MembersOnlyContent -->
+
+                    <!-- BEGIN: StatePortalRedirect — informational banner.
+                         The button opens the official State Federal Portal in a new tab.
+                         Swap the `href` for the real portal URL when available. -->
+                    <aside
+                        class="show-when-unlocked rounded-md border-l-4 border-brand-accent bg-brand-sidebar p-4 sm:p-5 flex items-start sm:items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap">
+                        <span
+                            class="w-9 h-9 rounded bg-brand-accent/15 text-brand-accent flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[20px]"
+                                style="font-variation-settings: 'FILL' 1;">account_balance</span>
+                        </span>
+                        <p class="flex-1 min-w-[200px] text-sm text-brand-green leading-snug">
+                            <span class="font-bold">Administered via the State Federal Portal.</span>
+                            <span class="text-gray-600">Investment requests for this opportunity are submitted on
+                                the official portal.</span>
+                        </p>
+                        <a href="https://power.gov.ng/" target="_blank" rel="noopener"
+                            class="inline-flex items-center gap-2 bg-brand-green text-white font-semibold text-xs uppercase tracking-wider px-4 py-2.5 rounded hover:opacity-90 transition-all shrink-0">
+                            Submit Request
+                            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                        </a>
+                    </aside>
+                    <!-- END: StatePortalRedirect -->
 
                     <!-- BEGIN: ActionButtons -->
                     <!-- <section class="flex flex-wrap items-center justify-between pt-6 border-t border-gray-200">
@@ -509,8 +882,8 @@
                             <h3 class="font-manrope font-bold text-sm text-brand-green">Contact Details</h3>
                         </div>
                         <div class="p-6 bg-white relative">
-                            <!-- Blurred Contact Info (Restricted Access Visual) -->
-                            <div class="space-y-4 filter blur-sm select-none opacity-50">
+                            <!-- Contact Info — blurred until member login click. -->
+                            <div class="gated-content space-y-4 filter blur-sm select-none opacity-50">
                                 <div>
                                     <p class="text-xs text-gray-400">Contact Person Name</p>
                                     <p class="font-bold text-brand-green">Adebayo Okonkwo</p>
@@ -521,16 +894,18 @@
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-400">Phone</p>
-                                    <p class="font-bold text-brand-green">+234 000 000 0000</p>
+                                    <a class="font-bold text-brand-green hover:text-brand-accent transition-colors"
+                                        href="tel:+2348012345678">+234 801 234 5678</a>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-400">Email</p>
-                                    <p class="font-bold text-brand-green">promoter@example.com</p>
+                                    <a class="font-bold text-brand-green break-all hover:text-brand-accent transition-colors"
+                                        href="mailto:promoter@akk-pipeline.ng">promoter@akk-pipeline.ng</a>
                                 </div>
                             </div>
-                            <!-- Login/Register CTA Overlay -->
+                            <!-- Login/Register CTA overlay — hidden after auth. -->
                             <div
-                                class="absolute inset-0 flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-[1px]">
+                                class="gated-overlay absolute inset-0 flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-[1px]">
                                 <div class="mb-4 text-brand-accent">
                                     <svg class="w-10 h-10" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                                         <path
@@ -574,12 +949,34 @@
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
-                            </svg></a></div>
+                            </svg></a>
+                        <a href="#" aria-label="Instagram"
+                            class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                                class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg></a>
+                        <a href="#" aria-label="YouTube"
+                            class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                                class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg></a>
+                        <a href="#" aria-label="Facebook"
+                            class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                                class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.408.593 24 1.325 24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.099 1.894-4.785 4.659-4.785 1.325 0 2.464.099 2.797.143v3.24l-1.918.001c-1.504 0-1.795.716-1.795 1.764v2.31h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.592 1.323-1.325V1.325C24 .593 23.408 0 22.675 0z" />
+                            </svg></a>
+                    </div>
                 </div>
                 <div>
                     <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
                     <ul class="flex flex-col gap-3">
-                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Legal</a></li>
                         <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy
                                 Policy</a>
                         </li>
@@ -590,9 +987,9 @@
                 <div>
                     <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
                     <ul class="flex flex-col gap-3">
+                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">NIPC</a></li>
                         <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
                                 Power</a></li>
-                        <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
                         <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
                                 Commission</a></li>
                     </ul>
@@ -615,7 +1012,7 @@
             </div>
             <div
                 class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-                <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
+                <span class="text-xs sm:text-sm">© 2026 OSIP Nigeria. All rights reserved.</span><span
                     class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
             </div>
         </footer>
@@ -694,11 +1091,32 @@
                 if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
             });
 
-            // Lets Login.html close the modal after auth: it can call
-            // window.parent.postMessage('osip-close','*')
+            // Lets Login.html close the modal after auth (window.parent.postMessage)
+            // and — on 'osip-login-success' — also reveals the Investor Data Room
+            // sections via a body class. State is in-memory only: a hard refresh
+            // wipes it and the page returns to its locked state by design.
             window.addEventListener('message', (e) => {
                 if (e.data === 'osip-close' || e.data === 'osip-login-success') closeModal();
+                if (e.data === 'osip-login-success') unlockMembers();
             });
+
+            function unlockMembers() {
+                if (document.body.classList.contains('is-authenticated')) return;
+                document.body.classList.add('is-authenticated');
+                // Toast confirmation
+                const toast = document.createElement('div');
+                toast.className = 'unlocked-toast';
+                toast.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px">lock_open</span> Welcome — Investor Data Room unlocked';
+                document.body.appendChild(toast);
+                requestAnimationFrame(() => toast.classList.add('is-visible'));
+                setTimeout(() => {
+                    toast.classList.remove('is-visible');
+                    setTimeout(() => toast.remove(), 300);
+                }, 2600);
+                // Scroll to the unlocked section after the modal close animation.
+                const target = document.getElementById('members-section');
+                if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 250);
+            }
         })();
 
         // Active top-nav highlight + page wiring (golden bar follows the current page).
@@ -891,6 +1309,79 @@
                 panel.className = 'nesp-dropdown';
                 panel.innerHTML = html;
                 li.appendChild(panel);
+            });
+        })();
+    </script>
+
+    <!-- Image lightbox host (single instance, hidden until a thumbnail is clicked). -->
+    <div id="osip-lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button type="button" class="lightbox-btn lightbox-close" aria-label="Close">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <button type="button" class="lightbox-btn lightbox-prev" aria-label="Previous image">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <button type="button" class="lightbox-btn lightbox-next" aria-label="Next image">
+            <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+        <img class="lightbox-img" alt="" />
+        <div class="lightbox-caption"></div>
+    </div>
+
+    <!-- Inline media: lightbox gallery + lazy YouTube facade. -->
+    <script>
+        // Image lightbox
+        (function () {
+            const lb = document.getElementById('osip-lightbox');
+            if (!lb) return;
+            const img = lb.querySelector('.lightbox-img');
+            const cap = lb.querySelector('.lightbox-caption');
+            const triggers = Array.from(document.querySelectorAll('[data-lightbox-src]'));
+            if (!triggers.length) return;
+            let idx = 0;
+            function show(i) {
+                idx = (i + triggers.length) % triggers.length;
+                const btn = triggers[idx];
+                img.src = btn.dataset.lightboxSrc;
+                img.alt = btn.dataset.caption || '';
+                cap.textContent = btn.dataset.caption || '';
+                lb.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            }
+            function close() {
+                lb.classList.remove('is-open');
+                img.removeAttribute('src');
+                document.body.style.overflow = '';
+            }
+            triggers.forEach((b, i) => b.addEventListener('click', () => show(i)));
+            lb.querySelector('.lightbox-close').addEventListener('click', close);
+            lb.querySelector('.lightbox-prev').addEventListener('click', () => show(idx - 1));
+            lb.querySelector('.lightbox-next').addEventListener('click', () => show(idx + 1));
+            lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+            document.addEventListener('keydown', (e) => {
+                if (!lb.classList.contains('is-open')) return;
+                if (e.key === 'Escape') close();
+                else if (e.key === 'ArrowLeft') show(idx - 1);
+                else if (e.key === 'ArrowRight') show(idx + 1);
+            });
+        })();
+
+        // Lazy YouTube facade — swaps the thumbnail for an inline iframe on first click.
+        (function () {
+            document.querySelectorAll('.video-facade').forEach(function (holder) {
+                const id = holder.dataset.videoId;
+                const cover = holder.querySelector('.facade-cover');
+                if (!id || !cover) return;
+                cover.addEventListener('click', function () {
+                    if (holder.classList.contains('is-playing')) return;
+                    const iframe = document.createElement('iframe');
+                    iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&modestbranding=1';
+                    iframe.title = 'Project walkthrough';
+                    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                    iframe.setAttribute('allowfullscreen', '');
+                    holder.appendChild(iframe);
+                    holder.classList.add('is-playing');
+                });
             });
         })();
     </script>

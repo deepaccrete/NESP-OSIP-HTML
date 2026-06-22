@@ -140,29 +140,47 @@
         }
 
         /* Opportunity cards (mirrored from Opportunities.html) */
-        .opportunity-card { border-top: 4px solid #dfa800 !important; }
+        .opportunity-card {
+            border-top: 4px solid #dfa800 !important;
+        }
+
         .opportunity-card .inv-box {
             background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
             border: 1px solid rgba(0, 52, 43, 0.08);
             border-radius: 8px;
             padding: 12px 14px;
         }
+
         .sector-badge {
-            display: inline-flex; align-items: center; gap: 5px; margin-top: 6px;
-            padding: 3px 10px; border-radius: 9999px;
-            background: rgba(223, 168, 0, 0.14); border: 1px solid rgba(223, 168, 0, 0.35);
-            color: #5b4300; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; line-height: 1.45;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            background: rgba(223, 168, 0, 0.14);
+            border: 1px solid rgba(223, 168, 0, 0.35);
+            color: #5b4300;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1.45;
         }
-        .sector-badge .material-symbols-outlined { font-size: 14px; color: #c98a00; }
+
+        .sector-badge .material-symbols-outlined {
+            font-size: 14px;
+            color: #c98a00;
+        }
     </style>
 </head>
 
 <body class="font-body-md overflow-x-hidden">
     <!-- TopNavBar -->
-     <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-[74px]">
-                <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto" src="Text.png"></a>
+                <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto"
+                            src="Text.png"></a>
                     <ul class="hidden lg:flex items-center">
                         <li><a href="Sector.html"
                                 class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
@@ -215,7 +233,7 @@
             </div>
         </div>
     </nav>
-    <main >
+    <main>
         <!-- Hero Section -->
         <section class="relative h-[480px] sm:h-[520px] lg:h-[560px] w-full overflow-hidden hero-clip bg-primary">
             <div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay"
@@ -231,15 +249,16 @@
                             class="text-tertiary-fixed font-label-md text-label-md tracking-[0.2em] uppercase">Priority
                             Energy Sector</span>
                     </div>
-                    <h1 class="font-h1 text-h1-mobile sm:text-h1 text-white mb-6 leading-[1.1]">Renewable Energy <br><span
-                            class="text-tertiary-fixed-dim">Infrastructure</span></h1>
+                    <h1 class="font-h1 text-h1-mobile sm:text-h1 text-white mb-6 leading-[1.1]">Renewable Energy
+                        <br><span class="text-tertiary-fixed-dim">Infrastructure</span>
+                    </h1>
                     <p
                         class="font-body-lg text-body-lg text-white/80 mb-10 leading-relaxed max-w-2xl border-l-2 border-white/20 pl-6">
                         Achieving the <span class="text-white font-bold">30-30-30 Vision</span>: Nigeria's strategic
                         roadmap to deliver 30GW of generation capacity by 2030, with a minimum 30% renewable
                         contribution.
                     </p>
-                         
+
                 </div>
             </div>
         </section>
@@ -285,118 +304,145 @@
                 </div>
             </div>
         </section> -->
-       
-       <!-- NEW REFINED STATS BAR-->
+
+        <!-- NEW REFINED STATS BAR-->
         <section class="bg-white py-14 lg:py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
-        <div class="max-w-7xl mx-auto">
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6"><div
-              class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
-              <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">solar_power</span></div>
-              <h3
-                class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
-                style="font-family: Manrope, sans-serif;">Solar Potential</h3>
-              <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span class="font-bold text-[#111827]">427 GW</span> &middot;
-                Unrealized Asset</p>
-            </div><div
-              class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
-              <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">bolt</span></div>
-              <h3
-                class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
-                style="font-family: Manrope, sans-serif;">Installed Capacity</h3>
-              <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span class="font-bold text-[#111827]">2.1 GW</span> &middot;
-                Active Grid Contribution</p>
-            </div><div
-              class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
-              <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">savings</span></div>
-              <h3
-                class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
-                style="font-family: Manrope, sans-serif;">Investment Gap</h3>
-              <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span class="font-bold text-[#111827]">$10.4 BN</span> &middot;
-                Capital Required</p>
-            </div><div
-              class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
-              <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">flag</span></div>
-              <h3
-                class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
-                style="font-family: Manrope, sans-serif;">2030 Target</h3>
-              <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span class="font-bold text-[#111827]">9.0 GW</span> &middot;
-                Policy Benchmark</p>
-            </div></div>
-        </div>
-      </section>
-       
-       
-       
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span
+                                class="material-symbols-outlined text-[40px] text-[#004225]">solar_power</span></div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">Solar Potential</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">427 GW</span> &middot;
+                            Unrealized Asset</p>
+                    </div>
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">bolt</span>
+                        </div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">Installed Capacity</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">2.1 GW</span> &middot;
+                            Active Grid Contribution</p>
+                    </div>
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span
+                                class="material-symbols-outlined text-[40px] text-[#004225]">savings</span></div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">Investment Gap</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">$10.4 BN</span> &middot;
+                            Capital Required</p>
+                    </div>
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">flag</span>
+                        </div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">2030 Target</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">9.0 GW</span> &middot;
+                            Policy Benchmark</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
         <!-- Sector Overview: text left / image right -->
         <section class="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 <!-- Text -->
                 <div>
-                    <span class="inline-flex items-center gap-3 text-secondary font-bold text-label-md uppercase tracking-[0.18em] mb-5">
+                    <span
+                        class="inline-flex items-center gap-3 text-secondary font-bold text-label-md uppercase tracking-[0.18em] mb-5">
                         <span class="w-8 h-[2px] bg-tertiary-fixed-dim"></span> Sector Overview
                     </span>
                     <h2 class="font-h2 text-h2 text-primary leading-tight mb-6">Powering Nigeria's Renewable Future</h2>
                     <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">
-                        Renewable generation sits at the heart of Nigeria's <strong class="text-primary">30-30-30 Vision</strong> delivering 30&nbsp;GW of installed capacity with at least 30% from clean sources by 2030. Backed by the Electricity Act 2023, the sector is now open to private capital across utility-scale generation, mini-grids, and distributed solar.
+                        Renewable generation sits at the heart of Nigeria's <strong class="text-primary">30-30-30
+                            Vision</strong> delivering 30&nbsp;GW of installed capacity with at least 30% from clean
+                        sources by 2030. Backed by the Electricity Act 2023, the sector is now open to private capital
+                        across utility-scale generation, mini-grids, and distributed solar.
                     </p>
                     <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">
-                        From the solar-rich northern states to hydro potential in the central belt, investors can access bankable projects supported by transparent licensing and competitive fiscal incentives.
+                        From the solar-rich northern states to hydro potential in the central belt, investors can access
+                        bankable projects supported by transparent licensing and competitive fiscal incentives.
                     </p>
                     <ul class="space-y-4 mb-10">
                         <li class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                            <span class="text-body-md text-on-surface">100% foreign ownership permitted under the NIPC Act.</span>
+                            <span class="material-symbols-outlined text-secondary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-body-md text-on-surface">100% foreign ownership permitted under the NIPC
+                                Act.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                            <span class="text-body-md text-on-surface">Pioneer Status tax holidays for qualifying projects.</span>
+                            <span class="material-symbols-outlined text-secondary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-body-md text-on-surface">Pioneer Status tax holidays for qualifying
+                                projects.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                            <span class="text-body-md text-on-surface">Streamlined NERC licensing for generation &amp; mini-grids.</span>
+                            <span class="material-symbols-outlined text-secondary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-body-md text-on-surface">Streamlined NERC licensing for generation &amp;
+                                mini-grids.</span>
                         </li>
                     </ul>
-                    <a href="Opportunities.html" class="inline-flex items-center gap-2 bg-primary-container text-white px-7 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
+                    <a href="Opportunities.html"
+                        class="inline-flex items-center gap-2 bg-primary-container text-white px-7 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
                         Explore Opportunities <span class="material-symbols-outlined text-lg">arrow_forward</span>
                     </a>
                 </div>
                 <!-- Image -->
                 <div class="relative">
                     <div class="overflow-hidden rounded-2xl shadow-xl">
-                        <img alt="Utility-scale solar farm in Nigeria" class="w-full h-72 sm:h-96 lg:h-[480px] object-cover"
+                        <img alt="Utility-scale solar farm in Nigeria"
+                            class="w-full h-72 sm:h-96 lg:h-[480px] object-cover"
                             src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&amp;w=1740&amp;auto=format&amp;fit=crop" />
                     </div>
                     <!-- Floating stat card -->
-                    <div class="absolute -bottom-6 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 sm:px-6 py-4 flex items-center gap-4">
-                        <span class="w-12 h-12 bg-primary-container text-white rounded-lg flex items-center justify-center"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span></span>
+                    <div
+                        class="absolute -bottom-6 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 sm:px-6 py-4 flex items-center gap-4">
+                        <span
+                            class="w-12 h-12 bg-primary-container text-white rounded-lg flex items-center justify-center"><span
+                                class="material-symbols-outlined"
+                                style="font-variation-settings: 'FILL' 1;">bolt</span></span>
                         <div>
                             <p class="font-h3 text-h3 text-primary leading-none">30 GW</p>
-                            <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">Target by 2030</p>
+                            <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">Target by
+                                2030</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- Main Content & Sidebar -->
-        <section class="py-24 px-desktop max-w-7xl mx-auto grid grid-cols-12 gap-16 px-8">
+        <section class="py-12 lg:py-24 max-w-7xl mx-auto px-6 lg:px-8">
             <!-- Main Content: Projects Table -->
-            <div class="col-span-12">
-                <div class="flex items-center justify-between mb-10 pb-4 border-b border-outline-variant">
+            <div>
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 sm:gap-4 mb-8 lg:mb-10 pb-4 border-b border-outline-variant">
                     <div>
-                        <h2 class="font-h2 text-h2 text-primary">Major Projects</h2>
+                        <h2 class="font-h2 text-h3 sm:text-h2 text-primary">Major Projects</h2>
                         <p class="text-on-surface-variant text-body-sm mt-1 uppercase tracking-widest font-semibold">
                             Active Capital Opportunities</p>
                     </div>
-                    <div class="flex items-center gap-4">
-                        <span class="text-body-sm text-on-surface-variant font-medium">Filter by Status:</span>
-                        <select class="bg-transparent border-none text-primary font-bold focus:ring-0 cursor-pointer">
+                    <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
+                        <label for="proj-status-filter" class="text-body-sm text-on-surface-variant font-medium">Filter by Status:</label>
+                        <select id="proj-status-filter" class="bg-transparent border-none text-primary font-bold focus:ring-0 cursor-pointer">
                             <option>All Projects</option>
                             <option>Implementation</option>
                             <option>Funding Rounds</option>
                         </select>
                     </div>
                 </div>
-                <div id="opportunities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                <div id="opportunities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-gutter">
                     <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                         data-sector="renewable">
                         <div class="mb-6">
@@ -405,7 +451,8 @@
                             <h3
                                 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                                 Solar Power Naija - Phase II</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Renewable Generation</span>
+                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
+                                Renewable Generation</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -418,7 +465,8 @@
                                 <span class="font-semibold">Multi-State Off-grid</span>
                             </div>
                             <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">05 Jan 2026</span></div>
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">05 Jan
+                                    2026</span></div>
                         </div>
                         <div class="flex gap-2 mt-auto pt-2"><button
                                 class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
@@ -436,7 +484,8 @@
                             <h3
                                 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                                 Green Hydrogen Niger Delta Pilot</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Renewable Generation</span>
+                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
+                                Renewable Generation</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -449,7 +498,8 @@
                                 <span class="font-semibold">Rivers State</span>
                             </div>
                             <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">18 Feb 2025</span></div>
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">18 Feb
+                                    2025</span></div>
                         </div>
                         <div class="flex gap-2 mt-auto pt-2"><button
                                 class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
@@ -461,14 +511,15 @@
                     </div>
                     <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                         data-sector="storage">
-                        
+
                         <div class="mb-6">
                             <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
                                 2024-MIN-15</p>
                             <h3
                                 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                                 Nasarawa Lithium Processing Hub</h3>
-                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Energy Storage</span>
+                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
+                                Energy Storage</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -481,7 +532,8 @@
                                 <span class="font-semibold">Nasarawa State</span>
                             </div>
                             <div class="flex justify-between text-label-sm"><span
-                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">12 Aug 2024</span></div>
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">12 Aug
+                                    2024</span></div>
                         </div>
                         <div class="flex gap-2 mt-auto pt-2"><button
                                 class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
@@ -493,7 +545,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </section>
     </main>
     <!-- Footer -->
@@ -515,12 +567,27 @@
                             class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
-                        </svg></a></div>
+                        </svg></a>
+<a href="#" aria-label="Instagram"
+    class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+        class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+    </svg></a>
+<a href="#" aria-label="YouTube"
+    class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+        class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg></a>
+<a href="#" aria-label="Facebook"
+    class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+        class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.408.593 24 1.325 24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.099 1.894-4.785 4.659-4.785 1.325 0 2.464.099 2.797.143v3.24l-1.918.001c-1.504 0-1.795.716-1.795 1.764v2.31h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.592 1.323-1.325V1.325C24 .593 23.408 0 22.675 0z" />
+    </svg></a></div>
             </div>
             <div>
                 <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
                 <ul class="flex flex-col gap-3">
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Legal</a></li>
                     <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy Policy</a>
                     </li>
                     <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Contact Us</a></li>
@@ -529,11 +596,9 @@
             <div>
                 <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
                 <ul class="flex flex-col gap-3">
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
-                            Power</a></li>
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
-                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
-                            Commission</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">NIPC</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of Power</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy Commission</a></li>
                 </ul>
             </div>
             <div>
@@ -554,134 +619,235 @@
         </div>
         <div
             class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-            <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
+            <span class="text-xs sm:text-sm">© 2026 OSIP Nigeria. All rights reserved.</span><span
                 class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
         </div>
     </footer>
 
 
-<!-- NESP nav wiring (mobile toggle + active golden bar) -->
-<script>
-(function () {
-    const navToggle = document.getElementById('mobile-nav-toggle');
-    const mobileNav = document.getElementById('mobile-nav');
-    if (navToggle && mobileNav) {
-        navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
-        window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
-    }
-})();
-(function () {
-    const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
-    const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
-    const file = (location.pathname.split('/').pop() || '').toLowerCase();
-    const active = PAGE_ACTIVE[file];
-    document.querySelectorAll('nav.bg-white a').forEach(a => {
-        const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
-        if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
-        a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
-        if (active && label === active && a.className.indexOf('px-5') !== -1) {
-            const bar = document.createElement('span');
-            bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
-            a.appendChild(bar);
+    <!-- NESP nav wiring (mobile toggle + active golden bar) -->
+    <script>
+            (function () {
+                const navToggle = document.getElementById('mobile-nav-toggle');
+                const mobileNav = document.getElementById('mobile-nav');
+                if (navToggle && mobileNav) {
+                    navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                    window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
+                }
+            })();
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu {
+            position: relative;
         }
-    });
-})();
-</script>
-<!-- NESP nav hover dropdowns (shared, injected) -->
-<style>
-  .nesp-has-menu { position: relative; }
-  .nesp-has-menu::before { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 12px; }
-  .nesp-dropdown {
-    position: absolute; top: 100%; left: 50%; min-width: 300px;
-    background: #ffffff; border: 1px solid #e7e7e7;
-    border-radius: 12px; box-shadow: 0 18px 40px -16px rgba(6,20,16,0.22); margin-top: 8px;
-    padding: 10px; opacity: 0; visibility: hidden; transform: translateX(-50%) translateY(8px);
-    transition: opacity .22s ease, transform .22s ease, visibility .22s ease; z-index: 60;
-  }
-  .nesp-has-menu:hover .nesp-dropdown, .nesp-dropdown:hover {
-    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
-  }
-  .nesp-dropdown::before { content: ""; position: absolute; top: -12px; left: 0; right: 0; height: 14px; }
-  .nesp-dropdown::after { content: ""; position: absolute; top: -7px; left: 50%; width: 13px; height: 13px; background: #ffffff; border-top: 1px solid #e7e7e7; border-left: 1px solid #e7e7e7; border-radius: 3px 0 0 0; transform: translateX(-50%) rotate(45deg); }
-  .nesp-menu-head {
-    font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700;
-    letter-spacing: .14em; text-transform: uppercase; color: #9aa39e; padding: 8px 12px 6px;
-  }
-  .nesp-menu-item { display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none; transition: background .15s ease; }
-  .nesp-menu-item:hover { background: #f1f8f4; }
-  .nesp-menu-item .t { display: block; font-family: Manrope, sans-serif; font-size: 13.5px; font-weight: 700; color: #15241d; }
-  .nesp-menu-item:hover .t { color: #047857; }
-  .nesp-menu-item .d { display: block; font-size: 11.5px; line-height: 1.45; color: #6b746f; margin-top: 2px; }
-  .nesp-has-menu > a::after {
-    content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 7px;
-    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-    transform: translateY(-2px) rotate(45deg); opacity: .6; vertical-align: middle; transition: transform .2s ease;
-  }
-  .nesp-has-menu:hover > a::after { transform: translateY(0) rotate(225deg); }
-</style>
-<script>
-(function () {
-  var MENU = {
-    'SECTORS': { head: 'Strategic Priority Sectors', items: [
-      { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
-      { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
-      { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
-    ]},
-    'OPPORTUNITIES': { head: 'Investment Opportunities', items: [
-      { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
-      { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
-      { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
-      { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
-    ]},
-    'REGULATIONS': { head: 'Regulations & Compliance', items: [
-      { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
-      { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
-      { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
-      { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
-    ]},
-    'DATA': { head: 'Data & Insights', items: [
-      { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
-      { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
-      { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
-    ]},
-    'NEWS': { head: 'News Categories', items: [
-      { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
-      { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
-      { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
-      { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
-      { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
-    ]}
-  };
-  document.querySelectorAll('nav.bg-white a').forEach(function (a) {
-    if ((a.className || '').indexOf('px-5') === -1) return;
-    var menu = MENU[(a.textContent || '').replace(/\s+/g, ' ').trim().toUpperCase()];
-    if (!menu) return;
-    var li = a.closest('li'); if (!li) return;
-    li.classList.add('nesp-has-menu');
-    var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
-    menu.items.forEach(function (it) {
-      html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
-              (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
-    });
-    var panel = document.createElement('div');
-    panel.className = 'nesp-dropdown';
-    panel.innerHTML = html;
-    li.appendChild(panel);
-  });
-})();
-</script>
-<!-- NESP button wiring -->
-<script>
-(function () {
-  document.querySelectorAll('button').forEach(function (b) {
-    var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
-    if (t === 'view in detail' || t.indexOf('details') === 0) b.addEventListener('click', function () { location.href = 'detailedOppNew.html'; });
-    else if (t === 'invest now') b.addEventListener('click', function () { location.href = 'Login.html'; });
 
-    else if (t.indexOf('regulatory framework') === 0) b.addEventListener('click', function () { location.href = 'Regulation.html'; });
-  });
-})();
-</script>
+        .nesp-has-menu::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 12px;
+        }
+
+        .nesp-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 300px;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22);
+            margin-top: 8px;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+            z-index: 60;
+        }
+
+        .nesp-has-menu:hover .nesp-dropdown,
+        .nesp-dropdown:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nesp-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nesp-dropdown::after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: #ffffff;
+            border-top: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-radius: 3px 0 0 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nesp-menu-head {
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #9aa39e;
+            padding: 8px 12px 6px;
+        }
+
+        .nesp-menu-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .15s ease;
+        }
+
+        .nesp-menu-item:hover {
+            background: #f1f8f4;
+        }
+
+        .nesp-menu-item .t {
+            display: block;
+            font-family: Manrope, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15241d;
+        }
+
+        .nesp-menu-item:hover .t {
+            color: #047857;
+        }
+
+        .nesp-menu-item .d {
+            display: block;
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #6b746f;
+            margin-top: 2px;
+        }
+
+        .nesp-has-menu>a::after {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 7px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            opacity: .6;
+            vertical-align: middle;
+            transition: transform .2s ease;
+        }
+
+        .nesp-has-menu:hover>a::after {
+            transform: translateY(0) rotate(225deg);
+        }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+                        { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations & Compliance', items: [
+                        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data & Insights', items: [
+                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;
+                var menu = MENU[(a.textContent || '').replace(/\s+/g, ' ').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+    <!-- NESP button wiring -->
+    <script>
+        (function () {
+            document.querySelectorAll('button').forEach(function (b) {
+                var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+                if (t === 'view in detail' || t.indexOf('details') === 0) b.addEventListener('click', function () { location.href = 'detailedOppNew.html'; });
+                else if (t === 'invest now') b.addEventListener('click', function () { location.href = 'Login.html'; });
+
+                else if (t.indexOf('regulatory framework') === 0) b.addEventListener('click', function () { location.href = 'Regulation.html'; });
+            });
+        })();
+    </script>
     <!-- Invest Now popup flow -->
     <script src="investflow.js"></script>
 </body>

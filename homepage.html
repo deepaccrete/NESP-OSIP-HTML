@@ -3160,12 +3160,384 @@
       }
     }
   </style>
+  <style>
+    /* === OSIP homepage animation layer (progressive enhancement) === */
+    @media (prefers-reduced-motion: no-preference) {
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Scroll-reveal */
+      .osip-reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform .9s cubic-bezier(.2, .7, .2, 1);
+        will-change: transform, opacity;
+      }
+
+      .osip-reveal.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      .osip-reveal-left {
+        opacity: 0;
+        transform: translateX(-44px);
+        transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform .9s cubic-bezier(.2, .7, .2, 1);
+      }
+
+      .osip-reveal-left.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      .osip-reveal-right {
+        opacity: 0;
+        transform: translateX(44px);
+        transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform .9s cubic-bezier(.2, .7, .2, 1);
+      }
+
+      .osip-reveal-right.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* Staggered children */
+      .osip-stagger>* {
+        opacity: 0;
+        transform: translateY(26px);
+        transition: opacity .75s cubic-bezier(.2, .7, .2, 1), transform .75s cubic-bezier(.2, .7, .2, 1);
+      }
+
+      .osip-stagger.is-visible>* {
+        opacity: 1;
+        transform: none;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(1) {
+        transition-delay: .05s;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(2) {
+        transition-delay: .15s;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(3) {
+        transition-delay: .25s;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(4) {
+        transition-delay: .35s;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(5) {
+        transition-delay: .45s;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(6) {
+        transition-delay: .55s;
+      }
+
+      /* Hero floating gradient orbs */
+      .osip-orb-wrap {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 15;
+      }
+
+      .osip-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        mix-blend-mode: screen;
+        opacity: .55;
+      }
+
+      .osip-orb-amber {
+        width: 520px;
+        height: 520px;
+        background: radial-gradient(circle, rgba(255, 185, 85, .85), transparent 70%);
+        left: -10%;
+        top: -14%;
+        animation: osip-drift1 22s ease-in-out infinite;
+      }
+
+      .osip-orb-green {
+        width: 480px;
+        height: 480px;
+        background: radial-gradient(circle, rgba(27, 109, 36, .85), transparent 70%);
+        right: -8%;
+        bottom: -18%;
+        animation: osip-drift2 28s ease-in-out infinite;
+      }
+
+      @keyframes osip-drift1 {
+
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+
+        50% {
+          transform: translate(70px, 52px) scale(1.08);
+        }
+      }
+
+      @keyframes osip-drift2 {
+
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+
+        50% {
+          transform: translate(-60px, -42px) scale(1.06);
+        }
+      }
+
+      /* Ken-burns on hero background images */
+      .osip-kenburns img {
+        animation: osip-kenburns 22s ease-in-out infinite alternate;
+        transform-origin: center;
+      }
+
+      @keyframes osip-kenburns {
+        from {
+          transform: scale(1);
+        }
+
+        to {
+          transform: scale(1.09);
+        }
+      }
+
+      /* Shine sweep on primary buttons */
+      .osip-shine {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .osip-shine::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -120%;
+        width: 55%;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .55), transparent);
+        transform: skewX(-22deg);
+        transition: left .9s ease;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .osip-shine:hover::before {
+        left: 130%;
+      }
+
+      /* Card lift */
+      .osip-lift {
+        transition: transform .4s cubic-bezier(.2, .7, .2, 1), box-shadow .4s ease, border-color .35s ease;
+      }
+
+      .osip-lift:hover {
+        transform: translateY(-6px);
+      }
+
+      /* Icon pop on group hover */
+      .osip-icon-pop {
+        transition: transform .42s cubic-bezier(.34, 1.56, .64, 1);
+        display: inline-block;
+      }
+
+      .group:hover .osip-icon-pop {
+        transform: translateY(-4px) rotate(-6deg) scale(1.14);
+      }
+
+      /* Image shimmer sweep */
+      .osip-shimmer::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, .32) 50%, transparent 70%);
+        transform: translateX(-120%);
+        transition: transform 1s ease;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .group:hover .osip-shimmer::after {
+        transform: translateX(120%);
+      }
+
+      /* Journey number glow on card hover */
+      .osip-num-glow {
+        transition: color .35s ease, text-shadow .35s ease, transform .35s ease;
+      }
+
+      .osip-journey-card:hover .osip-num-glow {
+        color: rgba(255, 185, 85, .45);
+        text-shadow: 0 0 32px rgba(255, 185, 85, .55);
+        transform: translateY(-2px);
+      }
+
+      /* Hero scroll cue */
+      .osip-scroll-cue {
+        position: absolute;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 38px;
+        border: 2px solid rgba(255, 255, 255, .5);
+        border-radius: 14px;
+        z-index: 25;
+        pointer-events: none;
+      }
+
+      .osip-scroll-cue::after {
+        content: "";
+        position: absolute;
+        top: 6px;
+        left: 50%;
+        width: 3px;
+        height: 8px;
+        background: #ffb955;
+        border-radius: 2px;
+        transform: translateX(-50%);
+        animation: osip-scroll-dot 1.8s ease-in-out infinite;
+      }
+
+      @keyframes osip-scroll-dot {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, 0);
+        }
+
+        30% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate(-50%, 14px);
+        }
+      }
+
+      /* Nav scroll shadow + animated underline */
+      nav.bg-white {
+        transition: box-shadow .35s ease, background-color .35s ease;
+      }
+
+      nav.bg-white.osip-scrolled {
+        box-shadow: 0 10px 28px -18px rgba(2, 44, 34, .28);
+        background-color: rgba(255, 255, 255, .95);
+        backdrop-filter: saturate(160%) blur(6px);
+        -webkit-backdrop-filter: saturate(160%) blur(6px);
+      }
+
+      nav.bg-white ul a.px-5 {
+        position: relative;
+      }
+
+      nav.bg-white ul a.px-5::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        right: 50%;
+        bottom: 18px;
+        height: 2px;
+        background: #047857;
+        opacity: 0;
+        transition: left .35s ease, right .35s ease, opacity .35s ease;
+      }
+
+      nav.bg-white ul a.px-5:hover::before {
+        left: 14px;
+        right: 14px;
+        opacity: .55;
+      }
+
+      /* Live ticker arrows pulse */
+      .ticker-content .text-green-400,
+      .ticker-content .text-red-400 {
+        animation: osip-pulse-soft 2.2s ease-in-out infinite;
+      }
+
+      @keyframes osip-pulse-soft {
+
+        0%,
+        100% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: .55;
+        }
+      }
+
+      /* Sector card arrow slide */
+      .osip-arrow-slide {
+        display: inline-block;
+        transition: transform .4s cubic-bezier(.2, .7, .2, 1);
+      }
+
+      .group:hover .osip-arrow-slide {
+        transform: translateX(8px);
+      }
+
+      /* Event date badge bounce */
+      .osip-date-badge {
+        transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease;
+      }
+
+      .osip-event-row:hover .osip-date-badge {
+        transform: translateY(-3px) scale(1.06);
+        box-shadow: 0 8px 18px -10px rgba(10, 90, 55, .55);
+      }
+
+      /* Footer social bounce */
+      footer a[aria-label] {
+        transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), color .3s ease, border-color .3s ease;
+      }
+
+      footer a[aria-label]:hover {
+        transform: translateY(-3px) rotate(-4deg);
+      }
+
+      /* Soft float for partner logos */
+      footer .grid>div {
+        transition: transform .35s ease, opacity .35s ease, border-color .35s ease;
+      }
+
+      footer .grid>div:hover {
+        transform: translateY(-3px);
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .osip-reveal,
+      .osip-reveal-left,
+      .osip-reveal-right,
+      .osip-stagger>* {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
   <div id="root">
     <div class="min-h-screen">
       <header class="fixed top-0 left-0 right-0 z-50">
+        <!-- Top ticker bar (live market data + GMT clock) — hidden per request
         <div class="bg-[#061410] border-b border-white/5 overflow-hidden relative h-[34px] flex items-center">
           <div class="ticker-track whitespace-nowrap flex items-center">
             <div class="ticker-content flex items-center gap-8 pr-8 text-[11px] text-gray-400 tracking-wide">
@@ -3187,6 +3559,7 @@
             class="absolute right-0 top-0 h-full flex items-center bg-[#061410] px-8 text-[11px] tracking-[0.2em] text-gray-500 z-10">
             GMT: 10:53:58</div>
         </div>
+        -->
         <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
           <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-[74px]">
@@ -3327,7 +3700,7 @@
                   w-full
                   sm:w-auto
                 ">Explore Opportunities</a>
-               </div>
+            </div>
           </div>
         </div>
         <div class="absolute bottom-5 sm:bottom-8 left-0 right-0 z-20 px-5 sm:px-8 lg:px-16">
@@ -3482,76 +3855,84 @@
         </div>
       </section>
       <section class="bg-white py-14 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8" style="font-family: Inter, sans-serif;">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 lg:mb-14">
-      <div>
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 uppercase tracking-wide"
-          style="font-family: Manrope, sans-serif;">ACTIVE opportunity</h2>
-        <div class="w-14 h-[2px] bg-[#1a5c3a] mt-3"></div>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 lg:mb-14">
+            <div>
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 uppercase tracking-wide"
+                style="font-family: Manrope, sans-serif;">ACTIVE opportunity</h2>
+              <div class="w-14 h-[2px] bg-[#1a5c3a] mt-3"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
 
-      <!-- Card 1 -->
-      <a href="pages/detailedOppNew.html"
-        class="group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
-        <div class="relative overflow-hidden h-52 sm:h-56 lg:h-60 bg-gray-100">
-          <img alt="NORTH-CENTRAL CLUSTER PHASE II"
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzYgYIi97LPW5C449jtABDQzPTtvk5_suYLGlSU5Gg-P4dJlGU9SoRdjyO-f7gx6A8xHMCABwb_5c_j8DksvwlzgWNYYU_0TafqYpmfm8mqCaojOq_BgfNVl3PixAU2y1RH1qwdQRaxr8ohi2RAkP2sJnk4o_H2t1SWJzxT6GOsGPmcoQ7ROprDYtlmsR71NxgU0Jnp2jwK4cymBMierFh4sFC2RXSHLAuH9DrDyc9J1JvzjBqq-nOfa-XeKbXcXgj-cxW7vZA_CTF">
-        </div>
-        <div class="flex flex-col flex-1 p-5 sm:p-6">
-          <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-[#1a5c3a] mb-3">MINI-GRID EXPANSION</span>
-          <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-5 line-clamp-3"
-            style="font-family: Manrope, sans-serif;">NORTH-CENTRAL CLUSTER PHASE II</h3>
-          <div class="mt-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <span class="text-lg font-semibold text-gray-900" style="font-family: Manrope, sans-serif;">USD12.4B</span>
-            <span class="inline-flex items-center justify-center bg-[#0a1f1a] group-hover:bg-[#1a5c3a] text-white text-sm font-medium tracking-wide px-5 py-3 transition-all duration-300 w-full sm:w-auto">review</span>
+            <!-- Card 1 -->
+            <a href="pages/detailedOppNew.html"
+              class="group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
+              <div class="relative overflow-hidden h-52 sm:h-56 lg:h-60 bg-gray-100">
+                <img alt="NORTH-CENTRAL CLUSTER PHASE II"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzYgYIi97LPW5C449jtABDQzPTtvk5_suYLGlSU5Gg-P4dJlGU9SoRdjyO-f7gx6A8xHMCABwb_5c_j8DksvwlzgWNYYU_0TafqYpmfm8mqCaojOq_BgfNVl3PixAU2y1RH1qwdQRaxr8ohi2RAkP2sJnk4o_H2t1SWJzxT6GOsGPmcoQ7ROprDYtlmsR71NxgU0Jnp2jwK4cymBMierFh4sFC2RXSHLAuH9DrDyc9J1JvzjBqq-nOfa-XeKbXcXgj-cxW7vZA_CTF">
+              </div>
+              <div class="flex flex-col flex-1 p-5 sm:p-6">
+                <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-[#1a5c3a] mb-3">MINI-GRID
+                  EXPANSION</span>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-5 line-clamp-3"
+                  style="font-family: Manrope, sans-serif;">NORTH-CENTRAL CLUSTER PHASE II</h3>
+                <div class="mt-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <span class="text-lg font-semibold text-gray-900"
+                    style="font-family: Manrope, sans-serif;">USD12.4B</span>
+                  <span
+                    class="inline-flex items-center justify-center bg-[#0a1f1a] group-hover:bg-[#1a5c3a] text-white text-sm font-medium tracking-wide px-5 py-3 transition-all duration-300 w-full sm:w-auto">review</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="pages/detailedOppNew.html"
+              class="group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
+              <div class="relative overflow-hidden h-52 sm:h-56 lg:h-60 bg-gray-100">
+                <img alt="SHIRORO DAM MODERNIZATION"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgcTAzqPyzrgs14SruTmtAGAgJH7lk2zm2QlCe07afaV1Xe7PrEBm6Ja7BRLGuKH9sjLaqZgLUp0woNNdnyXtdSwjBZftRT7CrTs-qZw0Epsc4-VVcVxUikvdW1mVmsYKjdYMiDHfaC-MIpMCcqZsLpdjmOUFju2zi7Dkl2j-_zezLCMtKoEmfEEAhmU6bgfdoyOWqiq4ydtEJiTjKmkjRjVOOmXdEaz63T-R4uVzR-kkm7GFpYifJI6f53OEobttHOY4hog0goGoX">
+              </div>
+              <div class="flex flex-col flex-1 p-5 sm:p-6">
+                <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-[#1a5c3a] mb-3">ASSET
+                  REFURBISHMENT</span>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-5 line-clamp-3"
+                  style="font-family: Manrope, sans-serif;">SHIRORO DAM MODERNIZATION</h3>
+                <div class="mt-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <span class="text-lg font-semibold text-gray-900"
+                    style="font-family: Manrope, sans-serif;">USD240K</span>
+                  <span
+                    class="inline-flex items-center justify-center bg-[#0a1f1a] group-hover:bg-[#1a5c3a] text-white text-sm font-medium tracking-wide px-5 py-3 transition-all duration-300 w-full sm:w-auto">review</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Card 3 -->
+            <a href="pages/detailedOppNew.html"
+              class="group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
+              <div class="relative overflow-hidden h-52 sm:h-56 lg:h-60 bg-gray-100">
+                <img alt="FEDERAL SECRETARIAT SOLAR"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLpbdpkPXbcWdgaMpTEQENcSruVMS2I78c0y_H7tIjRn51--hy3r9OZRWEcZzeoR--p2J0JBJmMS7u2siAdVxFThENUr2-RqXpJSy0h9LCV130X-MIRbfblGa02ZtNo5HR-fs_425KVL5hu2Al-dH_8J494qVqMc42WdGCoRMFLyP3-MNVUDJYsl1lAwnhAb0IbXqzTGqm_TqN0dj0QIgiJbsmXpyKOGTM6_lhASm2Ig82azD79Xoc_-wK4-ob7JclSREYQ53JjvDc">
+              </div>
+              <div class="flex flex-col flex-1 p-5 sm:p-6">
+                <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-[#1a5c3a] mb-3">PPP PROJECT</span>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-5 line-clamp-3"
+                  style="font-family: Manrope, sans-serif;">FEDERAL SECRETARIAT SOLAR</h3>
+                <div class="mt-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <span class="text-lg font-semibold text-gray-900"
+                    style="font-family: Manrope, sans-serif;">EUR4.2B</span>
+                  <span
+                    class="inline-flex items-center justify-center bg-[#0a1f1a] group-hover:bg-[#1a5c3a] text-white text-sm font-medium tracking-wide px-5 py-3 transition-all duration-300 w-full sm:w-auto">review</span>
+                </div>
+              </div>
+            </a>
+
           </div>
         </div>
-      </a>
-
-      <!-- Card 2 -->
-      <a href="pages/detailedOppNew.html"
-        class="group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
-        <div class="relative overflow-hidden h-52 sm:h-56 lg:h-60 bg-gray-100">
-          <img alt="SHIRORO DAM MODERNIZATION"
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgcTAzqPyzrgs14SruTmtAGAgJH7lk2zm2QlCe07afaV1Xe7PrEBm6Ja7BRLGuKH9sjLaqZgLUp0woNNdnyXtdSwjBZftRT7CrTs-qZw0Epsc4-VVcVxUikvdW1mVmsYKjdYMiDHfaC-MIpMCcqZsLpdjmOUFju2zi7Dkl2j-_zezLCMtKoEmfEEAhmU6bgfdoyOWqiq4ydtEJiTjKmkjRjVOOmXdEaz63T-R4uVzR-kkm7GFpYifJI6f53OEobttHOY4hog0goGoX">
-        </div>
-        <div class="flex flex-col flex-1 p-5 sm:p-6">
-          <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-[#1a5c3a] mb-3">ASSET REFURBISHMENT</span>
-          <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-5 line-clamp-3"
-            style="font-family: Manrope, sans-serif;">SHIRORO DAM MODERNIZATION</h3>
-          <div class="mt-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <span class="text-lg font-semibold text-gray-900" style="font-family: Manrope, sans-serif;">USD240K</span>
-            <span class="inline-flex items-center justify-center bg-[#0a1f1a] group-hover:bg-[#1a5c3a] text-white text-sm font-medium tracking-wide px-5 py-3 transition-all duration-300 w-full sm:w-auto">review</span>
-          </div>
-        </div>
-      </a>
-
-      <!-- Card 3 -->
-      <a href="pages/detailedOppNew.html"
-        class="group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
-        <div class="relative overflow-hidden h-52 sm:h-56 lg:h-60 bg-gray-100">
-          <img alt="FEDERAL SECRETARIAT SOLAR"
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLpbdpkPXbcWdgaMpTEQENcSruVMS2I78c0y_H7tIjRn51--hy3r9OZRWEcZzeoR--p2J0JBJmMS7u2siAdVxFThENUr2-RqXpJSy0h9LCV130X-MIRbfblGa02ZtNo5HR-fs_425KVL5hu2Al-dH_8J494qVqMc42WdGCoRMFLyP3-MNVUDJYsl1lAwnhAb0IbXqzTGqm_TqN0dj0QIgiJbsmXpyKOGTM6_lhASm2Ig82azD79Xoc_-wK4-ob7JclSREYQ53JjvDc">
-        </div>
-        <div class="flex flex-col flex-1 p-5 sm:p-6">
-          <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-[#1a5c3a] mb-3">PPP PROJECT</span>
-          <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-5 line-clamp-3"
-            style="font-family: Manrope, sans-serif;">FEDERAL SECRETARIAT SOLAR</h3>
-          <div class="mt-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <span class="text-lg font-semibold text-gray-900" style="font-family: Manrope, sans-serif;">EUR4.2B</span>
-            <span class="inline-flex items-center justify-center bg-[#0a1f1a] group-hover:bg-[#1a5c3a] text-white text-sm font-medium tracking-wide px-5 py-3 transition-all duration-300 w-full sm:w-auto">review</span>
-          </div>
-        </div>
-      </a>
-
-    </div>
-  </div>
-</section>
+      </section>
       <section class="bg-[#f4f3f8] py-16 lg:py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
           <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
@@ -3707,99 +4088,99 @@
           </div>
         </div>
       </section>
-     <section class="bg-[#f3f1f7] py-14 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8"
-    style="font-family: Inter, sans-serif;">
-    <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 lg:mb-14">
+      <section class="bg-[#f3f1f7] py-14 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8"
+        style="font-family: Inter, sans-serif;">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 lg:mb-14">
             <div class="max-w-2xl">
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-[#004225]"
-                    style="font-family: Manrope, sans-serif;">Sectors</h2>
+              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-[#004225]"
+                style="font-family: Manrope, sans-serif;">Sectors</h2>
             </div>
             <a href="pages/Sector.html"
-                class="text-[#004225] font-semibold text-sm sm:text-base lg:text-lg border-b border-[#004225] pb-1 hover:opacity-70 transition-opacity w-fit"
-                style="font-family: Manrope, sans-serif;">View All Sectors</a>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
+              class="text-[#004225] font-semibold text-sm sm:text-base lg:text-lg border-b border-[#004225] pb-1 hover:opacity-70 transition-opacity w-fit"
+              style="font-family: Manrope, sans-serif;">View All Sectors</a>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
 
             <!-- Card 1: Renewable Generation -->
             <a href="pages/DetailedSector.html"
-                class="lg:col-span-7 relative min-h-[420px] sm:min-h-[520px] lg:h-[580px] overflow-hidden group block cursor-pointer">
-                <img alt="Renewable Generation"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLpbdpkPXbcWdgaMpTEQENcSruVMS2I78c0y_H7tIjRn51--hy3r9OZRWEcZzeoR--p2J0JBJmMS7u2siAdVxFThENUr2-RqXpJSy0h9LCV130X-MIRbfblGa02ZtNo5HR-fs_425KVL5hu2Al-dH_8J494qVqMc42WdGCoRMFLyP3-MNVUDJYsl1lAwnhAb0IbXqzTGqm_TqN0dj0QIgiJbsmXpyKOGTM6_lhASm2Ig82azD79Xoc_-wK4-ob7JclSREYQ53JjvDc">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#00351f]/95 via-[#00351f]/40 to-transparent"></div>
-                <div class="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-5 sm:left-7 lg:left-10 right-5 sm:right-7">
-                    <span
-                        class="bg-[#8c5a11] text-white text-[10px] sm:text-[11px] uppercase tracking-[0.15em] px-3 sm:px-4 py-2 inline-block mb-4 sm:mb-6 font-bold"
-                        style="font-family: Manrope, sans-serif;">HIGH DEMAND</span>
-                    <h3 class="text-white text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4"
-                        style="font-family: Manrope, sans-serif;">Renewable Generation</h3>
-                    <p class="text-white/75 text-sm sm:text-lg lg:text-xl leading-relaxed mb-6">Integrated utility-scale
-                        solar farms connected directly to the National Energy Grid.</p>
-                    <span
-                        class="inline-flex items-center gap-3 text-white uppercase tracking-[0.12em] text-xs sm:text-sm font-bold group-hover:gap-5 transition-all">DOWNLOAD
-                        BRIEF<span>→</span></span>
-                </div>
+              class="lg:col-span-7 relative min-h-[420px] sm:min-h-[520px] lg:h-[580px] overflow-hidden group block cursor-pointer">
+              <img alt="Renewable Generation"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLpbdpkPXbcWdgaMpTEQENcSruVMS2I78c0y_H7tIjRn51--hy3r9OZRWEcZzeoR--p2J0JBJmMS7u2siAdVxFThENUr2-RqXpJSy0h9LCV130X-MIRbfblGa02ZtNo5HR-fs_425KVL5hu2Al-dH_8J494qVqMc42WdGCoRMFLyP3-MNVUDJYsl1lAwnhAb0IbXqzTGqm_TqN0dj0QIgiJbsmXpyKOGTM6_lhASm2Ig82azD79Xoc_-wK4-ob7JclSREYQ53JjvDc">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#00351f]/95 via-[#00351f]/40 to-transparent"></div>
+              <div class="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-5 sm:left-7 lg:left-10 right-5 sm:right-7">
+                <span
+                  class="bg-[#8c5a11] text-white text-[10px] sm:text-[11px] uppercase tracking-[0.15em] px-3 sm:px-4 py-2 inline-block mb-4 sm:mb-6 font-bold"
+                  style="font-family: Manrope, sans-serif;">HIGH DEMAND</span>
+                <h3 class="text-white text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4"
+                  style="font-family: Manrope, sans-serif;">Renewable Generation</h3>
+                <p class="text-white/75 text-sm sm:text-lg lg:text-xl leading-relaxed mb-6">Integrated utility-scale
+                  solar farms connected directly to the National Energy Grid.</p>
+                <span
+                  class="inline-flex items-center gap-3 text-white uppercase tracking-[0.12em] text-xs sm:text-sm font-bold group-hover:gap-5 transition-all">DOWNLOAD
+                  BRIEF<span>→</span></span>
+              </div>
             </a>
 
             <!-- Card 2: Grid Infrastructure -->
             <a href="pages/DetailedSector.html"
-                class="lg:col-span-5 relative min-h-[420px] sm:min-h-[520px] lg:h-[580px] overflow-hidden group block cursor-pointer">
-                <img alt="Grid Infrastructure"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLpbdpkPXbcWdgaMpTEQENcSruVMS2I78c0y_H7tIjRn51--hy3r9OZRWEcZzeoR--p2J0JBJmMS7u2siAdVxFThENUr2-RqXpJSy0h9LCV130X-MIRbfblGa02ZtNo5HR-fs_425KVL5hu2Al-dH_8J494qVqMc42WdGCoRMFLyP3-MNVUDJYsl1lAwnhAb0IbXqzTGqm_TqN0dj0QIgiJbsmXpyKOGTM6_lhASm2Ig82azD79Xoc_-wK4-ob7JclSREYQ53JjvDc">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#002d18]/95 via-[#002d18]/35 to-transparent"></div>
-                <div class="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-5 sm:left-7 lg:left-10 right-5 sm:right-10">
-                    <span
-                        class="text-white/70 text-[10px] sm:text-[11px] uppercase tracking-[0.2em] block mb-4 sm:mb-6 font-semibold"
-                        style="font-family: Manrope, sans-serif;">HIGH DEMAND</span>
-                    <h3 class="text-white text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight mb-4"
-                        style="font-family: Manrope, sans-serif;">Grid Infrastructure</h3>
-                    <p class="text-white/70 text-sm sm:text-base lg:text-lg leading-relaxed mb-6">Integrated utility-scale
-                        solar farms connected directly to the National Energy Grid.</p>
-                </div>
+              class="lg:col-span-5 relative min-h-[420px] sm:min-h-[520px] lg:h-[580px] overflow-hidden group block cursor-pointer">
+              <img alt="Grid Infrastructure"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLpbdpkPXbcWdgaMpTEQENcSruVMS2I78c0y_H7tIjRn51--hy3r9OZRWEcZzeoR--p2J0JBJmMS7u2siAdVxFThENUr2-RqXpJSy0h9LCV130X-MIRbfblGa02ZtNo5HR-fs_425KVL5hu2Al-dH_8J494qVqMc42WdGCoRMFLyP3-MNVUDJYsl1lAwnhAb0IbXqzTGqm_TqN0dj0QIgiJbsmXpyKOGTM6_lhASm2Ig82azD79Xoc_-wK4-ob7JclSREYQ53JjvDc">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#002d18]/95 via-[#002d18]/35 to-transparent"></div>
+              <div class="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-5 sm:left-7 lg:left-10 right-5 sm:right-10">
+                <span
+                  class="text-white/70 text-[10px] sm:text-[11px] uppercase tracking-[0.2em] block mb-4 sm:mb-6 font-semibold"
+                  style="font-family: Manrope, sans-serif;">HIGH DEMAND</span>
+                <h3 class="text-white text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight mb-4"
+                  style="font-family: Manrope, sans-serif;">Grid Infrastructure</h3>
+                <p class="text-white/70 text-sm sm:text-base lg:text-lg leading-relaxed mb-6">Integrated utility-scale
+                  solar farms connected directly to the National Energy Grid.</p>
+              </div>
             </a>
 
             <!-- Card 3: Energy Storage -->
             <a href="pages/DetailedSector.html"
-                class="lg:col-span-4 relative min-h-[320px] sm:h-[360px] overflow-hidden group block cursor-pointer">
-                <img alt=" Energy Storage"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzYgYIi97LPW5C449jtABDQzPTtvk5_suYLGlSU5Gg-P4dJlGU9SoRdjyO-f7gx6A8xHMCABwb_5c_j8DksvwlzgWNYYU_0TafqYpmfm8mqCaojOq_BgfNVl3PixAU2y1RH1qwdQRaxr8ohi2RAkP2sJnk4o_H2t1SWJzxT6GOsGPmcoQ7ROprDYtlmsR71NxgU0Jnp2jwK4cymBMierFh4sFC2RXSHLAuH9DrDyc9J1JvzjBqq-nOfa-XeKbXcXgj-cxW7vZA_CTF">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/10"></div>
-                <div class="absolute bottom-6 sm:bottom-8 left-5 sm:left-8 right-5 sm:right-8">
-                    <span
-                        class="bg-[#8c5a11] text-white text-[10px] uppercase tracking-[0.15em] px-3 py-2 inline-block mb-4 font-bold"
-                        style="font-family: Manrope, sans-serif;">STRATEGIC TRANSITION</span>
-                    <h3 class="text-white text-2xl sm:text-3xl font-bold mb-3" style="font-family: Manrope, sans-serif;">
-                        Energy Storage</h3>
-                    <p class="text-white/70 text-sm sm:text-base lg:text-lg leading-relaxed mb-5">Leveraging natural gas
-                        reserves for rapid thermal power generation and industrial clusters.</p>
-                </div>
+              class="lg:col-span-4 relative min-h-[320px] sm:h-[360px] overflow-hidden group block cursor-pointer">
+              <img alt=" Energy Storage"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzYgYIi97LPW5C449jtABDQzPTtvk5_suYLGlSU5Gg-P4dJlGU9SoRdjyO-f7gx6A8xHMCABwb_5c_j8DksvwlzgWNYYU_0TafqYpmfm8mqCaojOq_BgfNVl3PixAU2y1RH1qwdQRaxr8ohi2RAkP2sJnk4o_H2t1SWJzxT6GOsGPmcoQ7ROprDYtlmsR71NxgU0Jnp2jwK4cymBMierFh4sFC2RXSHLAuH9DrDyc9J1JvzjBqq-nOfa-XeKbXcXgj-cxW7vZA_CTF">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/10"></div>
+              <div class="absolute bottom-6 sm:bottom-8 left-5 sm:left-8 right-5 sm:right-8">
+                <span
+                  class="bg-[#8c5a11] text-white text-[10px] uppercase tracking-[0.15em] px-3 py-2 inline-block mb-4 font-bold"
+                  style="font-family: Manrope, sans-serif;">STRATEGIC TRANSITION</span>
+                <h3 class="text-white text-2xl sm:text-3xl font-bold mb-3" style="font-family: Manrope, sans-serif;">
+                  Energy Storage</h3>
+                <p class="text-white/70 text-sm sm:text-base lg:text-lg leading-relaxed mb-5">Leveraging natural gas
+                  reserves for rapid thermal power generation and industrial clusters.</p>
+              </div>
             </a>
 
             <!-- Card 4: Interactive Market Analytics (unchanged — keeps its own VIEW ANALYTICS button to Data.html) -->
             <div
-                class="lg:col-span-8 bg-[#004d23] relative overflow-hidden min-h-[320px] sm:h-[360px] p-6 sm:p-10 lg:p-14 flex flex-col justify-center">
-                <div class="absolute right-0 bottom-0 opacity-20">
-                    <div
-                        class="w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 border-[20px] sm:border-[24px] lg:border-[28px] border-white rounded-tl-[60px]">
-                    </div>
+              class="lg:col-span-8 bg-[#004d23] relative overflow-hidden min-h-[320px] sm:h-[360px] p-6 sm:p-10 lg:p-14 flex flex-col justify-center">
+              <div class="absolute right-0 bottom-0 opacity-20">
+                <div
+                  class="w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 border-[20px] sm:border-[24px] lg:border-[28px] border-white rounded-tl-[60px]">
                 </div>
-                <div class="relative z-10 max-w-2xl">
-                    <h3 class="text-white text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 sm:mb-6"
-                        style="font-family: Manrope, sans-serif;">Interactive Market Analytics</h3>
-                    <p class="text-white/70 text-sm sm:text-lg lg:text-xl leading-relaxed mb-8">Access real-time pricing,
-                        demand forecasting, and grid performance analytics before you invest.</p>
-                    <a href="pages/Data.html"
-                        class="inline-flex items-center bg-[#f2b84b] hover:bg-[#e0a63b] text-[#1a1a1a] px-5 sm:px-8 py-3 sm:py-4 uppercase tracking-[0.12em] text-xs sm:text-sm font-bold transition-colors">VIEW
-                        ANALYTICS</a>
-                </div>
+              </div>
+              <div class="relative z-10 max-w-2xl">
+                <h3 class="text-white text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 sm:mb-6"
+                  style="font-family: Manrope, sans-serif;">Interactive Market Analytics</h3>
+                <p class="text-white/70 text-sm sm:text-lg lg:text-xl leading-relaxed mb-8">Access real-time pricing,
+                  demand forecasting, and grid performance analytics before you invest.</p>
+                <a href="pages/Data.html"
+                  class="inline-flex items-center bg-[#f2b84b] hover:bg-[#e0a63b] text-[#1a1a1a] px-5 sm:px-8 py-3 sm:py-4 uppercase tracking-[0.12em] text-xs sm:text-sm font-bold transition-colors">VIEW
+                  ANALYTICS</a>
+              </div>
             </div>
 
+          </div>
         </div>
-    </div>
-</section>
+      </section>
       <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
         <div
           class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
@@ -3818,12 +4199,31 @@
                   class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
-                </svg></a></div>
+                </svg></a>
+              <a href="#" aria-label="Instagram"
+                class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                  class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg></a>
+              <a href="#" aria-label="YouTube"
+                class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                  class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg></a>
+              <a href="#" aria-label="Facebook"
+                class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
+                  class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.408.593 24 1.325 24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.099 1.894-4.785 4.659-4.785 1.325 0 2.464.099 2.797.143v3.24l-1.918.001c-1.504 0-1.795.716-1.795 1.764v2.31h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.592 1.323-1.325V1.325C24 .593 23.408 0 22.675 0z" />
+                </svg></a>
+            </div>
           </div>
           <div>
             <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
             <ul class="flex flex-col gap-3">
-              <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">legal</a></li>
+              <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Legal</a></li>
               <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy Policy</a>
               </li>
               <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Contact Us</a></li>
@@ -3832,11 +4232,9 @@
           <div>
             <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
             <ul class="flex flex-col gap-3">
-              <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
-                  Power</a></li>
-              <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Dummy</a></li>
-              <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
-                  Commission</a></li>
+              <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">NIPC</a></li>
+              <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of Power</a></li>
+              <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy Commission</a></li>
             </ul>
           </div>
           <div>
@@ -3857,7 +4255,7 @@
         </div>
         <div
           class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <span class="text-xs sm:text-sm">© 2024 OSIP Nigeria. All rights reserved.</span><span
+          <span class="text-xs sm:text-sm">© 2026 OSIP Nigeria. All rights reserved.</span><span
             class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
         </div>
       </footer>
@@ -4080,6 +4478,149 @@
         panel.className = 'nesp-dropdown';
         panel.innerHTML = html;
         li.appendChild(panel);
+      });
+    })();
+  </script>
+
+  <!-- OSIP homepage animation wiring (progressive enhancement) -->
+  <script>
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var sections = Array.from(document.querySelectorAll('#root section'));
+      var hero = sections[0];
+
+      function bySectionBg(color) {
+        return sections.find(function (s) { return (s.className || '').indexOf('bg-[' + color + ']') !== -1; });
+      }
+
+      var revealIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); revealIO.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+      // === Hero enhancements ===
+      if (hero) {
+        hero.querySelectorAll('.transition-opacity.duration-700').forEach(function (s) { s.classList.add('osip-kenburns'); });
+
+        if (!reduced) {
+          var wrap = document.createElement('div');
+          wrap.className = 'osip-orb-wrap';
+          wrap.innerHTML = '<div class="osip-orb osip-orb-amber"></div><div class="osip-orb osip-orb-green"></div>';
+          hero.appendChild(wrap);
+
+          var cue = document.createElement('div');
+          cue.className = 'osip-scroll-cue';
+          hero.appendChild(cue);
+        }
+
+        var heroCta = hero.querySelector('a[href="pages/Opportunities.html"]');
+        if (heroCta) heroCta.classList.add('osip-shine');
+      }
+
+      // === Section-level reveals (skip hero) ===
+      sections.forEach(function (s, i) {
+        if (i === 0) return;
+        s.classList.add('osip-reveal');
+        revealIO.observe(s);
+      });
+
+      // === Staggered card grids ===
+      document.querySelectorAll('#root section .grid').forEach(function (grid) {
+        var kids = grid.children;
+        if (kids.length < 3 || kids.length > 6) return;
+        var looksLikeCards = Array.prototype.every.call(kids, function (c) {
+          var cn = c.className || '';
+          return cn.indexOf('group') !== -1 || cn.indexOf('border') !== -1 || cn.indexOf('bg-[') !== -1 || cn.indexOf('relative') !== -1;
+        });
+        if (looksLikeCards) {
+          grid.classList.add('osip-stagger');
+          revealIO.observe(grid);
+        }
+      });
+
+      // === Card lift + icon pop on every anchor with the .group pattern ===
+      document.querySelectorAll('a.group').forEach(function (a) {
+        a.classList.add('osip-lift');
+        var icon = a.querySelector('.material-symbols-outlined');
+        if (icon) icon.classList.add('osip-icon-pop');
+        var imgWrap = a.querySelector('.relative.overflow-hidden');
+        if (imgWrap && imgWrap.querySelector('img')) imgWrap.classList.add('osip-shimmer');
+      });
+
+      // === Journey cards (dark green) ===
+      var journey = bySectionBg('#0d2318');
+      if (journey) {
+        journey.querySelectorAll('.grid > div').forEach(function (card) {
+          card.classList.add('osip-journey-card', 'osip-lift');
+          var num = card.querySelector('span');
+          if (num && /^\d/.test((num.textContent || '').trim())) num.classList.add('osip-num-glow');
+        });
+      }
+
+      // === Sector overlay cards: arrow slide ===
+      var sectorBg = bySectionBg('#f3f1f7');
+      if (sectorBg) {
+        sectorBg.querySelectorAll('a.group span').forEach(function (s) {
+          if ((s.textContent || '').trim() === '→') s.classList.add('osip-arrow-slide');
+        });
+      }
+
+      // === Shine on secondary primary buttons ===
+      document.querySelectorAll('#root a').forEach(function (a) {
+        var cn = a.className || '';
+        if (typeof cn !== 'string') return;
+        var isPrimary = (cn.indexOf('bg-[#004225]') !== -1 || cn.indexOf('bg-[#f2b84b]') !== -1 || cn.indexOf('bg-[#FFDDB4]') !== -1);
+        var isNav = cn.indexOf('px-5') !== -1;
+        if (isPrimary && !isNav) a.classList.add('osip-shine');
+      });
+
+      // === Nav scroll shadow ===
+      var nav = document.querySelector('nav.bg-white');
+      if (nav) {
+        var onScroll = function () { nav.classList.toggle('osip-scrolled', window.scrollY > 12); };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+
+      // === Number count-up in the data section ===
+      function animateNum(el) {
+        var text = el.getAttribute('data-osip-orig') || (el.textContent || '').trim();
+        el.setAttribute('data-osip-orig', text);
+        var m = text.match(/^(\D*)(\d[\d,]*)(.*)$/);
+        if (!m) return;
+        var prefix = m[1] || '', target = parseInt(m[2].replace(/,/g, ''), 10), suffix = m[3] || '';
+        if (isNaN(target)) return;
+        if (reduced) { el.textContent = text; return; }
+        var dur = 1600, start = null;
+        function step(ts) {
+          if (start === null) start = ts;
+          var p = Math.min(1, (ts - start) / dur);
+          var eased = 1 - Math.pow(1 - p, 3);
+          var v = Math.floor(target * eased);
+          el.textContent = prefix + v.toLocaleString() + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        }
+        el.textContent = prefix + '0' + suffix;
+        requestAnimationFrame(step);
+      }
+      var numIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { animateNum(e.target); numIO.unobserve(e.target); } });
+      }, { threshold: 0.4 });
+      var dataBg = bySectionBg('#f4f3f8');
+      if (dataBg) {
+        dataBg.querySelectorAll('h3').forEach(function (h) {
+          if (/^\d/.test((h.textContent || '').trim())) numIO.observe(h);
+        });
+      }
+
+      // === Event rows: date badge bounce ===
+      document.querySelectorAll('.bg-\\[\\#f3f3f1\\]').forEach(function (row) {
+        row.classList.add('osip-event-row');
+        var badge = row.querySelector('.bg-\\[\\#0a5a37\\]');
+        if (badge) badge.classList.add('osip-date-badge');
       });
     })();
   </script>

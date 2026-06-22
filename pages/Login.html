@@ -463,7 +463,7 @@
                         </p>
                     </div>
 
-                    <form class="space-y-4" onsubmit="event.preventDefault()">
+                    <form class="space-y-4" onsubmit="event.preventDefault(); osipAuth();">
                         <!-- Username -->
                         <div>
                             <label class="form-label" for="login-username">Username</label>
@@ -539,7 +539,7 @@
                         </p>
                     </div>
 
-                    <form class="space-y-4" id="registrationForm" onsubmit="event.preventDefault()">
+                    <form class="space-y-4" id="registrationForm" onsubmit="event.preventDefault(); osipAuth();">
                         <!-- Identity -->
                         <div>
                             <label class="form-label" for="identity">Who are you?</label>
@@ -627,6 +627,17 @@
                                 <button
                                     class="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 px-3.5 rounded-lg bg-[#ffdf9e] text-[#5b4300] text-[11px] font-bold tracking-[0.06em] hover:brightness-95 transition-all"
                                     type="button">VERIFY</button>
+                            </div>
+                        </div>
+
+                        <!-- Contact Number -->
+                        <div>
+                            <label class="form-label" for="reg-phone">Contact Number</label>
+                            <div class="form-control">
+                                <span class="material-symbols-outlined form-icon">call</span>
+                                <input class="form-input pl-11" id="reg-phone" name="phone"
+                                    placeholder="+234 800 000 0000" type="tel" autocomplete="tel"
+                                    inputmode="tel" pattern="[+0-9\s\-()]{7,}" />
                             </div>
                         </div>
 
@@ -764,6 +775,20 @@
             if (e.data === 'osip-show-register') showAuthView('register');
             else if (e.data === 'osip-show-login') showAuthView('login');
         });
+
+        // Click-through auth: no fields required. Tell the parent page (the
+        // detailedOppNew iframe modal host) to mark the user as signed in.
+        // Standalone fallback: redirect to homepage so the button still does
+        // something visible when this page is opened directly.
+        function osipAuth() {
+            try {
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage('osip-login-success', '*');
+                    return;
+                }
+            } catch (_) { /* cross-origin parent — fall through */ }
+            window.location.href = '../homepage.html';
+        }
 
         // Subtle parallax movement on the brand image
         window.addEventListener('mousemove', (e) => {
