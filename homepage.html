@@ -3856,6 +3856,44 @@
       </section>
       <section class="bg-white py-14 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
+          <div class="mb-10 lg:mb-14">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 uppercase tracking-wide"
+              style="font-family: Manrope, sans-serif;">Explore by State</h2>
+            <p class="text-[#5f6368] text-[15px] leading-7 max-w-2xl mt-4">Discover investment profiles, incentives and
+              live opportunities across Nigeria's leading states.</p>
+            <div class="w-14 h-[2px] bg-[#1a5c3a] mt-4"></div>
+          </div>
+          <div class="osip-states-grid">
+            <a href="pages/Enugu.html" class="osip-state-card is-live">
+              <img class="osip-state-emblem" src="pages/state-enugu.jpg" alt="Enugu State emblem">
+              <span class="osip-state-name">Enugu</span>
+              <span class="osip-state-tag">View profile</span>
+            </a>
+            <a href="pages/notDecided.html" class="osip-state-card">
+              <img class="osip-state-emblem" src="pages/state-lagos.png" alt="Lagos State emblem">
+              <span class="osip-state-name">Lagos</span>
+              <span class="osip-state-tag">Coming soon</span>
+            </a>
+            <a href="pages/notDecided.html" class="osip-state-card">
+              <img class="osip-state-emblem" src="pages/state-rivers.png" alt="Rivers State emblem">
+              <span class="osip-state-name">Rivers</span>
+              <span class="osip-state-tag">Coming soon</span>
+            </a>
+            <a href="pages/notDecided.html" class="osip-state-card">
+              <img class="osip-state-emblem" src="pages/state-kano.png" alt="Kano State emblem">
+              <span class="osip-state-name">Kano</span>
+              <span class="osip-state-tag">Coming soon</span>
+            </a>
+            <a href="pages/notDecided.html" class="osip-state-card">
+              <img class="osip-state-emblem" src="pages/state-anambra.png" alt="Anambra State emblem">
+              <span class="osip-state-name">Anambra</span>
+              <span class="osip-state-tag">Coming soon</span>
+            </a>
+          </div>
+        </div>
+      </section>
+      <section class="bg-white py-14 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+        <div class="max-w-7xl mx-auto">
           <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 lg:mb-14">
             <div>
               <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 uppercase tracking-wide"
@@ -4181,6 +4219,61 @@
           </div>
         </div>
       </section>
+      <!-- Explore by State -->
+      <style>
+        .osip-states-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 24px;
+        }
+
+        .osip-state-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          background: #ffffff;
+          border: 1px solid #e5e7eb;
+          border-radius: 14px;
+          padding: 28px 20px;
+          text-decoration: none;
+          transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+        }
+
+        .osip-state-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.28);
+          border-color: #1a5c3a;
+        }
+
+        .osip-state-emblem {
+          height: 84px;
+          width: 84px;
+          object-fit: contain;
+          margin-bottom: 18px;
+        }
+
+        .osip-state-name {
+          font-family: Manrope, sans-serif;
+          font-weight: 700;
+          font-size: 18px;
+          color: #0a1f1a;
+          margin-bottom: 4px;
+        }
+
+        .osip-state-tag {
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: #6b746f;
+        }
+
+        .osip-state-card.is-live .osip-state-tag {
+          color: #1a5c3a;
+        }
+      </style>
+
       <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
         <div
           class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <!-- enable scroll/entrance animations only when JS is on (avoids a flash of hidden content) -->
+    <script>document.documentElement.classList.add('js-anim');</script>
+    <title>Enugu State | Nigerian Energy Investment Portal (NEIP)</title>
+    <!-- Fonts & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .enugu-hero {
+            background: linear-gradient(rgba(0, 52, 43, 0.72), rgba(0, 34, 27, 0.92)), url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .reg-card:hover .reg-arrow {
+            transform: translateX(4px);
+        }
+
+        /* Centered flex grid so an incomplete last row (e.g. the last two agency cards) is centered */
+        .reg-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .reg-grid > .reg-card {
+            flex: 1 1 320px;
+            max-width: 380px;
+        }
+
+        /* Opportunity cards — matches the portal (Opportunities.html) styling */
+        .opportunity-card {
+            border-top: 4px solid #dfa800;
+        }
+
+        .opportunity-card .inv-box {
+            background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
+            border: 1px solid rgba(0, 52, 43, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .sector-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            background: rgba(223, 168, 0, 0.14);
+            border: 1px solid rgba(223, 168, 0, 0.35);
+            color: #5b4300;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1.45;
+        }
+
+        .sector-badge .material-symbols-outlined {
+            font-size: 14px;
+            color: #c98a00;
+        }
+
+        /* Scroll-reveal animation (applied only when JS is active) */
+        .js-anim .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .7s cubic-bezier(.22, .61, .36, 1), transform .7s cubic-bezier(.22, .61, .36, 1);
+            will-change: opacity, transform;
+        }
+
+        .js-anim .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .js-anim .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Hero entrance */
+        .js-anim .hero-rise {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: heroRise .9s cubic-bezier(.22, .61, .36, 1) forwards;
+        }
+
+        .js-anim .hero-rise.d1 {
+            animation-delay: .12s;
+        }
+
+        .js-anim .hero-rise.d2 {
+            animation-delay: .24s;
+        }
+
+        @keyframes heroRise {
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* State at a Glance card */
+        .glance-row {
+            transition: background .18s ease;
+            margin: 0 -12px;
+            padding-left: 12px;
+            padding-right: 12px;
+            border-radius: 6px;
+        }
+
+        .glance-row:hover {
+            background: #f6faf8;
+        }
+    </style>
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f9f9f7",
+                        "surface": "#f9f9f7",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e8e8e6",
+                        "surface-container-highest": "#e2e3e1",
+                        "secondary": "#1b6d24",
+                        "on-surface": "#1a1c1b",
+                        "on-surface-variant": "#404846",
+                        "primary": "#001d17",
+                        "primary-container": "#00342b",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "outline-variant": "#c0c8c4"
+                    },
+                    "fontFamily": {
+                        "h1": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-surface text-on-surface" style="font-family: Inter, sans-serif;">
+    <!-- TopNavBar -->
+    <header class="bg-surface border-b border-outline-variant sticky top-0 z-50">
+        <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
+                <div class="flex items-center justify-between h-[74px]">
+                    <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto"
+                                src="Text.png"></a>
+                        <ul class="hidden lg:flex items-center">
+                            <li><a href="Sector.html"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
+                            </li>
+                            <li><a href="#"
+                                    class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="hidden lg:flex items-center gap-5"><a href="#"
+                            class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
+                            class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
+                            Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
+                        id="mobile-nav-toggle" aria-label="Open menu"
+                        class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
+                </div>
+                <!-- Mobile nav menu -->
+                <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
+                    <ul class="flex flex-col">
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
+                        </li>
+                        <li><a href="#"
+                                class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
+                        </li>
+                        <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
+                        <li class="px-2 pt-2"><a href="#"
+                                class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
+                                Now</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Canvas -->
+    <main class="min-h-screen">
+        <!-- Hero: state emblem + name over image -->
+        <section class="relative py-20 md:py-28 overflow-hidden enugu-hero">
+            <div class="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-8">
+                <a href="../homepage.html"
+                    class="hero-rise inline-flex items-center gap-2 text-white/80 text-[13px] font-semibold uppercase tracking-[0.12em] mb-8 hover:text-white transition-colors"><span
+                        class="material-symbols-outlined text-[18px]">arrow_back</span>Back to States</a>
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
+                    <div class="hero-rise d1 bg-white rounded-xl p-3 shadow-lg shrink-0">
+                        <img alt="Enugu State Coat of Arms" src="state-enugu.jpg"
+                            class="h-24 w-24 md:h-28 md:w-28 object-contain">
+                    </div>
+                    <div class="hero-rise d2">
+                        <span
+                            class="text-tertiary-fixed-dim text-[12px] font-bold uppercase tracking-[0.25em] mb-3 block">South-East
+                            Nigeria &middot; Coal City State</span>
+                        <h1 class="text-white text-[40px] md:text-[64px] leading-none font-extrabold"
+                            style="font-family: Manrope, sans-serif;">Enugu State</h1>
+                        <p class="text-white/80 text-[15px] md:text-base mt-4 max-w-2xl leading-relaxed">A rising
+                            investment powerhouse in South-East Nigeria — rich in coal, limestone and arable land, and
+                            targeting a $30bn economy by 2031.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- State details -->
+        <section class="py-16 lg:py-20 bg-surface-container-lowest px-6 lg:px-8">
+            <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-16">
+                <div class="reveal">
+                    <h2 class="text-[28px] md:text-[36px] font-bold text-primary mb-6"
+                        style="font-family: Manrope, sans-serif;">About Enugu State</h2>
+                    <p class="text-on-surface-variant text-[15px] md:text-base leading-8 mb-5">Enugu — the historic
+                        "Coal City" — is the capital of Enugu State and the administrative heart of Nigeria's South-East.
+                        Predominantly rural with substantially rich arable land, over 70% of its people are farmers
+                        cultivating crops such as oil palm, cassava, cashew and the renowned Nsukka pepper.</p>
+                    <p class="text-on-surface-variant text-[15px] md:text-base leading-8 mb-5">The state is rich in
+                        natural resources including coal, limestone and iron ore, and is undergoing a historic
+                        transformation under an aggressive ease-of-doing-business agenda. Through the Enugu State
+                        Investment Development Authority (ESIDA), the government offers a one-stop facilitation window,
+                        tax incentives and streamlined land access for both domestic and foreign investors.</p>
+                    <p class="text-on-surface-variant text-[15px] md:text-base leading-8">Anchored by the Akanu Ibiam
+                        International Airport, extensive road and rail corridors, and a temperate climate, Enugu presents
+                        unique opportunities across agriculture, mining, energy, technology and tourism.</p>
+                </div>
+                <div class="reveal glance-card bg-white rounded-xl overflow-hidden h-fit border border-black/5 shadow-sm"
+                    style="transition-delay:.15s;">
+                    <!-- Header -->
+                    <div class="flex items-center gap-2 px-5 py-3 border-b border-black/5">
+                        <span class="h-4 w-1 rounded-full bg-[#047857]"></span>
+                        <h3 class="text-[12px] font-bold uppercase tracking-[0.15em] text-[#047857]">State at a Glance</h3>
+                    </div>
+                    <!-- Rows -->
+                    <dl class="px-5 py-1">
+                        <div class="glance-row flex items-center justify-between gap-4 py-2.5 border-b border-black/5">
+                            <dt class="flex items-center gap-2 text-[13px] text-on-surface-variant"><span
+                                    class="material-symbols-outlined text-[18px] text-[#047857]">location_city</span>Capital</dt>
+                            <dd class="font-bold text-primary text-[14px] text-right"
+                                style="font-family: Manrope, sans-serif;">Enugu</dd>
+                        </div>
+                        <div class="glance-row flex items-center justify-between gap-4 py-2.5 border-b border-black/5">
+                            <dt class="flex items-center gap-2 text-[13px] text-on-surface-variant"><span
+                                    class="material-symbols-outlined text-[18px] text-[#047857]">public</span>Zone</dt>
+                            <dd class="font-bold text-primary text-[14px] text-right"
+                                style="font-family: Manrope, sans-serif;">South-East</dd>
+                        </div>
+                        <div class="glance-row flex items-center justify-between gap-4 py-2.5 border-b border-black/5">
+                            <dt class="flex items-center gap-2 text-[13px] text-on-surface-variant"><span
+                                    class="material-symbols-outlined text-[18px] text-[#047857]">groups</span>Population</dt>
+                            <dd class="font-bold text-primary text-[14px] text-right"
+                                style="font-family: Manrope, sans-serif;">~4.4 million</dd>
+                        </div>
+                        <div class="glance-row flex items-center justify-between gap-4 py-2.5 border-b border-black/5">
+                            <dt class="flex items-center gap-2 text-[13px] text-on-surface-variant"><span
+                                    class="material-symbols-outlined text-[18px] text-[#047857]">landscape</span>Resources</dt>
+                            <dd class="font-bold text-primary text-[14px] text-right"
+                                style="font-family: Manrope, sans-serif;">Coal, Limestone, Farmland</dd>
+                        </div>
+                        <div class="glance-row flex items-center justify-between gap-4 py-2.5">
+                            <dt class="flex items-center gap-2 text-[13px] text-on-surface-variant"><span
+                                    class="material-symbols-outlined text-[18px] text-[#047857]">flight</span>Airport</dt>
+                            <dd class="font-bold text-primary text-[14px] text-right"
+                                style="font-family: Manrope, sans-serif;">Akanu Ibiam Int'l</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why invest — eye-catching stats band -->
+        <section class="px-6 lg:px-8" style="background-color: #00342b;">
+            <div class="max-w-[1440px] mx-auto py-14 lg:py-16">
+                <div class="reveal text-center mb-10 lg:mb-12">
+                    <span class="text-tertiary-fixed-dim text-[12px] font-bold uppercase tracking-[0.25em]">The Enugu
+                        Advantage</span>
+                    <h2 class="text-white text-[26px] md:text-[34px] font-bold mt-3"
+                        style="font-family: Manrope, sans-serif;">Why Invest in Enugu</h2>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                    <div class="reveal text-center">
+                        <p class="text-white text-[36px] md:text-[48px] font-extrabold leading-none"
+                            style="font-family: Manrope, sans-serif;"><span class="count-up" data-to="30"
+                                data-prefix="$" data-suffix="bn">$0bn</span></p>
+                        <p class="text-white/70 text-[13px] uppercase tracking-wide mt-3">Target economy by 2031</p>
+                    </div>
+                    <div class="reveal text-center" style="transition-delay:.1s;">
+                        <p class="text-white text-[36px] md:text-[48px] font-extrabold leading-none"
+                            style="font-family: Manrope, sans-serif;"><span class="count-up" data-to="300"
+                                data-suffix="k ha">0k ha</span></p>
+                        <p class="text-white/70 text-[13px] uppercase tracking-wide mt-3">New farmland opening up</p>
+                    </div>
+                    <div class="reveal text-center" style="transition-delay:.2s;">
+                        <p class="text-white text-[36px] md:text-[48px] font-extrabold leading-none"
+                            style="font-family: Manrope, sans-serif;"><span class="count-up" data-to="70"
+                                data-suffix="%">0%</span></p>
+                        <p class="text-white/70 text-[13px] uppercase tracking-wide mt-3">Agricultural workforce</p>
+                    </div>
+                    <div class="reveal text-center" style="transition-delay:.3s;">
+                        <p class="text-white text-[36px] md:text-[48px] font-extrabold leading-none"
+                            style="font-family: Manrope, sans-serif;"><span class="count-up" data-to="4.4"
+                                data-decimals="1" data-suffix="M">0.0M</span></p>
+                        <p class="text-white/70 text-[13px] uppercase tracking-wide mt-3">Population &amp; talent pool</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regulation / agency boxes -> redirect to actual sites -->
+        <section class="py-16 lg:py-20 bg-[#f4f3f8] px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="reveal mb-10 lg:mb-14">
+                    <h2 class="text-[28px] md:text-[36px] font-bold text-primary mb-3"
+                        style="font-family: Manrope, sans-serif;">Regulations &amp; Investor Agencies</h2>
+                    <p class="text-on-surface-variant text-[15px] max-w-2xl leading-7">Official Enugu State bodies
+                        governing investment, land, tax and business registration. Each link opens the agency's live
+                        website.</p>
+                    <div class="w-14 h-[3px] bg-[#f7be26] mt-5"></div>
+                </div>
+                <div class="reg-grid">
+
+                    <!-- Box 1 -->
+                    <a href="https://investment.enugustate.gov.ng/" target="_blank" rel="noopener"
+                        class="reveal reg-card group bg-white border border-[#e5e7eb] rounded-lg p-6 flex flex-col transition-all duration-300 hover:shadow-lg">
+                        <span class="material-symbols-outlined text-[#047857] text-[30px] mb-4">apartment</span>
+                        <h3 class="text-[18px] font-bold text-primary mb-2" style="font-family: Manrope, sans-serif;">
+                            Enugu State Investment Development Authority</h3>
+                        <p class="text-on-surface-variant text-[14px] leading-6 mb-5 flex-1">The one-stop authority
+                            (ESIDA) facilitating foreign &amp; domestic investment, incentives and SME financing.</p>
+                        <span
+                            class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px]">Visit
+                            site<span class="reg-arrow transition-transform">&rarr;</span></span>
+                    </a>
+
+                    <!-- Box 2 -->
+                    <a href="https://enugustate.gov.ng/" target="_blank" rel="noopener"
+                        class="reveal reg-card group bg-white border border-[#e5e7eb] rounded-lg p-6 flex flex-col transition-all duration-300 hover:shadow-lg">
+                        <span class="material-symbols-outlined text-[#047857] text-[30px] mb-4">account_balance</span>
+                        <h3 class="text-[18px] font-bold text-primary mb-2" style="font-family: Manrope, sans-serif;">
+                            Enugu State Government Portal</h3>
+                        <p class="text-on-surface-variant text-[14px] leading-6 mb-5 flex-1">The official state portal for
+                            policy, executive orders, MDAs and the ease-of-doing-business framework.</p>
+                        <span
+                            class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px]">Visit
+                            site<span class="reg-arrow transition-transform">&rarr;</span></span>
+                    </a>
+
+                    <!-- Box 3 -->
+                    <a href="https://enugustate.gov.ng/invest-in-enugu-2/" target="_blank" rel="noopener"
+                        class="reveal reg-card group bg-white border border-[#e5e7eb] rounded-lg p-6 flex flex-col transition-all duration-300 hover:shadow-lg">
+                        <span class="material-symbols-outlined text-[#047857] text-[30px] mb-4">savings</span>
+                        <h3 class="text-[18px] font-bold text-primary mb-2" style="font-family: Manrope, sans-serif;">
+                            Invest in Enugu — Incentives</h3>
+                        <p class="text-on-surface-variant text-[14px] leading-6 mb-5 flex-1">Tax holidays, pioneer
+                            status, land access and fiscal incentives available to qualifying investors.</p>
+                        <span
+                            class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px]">Visit
+                            site<span class="reg-arrow transition-transform">&rarr;</span></span>
+                    </a>
+
+                    <!-- Box 4 -->
+                    <a href="https://investment.enugustate.gov.ng/invest/" target="_blank" rel="noopener"
+                        class="reveal reg-card group bg-white border border-[#e5e7eb] rounded-lg p-6 flex flex-col transition-all duration-300 hover:shadow-lg">
+                        <span class="material-symbols-outlined text-[#047857] text-[30px] mb-4">verified</span>
+                        <h3 class="text-[18px] font-bold text-primary mb-2" style="font-family: Manrope, sans-serif;">
+                            Ease of Doing Business</h3>
+                        <p class="text-on-surface-variant text-[14px] leading-6 mb-5 flex-1">Business registration,
+                            permits and the streamlined regulatory process for setting up in Enugu.</p>
+                        <span
+                            class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px]">Visit
+                            site<span class="reg-arrow transition-transform">&rarr;</span></span>
+                    </a>
+
+                    <!-- Box 5 -->
+                    <a href="https://enugustate.gov.ng/" target="_blank" rel="noopener"
+                        class="reveal reg-card group bg-white border border-[#e5e7eb] rounded-lg p-6 flex flex-col transition-all duration-300 hover:shadow-lg">
+                        <span class="material-symbols-outlined text-[#047857] text-[30px] mb-4">receipt_long</span>
+                        <h3 class="text-[18px] font-bold text-primary mb-2" style="font-family: Manrope, sans-serif;">
+                            Internal Revenue &amp; Tax</h3>
+                        <p class="text-on-surface-variant text-[14px] leading-6 mb-5 flex-1">Enugu State Internal Revenue
+                            Service — tax compliance, levies and revenue administration for businesses.</p>
+                        <span
+                            class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px]">Visit
+                            site<span class="reg-arrow transition-transform">&rarr;</span></span>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Opportunities in Enugu only -->
+        <section class="py-16 lg:py-20 bg-surface-container-lowest px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="reveal flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 lg:mb-14">
+                    <div>
+                        <h2 class="text-[28px] md:text-[36px] font-bold text-primary uppercase tracking-wide"
+                            style="font-family: Manrope, sans-serif;">Opportunities in Enugu</h2>
+                        <div class="w-14 h-[3px] bg-[#1a5c3a] mt-3"></div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+
+                    <!-- Opportunity 1 -->
+                    <div
+                        class="reveal opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300">
+                        <div class="mb-6">
+                            <p class="text-[12px] text-on-surface-variant mb-1 uppercase tracking-wider">ID: 2026-ENU-01</p>
+                            <h3 class="text-base font-bold text-on-surface leading-tight mb-1"
+                                style="font-family: Manrope, sans-serif;">Enugu Agro-Industrial Cluster</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector : Agriculture</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-[12px] mb-1">Investment Amount</p>
+                            <p class="text-[26px] font-bold text-primary tracking-tight leading-none">USD 0.45 <span
+                                    class="text-[13px] font-normal text-on-surface-variant">bn</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-[12px]"><span class="text-on-surface-variant">State:</span><span
+                                    class="font-semibold">Enugu — Nsukka Zone</span></div>
+                            <div class="flex justify-between text-[12px]"><span
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">08 Jul 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <a href="detailedOppNew.html"
+                                class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold text-[12px] hover:bg-surface-container-high transition-all rounded">View
+                                in Detail</a>
+                            <a href="detailedOppNew.html"
+                                class="flex-1 text-center py-2 border border-transparent bg-primary-container text-white font-semibold text-[12px] hover:opacity-90 transition-all rounded shadow-sm">Invest
+                                Now</a>
+                        </div>
+                    </div>
+
+                    <!-- Opportunity 2 -->
+                    <div
+                        class="reveal opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300">
+                        <div class="mb-6">
+                            <p class="text-[12px] text-on-surface-variant mb-1 uppercase tracking-wider">ID: 2026-ENU-02</p>
+                            <h3 class="text-base font-bold text-on-surface leading-tight mb-1"
+                                style="font-family: Manrope, sans-serif;">Enugu Coal-to-Power Programme</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector : Energy &amp; Mining</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-[12px] mb-1">Investment Amount</p>
+                            <p class="text-[26px] font-bold text-primary tracking-tight leading-none">USD 1.20 <span
+                                    class="text-[13px] font-normal text-on-surface-variant">bn</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-[12px]"><span class="text-on-surface-variant">State:</span><span
+                                    class="font-semibold">Enugu — Coal City</span></div>
+                            <div class="flex justify-between text-[12px]"><span
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">08 Jul 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <a href="detailedOppNew.html"
+                                class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold text-[12px] hover:bg-surface-container-high transition-all rounded">View
+                                in Detail</a>
+                            <a href="detailedOppNew.html"
+                                class="flex-1 text-center py-2 border border-transparent bg-primary-container text-white font-semibold text-[12px] hover:opacity-90 transition-all rounded shadow-sm">Invest
+                                Now</a>
+                        </div>
+                    </div>
+
+                    <!-- Opportunity 3 -->
+                    <div
+                        class="reveal opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300">
+                        <div class="mb-6">
+                            <p class="text-[12px] text-on-surface-variant mb-1 uppercase tracking-wider">ID: 2026-ENU-03</p>
+                            <h3 class="text-base font-bold text-on-surface leading-tight mb-1"
+                                style="font-family: Manrope, sans-serif;">Awhum Waterfall Eco-Resort</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector : Tourism &amp; Hospitality</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-[12px] mb-1">Investment Amount</p>
+                            <p class="text-[26px] font-bold text-primary tracking-tight leading-none">USD 0.085 <span
+                                    class="text-[13px] font-normal text-on-surface-variant">bn</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-[12px]"><span class="text-on-surface-variant">State:</span><span
+                                    class="font-semibold">Enugu — Udi</span></div>
+                            <div class="flex justify-between text-[12px]"><span
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">08 Jul 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <a href="detailedOppNew.html"
+                                class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold text-[12px] hover:bg-surface-container-high transition-all rounded">View
+                                in Detail</a>
+                            <a href="detailedOppNew.html"
+                                class="flex-1 text-center py-2 border border-transparent bg-primary-container text-white font-semibold text-[12px] hover:opacity-90 transition-all rounded shadow-sm">Invest
+                                Now</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <div
+            class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
+            <div>
+                <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">OSIP</h3>
+                <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-sm">The official gateway for streamlining
+                    energy investments in Nigeria. Empowering investors with data, clarity, and sovereign support.</p>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Resources</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Legal</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Privacy Policy</a>
+                    </li>
+                    <li><a href="Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Contact
+                            Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partners</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">NIPC</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Ministry of
+                            Power</a></li>
+                    <li><a href="#" class="text-sm sm:text-base hover:text-white transition-colors">Energy
+                            Commission</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Partner Logos</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                        <span class="material-symbols-outlined text-white text-[22px]">account_balance</span>
+                        <span class="text-white text-xs font-bold tracking-wide">FMP</span>
+                    </div>
+                    <div
+                        class="border border-white/10 rounded h-14 sm:h-16 flex items-center justify-center gap-2 hover:border-white/20 transition-colors p-3 opacity-70">
+                        <span class="material-symbols-outlined text-white text-[22px]">bolt</span>
+                        <span class="text-white text-xs font-bold tracking-wide">NESP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <span class="text-xs sm:text-sm">© 2026 OSIP Nigeria. All rights reserved.</span><span
+                class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
+        </div>
+    </footer>
+
+    <!-- NESP nav wiring (mobile toggle + active golden bar) -->
+    <script>
+        (function () {
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            if (navToggle && mobileNav) {
+                navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
+            }
+        })();
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (label === 'INVEST NOW') return;
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu {
+            position: relative;
+        }
+
+        .nesp-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 300px;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22);
+            margin-top: 8px;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+            z-index: 60;
+        }
+
+        .nesp-has-menu:hover .nesp-dropdown,
+        .nesp-dropdown:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nesp-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nesp-dropdown::after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: #ffffff;
+            border-top: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-radius: 3px 0 0 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nesp-menu-head {
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #9aa39e;
+            padding: 8px 12px 6px;
+        }
+
+        .nesp-menu-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .15s ease;
+        }
+
+        .nesp-menu-item:hover {
+            background: #f1f8f4;
+        }
+
+        .nesp-menu-item .t {
+            display: block;
+            font-family: Manrope, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15241d;
+        }
+
+        .nesp-menu-item:hover .t {
+            color: #047857;
+        }
+
+        .nesp-menu-item .d {
+            display: block;
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #6b746f;
+            margin-top: 2px;
+        }
+
+        .nesp-has-menu>a::after {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 7px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            opacity: .6;
+            vertical-align: middle;
+            transition: transform .2s ease;
+        }
+
+        .nesp-has-menu:hover>a::after {
+            transform: translateY(0) rotate(225deg);
+        }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+                        { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations & Compliance', items: [
+                        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data & Insights', items: [
+                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;            // desktop top-level links only
+                var menu = MENU[(a.textContent || '').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+    <!-- Scroll reveal + animated count-up numbers -->
+    <script>
+        (function () {
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+            function runCount(el) {
+                if (el.dataset.counted) return;
+                el.dataset.counted = '1';
+                var to = parseFloat(el.getAttribute('data-to')) || 0;
+                var dec = parseInt(el.getAttribute('data-decimals'), 10) || 0;
+                var pre = el.getAttribute('data-prefix') || '';
+                var suf = el.getAttribute('data-suffix') || '';
+                if (reduce) { el.textContent = pre + to.toFixed(dec) + suf; return; }
+                var dur = 1500, start = null;
+                function frame(ts) {
+                    if (!start) start = ts;
+                    var p = Math.min((ts - start) / dur, 1);
+                    el.textContent = pre + (to * easeOutCubic(p)).toFixed(dec) + suf;
+                    if (p < 1) requestAnimationFrame(frame);
+                    else el.textContent = pre + to.toFixed(dec) + suf;
+                }
+                requestAnimationFrame(frame);
+            }
+
+            var reveals = [].slice.call(document.querySelectorAll('.reveal'));
+            var counts = [].slice.call(document.querySelectorAll('.count-up'));
+
+            if (!('IntersectionObserver' in window)) {
+                reveals.forEach(function (r) { r.classList.add('in'); });
+                counts.forEach(runCount);
+                return;
+            }
+
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (!e.isIntersecting) return;
+                    e.target.classList.add('in');
+                    [].slice.call(e.target.querySelectorAll('.count-up')).forEach(runCount);
+                    io.unobserve(e.target);
+                });
+            }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+            reveals.forEach(function (r) { io.observe(r); });
+
+            // Any count-up not wrapped in a .reveal still fires on its own
+            var cio = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) { if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); } });
+            }, { threshold: 0.5 });
+            counts.forEach(function (c) { if (!c.closest('.reveal')) cio.observe(c); });
+        })();
+    </script>
+    <!-- Invest Now popup flow -->
+    <script src="investflow.js"></script>
+</body>
+
+</html>
