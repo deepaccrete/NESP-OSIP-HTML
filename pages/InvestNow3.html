@@ -178,63 +178,7 @@
 
 <body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
     <!-- TopNavBar -->
-    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between h-[74px]">
-                <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto"
-                            src="Text.png"></a>
-                    <ul class="hidden lg:flex items-center">
-                        <li><a href="Sector.html"
-                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
-                        </li>
-                        <li><a href="#"
-                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES<span
-                                    class="absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]"></span></a>
-                        </li>
-                        <li><a href="#"
-                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
-                        </li>
-                        <li><a href="#"
-                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
-                        </li>
-                        <li><a href="#"
-                                class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="hidden lg:flex items-center gap-5"><a href="#"
-                        class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
-                        class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
-                        Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
-                    id="mobile-nav-toggle" aria-label="Open menu"
-                    class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
-            </div>
-            <!-- Mobile nav menu -->
-            <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
-                <ul class="flex flex-col">
-                    <li><a href="#"
-                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
-                    </li>
-                    <li><a href="#"
-                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
-                    </li>
-                    <li><a href="#"
-                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
-                    </li>
-                    <li><a href="#"
-                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
-                    </li>
-                    <li><a href="#"
-                            class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
-                    </li>
-                    <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
-                    <li class="px-2 pt-2"><a href="#"
-                            class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
-                            Now</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div id="site-nav"></div>
     <main class="flex-grow w-full max-w-7xl mx-auto px-margin-desktop py-12">
         <!-- Progress Bar -->
         <!-- <section class="mb-16">
@@ -610,45 +554,7 @@
 
     </main>
     <!-- Footer -->
-    <footer class="bg-primary-container text-on-primary-container w-full py-12 px-margin-desktop mt-20">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-gutter">
-            <div class="flex flex-col gap-4">
-                <div class="font-h4 text-h4 text-on-primary">OSIP</div>
-                <p class="max-w-xs font-body-sm opacity-70">Empowering Nigeria's energy future through transparent,
-                    institutional-grade investment pathways.</p>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-12">
-                <div class="flex flex-col gap-3">
-                    <span class="font-label-md text-on-primary-fixed uppercase tracking-widest opacity-50">Portal</span>
-                    <a class="font-body-sm hover:text-tertiary transition-colors" href="#">Investment Guidelines</a>
-                    <a class="font-body-sm hover:text-tertiary transition-colors" href="#">FAQ</a>
-                    <a class="font-body-sm hover:text-tertiary transition-colors" href="#">Support</a>
-                </div>
-                <div class="flex flex-col gap-3">
-                    <span class="font-label-md text-on-primary-fixed uppercase tracking-widest opacity-50">Legal</span>
-                    <a class="font-body-sm hover:text-tertiary transition-colors" href="#">Privacy Policy</a>
-                    <a class="font-body-sm hover:text-tertiary transition-colors" href="#">Terms of Service</a>
-                </div>
-                <div class="flex flex-col gap-3">
-                    <span
-                        class="font-label-md text-on-primary-fixed uppercase tracking-widest opacity-50">Sectors</span>
-                    <a class="font-body-sm hover:text-tertiary transition-colors" href="#">Renewables</a>
-                    <a class="font-body-sm hover:text-tertiary transition-colors" href="#">Oil &amp; Gas</a>
-                    <a class="font-body-sm hover:text-tertiary transition-colors" href="#">Grid Infra</a>
-                </div>
-            </div>
-        </div>
-        <div
-            class="max-w-7xl mx-auto mt-12 pt-8 border-t border-on-primary-container/20 flex flex-col md:flex-row justify-between gap-4">
-            <span class="font-body-sm opacity-60">© 2026 Nigerian Energy Investment Portal (OSIP). All rights
-                reserved.</span>
-            <div class="flex gap-6 opacity-60">
-                <span class="material-symbols-outlined cursor-pointer hover:text-on-primary">public</span>
-                <span class="material-symbols-outlined cursor-pointer hover:text-on-primary">shield</span>
-                <span class="material-symbols-outlined cursor-pointer hover:text-on-primary">hub</span>
-            </div>
-        </div>
-    </footer>
+    <div id="site-footer"></div>
     <!-- Interactive Layer: Simple Scroll Animation -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -889,7 +795,9 @@
         })();
     </script>
     <!-- Invest Now popup flow -->
+    <script src="footer.js"></script>
     <script src="investflow.js"></script>
+<script src="nav.js"></script>
 </body>
 
 </html>

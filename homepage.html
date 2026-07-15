@@ -3560,63 +3560,7 @@
             GMT: 10:53:58</div>
         </div>
         -->
-        <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
-          <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between h-[74px]">
-              <div class="flex items-center gap-10"><a href="homepage.html"><img alt="Logo" class="h-5 w-auto"
-                    src="pages/Text.png"></a>
-                <ul class="hidden lg:flex items-center">
-                  <li><a href="pages/Sector.html"
-                      class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
-                  </li>
-                  <li><a href="#"
-                      class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES<span
-                        class="absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]"></span></a>
-                  </li>
-                  <li><a href="#"
-                      class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
-                  </li>
-                  <li><a href="#"
-                      class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
-                  </li>
-                  <li><a href="#"
-                      class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="hidden lg:flex items-center gap-5"><a href="#"
-                  class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
-                  class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
-                  Now</a><img alt="Partner" class="h-9 object-contain" src="pages/logoNESP.png"></div><button
-                id="mobile-nav-toggle" aria-label="Open menu"
-                class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
-            </div>
-            <!-- Mobile nav menu -->
-            <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
-              <ul class="flex flex-col">
-                <li><a href="#"
-                    class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
-                </li>
-                <li><a href="#"
-                    class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
-                </li>
-                <li><a href="#"
-                    class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
-                </li>
-                <li><a href="#"
-                    class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
-                </li>
-                <li><a href="#"
-                    class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
-                </li>
-                <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
-                <li class="px-2 pt-2"><a href="#"
-                    class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
-                    Now</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <div id="site-nav"></div>
         <style>
           .ticker-track {
             display: flex;
@@ -4116,10 +4060,10 @@
                 <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-[#0a5a37] rounded-l-xl"></div>
                 <div class="flex items-start gap-4">
                   <div
-                    class="w-[76px] py-6 px-4 bg-[#0a5a37] text-white flex flex-col justify-center items-center rounded-md flex-shrink-0">
-                    <span class="text-[10px] uppercase leading-none font-bold tracking-wide">MAR</span><span
-                      class="text-[17px] font-bold leading-none mt-1.5">15–17</span><span
-                      class="text-[10px] leading-none mt-1.5 opacity-80">2027</span>
+                    class="w-[76px] px-4 py-2 bg-[#0a5a37] text-white flex flex-col justify-center items-center rounded-md flex-shrink-0">
+                    <span class="text-[10px] mb-2 uppercase leading-none font-bold tracking-wide">MAR</span><span
+                      class="text-[17px] mb-1 font-bold leading-none mt-1.5">15–17</span><span
+                      class="text-[10px] mb-1 leading-none mt-1.5 opacity-80">2027</span>
                   </div>
                   <div class="flex-1 min-w-0">
                     <span
@@ -4334,7 +4278,7 @@
             width: min(100%, 96px);
             aspect-ratio: 1 / 1;
             border-radius: 16px;
-             
+
             display: flex;
             align-items: center;
             justify-content: center;
@@ -4343,7 +4287,7 @@
           }
 
           .partner-card:hover {
-            
+
             transform: translateY(-2px);
           }
 
@@ -4391,68 +4335,78 @@
 
           <div class="partner-grid">
             <div class="partner-item">
-              <div class="partner-card group">
+              <a href="https://www.power.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
+                aria-label="Nigerian Energy Support Programme (NESP)">
                 <img src="pages/logoNESP.png" alt="NESP Logo" class="partner-logo">
-              </div>
+              </a>
             </div>
 
             <div class="partner-item">
-              <div class="partner-card group">
+              <a href="https://nerc.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
+                aria-label="Nigerian Electricity Regulatory Commission (NERC)">
                 <img src="pages/Nigerian Electricity Regulatory Commission logo.png" alt="NERC Logo"
                   class="partner-logo">
-              </div>
+              </a>
             </div>
 
             <div class="partner-item">
-              <div class="partner-card group">
+              <a href="https://rea.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
+                aria-label="Rural Electrification Agency (REA)">
                 <img src="pages/REA-logo.png" alt="REA Logo" class="partner-logo">
-              </div>
+              </a>
             </div>
 
             <div class="partner-item">
-              <div class="partner-card group">
+              <a href="https://nipc.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
+                aria-label="Nigerian Investment Promotion Commission (NIPC)">
                 <img src="pages/NIPC-logo.png" alt="NIPC Logo" class="partner-logo">
-              </div>
+              </a>
             </div>
 
             <div class="partner-item">
-              <div class="partner-card group">
+              <a href="https://son.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
+                aria-label="Standards Organisation of Nigeria (SON)">
                 <img src="pages/son_png.png" alt="SON Logo" class="partner-logo">
-              </div>
+              </a>
             </div>
 
             <div class="partner-item">
-              <div class="partner-card group">
+              <a href="https://nesrea.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
+                aria-label="National Environmental Standards and Regulations Enforcement Agency (NESREA)">
                 <img src="pages/nesrea.jpeg" alt="NESREA Logo" class="partner-logo">
-              </div>
+              </a>
             </div>
 
             <div class="partner-item">
-              <div class="partner-card group">
+              <a href="https://energy.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
+                aria-label="Energy Commission of Nigeria (ECN)">
                 <img src="pages/ECN.png" alt="Energy Commission of Nigeria Logo" class="partner-logo"
                   style="--logo-scale: 2.5;">
-              </div>
+              </a>
             </div>
 
             <div class="partner-item">
-              <div class="partner-card group">
+              <a href="https://www.giz.de/en/" target="_blank" rel="noopener noreferrer" class="partner-card group"
+                aria-label="GIZ (Deutsche Gesellschaft für Internationale Zusammenarbeit)">
                 <img src="pages/giz.png" alt="GIZ Logo" class="partner-logo"
                   style="--logo-scale: 2.5; margin-left: 15px;">
-              </div>
+              </a>
             </div>
 
             <div class="partner-item">
-              <div class="partner-card group">
+              <a href="https://www.giz.de/en/projects/nigerian-energy-support-programme-nesp" target="_blank"
+                rel="noopener noreferrer" class="partner-card group"
+                aria-label="Nigerian Energy Support Programme (NESP)">
                 <img src="pages/NESP.png" alt="NESP logo" class="partner-logo"
                   style="--logo-scale: 1.5; margin-left: 15px;">
-              </div>
+              </a>
             </div>
 
             <div class="partner-item">
-              <div class="partner-card group">
-                <span
-                  class="material-symbols-outlined text-[#0a5a37] group-hover:text-white text-[26px] transition-colors duration-300">account_balance</span>
-              </div>
+              <a href="https://power.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
+                aria-label="State Gov">
+                <span class="sr-only" style="font-weight: bold; color:gray;">State Gov</span>
+              </a>
             </div>
           </div>
         </div>
@@ -4472,7 +4426,7 @@
           </div>
           <div>
             <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Quick Links</h4>
-            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-x-6 gap-y-3">
+            <ul class="grid grid-cols-1 gap-y-3">
               <li><a href="pages/AboutOSIP.html" class="text-sm sm:text-base hover:text-white transition-colors">About
                   OSIP</a></li>
               <li><a href="pages/AboutOSIP.html" class="text-sm sm:text-base hover:text-white transition-colors">About
@@ -4720,9 +4674,16 @@
       var MENU = {
         'SECTORS': {
           head: 'Strategic Priority Sectors', items: [
-            { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'pages/DetailedSector.html' },
-            { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'pages/DetailedSector.html' },
-            { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'pages/DetailedSector.html' }
+            { t: 'Solar', d: 'Utility-scale and distributed solar PV generation projects.', href: 'pages/DetailedSector.html' },
+            { t: 'Bioenergy', d: 'Biomass, biogas & waste-to-energy power generation.', href: 'pages/DetailedSector.html' },
+            { t: 'Wind', d: 'Onshore wind generation across high-potential corridors.', href: 'pages/DetailedSector.html' },
+            { t: 'Green Mobility', d: 'Electric vehicles, charging infrastructure & clean transport.', href: 'pages/DetailedSector.html' },
+            { t: 'Clean Cooking', d: 'Improved cookstoves & clean fuel alternatives to biomass.', href: 'pages/DetailedSector.html' },
+            { t: 'Storage', d: 'Battery energy storage systems (BESS) & grid balancing.', href: 'pages/DetailedSector.html' },
+            { t: 'Small Hydro', d: 'Run-of-river & small-scale hydropower generation.', href: 'pages/DetailedSector.html' },
+            { t: 'Energy Efficiency', d: 'Demand-side efficiency, ISO 50001 & industrial energy savings.', href: 'pages/DetailedSector.html' },
+            { t: 'Green Hydrogen', d: 'Electrolysis-based hydrogen production & export potential.', href: 'pages/DetailedSector.html' },
+            { t: 'Agricultural PUE', d: 'Productive use of energy for agro-processing & rural livelihoods.', href: 'pages/DetailedSector.html' }
           ]
         },
         'OPPORTUNITIES': {
@@ -4922,6 +4883,7 @@
 
   <!-- Invest Now popup flow -->
   <script src="pages/investflow.js"></script>
+<script src="pages/nav.js"></script>
 </body>
 
 </html>
