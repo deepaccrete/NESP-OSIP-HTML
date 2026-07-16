@@ -31,7 +31,7 @@
   // Set `wide: true` on a menu to render its items in two columns.
   var MENU = {
     'SECTORS': {
-      head: 'Strategic Priority Sectors', wide: true, compact: true, items: [
+      head: 'Strategic Priority Sectors', wide: true, scroll: true, items: [
         { t: 'Solar', d: 'Utility-scale and distributed solar PV generation projects.', href: base + 'DetailedSector.html' },
         { t: 'Bioenergy', d: 'Biomass, biogas & waste-to-energy power generation.', href: base + 'DetailedSector.html' },
         { t: 'Wind', d: 'Onshore wind generation across high-potential corridors.', href: base + 'DetailedSector.html' },
@@ -140,7 +140,10 @@
       '.nesp-has-menu:hover .nesp-dropdown--wide{transform:translateX(0) translateY(0)}',
       '.nesp-dropdown--wide::after{left:38px;transform:rotate(45deg)}',
       '.nesp-dropdown--wide .nesp-menu-list{grid-template-columns:1fr 1fr 1fr;gap:0 4px}',
-      '.nesp-dropdown--compact .nesp-menu-item{padding:8px 12px}'
+      '.nesp-dropdown--compact .nesp-menu-item{padding:8px 12px}',
+      // Single-column, height-capped, scrollable variant (all 10 sectors reachable by scroll).
+      '.nesp-dropdown--scroll .nesp-menu-list{grid-template-columns:1fr;max-height:320px;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none}',
+      '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar{width:0;height:0;display:none}'
     ].join('');
     document.head.appendChild(st);
   }
@@ -177,7 +180,7 @@
         (it.d && !menu.compact ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
     });
     var panel = document.createElement('div');
-    panel.className = 'nesp-dropdown' + (menu.wide ? ' nesp-dropdown--wide' : '') + (menu.compact ? ' nesp-dropdown--compact' : '');
+    panel.className = 'nesp-dropdown' + (menu.wide ? ' nesp-dropdown--wide' : '') + (menu.compact ? ' nesp-dropdown--compact' : '') + (menu.scroll ? ' nesp-dropdown--scroll' : '');
     panel.innerHTML = '<div class="nesp-menu-head">' + menu.head + '</div><div class="nesp-menu-list">' + items + '</div>';
     li.appendChild(panel);
   });
