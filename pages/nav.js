@@ -33,15 +33,15 @@
     'SECTORS': {
       head: 'Strategic Priority Sectors', wide: true, scroll: true, items: [
         { t: 'Solar', d: 'Utility-scale and distributed solar PV generation projects.', href: base + 'DetailedSector.html' },
-        { t: 'Bioenergy', d: 'Biomass, biogas & waste-to-energy power generation.', href: base + 'DetailedSector.html' },
-        { t: 'Wind', d: 'Onshore wind generation across high-potential corridors.', href: base + 'DetailedSector.html' },
-        { t: 'Green Mobility', d: 'Electric vehicles, charging infrastructure & clean transport.', href: base + 'DetailedSector.html' },
-        { t: 'Clean Cooking', d: 'Improved cookstoves & clean fuel alternatives to biomass.', href: base + 'DetailedSector.html' },
-        { t: 'Storage', d: 'Battery energy storage systems (BESS) & grid balancing.', href: base + 'DetailedSector.html' },
-        { t: 'Small Hydro', d: 'Run-of-river & small-scale hydropower generation.', href: base + 'DetailedSector.html' },
-        { t: 'Energy Efficiency', d: 'Demand-side efficiency, ISO 50001 & industrial energy savings.', href: base + 'DetailedSector.html' },
-        { t: 'Green Hydrogen', d: 'Electrolysis-based hydrogen production & export potential.', href: base + 'DetailedSector.html' },
-        { t: 'Agricultural PUE', d: 'Productive use of energy for agro-processing & rural livelihoods.', href: base + 'DetailedSector.html' }
+        { t: 'Bioenergy', d: 'Biomass, biogas & waste-to-energy power generation.', href: base + 'Bioenergy.html' },
+        { t: 'Wind', d: 'Onshore wind generation across high-potential corridors.', href: base + 'Wind.html' },
+        { t: 'Green Mobility', d: 'Electric vehicles, charging infrastructure & clean transport.', href: base + 'GreenMobility.html' },
+        { t: 'Clean Cooking', d: 'Improved cookstoves & clean fuel alternatives to biomass.', href: base + 'CleanCooking.html' },
+        { t: 'Storage', d: 'Battery energy storage systems (BESS) & grid balancing.', href: base + 'Storage.html' },
+        { t: 'Small Hydro', d: 'Run-of-river & small-scale hydropower generation.', href: base + 'SmallHydro.html' },
+        { t: 'Energy Efficiency', d: 'Demand-side efficiency, ISO 50001 & industrial energy savings.', href: base + 'EnergyEfficiency.html' },
+        { t: 'Green Hydrogen', d: 'Electrolysis-based hydrogen production & export potential.', href: base + 'GreenHydrogen.html' },
+        { t: 'Agricultural PUE', d: 'Productive use of energy for agro-processing & rural livelihoods.', href: base + 'AgriculturePUE.html' }
       ]
     },
     'OPPORTUNITIES': {
@@ -81,6 +81,9 @@
   // Which top-level tab is "active" for a given page (basename -> label).
   var PAGE_ACTIVE = {
     'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS',
+    'wind.html': 'SECTORS', 'storage.html': 'SECTORS', 'smallhydro.html': 'SECTORS',
+    'greenmobility.html': 'SECTORS', 'energyefficiency.html': 'SECTORS', 'cleancooking.html': 'SECTORS',
+    'bioenergy.html': 'SECTORS', 'agriculturepue.html': 'SECTORS', 'greenhydrogen.html': 'SECTORS',
     'regulation.html': 'REGULATIONS', 'data.html': 'DATA',
     'news.html': 'NEWS', 'newsindetail.html': 'NEWS',
     'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES',

@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Wind | OSIP - Nigerian Energy Investment Portal</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f7",
+                        "background": "#f9f9f7",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f3f4f2",
+                        "outline": "#717976",
+                        "secondary-fixed-dim": "#87d982",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-primary-container": "#709e91",
+                        "on-primary-fixed-variant": "#214e44",
+                        "error": "#ba1a1a",
+                        "primary-container": "#00342b",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#edeeec",
+                        "inverse-surface": "#2f3130",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdf9e",
+                        "tertiary": "#211600",
+                        "primary-fixed": "#bdecde",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-container": "#207128",
+                        "on-secondary-fixed": "#002204",
+                        "inverse-on-surface": "#f0f1ef",
+                        "on-secondary-fixed-variant": "#005312",
+                        "secondary-fixed": "#a3f69c",
+                        "surface-variant": "#e2e3e1",
+                        "inverse-primary": "#a1d0c3",
+                        "on-tertiary-container": "#bb8d00",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#3a665c",
+                        "surface-dim": "#d9dad8",
+                        "secondary": "#1b6d24",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "on-primary-fixed": "#00201a",
+                        "primary": "#001d17",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "on-tertiary-fixed": "#261a00",
+                        "tertiary-container": "#3b2a00",
+                        "surface-container-high": "#e8e8e6",
+                        "secondary-container": "#a0f499",
+                        "on-background": "#1a1c1b",
+                        "on-surface-variant": "#404846",
+                        "surface": "#f9f9f7",
+                        "outline-variant": "#c0c8c4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "margin-tablet": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Manrope", "Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Manrope", "Inter"],
+                        "h2": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h1-mobile": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "label-md": ["Inter"],
+                        "h4": ["Manrope"],
+                        "body-sm": ["Inter"],
+                        "h1": ["Manrope"],
+                        "nav-link": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f9f9f7;
+            color: #1a1c1b;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .gradient-overlay {
+            background: linear-gradient(0deg, rgba(0, 29, 23, 0.95) 0%, rgba(0, 29, 23, 0.6) 60%, rgba(0, 29, 23, 0.2) 100%);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .hero-clip {
+            clip-path: none;
+        }
+
+        .data-table-row:hover {
+            background-color: #f3f4f2;
+        }
+
+        /* Opportunity cards (mirrored from Opportunities.html) */
+        .opportunity-card {
+            border-top: 4px solid #dfa800 !important;
+        }
+
+        .opportunity-card .inv-box {
+            background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
+            border: 1px solid rgba(0, 52, 43, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .sector-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            background: rgba(223, 168, 0, 0.14);
+            border: 1px solid rgba(223, 168, 0, 0.35);
+            color: #5b4300;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1.45;
+        }
+
+        .sector-badge .material-symbols-outlined {
+            font-size: 14px;
+            color: #c98a00;
+        }
+    </style>
+</head>
+
+<body class="font-body-md overflow-x-hidden">
+    <!-- TopNavBar -->
+    <div id="site-nav"></div>
+    <main>
+        <!-- Hero Section -->
+        <section
+            class="relative min-h-[500px] lg:min-h-[550px] w-full overflow-hidden hero-clip bg-primary flex items-center">
+            <!-- Background Image & Overlays -->
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay"
+                data-alt="Nigerian wind energy landscape"
+                style="background-image: url('sector-Wind.jpg')">
+            </div>
+            <!-- Vignette / Depth Gradients -->
+            <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent"></div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
+                <div class="max-w-3xl">
+
+                    <!-- Title -->
+                    <h1
+                        class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+                        Wind
+                    </h1>
+
+                    <!-- Minimalist Description (From Docs) -->
+                    <p
+                        class="text-base sm:text-lg text-white/80 mb-10 leading-relaxed max-w-2xl border-l-4 border-amber-400 pl-6">
+                        Nigeria’s wind energy market is early stage but gaining policy momentum, with megawatts of untapped potential concentrated in the northern states.
+                    </p>
+
+                    <!-- Quick Navigation Tabs (From Docs) -->
+                    <div class="space-y-3">
+                        <span class="block text-xs font-semibold text-white/40 uppercase tracking-widest">Jump to
+                            section:</span>
+                        <div class="flex flex-wrap gap-2.5">
+                            <a href="#overview"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Overview
+                            </a>
+                            <a href="#facts"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Facts
+                            </a>
+                            <a href="#regulations"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Regulations
+                            </a>
+                            <a href="#finance"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Finance
+                            </a>
+                            <a href="#opportunities"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Opportunities
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Refined Stats Bar -->
+        <!-- <section
+            class="py-16 bg-white relative z-20 -mt-12 mx-desktop max-w-7xl lg:mx-auto border border-outline-variant shadow-sm rounded-sm px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-outline-variant">
+                <div class="px-10 py-4">
+                    <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">Solar
+                        Potential</p>
+                    <div class="flex items-baseline gap-2">
+                        <h3 class="font-h3 text-h3 text-primary">427</h3>
+                        <span class="text-on-surface-variant font-bold text-sm">GW</span>
+                    </div>
+                    <p class="text-[11px] text-secondary mt-2 font-bold uppercase tracking-wider">Unrealized Asset</p>
+                </div>
+                <div class="px-10 py-4">
+                    <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">
+                        Installed Capacity</p>
+                    <div class="flex items-baseline gap-2">
+                        <h3 class="font-h3 text-h3 text-primary">2.1</h3>
+                        <span class="text-on-surface-variant font-bold text-sm">GW</span>
+                    </div>
+                    <p class="text-[11px] text-on-surface-variant mt-2">Active Grid Contribution</p>
+                </div>
+                <div class="px-10 py-4">
+                    <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">
+                        Investment Gap</p>
+                    <div class="flex items-baseline gap-2">
+                        <h3 class="font-h3 text-h3 text-primary">$10.4</h3>
+                        <span class="text-on-surface-variant font-bold text-sm">BN</span>
+                    </div>
+                    <p class="text-[11px] text-error font-bold mt-2 uppercase tracking-wider">Capital Required</p>
+                </div>
+                <div class="px-10 py-4">
+                    <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">2030
+                        Target</p>
+                    <div class="flex items-baseline gap-2">
+                        <h3 class="font-h3 text-h3 text-primary">9.0</h3>
+                        <span class="text-on-surface-variant font-bold text-sm">GW</span>
+                    </div>
+                    <p class="text-[11px] text-on-surface-variant mt-2">Policy Benchmark</p>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- NEW REFINED STATS BAR-->
+        <!-- <section class="bg-white py-14 lg:py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span
+                                class="material-symbols-outlined text-[40px] text-[#004225]">solar_power</span></div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">Solar Potential</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">427 GW</span> &middot;
+                            Unrealized Asset</p>
+                    </div>
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">bolt</span>
+                        </div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">Installed Capacity</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">2.1 GW</span> &middot;
+                            Active Grid Contribution</p>
+                    </div>
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span
+                                class="material-symbols-outlined text-[40px] text-[#004225]">savings</span></div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">Investment Gap</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">$10.4 BN</span> &middot;
+                            Capital Required</p>
+                    </div>
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">flag</span>
+                        </div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">2030 Target</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">9.0 GW</span> &middot;
+                            Policy Benchmark</p>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Sector Overview: text left / image right -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16" id="overview">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Text -->
+                <div>
+                    <span
+                        class="inline-flex items-center gap-3 text-secondary font-bold text-label-md uppercase tracking-[0.18em] mb-5">
+                        <span class="w-8 h-[2px] bg-tertiary-fixed-dim"></span> Sector Overview
+                    </span>
+                    <h2 class="font-h2 text-h2 text-primary leading-tight mb-6">An Untapped Wind Resource with First-Mover Potential</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">
+                        Nigeria sits on thousands of megawatts of wind energy it has barely touched. Nigeria’s wind speeds range from 2.1 m/s to 8 m/s nationally (IRENA), with a current mean of 6.82 m/s at 100 meters hub height and a mean power density of 272 W/m² (Global Wind Atlas, DTU, 2026), and an estimated total wind energy potential of approximately 3,200 MW. Yet no utility-scale wind farms are operating at any meaningful capacity; that gap is an opportunity.
+                    </p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">
+                        Nigeria’s Energy Transition Plan names wind as a core part of Nigeria’s long-term energy mix. In the near term, the most practical opportunities are in hybrid systems that combine wind and solar, serving rural agricultural, telecom, and community loads in the north. Utility-scale grid-connected projects in the 10–50 MW range are the longer-term opportunity.
+                    </p>
+                    <!-- <ul class="space-y-4 mb-10">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-secondary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-body-md text-on-surface">100% foreign ownership permitted under the NIPC
+                                Act.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-secondary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-body-md text-on-surface">Pioneer Status tax holidays for qualifying
+                                projects.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-secondary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-body-md text-on-surface">Streamlined NERC licensing for generation &amp;
+                                mini-grids.</span>
+                        </li>
+                    </ul> -->
+                    <a href="Opportunities.html"
+                        class="inline-flex items-center gap-2 bg-primary-container text-white px-7 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
+                        Explore Opportunities <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                    </a>
+                </div>
+                <!-- Image -->
+                <div class="relative">
+                    <div class="overflow-hidden rounded-2xl shadow-xl">
+                        <img alt="Wind energy installation in northern Nigeria"
+                            class="w-full h-72 sm:h-96 lg:h-[480px] object-cover"
+                            src="sector-Wind-2.jpg" />
+                    </div>
+                    <!-- Floating stat card -->
+                    <div
+                        class="absolute -bottom-6 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 sm:px-6 py-4 flex items-center gap-4">
+                        <span
+                            class="w-12 h-12 bg-primary-container text-white rounded-lg flex items-center justify-center"><span
+                                class="material-symbols-outlined"
+                                style="font-variation-settings: 'FILL' 1;">bolt</span></span>
+                        <div>
+                            <p class="font-h3 text-h3 text-primary leading-none">3,200 MW</p>
+                            <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">Estimated Potential</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Facts / Factsheets -->
+        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="facts">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Infographics |
+                        Factsheets</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Key Facts</h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none" style="font-family: Manrope, sans-serif;">3,200–4,000 MW</p>
+                        <p class="text-[#111827] font-semibold mt-3">Estimated national wind energy potential</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Nigeria's total onshore wind resource, concentrated in the northern states corridor.</p>
+                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: IRENA, Renewable Energy Roadmap: Nigeria, January 2023.</p>
+                    </div>
+
+                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none" style="font-family: Manrope, sans-serif;">6.82 m/s</p>
+                        <p class="text-[#111827] font-semibold mt-3">Mean wind speed at 100m hub height</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">The relevant height for utility-scale turbines — making northern Nigeria viable for commercial wind development.</p>
+                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Global Wind Atlas 4.0, Technical University of Denmark (DTU) &amp; World Bank Group, 2026.</p>
+                    </div>
+
+                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none" style="font-family: Manrope, sans-serif;">2.1–8 m/s</p>
+                        <p class="text-[#111827] font-semibold mt-3">Near-surface wind speeds (10m) nationally</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">With top resource states (Plateau, Taraba, Katsina) at the upper end of the range.</p>
+                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Abdulkarim et al., Nigerian Journal of Technology, 36(4), 2018.</p>
+                    </div>
+
+                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none" style="font-family: Manrope, sans-serif;">10–50 MW</p>
+                        <p class="text-[#111827] font-semibold mt-3">Utility-scale project size range in Nigeria's pipeline</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Reflected in existing projects including the operational Katsina Wind Farm and Gurara II Wind Farm under development.</p>
+                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Ugbeshe et al., Energy Strategy Reviews, ScienceDirect, 2025.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Ease of Doing Business -->
+        <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Business Process
+                        &amp;
+                        Incentives</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Ease of Doing Business</h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+                    <!-- Body copy -->
+                    <div class="lg:col-span-7 space-y-5 text-[#404846] text-base sm:text-[17px] leading-8">
+                        <p>Wind energy investors will find Nigeria's business entry framework consistent and straightforward at the registration and compliance level. CAC registration is completed online in one to seven days under CAMA 2020, with no minimum share capital and full foreign ownership permitted. Tax obligations mirror the broader RE sector: 30% CIT, 7.5% VAT, mandatory TCC, and withholding tax on payments. Pioneer Status is available via NIPC, offering a three-to-five-year extendable CIT holiday for qualifying projects, with EDTI accessible where development impact can be demonstrated.</p>
+                        <p>Turbines, generators, and associated RE equipment attract 0% import duty and VAT exemption under ECOWAS CET and 2026 NTA exemptions — a relevant consideration given the capital cost of wind infrastructure. All imported equipment must meet NIS/IEC standards, with NEMSA certification required for electrical safety compliance. Expatriate quota approvals run through NIPC's one-stop centre, with RE sector fast-tracking available.</p>
+                        <p>The ease-of-entry picture for wind is clean and comparable to other RE technologies. The more substantive challenges sit at the project development level — feed-in tariff uncertainty, offtake risk tied to DisCo creditworthiness, and the absence of operating utility-scale wind reference projects in Nigeria — rather than in the business registration or compliance process.</p>
+                    </div>
+
+                    <!-- Investor Advantages -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-2xl p-7 lg:p-8">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span
+                                    class="w-10 h-10 rounded-lg bg-[#004225] text-white flex items-center justify-center flex-shrink-0"><span
+                                        class="material-symbols-outlined text-[22px]">verified</span></span>
+                                <h3 class="text-[20px] font-bold text-[#111827]"
+                                    style="font-family: Manrope, sans-serif;">Investor Advantages</h3>
+                            </div>
+                            <ul class="space-y-4">
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">CAC incorporation typically completed within 1–7 days</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">100% foreign ownership permitted under CAMA 2020</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Pioneer Status available via NIPC (3–5 year CIT holiday)</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">0% import duty and VAT exemption for wind turbines and RE equipment</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">NIS/IEC standards and NEMSA certification required for equipment</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Expatriate quota fast-tracking available through NIPC one-stop centre</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Regulatory framework consistent with broader renewable energy sector</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Message -->
+                <div class="mt-8 lg:mt-10 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
+                    <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
+                        style="font-variation-settings:'FILL' 1;">lightbulb</span>
+                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Key Message:</span>
+                        Wind entry compliance is straightforward — the real due diligence sits at project development: offtake structure, site wind data, and DisCo creditworthiness.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regulations -->
+        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="regulations">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Regulatory
+                        Landscape</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Regulations</h2>
+
+                <!-- Applicable Laws & Policies -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                    style="font-family: Manrope, sans-serif;">Applicable Laws &amp; Policies</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Wind energy projects in Nigeria are governed by the Electricity Act 2023 (as amended 2024), which establishes the legal basis for federal and state electricity regulation, licensing thresholds, and the transition of regulatory authority to State Electricity Regulatory Commissions (SERCs). Beneath the Electricity Act, four policies shape sector direction: the National Integrated Electricity Policy (2025), the Renewable Energy Master Plan, the National Renewable Energy and Energy Efficiency Policy (NREEEP) 2015, and the Energy Transition Plan 2022, which sets Nigeria's 2060 net-zero target and names wind as a core resource in the long-term mix.</p>
+                <div class="flex flex-wrap gap-2 mt-5">
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electricity Act 2023</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">NIEP 2025</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">NREEEP 2015</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Renewable Energy Master Plan</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Energy Transition Plan 2022</span>
+                </div>
+
+                <!-- Project Development Frameworks -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-2"
+                    style="font-family: Manrope, sans-serif;">Project Development Frameworks</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Regulatory treatment in Nigeria's renewable energy sector is determined primarily by project capacity, not technology. Three tiers apply to wind projects:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">sensors</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Under 100 kW (Off-Grid)</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">NERC Registration only — the lightest-touch tier for community and isolated-system wind deployment.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">hub</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">100 kW – 1 MW (Mini-Grid)</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">NERC Mini-Grid Permit required. Qualifying systems can be approved in approximately 30 days under NERC Mini-Grid Regulations 2023.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">bolt</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Above 1 MW (Grid-Connected)</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Full NERC Generation License required. Must comply with NERC Grid Code and execute a TCN Grid Connection Agreement. Typical range: 10–50 MW.</p>
+                    </div>
+                </div>
+
+                <!-- Regulatory Requirements -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                    style="font-family: Manrope, sans-serif;">Regulatory Requirements</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">bolt</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span class="font-semibold text-[#111827]">Licensing</span> under the Electricity Act 2023, as amended — regulated by NERC.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">hub</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span class="font-semibold text-[#111827]">Off-grid and mini-grid projects</span> governed by Mini-Grid Regulations 2023 and Eligible Customer Regulations 2024 — regulated by NERC.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">forest</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span class="font-semibold text-[#111827]">Environmental compliance</span> under the EIA Act and NESREA establishing Act — regulated by NESREA and Federal Ministry of Environment. EIA required above 10 MW or for significant environmental impact.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">terrain</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span class="font-semibold text-[#111827]">Grid interconnection</span> governed by the NERC Grid Code and TCN Connection Agreement — regulated by TCN.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">verified</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span class="font-semibold text-[#111827]">Investment incentives</span> including Pioneer Status and OSIC registration — administered by NIPC.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">badge</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span class="font-semibold text-[#111827]">Technical and safety standards</span> (NIS/IEC standards, SONCAP, MANCAP) and electrical safety certification (ITISEMS) — administered by SON and NEMSA.</p>
+                    </div>
+                </div>
+
+                <!-- Key Regulatory Agencies -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                    style="font-family: Manrope, sans-serif;">Key Regulatory Agencies</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <a href="https://nerc.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
+                                class="w-8 h-8 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Electricity Regulatory Commission
+                            (NERC)</span>
+                    </a>
+                    <a href="https://rea.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Rural Electrification Agency (REA)</span>
+                    </a>
+                    <a href="https://nipc.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Investment Promotion Commission
+                            (NIPC)</span>
+                    </a>
+                    <a href="https://environment.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="FMEnew.png" alt="Federal Ministry of Environment logo"
+                                class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Federal Ministry of Environment</span>
+                    </a>
+                    <a href="https://nesrea.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="nesrea.jpeg" alt="NESREA logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">National Environmental Standards and
+                            Regulations Enforcement Agency (NESREA)</span>
+                    </a>
+                    <a href="https://son.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Standards Organization of Nigeria
+                            (SON)</span>
+                    </a>
+                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Electricity Management Services
+                            Agency (NEMSA)</span>
+                    </a>
+                    <a href="https://www.tcn.org.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="TCN.png" alt="TCN logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Transmission Company of Nigeria
+                            (TCN)</span>
+                    </a>
+                    <a href="https://www.energy.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <span class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Energy Commission of Nigeria</span>
+                    </a>
+                </div>
+
+                <!-- Technical Standards -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Technical Standards</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Wind equipment imported into Nigeria must comply with applicable NIS/IEC standards and SON certification requirements, including SONCAP and MANCAP where applicable. NEMSA certification is required for electrical safety compliance. Grid-connected wind projects must comply with the NERC Grid Code and TCN interconnection standards. All wind turbines and associated RE equipment attract 0% import duty and VAT exemption under ECOWAS CET and 2026 NTA exemptions.</p>
+
+                <!-- ============================================================
+     WORKFLOW PROCESS — zigzag / connector-path style
+     Theme: brand green (#004225), light mint bg (#f3f4f2), Manrope
+     Desktop: staggered up/down nodes joined by dashed orthogonal
+              connectors (drawn with SVG + JS, like the reference).
+     Mobile:  falls back to a simple vertical stacked list.
+     Drop this whole block anywhere in your page. It is self
+     contained (styles are scoped under .wf-scope, script is
+     namespaced) so it will not clash with the rest of your site.
+   ============================================================ -->
+                <div class="wf-scope">
+                    <style>
+                        .wf-scope {
+                            font-family: Manrope, sans-serif;
+                        }
+
+                        .wf-scope * {
+                            box-sizing: border-box;
+                        }
+
+                        .wf-section {
+                            position: relative;
+                            padding: 50px 20px;
+                            overflow: hidden;
+                            border-radius: 24px;
+                        }
+
+                        .wf-section+.wf-section {
+                            margin-top: 32px;
+                        }
+
+                        /* soft mint backdrop, echoes the curved blob in the reference */
+                        .wf-section::before {
+                            content: "";
+                            position: absolute;
+                            inset: 0;
+                            z-index: 0;
+                            background:
+                                radial-gradient(120% 90% at 82% 8%, rgba(0, 66, 37, 0.06) 0%, rgba(0, 66, 37, 0) 55%),
+                                #f3f4f2;
+                        }
+
+                        .wf-section::after {
+                            content: "";
+                            position: absolute;
+                            right: -10%;
+                            top: -25%;
+                            width: 65%;
+                            height: 150%;
+                            z-index: 0;
+                            background: radial-gradient(closest-side, rgba(0, 66, 37, 0.05), rgba(0, 66, 37, 0));
+                            border-radius: 50%;
+                        }
+
+                        .wf-inner {
+                            position: relative;
+                            z-index: 1;
+                        }
+
+                        .wf-eyebrow {
+                            display: inline-block;
+                            font-size: 12px;
+                            font-weight: 800;
+                            letter-spacing: .08em;
+                            text-transform: uppercase;
+                            color: #0f6b3f;
+                            margin-bottom: 6px;
+                        }
+
+                        .wf-title {
+                            font-size: 24px;
+                            line-height: 1.25;
+                            font-weight: 800;
+                            color: #111827;
+                            margin: 0 0 40px;
+                        }
+
+                        @media (min-width:1024px) {
+                            .wf-title {
+                                font-size: 26px;
+                            }
+                        }
+
+                        /* ---------- Desktop zigzag track ---------- */
+                        .wf-track {
+                            position: relative;
+                            display: none;
+                        }
+
+                        @media (min-width:900px) {
+                            .wf-track {
+                                display: block;
+                            }
+                        }
+
+                        .wf-row {
+                            position: relative;
+                            display: flex;
+                            align-items: flex-start;
+                            justify-content: space-between;
+                            gap: 25px;
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                        }
+
+                        .wf-svg {
+                            position: absolute;
+                            inset: 0;
+                            width: 100%;
+                            height: 100%;
+                            z-index: 0;
+                            pointer-events: none;
+                            overflow: visible;
+                        }
+
+                        .wf-path {
+                            fill: none;
+                            stroke: #8a8f8c;
+                            stroke-width: 2;
+                            stroke-dasharray: 5 6;
+                            stroke-linecap: round;
+                        }
+
+                        .wf-dot {
+                            fill: #8a8f8c;
+                        }
+
+                        .wf-node {
+                            position: relative;
+                            z-index: 1;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            width: 150px;
+                            text-align: center;
+                        }
+
+                        .wf-node.up {
+                            align-self: flex-start;
+                        }
+
+                        .wf-node.down {
+                            align-self: flex-end;
+                        }
+
+                        .wf-badge {
+                            width: 52px;
+                            height: 52px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: #ffffff;
+                            border: 2px solid #004225;
+                            color: #004225;
+                            box-shadow: 0 4px 14px rgba(0, 66, 37, 0.10);
+                            position: relative;
+                        }
+
+                        .wf-badge svg {
+                            width: 22px;
+                            height: 22px;
+                        }
+
+                        .wf-num {
+                            position: absolute;
+                            top: -11px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            font-size: 12px;
+                            font-weight: 800;
+                            letter-spacing: .03em;
+                            color: #0f6b3f;
+                            background: #f3f4f2;
+                            padding: 0 6px;
+                        }
+
+                        .wf-node.down .wf-num {
+                            top: auto;
+                            bottom: -11px;
+                        }
+
+                        .wf-label {
+                            margin-top: 14px;
+                            font-size: 13px;
+                            font-weight: 700;
+                            color: #111827;
+                            line-height: 1.4;
+                        }
+
+                        .wf-node.down .wf-label {
+                            order: -1;
+                            margin-top: 0;
+                            margin-bottom: 14px;
+                        }
+
+                        /* ---------- Mobile fallback: simple vertical list ---------- */
+                        .wf-list {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+                        @media (min-width:900px) {
+                            .wf-list {
+                                display: none;
+                            }
+                        }
+
+                        .wf-item {
+                            display: flex;
+                            gap: 16px;
+                            align-items: flex-start;
+                        }
+
+                        .wf-item .wf-badge {
+                            width: 44px;
+                            height: 44px;
+                            flex: none;
+                        }
+
+                        .wf-item .wf-badge svg {
+                            width: 19px;
+                            height: 19px;
+                        }
+
+                        .wf-item .wf-num {
+                            position: static;
+                            background: none;
+                            padding: 0;
+                            display: block;
+                            margin-bottom: 2px;
+                        }
+
+                        .wf-item-text {
+                            padding-top: 4px;
+                        }
+
+                        .wf-item-label {
+                            font-size: 13px;
+                            font-weight: 700;
+                            color: #111827;
+                            line-height: 1.4;
+                        }
+
+                        .wf-connector {
+                            width: 2px;
+                            min-height: 28px;
+                            margin-left: 21px;
+                            background-image: linear-gradient(#8a8f8c 55%, rgba(255, 255, 255, 0) 0%);
+                            background-position: left;
+                            background-size: 2px 10px;
+                            background-repeat: repeat-y;
+                        }
+
+                        /* focus visibility, in case nodes ever become interactive/linked */
+                        .wf-node a:focus-visible,
+                        .wf-item a:focus-visible {
+                            outline: 2px solid #004225;
+                            outline-offset: 3px;
+                        }
+                    </style>
+
+                    <div class="wf-inner">
+
+                        <!-- ===================== Mini-Grid Permit Pathway (100 kW – 1 MW) ===================== -->
+                        <section class="wf-section">
+                            <div class="wf-inner">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="block w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
+                                    <span class="wf-eyebrow mb-0">Workflow Process</span>
+                                </div>
+                                <h3 class="wf-title">Mini-Grid Permit Pathway (100 kW – 1 MW)</h3>
+
+                                <!-- Desktop zigzag -->
+                                <div class="wf-track" data-wf-track>
+                                    <svg class="wf-svg" data-wf-svg></svg>
+                                    <div class="wf-row" data-wf-row data-crm-group="wind-minigrid-permit-requirements">
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="company_incorporation_cac">
+                                            <div class="wf-badge"><span class="wf-num">01</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 21V6l7-3 7 3v15" />
+                                                    <path d="M9 21v-6h4v6" />
+                                                    <path d="M9 9h.01M13 9h.01M9 13h.01M13 13h.01" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Company Incorporation (CAC)</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="nipc_osic_registration">
+                                            <div class="wf-badge"><span class="wf-num">02</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                    <path d="M9 12l2 2 4-4" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">NIPC / OSIC Registration</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="site_identification_land_access">
+                                            <div class="wf-badge"><span class="wf-num">03</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" />
+                                                    <circle cx="12" cy="9.5" r="2.3" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Site Identification &amp; Land Access</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="nerc_minigrid_permit">
+                                            <div class="wf-badge"><span class="wf-num">04</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                    <path d="M9 12l2 2 4-4" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">NERC Mini-Grid Permit (~30 days)</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="nemsa_certification">
+                                            <div class="wf-badge"><span class="wf-num">05</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="9" r="5" />
+                                                    <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">NEMSA Electrical Safety Certification</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="connection_commercial_operation">
+                                            <div class="wf-badge"><span class="wf-num">06</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Connection &amp; Commercial Operation</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Mobile list -->
+                                <div class="wf-list">
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">01</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M4 21V6l7-3 7 3v15" />
+                                                <path d="M9 21v-6h4v6" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Company Incorporation (CAC)</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">02</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                <path d="M9 12l2 2 4-4" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">NIPC / OSIC Registration</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">03</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" />
+                                                <circle cx="12" cy="9.5" r="2.3" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Site Identification and Land Access</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">04</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                <path d="M9 12l2 2 4-4" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">NERC Mini-Grid Permit (~30 days)</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">05</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="9" r="5" />
+                                                <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">NEMSA Electrical Safety Certification</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">06</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Connection and Commercial Operation</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <!-- ===================== Grid-Connected Generation Pathway (Above 1 MW) ===================== -->
+                        <section class="wf-section">
+                            <div class="wf-inner">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="block w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
+                                    <span class="wf-eyebrow mb-0">Workflow Process</span>
+                                </div>
+                                <h3 class="wf-title">Grid-Connected Generation Pathway (Above 1 MW)</h3>
+
+                                <!-- Desktop zigzag -->
+                                <div class="wf-track" data-wf-track>
+                                    <svg class="wf-svg" data-wf-svg></svg>
+                                    <div class="wf-row" data-wf-row data-crm-group="wind-grid-connected-requirements">
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="cac_nipc_registration">
+                                            <div class="wf-badge"><span class="wf-num">01</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 21V6l7-3 7 3v15" />
+                                                    <path d="M9 21v-6h4v6" />
+                                                    <path d="M9 9h.01M13 9h.01M9 13h.01M13 13h.01" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">CAC Incorporation &amp; NIPC/OSIC Registration</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="governor_consent">
+                                            <div class="wf-badge"><span class="wf-num">02</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" />
+                                                    <circle cx="12" cy="9.5" r="2.3" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">State Governor's Consent (Land Use Act)</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="eia_process">
+                                            <div class="wf-badge"><span class="wf-num">03</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M11 20A7 7 0 0 1 4 13c0-4 3-9 8-11 1 5 5 6 5 11a7 7 0 0 1-6 7z" />
+                                                    <path d="M11 20v-6" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">EIA Process (6–18 months, above 10 MW)</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="nerc_generation_license">
+                                            <div class="wf-badge"><span class="wf-num">04</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                    <path d="M9 12l2 2 4-4" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">NERC Generation License</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="tcn_grid_connection">
+                                            <div class="wf-badge"><span class="wf-num">05</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">TCN Grid Connection Agreement</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="nemsa_son_compliance">
+                                            <div class="wf-badge"><span class="wf-num">06</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="9" r="5" />
+                                                    <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">NEMSA Certification &amp; SON/SONCAP Compliance</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="commercial_operation_net_billing">
+                                            <div class="wf-badge"><span class="wf-num">07</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 20V10M11 20V4M18 20v-7" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Commercial Operation &amp; Net Billing Registration</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Mobile list -->
+                                <div class="wf-list">
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">01</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M4 21V6l7-3 7 3v15" />
+                                                <path d="M9 21v-6h4v6" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">CAC Incorporation &amp; NIPC/OSIC Registration</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">02</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" />
+                                                <circle cx="12" cy="9.5" r="2.3" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">State Governor's Consent (Land Use Act)</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">03</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M11 20A7 7 0 0 1 4 13c0-4 3-9 8-11 1 5 5 6 5 11a7 7 0 0 1-6 7z" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">EIA Process (6–18 months, above 10 MW)</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">04</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                <path d="M9 12l2 2 4-4" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">NERC Generation License</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">05</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">TCN Grid Connection Agreement</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">06</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="9" r="5" />
+                                                <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">NEMSA Certification and SON/SONCAP Compliance</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">07</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M4 20V10M11 20V4M18 20v-7" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Commercial Operation and Net Billing Registration</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+                <script>
+                        (function () {
+                            function drawTrack(track) {
+                                var row = track.querySelector('[data-wf-row]');
+                                var svg = track.querySelector('[data-wf-svg]');
+                                var nodes = row.querySelectorAll('[data-wf-node]');
+                                if (!nodes.length) return;
+
+                                var rowRect = row.getBoundingClientRect();
+                                var pts = [];
+                                nodes.forEach(function (node) {
+                                    var badge = node.querySelector('.wf-badge');
+                                    var r = badge.getBoundingClientRect();
+                                    pts.push({
+                                        x: (r.left + r.width / 2) - rowRect.left,
+                                        y: (r.top + r.height / 2) - rowRect.top
+                                    });
+                                });
+
+                                var ns = 'http://www.w3.org/2000/svg';
+                                while (svg.firstChild) svg.removeChild(svg.firstChild);
+                                svg.setAttribute('viewBox', '0 0 ' + rowRect.width + ' ' + rowRect.height);
+
+                                for (var i = 0; i < pts.length - 1; i++) {
+                                    var a = pts[i], b = pts[i + 1];
+                                    var midX = a.x + (b.x - a.x) * 0.5;
+                                    var rad = Math.min(20, Math.abs(b.y - a.y) * 0.5);
+                                    var goingDown = b.y > a.y;
+                                    var d;
+                                    if (Math.abs(b.y - a.y) < 1) {
+                                        d = 'M ' + a.x + ' ' + a.y + ' L ' + b.x + ' ' + b.y;
+                                    } else {
+                                        var turn1x = midX - rad, turn2x = midX + rad;
+                                        var cy1 = goingDown ? a.y + rad : a.y - rad;
+                                        var cy2 = goingDown ? b.y - rad : b.y + rad;
+                                        d = 'M ' + a.x + ' ' + a.y +
+                                            ' L ' + turn1x + ' ' + a.y +
+                                            ' Q ' + midX + ' ' + a.y + ' ' + midX + ' ' + cy1 +
+                                            ' L ' + midX + ' ' + cy2 +
+                                            ' Q ' + midX + ' ' + b.y + ' ' + turn2x + ' ' + b.y +
+                                            ' L ' + b.x + ' ' + b.y;
+                                    }
+                                    var path = document.createElementNS(ns, 'path');
+                                    path.setAttribute('d', d);
+                                    path.setAttribute('class', 'wf-path');
+                                    svg.appendChild(path);
+                                }
+
+                                pts.forEach(function (p, i) {
+                                    if (i === 0 || i === pts.length - 1) {
+                                        var c = document.createElementNS(ns, 'circle');
+                                        c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); c.setAttribute('r', 3);
+                                        c.setAttribute('class', 'wf-dot');
+                                        svg.appendChild(c);
+                                    }
+                                });
+                            }
+
+                            function drawAll() {
+                                document.querySelectorAll('[data-wf-track]').forEach(drawTrack);
+                            }
+
+                            if (document.readyState === 'loading') {
+                                document.addEventListener('DOMContentLoaded', drawAll);
+                            } else {
+                                drawAll();
+                            }
+                            window.addEventListener('resize', function () {
+                                clearTimeout(window.__wfResizeTimer);
+                                window.__wfResizeTimer = setTimeout(drawAll, 120);
+                            });
+                            if (document.fonts && document.fonts.ready) { document.fonts.ready.then(drawAll); }
+                        })();
+                </script>
+
+                <!-- Useful Resources -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                    style="font-family: Manrope, sans-serif;">Useful Resources</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo" class="w-8 h-8 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">NERC</span><span class="block text-[#5f6368] text-[13px] truncate">www.nerc.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.rea.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">REA</span><span class="block text-[#5f6368] text-[13px] truncate">www.rea.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">NIPC</span><span class="block text-[#5f6368] text-[13px] truncate">www.nipc.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.son.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">SON</span><span class="block text-[#5f6368] text-[13px] truncate">www.son.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">NEMSA</span><span class="block text-[#5f6368] text-[13px] truncate">www.nemsa.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.n-wec.org" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">air</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Nigerian Wind Energy Council (NWEC)</span><span class="block text-[#5f6368] text-[13px] truncate">www.n-wec.org</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://globalwindatlas.info/area/Nigeria" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">language</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Global Wind Atlas – Nigeria</span><span class="block text-[#5f6368] text-[13px] truncate">globalwindatlas.info</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.energytransition.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">eco</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Nigeria Energy Transition Plan</span><span class="block text-[#5f6368] text-[13px] truncate">www.energytransition.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.irena.org/Publications/2023/Jan/Renewable-Energy-Roadmap-Nigeria" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">menu_book</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">IRENA Renewable Energy Roadmap Nigeria</span><span class="block text-[#5f6368] text-[13px] truncate">www.irena.org</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.energy.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Energy Commission of Nigeria</span><span class="block text-[#5f6368] text-[13px] truncate">www.energy.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Finance -->
+        <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="finance">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Capital &amp;
+                        Investment</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Finance</h2>
+
+                <!-- Public Finance -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                    style="font-family: Manrope, sans-serif;">Public Finance</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">REA Rural Electrification Fund subsidies and grants are available for off-grid and mini-grid wind projects. BOI concessional loans are accessible for wind manufacturing and project development. The NSIA-backed Fund, developed with Sustainable Energy for All, International Solar Alliance, and Africa50, is available for wind-linked mini-grid projects.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">account_balance</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">REA / Rural Electrification Fund</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Subsidies and grants for off-grid and mini-grid wind projects.</p>
+                    </div>
+                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">payments</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Bank of Industry (BOI)</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Concessional loans for wind manufacturing and project development.</p>
+                    </div>
+                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">hub</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">NSIA-backed DRE Fund</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Available for wind-linked mini-grid projects, developed with SEforALL, ISA, and Africa50.</p>
+                    </div>
+                </div>
+
+                <!-- Commercial Finance -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Commercial Finance</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Local banks including FCMB, Sterling, the German Desk under Access Bank, and Lotus provide RE lending. AfDB, IFC, and Africa Finance Corporation offer debt and equity. InfraCredit guarantees, green bonds, and hybrid capital instruments are available for well-structured transactions. Local pension and insurance capital is accessible via NSIA DRE Fund de-risking.</p>
+                <div class="flex flex-wrap gap-2 mt-5">
+                    <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">FCMB</span>
+                    <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Sterling Bank</span>
+                    <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Access Bank (German Desk)</span>
+                    <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Lotus Bank</span>
+                    <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">AfDB</span>
+                    <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">IFC</span>
+                    <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Africa Finance Corporation</span>
+                    <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">InfraCredit</span>
+                </div>
+
+                <!-- Guarantees & Risk Instruments -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Guarantees &amp; Risk Instruments</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">World Bank and AfDB Partial Risk Guarantees (PRGs), MIGA political risk insurance, Nigerian Sovereign Investment Authority credit enhancements, and REA performance guarantees are available for mini-grid linked projects. Feed-in tariff uncertainty and inconsistent policy signals are the primary risk factors flagged by lenders; PRGs are the recommended instrument to address these.</p>
+
+                <!-- Blended Finance -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Blended Finance</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">DARES blended structures, combining World Bank grants, private debt, and donor co-funding, are the most active deal format. AfDB and EU concessional funding alongside commercial capital are also available. DFI anchor deals are increasingly necessary to crowd in private capital for grid-connected wind.</p>
+
+                <!-- Investor Outlook -->
+                <div class="mt-12 lg:mt-16 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
+                    <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
+                        style="font-variation-settings:'FILL' 1;">insights</span>
+                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Investor Outlook:</span> Wind's strongest near-term returns sit in the confirmed high-wind corridor of Plateau, Taraba, and Katsina, where speeds exceed 7 m/s, and existing feasibility data cuts exploratory risk. The fastest path to cash flow is the 100 kW–1 MW mini-grid tier, with permitting at roughly 30 days and hybrid wind-solar systems earning well before larger projects clear EIA and grid connection. The bigger prize is utility-scale wind in the 10–50 MW range, but it hinges on solving offtake creditworthiness. Investors who structure around DisCo payment risk using DFI guarantees and blended finance from DARES, AfDB, or EU windows are best placed to unlock Nigeria's 3,200–4,000 MW potential.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Opportunities -->
+        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="opportunities">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Market
+                        Access</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
+                    style="font-family: Manrope, sans-serif;">Opportunities</h2>
+
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's wind energy market remains largely untapped, with no utility-scale commercial wind farms currently in operation despite proven wind resources and an evolving policy landscape. This presents a rare first-mover opportunity for investors seeking long-term growth in an emerging market.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Momentum is building through REA-led procurement programmes, including 1,225 mini-grids targeted through competitive reverse auctions, where wind-hybrid configurations are eligible alongside solar. Multi-year studies have also identified Plateau, Taraba, and Katsina as Nigeria's strongest locations for utility-scale wind development. Investors can access market intelligence and project pipelines through <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
+                        class="text-[#004225] font-semibold underline decoration-[#f7be26] decoration-2 underline-offset-2 hover:text-[#00301f]">Nigeria SE4ALL</a>.
+                </p>
+                <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
+                    class="inline-flex items-center gap-2 mt-6 bg-primary-container text-white px-6 py-3 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
+                    Visit Nigeria SE4ALL <span class="material-symbols-outlined text-lg">open_in_new</span>
+                </a>
+
+                <!-- Mini-Grid Development -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
+                    <div>
+                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                            style="font-family: Manrope, sans-serif;">Mini-Grid Development</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">One of the largest immediate opportunities for wind is through the Distributed Access through Renewable Energy Scale-up (DARES) programme, supported by a US$750 million World Bank facility and implemented by the Rural Electrification Agency (REA). The programme targets approximately 1,225 mini-grids, where wind-hybrid configurations are eligible alongside solar for rural, agricultural, telecom, and community loads in the northern states.</p>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-4">Private developers can participate through isolated mini-grid, interconnected mini-grid, and minimum subsidy tender windows. Performance-based subsidies are available upon successful project delivery and verified customer connections.</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="overflow-hidden rounded-2xl shadow-xl">
+                            <img alt="Wind energy project in northern Nigeria" class="w-full h-72 sm:h-80 object-cover" src="sector-Wind.jpg" />
+                        </div>
+
+                        <!-- Floating Badge -->
+                        <div
+                            class="absolute -bottom-5 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 py-3 flex items-center gap-4 z-10">
+                            <span
+                                class="w-10 h-10 bg-primary-container text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined"
+                                    style="font-variation-settings: 'FILL' 1;">hub</span>
+                            </span>
+                            <div>
+                                <p class="font-h4 text-[20px] font-extrabold text-primary leading-none">1,225</p>
+                                <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">
+                                    Mini-grids targeted</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lazy YouTube facade — swaps the thumbnail for an inline iframe on first click. -->
+                <style>
+                    .video-facade.is-playing>.facade-cover { display: none; }
+                    .video-facade iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+                </style>
+                <script>
+                    (function () {
+                        document.querySelectorAll('.video-facade').forEach(function (holder) {
+                            var id = holder.dataset.videoId;
+                            var cover = holder.querySelector('.facade-cover');
+                            if (!id || !cover) return;
+                            cover.addEventListener('click', function () {
+                                if (holder.classList.contains('is-playing')) return;
+                                var iframe = document.createElement('iframe');
+                                iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&modestbranding=1';
+                                iframe.title = 'Mini-grid walkthrough';
+                                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                                iframe.setAttribute('allowfullscreen', '');
+                                holder.appendChild(iframe);
+                                holder.classList.add('is-playing');
+                            });
+                        });
+                    })();
+                </script>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14 lg:mt-16">
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">1,225</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Mini-grids targeted through DARES reverse auctions.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">10–50 MW</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Utility-scale wind project size range in Nigeria's pipeline.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">~30 days</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Mini-grid permit timeline for qualifying wind systems.</p>
+                    </div>
+                </div>
+
+                <!-- Hybrid Wind-Solar Systems -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
+                    <div class="relative lg:order-2">
+                        <div class="overflow-hidden rounded-2xl shadow-xl">
+                            <img alt="Wind turbines in northern Nigeria"
+                                class="w-full h-72 sm:h-80 object-cover"
+                                src="sector-Wind-2.jpg" />
+                        </div>
+                    </div>
+                    <div class="lg:order-1">
+                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                            style="font-family: Manrope, sans-serif;">Hybrid Wind-Solar Systems</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">The most immediate commercial opportunity for wind is in hybrid configurations combining wind and solar to serve rural agricultural, telecom, and community loads in the northern states. Wind's natural diurnal and seasonal complementarity with solar improves system reliability and reduces battery storage requirements, making hybrid systems more bankable than either technology alone.</p>
+                        <div class="flex flex-wrap gap-2 mt-5">
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Rural Agricultural</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Telecommunications</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Community Loads</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Northern States</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Utility-Scale Wind Development -->
+                <div class="mt-16 lg:mt-20">
+                    <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                        style="font-family: Manrope, sans-serif;">Utility-Scale Wind Development</h3>
+                    <p class="text-[#404846] text-base sm:text-[17px] leading-8">Utility-scale grid-connected wind projects in the 10–50 MW range represent the longer-term prize. Existing projects such as the Katsina Wind Farm (operational) and the Gurara II Wind Farm (under development) demonstrate the viability of the sector. Investors with patient capital and the ability to structure around offtake creditworthiness — using DFI guarantees and blended finance — are best placed to develop Nigeria's first generation of commercial utility-scale wind farms.</p>
+                </div>
+
+                <!-- Geographic Hotspots -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
+                    <div class="relative lg:order-2">
+                        <div class="overflow-hidden rounded-2xl shadow-xl">
+                            <img alt="Aerial view of a major Nigerian city skyline"
+                                class="w-full h-72 sm:h-80 object-cover"
+                                src="GeographicHotspots.jfif" />
+                        </div>
+                    </div>
+                    <div class="lg:order-1">
+                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                            style="font-family: Manrope, sans-serif;">Geographic Hotspots</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">The confirmed high-wind corridor of Plateau, Taraba, and Katsina offers the strongest resource fundamentals for both mini-grid and utility-scale wind development, with wind speeds exceeding 7 m/s and existing feasibility data that cuts exploratory risk for investors.</p>
+                        <div class="flex flex-wrap gap-2 mt-5">
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">location_on</span>Plateau State</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">location_on</span>Taraba State</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">location_on</span>Katsina State</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content & Sidebar -->
+        <!-- <section class="py-12 lg:py-24 max-w-7xl mx-auto px-6 lg:px-8">
+             
+            <div>
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 sm:gap-4 mb-8 lg:mb-10 pb-4 border-b border-outline-variant">
+                    <div>
+                        <h2 class="font-h2 text-h3 sm:text-h2 text-primary">Major Projects</h2>
+                        <p class="text-on-surface-variant text-body-sm mt-1 uppercase tracking-widest font-semibold">
+                            Active Capital Opportunities</p>
+                    </div>
+                    <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
+                        <label for="proj-status-filter" class="text-body-sm text-on-surface-variant font-medium">Filter
+                            by Status:</label>
+                        <select id="proj-status-filter"
+                            class="bg-transparent border-none text-primary font-bold focus:ring-0 cursor-pointer">
+                            <option>All Projects</option>
+                            <option>Implementation</option>
+                            <option>Funding Rounds</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="opportunities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-gutter">
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        data-sector="renewable">
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2025-ENE-09</p>
+                            <h3
+                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Solar Power Naija - Phase II</h3>
+                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
+                                Renewable Generation</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.24 <span
+                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Multi-State Off-grid</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">05 Jan
+                                    2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2"><button
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
+                                in Detail</button>
+                            <button
+                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
+                                Now</button>
+                        </div>
+                    </div>
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        data-sector="renewable">
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2025-H2-01</p>
+                            <h3
+                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Green Hydrogen Niger Delta Pilot</h3>
+                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
+                                Renewable Generation</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.40 <span
+                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Rivers State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">18 Feb
+                                    2025</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2"><button
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
+                                in Detail</button>
+                            <button
+                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
+                                Now</button>
+                        </div>
+                    </div>
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        data-sector="storage">
+
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2024-MIN-15</p>
+                            <h3
+                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Nasarawa Lithium Processing Hub</h3>
+                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
+                                Energy Storage</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.15 <span
+                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Nasarawa State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">12 Aug
+                                    2024</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2"><button
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
+                                in Detail</button>
+                            <button
+                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+    </main>
+    <!-- Footer -->
+    <div id="site-footer"></div>
+
+
+    <!-- NESP nav wiring (mobile toggle + active golden bar) -->
+    <script>
+        (function () {
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            if (navToggle && mobileNav) {
+                navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
+            }
+        })();
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu {
+            position: relative;
+        }
+
+        .nesp-has-menu::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 12px;
+        }
+
+        .nesp-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 300px;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22);
+            margin-top: 8px;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+            z-index: 60;
+        }
+
+        .nesp-has-menu:hover .nesp-dropdown,
+        .nesp-dropdown:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nesp-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nesp-dropdown::after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: #ffffff;
+            border-top: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-radius: 3px 0 0 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nesp-menu-head {
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #9aa39e;
+            padding: 8px 12px 6px;
+        }
+
+        .nesp-menu-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .15s ease;
+        }
+
+        .nesp-menu-item:hover {
+            background: #f1f8f4;
+        }
+
+        .nesp-menu-item .t {
+            display: block;
+            font-family: Manrope, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15241d;
+        }
+
+        .nesp-menu-item:hover .t {
+            color: #047857;
+        }
+
+        .nesp-menu-item .d {
+            display: block;
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #6b746f;
+            margin-top: 2px;
+        }
+
+        .nesp-has-menu>a::after {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 7px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            opacity: .6;
+            vertical-align: middle;
+            transition: transform .2s ease;
+        }
+
+        .nesp-has-menu:hover>a::after {
+            transform: translateY(0) rotate(225deg);
+        }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+                        { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations & Compliance', items: [
+                        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data & Insights', items: [
+                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;
+                var menu = MENU[(a.textContent || '').replace(/\s+/g, ' ').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+    <!-- NESP button wiring -->
+    <script>
+        (function () {
+            document.querySelectorAll('button').forEach(function (b) {
+                var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+                if (t === 'view in detail' || t.indexOf('details') === 0) b.addEventListener('click', function () { location.href = 'detailedOppNew.html'; });
+                else if (t === 'invest now') b.addEventListener('click', function () { location.href = 'Login.html'; });
+
+                else if (t.indexOf('regulatory framework') === 0) b.addEventListener('click', function () { location.href = 'Regulation.html'; });
+            });
+        })();
+    </script>
+    <!-- Invest Now popup flow -->
+    <script src="footer.js"></script>
+    <script src="investflow.js"></script>
+    <script src="nav.js"></script>
+</body>
+
+</html>

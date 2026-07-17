@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Green Mobility | OSIP - Nigerian Energy Investment Portal</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f7",
+                        "background": "#f9f9f7",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f3f4f2",
+                        "outline": "#717976",
+                        "secondary-fixed-dim": "#87d982",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-primary-container": "#709e91",
+                        "on-primary-fixed-variant": "#214e44",
+                        "error": "#ba1a1a",
+                        "primary-container": "#00342b",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#edeeec",
+                        "inverse-surface": "#2f3130",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdf9e",
+                        "tertiary": "#211600",
+                        "primary-fixed": "#bdecde",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-container": "#207128",
+                        "on-secondary-fixed": "#002204",
+                        "inverse-on-surface": "#f0f1ef",
+                        "on-secondary-fixed-variant": "#005312",
+                        "secondary-fixed": "#a3f69c",
+                        "surface-variant": "#e2e3e1",
+                        "inverse-primary": "#a1d0c3",
+                        "on-tertiary-container": "#bb8d00",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#3a665c",
+                        "surface-dim": "#d9dad8",
+                        "secondary": "#1b6d24",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "on-primary-fixed": "#00201a",
+                        "primary": "#001d17",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "on-tertiary-fixed": "#261a00",
+                        "tertiary-container": "#3b2a00",
+                        "surface-container-high": "#e8e8e6",
+                        "secondary-container": "#a0f499",
+                        "on-background": "#1a1c1b",
+                        "on-surface-variant": "#404846",
+                        "surface": "#f9f9f7",
+                        "outline-variant": "#c0c8c4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "margin-tablet": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Manrope", "Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Manrope", "Inter"],
+                        "h2": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h1-mobile": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "label-md": ["Inter"],
+                        "h4": ["Manrope"],
+                        "body-sm": ["Inter"],
+                        "h1": ["Manrope"],
+                        "nav-link": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f9f9f7;
+            color: #1a1c1b;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .gradient-overlay {
+            background: linear-gradient(0deg, rgba(0, 29, 23, 0.95) 0%, rgba(0, 29, 23, 0.6) 60%, rgba(0, 29, 23, 0.2) 100%);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .hero-clip {
+            clip-path: none;
+        }
+
+        .data-table-row:hover {
+            background-color: #f3f4f2;
+        }
+
+        /* Opportunity cards (mirrored from Opportunities.html) */
+        .opportunity-card {
+            border-top: 4px solid #dfa800 !important;
+        }
+
+        .opportunity-card .inv-box {
+            background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
+            border: 1px solid rgba(0, 52, 43, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .sector-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            background: rgba(223, 168, 0, 0.14);
+            border: 1px solid rgba(223, 168, 0, 0.35);
+            color: #5b4300;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1.45;
+        }
+
+        .sector-badge .material-symbols-outlined {
+            font-size: 14px;
+            color: #c98a00;
+        }
+    </style>
+</head>
+
+<body class="font-body-md overflow-x-hidden">
+    <!-- TopNavBar -->
+    <div id="site-nav"></div>
+    <main>
+        <!-- Hero Section -->
+        <section
+            class="relative min-h-[500px] lg:min-h-[550px] w-full overflow-hidden hero-clip bg-primary flex items-center">
+            <!-- Background Image & Overlays -->
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay"
+                data-alt="Green Mobility electric vehicles Nigeria"
+                style="background-image: url('sector-GreenMobility.jpg')">
+            </div>
+            <!-- Vignette / Depth Gradients -->
+            <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent"></div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
+                <div class="max-w-3xl">
+
+                    <!-- Title -->
+                    <h1
+                        class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+                        Green Mobility
+                    </h1>
+
+                    <!-- Minimalist Description (From Docs) -->
+                    <p
+                        class="text-base sm:text-lg text-white/80 mb-10 leading-relaxed max-w-2xl border-l-4 border-amber-400 pl-6">
+                        Nigeria's green mobility market is in its early stages but moving fast, with growth led by electric two- and three-wheelers in major cities.
+                    </p>
+
+                    <!-- Quick Navigation Tabs (From Docs) -->
+                    <div class="space-y-3">
+                        <span class="block text-xs font-semibold text-white/40 uppercase tracking-widest">Jump to
+                            section:</span>
+                        <div class="flex flex-wrap gap-2.5">
+                            <a href="#overview"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Overview
+                            </a>
+                            <a href="#facts"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Facts
+                            </a>
+                            <a href="#regulations"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Regulations
+                            </a>
+                            <a href="#finance"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Finance
+                            </a>
+                            <a href="#opportunities"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Opportunities
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Sector Overview: text left / image right -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16" id="overview">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Text -->
+                <div>
+                    <span
+                        class="inline-flex items-center gap-3 text-secondary font-bold text-label-md uppercase tracking-[0.18em] mb-5">
+                        <span class="w-8 h-[2px] bg-tertiary-fixed-dim"></span> Sector Overview
+                    </span>
+                    <h2 class="font-h2 text-h2 text-primary leading-tight mb-6">Nigeria's Electric Mobility Market in Motion</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">
+                        Nigeria's green mobility market has moved from pilot to early-scale deployment, anchored by electric two- and three-wheelers, EV bus rollouts already operating in Lagos and Abia, and solar-powered charging infrastructure entering commercial use. Policy has caught up to momentum: the EV Transition and Green Mobility Bill 2025 sets a target of 13 million EVs by 2050 and 100% EV penetration by 2060, backed by a 30% local content requirement by 2030 designed to anchor manufacturing onshore rather than leave Nigeria as an import market.
+                    </p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">
+                        Local assembly is responding in kind. Domestic and international manufacturers are establishing assembly plants and charging infrastructure on the ground, with Nigeria now home to a 100,000-unit capacity electric two-wheeler assembly plant in Ogun State. The investment case rests on demand economics, not policy alone. Fuel subsidy removal has repriced petrol-powered transport so sharply that fleet and commercial operators now face a direct, unavoidable cost signal favoring electric alternatives — a structural shift in unit economics pulling adoption forward independent of incentive design.
+                    </p>
+                    <a href="Opportunities.html"
+                        class="inline-flex items-center gap-2 bg-primary-container text-white px-7 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
+                        Explore Opportunities <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                    </a>
+                </div>
+                <!-- Image -->
+                <div class="relative">
+                    <div class="overflow-hidden rounded-2xl shadow-xl">
+                        <img alt="Electric vehicles and charging infrastructure in Nigeria"
+                            class="w-full h-72 sm:h-96 lg:h-[480px] object-cover"
+                            src="sector-GreenMobility-2.jpg" />
+                    </div>
+                    <!-- Floating stat card -->
+                    <div
+                        class="absolute -bottom-6 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 sm:px-6 py-4 flex items-center gap-4">
+                        <span
+                            class="w-12 h-12 bg-primary-container text-white rounded-lg flex items-center justify-center"><span
+                                class="material-symbols-outlined"
+                                style="font-variation-settings: 'FILL' 1;">electric_car</span></span>
+                        <div>
+                            <p class="font-h3 text-h3 text-primary leading-none">13 Million</p>
+                            <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">EVs Target by 2050</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Facts / Factsheets -->
+        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="facts">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Infographics |
+                        Factsheets</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Key Facts</h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <!-- 13 Million EVs by 2050 / 100% penetration by 2060 -->
+                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">13 Million EVs</p>
+                        <p class="text-[#111827] font-semibold mt-3">Target by 2050 / 100% EV penetration by 2060</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Nigeria's national EV adoption targets under the Energy Transition Plan, with full electrification of the vehicle fleet targeted by 2060.</p>
+                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Federal Republic of Nigeria, Energy Transition Plan, 2022 (updated 2024), as reported by Sustainable Energy for All (SEforALL).</p>
+                    </div>
+
+                    <!-- 30% local content by 2030 -->
+                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">30%</p>
+                        <p class="text-[#111827] font-semibold mt-3">Local content requirement by 2030</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Mandated under the EV Transition and Green Mobility Bill 2025, designed to anchor EV manufacturing onshore rather than leave Nigeria as an import market.</p>
+                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Electric Vehicle Transition and Green Mobility Bill, 2025 (Senator Orji Uzor Kalu, sponsor).</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Ease of Doing Business -->
+        <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Business Process
+                        &amp;
+                        Incentives</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Ease of Doing Business</h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+                    <!-- Body copy -->
+                    <div class="lg:col-span-7 space-y-5 text-[#404846] text-base sm:text-[17px] leading-8">
+                        <p>Green mobility is one of the most incentive-rich entry environments in Nigeria's clean energy landscape right now, largely because of the momentum behind the EV Transition Bill 2025. Company formation is straightforward — CAC registration online in one to seven days, no minimum share capital; 100% foreign ownership allowed. The tax framework is standard: 30% CIT, 7.5% VAT, and TCC for contracts.</p>
+                        <p>EV charging infrastructure and battery manufacturing are explicitly prioritized under the EV Transition Bill, making them high-eligibility categories for Pioneer Status — the three-to-five-year CIT holiday available via NIPC. On customs, solar panels, inverters, and batteries imported under HS 8541.xx attract 0% import duty and are VAT zero-rated under ECOWAS CET and 2026 NTA exemptions, though PAAR pre-clearance is required at the port.</p>
+                        <p>Nigeria's green mobility market is taking a dual track: global electric vehicle brands entering cautiously alongside local assemblers moving aggressively. On the vehicle side, electric buses are the most significant entry point for international manufacturers. On the local side, Nigeria's nascent EV assembly sector is growing through foreign OEM partnership models. The charging infrastructure segment is in early-stage development, with global energy management companies active in the broader space.</p>
+                        <p>For investors, the EV supply chain is still being built — early-mover relationships with assemblers, charging infrastructure providers, and EPC contractors are available and competitively open in a way they will not be once the market matures. The residual challenge is market-side: unproven business models and import tariff volatility on non-exempted components remain active risks.</p>
+                    </div>
+
+                    <!-- Investor Advantages -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-2xl p-7 lg:p-8">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span
+                                    class="w-10 h-10 rounded-lg bg-[#004225] text-white flex items-center justify-center flex-shrink-0"><span
+                                        class="material-symbols-outlined text-[22px]">verified</span></span>
+                                <h3 class="text-[20px] font-bold text-[#111827]"
+                                    style="font-family: Manrope, sans-serif;">Investor Advantages</h3>
+                            </div>
+                            <ul class="space-y-4">
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">CAC incorporation typically completed within 1–7 days</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">100% foreign ownership permitted</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Pioneer Status tax holiday (3–5 years) for EV charging &amp; battery manufacturing</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">0% import duty and VAT zero-rating on solar panels, inverters &amp; batteries (HS 8541.xx)</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">30% local content mandate creates structural advantage for local assembly &amp; partnerships</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Fuel subsidy removal creates direct cost signal favoring electric alternatives</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Early-mover advantage: supply chain relationships available before market matures</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Message -->
+                <div class="mt-8 lg:mt-10 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
+                    <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
+                        style="font-variation-settings:'FILL' 1;">lightbulb</span>
+                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Key Message:</span>
+                        Green mobility is genuinely competitive — the policy intent is clear, the incentives are codified, and the entry process is well-mapped.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regulations -->
+        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="regulations">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Regulatory
+                        Landscape</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Regulations</h2>
+
+                <!-- Applicable Laws & Policies -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                    style="font-family: Manrope, sans-serif;">Applicable Laws &amp; Policies</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">The overarching framework rests on the Electricity Act 2023, which governs all electricity supply and tariff matters relevant to EV charging infrastructure. The EV Transition and Green Mobility Bill 2025 is the central piece of dedicated legislation — as of May 2026 it has not been passed into law despite proposing a licensing regime for the sector. Supporting instruments include the National Integrated Electricity Policy 2025, the National Automotive Industry Development Plan (NAIDP) 2023, Nigeria's updated Nationally Determined Contributions (NDCs), and the Energy Transition Plan 2022.</p>
+                <div class="flex flex-wrap gap-2 mt-5">
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electricity Act 2023</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">EV Transition &amp; Green Mobility Bill 2025</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">NIEP 2025</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">NAIDP 2023</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Energy Transition Plan 2022</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Updated NDCs</span>
+                </div>
+
+                <!-- Project Development Frameworks -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-2"
+                    style="font-family: Manrope, sans-serif;">Project Development Frameworks</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Regulatory treatment currently splits across three operational lanes, since the Bill has not yet been enacted:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">bolt</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Electricity Supply &amp; Tariffs</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Governed by NERC, with permits or simplified registration depending on charging station capacity.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">policy</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Standards &amp; Policy Direction</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Led by NADDC on EV policy generally, and by SON on technical and safety standards.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">local_shipping</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Import &amp; Fiscal Treatment</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Administered by the Nigeria Customs Service under the Nigeria First Policy, covering duty waivers and VAT exemptions.</p>
+                    </div>
+                </div>
+
+                <!-- Regulatory Requirements -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                    style="font-family: Manrope, sans-serif;">Regulatory Requirements</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">business</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">CAC incorporation</span> typically completes within 1–7 days; foreign investors may retain 100% ownership.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">assured_workload</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">NIPC registration</span> via the One-Stop Investment Centre (OSIC) is recommended for fiscal incentive access, including a 3–5-year Pioneer Status tax holiday.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">recycling</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">NESREA</span> governs battery waste, e-waste, and emissions compliance for EV battery imports and end-of-life management.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">forest</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">FMEnv EIA</span> is mandatory for large-scale charging infrastructure with significant environmental impact; smaller installations are subject to lighter environmental screening.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">terrain</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">Land access</span> requires consents or certificates of occupancy from state governors, plus local government planning approval, with preference given to urban, highway, and transport hub locations.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">solar_power</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">Solar-powered &amp; off-grid charging stations</span> are eligible for net billing under Section 80 of the Electricity Act 2023 and can access REA and REF support; co-location with existing mini-grid infrastructure is explicitly recognized as a viable, investable model.</p>
+                    </div>
+                </div>
+
+                <!-- Key Regulatory Agencies -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                    style="font-family: Manrope, sans-serif;">Key Regulatory Agencies</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <a href="https://www.naddc.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <span class="material-symbols-outlined text-[#004225]">directions_car</span>
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">National Automotive Design &amp; Development Council (NADDC)</span>
+                    </a>
+                    <a href="https://nerc.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
+                                class="w-8 h-8 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Electricity Regulatory Commission (NERC)</span>
+                    </a>
+                    <a href="https://son.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Standards Organization of Nigeria (SON)</span>
+                    </a>
+                    <a href="https://customs.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <span class="material-symbols-outlined text-[#004225]">account_balance</span>
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigeria Customs Service</span>
+                    </a>
+                    <a href="https://www.nesrea.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="nesrea.jpeg" alt="NESREA logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">National Environmental Standards &amp; Regulations Enforcement Agency (NESREA)</span>
+                    </a>
+                    <a href="https://nipc.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Investment Promotion Commission (NIPC)</span>
+                    </a>
+                    <a href="https://rea.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Rural Electrification Agency (REA)</span>
+                    </a>
+                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Electricity Management Services Agency (NEMSA)</span>
+                    </a>
+                    <a href="https://frsc.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <span class="material-symbols-outlined text-[#004225]">account_balance</span>
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Federal Road Safety Corps (FRSC) &amp; Vehicle Inspection Officers (VIO)</span>
+                    </a>
+                </div>
+
+                <!-- Technical Standards -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Technical Standards</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">All imported EV components must meet NIS/IEC standards. SON administers SONCAP for imports and MANCAP for locally manufactured products, with SONCAP fees ranging from 0.2–2% of CIF value. NEMSA certification is mandatory wherever electricity infrastructure is involved. In October 2025, SON inaugurated a National Technical Committee on Electric Mobility Standards, with 35 proposed Nigerian Industrial Standards on Electric Mobility currently under development; a follow-up meeting to advance national guidance standards for EV charging stations is scheduled for Lagos in June 2026, with full standards expected to be gazetted by late 2026.</p>
+
+                <!-- WORKFLOW PROCESS -->
+                <div class="wf-scope">
+                    <style>
+                        .wf-scope {
+                            font-family: Manrope, sans-serif;
+                        }
+
+                        .wf-scope * {
+                            box-sizing: border-box;
+                        }
+
+                        .wf-section {
+                            position: relative;
+                            padding: 50px 20px;
+                            overflow: hidden;
+                            border-radius: 24px;
+                        }
+
+                        .wf-section+.wf-section {
+                            margin-top: 32px;
+                        }
+
+                        .wf-section::before {
+                            content: "";
+                            position: absolute;
+                            inset: 0;
+                            z-index: 0;
+                            background:
+                                radial-gradient(120% 90% at 82% 8%, rgba(0, 66, 37, 0.06) 0%, rgba(0, 66, 37, 0) 55%),
+                                #f3f4f2;
+                        }
+
+                        .wf-section::after {
+                            content: "";
+                            position: absolute;
+                            right: -10%;
+                            top: -25%;
+                            width: 65%;
+                            height: 150%;
+                            z-index: 0;
+                            background: radial-gradient(closest-side, rgba(0, 66, 37, 0.05), rgba(0, 66, 37, 0));
+                            border-radius: 50%;
+                        }
+
+                        .wf-inner {
+                            position: relative;
+                            z-index: 1;
+                        }
+
+                        .wf-eyebrow {
+                            display: inline-block;
+                            font-size: 12px;
+                            font-weight: 800;
+                            letter-spacing: .08em;
+                            text-transform: uppercase;
+                            color: #0f6b3f;
+                            margin-bottom: 6px;
+                        }
+
+                        .wf-title {
+                            font-size: 24px;
+                            line-height: 1.25;
+                            font-weight: 800;
+                            color: #111827;
+                            margin: 0 0 40px;
+                        }
+
+                        @media (min-width:1024px) {
+                            .wf-title {
+                                font-size: 26px;
+                            }
+                        }
+
+                        .wf-track {
+                            position: relative;
+                            display: none;
+                        }
+
+                        @media (min-width:900px) {
+                            .wf-track {
+                                display: block;
+                            }
+                        }
+
+                        .wf-row {
+                            position: relative;
+                            display: flex;
+                            align-items: flex-start;
+                            justify-content: space-between;
+                            gap: 25px;
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                        }
+
+                        .wf-svg {
+                            position: absolute;
+                            inset: 0;
+                            width: 100%;
+                            height: 100%;
+                            z-index: 0;
+                            pointer-events: none;
+                            overflow: visible;
+                        }
+
+                        .wf-path {
+                            fill: none;
+                            stroke: #8a8f8c;
+                            stroke-width: 2;
+                            stroke-dasharray: 5 6;
+                            stroke-linecap: round;
+                        }
+
+                        .wf-dot {
+                            fill: #8a8f8c;
+                        }
+
+                        .wf-node {
+                            position: relative;
+                            z-index: 1;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            width: 150px;
+                            text-align: center;
+                        }
+
+                        .wf-node.up {
+                            align-self: flex-start;
+                        }
+
+                        .wf-node.down {
+                            align-self: flex-end;
+                        }
+
+                        .wf-badge {
+                            width: 52px;
+                            height: 52px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: #ffffff;
+                            border: 2px solid #004225;
+                            color: #004225;
+                            box-shadow: 0 4px 14px rgba(0, 66, 37, 0.10);
+                            position: relative;
+                        }
+
+                        .wf-badge svg {
+                            width: 22px;
+                            height: 22px;
+                        }
+
+                        .wf-num {
+                            position: absolute;
+                            top: -11px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            font-size: 12px;
+                            font-weight: 800;
+                            letter-spacing: .03em;
+                            color: #0f6b3f;
+                            background: #f3f4f2;
+                            padding: 0 6px;
+                        }
+
+                        .wf-node.down .wf-num {
+                            top: auto;
+                            bottom: -11px;
+                        }
+
+                        .wf-label {
+                            margin-top: 14px;
+                            font-size: 13px;
+                            font-weight: 700;
+                            color: #111827;
+                            line-height: 1.4;
+                        }
+
+                        .wf-node.down .wf-label {
+                            order: -1;
+                            margin-top: 0;
+                            margin-bottom: 14px;
+                        }
+
+                        .wf-list {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+                        @media (min-width:900px) {
+                            .wf-list {
+                                display: none;
+                            }
+                        }
+
+                        .wf-item {
+                            display: flex;
+                            gap: 16px;
+                            align-items: flex-start;
+                        }
+
+                        .wf-item .wf-badge {
+                            width: 44px;
+                            height: 44px;
+                            flex: none;
+                        }
+
+                        .wf-item .wf-badge svg {
+                            width: 19px;
+                            height: 19px;
+                        }
+
+                        .wf-item .wf-num {
+                            position: static;
+                            background: none;
+                            padding: 0;
+                            display: block;
+                            margin-bottom: 2px;
+                        }
+
+                        .wf-item-text {
+                            padding-top: 4px;
+                        }
+
+                        .wf-item-label {
+                            font-size: 13px;
+                            font-weight: 700;
+                            color: #111827;
+                            line-height: 1.4;
+                        }
+
+                        .wf-connector {
+                            width: 2px;
+                            min-height: 28px;
+                            margin-left: 21px;
+                            background-image: linear-gradient(#8a8f8c 55%, rgba(255, 255, 255, 0) 0%);
+                            background-position: left;
+                            background-size: 2px 10px;
+                            background-repeat: repeat-y;
+                        }
+
+                        .wf-node a:focus-visible,
+                        .wf-item a:focus-visible {
+                            outline: 2px solid #004225;
+                            outline-offset: 3px;
+                        }
+                    </style>
+
+                    <div class="wf-inner">
+
+                        <!-- ===================== Green Mobility Workflow ===================== -->
+                        <section class="wf-section">
+                            <div class="wf-inner">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="block w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
+                                    <span class="wf-eyebrow mb-0">Workflow Process</span>
+                                </div>
+                                <h3 class="wf-title">Green Mobility Project Development</h3>
+
+                                <!-- Desktop zigzag -->
+                                <div class="wf-track" data-wf-track>
+                                    <svg class="wf-svg" data-wf-svg></svg>
+                                    <div class="wf-row" data-wf-row data-crm-group="green-mobility-requirements">
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="cac_nipc_registration">
+                                            <div class="wf-badge"><span class="wf-num">01</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 21V6l7-3 7 3v15" />
+                                                    <path d="M9 21v-6h4v6" />
+                                                    <path d="M9 9h.01M13 9h.01M9 13h.01M13 13h.01" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">CAC Incorporation &amp; NIPC/OSIC Registration</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="land_consent">
+                                            <div class="wf-badge"><span class="wf-num">02</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" />
+                                                    <circle cx="12" cy="9.5" r="2.3" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Land Consent / Certificate of Occupancy &amp; Planning Approval</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="nerc_registration">
+                                            <div class="wf-badge"><span class="wf-num">03</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                    <path d="M9 12l2 2 4-4" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">NERC Registration or Permit</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="nemsa_certification">
+                                            <div class="wf-badge"><span class="wf-num">04</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">NEMSA Electrical Safety Certification</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="soncap_mancap">
+                                            <div class="wf-badge"><span class="wf-num">05</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="9" r="5" />
+                                                    <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">SONCAP (Imports) or MANCAP (Local Equipment)</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="environmental_screening">
+                                            <div class="wf-badge"><span class="wf-num">06</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path
+                                                        d="M11 20A7 7 0 0 1 4 13c0-4 3-9 8-11 1 5 5 6 5 11a7 7 0 0 1-6 7z" />
+                                                    <path d="M11 20v-6" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Environmental Screening or Full FMEnv EIA</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="net_billing">
+                                            <div class="wf-badge"><span class="wf-num">07</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M3 21h18" />
+                                                    <path d="M5 21V9l7-5 7 5v12" />
+                                                    <path d="M9 21v-5h6v5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Net Billing Registration (Solar / Hybrid Systems)</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="ongoing_monitoring">
+                                            <div class="wf-badge"><span class="wf-num">08</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 20V10M11 20V4M18 20v-7" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Ongoing Monitoring: EV Bill Passage &amp; SON Standards Gazettement</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Mobile list -->
+                                <div class="wf-list">
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">01</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M4 21V6l7-3 7 3v15" />
+                                                <path d="M9 21v-6h4v6" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">CAC Incorporation &amp; NIPC/OSIC Registration</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">02</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" />
+                                                <circle cx="12" cy="9.5" r="2.3" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Land Consent / Certificate of Occupancy and Planning Approval</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">03</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">NERC Registration or Permit</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">04</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">NEMSA Electrical Safety Certification</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">05</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="9" r="5" />
+                                                <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">SONCAP (Imports) or MANCAP (Local Equipment)</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">06</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path
+                                                    d="M11 20A7 7 0 0 1 4 13c0-4 3-9 8-11 1 5 5 6 5 11a7 7 0 0 1-6 7z" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Environmental Screening or Full FMEnv EIA</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">07</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M5 21V9l7-5 7 5v12" />
+                                                <path d="M9 21v-5h6v5" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Net Billing Registration (Solar / Hybrid Systems)</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">08</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M4 20V10M11 20V4M18 20v-7" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Ongoing Monitoring: EV Bill Passage and SON Standards Gazettement</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+                <script>
+                        (function () {
+                            function drawTrack(track) {
+                                var row = track.querySelector('[data-wf-row]');
+                                var svg = track.querySelector('[data-wf-svg]');
+                                var nodes = row.querySelectorAll('[data-wf-node]');
+                                if (!nodes.length) return;
+
+                                var rowRect = row.getBoundingClientRect();
+                                var pts = [];
+                                nodes.forEach(function (node) {
+                                    var badge = node.querySelector('.wf-badge');
+                                    var r = badge.getBoundingClientRect();
+                                    pts.push({
+                                        x: (r.left + r.width / 2) - rowRect.left,
+                                        y: (r.top + r.height / 2) - rowRect.top
+                                    });
+                                });
+
+                                var ns = 'http://www.w3.org/2000/svg';
+                                while (svg.firstChild) svg.removeChild(svg.firstChild);
+                                svg.setAttribute('viewBox', '0 0 ' + rowRect.width + ' ' + rowRect.height);
+
+                                for (var i = 0; i < pts.length - 1; i++) {
+                                    var a = pts[i], b = pts[i + 1];
+                                    var midX = a.x + (b.x - a.x) * 0.5;
+                                    var rad = Math.min(20, Math.abs(b.y - a.y) * 0.5);
+                                    var goingDown = b.y > a.y;
+                                    var d;
+                                    if (Math.abs(b.y - a.y) < 1) {
+                                        d = 'M ' + a.x + ' ' + a.y + ' L ' + b.x + ' ' + b.y;
+                                    } else {
+                                        var turn1x = midX - rad, turn2x = midX + rad;
+                                        var cy1 = goingDown ? a.y + rad : a.y - rad;
+                                        var cy2 = goingDown ? b.y - rad : b.y + rad;
+                                        d = 'M ' + a.x + ' ' + a.y +
+                                            ' L ' + turn1x + ' ' + a.y +
+                                            ' Q ' + midX + ' ' + a.y + ' ' + midX + ' ' + cy1 +
+                                            ' L ' + midX + ' ' + cy2 +
+                                            ' Q ' + midX + ' ' + b.y + ' ' + turn2x + ' ' + b.y +
+                                            ' L ' + b.x + ' ' + b.y;
+                                    }
+                                    var path = document.createElementNS(ns, 'path');
+                                    path.setAttribute('d', d);
+                                    path.setAttribute('class', 'wf-path');
+                                    svg.appendChild(path);
+                                }
+
+                                pts.forEach(function (p, i) {
+                                    if (i === 0 || i === pts.length - 1) {
+                                        var c = document.createElementNS(ns, 'circle');
+                                        c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); c.setAttribute('r', 3);
+                                        c.setAttribute('class', 'wf-dot');
+                                        svg.appendChild(c);
+                                    }
+                                });
+                            }
+
+                            function drawAll() {
+                                document.querySelectorAll('[data-wf-track]').forEach(drawTrack);
+                            }
+
+                            if (document.readyState === 'loading') {
+                                document.addEventListener('DOMContentLoaded', drawAll);
+                            } else {
+                                drawAll();
+                            }
+                            window.addEventListener('resize', function () {
+                                clearTimeout(window.__wfResizeTimer);
+                                window.__wfResizeTimer = setTimeout(drawAll, 120);
+                            });
+                            if (document.fonts && document.fonts.ready) { document.fonts.ready.then(drawAll); }
+                        })();
+                </script>
+
+                <!-- Useful Resources -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                    style="font-family: Manrope, sans-serif;">Useful Resources</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <a href="https://www.cac.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <span class="material-symbols-outlined text-[#004225]">business</span>
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">CAC</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.cac.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NIPC</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nipc.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.naddc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <span class="material-symbols-outlined text-[#004225]">directions_car</span>
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NADDC</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.naddc.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
+                                    class="w-8 h-8 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NERC</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nerc.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.son.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">SON</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.son.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nesrea.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="nesrea.jpeg" alt="NESREA logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NESREA</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nesrea.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NEMSA</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nemsa.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.rea.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">REA</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.rea.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Finance -->
+        <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="finance">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Capital &amp;
+                        Investment</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Finance</h2>
+
+                <!-- Public Finance -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                    style="font-family: Manrope, sans-serif;">Public Finance</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">BOI concessional loans are available for EV charging infrastructure and battery assembly. REA's Rural Electrification Fund provides support for solar-powered and off-grid charging stations. The NSIA-backed $500M DRE Nigeria Fund is accessible for RE-linked charging infrastructure projects.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">factory</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Bank of Industry (BOI)</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Concessional loans for EV charging infrastructure and battery assembly.</p>
+                    </div>
+                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">account_balance</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">REA / Rural Electrification Fund</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Support for solar-powered and off-grid charging stations.</p>
+                    </div>
+                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">battery_charging_full</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">DRE Nigeria Fund</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">NSIA-backed $500M fund accessible for RE-linked charging infrastructure projects.</p>
+                    </div>
+                </div>
+
+                <!-- Commercial Finance -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Commercial Finance</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Local banks — FCMB, Sterling, Access, and Lotus — are active in RE and green mobility lending. AfDB, IFC, and Africa Finance Corporation provide debt and equity participation. InfraCredit guarantees and green bonds are available for well-structured EV infrastructure transactions.</p>
+                <div class="flex flex-wrap gap-2 mt-5">
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">FCMB</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Sterling Bank</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Access Bank</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Lotus Bank</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">AfDB</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">IFC</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Africa Finance Corporation</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">InfraCredit</span>
+                </div>
+
+                <!-- Guarantees & Risk Instruments -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Guarantees &amp; Risk Instruments</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">World Bank and AfDB Partial Risk Guarantees (PRGs), MIGA political risk insurance, and NSIA credit enhancements are all accessible. PRGs are the recommended instrument to mitigate risk around EV policy implementation timelines.</p>
+
+                <!-- Blended Finance -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Blended Finance</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">AfDB and EU blended structures are the most active deal format for green mobility. BOI and DFI concessional debt, combined with grant funding, represent the strongest near-term financing stack for EV charging and local assembly projects.</p>
+
+                <!-- Investor Outlook -->
+                <div class="mt-12 lg:mt-16 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
+                    <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
+                        style="font-variation-settings:'FILL' 1;">insights</span>
+                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Investor Outlook:</span> Investors who can demonstrate demand aggregation, fleet operator offtake, or solar-hybrid charging economics will find commercial finance significantly easier to access. The regulatory framework is still being written; investors who engage now, while standards and licensing are being shaped, are best positioned to define the market.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Opportunities -->
+        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="opportunities">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Market
+                        Access</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
+                    style="font-family: Manrope, sans-serif;">Opportunities</h2>
+
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's green mobility market is being built in real time — EV bus fleets are already operating, solar charging pilots are expanding, and local assembly lines are running. For investors willing to move while the market is still being shaped, the first-mover advantage is significant.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">As the regulatory framework is finalized and SON standards are gazetted, the market will open further. Investors can access growing pipeline intelligence through platforms such as
+                    <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
+                        class="text-[#004225] font-semibold underline decoration-[#f7be26] decoration-2 underline-offset-2 hover:text-[#00301f]">Nigeria
+                        SE4ALL</a>, which provide information on electrification gaps, renewable energy demand centres, project pipelines, and priority investment locations.
+                </p>
+                <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
+                    class="inline-flex items-center gap-2 mt-6 bg-primary-container text-white px-6 py-3 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
+                    Visit Nigeria SE4ALL <span class="material-symbols-outlined text-lg">open_in_new</span>
+                </a>
+
+                <!-- EV Charging Infrastructure -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
+                    <div>
+                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                            style="font-family: Manrope, sans-serif;">EV Charging Infrastructure</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">The charging infrastructure segment is in early-stage development, with global energy management companies active in the broader space. Solar-powered and off-grid charging stations are eligible for net billing under Section 80 of the Electricity Act 2023 and can access REA and REF support. Co-location with existing mini-grid infrastructure is explicitly recognized as a viable, investable model.</p>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-4">Investors who establish positions now — across charging infrastructure, fleet financing, or local assembly — will be best placed to scale as the enabling environment catches up with demand.</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="overflow-hidden rounded-2xl shadow-xl">
+                            <img alt="Green mobility electric vehicles charging infrastructure Nigeria"
+                                class="w-full h-72 sm:h-80 object-cover"
+                                src="sector-GreenMobility.jpg" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lazy YouTube facade style kept for script compatibility -->
+                <style>
+                    .video-facade.is-playing>.facade-cover { display: none; }
+                    .video-facade iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+                </style>
+                <script>
+                    (function () {
+                        document.querySelectorAll('.video-facade').forEach(function (holder) {
+                            var id = holder.dataset.videoId;
+                            var cover = holder.querySelector('.facade-cover');
+                            if (!id || !cover) return;
+                            cover.addEventListener('click', function () {
+                                if (holder.classList.contains('is-playing')) return;
+                                var iframe = document.createElement('iframe');
+                                iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&modestbranding=1';
+                                iframe.title = 'Green mobility walkthrough';
+                                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                                iframe.setAttribute('allowfullscreen', '');
+                                holder.appendChild(iframe);
+                                holder.classList.add('is-playing');
+                            });
+                        });
+                    })();
+                </script>
+
+                <!-- Local Assembly & Manufacturing -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
+                    <div class="relative lg:order-2">
+                        <div class="overflow-hidden rounded-2xl shadow-xl">
+                            <img alt="Local EV assembly and manufacturing Nigeria"
+                                class="w-full h-72 sm:h-80 object-cover"
+                                src="sector-GreenMobility-2.jpg" />
+                        </div>
+                    </div>
+                    <div class="lg:order-1">
+                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                            style="font-family: Manrope, sans-serif;">Local Assembly &amp; Manufacturing</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria is now home to a 100,000-unit capacity electric two-wheeler assembly plant in Ogun State. The EV Transition and Green Mobility Bill 2025 mandates 30% local content by 2030, which gives local assembly and partnership models a structural advantage in procurement and incentive access. Foreign OEM partnership models mirror the CKD assembly playbook used successfully in the conventional vehicle market.</p>
+                        <div class="flex flex-wrap gap-2 mt-5">
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electric Two-Wheelers</span>
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electric Three-Wheelers</span>
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electric Buses</span>
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Battery Assembly</span>
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">OEM Partnerships (CKD Model)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Geographic Hotspots -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
+                    <div class="relative lg:order-2">
+                        <div class="overflow-hidden rounded-2xl shadow-xl">
+                            <img alt="Aerial view of a major Nigerian city skyline"
+                                class="w-full h-72 sm:h-80 object-cover"
+                                src="GeographicHotspots.jfif" />
+                        </div>
+                    </div>
+                    <div class="lg:order-1">
+                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                            style="font-family: Manrope, sans-serif;">Geographic Hotspots</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">High-opportunity markets are concentrated in Nigeria's major cities where EV bus deployments are already operating and commercial transport demand is strongest. Urban, highway, and transport hub locations receive priority for charging infrastructure land access approvals under current regulatory guidance.</p>
+                        <div class="flex flex-wrap gap-2 mt-5">
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[15px]">location_on</span>Lagos</span>
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[15px]">location_on</span>Abia</span>
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[15px]">location_on</span>Ogun State</span>
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[15px]">location_on</span>Abuja</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- Footer -->
+    <div id="site-footer"></div>
+
+
+    <!-- NESP nav wiring (mobile toggle + active golden bar) -->
+    <script>
+        (function () {
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            if (navToggle && mobileNav) {
+                navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
+            }
+        })();
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu {
+            position: relative;
+        }
+
+        .nesp-has-menu::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 12px;
+        }
+
+        .nesp-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 300px;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22);
+            margin-top: 8px;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+            z-index: 60;
+        }
+
+        .nesp-has-menu:hover .nesp-dropdown,
+        .nesp-dropdown:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nesp-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nesp-dropdown::after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: #ffffff;
+            border-top: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-radius: 3px 0 0 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nesp-menu-head {
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #9aa39e;
+            padding: 8px 12px 6px;
+        }
+
+        .nesp-menu-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .15s ease;
+        }
+
+        .nesp-menu-item:hover {
+            background: #f1f8f4;
+        }
+
+        .nesp-menu-item .t {
+            display: block;
+            font-family: Manrope, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15241d;
+        }
+
+        .nesp-menu-item:hover .t {
+            color: #047857;
+        }
+
+        .nesp-menu-item .d {
+            display: block;
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #6b746f;
+            margin-top: 2px;
+        }
+
+        .nesp-has-menu>a::after {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 7px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            opacity: .6;
+            vertical-align: middle;
+            transition: transform .2s ease;
+        }
+
+        .nesp-has-menu:hover>a::after {
+            transform: translateY(0) rotate(225deg);
+        }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind &amp; geothermal projects.', href: 'DetailedSector.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission &amp; smart-grid upgrades.', href: 'DetailedSector.html' },
+                        { t: 'Energy Storage', d: 'BESS &amp; pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind &amp; off-grid investment projects.', href: 'Opportunities.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission &amp; distribution tenders.', href: 'Opportunities.html' },
+                        { t: 'Energy Storage', d: 'Battery &amp; storage deployment projects.', href: 'Opportunities.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations &amp; Compliance', items: [
+                        { t: 'Legislation &amp; Acts', d: 'Electricity Act, PIA &amp; core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing &amp; mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax &amp; Fiscal Policy', d: 'Incentives &amp; pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC &amp; more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data &amp; Insights', items: [
+                        { t: 'Investment &amp; Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity &amp; growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX &amp; API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy &amp; Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power &amp; Energy', d: 'Generation, supply &amp; market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind &amp; clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil &amp; Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids &amp; facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;
+                var menu = MENU[(a.textContent || '').replace(/\s+/g, ' ').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+    <!-- NESP button wiring -->
+    <script>
+        (function () {
+            document.querySelectorAll('button').forEach(function (b) {
+                var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+                if (t === 'view in detail' || t.indexOf('details') === 0) b.addEventListener('click', function () { location.href = 'detailedOppNew.html'; });
+                else if (t === 'invest now') b.addEventListener('click', function () { location.href = 'Login.html'; });
+
+                else if (t.indexOf('regulatory framework') === 0) b.addEventListener('click', function () { location.href = 'Regulation.html'; });
+            });
+        })();
+    </script>
+    <!-- Invest Now popup flow -->
+    <script src="footer.js"></script>
+    <script src="investflow.js"></script>
+    <script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Green Hydrogen | OSIP - Nigerian Energy Investment Portal</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f7",
+                        "background": "#f9f9f7",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f3f4f2",
+                        "outline": "#717976",
+                        "secondary-fixed-dim": "#87d982",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-primary-container": "#709e91",
+                        "on-primary-fixed-variant": "#214e44",
+                        "error": "#ba1a1a",
+                        "primary-container": "#00342b",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#edeeec",
+                        "inverse-surface": "#2f3130",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdf9e",
+                        "tertiary": "#211600",
+                        "primary-fixed": "#bdecde",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-container": "#207128",
+                        "on-secondary-fixed": "#002204",
+                        "inverse-on-surface": "#f0f1ef",
+                        "on-secondary-fixed-variant": "#005312",
+                        "secondary-fixed": "#a3f69c",
+                        "surface-variant": "#e2e3e1",
+                        "inverse-primary": "#a1d0c3",
+                        "on-tertiary-container": "#bb8d00",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#3a665c",
+                        "surface-dim": "#d9dad8",
+                        "secondary": "#1b6d24",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "on-primary-fixed": "#00201a",
+                        "primary": "#001d17",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "on-tertiary-fixed": "#261a00",
+                        "tertiary-container": "#3b2a00",
+                        "surface-container-high": "#e8e8e6",
+                        "secondary-container": "#a0f499",
+                        "on-background": "#1a1c1b",
+                        "on-surface-variant": "#404846",
+                        "surface": "#f9f9f7",
+                        "outline-variant": "#c0c8c4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "margin-tablet": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Manrope", "Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Manrope", "Inter"],
+                        "h2": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h1-mobile": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "label-md": ["Inter"],
+                        "h4": ["Manrope"],
+                        "body-sm": ["Inter"],
+                        "h1": ["Manrope"],
+                        "nav-link": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f9f9f7;
+            color: #1a1c1b;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .gradient-overlay {
+            background: linear-gradient(0deg, rgba(0, 29, 23, 0.95) 0%, rgba(0, 29, 23, 0.6) 60%, rgba(0, 29, 23, 0.2) 100%);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .hero-clip {
+            clip-path: none;
+        }
+
+        .data-table-row:hover {
+            background-color: #f3f4f2;
+        }
+
+        /* Opportunity cards (mirrored from Opportunities.html) */
+        .opportunity-card {
+            border-top: 4px solid #dfa800 !important;
+        }
+
+        .opportunity-card .inv-box {
+            background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
+            border: 1px solid rgba(0, 52, 43, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .sector-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            background: rgba(223, 168, 0, 0.14);
+            border: 1px solid rgba(223, 168, 0, 0.35);
+            color: #5b4300;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1.45;
+        }
+
+        .sector-badge .material-symbols-outlined {
+            font-size: 14px;
+            color: #c98a00;
+        }
+    </style>
+</head>
+
+<body class="font-body-md overflow-x-hidden">
+    <!-- TopNavBar -->
+    <div id="site-nav"></div>
+    <main>
+        <!-- Hero Section -->
+        <section
+            class="relative min-h-[500px] lg:min-h-[550px] w-full overflow-hidden hero-clip bg-primary flex items-center">
+            <!-- Background Image & Overlays -->
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay"
+                data-alt="Green hydrogen production facility in Nigeria"
+                style="background-image: url('sector-GreenHydrogen.jpg')">
+            </div>
+            <!-- Vignette / Depth Gradients -->
+            <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent"></div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
+                <div class="max-w-3xl">
+
+                    <!-- Title -->
+                    <h1
+                        class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+                        Green Hydrogen
+                    </h1>
+
+                    <!-- Minimalist Description (From Docs) -->
+                    <p
+                        class="text-base sm:text-lg text-white/80 mb-10 leading-relaxed max-w-2xl border-l-4 border-amber-400 pl-6">
+                        An emerging frontier energy resource with long-term potential for industrial decarbonisation,
+                        export markets, and clean fuel production.
+                    </p>
+
+                    <!-- Quick Navigation Tabs (From Docs) -->
+                    <div class="space-y-3">
+                        <span class="block text-xs font-semibold text-white/40 uppercase tracking-widest">Jump to
+                            section:</span>
+                        <div class="flex flex-wrap gap-2.5">
+                            <a href="#overview"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Overview
+                            </a>
+                            <a href="#facts"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Facts
+                            </a>
+                            <a href="#regulations"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Regulations
+                            </a>
+                            <a href="#finance"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Finance
+                            </a>
+                            <a href="#opportunities"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Opportunities
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Refined Stats Bar -->
+        <!-- <section
+            class="py-16 bg-white relative z-20 -mt-12 mx-desktop max-w-7xl lg:mx-auto border border-outline-variant shadow-sm rounded-sm px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-outline-variant">
+                <div class="px-10 py-4">
+                    <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">Solar
+                        Potential</p>
+                    <div class="flex items-baseline gap-2">
+                        <h3 class="font-h3 text-h3 text-primary">427</h3>
+                        <span class="text-on-surface-variant font-bold text-sm">GW</span>
+                    </div>
+                    <p class="text-[11px] text-secondary mt-2 font-bold uppercase tracking-wider">Unrealized Asset</p>
+                </div>
+                <div class="px-10 py-4">
+                    <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">
+                        Installed Capacity</p>
+                    <div class="flex items-baseline gap-2">
+                        <h3 class="font-h3 text-h3 text-primary">2.1</h3>
+                        <span class="text-on-surface-variant font-bold text-sm">GW</span>
+                    </div>
+                    <p class="text-[11px] text-on-surface-variant mt-2">Active Grid Contribution</p>
+                </div>
+                <div class="px-10 py-4">
+                    <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">
+                        Investment Gap</p>
+                    <div class="flex items-baseline gap-2">
+                        <h3 class="font-h3 text-h3 text-primary">$10.4</h3>
+                        <span class="text-on-surface-variant font-bold text-sm">BN</span>
+                    </div>
+                    <p class="text-[11px] text-error font-bold mt-2 uppercase tracking-wider">Capital Required</p>
+                </div>
+                <div class="px-10 py-4">
+                    <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">2030
+                        Target</p>
+                    <div class="flex items-baseline gap-2">
+                        <h3 class="font-h3 text-h3 text-primary">9.0</h3>
+                        <span class="text-on-surface-variant font-bold text-sm">GW</span>
+                    </div>
+                    <p class="text-[11px] text-on-surface-variant mt-2">Policy Benchmark</p>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- NEW REFINED STATS BAR-->
+        <!-- <section class="bg-white py-14 lg:py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span
+                                class="material-symbols-outlined text-[40px] text-[#004225]">solar_power</span></div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">Solar Potential</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">427 GW</span> &middot;
+                            Unrealized Asset</p>
+                    </div>
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">bolt</span>
+                        </div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">Installed Capacity</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">2.1 GW</span> &middot;
+                            Active Grid Contribution</p>
+                    </div>
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span
+                                class="material-symbols-outlined text-[40px] text-[#004225]">savings</span></div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">Investment Gap</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">$10.4 BN</span> &middot;
+                            Capital Required</p>
+                    </div>
+                    <div
+                        class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">flag</span>
+                        </div>
+                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                            style="font-family: Manrope, sans-serif;">2030 Target</h3>
+                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                                class="font-bold text-[#111827]">9.0 GW</span> &middot;
+                            Policy Benchmark</p>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Sector Overview: text left / image right -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16" id="overview">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Text -->
+                <div>
+                    <span
+                        class="inline-flex items-center gap-3 text-secondary font-bold text-label-md uppercase tracking-[0.18em] mb-5">
+                        <span class="w-8 h-[2px] bg-tertiary-fixed-dim"></span> Sector Overview
+                    </span>
+                    <h2 class="font-h2 text-h2 text-primary leading-tight mb-6">Nigeria’s Long-Term Green Hydrogen Opportunity</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">
+                        Nigeria’s green hydrogen market is still early-stage, but it represents a major long-term
+                        investment opportunity tied to renewable energy expansion, industrial decarbonisation, fertiliser
+                        production, export markets, and clean industrial fuel development. With abundant solar resources,
+                        natural gas infrastructure, port access, and growing energy transition commitments, Nigeria is
+                        positioning itself as a future player in Africa’s hydrogen economy.
+                    </p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">
+                        The Energy Transition Plan identifies hydrogen as a strategic pathway to achieving net-zero
+                        emissions by 2060, with a target of 4 million tonnes per annum (Mtpa) of green ammonia
+                        production by 2060. Most activity today is focused on feasibility studies, pilot discussions,
+                        infrastructure planning, and international partnerships.
+                    </p>
+                    <!-- <ul class="space-y-4 mb-10">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-secondary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-body-md text-on-surface">100% foreign ownership permitted under the NIPC
+                                Act.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-secondary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-body-md text-on-surface">Pioneer Status tax holidays for qualifying
+                                projects.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-secondary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-body-md text-on-surface">Streamlined NERC licensing for generation &amp;
+                                mini-grids.</span>
+                        </li>
+                    </ul> -->
+                    <a href="Opportunities.html"
+                        class="inline-flex items-center gap-2 bg-primary-container text-white px-7 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
+                        Explore Opportunities <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                    </a>
+                </div>
+                <!-- Image -->
+                <div class="relative">
+                    <div class="overflow-hidden rounded-2xl shadow-xl">
+                        <img alt="Green hydrogen electrolysis facility in Nigeria"
+                            class="w-full h-72 sm:h-96 lg:h-[480px] object-cover"
+                            src="sector-GreenHydrogen-2.jpg" />
+                    </div>
+                    <!-- Floating stat card -->
+                    <div
+                        class="absolute -bottom-6 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 sm:px-6 py-4 flex items-center gap-4">
+                        <span
+                            class="w-12 h-12 bg-primary-container text-white rounded-lg flex items-center justify-center"><span
+                                class="material-symbols-outlined"
+                                style="font-variation-settings: 'FILL' 1;">science</span></span>
+                        <div>
+                            <p class="font-h3 text-h3 text-primary leading-none">4 Mtpa</p>
+                            <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">Green Ammonia
+                                Target by 2060</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Facts / Factsheets -->
+        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="facts">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Infographics |
+                        Factsheets</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Key Facts</h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <!-- 3.5–7.0 kWh/m²/day — Solar Resource Advantage -->
+                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">3.5–7.0</p>
+                        <p class="text-[#111827] font-semibold mt-3">kWh/m²/day — Solar Resource Advantage</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Average solar irradiation across Nigeria,
+                            providing one of the key foundations for competitive green hydrogen production.</p>
+                        <p class="text-[#9aa39e] text-[11px] mt-auto pt-6 border-t border-[#eef0ef]">Source: Energy
+                            Commission of Nigeria (ECN); Nigeria Energy Transition Plan (ETP).</p>
+                    </div>
+
+                    <!-- 4 Mtpa — Green Ammonia Production Ambition -->
+                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">4 Mtpa</p>
+                        <p class="text-[#111827] font-semibold mt-3">Green Ammonia Production Ambition by 2060</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Nigeria's long-term green ammonia
+                            production ambition under the Energy Transition Plan.</p>
+                        <div class="flex items-center gap-3 mt-auto pt-6">
+                            <span
+                                class="px-4 py-3 rounded-lg bg-[#f3f4f2] text-[#5f6368] text-[12px] font-semibold text-center leading-tight">Today<br>Early-stage</span>
+                            <div class="flex-1 flex items-center">
+                                <div class="flex-1 h-[3px] rounded-full bg-gradient-to-r from-[#c9ceca] to-[#004225]">
+                                </div>
+                                <span class="material-symbols-outlined text-[#004225] -ml-1">arrow_right</span>
+                            </div>
+                            <span
+                                class="px-4 py-3 rounded-lg bg-[#004225] text-white text-[12px] font-bold text-center leading-tight">4 Mtpa<br>by 2060</span>
+                        </div>
+                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Nigeria Energy
+                            Transition Plan (ETP), Federal Government of Nigeria.</p>
+                    </div>
+                </div>
+
+                <!-- US$50 Billion — Export Market Opportunity (full width) -->
+                <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 mt-6">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                        <div class="max-w-xl">
+                            <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
+                                style="font-family: Manrope, sans-serif;">US$50 Billion</p>
+                            <p class="text-[#111827] font-semibold mt-3">Export Market Opportunity per Year by 2060</p>
+                            <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Potential hydrogen and
+                                hydrogen-derivative export opportunity by 2060 under Nigeria's Energy Transition Plan,
+                                connecting Nigeria to Europe, Asia, and global shipping routes.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="flex flex-col items-center flex-shrink-0">
+                            <div class="w-3 h-3 rounded-full bg-[#c9ceca]"></div>
+                            <span class="text-[12px] text-[#5f6368] mt-2 font-medium">2025</span>
+                        </div>
+                        <div class="flex-1 h-[2px] bg-[#e0e3e1] mx-1 mb-6"></div>
+                        <div class="flex flex-col items-center flex-shrink-0">
+                            <span class="text-[11px] font-bold text-white bg-[#6b8c7d] px-2.5 py-1 rounded-full mb-2 whitespace-nowrap">$10bn</span>
+                            <div class="w-4 h-4 rounded-full bg-[#6b8c7d] ring-4 ring-[#e7f0ec]"></div>
+                            <span class="text-[12px] text-[#5f6368] mt-2 font-medium">2035</span>
+                        </div>
+                        <div class="flex-1 h-[2px] mx-1 mb-6" style="background:linear-gradient(90deg,#e0e3e1,#004225)">
+                        </div>
+                        <div class="flex flex-col items-center flex-shrink-0">
+                            <span
+                                class="text-[11px] font-bold text-white bg-[#004225] px-2.5 py-1 rounded-full mb-2 whitespace-nowrap">$50bn</span>
+                            <div class="w-5 h-5 rounded-full bg-[#004225] ring-4 ring-[#e7f0ec]"></div>
+                            <span class="text-[13px] text-[#004225] mt-2 font-bold">2060</span>
+                        </div>
+                    </div>
+                    <p class="text-[#9aa39e] text-[11px] mt-8 pt-4 border-t border-[#eef0ef]">Source: Nigeria Energy
+                        Transition Plan (ETP).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ease of Doing Business -->
+        <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Business Process
+                        &amp;
+                        Incentives</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Ease of Doing Business</h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+                    <!-- Body copy -->
+                    <div class="lg:col-span-7 space-y-5 text-[#404846] text-base sm:text-[17px] leading-8">
+                        <p>Nigeria's green hydrogen market is an emerging opportunity positioned at the intersection of
+                            renewable energy, industrial development, export growth, and climate finance. While the
+                            sector is still in its early stages, investors benefit from the ability to leverage existing
+                            electricity, environmental, industrial, investment, and export frameworks while the country's
+                            dedicated hydrogen policy framework continues to mature.</p>
+                        <p>Unlike more established renewable energy technologies, green hydrogen is primarily a
+                            long-term strategic investment opportunity. Nigeria's strong solar resource, large land
+                            availability, growing industrial base, strategic coastal location, and access to regional
+                            and international export markets create favourable conditions for future large-scale
+                            hydrogen production and export projects.</p>
+                        <p>The sector supports multiple investment pathways, including green ammonia production, green
+                            methanol, industrial decarbonisation, hydrogen-powered transport solutions, off-grid energy
+                            systems, hydrogen storage, export infrastructure, electrolyser deployment, and
+                            renewable-powered industrial clusters. Investors can participate across the value chain
+                            through project development, technology supply, engineering services, infrastructure
+                            development, manufacturing partnerships, and export-oriented production facilities.</p>
+                        <p>Government policies including the Energy Transition Plan, Electricity Act 2023, Climate
+                            Change Act, and the forthcoming National Hydrogen Policy provide a supportive foundation
+                            for sector development. Investors may also benefit from investment incentives, export-oriented
+                            industrial programmes, Free Trade Zone frameworks, climate-finance facilities, and emerging
+                            green industrialisation initiatives.</p>
+                        <p>Access to international financing is expected to be a major advantage for the sector.
+                            Development partners including AfDB, World Bank, GIZ, UNIDO, the European Union, export
+                            credit agencies, and global climate-finance institutions are increasingly supporting
+                            hydrogen-related project preparation, feasibility studies, technical assistance, and
+                            infrastructure development.</p>
+                    </div>
+
+                    <!-- Investor Advantages -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-2xl p-7 lg:p-8">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span
+                                    class="w-10 h-10 rounded-lg bg-[#004225] text-white flex items-center justify-center flex-shrink-0"><span
+                                        class="material-symbols-outlined text-[22px]">verified</span></span>
+                                <h3 class="text-[20px] font-bold text-[#111827]"
+                                    style="font-family: Manrope, sans-serif;">Investor Advantages</h3>
+                            </div>
+                            <ul class="space-y-4">
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Strong solar resource (3.5–7.0
+                                        kWh/m²/day) providing competitive hydrogen production potential</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Large land availability for
+                                        utility-scale hydrogen and ammonia facilities</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Strategic coastal location and
+                                        port access for export-oriented projects</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Free Trade Zone frameworks and
+                                        NEPZA approvals for export-oriented facilities</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Access to Economic Development
+                                        Tax Incentive (EDTI) and NIPC investment programmes</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Growing international
+                                        climate-finance support from AfDB, World Bank, GIZ, and UNIDO</span></li>
+                                <li class="flex gap-3"><span
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">First-mover advantage ahead of
+                                        large-scale industrial demand and export market growth</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Message -->
+                <div class="mt-8 lg:mt-10 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
+                    <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
+                        style="font-variation-settings:'FILL' 1;">lightbulb</span>
+                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Key Message:</span>
+                        For early investors, the greatest advantage lies in establishing a market position ahead of
+                        anticipated growth in industrial demand, international offtake markets, green commodity
+                        exports, and climate-finance flows.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regulations -->
+        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="regulations">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Regulatory
+                        Landscape</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Regulations</h2>
+
+                <!-- Applicable Laws & Policies -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                    style="font-family: Manrope, sans-serif;">Applicable Laws &amp; Policies</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria does not yet have a
+                    gazetted Green Hydrogen Act. However, the Draft National Hydrogen Policy (2025) is undergoing final
+                    review and is expected to become the country's primary hydrogen-specific framework. Until then,
+                    green hydrogen projects operate under existing energy, environmental, climate, industrial, and
+                    investment regulations.</p>
+                <div class="flex flex-wrap gap-2 mt-5">
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Draft
+                        National Hydrogen Policy (2025)</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Energy
+                        Transition Plan (ETP) 2022/2024</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electricity
+                        Act 2023</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Climate
+                        Change Act 2021</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">NESREA
+                        Act 2007</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Petroleum
+                        Industry Act (PIA) 2021</span>
+                    <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Nigeria
+                        Tax Act 2026</span>
+                </div>
+
+                <!-- Project Development Frameworks -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-2"
+                    style="font-family: Manrope, sans-serif;">Project Development Frameworks</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's green hydrogen market
+                    supports multiple investment pathways:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">science</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Green Ammonia Production</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Hydrogen production for fertilizer
+                            manufacturing and export markets.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">local_gas_station</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Green Methanol Production</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Hydrogen-based fuels and industrial feedstocks
+                            for domestic and international markets.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">factory</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Industrial Decarbonisation</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Hydrogen supply for refineries,
+                            petrochemicals, cement, steel, and other hard-to-abate industries.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">bolt</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Hydrogen-Powered Energy Systems</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Integration of hydrogen storage and fuel-cell
+                            technologies into power systems, mini-grids, and industrial energy applications.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">directions_boat</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Export-Oriented Hydrogen Projects</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Large-scale hydrogen, ammonia, and derivative
+                            fuel projects located near ports and Free Trade Zones.</p>
+                    </div>
+                </div>
+
+                <!-- Regulatory Requirements -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Regulatory Requirements</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Green hydrogen projects
+                    typically follow a multi-agency approval pathway depending on project size, location, and intended
+                    use.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">forest</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">Environmental Impact Assessment (EIA)</span>
+                            approval is required through the Federal Ministry of Environment and applicable environmental
+                            compliance processes administered by NESREA.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">water_drop</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">Electrolysis-based projects</span> require water
+                            abstraction permits from relevant federal or state water authorities.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">directions_boat</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">Export-oriented projects</span> may require export
+                            licences through NEPC, or Free Trade Zone approvals through NEPZA where projects are
+                            located within designated zones.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">savings</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">Eligible investors</span> may apply for investment
+                            incentives and tax relief through the Nigerian Investment Promotion Commission (NIPC),
+                            including the Economic Development Tax Incentive (EDTI).</p>
+                    </div>
+                </div>
+
+                <!-- Key Regulatory Agencies -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                    style="font-family: Manrope, sans-serif;">Key Regulatory Agencies</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <a href="https://www.power.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="logoNESP.png" alt="Federal Ministry of Power logo"
+                                class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Federal Ministry of Power</span>
+                    </a>
+                    <a href="https://www.energy.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="ECN.png" alt="ECN logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Energy Commission of Nigeria (ECN)</span>
+                    </a>
+                    <a href="https://environment.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="FMEnew.png" alt="Federal Ministry of Environment logo"
+                                class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Federal Ministry of Environment</span>
+                    </a>
+                    <a href="https://nerc.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
+                                class="w-8 h-8 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Electricity Regulatory Commission
+                            (NERC)</span>
+                    </a>
+                    <a href="https://nmdpra.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Midstream &amp; Downstream
+                            Petroleum Regulatory Authority (NMDPRA)</span>
+                    </a>
+                    <a href="https://nipc.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Investment Promotion Commission
+                            (NIPC)</span>
+                    </a>
+                    <a href="https://www.nepc.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigeria Export Promotion Council
+                            (NEPC)</span>
+                    </a>
+                    <a href="https://www.nepza.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Nigeria Export Processing Zones Authority
+                            (NEPZA)</span>
+                    </a>
+                    <a href="https://nesrea.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="nesrea.jpeg" alt="NESREA logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">National Environmental Standards and
+                            Regulations Enforcement Agency (NESREA)</span>
+                    </a>
+                    <a href="https://son.gov.ng" target="_blank" rel="noopener"
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span
+                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
+                        </span>
+                        <span class="text-[#111827] text-[14px] font-medium">Standards Organisation of Nigeria
+                            (SON)</span>
+                    </a>
+                </div>
+
+                <!-- Technical Standards -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Technical Standards</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Until dedicated Nigerian hydrogen
+                    standards are introduced, projects are expected to comply with applicable international IEC, ISO,
+                    industrial safety, environmental, engineering, storage, transportation, and process safety
+                    standards. Hydrogen production facilities, storage systems, pipelines, export terminals, and
+                    associated renewable energy infrastructure must also comply with applicable national electrical,
+                    environmental, occupational health, and safety requirements.</p>
+
+                <!-- ============================================================
+     WORKFLOW PROCESS — zigzag / connector-path style
+     Theme: brand green (#004225), light mint bg (#f3f4f2), Manrope
+     Desktop: staggered up/down nodes joined by dashed orthogonal
+              connectors (drawn with SVG + JS, like the reference).
+     Mobile:  falls back to a simple vertical stacked list.
+     Drop this whole block anywhere in your page. It is self
+     contained (styles are scoped under .wf-scope, script is
+     namespaced) so it will not clash with the rest of your site.
+   ============================================================ -->
+                <div class="wf-scope">
+                    <style>
+                        .wf-scope {
+                            font-family: Manrope, sans-serif;
+                        }
+
+                        .wf-scope * {
+                            box-sizing: border-box;
+                        }
+
+                        .wf-section {
+                            position: relative;
+                            padding: 50px 20px;
+                            overflow: hidden;
+                            border-radius: 24px;
+                        }
+
+                        .wf-section+.wf-section {
+                            margin-top: 32px;
+                        }
+
+                        /* soft mint backdrop, echoes the curved blob in the reference */
+                        .wf-section::before {
+                            content: "";
+                            position: absolute;
+                            inset: 0;
+                            z-index: 0;
+                            background:
+                                radial-gradient(120% 90% at 82% 8%, rgba(0, 66, 37, 0.06) 0%, rgba(0, 66, 37, 0) 55%),
+                                #f3f4f2;
+                        }
+
+                        .wf-section::after {
+                            content: "";
+                            position: absolute;
+                            right: -10%;
+                            top: -25%;
+                            width: 65%;
+                            height: 150%;
+                            z-index: 0;
+                            background: radial-gradient(closest-side, rgba(0, 66, 37, 0.05), rgba(0, 66, 37, 0));
+                            border-radius: 50%;
+                        }
+
+                        .wf-inner {
+                            position: relative;
+                            z-index: 1;
+                        }
+
+                        .wf-eyebrow {
+                            display: inline-block;
+                            font-size: 12px;
+                            font-weight: 800;
+                            letter-spacing: .08em;
+                            text-transform: uppercase;
+                            color: #0f6b3f;
+                            margin-bottom: 6px;
+                        }
+
+                        .wf-title {
+                            font-size: 24px;
+                            line-height: 1.25;
+                            font-weight: 800;
+                            color: #111827;
+                            margin: 0 0 40px;
+                        }
+
+                        @media (min-width:1024px) {
+                            .wf-title {
+                                font-size: 26px;
+                            }
+                        }
+
+                        /* ---------- Desktop zigzag track ---------- */
+                        .wf-track {
+                            position: relative;
+                            display: none;
+                        }
+
+                        @media (min-width:900px) {
+                            .wf-track {
+                                display: block;
+                            }
+                        }
+
+                        .wf-row {
+                            position: relative;
+                            display: flex;
+                            align-items: flex-start;
+                            justify-content: space-between;
+                            gap: 25px;
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                        }
+
+                        .wf-svg {
+                            position: absolute;
+                            inset: 0;
+                            width: 100%;
+                            height: 100%;
+                            z-index: 0;
+                            pointer-events: none;
+                            overflow: visible;
+                        }
+
+                        .wf-path {
+                            fill: none;
+                            stroke: #8a8f8c;
+                            stroke-width: 2;
+                            stroke-dasharray: 5 6;
+                            stroke-linecap: round;
+                        }
+
+                        .wf-dot {
+                            fill: #8a8f8c;
+                        }
+
+                        .wf-node {
+                            position: relative;
+                            z-index: 1;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            width: 150px;
+                            text-align: center;
+                        }
+
+                        .wf-node.up {
+                            align-self: flex-start;
+                        }
+
+                        .wf-node.down {
+                            align-self: flex-end;
+                        }
+
+                        .wf-badge {
+                            width: 52px;
+                            height: 52px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: #ffffff;
+                            border: 2px solid #004225;
+                            color: #004225;
+                            box-shadow: 0 4px 14px rgba(0, 66, 37, 0.10);
+                            position: relative;
+                        }
+
+                        .wf-badge svg {
+                            width: 22px;
+                            height: 22px;
+                        }
+
+                        .wf-num {
+                            position: absolute;
+                            top: -11px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            font-size: 12px;
+                            font-weight: 800;
+                            letter-spacing: .03em;
+                            color: #0f6b3f;
+                            background: #f3f4f2;
+                            padding: 0 6px;
+                        }
+
+                        .wf-node.down .wf-num {
+                            top: auto;
+                            bottom: -11px;
+                        }
+
+                        .wf-label {
+                            margin-top: 14px;
+                            font-size: 13px;
+                            font-weight: 700;
+                            color: #111827;
+                            line-height: 1.4;
+                        }
+
+                        .wf-node.down .wf-label {
+                            order: -1;
+                            margin-top: 0;
+                            margin-bottom: 14px;
+                        }
+
+                        /* ---------- Mobile fallback: simple vertical list ---------- */
+                        .wf-list {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+                        @media (min-width:900px) {
+                            .wf-list {
+                                display: none;
+                            }
+                        }
+
+                        .wf-item {
+                            display: flex;
+                            gap: 16px;
+                            align-items: flex-start;
+                        }
+
+                        .wf-item .wf-badge {
+                            width: 44px;
+                            height: 44px;
+                            flex: none;
+                        }
+
+                        .wf-item .wf-badge svg {
+                            width: 19px;
+                            height: 19px;
+                        }
+
+                        .wf-item .wf-num {
+                            position: static;
+                            background: none;
+                            padding: 0;
+                            display: block;
+                            margin-bottom: 2px;
+                        }
+
+                        .wf-item-text {
+                            padding-top: 4px;
+                        }
+
+                        .wf-item-label {
+                            font-size: 13px;
+                            font-weight: 700;
+                            color: #111827;
+                            line-height: 1.4;
+                        }
+
+                        .wf-connector {
+                            width: 2px;
+                            min-height: 28px;
+                            margin-left: 21px;
+                            background-image: linear-gradient(#8a8f8c 55%, rgba(255, 255, 255, 0) 0%);
+                            background-position: left;
+                            background-size: 2px 10px;
+                            background-repeat: repeat-y;
+                        }
+
+                        /* focus visibility, in case nodes ever become interactive/linked */
+                        .wf-node a:focus-visible,
+                        .wf-item a:focus-visible {
+                            outline: 2px solid #004225;
+                            outline-offset: 3px;
+                        }
+                    </style>
+
+                    <div class="wf-inner">
+
+                        <!-- ===================== Green Hydrogen Production Facility ===================== -->
+                        <section class="wf-section">
+                            <div class="wf-inner">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="block w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
+                                    <span class="wf-eyebrow mb-0">Workflow Process</span>
+                                </div>
+                                <h3 class="wf-title">Green Hydrogen Production Facility</h3>
+
+                                <!-- Desktop zigzag -->
+                                <div class="wf-track" data-wf-track>
+                                    <svg class="wf-svg" data-wf-svg></svg>
+                                    <div class="wf-row" data-wf-row data-crm-group="green-hydrogen-production-requirements">
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="company_incorporation_cac">
+                                            <div class="wf-badge"><span class="wf-num">01</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 21V6l7-3 7 3v15" />
+                                                    <path d="M9 21v-6h4v6" />
+                                                    <path d="M9 9h.01M13 9h.01M9 13h.01M13 13h.01" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Company Incorporation (CAC)</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="land_acquisition">
+                                            <div class="wf-badge"><span class="wf-num">02</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" />
+                                                    <circle cx="12" cy="9.5" r="2.3" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Land Acquisition / Site Access</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="environmental_eia">
+                                            <div class="wf-badge"><span class="wf-num">03</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M11 20A7 7 0 0 1 4 13c0-4 3-9 8-11 1 5 5 6 5 11a7 7 0 0 1-6 7z" />
+                                                    <path d="M11 20v-6" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Environmental Screening &amp; EIA Approval</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="water_abstraction">
+                                            <div class="wf-badge"><span class="wf-num">04</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 2C6 10 4 14 4 17a8 8 0 0 0 16 0c0-3-2-7-8-15z" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Water Abstraction Permit</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="technical_alignment">
+                                            <div class="wf-badge"><span class="wf-num">05</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                    <path d="M9 12l2 2 4-4" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Technical Alignment with National Hydrogen Framework</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="investment_incentives">
+                                            <div class="wf-badge"><span class="wf-num">06</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" />
+                                                    <circle cx="12" cy="12" r="4" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Investment Incentive Applications<br>(where applicable)</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="construction">
+                                            <div class="wf-badge"><span class="wf-num">07</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M3 21h18" />
+                                                    <path d="M5 21V9l7-5 7 5v12" />
+                                                    <path d="M9 21v-5h6v5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Construction &amp; Infrastructure Development</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="testing_commissioning">
+                                            <div class="wf-badge"><span class="wf-num">08</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="9" r="5" />
+                                                    <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Testing &amp; Commissioning</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="commercial_operations">
+                                            <div class="wf-badge"><span class="wf-num">09</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 20V10M11 20V4M18 20v-7" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Commercial Operations</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Mobile list -->
+                                <div class="wf-list">
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">01</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V6l7-3 7 3v15" /><path d="M9 21v-6h4v6" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Company Incorporation (CAC)</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">02</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.3" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Land Acquisition / Site Access</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">03</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-4 3-9 8-11 1 5 5 6 5 11a7 7 0 0 1-6 7z" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Environmental Screening and EIA Approval</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">04</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6 10 4 14 4 17a8 8 0 0 0 16 0c0-3-2-7-8-15z" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Water Abstraction Permit</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">05</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" /><path d="M9 12l2 2 4-4" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Technical Alignment with National Hydrogen Framework</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">06</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" /><circle cx="12" cy="12" r="4" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Investment Incentive Applications (where applicable)</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">07</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V9l7-5 7 5v12" /><path d="M9 21v-5h6v5" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Construction and Infrastructure Development</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">08</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5" /><path d="M9 13.5 7 22l5-3 5 3-2-8.5" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Testing and Commissioning</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">09</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M11 20V4M18 20v-7" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Commercial Operations</div></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <!-- ===================== Export-Oriented Green Hydrogen Project ===================== -->
+                        <section class="wf-section">
+                            <div class="wf-inner">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="block w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
+                                    <span class="wf-eyebrow mb-0">Workflow Process</span>
+                                </div>
+                                <h3 class="wf-title">Export-Oriented Green Hydrogen Project</h3>
+
+                                <!-- Desktop zigzag -->
+                                <div class="wf-track" data-wf-track>
+                                    <svg class="wf-svg" data-wf-svg></svg>
+                                    <div class="wf-row" data-wf-row data-crm-group="export-hydrogen-requirements">
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="company_incorporation">
+                                            <div class="wf-badge"><span class="wf-num">01</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 21V6l7-3 7 3v15" />
+                                                    <path d="M9 21v-6h4v6" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Company Incorporation</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="land_ftz_approval">
+                                            <div class="wf-badge"><span class="wf-num">02</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" />
+                                                    <circle cx="12" cy="9.5" r="2.3" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Land Acquisition / Free Trade Zone Approval<br>(where applicable)</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="env_water_approvals">
+                                            <div class="wf-badge"><span class="wf-num">03</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M11 20A7 7 0 0 1 4 13c0-4 3-9 8-11 1 5 5 6 5 11a7 7 0 0 1-6 7z" />
+                                                    <path d="M11 20v-6" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Environmental &amp; Water Approvals</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="facility_development">
+                                            <div class="wf-badge"><span class="wf-num">04</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M3 21h18" />
+                                                    <path d="M5 21V9l7-5 7 5v12" />
+                                                    <path d="M9 21v-5h6v5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Hydrogen Production Facility Development</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="nepc_nepza">
+                                            <div class="wf-badge"><span class="wf-num">05</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                    <path d="M9 12l2 2 4-4" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">NEPC Export Licence or NEPZA Approval</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="technical_compliance">
+                                            <div class="wf-badge"><span class="wf-num">06</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="9" r="5" />
+                                                    <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Technical Compliance Certification</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="commissioning">
+                                            <div class="wf-badge"><span class="wf-num">07</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M3 21h18" />
+                                                    <path d="M5 21V9l7-5 7 5v12" />
+                                                    <path d="M9 21v-5h6v5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Commissioning</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="export_operations">
+                                            <div class="wf-badge"><span class="wf-num">08</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 20V10M11 20V4M18 20v-7" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Export Operations</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Mobile list -->
+                                <div class="wf-list">
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">01</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V6l7-3 7 3v15" /><path d="M9 21v-6h4v6" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Company Incorporation</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">02</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.3" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Land Acquisition / Free Trade Zone Approval (where applicable)</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">03</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-4 3-9 8-11 1 5 5 6 5 11a7 7 0 0 1-6 7z" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Environmental and Water Approvals</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">04</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V9l7-5 7 5v12" /><path d="M9 21v-5h6v5" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Hydrogen Production Facility Development</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">05</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" /><path d="M9 12l2 2 4-4" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">NEPC Export Licence or NEPZA Approval</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">06</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5" /><path d="M9 13.5 7 22l5-3 5 3-2-8.5" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Technical Compliance Certification</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">07</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V9l7-5 7 5v12" /><path d="M9 21v-5h6v5" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Commissioning</div></div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">08</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M11 20V4M18 20v-7" /></svg></div>
+                                        <div class="wf-item-text"><div class="wf-item-label">Export Operations</div></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+                <script>
+                        (function () {
+                            function drawTrack(track) {
+                                var row = track.querySelector('[data-wf-row]');
+                                var svg = track.querySelector('[data-wf-svg]');
+                                var nodes = row.querySelectorAll('[data-wf-node]');
+                                if (!nodes.length) return;
+
+                                var rowRect = row.getBoundingClientRect();
+                                var pts = [];
+                                nodes.forEach(function (node) {
+                                    var badge = node.querySelector('.wf-badge');
+                                    var r = badge.getBoundingClientRect();
+                                    pts.push({
+                                        x: (r.left + r.width / 2) - rowRect.left,
+                                        y: (r.top + r.height / 2) - rowRect.top
+                                    });
+                                });
+
+                                var ns = 'http://www.w3.org/2000/svg';
+                                while (svg.firstChild) svg.removeChild(svg.firstChild);
+                                svg.setAttribute('viewBox', '0 0 ' + rowRect.width + ' ' + rowRect.height);
+
+                                for (var i = 0; i < pts.length - 1; i++) {
+                                    var a = pts[i], b = pts[i + 1];
+                                    var midX = a.x + (b.x - a.x) * 0.5;
+                                    var rad = Math.min(20, Math.abs(b.y - a.y) * 0.5);
+                                    var goingDown = b.y > a.y;
+                                    var d;
+                                    if (Math.abs(b.y - a.y) < 1) {
+                                        d = 'M ' + a.x + ' ' + a.y + ' L ' + b.x + ' ' + b.y;
+                                    } else {
+                                        var turn1x = midX - rad, turn2x = midX + rad;
+                                        var cy1 = goingDown ? a.y + rad : a.y - rad;
+                                        var cy2 = goingDown ? b.y - rad : b.y + rad;
+                                        d = 'M ' + a.x + ' ' + a.y +
+                                            ' L ' + turn1x + ' ' + a.y +
+                                            ' Q ' + midX + ' ' + a.y + ' ' + midX + ' ' + cy1 +
+                                            ' L ' + midX + ' ' + cy2 +
+                                            ' Q ' + midX + ' ' + b.y + ' ' + turn2x + ' ' + b.y +
+                                            ' L ' + b.x + ' ' + b.y;
+                                    }
+                                    var path = document.createElementNS(ns, 'path');
+                                    path.setAttribute('d', d);
+                                    path.setAttribute('class', 'wf-path');
+                                    svg.appendChild(path);
+                                }
+
+                                pts.forEach(function (p, i) {
+                                    if (i === 0 || i === pts.length - 1) {
+                                        var c = document.createElementNS(ns, 'circle');
+                                        c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); c.setAttribute('r', 3);
+                                        c.setAttribute('class', 'wf-dot');
+                                        svg.appendChild(c);
+                                    }
+                                });
+                            }
+
+                            function drawAll() {
+                                document.querySelectorAll('[data-wf-track]').forEach(drawTrack);
+                            }
+
+                            if (document.readyState === 'loading') {
+                                document.addEventListener('DOMContentLoaded', drawAll);
+                            } else {
+                                drawAll();
+                            }
+                            window.addEventListener('resize', function () {
+                                clearTimeout(window.__wfResizeTimer);
+                                window.__wfResizeTimer = setTimeout(drawAll, 120);
+                            });
+                            if (document.fonts && document.fonts.ready) { document.fonts.ready.then(drawAll); }
+                        })();
+                </script>
+
+                <!-- Useful Resources -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                    style="font-family: Manrope, sans-serif;">Useful Resources</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <a href="https://www.energy.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="ECN.png" alt="ECN logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">ECN</span><span class="block text-[#5f6368] text-[13px] truncate">www.energy.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo" class="w-8 h-8 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">NERC</span><span class="block text-[#5f6368] text-[13px] truncate">www.nerc.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">NIPC</span><span class="block text-[#5f6368] text-[13px] truncate">www.nipc.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nepc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">NEPC</span><span class="block text-[#5f6368] text-[13px] truncate">www.nepc.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nepza.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">NEPZA</span><span class="block text-[#5f6368] text-[13px] truncate">www.nepza.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nesrea.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="nesrea.jpeg" alt="NESREA logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">NESREA</span><span class="block text-[#5f6368] text-[13px] truncate">www.nesrea.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.environment.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="FMEnew.png" alt="Federal Ministry of Environment logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Federal Ministry of Environment</span><span class="block text-[#5f6368] text-[13px] truncate">www.environment.gov.ng</span></span>
+                        </span>
+                        <span class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Finance -->
+        <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="finance">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Capital &amp;
+                        Investment</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                    style="font-family: Manrope, sans-serif;">Finance</h2>
+
+                <!-- Public Finance -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                    style="font-family: Manrope, sans-serif;">Public Finance</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Green hydrogen projects may access
+                    support through climate and energy-transition programmes led by the Federal Government, the Energy
+                    Commission of Nigeria (ECN), GIZ, AfDB, World Bank, UNIDO, and other development partners. Key
+                    initiatives include the Global Clean Hydrogen Programme (GEF/UNIDO/ECN), AfDB's Sustainable Energy
+                    Fund for Africa (SEFA), and emerging green industrialisation programmes linked to Nigeria's Energy
+                    Transition Plan. As the sector matures, additional support is expected through sovereign green
+                    financing initiatives and international climate-finance facilities.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">public</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Global Clean Hydrogen Programme</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">GEF/UNIDO/ECN initiative supporting hydrogen
+                            sector development in Nigeria.</p>
+                    </div>
+                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">account_balance</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">AfDB — SEFA</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Sustainable Energy Fund for Africa supporting
+                            clean energy transition projects including green hydrogen.</p>
+                    </div>
+                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">energy_program</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">ETP Green Industrialisation</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Emerging programmes linked to Nigeria's Energy
+                            Transition Plan supporting clean industrial development.</p>
+                    </div>
+                </div>
+
+                <!-- Commercial Finance -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Commercial Finance</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Commercial financing for green
+                    hydrogen remains at an early stage but is expected to expand as the regulatory framework and
+                    project pipeline develop. International infrastructure funds, export credit agencies, strategic
+                    investors, sovereign wealth funds, and development finance institutions currently represent the most
+                    active sources of capital.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Potential financing partners
+                    include IFC, AfDB, Africa Finance Corporation (AFC), NSIA, international climate funds, and
+                    export-oriented industrial investors. Large-scale green ammonia, green methanol, and
+                    export-focused hydrogen projects are expected to attract the strongest commercial interest.</p>
+
+                <!-- Guarantees & Risk Instruments -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Guarantees &amp; Risk Instruments</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Political risk insurance, partial
+                    risk guarantees (PRGs), credit-enhancement instruments, and blended-finance structures are expected
+                    to play a critical role in project bankability. Support may be available through institutions such
+                    as the World Bank Group, IFC, MIGA, AfDB, NSIA, InfraCredit, and international export credit
+                    agencies.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">For large-scale projects,
+                    long-term offtake agreements, export contracts, industrial supply agreements, and strategic
+                    partnerships with global buyers will be key risk-mitigation tools for investors and lenders. These
+                    arrangements are expected to play a central role in unlocking project finance.</p>
+
+                <!-- Blended Finance -->
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                    style="font-family: Manrope, sans-serif;">Blended Finance</h3>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Most early-stage green hydrogen
+                    projects are expected to rely on blended financing structures combining grants, concessional debt,
+                    climate finance, development finance, and private capital. Technical assistance programmes,
+                    feasibility-study grants, project-preparation facilities, and upstream development funding
+                    currently represent the most accessible sources of support.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Emerging financing platforms
+                    include AfDB-SEFA facilities, World Bank climate-finance programmes, GIZ-supported initiatives, the
+                    Global Clean Hydrogen Programme, and the NSIA-backed Distributed Renewable Energy (DRE) Fund,
+                    which may support enabling renewable energy infrastructure linked to hydrogen production.</p>
+
+                <!-- Investor Outlook -->
+                <div class="mt-12 lg:mt-16 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
+                    <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
+                        style="font-variation-settings:'FILL' 1;">insights</span>
+                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Investor
+                            Outlook:</span> Access to low-cost renewable electricity, reliable water resources,
+                        industrial infrastructure, export facilities, and long-term offtake agreements will largely
+                        determine project viability and bankability. Projects aligned with green ammonia production,
+                        industrial decarbonisation, green methanol, fertiliser production, and export markets are
+                        expected to attract the strongest investor interest. As Nigeria's hydrogen policy framework
+                        matures, projects positioned around industrial demand centres, Free Trade Zones, and export
+                        corridors are expected to benefit most from future climate-finance flows and international
+                        investment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Opportunities -->
+        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="opportunities">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Market
+                        Access</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
+                    style="font-family: Manrope, sans-serif;">Opportunities</h2>
+
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's green hydrogen market
+                    is primarily a long-term strategic opportunity, with significant potential across industrial
+                    decarbonisation, clean fuel production, energy exports, and renewable energy integration. While the
+                    sector is still emerging, early investors have an opportunity to establish market leadership ahead
+                    of large-scale demand growth.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">The Energy Transition Plan
+                    identifies hydrogen as a future export industry, with ambitions to generate up to $10 billion
+                    annually by 2035 and $50 billion annually by 2060. The sector is also expected to support
+                    significant industrial development and job creation, with projections of up to 500,000 jobs by
+                    2060.</p>
+
+                <!-- Green Ammonia & Industrial Decarbonisation -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
+                    <div>
+                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                            style="font-family: Manrope, sans-serif;">Green Ammonia &amp; Industrial Decarbonisation</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">The strongest near-term
+                            opportunities exist in green ammonia production, fertiliser sector decarbonisation, industrial
+                            fuel switching, renewable-powered industrial parks, hydrogen export infrastructure, and
+                            strategic partnerships for electrolyser deployment. Northern Nigeria offers strong production
+                            potential due to high solar irradiation and land availability, while coastal regions provide
+                            advantages for export-oriented projects through existing port and industrial
+                            infrastructure.</p>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-4">For early investors, the
+                            greatest opportunity lies in securing strategic positions ahead of future industrial demand,
+                            export market growth, and increasing international climate-finance and green industrial
+                            investment flows.</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="overflow-hidden rounded-2xl shadow-xl">
+                            <img alt="Green hydrogen production and export facility"
+                                class="w-full h-72 sm:h-80 object-cover"
+                                src="sector-GreenHydrogen.jpg" />
+                        </div>
+                        <div
+                            class="absolute -bottom-5 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 py-3 flex items-center gap-4 z-10">
+                            <span
+                                class="w-10 h-10 bg-primary-container text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined"
+                                    style="font-variation-settings: 'FILL' 1;">science</span>
+                            </span>
+                            <div>
+                                <p class="font-h4 text-[20px] font-extrabold text-primary leading-none">500,000</p>
+                                <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">
+                                    Jobs projected by 2060</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- stat cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14 lg:mt-16">
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">$10bn/yr</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Projected hydrogen export revenues by
+                            2035 under the Energy Transition Plan.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">$50bn/yr</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Long-term hydrogen export opportunity by
+                            2060 per Nigeria's ETP.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">4 Mtpa</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Green ammonia production ambition by 2060
+                            under the Energy Transition Plan.</p>
+                    </div>
+                </div>
+
+                <!-- Export-Oriented Projects -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
+                    <div class="relative lg:order-2">
+                        <div class="overflow-hidden rounded-2xl shadow-xl">
+                            <img alt="Nigeria coastal port and industrial infrastructure for hydrogen export"
+                                class="w-full h-72 sm:h-80 object-cover"
+                                src="sector-GreenHydrogen-2.jpg" />
+                        </div>
+                    </div>
+                    <div class="lg:order-1">
+                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                            style="font-family: Manrope, sans-serif;">Export-Oriented &amp; Value Chain Opportunities</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">The sector supports multiple
+                            investment pathways across the value chain, including project development, technology supply,
+                            engineering services, infrastructure development, manufacturing partnerships, and
+                            export-oriented production facilities. Investors can participate through green methanol
+                            production, hydrogen-powered transport solutions, off-grid energy systems, hydrogen storage,
+                            and export infrastructure.</p>
+                        <div class="flex flex-wrap gap-2 mt-5">
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Green Ammonia</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Green Methanol</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electrolyser Deployment</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Export Infrastructure</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Industrial Parks</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Geographic Hotspots -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
+                    <div class="relative lg:order-2">
+                        <div class="overflow-hidden rounded-2xl shadow-xl">
+                            <img alt="Northern Nigeria landscape with high solar resource potential"
+                                class="w-full h-72 sm:h-80 object-cover"
+                                src="GeographicHotspots.jfif" />
+                        </div>
+                    </div>
+                    <div class="lg:order-1">
+                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                            style="font-family: Manrope, sans-serif;">Geographic Hotspots</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Northern Nigeria offers strong
+                            long-term production potential due to high solar irradiation, land availability, and
+                            renewable energy resources. Coastal regions provide strategic advantages for
+                            export-oriented projects through existing industrial zones, ports, and Free Trade Zones.</p>
+                        <div class="flex flex-wrap gap-2 mt-5">
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">location_on</span>Northern Nigeria (High Solar Resource)</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">location_on</span>Coastal Regions (Export Infrastructure)</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">location_on</span>Free Trade Zones</span>
+                            <span class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">location_on</span>Industrial Demand Centres</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content & Sidebar -->
+        <!-- <section class="py-12 lg:py-24 max-w-7xl mx-auto px-6 lg:px-8">
+             
+            <div>
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 sm:gap-4 mb-8 lg:mb-10 pb-4 border-b border-outline-variant">
+                    <div>
+                        <h2 class="font-h2 text-h3 sm:text-h2 text-primary">Major Projects</h2>
+                        <p class="text-on-surface-variant text-body-sm mt-1 uppercase tracking-widest font-semibold">
+                            Active Capital Opportunities</p>
+                    </div>
+                    <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
+                        <label for="proj-status-filter" class="text-body-sm text-on-surface-variant font-medium">Filter
+                            by Status:</label>
+                        <select id="proj-status-filter"
+                            class="bg-transparent border-none text-primary font-bold focus:ring-0 cursor-pointer">
+                            <option>All Projects</option>
+                            <option>Implementation</option>
+                            <option>Funding Rounds</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="opportunities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-gutter">
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        data-sector="renewable">
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2025-ENE-09</p>
+                            <h3
+                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Solar Power Naija - Phase II</h3>
+                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
+                                Renewable Generation</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.24 <span
+                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Multi-State Off-grid</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">05 Jan
+                                    2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2"><button
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
+                                in Detail</button>
+                            <button
+                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
+                                Now</button>
+                        </div>
+                    </div>
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        data-sector="renewable">
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2025-H2-01</p>
+                            <h3
+                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Green Hydrogen Niger Delta Pilot</h3>
+                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
+                                Renewable Generation</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.40 <span
+                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Rivers State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">18 Feb
+                                    2025</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2"><button
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
+                                in Detail</button>
+                            <button
+                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
+                                Now</button>
+                        </div>
+                    </div>
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        data-sector="storage">
+
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2024-MIN-15</p>
+                            <h3
+                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Nasarawa Lithium Processing Hub</h3>
+                            <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
+                                Energy Storage</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.15 <span
+                                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Nasarawa State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span class="font-semibold">12 Aug
+                                    2024</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2"><button
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
+                                in Detail</button>
+                            <button
+                                class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+    </main>
+    <!-- Footer -->
+    <div id="site-footer"></div>
+
+
+    <!-- NESP nav wiring (mobile toggle + active golden bar) -->
+    <script>
+        (function () {
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            if (navToggle && mobileNav) {
+                navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
+            }
+        })();
+        (function () {
+            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
+            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
+            const file = (location.pathname.split('/').pop() || '').toLowerCase();
+            const active = PAGE_ACTIVE[file];
+            document.querySelectorAll('nav.bg-white a').forEach(a => {
+                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
+                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
+                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
+                if (active && label === active && a.className.indexOf('px-5') !== -1) {
+                    const bar = document.createElement('span');
+                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
+                    a.appendChild(bar);
+                }
+            });
+        })();
+    </script>
+    <!-- NESP nav hover dropdowns (shared, injected) -->
+    <style>
+        .nesp-has-menu {
+            position: relative;
+        }
+
+        .nesp-has-menu::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 12px;
+        }
+
+        .nesp-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            min-width: 300px;
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, 0.22);
+            margin-top: 8px;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+            z-index: 60;
+        }
+
+        .nesp-has-menu:hover .nesp-dropdown,
+        .nesp-dropdown:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nesp-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nesp-dropdown::after {
+            content: "";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: #ffffff;
+            border-top: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-radius: 3px 0 0 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nesp-menu-head {
+            font-family: Manrope, sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #9aa39e;
+            padding: 8px 12px 6px;
+        }
+
+        .nesp-menu-item {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .15s ease;
+        }
+
+        .nesp-menu-item:hover {
+            background: #f1f8f4;
+        }
+
+        .nesp-menu-item .t {
+            display: block;
+            font-family: Manrope, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15241d;
+        }
+
+        .nesp-menu-item:hover .t {
+            color: #047857;
+        }
+
+        .nesp-menu-item .d {
+            display: block;
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #6b746f;
+            margin-top: 2px;
+        }
+
+        .nesp-has-menu>a::after {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 7px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+            opacity: .6;
+            vertical-align: middle;
+            transition: transform .2s ease;
+        }
+
+        .nesp-has-menu:hover>a::after {
+            transform: translateY(0) rotate(225deg);
+        }
+    </style>
+    <script>
+        (function () {
+            var MENU = {
+                'SECTORS': {
+                    head: 'Strategic Priority Sectors', items: [
+                        { t: 'Renewable Generation', d: 'Large-scale solar, wind & geothermal projects.', href: 'DetailedSector.html' },
+                        { t: 'Grid Infrastructure', d: 'High-voltage transmission & smart-grid upgrades.', href: 'DetailedSector.html' },
+                        { t: 'Energy Storage', d: 'BESS & pumped-hydro to balance supply.', href: 'DetailedSector.html' }
+                    ]
+                },
+                'OPPORTUNITIES': {
+                    head: 'Investment Opportunities', items: [
+                        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: 'Opportunities.html' },
+                        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: 'Opportunities.html' },
+                        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: 'Opportunities.html' },
+                        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: 'Opportunities.html' }
+                    ]
+                },
+                'REGULATIONS': {
+                    head: 'Regulations & Compliance', items: [
+                        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: 'Regulation.html' },
+                        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: 'Regulation.html' },
+                        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: 'Regulation.html' },
+                        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: 'Regulation.html' }
+                    ]
+                },
+                'DATA': {
+                    head: 'Data & Insights', items: [
+                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
+                        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
+                    ]
+                },
+                'NEWS': {
+                    head: 'News Categories', items: [
+                        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: 'News.html' },
+                        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: 'News.html' },
+                        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: 'News.html' },
+                        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: 'News.html' },
+                        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: 'News.html' }
+                    ]
+                }
+            };
+            document.querySelectorAll('nav.bg-white a').forEach(function (a) {
+                if ((a.className || '').indexOf('px-5') === -1) return;
+                var menu = MENU[(a.textContent || '').replace(/\s+/g, ' ').trim().toUpperCase()];
+                if (!menu) return;
+                var li = a.closest('li'); if (!li) return;
+                li.classList.add('nesp-has-menu');
+                var html = '<div class="nesp-menu-head">' + menu.head + '</div>';
+                menu.items.forEach(function (it) {
+                    html += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+                        (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+                });
+                var panel = document.createElement('div');
+                panel.className = 'nesp-dropdown';
+                panel.innerHTML = html;
+                li.appendChild(panel);
+            });
+        })();
+    </script>
+    <!-- NESP button wiring -->
+    <script>
+        (function () {
+            document.querySelectorAll('button').forEach(function (b) {
+                var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+                if (t === 'view in detail' || t.indexOf('details') === 0) b.addEventListener('click', function () { location.href = 'detailedOppNew.html'; });
+                else if (t === 'invest now') b.addEventListener('click', function () { location.href = 'Login.html'; });
+
+                else if (t.indexOf('regulatory framework') === 0) b.addEventListener('click', function () { location.href = 'Regulation.html'; });
+            });
+        })();
+    </script>
+    <!-- Invest Now popup flow -->
+    <script src="footer.js"></script>
+    <script src="investflow.js"></script>
+    <script src="nav.js"></script>
+</body>
+
+</html>
