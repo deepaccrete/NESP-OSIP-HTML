@@ -14,61 +14,7 @@
 </head>
 <body>
 <!-- TopNavBar (same as the rest of the site) -->
-<nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-8">
-        <div class="flex items-center justify-between h-[74px]">
-            <div class="flex items-center gap-10"><a href="../homepage.html"><img alt="Logo" class="h-5 w-auto" src="Text.png"></a>
-                <ul class="hidden lg:flex items-center">
-                    <li><a href="Sector.html"
-                            class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">SECTORS</a>
-                    </li>
-                    <li><a href="#"
-                            class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">OPPORTUNITIES</a>
-                    </li>
-                    <li><a href="#"
-                            class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">REGULATIONS</a>
-                    </li>
-                    <li><a href="#"
-                            class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">DATA</a>
-                    </li>
-                    <li><a href="#"
-                            class="relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]">NEWS</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="hidden lg:flex items-center gap-5"><a href="#"
-                    class="text-sm font-semibold text-[#047857]">Contact</a><a href="#"
-                    class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest
-                    Now</a><img alt="Partner" class="h-9 object-contain" src="logoNESP.png"></div><button
-                id="mobile-nav-toggle" aria-label="Open menu"
-                class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>
-        </div>
-        <!-- Mobile nav menu -->
-        <div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3">
-            <ul class="flex flex-col">
-                <li><a href="Sector.html"
-                        class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">SECTORS</a>
-                </li>
-                <li><a href="#"
-                        class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">OPPORTUNITIES</a>
-                </li>
-                <li><a href="#"
-                        class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">REGULATIONS</a>
-                </li>
-                <li><a href="#"
-                        class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">DATA</a>
-                </li>
-                <li><a href="#"
-                        class="block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]">NEWS</a>
-                </li>
-                <li><a href="#" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>
-                <li class="px-2 pt-2"><a href="#"
-                        class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest
-                        Now</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div id="site-nav"></div>
 <!-- Coming soon message -->
 <main class="min-h-[calc(100vh-74px)] flex flex-col items-center justify-center text-center px-6 py-20">
     <span class="material-symbols-outlined text-[72px] text-[#047857]">construction</span>
@@ -198,5 +144,6 @@
 
     <!-- Invest Now popup flow -->
     <script src="investflow.js"></script>
+<script src="nav.js"></script>
 </body>
 </html>
