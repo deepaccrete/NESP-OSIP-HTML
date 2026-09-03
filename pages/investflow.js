@@ -97,6 +97,12 @@
         document.querySelectorAll('[data-investflow]').forEach(function (el) {
             el.addEventListener('click', openModal);
         });
+        // Any element (anywhere on the page) can opt into the popup with
+        // data-investflow — used by CTAs like the hero "Start Your Investment
+        // Journey" button. Its href stays as a no-JS fallback.
+        document.querySelectorAll('[data-investflow]').forEach(function (el) {
+            el.addEventListener('click', openModal);
+        });
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wire);
     else wire();
