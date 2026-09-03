@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSIP - Events &amp; Engagements</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    /*
+       Fonts only. Unlike Sector.html or News.html this page names no palette
+       tokens — every colour it uses is an arbitrary value (bg-[#004225],
+       text-[#ffdcac]), which the CDN resolves without configuration. Adding
+       an unused token set here would be noise, not consistency.
+    */
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            manrope: ['Manrope', 'sans-serif'],
+            inter: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* === OSIP Events page animation layer (progressive enhancement) === */
+    @media (prefers-reduced-motion: no-preference) {
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      .osip-reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform .9s cubic-bezier(.2, .7, .2, 1);
+      }
+
+      .osip-reveal.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      .osip-stagger>* {
+        opacity: 0;
+        transform: translateY(26px);
+        transition: opacity .75s cubic-bezier(.2, .7, .2, 1), transform .75s cubic-bezier(.2, .7, .2, 1);
+      }
+
+      .osip-stagger.is-visible>* {
+        opacity: 1;
+        transform: none;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(1) {
+        transition-delay: .05s;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(2) {
+        transition-delay: .15s;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(3) {
+        transition-delay: .25s;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(4) {
+        transition-delay: .35s;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(5) {
+        transition-delay: .45s;
+      }
+
+      .osip-stagger.is-visible>*:nth-child(6) {
+        transition-delay: .55s;
+      }
+
+      .osip-lift {
+        transition: transform .4s cubic-bezier(.2, .7, .2, 1), box-shadow .4s ease, border-color .35s ease;
+      }
+
+      .osip-lift:hover {
+        transform: translateY(-6px);
+      }
+
+      .osip-date-badge {
+        transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease;
+      }
+
+      .osip-lift:hover .osip-date-badge {
+        transform: translateY(-3px) scale(1.06);
+        box-shadow: 0 8px 18px -10px rgba(10, 90, 55, .55);
+      }
+
+      .osip-shine {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .osip-shine::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -120%;
+        width: 55%;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .55), transparent);
+        transform: skewX(-22deg);
+        transition: left .9s ease;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .osip-shine:hover::before {
+        left: 130%;
+      }
+
+      nav.bg-white {
+        transition: box-shadow .35s ease, background-color .35s ease;
+      }
+
+      nav.bg-white.osip-scrolled {
+        box-shadow: 0 10px 28px -18px rgba(2, 44, 34, .28);
+        background-color: rgba(255, 255, 255, .95);
+        backdrop-filter: saturate(160%) blur(6px);
+        -webkit-backdrop-filter: saturate(160%) blur(6px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .osip-reveal,
+      .osip-stagger>* {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    /* The dot texture on the featured card's date panel. It used to be
+       shared with the page header; the header is now the site-wide hero and
+       carries no texture. */
+    .osip-featured-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.07;
+      background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0px);
+      background-size: 18px 18px;
+      pointer-events: none;
+    }
+
+    /* Category filter pills */
+    .osip-filter-pill {
+      font-family: Manrope, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      color: #4b5563;
+      cursor: pointer;
+      transition: background .25s ease, color .25s ease, border-color .25s ease;
+      white-space: nowrap;
+    }
+
+    .osip-filter-pill:hover {
+      border-color: #004225;
+      color: #004225;
+    }
+
+    .osip-filter-pill.is-active {
+      background: #004225;
+      border-color: #004225;
+      color: #ffffff;
+    }
+
+
+    /* ===== Event type filter =====================================
+       The pill row works while there are a handful of types. It stops
+       working somewhere around ten: the row wraps to three or four lines,
+       pushes the grid below the fold, and finding one type means reading all
+       of them. At a hundred it is unusable.
+
+       So the control adapts to how many types exist, and the page does not
+       choose — the data does:
+
+         up to PILL_LIMIT   the pill row below, unchanged
+         beyond it          one trigger button that opens a searchable list
+
+       Same pattern as the nav's 3-column dropdown, which is derived from the
+       item count rather than a flag an editor has to remember to tick.
+       ============================================================= */
+
+    .osip-typefilter {
+      position: relative;
+      display: inline-block;
+    }
+
+    .osip-typefilter-trigger {
+      font-family: Manrope, sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 9px 14px 9px 16px;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      color: #111827;
+      cursor: pointer;
+      transition: border-color .2s ease, box-shadow .2s ease;
+      max-width: 320px;
+    }
+
+    .osip-typefilter-trigger:hover,
+    .osip-typefilter[data-open="true"] .osip-typefilter-trigger {
+      border-color: #004225;
+    }
+
+    .osip-typefilter-trigger .t-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* The selected type is never truncated out of sight: the count sits after
+       the label and both stay on one line. */
+    .osip-typefilter-trigger .t-count {
+      font-size: 11px;
+      color: #5f6368;
+      background: #f3f4f6;
+      border-radius: 999px;
+      padding: 1px 7px;
+      flex-shrink: 0;
+    }
+
+    .osip-typefilter-trigger .t-chev {
+      font-size: 18px;
+      color: #5f6368;
+      transition: transform .2s ease;
+      flex-shrink: 0;
+    }
+
+    .osip-typefilter[data-open="true"] .t-chev {
+      transform: rotate(180deg);
+    }
+
+    .osip-typefilter-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 320px;
+      max-width: calc(100vw - 40px);
+      background: #fff;
+      border: 1px solid #e7e7e7;
+      border-radius: 12px;
+      box-shadow: 0 18px 40px -16px rgba(6, 20, 16, .22);
+      z-index: 40;
+      overflow: hidden;
+      display: none;
+    }
+
+    .osip-typefilter[data-open="true"] .osip-typefilter-panel {
+      display: block;
+    }
+
+    .osip-typefilter-search {
+      padding: 10px;
+      border-bottom: 1px solid #f1f1f1;
+    }
+
+    .osip-typefilter-search input {
+      width: 100%;
+      font-size: 13px;
+      padding: 8px 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      color: #111827;
+    }
+
+    .osip-typefilter-search input:focus {
+      outline: none;
+      border-color: #ffb955;
+      box-shadow: 0 0 0 2px rgba(255, 185, 85, .3);
+    }
+
+    /* Capped and scrollable: a hundred types must not produce a hundred-row
+       panel running off the bottom of the screen. */
+    .osip-typefilter-list {
+      max-height: 260px;
+      overflow-y: auto;
+      padding: 6px;
+      margin: 0;
+      list-style: none;
+    }
+
+    .osip-typefilter-option {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      text-align: left;
+      font-family: Manrope, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #15241d;
+      background: none;
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 10px;
+      cursor: pointer;
+    }
+
+    .osip-typefilter-option:hover,
+    .osip-typefilter-option.is-active-option {
+      background: #f1f8f4;
+      color: #004225;
+    }
+
+    .osip-typefilter-option[aria-selected="true"] {
+      background: #004225;
+      color: #fff;
+    }
+
+    .osip-typefilter-option .o-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: #5f6368;
+      background: #f3f4f6;
+      border-radius: 999px;
+      padding: 1px 7px;
+      flex-shrink: 0;
+    }
+
+    .osip-typefilter-option[aria-selected="true"] .o-count {
+      color: #004225;
+      background: #ffd489;
+    }
+
+    /* A type an admin created but has no events yet. Listed rather than
+       hidden — it exists, and an admin looking for it should find it — but
+       muted, and sorted below the ones that lead somewhere. */
+    .osip-typefilter-option.is-empty {
+      color: #9aa39e;
+    }
+
+    .osip-typefilter-empty {
+      padding: 14px 12px;
+      font-size: 12.5px;
+      color: #6b746f;
+      text-align: center;
+      display: none;
+    }
+
+    .osip-typefilter.is-searching-empty .osip-typefilter-empty {
+      display: block;
+    }
+
+    .osip-typefilter.is-searching-empty .osip-typefilter-list {
+      display: none;
+    }
+
+    .osip-filter-reset {
+      font-family: Manrope, sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px dashed #c9d2cd;
+      background: transparent;
+      color: #5f6368;
+      cursor: pointer;
+      transition: color .2s ease, border-color .2s ease;
+    }
+
+    .osip-filter-reset:hover {
+      color: #b91c1c;
+      border-color: #b91c1c;
+    }
+
+    .osip-event-card {
+      opacity: 1;
+      transition: opacity .3s ease, transform .3s ease;
+    }
+
+    .osip-event-card.is-hidden {
+      display: none;
+    }
+
+    /*
+      The fallback behind a card's image band. It paints above the band's flat
+      green but UNDER the <img>, so it only shows for an event with no picture -
+      which then reads as part of the set rather than as a card whose image
+      failed to load. Same texture the hero and the featured panel carry.
+    */
+    .osip-event-media::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .09;
+      background-image: radial-gradient(circle at 1px 1px, #fff 1px, transparent 0);
+      background-size: 16px 16px;
+      pointer-events: none;
+    }
+
+    /*
+      The grey date badge on a completed event. It is not a palette role - it is
+      the specific neutral that says "this one has happened" - so it stays a
+      component class rather than being forced into a token.
+    */
+    .osip-date-badge--past {
+      background-color: #6b746f;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <div id="page-wrapper">
+    <!-- nav.js renders its own sticky header; no wrapper needed. -->
+    <div id="site-nav"></div>
+
+      <!-- Page header -->
+      <section
+            class="relative min-h-[500px] lg:min-h-[550px] w-full overflow-hidden bg-[#001d17] flex items-center">
+            <!--
+              The photograph is tone-normalised so every hero on the site sits at
+              the same luminance, and cropped to the band of the picture that
+              `bg-cover` actually keeps in a box this shape - bg-center here. Both
+              were measured rather than eyeballed.
+            -->
+            <div class="absolute inset-0 bg-cover bg-center"
+                data-alt="Delegates at an OSIP investor forum" style="background-image: url('hero-events.jpg')">
+            </div>
+            <!--
+              Vignette / depth gradients, identical to the sector pages. The
+              left-to-right scrim is what makes the headline readable, so it
+              stays heavy across the copy and lifts over the right-hand third,
+              where nothing is written - that is the part of the photograph the
+              reader actually sees. The bottom-up wash seats the section against
+              whatever follows it.
+            -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#001d17]/95 via-[#001d17]/80 to-[#001d17]/10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#001d17]/60 via-transparent to-transparent"></div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
+                <div class="max-w-3xl">
+                    <div class="flex items-center gap-3 mb-5">
+                      <span class="w-8 sm:w-10 h-[3px] bg-[#ffb955]"></span>
+                      <span class="text-[#ffdcac] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">STAY
+                        ENGAGED</span>
+                    </div>
+                    <h1 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-white leading-tight mb-4"
+                      style="font-family: Manrope, sans-serif;">Events &amp; Engagements</h1>
+                    <p class="text-white/80 text-[14px] sm:text-[15px] lg:text-[17px] leading-8 max-w-2xl">Conferences, investor
+                      forums, workshops, and stakeholder engagements connecting investors, regulators, and developers across
+                      Nigeria's clean energy sector.</p>
+                </div>
+            </div>
+        </section>
+
+      <!-- Featured event -->
+      <section class="bg-[#f6f8f7] py-12 sm:py-14 lg:py-16 px-5 sm:px-8 lg:px-16" style="font-family: Inter, sans-serif;">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="w-8 h-[3px] bg-[#ffb955]"></span>
+            <span class="text-[#1f5840] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">FEATURED
+              EVENT</span>
+          </div>
+          <div class="osip-reveal bg-white rounded-xl border border-[#e5e7eb] overflow-hidden shadow-sm">
+            <div class="grid grid-cols-1 lg:grid-cols-3">
+              <!--
+                The date panel. It used to repeat two facts the body already
+                stated - the dates, and "Abuja, Nigeria" against a venue line
+                that also says Abuja. Saying a thing twice in one card is what
+                made it feel busy, so the panel now owns the WHEN and the body
+                owns the WHERE, and neither repeats the other.
+              -->
+              <div
+                class="osip-featured-panel relative lg:col-span-1 bg-gradient-to-br from-[#004225] via-[#0a5a37] to-[#004225] flex flex-col items-center justify-center p-8 lg:p-10 text-center overflow-hidden">
+                <div class="relative">
+                  <span class="block text-[10px] uppercase tracking-[0.2em] text-white/60 font-bold mb-3">Mark your
+                    calendar</span>
+                  <span class="block text-white text-[56px] font-black leading-none tracking-tight"
+                    style="font-family: Manrope, sans-serif;">15&ndash;17</span>
+                  <span class="block text-white/90 text-xl font-bold mt-1"
+                    style="font-family: Manrope, sans-serif;">March 2027</span>
+                  <span class="block w-10 h-[2px] bg-[#ffb955] mx-auto my-4" aria-hidden="true"></span>
+                  <!-- Both derived from the dates above, not extra facts:
+                       15-17 March 2027 is Monday to Wednesday, three days. -->
+                  <span class="block text-[11px] uppercase tracking-[0.14em] text-white/70 font-semibold">Mon
+                    &ndash; Wed &middot; 3 days</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-2 p-6 sm:p-10 flex flex-col">
+                <span
+                  class="self-start bg-[#e3efe8] text-[#0a5a37] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full mb-4">Investor
+                  Forum</span>
+                <h2 class="text-[22px] sm:text-[28px] font-bold text-[#111827] leading-snug mb-3"
+                  style="font-family: Manrope, sans-serif;"><a class="hover:text-[#0a5a37] transition-colors" href="IndividualEvent.html">Nigeria Renewable Energy Investment Forum 2027</a></h2>
+                <p class="text-[#5f6368] text-[14px] sm:text-[15px] leading-relaxed mb-6 max-w-2xl">Join
+                  policymakers, investors, developers, financiers, and industry leaders to explore opportunities
+                  across Nigeria's rapidly growing clean energy sector. Three days of plenaries, project pitch
+                  sessions, and one-on-one investor matchmaking.</p>
+
+                <!--
+                  Two facts, one per row, on a rule. The old version was three
+                  of them on a wrapping flex row - including the dates, which
+                  the panel to the left already announces at 46px - so at most
+                  widths it broke into a ragged two-and-one.
+                -->
+                <div class="border-t border-[#eef1ef] pt-5 mb-7">
+                  <p class="text-sm text-[#5f6368] flex items-start gap-2.5">
+                    <span class="material-symbols-outlined text-[18px] text-[#0a5a37] mt-px">location_on</span>
+                    International Conference Centre, Abuja
+                  </p>
+                </div>
+
+                <!-- mt-auto: the button sits on the bottom edge of the card
+                     whatever length the description runs to. -->
+                <a href="Contact.html"
+                  class="osip-shine mt-auto self-start inline-flex items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-6 sm:px-7 py-3 text-sm font-medium tracking-wide transition-all duration-300 w-full sm:w-auto rounded-sm">
+                  <span class="material-symbols-outlined text-[18px]">how_to_reg</span>Register Interest</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filterable event grid -->
+      <section class="bg-white py-12 sm:py-14 lg:py-16 px-5 sm:px-8 lg:px-16" style="font-family: Inter, sans-serif;">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 lg:mb-14">
+            <div class="max-w-2xl">
+              <h2 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-[#111827] leading-tight mb-4"
+                style="font-family: Manrope, sans-serif;">Upcoming Events</h2>
+              <p class="text-[#5f6368] text-[15px] leading-8">Browse forums, workshops, and roadshows happening across
+                the platform.</p>
+            </div>
+            <!--
+              Built by script from the type list, because the SHAPE of this
+              control depends on how many types there are. See the comment on
+              .osip-typefilter in the stylesheet, and EVENT_TYPES below.
+            -->
+            <div id="event-filters" class="flex flex-wrap items-center gap-2.5 lg:justify-end"></div>
+          </div>
+
+          <div id="event-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-14">
+
+            <div class="osip-event-card osip-lift relative h-[27rem] bg-white border border-[#e5e7eb] rounded-sm overflow-hidden flex flex-col"
+              data-category="forum" data-state="enugu">
+              <div class="osip-event-media relative h-36 shrink-0 overflow-hidden bg-[#004225]">
+                <img alt="Delegates at an investment roadshow" loading="lazy"
+                  class="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1560439514-4e9645039924?auto=format&fit=crop&w=800&q=75">
+                <!-- Keeps the badge legible over a light photograph without dimming the whole image. -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true"></div>
+                <div class="osip-date-badge absolute left-4 bottom-4 w-[68px] px-3 py-2 bg-[#0a5a37] text-white flex flex-col justify-center items-center rounded-md shadow-sm">
+                  <span class="text-[10px] uppercase leading-none font-bold tracking-wide">MAY</span>
+                  <span class="text-[17px] font-bold leading-none mt-1">06</span>
+                  <span class="text-[10px] leading-none mt-1 opacity-80">2027</span>
+                </div>
+                <span class="absolute right-3 top-3 max-w-[60%] truncate bg-[#e3efe8] text-[#0a5a37] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Roadshow</span>
+              </div>
+              <div class="flex flex-col flex-1 min-h-0 px-5 pt-4">
+                <h3 class="text-base font-bold text-[#111827] leading-snug line-clamp-2 break-words"
+                  style="font-family: Manrope, sans-serif;"><a
+                    class="after:absolute after:inset-0 after:content-[''] hover:text-[#004225] transition-colors"
+                    href="IndividualEvent.html">Enugu State Investment Roadshow</a></h3>
+                <p class="text-xs text-[#5f6368] flex items-center gap-1.5 mt-1.5"><span
+                    class="material-symbols-outlined text-[14px] leading-none shrink-0">location_on</span><span
+                    class="truncate">Enugu, Nigeria</span></p>
+                <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">A state-level session introducing investors to Enugu's clean energy pipeline, incentives, and licensing fast-track.</p>
+                <div class="mt-auto pt-4 pb-5 relative z-10">
+                  <a href="Contact.html"
+                  class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
+                  <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="osip-event-card osip-lift relative h-[27rem] bg-white border border-[#e5e7eb] rounded-sm overflow-hidden flex flex-col"
+              data-category="workshop" data-state="lagos">
+              <div class="osip-event-media relative h-36 shrink-0 overflow-hidden bg-[#004225]">
+                <img alt="Project financing documents on a desk" loading="lazy"
+                  class="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=75">
+                <!-- Keeps the badge legible over a light photograph without dimming the whole image. -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true"></div>
+                <div class="osip-date-badge absolute left-4 bottom-4 w-[68px] px-3 py-2 bg-[#0a5a37] text-white flex flex-col justify-center items-center rounded-md shadow-sm">
+                  <span class="text-[10px] uppercase leading-none font-bold tracking-wide">JUN</span>
+                  <span class="text-[17px] font-bold leading-none mt-1">18</span>
+                  <span class="text-[10px] leading-none mt-1 opacity-80">2027</span>
+                </div>
+                <span class="absolute right-3 top-3 max-w-[60%] truncate bg-[#e3efe8] text-[#0a5a37] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Workshop</span>
+              </div>
+              <div class="flex flex-col flex-1 min-h-0 px-5 pt-4">
+                <h3 class="text-base font-bold text-[#111827] leading-snug line-clamp-2 break-words"
+                  style="font-family: Manrope, sans-serif;"><a
+                    class="after:absolute after:inset-0 after:content-[''] hover:text-[#004225] transition-colors"
+                    href="IndividualEvent.html">Clean Energy Project Financing Workshop</a></h3>
+                <p class="text-xs text-[#5f6368] flex items-center gap-1.5 mt-1.5"><span
+                    class="material-symbols-outlined text-[14px] leading-none shrink-0">location_on</span><span
+                    class="truncate">Lagos, Nigeria</span></p>
+                <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">Hands-on session covering structuring, blended finance, and available development-partner facilities for project sponsors.</p>
+                <div class="mt-auto pt-4 pb-5 relative z-10">
+                  <a href="Contact.html"
+                  class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
+                  <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="osip-event-card osip-lift relative h-[27rem] bg-white border border-[#e5e7eb] rounded-sm overflow-hidden flex flex-col"
+              data-category="webinar" data-state="virtual">
+              <div class="osip-event-media relative h-36 shrink-0 overflow-hidden bg-[#004225]">
+                <img alt="Attending an online session on a laptop" loading="lazy"
+                  class="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=800&q=75">
+                <!-- Keeps the badge legible over a light photograph without dimming the whole image. -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true"></div>
+                <div class="osip-date-badge absolute left-4 bottom-4 w-[68px] px-3 py-2 bg-[#0a5a37] text-white flex flex-col justify-center items-center rounded-md shadow-sm">
+                  <span class="text-[10px] uppercase leading-none font-bold tracking-wide">JUL</span>
+                  <span class="text-[17px] font-bold leading-none mt-1">09</span>
+                  <span class="text-[10px] leading-none mt-1 opacity-80">2027</span>
+                </div>
+                <span class="absolute right-3 top-3 max-w-[60%] truncate bg-[#e3efe8] text-[#0a5a37] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Webinar</span>
+              </div>
+              <div class="flex flex-col flex-1 min-h-0 px-5 pt-4">
+                <h3 class="text-base font-bold text-[#111827] leading-snug line-clamp-2 break-words"
+                  style="font-family: Manrope, sans-serif;"><a
+                    class="after:absolute after:inset-0 after:content-[''] hover:text-[#004225] transition-colors"
+                    href="IndividualEvent.html">Regulatory Compliance Masterclass</a></h3>
+                <p class="text-xs text-[#5f6368] flex items-center gap-1.5 mt-1.5"><span
+                    class="material-symbols-outlined text-[14px] leading-none shrink-0">videocam</span><span
+                    class="truncate">Virtual</span></p>
+                <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">A walkthrough of NERC licensing, environmental approvals, and the documentation investors need before financial close.</p>
+                <div class="mt-auto pt-4 pb-5 relative z-10">
+                  <a href="Contact.html"
+                  class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
+                  <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="osip-event-card osip-lift relative h-[27rem] bg-white border border-[#e5e7eb] rounded-sm overflow-hidden flex flex-col"
+              data-category="forum" data-state="kano">
+              <div class="osip-event-media relative h-36 shrink-0 overflow-hidden bg-[#004225]">
+                <img alt="Wind turbines on open farmland" loading="lazy"
+                  class="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=75">
+                <!-- Keeps the badge legible over a light photograph without dimming the whole image. -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true"></div>
+                <div class="osip-date-badge absolute left-4 bottom-4 w-[68px] px-3 py-2 bg-[#0a5a37] text-white flex flex-col justify-center items-center rounded-md shadow-sm">
+                  <span class="text-[10px] uppercase leading-none font-bold tracking-wide">AUG</span>
+                  <span class="text-[17px] font-bold leading-none mt-1">21</span>
+                  <span class="text-[10px] leading-none mt-1 opacity-80">2027</span>
+                </div>
+                <span class="absolute right-3 top-3 max-w-[60%] truncate bg-[#e3efe8] text-[#0a5a37] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Investor Forum</span>
+              </div>
+              <div class="flex flex-col flex-1 min-h-0 px-5 pt-4">
+                <h3 class="text-base font-bold text-[#111827] leading-snug line-clamp-2 break-words"
+                  style="font-family: Manrope, sans-serif;"><a
+                    class="after:absolute after:inset-0 after:content-[''] hover:text-[#004225] transition-colors"
+                    href="IndividualEvent.html">Northern Corridor Wind &amp; Storage Forum</a></h3>
+                <p class="text-xs text-[#5f6368] flex items-center gap-1.5 mt-1.5"><span
+                    class="material-symbols-outlined text-[14px] leading-none shrink-0">location_on</span><span
+                    class="truncate">Kano, Nigeria</span></p>
+                <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">Focused briefing on wind resource data, grid balancing needs, and battery storage opportunities across the northern states.</p>
+                <div class="mt-auto pt-4 pb-5 relative z-10">
+                  <a href="Contact.html"
+                  class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
+                  <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="osip-event-card osip-lift relative h-[27rem] bg-white border border-[#e5e7eb] rounded-sm overflow-hidden flex flex-col"
+              data-category="workshop" data-state="rivers">
+              <div class="osip-event-media relative h-36 shrink-0 overflow-hidden bg-[#004225]">
+                <img alt="Cooking on a clean domestic stove" loading="lazy"
+                  class="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=75">
+                <!-- Keeps the badge legible over a light photograph without dimming the whole image. -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true"></div>
+                <div class="osip-date-badge absolute left-4 bottom-4 w-[68px] px-3 py-2 bg-[#0a5a37] text-white flex flex-col justify-center items-center rounded-md shadow-sm">
+                  <span class="text-[10px] uppercase leading-none font-bold tracking-wide">SEP</span>
+                  <span class="text-[17px] font-bold leading-none mt-1">12</span>
+                  <span class="text-[10px] leading-none mt-1 opacity-80">2027</span>
+                </div>
+                <span class="absolute right-3 top-3 max-w-[60%] truncate bg-[#e3efe8] text-[#0a5a37] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Workshop</span>
+              </div>
+              <div class="flex flex-col flex-1 min-h-0 px-5 pt-4">
+                <h3 class="text-base font-bold text-[#111827] leading-snug line-clamp-2 break-words"
+                  style="font-family: Manrope, sans-serif;"><a
+                    class="after:absolute after:inset-0 after:content-[''] hover:text-[#004225] transition-colors"
+                    href="IndividualEvent.html">Clean Cooking &amp; PUE Investor Clinic</a></h3>
+                <p class="text-xs text-[#5f6368] flex items-center gap-1.5 mt-1.5"><span
+                    class="material-symbols-outlined text-[14px] leading-none shrink-0">location_on</span><span
+                    class="truncate">Port Harcourt, Nigeria</span></p>
+                <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">A working session pairing investors with clean cooking and productive-use-of-energy developers seeking early-stage capital.</p>
+                <div class="mt-auto pt-4 pb-5 relative z-10">
+                  <a href="Contact.html"
+                  class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
+                  <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="osip-event-card osip-lift relative h-[27rem] bg-white border border-[#e5e7eb] rounded-sm overflow-hidden flex flex-col"
+              data-category="webinar" data-state="virtual">
+              <div class="osip-event-media relative h-36 shrink-0 overflow-hidden bg-[#004225]">
+                <img alt="Signing an incentive application" loading="lazy"
+                  class="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=75">
+                <!-- Keeps the badge legible over a light photograph without dimming the whole image. -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true"></div>
+                <div class="osip-date-badge absolute left-4 bottom-4 w-[68px] px-3 py-2 bg-[#0a5a37] text-white flex flex-col justify-center items-center rounded-md shadow-sm">
+                  <span class="text-[10px] uppercase leading-none font-bold tracking-wide">OCT</span>
+                  <span class="text-[17px] font-bold leading-none mt-1">03</span>
+                  <span class="text-[10px] leading-none mt-1 opacity-80">2027</span>
+                </div>
+                <span class="absolute right-3 top-3 max-w-[60%] truncate bg-[#e3efe8] text-[#0a5a37] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Webinar</span>
+              </div>
+              <div class="flex flex-col flex-1 min-h-0 px-5 pt-4">
+                <h3 class="text-base font-bold text-[#111827] leading-snug line-clamp-2 break-words"
+                  style="font-family: Manrope, sans-serif;"><a
+                    class="after:absolute after:inset-0 after:content-[''] hover:text-[#004225] transition-colors"
+                    href="IndividualEvent.html">Understanding Pioneer Status &amp; Tax Incentives</a></h3>
+                <p class="text-xs text-[#5f6368] flex items-center gap-1.5 mt-1.5"><span
+                    class="material-symbols-outlined text-[14px] leading-none shrink-0">videocam</span><span
+                    class="truncate">Virtual</span></p>
+                <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">Live session on qualifying criteria, application steps, and how EDTI and Pioneer Status affect project returns.</p>
+                <div class="mt-auto pt-4 pb-5 relative z-10">
+                  <a href="Contact.html"
+                  class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
+                  <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <p id="event-empty" class="hidden text-center text-[#5f6368] text-sm py-10">No events found in this
+            category yet &mdash; check back soon or view all events.</p>
+        </div>
+      </section>
+
+      <!-- Past events -->
+      <section class="bg-[#f6f8f7] py-12 sm:py-14 lg:py-16 px-5 sm:px-8 lg:px-16" style="font-family: Inter, sans-serif;">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="w-8 h-[3px] bg-[#ffb955]"></span>
+            <span class="text-[#1f5840] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">PAST
+              EVENTS</span>
+          </div>
+          <!--
+            Same card as Upcoming Events: date badge, tag, title, then the
+            description on its own row beneath. Only two things differ, and
+            both say "this already happened" rather than being a second style:
+            the badge is grey instead of green, and the tag reads Completed.
+
+            The badge carries month and year - a past event has no day in the
+            data, and inventing one to fill the third line would be inventing
+            data. Two lines in the same 76px box keeps the shape.
+
+            Deliberately NOT .osip-event-card: that class is the filter's
+            selector, and these are not filterable.
+          -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+            <div class="osip-past-card osip-lift relative h-[27rem] bg-white border border-[#e5e7eb] rounded-sm overflow-hidden flex flex-col"
+              data-state="fct">
+              <div class="osip-event-media relative h-36 shrink-0 overflow-hidden bg-[#004225]">
+                <img alt="Stakeholders at a platform launch" loading="lazy"
+                  class="w-full h-full object-cover grayscale-[0.55]"
+                  src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=75">
+                <!-- Keeps the badge legible over a light photograph without dimming the whole image. -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true"></div>
+                <div class="osip-date-badge osip-date-badge--past absolute left-4 bottom-4 w-[68px] px-3 py-2.5 text-white flex flex-col justify-center items-center rounded-md shadow-sm">
+                  <span class="text-[10px] uppercase leading-none font-bold tracking-wide">NOV</span>
+                  <span class="text-[17px] font-bold leading-none mt-1">2026</span>
+                </div>
+                <span class="absolute right-3 top-3 bg-[#f3f4f6] text-[#5f6368] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Completed</span>
+              </div>
+              <div class="flex flex-col flex-1 min-h-0 px-5 pt-4">
+                <h3 class="text-base font-bold text-[#111827] leading-snug line-clamp-2 break-words"
+                  style="font-family: Manrope, sans-serif;"><a
+                    class="after:absolute after:inset-0 after:content-[''] hover:text-[#004225] transition-colors"
+                    href="IndividualEvent.html">OSIP Platform Launch &amp; Stakeholder Engagement</a></h3>
+                <p class="text-xs text-[#5f6368] flex items-center gap-1.5 mt-1.5"><span
+                    class="material-symbols-outlined text-[14px] leading-none shrink-0">location_on</span><span
+                    class="truncate">Abuja, Nigeria</span></p>
+                <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">Introduced the One-Stop Investment Platform to federal agencies, state governments, and private-sector partners in Abuja.</p>
+                <div class="mt-auto pt-4 pb-5">
+                  <span
+                  class="inline-flex w-full items-center justify-center gap-2 border border-[#e5e7eb] text-[#9aa39e] px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm">
+                  <span class="material-symbols-outlined text-[16px] shrink-0">event_busy</span>Registration closed</span>
+                </div>
+              </div>
+            </div>
+            <div class="osip-past-card osip-lift relative h-[27rem] bg-white border border-[#e5e7eb] rounded-sm overflow-hidden flex flex-col"
+              data-state="fct">
+              <div class="osip-event-media relative h-36 shrink-0 overflow-hidden bg-[#004225]">
+                <img alt="Developers seated at a roundtable" loading="lazy"
+                  class="w-full h-full object-cover grayscale-[0.55]"
+                  src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=75">
+                <!-- Keeps the badge legible over a light photograph without dimming the whole image. -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true"></div>
+                <div class="osip-date-badge osip-date-badge--past absolute left-4 bottom-4 w-[68px] px-3 py-2.5 text-white flex flex-col justify-center items-center rounded-md shadow-sm">
+                  <span class="text-[10px] uppercase leading-none font-bold tracking-wide">SEP</span>
+                  <span class="text-[17px] font-bold leading-none mt-1">2026</span>
+                </div>
+                <span class="absolute right-3 top-3 bg-[#f3f4f6] text-[#5f6368] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Completed</span>
+              </div>
+              <div class="flex flex-col flex-1 min-h-0 px-5 pt-4">
+                <h3 class="text-base font-bold text-[#111827] leading-snug line-clamp-2 break-words"
+                  style="font-family: Manrope, sans-serif;"><a
+                    class="after:absolute after:inset-0 after:content-[''] hover:text-[#004225] transition-colors"
+                    href="IndividualEvent.html">Mini-Grid Developer Roundtable</a></h3>
+                <p class="text-xs text-[#5f6368] flex items-center gap-1.5 mt-1.5"><span
+                    class="material-symbols-outlined text-[14px] leading-none shrink-0">location_on</span><span
+                    class="truncate">Abuja, Nigeria</span></p>
+                <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">Closed-door session with mini-grid developers and REA on interconnection policy and tariff review.</p>
+                <div class="mt-auto pt-4 pb-5">
+                  <span
+                  class="inline-flex w-full items-center justify-center gap-2 border border-[#e5e7eb] text-[#9aa39e] px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm">
+                  <span class="material-symbols-outlined text-[16px] shrink-0">event_busy</span>Registration closed</span>
+                </div>
+              </div>
+            </div>
+            <div class="osip-past-card osip-lift relative h-[27rem] bg-white border border-[#e5e7eb] rounded-sm overflow-hidden flex flex-col"
+              data-state="fct">
+              <div class="osip-event-media relative h-36 shrink-0 overflow-hidden bg-[#004225]">
+                <img alt="Engineering drawings for a feasibility study" loading="lazy"
+                  class="w-full h-full object-cover grayscale-[0.55]"
+                  src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=75">
+                <!-- Keeps the badge legible over a light photograph without dimming the whole image. -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true"></div>
+                <div class="osip-date-badge osip-date-badge--past absolute left-4 bottom-4 w-[68px] px-3 py-2.5 text-white flex flex-col justify-center items-center rounded-md shadow-sm">
+                  <span class="text-[10px] uppercase leading-none font-bold tracking-wide">JUL</span>
+                  <span class="text-[17px] font-bold leading-none mt-1">2026</span>
+                </div>
+                <span class="absolute right-3 top-3 bg-[#f3f4f6] text-[#5f6368] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Completed</span>
+              </div>
+              <div class="flex flex-col flex-1 min-h-0 px-5 pt-4">
+                <h3 class="text-base font-bold text-[#111827] leading-snug line-clamp-2 break-words"
+                  style="font-family: Manrope, sans-serif;"><a
+                    class="after:absolute after:inset-0 after:content-[''] hover:text-[#004225] transition-colors"
+                    href="IndividualEvent.html">Green Hydrogen Feasibility Briefing</a></h3>
+                <p class="text-xs text-[#5f6368] flex items-center gap-1.5 mt-1.5"><span
+                    class="material-symbols-outlined text-[14px] leading-none shrink-0">location_on</span><span
+                    class="truncate">Abuja, Nigeria</span></p>
+                <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">Technical briefing on Nigeria's export-scale green hydrogen potential with the Energy Commission of Nigeria.</p>
+                <div class="mt-auto pt-4 pb-5">
+                  <span
+                  class="inline-flex w-full items-center justify-center gap-2 border border-[#e5e7eb] text-[#9aa39e] px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm">
+                  <span class="material-symbols-outlined text-[16px] shrink-0">event_busy</span>Registration closed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Newsletter CTA -->
+      <!-- <section class="bg-[#0d2318] py-14 lg:py-20 px-5 sm:px-8 lg:px-16" style="font-family: Inter, sans-serif;">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+          <div class="max-w-xl">
+            <h2 class="text-[28px] sm:text-[34px] font-bold text-white leading-tight mb-3"
+              style="font-family: Manrope, sans-serif;">Never miss an OSIP event</h2>
+            <p class="text-[#b7c2bb] text-[14px] sm:text-[15px] leading-7">Get notified about new investor forums,
+              workshops, and regulatory briefings as soon as they're announced.</p>
+          </div>
+          <a href="Contact.html"
+            class="osip-shine inline-flex items-center justify-center gap-2 bg-[#ffb955] hover:bg-white text-[#0a1f1a] font-semibold px-7 py-3.5 text-sm tracking-wide transition-all duration-300 w-full sm:w-auto flex-shrink-0">
+            <span class="material-symbols-outlined text-[18px]">notifications</span>Get Event Updates</a>
+        </div>
+      </section> -->
+
+    <!-- Footer -->
+    <div id="site-footer"></div>
+  </div>
+
+  <script>
+    // Mobile top-nav hamburger toggle (matches nav.js expectations).
+    (function () {
+      const navToggle = document.getElementById('mobile-nav-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      if (navToggle && mobileNav) {
+        navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+        window.addEventListener('resize', () => {
+          if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden');
+        });
+      }
+    })();
+
+    // Scroll-reveal + nav shadow (same pattern as the homepage).
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+
+      var revealIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); revealIO.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+      document.querySelectorAll('.osip-reveal').forEach(function (el) { revealIO.observe(el); });
+
+      var grid = document.getElementById('event-grid');
+      if (grid) { grid.classList.add('osip-stagger'); revealIO.observe(grid); }
+
+      var nav = document.querySelector('nav.bg-white');
+      if (nav) {
+        var onScroll = function () { nav.classList.toggle('osip-scrolled', window.scrollY > 12); };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+    })();
+
+    // ---- Event filters: type and state ----------------------------------
+    //
+    // WHAT THIS SOLVES
+    //
+    // The filter used to be four hand-written pills. An admin can add types,
+    // and at ten the pill row wraps into a block that pushes the grid off the
+    // screen; at a hundred, scanning it is worse than not filtering at all.
+    // States make that concrete on day one: Nigeria has 36 of them plus the
+    // FCT, so that list is never going to be a row of pills.
+    //
+    // So a filter is built from its option list and its SHAPE follows the
+    // count - a pill row while that reads well, a searchable dropdown once it
+    // does not. One builder serves both filters; adding a third is a line.
+    //
+    // EVENT_TYPES and EVENT_STATES stand in for CMS collections. The type list
+    // is deliberately longer than the types the cards use, so this page shows
+    // the scaled state - cut it to three and reload to see the pill row.
+    (function () {
+      var PILL_LIMIT = 6; // options, excluding the "All" row
+
+      var EVENT_TYPES = [
+        { id: 'forum', label: 'Investor Forums' },
+        { id: 'workshop', label: 'Workshops' },
+        { id: 'webinar', label: 'Webinars' },
+        { id: 'roadshow', label: 'Roadshows' },
+        { id: 'conference', label: 'Conferences' },
+        { id: 'training', label: 'Training' },
+        { id: 'sitevisit', label: 'Site Visits' },
+        { id: 'policy', label: 'Policy Dialogues' },
+        { id: 'exhibition', label: 'Exhibitions' },
+        { id: 'networking', label: 'Networking' },
+        { id: 'masterclass', label: 'Masterclasses' },
+        { id: 'clinic', label: 'Investor Clinics' },
+        { id: 'summit', label: 'Summits' },
+        { id: 'roundtable', label: 'Roundtables' }
+      ];
+
+      // Virtual sits at the top rather than under V: it is where a large share
+      // of events are, and it is the one option that is not a place.
+      var EVENT_STATES = [
+        { id: 'virtual', label: 'Virtual' },
+        { id: 'fct', label: 'FCT (Abuja)' },
+        { id: 'abia', label: 'Abia' }, { id: 'adamawa', label: 'Adamawa' },
+        { id: 'akwaibom', label: 'Akwa Ibom' }, { id: 'anambra', label: 'Anambra' },
+        { id: 'bauchi', label: 'Bauchi' }, { id: 'bayelsa', label: 'Bayelsa' },
+        { id: 'benue', label: 'Benue' }, { id: 'borno', label: 'Borno' },
+        { id: 'crossriver', label: 'Cross River' }, { id: 'delta', label: 'Delta' },
+        { id: 'ebonyi', label: 'Ebonyi' }, { id: 'edo', label: 'Edo' },
+        { id: 'ekiti', label: 'Ekiti' }, { id: 'enugu', label: 'Enugu' },
+        { id: 'gombe', label: 'Gombe' }, { id: 'imo', label: 'Imo' },
+        { id: 'jigawa', label: 'Jigawa' }, { id: 'kaduna', label: 'Kaduna' },
+        { id: 'kano', label: 'Kano' }, { id: 'katsina', label: 'Katsina' },
+        { id: 'kebbi', label: 'Kebbi' }, { id: 'kogi', label: 'Kogi' },
+        { id: 'kwara', label: 'Kwara' }, { id: 'lagos', label: 'Lagos' },
+        { id: 'nasarawa', label: 'Nasarawa' }, { id: 'niger', label: 'Niger' },
+        { id: 'ogun', label: 'Ogun' }, { id: 'ondo', label: 'Ondo' },
+        { id: 'osun', label: 'Osun' }, { id: 'oyo', label: 'Oyo' },
+        { id: 'plateau', label: 'Plateau' }, { id: 'rivers', label: 'Rivers' },
+        { id: 'sokoto', label: 'Sokoto' }, { id: 'taraba', label: 'Taraba' },
+        { id: 'yobe', label: 'Yobe' }, { id: 'zamfara', label: 'Zamfara' }
+      ];
+
+      var host = document.getElementById('event-filters');
+      var grid = document.getElementById('event-grid');
+      // Scoped to the grid this filter owns - see the note in the Past
+      // events section about why a global query was a trap waiting to spring.
+      var cards = grid ? [].slice.call(grid.querySelectorAll('.osip-event-card')) : [];
+      var empty = document.getElementById('event-empty');
+      if (!host) return;
+
+      // What is currently chosen, per dimension. Filters AND together: picking
+      // Workshops and Lagos means workshops in Lagos, which is what a person
+      // setting two filters expects.
+      var chosen = { category: 'all', state: 'all' };
+
+      function matches(card) {
+        return Object.keys(chosen).every(function (key) {
+          return chosen[key] === 'all' || card.getAttribute('data-' + key) === chosen[key];
+        });
+      }
+
+      function applyFilters() {
+        var visible = 0;
+        cards.forEach(function (card) {
+          var ok = matches(card);
+          card.classList.toggle('is-hidden', !ok);
+          if (ok) visible += 1;
+        });
+        if (empty) empty.classList.toggle('hidden', visible > 0);
+        if (reset) {
+          reset.classList.toggle('hidden', chosen.category === 'all' && chosen.state === 'all');
+        }
+      }
+
+      // Counts are derived from the cards, never maintained by hand - the two
+      // could not then disagree. They are counted against the OTHER filters,
+      // so "Lagos 1" means one event that also matches the type you picked,
+      // and a count is never a promise of results the grid cannot keep.
+      function countFor(key, id) {
+        return cards.filter(function (card) {
+          if (id !== 'all' && card.getAttribute('data-' + key) !== id) return false;
+          return Object.keys(chosen).every(function (other) {
+            if (other === key) return true;
+            return chosen[other] === 'all' || card.getAttribute('data-' + other) === chosen[other];
+          });
+        }).length;
+      }
+
+      /**
+       * Builds one filter and returns a repaint() for it.
+       *
+       * key      the data-* attribute on the cards
+       * allLabel what the unfiltered state is called
+       * source   [{ id, label }] - the CMS collection
+       */
+      function buildFilter(key, allLabel, source) {
+        var mount = document.createElement('div');
+        host.appendChild(mount);
+
+        function options() {
+          return [{ id: 'all', label: allLabel, count: countFor(key, 'all') }]
+            .concat(source.map(function (o) {
+              return { id: o.id, label: o.label, count: countFor(key, o.id) };
+            }));
+        }
+
+        function current(opts) {
+          for (var i = 0; i < opts.length; i += 1) if (opts[i].id === chosen[key]) return opts[i];
+          return opts[0];
+        }
+
+        // ---- few options: the pill row this page started with -------------
+        function renderPills() {
+          var opts = options();
+          mount.className = 'flex flex-wrap gap-2.5';
+          mount.innerHTML = '';
+          opts.forEach(function (opt) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'osip-filter-pill' + (opt.id === chosen[key] ? ' is-active' : '');
+            b.setAttribute('data-filter', opt.id);
+            b.textContent = opt.label;
+            mount.appendChild(b);
+          });
+        }
+
+        // ---- many options: trigger, search box, scrolling list ------------
+        function renderDropdown() {
+          mount.className = 'osip-typefilter';
+          mount.setAttribute('data-open', 'false');
+          mount.innerHTML = [
+            '<button type="button" class="osip-typefilter-trigger" aria-haspopup="listbox" aria-expanded="false">',
+            '  <span class="material-symbols-outlined" style="font-size:18px" aria-hidden="true">filter_list</span>',
+            '  <span class="t-label"></span>',
+            '  <span class="t-count"></span>',
+            '  <span class="material-symbols-outlined t-chev" aria-hidden="true">expand_more</span>',
+            '</button>',
+            '<div class="osip-typefilter-panel">',
+            '  <div class="osip-typefilter-search">',
+            '    <input type="search" placeholder="Search ' + allLabel.toLowerCase() + '" aria-label="Search ' + allLabel.toLowerCase() + '">',
+            '  </div>',
+            '  <ul class="osip-typefilter-list" role="listbox" aria-label="' + allLabel + '"></ul>',
+            '  <p class="osip-typefilter-empty">Nothing matches that.</p>',
+            '</div>'
+          ].join('');
+        }
+
+        function paint() {
+          var opts = options();
+          if (source.length <= PILL_LIMIT) { renderPills(); return; }
+
+          if (!mount.querySelector('.osip-typefilter-trigger')) renderDropdown();
+
+          var trigger = mount.querySelector('.osip-typefilter-trigger');
+          var chosenOpt = current(opts);
+          trigger.querySelector('.t-label').textContent = chosenOpt.label;
+          trigger.querySelector('.t-count').textContent = chosenOpt.count;
+
+          var search = mount.querySelector('.osip-typefilter-search input');
+          var list = mount.querySelector('.osip-typefilter-list');
+          var q = (search.value || '').trim().toLowerCase();
+
+          // Options that lead somewhere first. This reorders what an admin
+          // arranged, which is a real cost - but a list whose first thirty
+          // rows all read 0 is a list nobody reaches the end of, and finding
+          // an event is what this is for. The "All" row stays pinned on top.
+          var rest = opts.slice(1);
+          var ordered = [opts[0]]
+            .concat(rest.filter(function (o) { return o.count > 0; }))
+            .concat(rest.filter(function (o) { return o.count === 0; }));
+
+          list.innerHTML = '';
+          var shown = 0;
+          ordered.forEach(function (opt) {
+            if (q && opt.label.toLowerCase().indexOf(q) === -1) return;
+            shown += 1;
+            var li = document.createElement('li');
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'osip-typefilter-option' + (opt.count === 0 ? ' is-empty' : '');
+            b.setAttribute('role', 'option');
+            b.setAttribute('aria-selected', String(opt.id === chosen[key]));
+            b.setAttribute('data-filter', opt.id);
+            var name = document.createElement('span');
+            name.textContent = opt.label;
+            var count = document.createElement('span');
+            count.className = 'o-count';
+            count.textContent = opt.count;
+            b.appendChild(name);
+            b.appendChild(count);
+            li.appendChild(b);
+            list.appendChild(li);
+          });
+          mount.classList.toggle('is-searching-empty', shown === 0);
+        }
+
+        function isOpen() { return mount.getAttribute('data-open') === 'true'; }
+        function close(focusTrigger) {
+          mount.setAttribute('data-open', 'false');
+          var trigger = mount.querySelector('.osip-typefilter-trigger');
+          if (trigger) {
+            trigger.setAttribute('aria-expanded', 'false');
+            if (focusTrigger) trigger.focus();
+          }
+        }
+
+        // One delegated listener per filter, bound once. paint() rewrites the
+        // list on every change, so anything bound to a row would be lost.
+        mount.addEventListener('click', function (e) {
+          var trigger = e.target.closest('.osip-typefilter-trigger');
+          if (trigger) {
+            var opening = !isOpen();
+            mount.setAttribute('data-open', String(opening));
+            trigger.setAttribute('aria-expanded', String(opening));
+            if (opening) {
+              var search = mount.querySelector('.osip-typefilter-search input');
+              search.value = '';
+              paint();
+              search.focus();
+            }
+            return;
+          }
+          var row = e.target.closest('.osip-typefilter-option') || e.target.closest('.osip-filter-pill');
+          if (!row) return;
+          chosen[key] = row.getAttribute('data-filter');
+          applyFilters();
+          repaintAll();
+          close(true);
+        });
+
+        mount.addEventListener('input', function (e) {
+          if (e.target.matches('.osip-typefilter-search input')) paint();
+        });
+
+        // Arrow keys walk the list, so a 38-row panel is reachable without a
+        // mouse. Escape closes it.
+        mount.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { close(true); return; }
+          if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+          var rows = [].slice.call(mount.querySelectorAll('.osip-typefilter-option'));
+          if (!rows.length) return;
+          e.preventDefault();
+          var at = rows.indexOf(document.activeElement);
+          var next = e.key === 'ArrowDown' ? at + 1 : at - 1;
+          if (next < 0) { mount.querySelector('.osip-typefilter-search input').focus(); return; }
+          if (next >= rows.length) next = rows.length - 1;
+          rows[next].focus();
+        });
+
+        document.addEventListener('click', function (e) {
+          if (isOpen() && !mount.contains(e.target)) close(false);
+        });
+
+        return { paint: paint, close: close };
+      }
+
+      var filters = [];
+      function repaintAll() { filters.forEach(function (f) { f.paint(); }); }
+
+      filters.push(buildFilter('category', 'All Events', EVENT_TYPES));
+      filters.push(buildFilter('state', 'All States', EVENT_STATES));
+
+      // Only shown once something is filtered. Two dropdowns can leave a
+      // person looking at an empty grid without it being obvious which of them
+      // is responsible, and hunting through both to find "All" is work.
+      var reset = document.createElement('button');
+      reset.type = 'button';
+      reset.className = 'osip-filter-reset hidden';
+      reset.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px" aria-hidden="true">close</span>Clear';
+      reset.addEventListener('click', function () {
+        chosen.category = 'all';
+        chosen.state = 'all';
+        filters.forEach(function (f) { f.close(false); });
+        applyFilters();
+        repaintAll();
+      });
+      host.appendChild(reset);
+
+      repaintAll();
+      applyFilters();
+    })();
+  </script>
+
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+</body>
+
+</html>

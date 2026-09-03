@@ -22,12 +22,6 @@
             vertical-align: middle;
         }
 
-        .enugu-hero {
-            background: linear-gradient(rgba(0, 52, 43, 0.72), rgba(0, 34, 27, 0.92)), url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-
         .reg-card:hover .reg-arrow {
             transform: translateX(4px);
         }
@@ -176,25 +170,49 @@
     <!-- Main Content Canvas -->
     <main class="min-h-screen">
         <!-- Hero: state emblem + name over image -->
-        <section class="relative py-20 md:py-28 overflow-hidden enugu-hero">
-            <div class="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-8">
-                <a href="../homepage.html"
-                    class="hero-rise inline-flex items-center gap-2 text-white/80 text-[13px] font-semibold uppercase tracking-[0.12em] mb-8 hover:text-white transition-colors"><span
-                        class="material-symbols-outlined text-[18px]">arrow_back</span>Back to States</a>
-                <div class="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
-                    <div class="hero-rise d1 bg-white rounded-xl p-3 shadow-lg shrink-0">
-                        <img alt="Enugu State Coat of Arms" src="state-enugu.jpg"
-                            class="h-24 w-24 md:h-28 md:w-28 object-contain">
-                    </div>
-                    <div class="hero-rise d2">
-                        <span
-                            class="text-tertiary-fixed-dim text-[12px] font-bold uppercase tracking-[0.25em] mb-3 block">South-East
-                            Nigeria &middot; Coal City State</span>
-                        <h1 class="text-white text-[40px] md:text-[64px] leading-none font-extrabold"
-                            style="font-family: Manrope, sans-serif;">Enugu State</h1>
-                        <p class="text-white/80 text-[15px] md:text-base mt-4 max-w-2xl leading-relaxed">A rising
-                            investment powerhouse in South-East Nigeria — rich in coal, limestone and arable land, and
-                            targeting a $30bn economy by 2031.</p>
+        <section
+            class="relative min-h-[500px] lg:min-h-[550px] w-full overflow-hidden bg-primary flex items-center">
+            <!--
+              The photograph is tone-normalised so every hero on the site sits at
+              the same luminance, and cropped to the band of the picture that
+              `bg-cover` actually keeps in a box this shape - bg-center here. Both
+              were measured rather than eyeballed.
+            -->
+            <div class="absolute inset-0 bg-cover bg-center"
+                data-alt="Landscape of south-east Nigeria" style="background-image: url('hero-enugu.jpg')">
+            </div>
+            <!--
+              Vignette / depth gradients, identical to the sector pages. The
+              left-to-right scrim is what makes the headline readable, so it
+              stays heavy across the copy and lifts over the right-hand third,
+              where nothing is written - that is the part of the photograph the
+              reader actually sees. The bottom-up wash seats the section against
+              whatever follows it.
+            -->
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
+                <div class="max-w-3xl">
+                    <a href="../homepage.html"
+                        class="hero-rise inline-flex items-center gap-2 text-white/80 text-[13px] font-semibold uppercase tracking-[0.12em] mb-8 hover:text-white transition-colors"><span
+                            class="material-symbols-outlined text-[18px]">arrow_back</span>Back to States</a>
+                    <div class="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
+                        <div class="hero-rise d1 bg-white rounded-xl p-3 shadow-lg shrink-0">
+                            <img alt="Enugu State Coat of Arms" src="state-enugu.jpg"
+                                class="h-24 w-24 md:h-28 md:w-28 object-contain">
+                        </div>
+                        <div class="hero-rise d2">
+                            <span
+                                class="text-tertiary-fixed-dim text-[12px] font-bold uppercase tracking-[0.25em] mb-3 block">South-East
+                                Nigeria &middot; Coal City State</span>
+                            <h1 class="text-white text-[40px] md:text-[64px] leading-none font-extrabold"
+                                style="font-family: Manrope, sans-serif;">Enugu State</h1>
+                            <p class="text-white/80 text-[15px] md:text-base mt-4 max-w-2xl leading-relaxed">A rising
+                                investment powerhouse in South-East Nigeria — rich in coal, limestone and arable land, and
+                                targeting a $30bn economy by 2031.</p>
+                        </div>
                     </div>
                 </div>
             </div>

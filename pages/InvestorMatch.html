@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSIP - Find your investment fit</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        /*
+           The M3 token set, verbatim from NewsInDetail.html / DetailedSector.html.
+
+           This page previously used Event.html's colours instead, and that was
+           the wrong parent to copy: Event.html is the one page in the set that
+           names no tokens at all — its own config comment says every colour it
+           uses is an arbitrary value. Every DETAIL page, and the React app's
+           styles/theme.css, are built from the roles below. Matching the list
+           page made this page match nothing else on the site.
+        */
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#edeeec",
+                        "surface-container-low": "#f3f4f2",
+                        "surface-bright": "#f9f9f7",
+                        "on-tertiary-container": "#bb8d00",
+                        "primary": "#001d17",
+                        "on-primary-fixed": "#00201a",
+                        "on-primary-container": "#709e91",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "surface-container-high": "#e8e8e6",
+                        "on-tertiary-fixed": "#261a00",
+                        "background": "#f9f9f7",
+                        "secondary": "#1b6d24",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#3b2a00",
+                        "on-error-container": "#93000a",
+                        "surface": "#f9f9f7",
+                        "on-surface-variant": "#404846",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e2e3e1",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-fixed": "#002204",
+                        "surface-dim": "#d9dad8",
+                        "on-secondary-fixed-variant": "#005312",
+                        "inverse-primary": "#a1d0c3",
+                        "primary-fixed": "#bdecde",
+                        "on-secondary-container": "#207128",
+                        "tertiary": "#211600",
+                        "surface-tint": "#3a665c",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#87d982",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdf9e",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00342b",
+                        "on-primary-fixed-variant": "#214e44",
+                        "outline-variant": "#c0c8c4",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-background": "#1a1c1b",
+                        "outline": "#717976",
+                        "inverse-surface": "#2f3130",
+                        "secondary-fixed": "#a3f69c",
+                        "secondary-container": "#a0f499",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f0f1ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-tablet": "32px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Manrope"],
+                        "nav-link": ["Inter"],
+                        "h4": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "h3": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "h1-mobile": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "body-sm": ["Inter"],
+                        "title-md": ["Manrope", "Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Manrope", "Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        /* Carried over from Opportunities.html so its
+                           opportunity card can be reused here unchanged. */
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style data-purpose="custom-typography">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.015em;
+        }
+
+        /*
+          THE PROGRESS BAR. Its own element rather than a <progress>, because
+          every browser styles that control differently and the one thing this
+          has to do is be a 3px gold line that matches the rest of the site.
+
+          `transform: scaleX()` rather than animating `width`: width is a layout
+          property, so animating it reflows the page on every frame of the
+          transition; a transform is composited.
+        */
+        .quiz-progress {
+            transform-origin: left center;
+            transition: transform .45s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        /*
+          The option card's radio dot. A real <input type="radio"> is inside
+          each card and is what the keyboard and screen reader actually use —
+          this only draws it, because the native control cannot be styled to
+          match the mockup and hiding it outright would take the label, the
+          arrow keys and the focus ring with it.
+        */
+        .quiz-option input:checked~.quiz-dot {
+            border-color: #001d17;
+            background-color: #001d17;
+            box-shadow: inset 0 0 0 3px #ffffff;
+        }
+
+        .quiz-option:has(input:checked) {
+            border-color: #001d17;
+            box-shadow: 0 0 0 1px #001d17;
+        }
+
+        /* The focus ring lands on the CARD, not the hidden dot, so keyboard
+           users can see where they are. */
+        .quiz-option:has(input:focus-visible) {
+            outline: 2px solid #1b6d24;
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+
+            /* Each question fades in as it replaces the last. The hidden state
+               lives INSIDE this query: outside it, a reader who asked for
+               reduced motion would get a permanently invisible question. */
+            .quiz-enter {
+                animation: quiz-in .32s cubic-bezier(.2, .7, .2, 1) both;
+            }
+
+            @keyframes quiz-in {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+        }
+
+        .card-lift {
+            transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease;
+        }
+
+        .card-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 34px -22px rgba(0, 29, 23, .45);
+        }
+
+        /*
+          Below: the opportunity card's own styles, lifted verbatim from
+          Opportunities.html, so a card shown here is the same object the
+          reader meets when they click through to the full list.
+        */
+        .opportunity-card {
+            border-top: 4px solid #dfa800 !important;
+        }
+
+        .opportunity-card .inv-box {
+            background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
+            border: 1px solid rgba(0, 52, 43, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .sector-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            background: rgba(223, 168, 0, 0.14);
+            border: 1px solid rgba(223, 168, 0, 0.35);
+            color: #5b4300;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1.45;
+        }
+
+        .sector-badge .material-symbols-outlined {
+            font-size: 14px;
+            color: #c98a00;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface min-h-screen">
+
+    <!-- nav.js renders its own sticky header; no wrapper needed. -->
+    <div id="site-nav"></div>
+
+    <!--
+      The progress rail sits directly under the nav and spans the full width,
+      as in the reference. `aria-hidden` because the live region below already
+      announces "Question 3 of 10" — a screen reader reading a percentage as
+      well would be saying the same thing twice.
+    -->
+    <div class="w-full h-[3px] bg-surface-container-high" aria-hidden="true">
+        <div id="quiz-bar" class="quiz-progress h-full bg-tertiary-fixed-dim" style="transform: scaleX(0.1)"></div>
+    </div>
+
+    <main>
+
+        <!-- ============================================== QUESTIONS ==== -->
+        <section id="quiz-step" class="bg-background">
+            <div class="w-full max-w-5xl mx-auto px-margin-mobile md:px-margin-desktop pt-6 md:pt-8 pb-12 md:pb-16">
+
+                <button id="quiz-back" type="button"
+                    class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors mb-5">
+                    <span class="material-symbols-outlined text-[20px]">arrow_back</span>Back
+                </button>
+
+                <!-- The question counter and the question itself. `aria-live`
+                     so a screen reader announces the new question when the
+                     card swaps, rather than leaving the reader on a page that
+                     silently changed under them. -->
+                <div id="quiz-live" aria-live="polite">
+                    <p id="quiz-count"
+                        class="font-label-md text-label-md uppercase text-tertiary-fixed-dim font-bold mb-2"></p>
+                    <h1 id="quiz-question"
+                        class="font-h1 text-[28px] leading-[36px] md:text-[40px] md:leading-[48px] text-primary max-w-3xl mb-6"></h1>
+                </div>
+
+                <!-- Options are injected here. A <fieldset> so the question is
+                     programmatically the group's label. -->
+                <fieldset class="border-0 p-0 m-0">
+                    <legend class="sr-only" id="quiz-legend"></legend>
+                    <div id="quiz-options" class="grid gap-3 sm:grid-cols-2"></div>
+                </fieldset>
+
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-7">
+                    Nothing here is stored or sent anywhere &mdash; it runs in your browser to point you at the
+                    right part of the portal.
+                </p>
+            </div>
+        </section>
+
+        <!-- ================================================ RESULTS ==== -->
+        <section id="quiz-result" class="bg-background hidden">
+            <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+
+                <div class="max-w-3xl">
+                    <p class="font-label-md text-label-md uppercase text-tertiary-fixed-dim font-bold mb-3">Your
+                        result</p>
+                    <h1 class="font-h1 text-[28px] leading-[36px] md:text-[40px] md:leading-[48px] text-primary mb-4">
+                        Where you fit in Nigeria&rsquo;s clean energy pipeline</h1>
+                    <p id="quiz-summary" class="font-body-lg text-body-lg text-on-surface-variant"></p>
+                </div>
+
+                <!-- The answers, so the reader can see what this was based on
+                     rather than being handed a conclusion with no working. -->
+                <div class="mt-8 flex flex-wrap gap-2" id="quiz-chips"></div>
+
+                <div class="mt-12">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-1 h-10 bg-tertiary-fixed-dim shrink-0" aria-hidden="true"></div>
+                        <h2 class="font-h3 text-h3 text-primary">Sectors to start with</h2>
+                    </div>
+                    <!-- sector.name / sector.slug / sector.description / sector.coverImage -->
+                    <!-- Sector.html's grid: 1 / 2 / 3 columns, gap-6. -->
+                    <div id="quiz-sectors" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                </div>
+
+                <div class="mt-12">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-1 h-10 bg-tertiary-fixed-dim shrink-0" aria-hidden="true"></div>
+                        <h2 class="font-h3 text-h3 text-primary">Live opportunities worth a look</h2>
+                    </div>
+                    <!-- opportunity.opportunityId / title / sector / TotalProjectCost / state / publishedAt -->
+                    <!-- Opportunities.html's grid: 1 / 2 / 3 columns, gap-gutter. -->
+                    <div id="quiz-opps" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter"></div>
+                </div>
+
+                <div
+                    class="mt-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border border-[#e5e7eb] rounded-xl p-6">
+                    <p class="font-body-md text-body-md text-on-surface-variant">Want the full project dossiers,
+                        promoter contacts and the data room? Those sit behind a free OSIP account.</p>
+                    <div class="flex flex-wrap gap-3 shrink-0">
+                        <a href="Login.html"
+                            class="inline-flex items-center justify-center gap-2 bg-primary-container hover:bg-primary text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors">
+                            <span class="material-symbols-outlined text-[17px]">how_to_reg</span>Create an account
+                        </a>
+                        <button type="button" id="quiz-restart"
+                            class="inline-flex items-center justify-center gap-2 border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors">
+                            Start over
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            /*
+              THE QUESTIONS.
+
+              Adapted from the reference flow, but every option here comes from
+              something this portal actually holds — the ten sectors in the
+              Sector collection, the projectStage enumeration on
+              opportunity.statusInfo, the currency/unit enums on
+              investmentDetails, and the organisation types the register form
+              already asks for. An option nobody can be matched against is a
+              question that wastes the reader's time.
+
+              `key` is what the scoring below reads; `chip` is the short form
+              shown back to them on the results screen.
+            */
+            var QUESTIONS = [
+                {
+                    id: 'investor',
+                    q: 'Who are you as an investor?',
+                    options: [
+                        { key: 'individual', label: 'Individual investor', hint: 'Investing personal capital' },
+                        { key: 'company', label: 'Private company or project developer', hint: 'Building or operating assets' },
+                        { key: 'fund', label: 'Institutional investor or fund', hint: 'Deploying on behalf of others' },
+                        { key: 'dfi', label: 'Development finance or donor programme', hint: 'Concessional or blended capital' },
+                        { key: 'government', label: 'Government or public agency', hint: 'Federal, state or parastatal' }
+                    ]
+                },
+                {
+                    id: 'sector',
+                    q: 'Which sector interests you most?',
+                    options: [
+                        { key: 'solar', label: 'Solar' },
+                        { key: 'wind', label: 'Wind' },
+                        { key: 'small-hydro', label: 'Small hydro' },
+                        { key: 'bio-energy', label: 'Bioenergy' },
+                        { key: 'green-hydrogen', label: 'Green hydrogen' },
+                        { key: 'storage', label: 'Storage' },
+                        { key: 'clean-cooking', label: 'Clean cooking' },
+                        { key: 'energy-efficiency', label: 'Energy efficiency' },
+                        { key: 'agriculture-pue', label: 'Agriculture &amp; productive use' },
+                        { key: 'green-mobility', label: 'Green mobility' },
+                        { key: 'open', label: 'Not decided &mdash; show me what fits', hint: 'We will pick from your other answers' }
+                    ]
+                },
+                {
+                    id: 'objective',
+                    q: 'What is your primary investment objective?',
+                    options: [
+                        { key: 'returns', label: 'Commercial returns', hint: 'Risk-adjusted yield comes first' },
+                        { key: 'diversify', label: 'Entering a new market', hint: 'Building exposure to West Africa' },
+                        { key: 'strategic', label: 'A strategic or industrial footprint', hint: 'Manufacturing, supply chain, offtake' },
+                        { key: 'impact', label: 'Development impact', hint: 'Energy access, jobs, emissions' },
+                        { key: 'supply', label: 'Supplying technology or services', hint: 'EPC, equipment, advisory' }
+                    ]
+                },
+                {
+                    id: 'entry',
+                    q: 'How do you want to enter the market?',
+                    options: [
+                        { key: 'equity', label: 'Equity in a project company' },
+                        { key: 'debt', label: 'Debt or project finance' },
+                        { key: 'jv', label: 'Joint venture with a Nigerian developer' },
+                        { key: 'epc', label: 'An EPC or supply contract' },
+                        { key: 'blended', label: 'Grant or blended finance alongside others' },
+                        { key: 'unsure', label: 'Still deciding' }
+                    ]
+                },
+                {
+                    id: 'ticket',
+                    q: 'What is your expected ticket size?',
+                    options: [
+                        { key: 'xs', label: 'Under $1 million' },
+                        { key: 'sm', label: '$1 &ndash; 10 million' },
+                        { key: 'md', label: '$10 &ndash; 50 million' },
+                        { key: 'lg', label: '$50 &ndash; 250 million' },
+                        { key: 'xl', label: 'Above $250 million' }
+                    ]
+                },
+                {
+                    id: 'timeline',
+                    q: 'What is your deployment timeline?',
+                    options: [
+                        { key: 'now', label: 'Ready to commit now', hint: 'Within six months' },
+                        { key: 'year', label: 'Six to twelve months' },
+                        { key: 'two', label: 'One to two years' },
+                        { key: 'watch', label: 'Researching for now' }
+                    ]
+                },
+                {
+                    id: 'region',
+                    q: 'Where in Nigeria are you looking?',
+                    options: [
+                        { key: 'nw', label: 'North West', hint: 'Kano, Kaduna, Sokoto and neighbours' },
+                        { key: 'ne', label: 'North East', hint: 'Bauchi, Gombe, Adamawa' },
+                        { key: 'nc', label: 'North Central', hint: 'Niger, Plateau, Nasarawa, FCT' },
+                        { key: 'sw', label: 'South West', hint: 'Lagos, Ogun and neighbours' },
+                        { key: 'se', label: 'South East', hint: 'Abia, Ebonyi, Enugu' },
+                        { key: 'ss', label: 'South South', hint: 'Delta, Cross River, Rivers' },
+                        { key: 'any', label: 'No preference &mdash; nationwide' }
+                    ]
+                },
+                {
+                    id: 'presence',
+                    q: 'What presence do you already have in Nigeria?',
+                    options: [
+                        { key: 'operating', label: 'A registered entity and active operations' },
+                        { key: 'registered', label: 'A registered entity, not yet operating' },
+                        { key: 'partner', label: 'A local partner, but no entity of our own' },
+                        { key: 'none', label: 'None yet' }
+                    ]
+                },
+                {
+                    id: 'stage',
+                    q: 'Which project stage suits your risk appetite?',
+                    options: [
+                        { key: 'early', label: 'Early stage', hint: 'Planning and design &mdash; highest risk, highest upside' },
+                        { key: 'mid', label: 'Development stage', hint: 'Approvals, tendering, under development' },
+                        { key: 'build', label: 'Construction ready', hint: 'Permits secured, breaking ground' },
+                        { key: 'operating', label: 'Operating assets', hint: 'Commissioned and generating' },
+                        { key: 'any', label: 'Open to any stage' }
+                    ]
+                },
+                {
+                    id: 'concern',
+                    q: 'What is your biggest concern about investing here?',
+                    options: [
+                        { key: 'regulatory', label: 'Regulatory and licensing clarity' },
+                        { key: 'fx', label: 'Foreign exchange and repatriation' },
+                        { key: 'offtake', label: 'Offtaker creditworthiness and payment security' },
+                        { key: 'land', label: 'Land, permits and community consent' },
+                        { key: 'partner', label: 'Finding a credible local partner' },
+                        { key: 'grid', label: 'Grid access and transmission capacity' }
+                    ]
+                }
+            ];
+
+            /*
+              THE SECTORS. name, href, cover image and blurb are taken straight
+              from Sector.html so a card here is the same card the reader meets
+              on the sectors page. Apostrophes are &#39; because these strings
+              sit inside single-quoted JS.
+            */
+            var SECTORS = {
+                'solar': { name: 'Solar', href: 'DetailedSector.html', img: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1200&q=80', blurb: 'Nigeria&#39;s largest clean energy opportunity, driven by abundant sunlight and strong demand for reliable off-grid and embedded power solutions.' },
+                'wind': { name: 'Wind', href: 'Wind.html', img: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1200&q=80', blurb: 'Nigeria&#39;s wind energy market is early stage but gaining policy momentum, with megawatts of untapped potential concentrated in the northern states.' },
+                'small-hydro': { name: 'Small Hydro', href: 'SmallHydro.html', img: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80', blurb: 'A stable, site-specific renewable energy source delivering reliable baseload power from rivers and small water systems across Nigeria.' },
+                'bio-energy': { name: 'Bioenergy', href: 'Bioenergy.html', img: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80', blurb: 'Nigeria&#39;s bioenergy market is one of the most resource-rich and underleveraged opportunities in the country&#39;s clean energy transition, with feedstock from agricultural waste, municipal solid waste, and forestry residues available at scale and low cost.' },
+                'green-hydrogen': { name: 'Green Hydrogen', href: 'GreenHydrogen.html', img: 'https://images.unsplash.com/photo-1548337138-e87d889cc369?auto=format&fit=crop&w=1200&q=80', blurb: 'An emerging frontier energy resource with long-term potential for industrial decarbonisation, export markets, and clean fuel production.' },
+                'storage': { name: 'Storage', href: 'Storage.html', img: 'https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&w=1200&q=80', blurb: 'Critical enabler for grid stability and renewable integration, unlocking reliable power supply through batteries and hybrid systems.' },
+                'clean-cooking': { name: 'Clean Cooking', href: 'CleanCooking.html', img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80', blurb: 'Nigeria&#39;s clean cooking market is at an early but accelerating stage, with LPG, eCooking, and improved cookstoves expanding rapidly against a backdrop of critically low access across most of the country.' },
+                'energy-efficiency': { name: 'Energy Efficiency', href: 'EnergyEfficiency.html', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80', blurb: 'The fastest and lowest-cost energy solution, reducing consumption, lowering bills, and improving system-wide power reliability.' },
+                'agriculture-pue': { name: 'Agriculture PUE', href: 'AgriculturePUE.html', img: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80', blurb: 'Nigeria&#39;s agriculture PUE market has moved past the pilot stage; farmers are already using solar irrigation, cold storage, milling, and agro-processing equipment to cut costs and grow incomes.' },
+                'green-mobility': { name: 'Green Mobility', href: 'GreenMobility.html', img: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1200&q=80', blurb: 'Nigeria&#39;s green mobility market is in its early stages but moving fast, with growth led by electric two- and three-wheelers in major cities.' }
+            };
+
+            /*
+              LIVE OPPORTUNITIES - the nine cards published on Opportunities.html,
+              with their real IDs, costs, states and dates. `slugs` maps each one
+              onto this quiz's sector vocabulary: Opportunities.html files every
+              project under three coarse sectors, the quiz asks about ten, so the
+              filter below matches on `slugs` rather than on that label. Cards are
+              filtered against the recommended sectors, and fall back to showing
+              everything rather than an empty section.
+            */
+            var OPPORTUNITIES = [
+                { id: '2024-ENE-03', title: 'AKK Gas Pipeline Project', sectorLabel: 'Grid Infrastructure', amount: 'USD 2.80', unit: 'bn', state: 'Ajaokuta - Kaduna - Kano', published: '10 Nov 2024', slugs: ['storage'] },
+                { id: '2024-002', title: 'Sokoto-Badagry Superhighway', sectorLabel: 'Grid Infrastructure', amount: 'USD 8.40', unit: 'bn', state: 'North-South Corridor', published: '22 Jan 2025', slugs: ['green-mobility'] },
+                { id: '2024-003', title: 'Lagos Fourth Mainland Bridge', sectorLabel: 'Grid Infrastructure', amount: 'USD 2.50', unit: 'bn', state: 'Lagos State', published: '08 Apr 2024', slugs: ['green-mobility'] },
+                { id: '2024-001', title: 'Lagos-Calabar Coastal Highway', sectorLabel: 'Grid Infrastructure', amount: 'USD 11.06', unit: 'bn', state: 'Lagos - Cross River', published: '15 Mar 2024', slugs: ['green-mobility'] },
+                { id: '2025-ENE-09', title: 'Solar Power Naija - Phase II', sectorLabel: 'Renewable Generation', amount: 'USD 0.24', unit: 'bn', state: 'Multi-State Off-grid', published: '05 Jan 2026', slugs: ['solar', 'agriculture-pue'] },
+                { id: '2025-ENE-12', title: 'Delta Gas-to-Power Plant', sectorLabel: 'Grid Infrastructure', amount: 'USD 1.20', unit: 'bn', state: 'Delta State', published: '28 Mar 2025', slugs: ['storage', 'energy-efficiency'] },
+                { id: '2024-MIN-15', title: 'Nasarawa Lithium Processing Hub', sectorLabel: 'Energy Storage', amount: 'USD 0.15', unit: 'bn', state: 'Nasarawa State', published: '12 Aug 2024', slugs: ['storage'] },
+                { id: '2025-H2-01', title: 'Green Hydrogen Niger Delta Pilot', sectorLabel: 'Renewable Generation', amount: 'USD 0.40', unit: 'bn', state: 'Rivers State', published: '18 Feb 2025', slugs: ['green-hydrogen', 'solar'] },
+                { id: '2025-MIN-22', title: 'Kano Solid Minerals Processing Hub', sectorLabel: 'Energy Storage', amount: 'USD 0.30', unit: 'bn', state: 'Kano State', published: '14 Jan 2026', slugs: ['storage'] }
+            ];
+
+            /* When someone has no sector in mind, their objective decides.
+               Three each, most relevant first. */
+            var BY_OBJECTIVE = {
+                returns: ['solar', 'storage', 'energy-efficiency'],
+                diversify: ['solar', 'green-mobility', 'agriculture-pue'],
+                strategic: ['green-hydrogen', 'storage', 'bio-energy'],
+                impact: ['clean-cooking', 'agriculture-pue', 'solar'],
+                supply: ['energy-efficiency', 'storage', 'green-mobility']
+            };
+
+            /* Sectors that tend to appear in the same deal as another, so a
+               reader who picked one is shown two neighbours rather than a list
+               of one. */
+            var ADJACENT = {
+                'solar': ['storage', 'agriculture-pue'],
+                'wind': ['storage', 'solar'],
+                'small-hydro': ['solar', 'storage'],
+                'bio-energy': ['agriculture-pue', 'clean-cooking'],
+                'green-hydrogen': ['solar', 'storage'],
+                'storage': ['solar', 'wind'],
+                'clean-cooking': ['bio-energy', 'agriculture-pue'],
+                'energy-efficiency': ['solar', 'storage'],
+                'agriculture-pue': ['solar', 'bio-energy'],
+                'green-mobility': ['storage', 'solar']
+            };
+
+            var step = 0;
+            var answers = {};
+
+            var els = {
+                bar: document.getElementById('quiz-bar'),
+                stepSection: document.getElementById('quiz-step'),
+                resultSection: document.getElementById('quiz-result'),
+                back: document.getElementById('quiz-back'),
+                count: document.getElementById('quiz-count'),
+                question: document.getElementById('quiz-question'),
+                legend: document.getElementById('quiz-legend'),
+                options: document.getElementById('quiz-options'),
+                summary: document.getElementById('quiz-summary'),
+                chips: document.getElementById('quiz-chips'),
+                sectors: document.getElementById('quiz-sectors'),
+                opps: document.getElementById('quiz-opps'),
+                restart: document.getElementById('quiz-restart')
+            };
+
+            function progress(fraction) {
+                els.bar.style.transform = 'scaleX(' + Math.max(0.02, fraction) + ')';
+            }
+
+            function render() {
+                var item = QUESTIONS[step];
+                var chosen = answers[item.id];
+
+                els.count.textContent = 'Question ' + (step + 1) + ' of ' + QUESTIONS.length;
+                els.question.innerHTML = item.q;
+                els.legend.textContent = item.q;
+                progress((step + 1) / (QUESTIONS.length + 1));
+
+                els.options.innerHTML = item.options.map(function (option, index) {
+                    var id = item.id + '-' + option.key;
+                    return '' +
+                        '<label class="quiz-option card-lift flex items-center gap-4 bg-white border border-[#e5e7eb] rounded-xl px-5 py-4 cursor-pointer" for="' + id + '">' +
+                        '<input class="sr-only" type="radio" name="' + item.id + '" id="' + id + '" value="' + option.key + '"' +
+                        (chosen === option.key ? ' checked' : '') + (index === 0 && !chosen ? '' : '') + '>' +
+                        '<span class="flex-1 min-w-0">' +
+                        '<span class="block font-body-md text-body-md text-[#111827] font-medium">' + option.label + '</span>' +
+                        (option.hint ? '<span class="block font-body-sm text-body-sm text-on-surface-variant mt-0.5">' + option.hint + '</span>' : '') +
+                        '</span>' +
+                        '<span class="quiz-dot w-5 h-5 rounded-[50%] border-2 border-outline-variant shrink-0" aria-hidden="true"></span>' +
+                        '</label>';
+                }).join('');
+
+                els.stepSection.classList.add('quiz-enter');
+                /* Restart the entry animation on every question: without
+                   removing it first the class is already present and the
+                   animation does not replay. */
+                void els.stepSection.offsetWidth;
+                els.stepSection.classList.remove('quiz-enter');
+                els.stepSection.classList.add('quiz-enter');
+
+                els.back.textContent = '';
+                els.back.insertAdjacentHTML('afterbegin',
+                    '<span class="material-symbols-outlined text-[20px]">arrow_back</span>' +
+                    (step === 0 ? 'Leave' : 'Back'));
+            }
+
+            els.options.addEventListener('change', function (event) {
+                var input = event.target;
+                if (!input || input.type !== 'radio') return;
+                answers[QUESTIONS[step].id] = input.value;
+
+                /*
+                  A short pause before advancing. Without it the card the
+                  reader just clicked vanishes in the same frame, so there is
+                  no confirmation that the click landed — which is the thing
+                  that makes a one-click-per-question flow feel broken.
+                */
+                window.setTimeout(function () {
+                    if (step < QUESTIONS.length - 1) {
+                        step += 1;
+                        render();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        finish();
+                    }
+                }, 220);
+            });
+
+            els.back.addEventListener('click', function () {
+                if (step === 0) {
+                    window.location.href = 'Opportunities.html';
+                    return;
+                }
+                step -= 1;
+                render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            els.restart.addEventListener('click', function () {
+                answers = {};
+                step = 0;
+                els.resultSection.classList.add('hidden');
+                els.stepSection.classList.remove('hidden');
+                render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            function labelFor(questionId, key) {
+                var question = QUESTIONS.filter(function (item) { return item.id === questionId; })[0];
+                if (!question) return key;
+                var option = question.options.filter(function (o) { return o.key === key; })[0];
+                return option ? option.label : key;
+            }
+
+            function recommendedSectors() {
+                var picked = answers.sector;
+                if (picked && picked !== 'open' && SECTORS[picked]) {
+                    return [picked].concat(ADJACENT[picked] || []).slice(0, 3);
+                }
+                return (BY_OBJECTIVE[answers.objective] || ['solar', 'storage', 'clean-cooking']).slice(0, 3);
+            }
+
+            function finish() {
+                var slugs = recommendedSectors();
+                progress(1);
+
+                els.stepSection.classList.add('hidden');
+                els.resultSection.classList.remove('hidden');
+
+                els.summary.innerHTML = 'Based on your answers, these are the parts of the pipeline worth your time ' +
+                    'first. Nothing is ruled out &mdash; the full list stays open on ' +
+                    '<a class="text-secondary font-semibold hover:underline" href="Sector.html">Sectors</a> and ' +
+                    '<a class="text-secondary font-semibold hover:underline" href="Opportunities.html">Opportunities</a>.';
+
+                els.chips.innerHTML = QUESTIONS.map(function (item) {
+                    var value = answers[item.id];
+                    if (!value) return '';
+                    return '<span class="inline-flex items-center bg-surface-container-low border border-outline-variant text-on-surface-variant font-label-md text-label-md uppercase px-3 py-1.5 rounded-full">' +
+                        labelFor(item.id, value) + '</span>';
+                }).join('');
+
+                els.sectors.innerHTML = slugs.map(function (slug, index) {
+                    var sector = SECTORS[slug];
+                    if (!sector) return '';
+                    /*
+                      Sector.html's card, unchanged: 4px rule, h-40 cover image
+                      that scales on hover, 22px Manrope title, blurb, and the
+                      VIEW IN DETAIL row. The rank pill on the image is the only
+                      addition - it is the one thing the quiz knows that the
+                      sectors page does not.
+                    */
+                    var pill = index === 0
+                        ? '<span class="absolute top-3 left-3 bg-[#1f5940] text-white text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Best fit</span>'
+                        : '<span class="absolute top-3 left-3 bg-white/95 text-[#1f5940] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Also worth a look</span>';
+                    return '' +
+                        '<a href="' + sector.href + '" class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">' +
+                        '<div class="h-[4px] w-full bg-[#1f5940]"></div>' +
+                        '<div class="p-5">' +
+                        '<div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden relative">' +
+                        '<img alt="' + sector.name + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="' + sector.img + '">' +
+                        pill +
+                        '</div>' +
+                        '<h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4" style="font-family: Manrope, sans-serif;">' + sector.name + '</h3>' +
+                        '<p class="text-[#5f6368] text-[15px] leading-7 mb-6">' + sector.blurb + '</p>' +
+                        '<span class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW IN DETAIL<span>&rarr;</span></span>' +
+                        '</div>' +
+                        '</a>';
+                }).join('');
+
+                var matched = OPPORTUNITIES.filter(function (opportunity) {
+                    return opportunity.slugs.some(function (slug) {
+                        return slugs.indexOf(slug) !== -1;
+                    });
+                });
+                /* Never an empty section: with nothing matching the chosen
+                   sectors the reader gets the whole published list, labelled
+                   as such rather than presented as a match. */
+                var exact = matched.length > 0;
+                var shown = exact ? matched : OPPORTUNITIES;
+
+                els.opps.innerHTML = shown.map(function (opportunity) {
+                    /*
+                      Opportunities.html's card, unchanged: gold top rule (from
+                      .opportunity-card), ID line, clamped title, gold sector
+                      chip, the gradient investment box, the State/Published
+                      rows, and the two actions pinned to the bottom edge by
+                      mt-auto. Its two <button>s are <a>s here because this page
+                      carries none of Opportunities.html's click wiring.
+
+                      text-label-md is spelled out as arbitrary values: both
+                      pages define that token, but to different sizes (14px
+                      there, 12px here), and this card wants Opportunities'.
+                    */
+                    var labelMd = 'text-[14px] leading-5 tracking-[0.01em]';
+                    return '' +
+                        '<div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300">' +
+                        '<div class="mb-6">' +
+                        '<p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID: ' + opportunity.id + '</p>' +
+                        '<h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">' + opportunity.title + '</h3>' +
+                        '<span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : ' + opportunity.sectorLabel + '</span>' +
+                        '</div>' +
+                        '<div class="mb-4 inv-box">' +
+                        '<p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>' +
+                        '<p class="text-headline-lg-mobile font-bold text-primary tracking-tight">' + opportunity.amount + ' ' +
+                        '<span class="' + labelMd + ' font-normal text-on-surface-variant">' + opportunity.unit + '</span></p>' +
+                        '</div>' +
+                        '<div class="mb-2 space-y-2 border-y border-outline-variant py-4">' +
+                        '<div class="flex justify-between text-label-sm">' +
+                        '<span class="text-on-surface-variant">State:</span><span class="font-semibold">' + opportunity.state + '</span></div>' +
+                        '<div class="flex justify-between text-label-sm">' +
+                        '<span class="text-on-surface-variant">Published:</span><span class="font-semibold">' + opportunity.published + '</span></div>' +
+                        '</div>' +
+                        '<div class="flex gap-2 mt-auto pt-2">' +
+                        '<a href="detailedOppNew.html" class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold ' + labelMd + ' hover:bg-surface-container-high transition-all rounded">View in Detail</a>' +
+                        '<a href="Login.html" class="flex-1 text-center py-2 border border-transparent bg-primary-container text-white font-semibold ' + labelMd + ' hover:opacity-90 transition-all rounded shadow-sm">Invest Now</a>' +
+                        '</div>' +
+                        '</div>';
+                }).join('');
+
+                if (!exact) {
+                    els.opps.insertAdjacentHTML('beforebegin',
+                        '<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">' +
+                        'Nothing is listed in those sectors yet, so here is everything currently published.</p>');
+                }
+            }
+
+            render();
+        })();
+    </script>
+
+    <script src="nav.js"></script>
+    <script src="footer.js"></script>
+</body>
+
+</html>

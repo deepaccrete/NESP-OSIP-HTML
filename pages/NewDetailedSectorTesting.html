@@ -131,6 +131,102 @@
             font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
         }
 
+        /*
+          ICON-FONT FALLBACK.
+
+          Every icon on this page is a <span> whose TEXT is the icon's name -
+          "solar_power", "bolt" - which the Material Symbols font turns into a
+          glyph via a ligature. If that font fails to arrive (blocked CDN,
+          offline, a corporate proxy), the ligature never forms and the raw word
+          renders instead, so the page fills with stray labels mid-sentence.
+
+          The script at the end of the body asks the browser whether the font
+          actually loaded and, only if it did not, sets this class. Default
+          behaviour is unchanged: nothing is hidden unless the font is known to
+          be missing, so a slow load or a browser without the Font Loading API
+          still shows every icon.
+        */
+        html.no-icon-font .material-symbols-outlined {
+            display: none !important;
+        }
+
+        /*
+          GLOSSARY TERMS.
+
+          A dotted underline on the first mention of a piece of jargon; the
+          plain-English definition sits in `data-def` and is shown on hover, on
+          keyboard focus, and on tap (the script toggles `is-open`, since touch
+          devices have no hover). Nothing is replaced - the term itself still
+          reads exactly as it did.
+        */
+        .osip-term {
+            border-bottom: 1px dotted #0a5a37;
+            cursor: help;
+            position: relative;
+            text-decoration: none;
+            font-weight: 600;
+            color: inherit;
+        }
+
+        .osip-term::after {
+            content: attr(data-def);
+            position: absolute;
+            left: 0;
+            top: calc(100% + 9px);
+            z-index: 60;
+            width: max-content;
+            max-width: min(320px, 78vw);
+            background: #0d2318;
+            color: #fff;
+            font-family: Inter, sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.55;
+            letter-spacing: 0;
+            text-transform: none;
+            padding: 10px 12px;
+            border-radius: 8px;
+            box-shadow: 0 18px 34px -18px rgba(6, 20, 16, .55);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-4px);
+            transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+            pointer-events: none;
+        }
+
+        .osip-term::before {
+            content: "";
+            position: absolute;
+            left: 14px;
+            top: calc(100% + 4px);
+            z-index: 61;
+            border: 5px solid transparent;
+            border-bottom-color: #0d2318;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .18s ease, visibility .18s ease;
+        }
+
+        .osip-term:hover::after,
+        .osip-term:focus-visible::after,
+        .osip-term.is-open::after,
+        .osip-term:hover::before,
+        .osip-term:focus-visible::before,
+        .osip-term.is-open::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .osip-term:focus-visible {
+            outline: 2px solid #1b6d24;
+            outline-offset: 2px;
+        }
+
+        /* Near the right edge the tooltip would run off-screen; these flip it. */
+        .osip-term.osip-term--right::after { left: auto; right: 0; }
+        .osip-term.osip-term--right::before { left: auto; right: 14px; }
+
         .hero-clip {
             clip-path: none;
         }
@@ -322,7 +418,7 @@
             <div class="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
 
             <!-- Content Container -->
-            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-16 lg:py-24">
                 <div class="max-w-3xl">
 
                     <!-- Title -->
@@ -378,7 +474,7 @@
                     <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">Solar
                         Potential</p>
                     <div class="flex items-baseline gap-2">
-                        <h3 class="font-h3 text-h3 text-primary">427</h3>
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug">427</h3>
                         <span class="text-on-surface-variant font-bold text-sm">GW</span>
                     </div>
                     <p class="text-[11px] text-secondary mt-2 font-bold uppercase tracking-wider">Unrealized Asset</p>
@@ -387,7 +483,7 @@
                     <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">
                         Installed Capacity</p>
                     <div class="flex items-baseline gap-2">
-                        <h3 class="font-h3 text-h3 text-primary">2.1</h3>
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug">2.1</h3>
                         <span class="text-on-surface-variant font-bold text-sm">GW</span>
                     </div>
                     <p class="text-[11px] text-on-surface-variant mt-2">Active Grid Contribution</p>
@@ -396,7 +492,7 @@
                     <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">
                         Investment Gap</p>
                     <div class="flex items-baseline gap-2">
-                        <h3 class="font-h3 text-h3 text-primary">$10.4</h3>
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug">$10.4</h3>
                         <span class="text-on-surface-variant font-bold text-sm">BN</span>
                     </div>
                     <p class="text-[11px] text-error font-bold mt-2 uppercase tracking-wider">Capital Required</p>
@@ -405,7 +501,7 @@
                     <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">2030
                         Target</p>
                     <div class="flex items-baseline gap-2">
-                        <h3 class="font-h3 text-h3 text-primary">9.0</h3>
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug">9.0</h3>
                         <span class="text-on-surface-variant font-bold text-sm">GW</span>
                     </div>
                     <p class="text-[11px] text-on-surface-variant mt-2">Policy Benchmark</p>
@@ -414,16 +510,16 @@
         </section> -->
 
         <!-- NEW REFINED STATS BAR-->
-        <!-- <section class="bg-white py-14 lg:py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+        <!-- <section class="bg-white py-16 lg:py-24 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
             <div class="max-w-7xl mx-auto">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
                     <div
                         class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
                         <div class="mb-5"><span
                                 class="material-symbols-outlined text-[40px] text-[#004225]">solar_power</span></div>
-                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225]"
                             style="font-family: Manrope, sans-serif;">Solar Potential</h3>
-                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                        <p class="text-[#5f6368] text-[16px] lg:text-[16px] leading-7"><span
                                 class="font-bold text-[#111827]">427 GW</span> &middot;
                             Unrealized Asset</p>
                     </div>
@@ -431,9 +527,9 @@
                         class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
                         <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">bolt</span>
                         </div>
-                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225]"
                             style="font-family: Manrope, sans-serif;">Installed Capacity</h3>
-                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                        <p class="text-[#5f6368] text-[16px] lg:text-[16px] leading-7"><span
                                 class="font-bold text-[#111827]">2.1 GW</span> &middot;
                             Active Grid Contribution</p>
                     </div>
@@ -441,9 +537,9 @@
                         class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
                         <div class="mb-5"><span
                                 class="material-symbols-outlined text-[40px] text-[#004225]">savings</span></div>
-                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225]"
                             style="font-family: Manrope, sans-serif;">Investment Gap</h3>
-                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                        <p class="text-[#5f6368] text-[16px] lg:text-[16px] leading-7"><span
                                 class="font-bold text-[#111827]">$10.4 BN</span> &middot;
                             Capital Required</p>
                     </div>
@@ -451,9 +547,9 @@
                         class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
                         <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">flag</span>
                         </div>
-                        <h3 class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225]"
                             style="font-family: Manrope, sans-serif;">2030 Target</h3>
-                        <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
+                        <p class="text-[#5f6368] text-[16px] lg:text-[16px] leading-7"><span
                                 class="font-bold text-[#111827]">9.0 GW</span> &middot;
                             Policy Benchmark</p>
                     </div>
@@ -462,7 +558,7 @@
         </section> -->
 
         <!-- Sector Overview: text left / image right -->
-        <section class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16" id="overview">
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24" id="overview">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 <!-- Text -->
                 <div>
@@ -470,14 +566,14 @@
                         class="inline-flex items-center gap-3 text-secondary font-bold text-label-md uppercase tracking-[0.18em] mb-5">
                         <span class="w-8 h-[2px] bg-tertiary-fixed-dim"></span> Sector Overview
                     </span>
-                    <h2 class="font-h2 text-h2 text-primary leading-tight mb-6">Powering Nigeria's Renewable Future</h2>
-                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">
-                        Nigeria has one of Africa’s strongest solar energy potentials due to its high solar radiation
-                        levels and growing demand for reliable electricity. Nigeria's solar market is the country's
+                    <h2 class="text-[28px] sm:text-[34px] lg:text-[38px] font-bold text-[#111827] leading-tight mb-6">Powering Nigeria's Renewable Future</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">Nigeria has one of Africa’s strongest solar energy potentials due to its high solar radiation
+                        levels and growing demand for reliable electricity.</p>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">Nigeria's solar market is the country's
                         largest clean energy opportunity, driven by abundant sunlight and strong demand for reliable
-                        off-grid and embedded power solutions. The rising energy costs are accelerating the adoption of
-                        solar technologies across residential, commercial, industrial, and public-sector applications.
-                    </p>
+                        off-grid and embedded power solutions.</p>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">The rising energy costs are accelerating the adoption of
+                        solar technologies across residential, commercial, industrial, and public-sector applications.</p>
                     <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">
                         Solar projects in Nigeria span utility-scale generation, mini-grids, solar home systems, and
                         commercial and industrial installations. The sector continues to attract local and international
@@ -533,15 +629,19 @@
         </section>
 
         <!-- Key Facts / Factsheets -->
-        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="facts">
+        <section class="bg-[#f3f4f2] py-16 lg:py-24" style="font-family: Inter, sans-serif;" id="facts">
             <div class="max-w-7xl mx-auto px-6 lg:px-8">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="w-8 h-[2px] bg-[#f7be26]"></span>
                     <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Infographics |
                         Factsheets</span>
                 </div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                <h2 class="text-[28px] sm:text-[34px] lg:text-[38px] font-bold text-[#111827] leading-tight mb-4"
                     style="font-family: Manrope, sans-serif;">Key Facts</h2>
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 max-w-3xl mb-10">Five numbers frame the
+                    opportunity: how much capacity went in last year, how many people still lack reliable power,
+                    what solar saves against diesel today, and how big the pipeline gets over the medium and long
+                    term.</p>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
@@ -551,8 +651,8 @@
                             <div class="flex-1">
                                 <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
                                     style="font-family: Manrope, sans-serif;">803 MW</p>
-                                <p class="text-[#111827] font-semibold mt-3">New solar capacity installed in 2025</p>
-                                <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Making Nigeria Africa's
+                                <p class="leading-7 text-[#111827] font-semibold mt-3">New solar capacity installed in 2025</p>
+                                <p class="text-[#5f6368] text-[16px] leading-7 mt-2">Making Nigeria Africa's
                                     second-largest solar market that year.</p>
                             </div>
                             <div class="kf-bars h-[132px] flex-shrink-0">
@@ -570,7 +670,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Global Solar
+                        <p class="text-[#9aa39e] text-[13px] leading-6 mt-6 pt-4 border-t border-[#eef0ef]">Source: Global Solar
                             Council — Africa Market Outlook 2026–2029.</p>
                     </div>
 
@@ -578,9 +678,9 @@
                     <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
                         <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
                             style="font-family: Manrope, sans-serif;">140 Million+</p>
-                        <p class="text-[#111827] font-semibold mt-3">People with unreliable or inadequate electricity
+                        <p class="leading-7 text-[#111827] font-semibold mt-3">People with unreliable or inadequate electricity
                             access</p>
-                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Creating strong demand for alternative
+                        <p class="text-[#5f6368] text-[16px] leading-7 mt-2">Creating strong demand for alternative
                             energy solutions.</p>
                         <div class="flex flex-wrap gap-x-1 gap-y-1 mt-auto pt-6 text-[#004225]">
                             <span class="material-symbols-outlined text-[26px]"
@@ -616,7 +716,7 @@
                                     class="material-symbols-outlined text-[16px]">trending_down</span>Cost
                                 savings</span>
                         </div>
-                        <p class="text-[#111827] font-semibold mt-3">Switching from diesel generation to solar hybrid
+                        <p class="leading-7 text-[#111827] font-semibold mt-3">Switching from diesel generation to solar hybrid
                             systems</p>
                         <div class="kf-compare h-[92px] mt-6">
                             <div class="kf-compare-col">
@@ -634,7 +734,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Industry
+                        <p class="text-[#9aa39e] text-[13px] leading-6 mt-6 pt-4 border-t border-[#eef0ef]">Source: Industry
                             project data; BusinessDay Energy Reports (2026).</p>
                     </div>
 
@@ -642,8 +742,8 @@
                     <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
                         <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
                             style="font-family: Manrope, sans-serif;">5–8 GW</p>
-                        <p class="text-[#111827] font-semibold mt-3">Medium-term pipeline opportunity</p>
-                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Across utility-scale solar, distributed
+                        <p class="leading-7 text-[#111827] font-semibold mt-3">Medium-term pipeline opportunity</p>
+                        <p class="text-[#5f6368] text-[16px] leading-7 mt-2">Across utility-scale solar, distributed
                             solar, mini-grids, and battery storage.</p>
                         <div class="flex items-center gap-3 mt-auto pt-6">
                             <span
@@ -657,7 +757,7 @@
                                 class="px-4 py-3 rounded-lg bg-[#004225] text-white text-[12px] font-bold text-center leading-tight">5–8
                                 GW<br>pipeline</span>
                         </div>
-                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Energy
+                        <p class="text-[#9aa39e] text-[13px] leading-6 mt-6 pt-4 border-t border-[#eef0ef]">Source: Energy
                             Transition Plan, REA programmes, industry forecasts.</p>
                     </div>
                 </div>
@@ -668,8 +768,8 @@
                         <div class="max-w-xl">
                             <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
                                 style="font-family: Manrope, sans-serif;">30 GW+</p>
-                            <p class="text-[#111827] font-semibold mt-3">Indicative solar capacity by 2060</p>
-                            <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Solar deployment target under Nigeria's
+                            <p class="leading-7 text-[#111827] font-semibold mt-3">Indicative solar capacity by 2060</p>
+                            <p class="text-[#5f6368] text-[16px] leading-7 mt-2">Solar deployment target under Nigeria's
                                 Energy Transition Plan pathway toward net-zero emissions by 2060.</p>
                         </div>
                     </div>
@@ -703,14 +803,14 @@
                             <span class="text-[13px] text-[#004225] mt-2 font-bold">2060</span>
                         </div>
                     </div>
-                    <p class="text-[#9aa39e] text-[11px] mt-8 pt-4 border-t border-[#eef0ef]">Source: Nigeria Energy
+                    <p class="text-[#9aa39e] text-[13px] leading-6 mt-8 pt-4 border-t border-[#eef0ef]">Source: Nigeria Energy
                         Transition Plan (ETP).</p>
                 </div>
             </div>
         </section>
 
         <!-- Ease of Doing Business -->
-        <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;">
+        <section class="bg-white py-16 lg:py-24" style="font-family: Inter, sans-serif;">
             <div class="max-w-7xl mx-auto px-6 lg:px-8">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="w-8 h-[2px] bg-[#f7be26]"></span>
@@ -718,35 +818,29 @@
                         &amp;
                         Incentives</span>
                 </div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                <h2 class="text-[28px] sm:text-[34px] lg:text-[38px] font-bold text-[#111827] leading-tight mb-10"
                     style="font-family: Manrope, sans-serif;">Ease of Doing Business</h2>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
                     <!-- Body copy -->
                     <div class="lg:col-span-7 space-y-5 text-[#404846] text-base sm:text-[17px] leading-8">
+                        <h3 class="text-[19px] lg:text-[21px] font-bold text-[#111827] leading-snug !mt-0 !mb-1"
+                            style="font-family: Manrope, sans-serif;">Getting set up</h3>
                         <p>Nigeria offers one of Africa's most accessible solar investment environments, supported by
-                            strong market demand, improving regulatory clarity, and favourable investment policies.
-                            Company incorporation through the Corporate Affairs Commission (CAC) is typically completed
-                            within 1–7 days, while 100% foreign ownership is permitted across the solar value chain.
-                            Investors may register with the Nigerian Investment Promotion Commission (NIPC) to access
+                            strong market demand, improving regulatory clarity, and favourable investment policies.</p>
+                        <p>Company incorporation through the Corporate Affairs Commission (CAC) is typically completed
+                            within 1–7 days, while 100% foreign ownership is permitted across the solar value chain.</p>
+                        <p>Investors may register with the Nigerian Investment Promotion Commission (NIPC) to access
                             fiscal incentives, investment facilitation services, and other government-backed investment
                             support programmes.</p>
+                        <h3 class="text-[19px] lg:text-[21px] font-bold text-[#111827] leading-snug !mt-9 !mb-1"
+                            style="font-family: Manrope, sans-serif;">What the Electricity Act 2023 opened up</h3>
                         <p>The Electricity Act 2023 has expanded opportunities for private-sector participation in
                             electricity generation, distribution, mini-grids, embedded generation, and distributed
-                            energy systems. Solar projects can be developed under multiple business models, including
+                            energy systems.</p>
+                        <p>Solar projects can be developed under multiple business models, including
                             utility-scale projects, commercial and industrial (C&amp;I) installations, mini-grids, solar
                             home systems, and solar-plus-storage solutions.</p>
-                        <p>Nigeria's investment framework also provides attractive fiscal incentives for renewable
-                            energy
-                            projects. Eligible investors may access a 3–5-year Pioneer Status tax holiday, which may be
-                            extended subject to performance conditions. Renewable energy equipment may also benefit from
-                            VAT incentives and import-duty concessions under applicable renewable energy policies and
-                            ECOWAS Common External Tariff (CET) provisions, helping to reduce project development
-                            costs.</p>
-                        <p>Nigeria further benefits from established regulatory frameworks for grid-connected and
-                            off-grid projects, growing local technical capacity, increasing availability of project
-                            financing, and active support from development partners such as REA, GIZ, AfDB, the World
-                            Bank, IFC, and other climate-finance institutions.</p>
                     </div>
 
                     <!-- Investor Advantages -->
@@ -756,42 +850,80 @@
                                 <span
                                     class="w-10 h-10 rounded-lg bg-[#004225] text-white flex items-center justify-center flex-shrink-0"><span
                                         class="material-symbols-outlined text-[22px]">verified</span></span>
-                                <h3 class="text-[20px] font-bold text-[#111827]"
+                                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug"
                                     style="font-family: Manrope, sans-serif;">Investor Advantages</h3>
                             </div>
                             <ul class="space-y-4">
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">CAC incorporation typically
+                                        class="text-[#404846] text-[16px] leading-7">CAC incorporation typically
                                         completed within 1–7 days</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">100% foreign ownership
+                                        class="text-[#404846] text-[16px] leading-7">100% foreign ownership
                                         permitted</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Access to Pioneer Status and other
+                                        class="text-[#404846] text-[16px] leading-7">Access to Pioneer Status and other
                                         investment incentives</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Multiple market entry models
+                                        class="text-[#404846] text-[16px] leading-7">Multiple market entry models
                                         (utility-scale, C&amp;I, mini-grids, distributed solar)</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Strong demand driven by electricity
+                                        class="text-[#404846] text-[16px] leading-7">Strong demand driven by electricity
                                         supply gaps and diesel replacement</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Established regulatory framework
+                                        class="text-[#404846] text-[16px] leading-7">Established regulatory framework
                                         under the Electricity Act 2023</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Growing availability of
+                                        class="text-[#404846] text-[16px] leading-7">Growing availability of
                                         concessional
                                         finance and blended-finance support</span></li>
                             </ul>
                         </div>
                     </div>
+                </div>
+
+                <!--
+                  These two sub-sections used to sit at the bottom of the 7/12
+                  body column, which by then had run past the Investor Advantages
+                  card - so for their whole height there was nothing to their
+                  right and the text wrapped inside 7 columns for no reason.
+
+                  They are a pair, so they go side by side across the full width
+                  below the grid. The space is used, and each still gets a
+                  readable measure instead of one 1200px-long line.
+                -->
+                <!--
+                  These two used to sit at the bottom of the 7/12 body column,
+                  which by then had run past the Investor Advantages card - so
+                  the text was wrapping inside 7 columns with nothing beside it.
+                  Stacked below the grid instead, at the container's full width.
+                -->
+                <div class="mt-10 lg:mt-14 space-y-5 text-[#404846] text-base sm:text-[17px] leading-8">
+                    <h3 class="text-[19px] lg:text-[21px] font-bold text-[#111827] leading-snug !mt-0 !mb-1"
+                        style="font-family: Manrope, sans-serif;">Tax and duty relief</h3>
+                    <p>Nigeria's investment framework also provides attractive fiscal incentives for renewable
+                        energy
+                        projects. Eligible investors may access a 3–5-year Pioneer Status tax holiday, which may be
+                        extended subject to performance conditions.</p>
+                    <p>Renewable energy equipment may also benefit from Value Added Tax (VAT) incentives and import-duty concessions under applicable renewable energy policies and Economic Community of West African States (ECOWAS) Common External Tariff (CET) provisions, helping to reduce project development
+                        costs.</p>
+                    <h3 class="text-[19px] lg:text-[21px] font-bold text-[#111827] leading-snug !mt-9 !mb-1"
+                        style="font-family: Manrope, sans-serif;">Support beyond policy</h3>
+                    <p>Nigeria further benefits from:</p>
+                    <ul class="list-disc pl-6 space-y-2 marker:text-[#1b6d24]">
+                        <li>established regulatory frameworks for grid-connected and off-grid projects;</li>
+                        <li>growing local technical capacity;</li>
+                        <li>increasing availability of project financing;</li>
+                        <li>and active support from development partners such as REA, GIZ, the African Development
+                            Bank (AfDB), the World Bank, the International Finance Corporation (IFC), and other
+                            climate-finance institutions.</li>
+                    </ul>
                 </div>
 
                 <!-- Key Message -->
@@ -806,24 +938,25 @@
         </section>
 
         <!-- Regulations -->
-        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="regulations">
+        <section class="bg-[#f3f4f2] py-16 lg:py-24" style="font-family: Inter, sans-serif;" id="regulations">
             <div class="max-w-7xl mx-auto px-6 lg:px-8">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="w-8 h-[2px] bg-[#f7be26]"></span>
                     <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Regulatory
                         Landscape</span>
                 </div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                <h2 class="text-[28px] sm:text-[34px] lg:text-[38px] font-bold text-[#111827] leading-tight mb-10"
                     style="font-family: Manrope, sans-serif;">Regulations</h2>
 
                 <!-- Applicable Laws & Policies -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-4"
                     style="font-family: Manrope, sans-serif;">Applicable Laws &amp; Policies</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar energy projects in Nigeria
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Solar energy projects in Nigeria
                     are primarily governed by the Electricity Act 2023, National Integrated Electricity Policy (NIEP)
                     2025, National Renewable Energy and Energy Efficiency Policy (NREEEP) 2015, Renewable Energy Master
                     Plan (REMP), Energy Transition Plan (ETP) 2022, and Nigeria's updated Nationally Determined
-                    Contributions (NDCs). These policies support private-sector participation, renewable energy
+                    Contributions (NDCs).</p>
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">These policies support private-sector participation, renewable energy
                     deployment, and long-term decarbonization objectives.</p>
                 <div class="flex flex-wrap gap-2 mt-5">
                     <span
@@ -847,69 +980,69 @@
                 </div>
 
                 <!-- Project Development Frameworks -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-2"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mt-12 mb-2"
                     style="font-family: Manrope, sans-serif;">Project Development Frameworks</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's solar market supports
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mb-6">Nigeria's solar market supports
                     multiple investment pathways:</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">solar_power</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mt-3 mb-1"
                             style="font-family: Manrope, sans-serif;">Utility-Scale Solar</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Grid-connected projects supplying electricity to
+                        <p class="text-[#5f6368] text-[16px] leading-7">Grid-connected projects supplying electricity to
                             the national grid or eligible customers.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">factory</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mt-3 mb-1"
                             style="font-family: Manrope, sans-serif;">Commercial &amp; Industrial (C&amp;I) Solar</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Captive and embedded generation for commercial
+                        <p class="text-[#5f6368] text-[16px] leading-7">Captive and embedded generation for commercial
                             and industrial energy users.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">hub</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mt-3 mb-1"
                             style="font-family: Manrope, sans-serif;">Mini-Grids</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Isolated and interconnected systems serving
+                        <p class="text-[#5f6368] text-[16px] leading-7">Isolated and interconnected systems serving
                             communities, businesses, and productive-use customers.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">home</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mt-3 mb-1"
                             style="font-family: Manrope, sans-serif;">Solar Home Systems (SHS)</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Standalone systems for residential and
+                        <p class="text-[#5f6368] text-[16px] leading-7">Standalone systems for residential and
                             small-business users.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">battery_charging_full</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mt-3 mb-1"
                             style="font-family: Manrope, sans-serif;">Solar-Plus-Storage</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Hybrid projects combining solar generation with
+                        <p class="text-[#5f6368] text-[16px] leading-7">Hybrid projects combining solar generation with
                             battery energy storage.</p>
                     </div>
                 </div>
 
                 <!-- Regulatory Requirements -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mt-12 mb-6"
                     style="font-family: Manrope, sans-serif;">Regulatory Requirements</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
                         <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">bolt</span>
-                        <p class="text-[#404846] text-[15px] leading-7"><span
+                        <p class="text-[#404846] text-[16px] leading-7"><span
                                 class="font-semibold text-[#111827]">Grid-connected
-                                projects above 1 MW</span> generally require a NERC Generation Licence and must comply
+                                projects above 1 MW</span> generally require a Nigerian Electricity Regulatory Commission (NERC) Generation Licence and must comply
                             with applicable grid connection requirements.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
                         <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">hub</span>
-                        <p class="text-[#404846] text-[15px] leading-7"><span
+                        <p class="text-[#404846] text-[16px] leading-7"><span
                                 class="font-semibold text-[#111827]">Mini-grid
                                 projects</span> are regulated under the NERC Mini-Grid Regulations 2023 and applicable
                             provisions of the Electricity Act 2023.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
                         <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">forest</span>
-                        <p class="text-[#404846] text-[15px] leading-7"><span
+                        <p class="text-[#404846] text-[16px] leading-7"><span
                                 class="font-semibold text-[#111827]">Large-scale
                                 projects</span> may require Environmental Impact Assessment (EIA) approval from the
                             Federal Ministry of Environment, depending on project size, location, and environmental
@@ -917,14 +1050,14 @@
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
                         <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">terrain</span>
-                        <p class="text-[#404846] text-[15px] leading-7"><span class="font-semibold text-[#111827]">Land
+                        <p class="text-[#404846] text-[16px] leading-7"><span class="font-semibold text-[#111827]">Land
                                 acquisition and site development</span> are governed by the Land Use Act 1978 and
                             applicable state-level land administration procedures.</p>
                     </div>
                 </div>
 
                 <!-- Key Regulatory Agencies -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mt-12 mb-6"
                     style="font-family: Manrope, sans-serif;">Key Regulatory Agencies</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     <a href="https://www.power.gov.ng" target="_blank" rel="noopener"
@@ -934,7 +1067,7 @@
                             <img src="logoNESP.png" alt="Federal Ministry of Power logo"
                                 class="w-7 h-7 object-contain" />
                         </span>
-                        <span class="text-[#111827] text-[14px] font-medium">Federal Ministry of Power</span>
+                        <span class="text-[#111827] text-[16px] font-medium leading-7">Federal Ministry of Power</span>
                     </a>
                     <a href="https://nerc.gov.ng" target="_blank" rel="noopener"
                         class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
@@ -943,7 +1076,7 @@
                             <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
                                 class="w-8 h-8 object-contain" />
                         </span>
-                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Electricity Regulatory Commission
+                        <span class="text-[#111827] text-[16px] font-medium leading-7">Nigerian Electricity Regulatory Commission
                             (NERC)</span>
                     </a>
                     <a href="https://rea.gov.ng" target="_blank" rel="noopener"
@@ -952,7 +1085,7 @@
                             class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
                             <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
                         </span>
-                        <span class="text-[#111827] text-[14px] font-medium">Rural Electrification Agency (REA)</span>
+                        <span class="text-[#111827] text-[16px] font-medium leading-7">Rural Electrification Agency (REA)</span>
                     </a>
                     <a href="https://nipc.gov.ng" target="_blank" rel="noopener"
                         class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
@@ -960,7 +1093,7 @@
                             class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
                             <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
                         </span>
-                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Investment Promotion Commission
+                        <span class="text-[#111827] text-[16px] font-medium leading-7">Nigerian Investment Promotion Commission
                             (NIPC)</span>
                     </a>
                     <a href="https://environment.gov.ng" target="_blank" rel="noopener"
@@ -970,7 +1103,7 @@
                             <img src="FMEnew.png" alt="Federal Ministry of Environment logo"
                                 class="w-7 h-7 object-contain" />
                         </span>
-                        <span class="text-[#111827] text-[14px] font-medium">Federal Ministry of Environment</span>
+                        <span class="text-[#111827] text-[16px] font-medium leading-7">Federal Ministry of Environment</span>
                     </a>
                     <a href="https://nesrea.gov.ng" target="_blank" rel="noopener"
                         class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
@@ -978,7 +1111,7 @@
                             class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
                             <img src="nesrea.jpeg" alt="NESREA logo" class="w-7 h-7 object-contain" />
                         </span>
-                        <span class="text-[#111827] text-[14px] font-medium">National Environmental Standards and
+                        <span class="text-[#111827] text-[16px] font-medium leading-7">National Environmental Standards and
                             Regulations Enforcement Agency (NESREA)</span>
                     </a>
                     <a href="https://son.gov.ng" target="_blank" rel="noopener"
@@ -987,7 +1120,7 @@
                             class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
                             <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
                         </span>
-                        <span class="text-[#111827] text-[14px] font-medium">Standards Organization of Nigeria
+                        <span class="text-[#111827] text-[16px] font-medium leading-7">Standards Organization of Nigeria
                             (SON)</span>
                     </a>
                     <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
@@ -996,7 +1129,7 @@
                             class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
                             <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
                         </span>
-                        <span class="text-[#111827] text-[14px] font-medium">Nigerian Electricity Management Services
+                        <span class="text-[#111827] text-[16px] font-medium leading-7">Nigerian Electricity Management Services
                             Agency (NEMSA)</span>
                     </a>
                     <a href="https://www.tcn.org.ng" target="_blank" rel="noopener"
@@ -1005,17 +1138,17 @@
                             class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
                             <img src="TCN.png" alt="TCN logo" class="w-7 h-7 object-contain" />
                         </span>
-                        <span class="text-[#111827] text-[14px] font-medium">Transmission Company of Nigeria
+                        <span class="text-[#111827] text-[16px] font-medium leading-7">Transmission Company of Nigeria
                             (TCN)</span>
                     </a>
                 </div>
 
                 <!-- Technical Standards -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mt-12 mb-4"
                     style="font-family: Manrope, sans-serif;">Technical Standards</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar equipment imported into
-                    Nigeria must comply with applicable SON standards and certification requirements, including SONCAP
-                    where applicable. Electrical installations are subject to NEMSA inspection and certification
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Solar equipment imported into
+                    Nigeria must comply with applicable SON standards and certification requirements, including the Standards Organisation of Nigeria Conformity Assessment Programme (SONCAP) where applicable.</p>
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Electrical installations are subject to NEMSA inspection and certification
                     requirements. Grid-connected projects must comply with the NERC Grid Code and TCN interconnection
                     standards.</p>
 
@@ -1290,7 +1423,7 @@
                                     <span class="block w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
                                     <span class="wf-eyebrow mb-0">Workflow Process</span>
                                 </div>
-                                <h3 class="wf-title">Utility-Scale Solar</h3>
+                                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug">Utility-Scale Solar</h3>
 
                                 <!-- Desktop zigzag -->
                                 <div class="wf-track" data-wf-track>
@@ -1502,7 +1635,7 @@
                                     <span class="block w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
                                     <span class="wf-eyebrow mb-0">Workflow Process</span>
                                 </div>
-                                <h3 class="wf-title">Solar Home Systems</h3>
+                                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug">Solar Home Systems</h3>
 
                                 <!-- Desktop zigzag -->
                                 <div class="wf-track" data-wf-track>
@@ -1696,7 +1829,7 @@
                 </script>
 
                 <!-- Useful Resources -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mt-12 mb-6"
                     style="font-family: Manrope, sans-serif;">Useful Resources</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
@@ -1790,66 +1923,69 @@
         </section>
 
         <!-- Finance -->
-        <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="finance">
+        <section class="bg-white py-16 lg:py-24" style="font-family: Inter, sans-serif;" id="finance">
             <div class="max-w-7xl mx-auto px-6 lg:px-8">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="w-8 h-[2px] bg-[#f7be26]"></span>
                     <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Capital &amp;
                         Investment</span>
                 </div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
+                <h2 class="text-[28px] sm:text-[34px] lg:text-[38px] font-bold text-[#111827] leading-tight mb-10"
                     style="font-family: Manrope, sans-serif;">Finance</h2>
 
                 <!-- Public Finance -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-4"
                     style="font-family: Manrope, sans-serif;">Public Finance</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's solar sector benefits
-                    from growing public and development-finance support. The Rural Electrification Agency (REA),
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Nigeria's solar sector benefits
+                    from growing public and development-finance support.</p>
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">The Rural Electrification Agency (REA),
                     through the Rural Electrification Fund (REF), provides grants, subsidies, and performance-based
-                    incentives for mini-grid and solar access projects. The US$750 million DARES Programme supports
+                    incentives for mini-grid and solar access projects.</p>
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">The US$750 million DARES Programme supports
                     isolated and interconnected mini-grids, Solar for Business initiatives, and productive-use energy
                     projects.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">The Bank of Industry (BOI)
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mt-5">The Bank of Industry (BOI)
                     provides concessional financing for renewable energy manufacturing, deployment, and productive-use
-                    applications, while the NSIA-anchored US$500 million Distributed Renewable Energy (DRE) Nigeria
+                    applications.</p>
+                    <p>Alongside it, the Nigeria Sovereign Investment Authority (NSIA)-anchored US$500 million Distributed Renewable Energy (DRE) Nigeria
                     Fund supports mini-grids, solar home systems, commercial and industrial (C&amp;I) solar, and battery
                     storage projects.</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
                     <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">account_balance</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mt-3 mb-1"
                             style="font-family: Manrope, sans-serif;">REA / Rural Electrification Fund</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Grants, subsidies, and performance-based
+                        <p class="text-[#5f6368] text-[16px] leading-7">Grants, subsidies, and performance-based
                             incentives for mini-grid and solar access projects.</p>
                     </div>
                     <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">payments</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mt-3 mb-1"
                             style="font-family: Manrope, sans-serif;">DARES Programme</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">US$750 million supporting mini-grids, Solar for
+                        <p class="text-[#5f6368] text-[16px] leading-7">US$750 million supporting mini-grids, Solar for
                             Business, and productive-use energy projects.</p>
                     </div>
                     <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">factory</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mt-3 mb-1"
                             style="font-family: Manrope, sans-serif;">Bank of Industry (BOI)</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Concessional financing for renewable energy
+                        <p class="text-[#5f6368] text-[16px] leading-7">Concessional financing for renewable energy
                             manufacturing, deployment, and productive-use applications.</p>
                     </div>
                     <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">battery_charging_full</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mt-3 mb-1"
                             style="font-family: Manrope, sans-serif;">DRE Nigeria Fund</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">NSIA-anchored US$500 million fund for
+                        <p class="text-[#5f6368] text-[16px] leading-7">NSIA-anchored US$500 million fund for
                             mini-grids, solar home systems, C&amp;I solar, and battery storage.</p>
                     </div>
                 </div>
 
                 <!-- Commercial Finance -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mt-12 mb-4"
                     style="font-family: Manrope, sans-serif;">Commercial Finance</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Commercial financing for solar is
-                    expanding rapidly. Nigerian financial institutions including Access Bank, FCMB, Sterling Bank,
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Commercial financing for solar is
+                    expanding rapidly. Nigerian financial institutions including Access Bank, First City Monument Bank (FCMB), Sterling Bank,
                     Fidelity Bank, Ecobank, and Lotus Bank now offer renewable energy financing products for project
                     developers, businesses, and end-users.</p>
                 <div class="flex flex-wrap gap-2 mt-5">
@@ -1870,40 +2006,40 @@
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Lotus
                         Bank</span>
                 </div>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-6">The Lotus Bank–REA ₦100
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mt-6">The Lotus Bank–REA ₦100
                     billion revolving credit facility provides counterpart financing for DARES-qualified developers,
                     while commercial lenders increasingly support solar deployment across manufacturing, agriculture,
                     healthcare, telecommunications, and commercial real estate sectors.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">International financiers
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mt-5">International financiers
                     including IFC, AfDB, Africa Finance Corporation (AFC), Africa50, and infrastructure-focused
                     investors are also increasing debt and equity participation across the Nigerian solar market.</p>
 
                 <!-- Guarantees & Risk Instruments -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mt-12 mb-4"
                     style="font-family: Manrope, sans-serif;">Guarantees &amp; Risk Instruments</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">InfraCredit guarantees,
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">InfraCredit guarantees,
                     NSIA-backed de-risking mechanisms, political risk insurance, and blended-finance structures are
                     increasingly being used to unlock local-currency financing and reduce project risk.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Additional support is
-                    available through institutions such as MIGA, IFC, AfDB, and the World Bank Group, particularly for
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mt-5">Additional support is
+                    available through institutions such as the Multilateral Investment Guarantee Agency (MIGA), IFC, AfDB, and the World Bank Group, particularly for
                     large-scale infrastructure, mini-grid, and distributed renewable energy investments.</p>
 
                 <!-- Blended Finance -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mt-12 mb-4"
                     style="font-family: Manrope, sans-serif;">Blended Finance</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Blended finance remains the
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Blended finance remains the
                     dominant funding structure for many solar projects. Programmes such as DARES, REF, and the DRE
                     Nigeria Fund combine grants, concessional finance, private capital, and risk-sharing instruments to
                     improve project bankability and crowd in private investment.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Emerging facilities such as
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mt-5">Emerging facilities such as
                     the Renewable Energy Blended Finance Facility (REBF) are also expected to expand access to
                     long-term capital for mini-grids, productive-use energy, agricultural electrification, and storage
                     projects.</p>
 
                 <!-- Infrastructure Concession Arrangements -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mt-12 mb-4"
                     style="font-family: Manrope, sans-serif;">Infrastructure Concession Arrangements</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Concession arrangements are
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Concession arrangements are
                     increasingly being used to deliver solar energy projects in Nigeria through models that allocate
                     project development, financing, and operational responsibility to private investors. Key structures
                     adopted include:</p>
@@ -1918,7 +2054,7 @@
                         class="bg-[#f3f4f2] border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Franchise-style
                         distributed solar concessions (e.g., Solar Power Naija)</span>
                 </div>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-6">These frameworks allow
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mt-6">These frameworks allow
                     investors to retain ownership, control cash flows, and operate assets over long durations, while
                     leveraging government-backed risk mitigation mechanisms. Nigeria has an active portfolio of
                     concession-backed solar projects across three main segments:</p>
@@ -1927,29 +2063,30 @@
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6">
                         <span
                             class="w-8 h-8 rounded-full bg-[#004225] text-white text-[14px] font-bold flex items-center justify-center flex-shrink-0 mb-3">a</span>
-                        <h4 class="text-[16px] font-bold text-[#111827] mb-2" style="font-family: Manrope, sans-serif;">
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mb-2" style="font-family: Manrope, sans-serif;">
                             Decentralized Mini-Grid Concessions</h4>
-                        <p class="text-[#5f6368] text-[14px] leading-6">Over 125 solar mini-grids already deployed under
+                        <p class="text-[#5f6368] text-[16px] leading-7">Over 125 solar mini-grids already deployed under
                             the Nigeria Electrification Project, alongside ongoing expansion under programmes such as
-                            DARES and AMP, involving multiple private developers across states. These operate under
+                            DARES and AMP, involving multiple private developers across states.</p>
+                        <p class="text-[#5f6368] text-[16px] leading-7">These operate under
                             exclusive service-area concessions, generating revenue from end-user tariffs and
                             performance-based subsidies.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6">
                         <span
                             class="w-8 h-8 rounded-full bg-[#004225] text-white text-[14px] font-bold flex items-center justify-center flex-shrink-0 mb-3">b</span>
-                        <h4 class="text-[16px] font-bold text-[#111827] mb-2" style="font-family: Manrope, sans-serif;">
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mb-2" style="font-family: Manrope, sans-serif;">
                             Utility-Scale Solar PPPs (IPP Model)</h4>
-                        <p class="text-[#5f6368] text-[14px] leading-6">Projects structured around long-term Power
+                        <p class="text-[#5f6368] text-[16px] leading-7">Projects structured around long-term Power
                             Purchase Agreements (PPAs), government or quasi-sovereign offtakers, and project finance
                             structures compatible with international lenders.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6">
                         <span
                             class="w-8 h-8 rounded-full bg-[#004225] text-white text-[14px] font-bold flex items-center justify-center flex-shrink-0 mb-3">c</span>
-                        <h4 class="text-[16px] font-bold text-[#111827] mb-2" style="font-family: Manrope, sans-serif;">
+                        <h4 class="text-[17px] font-bold text-[#111827] leading-snug mb-2" style="font-family: Manrope, sans-serif;">
                             Distributed Solar and Franchise Models</h4>
-                        <p class="text-[#5f6368] text-[14px] leading-6">Programmes such as Solar Power Naija aim to
+                        <p class="text-[#5f6368] text-[16px] leading-7">Programmes such as Solar Power Naija aim to
                             deploy millions of solar connections nationwide via private operators, offering rapid market
                             penetration, retail-scale recurring revenue streams, and lower reliance on grid
                             infrastructure.</p>
@@ -1957,9 +2094,9 @@
                 </div>
 
                 <!-- Infrastructure & Revenue Opportunities -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
+                <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mt-12 mb-4"
                     style="font-family: Manrope, sans-serif;">Infrastructure &amp; Revenue Opportunities</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Financing is increasingly
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mb-6">Financing is increasingly
                     available for projects linked to established demand centres and predictable revenue streams. These
                     include:</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -2003,7 +2140,7 @@
                             solutions</span>
                     </div>
                 </div>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-6">The introduction of the
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mt-6">The introduction of the
                     Electricity Act 2023, state electricity markets, embedded generation frameworks, and emerging net
                     billing/net metering mechanisms is expected to further improve the commercial viability of
                     distributed solar investments.</p>
@@ -2022,29 +2159,29 @@
         </section>
 
         <!-- Opportunities -->
-        <section class="bg-[#f3f4f2] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="opportunities">
+        <section class="bg-[#f3f4f2] py-16 lg:py-24" style="font-family: Inter, sans-serif;" id="opportunities">
             <div class="max-w-7xl mx-auto px-6 lg:px-8">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="w-8 h-[2px] bg-[#f7be26]"></span>
                     <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Market
                         Access</span>
                 </div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
+                <h2 class="text-[28px] sm:text-[34px] lg:text-[38px] font-bold text-[#111827] leading-tight mb-8"
                     style="font-family: Manrope, sans-serif;">Opportunities</h2>
 
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's solar market presents
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Nigeria's solar market presents
                     one of the clearest investment entry points within the country's energy sector. Demand is already
                     established across households, businesses, industries, agricultural value chains, and public
                     institutions, while declining technology costs continue to improve project economics.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Investors can access a
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mt-5">Investors can access a
                     growing pipeline of opportunities through national programmes and market intelligence platforms
                     such as
                     <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
                         class="text-[#004225] font-semibold underline decoration-[#f7be26] decoration-2 underline-offset-2 hover:text-[#00301f]">Nigeria
                         SE4ALL</a>, which provide information on electrification gaps, renewable energy demand centres,
-                    project pipelines, and priority investment locations. Detailed datasets, maps, and planning
-                    resources are available through the platform's Data &amp; Resources section.
-                </p>
+                    project pipelines, and priority investment locations.</p>
+                <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mt-5">Detailed datasets, maps, and planning
+                    resources are available through the platform's Data &amp; Resources section.</p>
                 <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
                     class="inline-flex items-center gap-2 mt-6 bg-primary-container text-white px-6 py-3 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
                     Visit Nigeria SE4ALL <span class="material-symbols-outlined text-lg">open_in_new</span>
@@ -2053,15 +2190,16 @@
                 <!-- Mini-Grid Development -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
                     <div>
-                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-4"
                             style="font-family: Manrope, sans-serif;">Mini-Grid Development</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">One of the largest immediate
+                        <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">One of the largest immediate
                             opportunities is the Distributed Access through Renewable Energy Scale-up (DARES)
                             programme, supported by a US$750 million World Bank facility and implemented by the Rural
-                            Electrification Agency (REA). The programme targets the deployment of approximately 1,225
+                            Electrification Agency (REA).</p>
+                        <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">The programme targets the deployment of approximately 1,225
                             mini-grids, 465 MW of new generation capacity, and electricity access for 17.5 million
                             beneficiaries.</p>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-4">Private developers can
+                        <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8 mt-4">Private developers can
                             participate through multiple windows, including isolated mini-grids, interconnected
                             mini-grids, minimum subsidy tenders, and Solar for Business programmes. Performance-based
                             subsidies are available upon successful project delivery and verified customer
@@ -2136,19 +2274,19 @@
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <p class="text-[28px] font-extrabold text-[#004225] leading-none"
                             style="font-family: Manrope, sans-serif;">$750M</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">World Bank facility backing the DARES
+                        <p class="text-[#5f6368] text-[16px] leading-7 mt-2">World Bank facility backing the DARES
                             programme.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <p class="text-[28px] font-extrabold text-[#004225] leading-none"
                             style="font-family: Manrope, sans-serif;">465 MW</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">New generation capacity targeted under
+                        <p class="text-[#5f6368] text-[16px] leading-7 mt-2">New generation capacity targeted under
                             DARES.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <p class="text-[28px] font-extrabold text-[#004225] leading-none"
                             style="font-family: Manrope, sans-serif;">17.5M</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Beneficiaries targeted for electricity
+                        <p class="text-[#5f6368] text-[16px] leading-7 mt-2">Beneficiaries targeted for electricity
                             access.</p>
                     </div>
                 </div>
@@ -2163,10 +2301,11 @@
                         </div>
                     </div>
                     <div class="lg:order-1">
-                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-4"
                             style="font-family: Manrope, sans-serif;">Commercial &amp; Industrial Solar</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Commercial and industrial (C&amp;I)
-                            solar remains one of the fastest-growing segments of the market. Rising diesel costs,
+                        <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Commercial and industrial (C&amp;I)
+                            solar remains one of the fastest-growing segments of the market.</p>
+                        <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Rising diesel costs,
                             energy-security concerns, and sustainability commitments are driving demand for solar and
                             solar-plus-storage solutions across manufacturing, agriculture, telecommunications,
                             healthcare, education, and commercial real estate sectors.</p>
@@ -2190,10 +2329,11 @@
 
                 <!-- Manufacturing & Local Assembly -->
                 <div class="mt-16 lg:mt-20">
-                    <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                    <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-4"
                         style="font-family: Manrope, sans-serif;">Manufacturing &amp; Local Assembly</h3>
-                    <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar manufacturing, component
-                        assembly, and clean energy supply chains are emerging as strategic growth areas. Ongoing
+                    <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Solar manufacturing, component
+                        assembly, and clean energy supply chains are emerging as strategic growth areas.</p>
+                    <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">Ongoing
                         policy discussions around domestic industrialization, regional value chains, and local
                         content development are creating opportunities for investors interested in module assembly,
                         battery systems, mounting structures, inverters, and related clean-energy technologies.</p>
@@ -2209,9 +2349,9 @@
                         </div>
                     </div>
                     <div class="lg:order-1">
-                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
+                        <h3 class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-4"
                             style="font-family: Manrope, sans-serif;">Geographic Hotspots</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">High-opportunity markets continue
+                        <p class="text-[#404846] text-[17px] sm:text-[18px] leading-8">High-opportunity markets continue
                             to emerge across Lagos, Abuja, Kano, Kaduna, and key agricultural corridors in
                             North-Central Nigeria, where strong electricity demand, productive-use activities, and
                             electrification need support project viability.</p>
@@ -2245,8 +2385,8 @@
                 <div
                     class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 sm:gap-4 mb-8 lg:mb-10 pb-4 border-b border-outline-variant">
                     <div>
-                        <h2 class="font-h2 text-h3 sm:text-h2 text-primary">Major Projects</h2>
-                        <p class="text-on-surface-variant text-body-sm mt-1 uppercase tracking-widest font-semibold">
+                        <h2 class="text-[28px] sm:text-[34px] lg:text-[38px] font-bold text-[#111827] leading-tight">Major Projects</h2>
+                        <p class="leading-7 text-on-surface-variant text-body-sm mt-1 uppercase tracking-widest font-semibold">
                             Active Capital Opportunities</p>
                     </div>
                     <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
@@ -2264,17 +2404,17 @@
                     <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                         data-sector="renewable">
                         <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                            <p class="leading-7 text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
                                 2025-ENE-09</p>
                             <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-1">
                                 Solar Power Naija - Phase II</h3>
                             <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                                 Renewable Generation</span>
                         </div>
                         <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.24 <span
+                            <p class="leading-7 text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="leading-7 text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.24 <span
                                     class="text-label-md font-normal text-on-surface-variant">bn</span></p>
                         </div>
                         <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
@@ -2297,17 +2437,17 @@
                     <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                         data-sector="renewable">
                         <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                            <p class="leading-7 text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
                                 2025-H2-01</p>
                             <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-1">
                                 Green Hydrogen Niger Delta Pilot</h3>
                             <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                                 Renewable Generation</span>
                         </div>
                         <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.40 <span
+                            <p class="leading-7 text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="leading-7 text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.40 <span
                                     class="text-label-md font-normal text-on-surface-variant">bn</span></p>
                         </div>
                         <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
@@ -2331,17 +2471,17 @@
                         data-sector="storage">
 
                         <div class="mb-6">
-                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                            <p class="leading-7 text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
                                 2024-MIN-15</p>
                             <h3
-                                class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                class="text-[22px] lg:text-[26px] font-bold text-[#111827] leading-snug mb-1">
                                 Nasarawa Lithium Processing Hub</h3>
                             <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                                 Energy Storage</span>
                         </div>
                         <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
-                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.15 <span
+                            <p class="leading-7 text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="leading-7 text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.15 <span
                                     class="text-label-md font-normal text-on-surface-variant">bn</span></p>
                         </div>
                         <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
@@ -2590,6 +2730,160 @@
                 else if (t === 'invest now') b.addEventListener('click', function () { location.href = 'Login.html'; });
 
                 else if (t.indexOf('regulatory framework') === 0) b.addEventListener('click', function () { location.href = 'Regulation.html'; });
+            });
+        })();
+    </script>
+    <!--
+      READABILITY LAYER. Two additions, neither of which changes a word of the
+      page: an icon-font guard, and a glossary that annotates the first mention
+      of each piece of jargon.
+    -->
+    <script>
+        /*
+          ICON-FONT GUARD.
+
+          Material Symbols renders "solar_power" as a glyph through a ligature.
+          If the font never arrives the word itself is what the reader sees, so
+          ask the browser whether it actually loaded and hide the spans only if
+          it did not. Nothing happens on browsers without the Font Loading API,
+          which is the safe direction to fail: icons show, as they do today.
+        */
+        (function () {
+            if (!document.fonts || !document.fonts.ready || !document.fonts.check) return;
+            document.fonts.ready.then(function () {
+                try {
+                    if (!document.fonts.check('24px "Material Symbols Outlined"')) {
+                        document.documentElement.classList.add('no-icon-font');
+                    }
+                } catch (e) { /* leave the icons alone if the check throws */ }
+            });
+        })();
+    </script>
+    <script>
+        /*
+          GLOSSARY.
+
+          Wraps the FIRST mention of each term in an <abbr class="osip-term">
+          carrying a plain-English definition, shown on hover, on keyboard focus
+          and on tap. It only ever wraps - no text is replaced, reordered or
+          removed, and a term that appears ten times still reads normally the
+          other nine.
+
+          Every definition here is either stated elsewhere on this page or is
+          the institution's own description of itself. Where a term's meaning
+          could not be established from the page (the "AMP" programme named
+          beside DARES), it is deliberately absent rather than guessed.
+        */
+        (function () {
+            var TERMS = {
+                'NERC': 'Nigerian Electricity Regulatory Commission — the national regulator that issues generation licences and sets electricity tariffs.',
+                'REA': 'Rural Electrification Agency — the federal agency that funds and coordinates off-grid and rural electrification.',
+                'REF': 'Rural Electrification Fund — the REA-managed pot of grants and subsidies used to extend electricity access.',
+                'REBF': 'Renewable Energy Blended Finance Facility — a facility that mixes concessional and commercial money to lower the cost of renewable projects.',
+                'DARES': 'Distributed Access through Renewable Energy Scale-up — a US$750 million programme funding mini-grids and solar home systems.',
+                'CAC': 'Corporate Affairs Commission — the registry where a company is legally incorporated in Nigeria.',
+                'NIPC': 'Nigerian Investment Promotion Commission — registers investors and administers investment incentives such as Pioneer Status.',
+                'NEMSA': 'Nigerian Electricity Management Services Agency — certifies that electrical installations and equipment meet safety standards.',
+                'NESREA': 'National Environmental Standards and Regulations Enforcement Agency — enforces Nigeria’s environmental rules.',
+                'SONCAP': 'The Standards Organisation of Nigeria’s conformity assessment programme — the certificate imported goods need to clear customs.',
+                'SON': 'Standards Organisation of Nigeria — sets and certifies product quality standards.',
+                'TCN': 'Transmission Company of Nigeria — operates the national high-voltage transmission grid.',
+                'EIA': 'Environmental Impact Assessment — a study of a project’s environmental effects, approved before construction can start.',
+                'IPP': 'Independent Power Producer — a privately owned company that generates electricity for sale rather than for its own use.',
+                'PPAs': 'Power Purchase Agreements — long-term contracts to buy the electricity a project generates, which is what makes it bankable.',
+                'BOO': 'Build–Own–Operate — the developer builds the asset, keeps ownership of it, and runs it for the life of the concession.',
+                'SHS': 'Solar Home Systems — a small standalone solar kit sized for one home or shop, with no grid connection.',
+                'DRE': 'Distributed Renewable Energy — generation sited at or near where the power is used, rather than on the national grid.',
+                'NIEP': 'National Integrated Electricity Policy 2025 — the umbrella policy for Nigeria’s electricity sector.',
+                'NREEEP': 'National Renewable Energy and Energy Efficiency Policy 2015 — the standing policy for renewables and efficiency.',
+                'REMP': 'Renewable Energy Master Plan — the national plan setting renewable capacity targets.',
+                'ETP': 'Energy Transition Plan 2022 — Nigeria’s roadmap to net zero by 2060.',
+                'NDCs': 'Nationally Determined Contributions — the emissions-reduction pledges Nigeria has filed under the Paris Agreement.',
+                'CET': 'Common External Tariff — the shared import-duty schedule ECOWAS members apply to goods from outside the bloc.',
+                'ECOWAS': 'Economic Community of West African States — the fifteen-country West African regional bloc.',
+                'VAT': 'Value Added Tax — the consumption tax charged on goods and services in Nigeria.',
+                'IFC': 'International Finance Corporation — the World Bank Group’s private-sector investment arm.',
+                'MIGA': 'Multilateral Investment Guarantee Agency — the World Bank Group arm that insures investors against political risk.',
+                'AfDB': 'African Development Bank — the continent’s multilateral development bank.',
+                'AFC': 'Africa Finance Corporation — an Africa-focused infrastructure investment institution.',
+                'NSIA': 'Nigeria Sovereign Investment Authority — the country’s sovereign wealth fund.',
+                'BOI': 'Bank of Industry — Nigeria’s development finance institution, lending on concessional terms.'
+            };
+
+            var order = Object.keys(TERMS).sort(function (a, b) { return b.length - a.length; });
+            var done = {};
+
+            function esc(t) { return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+            var root = document.querySelector('main') || document.body;
+            if (!root) return;
+
+            function skip(node) {
+                var p = node.parentNode;
+                while (p && p !== root.parentNode) {
+                    var n = p.nodeName;
+                    if (n === 'SCRIPT' || n === 'STYLE' || n === 'ABBR' || n === 'TITLE') return true;
+                    if (p.classList && p.classList.contains('material-symbols-outlined')) return true;
+                    p = p.parentNode;
+                }
+                return false;
+            }
+
+            // Collect first, wrap second: mutating while walking invalidates the walker.
+            var queue = [];
+            var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+            while (walker.nextNode()) {
+                var n = walker.currentNode;
+                if (n.nodeValue && n.nodeValue.trim() && !skip(n)) queue.push(n);
+            }
+
+            while (queue.length) {
+                var node = queue.shift();
+                if (!node.parentNode) continue;
+                var left = order.filter(function (t) { return !done[t]; });
+                if (!left.length) break;
+
+                var re = new RegExp('\\b(' + left.map(esc).join('|') + ')\\b');
+                var m = re.exec(node.nodeValue);
+                if (!m) continue;
+
+                var term = m[1];
+                done[term] = true;
+
+                var tail = node.splitText(m.index);
+                tail.nodeValue = tail.nodeValue.slice(term.length);
+
+                var el = document.createElement('abbr');
+                el.className = 'osip-term';
+                el.setAttribute('tabindex', '0');
+                el.setAttribute('title', TERMS[term]);   /* works with no CSS at all */
+                el.setAttribute('data-def', TERMS[term]);
+                el.textContent = term;
+                tail.parentNode.insertBefore(el, tail);
+
+                /* A term near the right edge would push its tooltip off-screen. */
+                try {
+                    if (el.getBoundingClientRect().left > document.documentElement.clientWidth - 340) {
+                        el.classList.add('osip-term--right');
+                    }
+                } catch (e) { /* layout not ready; the default side is fine */ }
+
+                queue.unshift(tail);   /* the rest of this node may hold more terms */
+            }
+
+            /* Touch has no hover, so a tap toggles the definition open. */
+            document.addEventListener('click', function (e) {
+                var hit = e.target.closest ? e.target.closest('.osip-term') : null;
+                Array.prototype.forEach.call(document.querySelectorAll('.osip-term.is-open'), function (el) {
+                    if (el !== hit) el.classList.remove('is-open');
+                });
+                if (hit) hit.classList.toggle('is-open');
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Escape') return;
+                Array.prototype.forEach.call(document.querySelectorAll('.osip-term.is-open'), function (el) {
+                    el.classList.remove('is-open');
+                });
             });
         })();
     </script>

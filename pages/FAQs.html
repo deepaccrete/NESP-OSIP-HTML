@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSIP - Frequently Asked Questions</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        /*
+           The M3 token set, verbatim from NewsInDetail.html / DetailedSector.html.
+
+           This page previously used Event.html's colours instead, and that was
+           the wrong parent to copy: Event.html is the one page in the set that
+           names no tokens at all — its own config comment says every colour it
+           uses is an arbitrary value. Every DETAIL page, and the React app's
+           styles/theme.css, are built from the roles below. Matching the list
+           page made this page match nothing else on the site.
+        */
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#edeeec",
+                        "surface-container-low": "#f3f4f2",
+                        "surface-bright": "#f9f9f7",
+                        "on-tertiary-container": "#bb8d00",
+                        "primary": "#001d17",
+                        "on-primary-fixed": "#00201a",
+                        "on-primary-container": "#709e91",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "surface-container-high": "#e8e8e6",
+                        "on-tertiary-fixed": "#261a00",
+                        "background": "#f9f9f7",
+                        "secondary": "#1b6d24",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#3b2a00",
+                        "on-error-container": "#93000a",
+                        "surface": "#f9f9f7",
+                        "on-surface-variant": "#404846",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e2e3e1",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-fixed": "#002204",
+                        "surface-dim": "#d9dad8",
+                        "on-secondary-fixed-variant": "#005312",
+                        "inverse-primary": "#a1d0c3",
+                        "primary-fixed": "#bdecde",
+                        "on-secondary-container": "#207128",
+                        "tertiary": "#211600",
+                        "surface-tint": "#3a665c",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#87d982",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdf9e",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00342b",
+                        "on-primary-fixed-variant": "#214e44",
+                        "outline-variant": "#c0c8c4",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-background": "#1a1c1b",
+                        "outline": "#717976",
+                        "inverse-surface": "#2f3130",
+                        "secondary-fixed": "#a3f69c",
+                        "secondary-container": "#a0f499",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f0f1ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-tablet": "32px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Manrope"],
+                        "nav-link": ["Inter"],
+                        "h4": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "h3": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "h1-mobile": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style data-purpose="custom-typography">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.015em;
+        }
+
+        /*
+          The ONE rule the accordion needs that Tailwind cannot express.
+          `list-none` (which the Regulation.html original already carries) kills
+          the marker in Firefox and in Safari 17+; older WebKit draws its
+          triangle from a pseudo-element no utility can reach, and that triangle
+          lands next to our own expand_more chevron. This removes it and changes
+          nothing anywhere else.
+        */
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .card-lift {
+            transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease;
+        }
+
+        .card-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 34px -22px rgba(0, 29, 23, .45);
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+
+            /*
+              The hidden state lives INSIDE the query on purpose. Outside it, a
+              reader with reduced motion gets a blank page whenever the observer
+              is unavailable -- and on THIS page that would hide the answers.
+            */
+            .reveal {
+                opacity: 0;
+                transform: translateY(26px);
+                transition: opacity .8s cubic-bezier(.2, .7, .2, 1), transform .8s cubic-bezier(.2, .7, .2, 1);
+            }
+
+            .reveal.is-visible {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* The jump links target section tops that sit under the 74px sticky
+           nav; without this the heading lands behind it. */
+        .faq-group {
+            scroll-margin-top: 96px;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface min-h-screen">
+
+    <!-- nav.js renders its own sticky header; no wrapper needed. -->
+    <div id="site-nav"></div>
+
+    <main>
+
+        <!-- ==================================================== HERO ==== -->
+        <section
+            class="relative min-h-[500px] lg:min-h-[550px] w-full overflow-hidden bg-primary flex items-center">
+            <!--
+              The photograph is tone-normalised so every hero on the site sits at
+              the same luminance, and cropped to the band of the picture that
+              `bg-cover` actually keeps in a box this shape - bg-top here. Both
+              were measured rather than eyeballed.
+            -->
+            <div class="absolute inset-0 bg-cover bg-top"
+                data-alt="Working through investment paperwork" style="background-image: url('hero-faqs.jpg')">
+            </div>
+            <!--
+              Vignette / depth gradients, identical to the sector pages. The
+              left-to-right scrim is what makes the headline readable, so it
+              stays heavy across the copy and lifts over the right-hand third,
+              where nothing is written - that is the part of the photograph the
+              reader actually sees. The bottom-up wash seats the section against
+              whatever follows it.
+            -->
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
+                <div class="max-w-3xl">
+                    <div class="flex items-center gap-3 mb-5">
+                        <span class="w-8 sm:w-10 h-[3px] bg-[#ffb955]"></span>
+                        <span class="text-[#ffdcac] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">HELP
+                            CENTRE</span>
+                    </div>
+                    <h1 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-white leading-tight mb-4"
+                        style="font-family: Manrope, sans-serif;">Frequently asked questions</h1>
+                    <p class="text-white/80 text-[14px] sm:text-[15px] lg:text-[17px] leading-8 max-w-2xl">How the One-Stop
+                        Investment Portal works &mdash; what you can read without an account, what registering unlocks, and
+                        where the licensing answers live. If yours is not here, the OSIP Help Desk is at the bottom of the
+                        page.</p>
+                </div>
+            </div>
+        </section>
+
+        <!--
+          ============================================== JUMP BAND ====
+
+          Anchor links, not a script. Five groups is enough that a reader
+          arriving from the footer link needs a way past the ones they did not
+          come for, and few enough that a filter box would be over-engineering.
+        -->
+        <section class="bg-surface-container-low border-b border-outline-variant">
+            <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-6">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="font-label-md text-label-md uppercase text-outline mr-2">Jump to</span>
+                    <a href="#getting-started"
+                        class="inline-flex items-center bg-white border border-outline-variant hover:border-primary hover:text-primary text-on-surface-variant font-label-md text-label-md uppercase px-3 py-1.5 rounded-full transition-colors">Getting
+                        started</a>
+                    <a href="#investing"
+                        class="inline-flex items-center bg-white border border-outline-variant hover:border-primary hover:text-primary text-on-surface-variant font-label-md text-label-md uppercase px-3 py-1.5 rounded-full transition-colors">Investing
+                        &amp; opportunities</a>
+                    <a href="#regulatory"
+                        class="inline-flex items-center bg-white border border-outline-variant hover:border-primary hover:text-primary text-on-surface-variant font-label-md text-label-md uppercase px-3 py-1.5 rounded-full transition-colors">Regulatory
+                        &amp; licensing</a>
+                    <a href="#accounts"
+                        class="inline-flex items-center bg-white border border-outline-variant hover:border-primary hover:text-primary text-on-surface-variant font-label-md text-label-md uppercase px-3 py-1.5 rounded-full transition-colors">Accounts
+                        &amp; access</a>
+                    <a href="#data-privacy"
+                        class="inline-flex items-center bg-white border border-outline-variant hover:border-primary hover:text-primary text-on-surface-variant font-label-md text-label-md uppercase px-3 py-1.5 rounded-full transition-colors">Data
+                        &amp; privacy</a>
+                </div>
+            </div>
+        </section>
+
+        <!--
+          =========================================== GROUP 1 of 5 ====
+          GETTING STARTED
+
+          Every accordion on this page is the `<details>/<summary>` component
+          from Regulation.html #faq, markup unchanged. It is keyboard operable,
+          it opens with JavaScript disabled, and a closed one is still found by
+          the browser's own find-in-page. A scripted accordion loses all three,
+          so nothing on this page scripts them.
+        -->
+        <section id="getting-started" class="faq-group bg-background">
+            <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+                <div class="max-w-4xl">
+
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                        <div>
+                            <span class="block font-label-md text-label-md uppercase text-secondary mb-1">Group
+                                01</span>
+                            <h2 class="font-h2 text-h2 text-primary flex items-center gap-3">
+                                <span class="material-symbols-outlined text-[26px]">explore</span>Getting started on
+                                OSIP
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 reveal">
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                What is OSIP?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                OSIP is the One-Stop Investment Portal for Nigeria&rsquo;s clean energy sector &mdash;
+                                one place to research the priority sectors, read the regulatory framework, browse
+                                investment opportunities and reach the agencies behind them. It is delivered under the
+                                Nigerian Energy Support Programme (NESP), implemented by Deutsche Gesellschaft f&uuml;r
+                                Internationale Zusammenarbeit (GIZ) GmbH in collaboration with the Federal Ministry of
+                                Power.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                Do I need an account to use the portal?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Not for most of it. Sectors, Regulations, Data &amp; Insights, News and Events are open
+                                to anyone, and so is the public half of every opportunity listing. An account is what
+                                unlocks the investor data room on a listing &mdash; the commercial figures a promoter is
+                                not publishing to the open web.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                Which sectors does the portal cover?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <!-- The ten sectors are the SECTORS menu in nav.js, in its order. A
+                                 sector added there has to be added here too. -->
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Ten strategic priority sectors, each with its own page: Solar, Bioenergy, Wind, Green
+                                Mobility, Clean Cooking, Storage, Small Hydro, Energy Efficiency, Green Hydrogen and
+                                Agricultural Productive Use of Energy. Start from the
+                                <a href="Sector.html" class="text-secondary font-semibold hover:underline">sector
+                                    index</a> or use the SECTORS menu in the header.
+                            </p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                I have never invested in Nigerian energy before. Where should I start?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                In this order: the sector page for whatever you already know something about, then
+                                <a href="Regulation.html"
+                                    class="text-secondary font-semibold hover:underline">Regulations</a>
+                                for the licensing pathway and the agencies that own each step, then
+                                <a href="Data.html" class="text-secondary font-semibold hover:underline">Data &amp;
+                                    Insights</a> for what has actually been deployed and where. When you are ready to be
+                                matched to live projects, <strong>Invest Now</strong> takes you through choosing
+                                sectors, registering, and receiving a shortlist built from the profile you gave.
+                            </p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                Who is the portal for?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Investors and financiers looking for a pipeline, developers and promoters looking for
+                                capital and for the rules that apply to them, and the public bodies and advisors who
+                                need one shared reference. The
+                                <a href="Contact.html" class="text-secondary font-semibold hover:underline">contact
+                                    form</a> routes an enquiry as an investment, regulatory, technical support or
+                                general question, so you are not writing into a single shared inbox.
+                            </p>
+                        </details>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--
+          =========================================== GROUP 2 of 5 ====
+          INVESTING & OPPORTUNITIES
+        -->
+        <section id="investing" class="faq-group bg-surface-container">
+            <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+                <div class="max-w-4xl">
+
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                        <div>
+                            <span class="block font-label-md text-label-md uppercase text-secondary mb-1">Group
+                                02</span>
+                            <h2 class="font-h2 text-h2 text-primary flex items-center gap-3">
+                                <span class="material-symbols-outlined text-[26px]">payments</span>Investing &amp;
+                                opportunities
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 reveal">
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                What information does an opportunity listing carry?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <!-- These are the MetadataGrid fields on detailedOppNew.html, named
+                                 exactly as that page labels them. -->
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Openly: sector, state, project start and completion dates, promoter or sponsor type,
+                                project status, the line ministry responsible, and total project cost. Signed-in members
+                                also see the investor data room described below.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                What is the &ldquo;investor data room&rdquo;, and why is it locked?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                It is the commercial half of a listing &mdash; target IRR, payback period, minimum
+                                ticket size and lock-up, alongside the extended project detail. Those figures belong to
+                                the promoter, so they are shown to signed-in members rather than published openly.
+                                Signing in unlocks them on every listing at once; there is no per-project request.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                How do I register interest in a specific opportunity?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Two routes. <strong>Invest Now</strong> is the guided one: pick the sectors you are
+                                interested in, complete registration, and the portal returns a shortlist matched to your
+                                institutional profile &mdash; the sectors you chose are carried through, so
+                                <a href="Opportunities.html"
+                                    class="text-secondary font-semibold hover:underline">Opportunities</a>
+                                opens already filtered. Or write directly through the
+                                <a href="Contact.html" class="text-secondary font-semibold hover:underline">contact
+                                    form</a>, choosing &ldquo;Investment Opportunity&rdquo; as the subject.
+                            </p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                Are there events where I can meet promoters and regulators?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Yes &mdash; OSIP runs investor forums, workshops and roadshows, some on-site and some
+                                virtual. Each event page states its dates, venue or meeting link, format and whether
+                                registration is open. See
+                                <a href="Event.html" class="text-secondary font-semibold hover:underline">News &amp;
+                                    Events</a>.
+                            </p>
+                        </details>
+
+                        <!--
+                          PROVISIONAL. The disclaimer a portal of this kind normally carries,
+                          but nothing currently on the site states OSIP's own position in a
+                          transaction, so it cannot be sourced the way the three regulatory
+                          answers can. Marked in the UI rather than quietly asserted. Replace
+                          with legal's wording, or delete the accordion.
+                        -->
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                <span class="flex items-center gap-3 flex-wrap">Does OSIP invest in, broker or guarantee
+                                    these projects?
+                                    <span
+                                        class="inline-flex items-center bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-md text-label-md uppercase px-2 py-0.5 rounded-full">Draft
+                                        answer</span></span>
+                                <span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                <strong>This answer is not yet approved.</strong> OSIP presents information supplied by
+                                promoters and public agencies. The intended position is that it does not itself invest,
+                                act as a broker, or guarantee any return, and that investors carry out their own due
+                                diligence &mdash; but the exact wording sits with the programme&rsquo;s legal advisors
+                                and this answer must not go live until it comes back signed off.
+                            </p>
+                        </details>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--
+          =========================================== GROUP 3 of 5 ====
+          REGULATORY & LICENSING
+
+          These three are carried over VERBATIM from Regulation.html #faq --
+          question and answer text unchanged -- so the two pages cannot drift
+          into saying different things about the same rule. Edit them in both
+          places or in neither.
+        -->
+        <section id="regulatory" class="faq-group bg-background">
+            <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+                <div class="max-w-4xl">
+
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                        <div>
+                            <span class="block font-label-md text-label-md uppercase text-secondary mb-1">Group
+                                03</span>
+                            <h2 class="font-h2 text-h2 text-primary flex items-center gap-3">
+                                <span class="material-symbols-outlined text-[26px]">gavel</span>Regulatory &amp;
+                                licensing
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 reveal">
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                How long does a typical licensing process take?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Standard NERC generation license applications typically take 4-6 months from the
+                                submission of a complete dossier, including the public hearing phase.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                Are there restrictions on foreign equity ownership?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Under the NIPC Act, 100% foreign ownership is permitted in most energy sectors, provided
+                                the company is duly registered with the CAC.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                What are the requirements for local content compliance?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Nigeria mandates specific levels of local workforce and technical service procurement
+                                under the NOGICD Act (for O&amp;G) and power sector guidelines.</p>
+                        </details>
+
+                    </div>
+
+                    <!-- Deliberately a pointer and not a fourth accordion: anything more
+                         detailed than the three above belongs on Regulation.html, which is
+                         where the frameworks, the agency list and the five-step pathway are
+                         maintained. Restating them here guarantees they diverge. -->
+                    <div
+                        class="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Legislation, technical guidelines,
+                            fiscal incentives and the agencies behind each are maintained on the Regulations page
+                            &mdash; including the five-step pathway from registration to financial close.</p>
+                        <a href="Regulation.html#faq"
+                            class="inline-flex items-center justify-center gap-2 border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors shrink-0">
+                            Regulations
+                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!--
+          =========================================== GROUP 4 of 5 ====
+          ACCOUNTS & ACCESS
+
+          Every answer below describes the flow as it is actually implemented in
+          OSIP-Backend/osip-cms/src/api/custom-auth/ -- the two-call OTP
+          handshake, the ten-minute expiry, the five-attempt ceiling, the resend
+          throttles, the identical answer for taken and free addresses, the
+          Google provider flow and its complete-profile step. Nothing here is a
+          guess about how sign-up "probably" works; if that controller changes,
+          this group changes with it.
+        -->
+        <section id="accounts" class="faq-group bg-surface-container">
+            <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+                <div class="max-w-4xl">
+
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                        <div>
+                            <span class="block font-label-md text-label-md uppercase text-secondary mb-1">Group
+                                04</span>
+                            <h2 class="font-h2 text-h2 text-primary flex items-center gap-3">
+                                <span class="material-symbols-outlined text-[26px]">person</span>Accounts &amp; access
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 reveal">
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                How do I create an account?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Fill in the registration form in one pass &mdash; your name, a username, your account
+                                role, organisation type, country, contact number and a password &mdash; and submit it.
+                                The portal emails a six-digit code to the address you gave. <strong>Your account is
+                                    created when you enter that code, not when you submit the form.</strong> Until then
+                                nothing exists but a pending record. The code is valid for ten minutes.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                The verification code has not arrived. What now?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Check your spam or quarantine folder first, then request a new code. Sending is
+                                throttled to one email a minute and five in any half hour for a single address, so a
+                                rapid second tap simply does nothing. If you mistyped the address, start the
+                                registration again with the correct one &mdash; the code went wherever you actually
+                                typed.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                I received a &ldquo;someone tried to sign up&rdquo; notice instead of a code.<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                That means an account already exists for the address. Registration answers identically
+                                whether an address is free or taken &mdash; otherwise the form would be a way to test
+                                which addresses are registered here &mdash; so the notice goes to the mailbox owner
+                                instead. If it was you, sign in as normal or reset your password. If it was not,
+                                nothing on your account has changed and no action is needed.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                I typed the code wrong too many times and it stopped accepting anything.<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Five incorrect codes discards that pending registration, deliberately &mdash; it is what
+                                stops a script guessing its way through a six-digit code. Nothing was created and
+                                nothing was lost. Start the registration again and a fresh code is sent.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                Can I sign in with Google instead?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Yes. Google passes the portal your email address and display name and nothing else, so
+                                the first time you sign in that way you are asked to complete the same profile the email
+                                route collects up front &mdash; account role, organisation type, country and contact
+                                number. Once that is done the account behaves identically to any other.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                I registered by email &mdash; can I later use &ldquo;Sign in with Google&rdquo;?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Yes, and the reverse too. Both routes resolve to the same account when they carry the
+                                same email address, so you will not end up with two profiles. That is only safe because
+                                both sides verify the address before it is trusted: Google verifies it before sharing
+                                it, and a registration here does not become an account until the emailed code is
+                                matched.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                I have forgotten my password.<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Use the forgotten-password link on the
+                                <a href="Login.html" class="text-secondary font-semibold hover:underline">sign-in
+                                    screen</a>. A reset link is emailed to your registered address; following it lets
+                                you choose a new password and sign in with it straight away, whether the account was
+                                originally created by email or through Google.
+                            </p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                Can I change my username or profile picture later?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Both, from <a href="AboutMe.html"
+                                    class="text-secondary font-semibold hover:underline">your profile</a>. A username is
+                                also a sign-in identifier, so it has to be unique across the portal &mdash; the form
+                                tells you as you type whether the one you want is free. Profile pictures may be JPEG,
+                                PNG, WebP or GIF, up to 2&nbsp;MB.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                Why is there a captcha on sign-in and registration?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Both are endpoints a script would otherwise hammer &mdash; registration sends email to
+                                any address the caller names, and sign-in tests passwords. The captcha is the first
+                                filter; per-address and per-network limits catch whatever gets past it. In normal use it
+                                should be a single click.</p>
+                        </details>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--
+          =========================================== GROUP 5 of 5 ====
+          DATA & PRIVACY
+        -->
+        <section id="data-privacy" class="faq-group bg-background">
+            <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+                <div class="max-w-4xl">
+
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                        <div>
+                            <span class="block font-label-md text-label-md uppercase text-secondary mb-1">Group
+                                05</span>
+                            <h2 class="font-h2 text-h2 text-primary flex items-center gap-3">
+                                <span class="material-symbols-outlined text-[26px]">lock</span>Data &amp; privacy
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 reveal">
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                What happens to my details between submitting the form and verifying?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                They are held in a pending registration record and encrypted at rest &mdash; the
+                                password, but also the contact number, country and organisation, because those are
+                                personal data too and there is no reason to leave them legible. The record becomes an
+                                account only when the emailed code is matched, so a registration that is never verified
+                                never becomes an account.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                How is my signed-in session held?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                In an httpOnly session cookie with refresh-token rotation, which means the page&rsquo;s
+                                own JavaScript cannot read your session token &mdash; a script injected into a page
+                                cannot copy it out. Signing out ends the session.</p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                Can I download the data behind the charts?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Yes. <a href="Data.html" class="text-secondary font-semibold hover:underline">Data &amp;
+                                    Insights</a> carries open data downloads in CSV and XLSX &mdash; including the
+                                state-by-state breakdown of capital deployed &mdash; and an OSIP Open Data API for
+                                anyone who wants the same figures programmatically.</p>
+                        </details>
+
+                        <!--
+                          PROVISIONAL, and visibly so. footer.js currently points "Privacy
+                          Policy", "Terms of Use" and "Disclaimer" at notDecided.html, which
+                          means no such document is published. Writing "see the privacy
+                          policy" would be inventing one; this says what is true instead, and
+                          gets replaced the day those pages exist.
+                        -->
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                <span class="flex items-center gap-3 flex-wrap">Where is the privacy policy?
+                                    <span
+                                        class="inline-flex items-center bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-md text-label-md uppercase px-2 py-0.5 rounded-full">Draft
+                                        answer</span></span>
+                                <span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                <strong>Not yet published.</strong> The privacy notice, terms of use and disclaimer are
+                                still in preparation, and the footer links to them are placeholders. Until they are
+                                live, any question about how your personal data is held or used should go to the OSIP
+                                Help Desk &mdash; and this answer should be replaced with the real links rather than
+                                left as it stands.
+                            </p>
+                        </details>
+
+                        <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
+                            <summary
+                                class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
+                                How do I correct or remove my personal details?<span
+                                    class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
+                                Your name, role, organisation type, country and contact number are editable from
+                                <a href="AboutMe.html" class="text-secondary font-semibold hover:underline">your
+                                    profile</a> at any time. For anything the profile screen does not cover &mdash;
+                                including removing an account entirely &mdash; write to the OSIP Help Desk at
+                                <a href="mailto:info@osip.gov.ng"
+                                    class="text-secondary font-semibold hover:underline">info@osip.gov.ng</a> from the
+                                address the account is registered to.
+                            </p>
+                        </details>
+
+                    </div>
+
+                    <!--
+                      The page's one closing line, and deliberately not a band.
+                      The section it sits in already ends on `bg-background`,
+                      and a second full-width ground for one sentence would be
+                      a sixth pale stripe.
+
+                      It lives INSIDE this section on purpose. As a bare child
+                      of <main> it had no container, so it ran edge to edge
+                      with no page margin while every other block on the page
+                      was inset - and it inherits the `max-w-4xl` measure here,
+                      so its edges line up with the accordions above it.
+                    -->
+                    <div
+                        class="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Still not answered here? The OSIP
+                            Help Desk will pick it up.</p>
+                        <a href="https://helpdesk.nigeriase4all.gov.ng/public-ticket/new" target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center justify-center gap-2 border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors shrink-0">
+                            Help Desk
+                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script>
+            // Mobile top-nav hamburger toggle (matches nav.js expectations).
+            (function () {
+                const navToggle = document.getElementById('mobile-nav-toggle');
+                const mobileNav = document.getElementById('mobile-nav');
+                if (navToggle && mobileNav) {
+                    navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                    window.addEventListener('resize', () => {
+                        if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden');
+                    });
+                }
+            })();
+
+        // Scroll reveal. Note what is NOT here: the accordions are plain
+        // <details> elements and need no script at all, so nothing on this page
+        // depends on JavaScript in order to be read.
+        (function () {
+            if (!('IntersectionObserver' in window)) return;
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+            document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+        })();
+    </script>
+
+    <script src="nav.js"></script>
+    <script src="footer.js"></script>
+</body>
+
+</html>

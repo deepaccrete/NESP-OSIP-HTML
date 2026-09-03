@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>My Profile | OSIP - Nigerian Energy Investment Portal</title>
+    <!-- Google Fonts: Manrope & Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS CDN with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#00342b',
+                            container: '#004d40',
+                            gold: '#dfa800',
+                            bg: '#f4fbf8',
+                            sidebar: '#eef5f2',
+                            accent: '#dfa800' // brand gold accent (on-theme)
+                        }
+                    },
+                    fontFamily: {
+                        manrope: ['Manrope', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    letterSpacing: {
+                        tightest: '-0.015em'
+                    }
+                }
+            }
+        }
+    </script>
+    <style data-purpose="custom-typography">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.015em;
+        }
+
+        /* Field action buttons (edit/delete) */
+        .field-actions {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        [data-purpose="meta-item"]:hover .field-actions,
+        [data-purpose="meta-item"]:focus-within .field-actions {
+            opacity: 1;
+        }
+
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .icon-btn:hover {
+            background-color: rgba(0, 52, 43, 0.08);
+            color: #00342b;
+        }
+
+        .icon-btn.icon-btn-danger:hover {
+            background-color: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+        }
+
+        .icon-btn .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        .field-edit-input {
+            width: 100%;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            color: #00342b;
+            border: 1px solid #dfa800;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 0.925rem;
+            background-color: #fff;
+        }
+
+        .field-edit-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(223, 168, 0, 0.35);
+        }
+
+        .field-edit-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .field-btn {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+            cursor: pointer;
+        }
+
+        .field-btn-save {
+            background-color: #00342b;
+            color: #fff;
+        }
+
+        .field-btn-save:hover {
+            background-color: #004d40;
+        }
+
+        .field-btn-cancel {
+            background-color: #eef5f2;
+            color: #00342b;
+        }
+
+        .field-btn-cancel:hover {
+            background-color: #e2ece7;
+        }
+
+        /* Modal */
+        #modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 20, 16, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 60;
+            padding: 16px;
+        }
+
+        #modal-overlay.open {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body class="bg-brand-bg text-brand-green min-h-screen">
+    <div id="page-wrapper">
+        <div id="site-nav"></div>
+        <!-- BEGIN: MainContainer -->
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-8 py-6 md:py-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- BEGIN: ProfileMainContent -->
+                <main class="lg:col-span-2 space-y-8">
+
+                    <!-- BEGIN: ProfileHero -->
+                    <section class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                        <!-- Straight band, no curve, no SVG. -->
+                        <div class="relative h-24 bg-gradient-to-r from-brand-green via-brand-container to-brand-green">
+                            <div class="absolute inset-0 opacity-[0.07]"
+                                style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0px); background-size: 18px 18px;">
+                            </div>
+                        </div>
+
+                        <div class="px-8 pt-6 pb-8">
+                            <div class="flex items-end justify-between gap-5 flex-wrap">
+                                <div class="flex items-end gap-5 min-w-0">
+                                    <!-- No negative margin — avatar sits entirely below the band, so nothing hides it. -->
+                                    <div
+                                        class="w-24 h-24 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shrink-0 shadow-md">
+                                        <span class="material-symbols-outlined text-white text-[44px]">person</span>
+                                    </div>
+                                    <div class="min-w-0 pb-1">
+                                        <h1 id="profile-username"
+                                            class="text-2xl md:text-3xl font-extrabold text-brand-green truncate">—</h1>
+                                        <div class="flex items-center gap-2 mt-2.5 flex-wrap">
+                                            <span id="profile-role-badge"
+                                                class="inline-flex items-center gap-1.5 bg-brand-gold/15 text-brand-green px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-brand-gold/30">
+                                                <span
+                                                    class="material-symbols-outlined text-[14px] text-brand-gold">badge</span>
+                                                <span id="profile-role-text">—</span>
+                                            </span>
+                                            <span id="profile-orgtype-badge"
+                                                class="inline-flex items-center gap-1.5 bg-brand-sidebar text-brand-green px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-brand-green/10">
+                                                <span class="material-symbols-outlined text-[14px]"
+                                                    id="profile-orgtype-icon">person</span>
+                                                <span id="profile-orgtype-text">—</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="Opportunities.html"
+                                    class="inline-flex items-center gap-2 bg-brand-green text-white px-5 py-2.5 rounded-full text-[12px] font-bold uppercase tracking-wider hover:bg-brand-container transition-colors shrink-0">
+                                    <span class="material-symbols-outlined text-[16px]">explore</span>
+                                    Browse Opportunities
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- END: ProfileHero -->
+
+                    <!-- BEGIN: AccountDetails -->
+                    <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-1.5 h-6 bg-brand-gold rounded-full"></span>
+                            <h2 class="text-xl font-manrope font-extrabold text-brand-green">Account Details</h2>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-6">
+                            <!-- Username -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item"
+                                data-field="username" data-field-type="text">
+                                <div class="flex items-start justify-between gap-2">
+                                    <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Username</h4>
+                                    <div class="field-actions shrink-0">
+                                        <span class="icon-btn" data-action="edit" title="Edit"><span
+                                                class="material-symbols-outlined">edit</span></span>
+                                        <span class="icon-btn icon-btn-danger" data-action="delete" title="Delete"><span
+                                                class="material-symbols-outlined">delete</span></span>
+                                    </div>
+                                </div>
+                                <div data-purpose="field-display">
+                                    <p id="detail-username" class="font-manrope font-bold text-brand-green">—</p>
+                                </div>
+                            </div>
+                            <!-- Role -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item"
+                                data-field="identity" data-field-type="select"
+                                data-options="investor:Institutional Investor,developer:Project Developer,consultant:Technical Consultant,vendor:Technology Vendor">
+                                <div class="flex items-start justify-between gap-2">
+                                    <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Who are you?</h4>
+                                    <div class="field-actions shrink-0">
+                                        <span class="icon-btn" data-action="edit" title="Edit"><span
+                                                class="material-symbols-outlined">edit</span></span>
+                                        <span class="icon-btn icon-btn-danger" data-action="delete" title="Delete"><span
+                                                class="material-symbols-outlined">delete</span></span>
+                                    </div>
+                                </div>
+                                <div data-purpose="field-display">
+                                    <p id="detail-role" class="font-manrope font-bold text-brand-green">—</p>
+                                </div>
+                            </div>
+                            <!-- Organization type -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item"
+                                data-field="orgType" data-field-type="select"
+                                data-options="individual:Individual,private:Private,government:Government">
+                                <div class="flex items-start justify-between gap-2">
+                                    <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Organization Type
+                                    </h4>
+                                    <div class="field-actions shrink-0">
+                                        <span class="icon-btn" data-action="edit" title="Edit"><span
+                                                class="material-symbols-outlined">edit</span></span>
+                                        <span class="icon-btn icon-btn-danger" data-action="delete" title="Delete"><span
+                                                class="material-symbols-outlined">delete</span></span>
+                                    </div>
+                                </div>
+                                <div data-purpose="field-display">
+                                    <p id="detail-orgtype" class="font-manrope font-bold text-brand-green">—</p>
+                                </div>
+                            </div>
+                            <!-- Company / Ministry name (conditionally shown, mirrors registration logic) -->
+                            <div id="detail-companyname-wrap" class="border-l-2 border-brand-gold/30 pl-4 hidden"
+                                data-purpose="meta-item" data-field="companyName" data-field-type="text">
+                                <div class="flex items-start justify-between gap-2">
+                                    <h4 id="detail-companyname-label"
+                                        class="text-[11px] font-bold text-gray-400 uppercase mb-1">
+                                        Company Name</h4>
+                                    <div class="field-actions shrink-0">
+                                        <span class="icon-btn" data-action="edit" title="Edit"><span
+                                                class="material-symbols-outlined">edit</span></span>
+                                        <span class="icon-btn icon-btn-danger" data-action="delete" title="Delete"><span
+                                                class="material-symbols-outlined">delete</span></span>
+                                    </div>
+                                </div>
+                                <div data-purpose="field-display">
+                                    <p id="detail-companyname" class="font-manrope font-bold text-brand-green">—</p>
+                                </div>
+                            </div>
+                            <!-- Country -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item"
+                                data-field="country" data-field-type="select"
+                                data-options="NG:Nigeria,US:United States,UK:United Kingdom,CN:China,ZA:South Africa,IN:India,BR:Brazil,JP:Japan">
+                                <div class="flex items-start justify-between gap-2">
+                                    <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Country</h4>
+                                    <div class="field-actions shrink-0">
+                                        <span class="icon-btn" data-action="edit" title="Edit"><span
+                                                class="material-symbols-outlined">edit</span></span>
+                                        <span class="icon-btn icon-btn-danger" data-action="delete" title="Delete"><span
+                                                class="material-symbols-outlined">delete</span></span>
+                                    </div>
+                                </div>
+                                <div data-purpose="field-display">
+                                    <p id="detail-country" class="font-manrope font-bold text-brand-green">—</p>
+                                </div>
+                            </div>
+                            <!-- Contact Number -->
+                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item"
+                                data-field="phone" data-field-type="text">
+                                <div class="flex items-start justify-between gap-2">
+                                    <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Contact Number</h4>
+                                    <div class="field-actions shrink-0">
+                                        <span class="icon-btn" data-action="edit" title="Edit"><span
+                                                class="material-symbols-outlined">edit</span></span>
+                                        <span class="icon-btn icon-btn-danger" data-action="delete" title="Delete"><span
+                                                class="material-symbols-outlined">delete</span></span>
+                                    </div>
+                                </div>
+                                <div data-purpose="field-display">
+                                    <p id="detail-phone" class="font-manrope font-bold text-brand-green">—</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- END: AccountDetails -->
+
+                </main>
+                <!-- END: ProfileMainContent -->
+
+                <!-- BEGIN: Sidebar -->
+                <aside class="space-y-6">
+                    <!-- BEGIN: EmailCard -->
+                    <div class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                        <div class="px-4 py-3 bg-brand-green/5 border-b border-brand-green/10">
+                            <h3 class="font-manrope font-bold text-sm text-brand-green">Email</h3>
+                        </div>
+                        <div class="p-6 bg-white">
+                            <div class="flex items-start gap-3" data-purpose="meta-item" data-field="email"
+                                data-field-type="text">
+                                <span class="material-symbols-outlined text-brand-gold text-[22px] mt-0.5">mail</span>
+                                <div class="min-w-0 flex-1">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <div data-purpose="field-display" class="min-w-0">
+                                            <p id="detail-email" class="font-bold text-brand-green break-all">—</p>
+                                            <span id="email-verified-badge"
+                                                class="mt-2 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full">
+                                                <span class="material-symbols-outlined text-[12px]">verified</span>
+                                                Verified
+                                            </span>
+                                        </div>
+                                        <div class="field-actions shrink-0">
+                                            <span class="icon-btn" data-action="edit" title="Edit"><span
+                                                    class="material-symbols-outlined">edit</span></span>
+                                            <span class="icon-btn icon-btn-danger" data-action="delete"
+                                                title="Delete"><span
+                                                    class="material-symbols-outlined">delete</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: EmailCard -->
+
+                    <!-- BEGIN: PasswordCard -->
+                    <div class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                        <div class="px-4 py-3 bg-brand-green/5 border-b border-brand-green/10">
+                            <h3 class="font-manrope font-bold text-sm text-brand-green">Password</h3>
+                        </div>
+                        <div class="p-6 bg-white">
+                            <div class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-brand-gold text-[22px] mt-0.5">lock</span>
+                                <div class="min-w-0 flex-1">
+                                    <p class="font-bold text-brand-green tracking-widest">••••••••••••</p>
+                                    <p class="text-xs text-gray-400 mt-1">Last changed: never tracked</p>
+                                    <button id="open-reset-password" type="button"
+                                        class="mt-3 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-green bg-brand-sidebar hover:bg-brand-gold/20 border border-brand-gold/40 px-3 py-1.5 rounded-full transition-colors">
+                                        <span class="material-symbols-outlined text-[14px]">key</span>
+                                        Reset Password
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: PasswordCard -->
+
+                    <!-- BEGIN: SupportCard -->
+                    <div class="bg-brand-green rounded-lg overflow-hidden shadow-sm">
+                        <div class="p-6">
+                            <span class="material-symbols-outlined text-brand-gold text-[26px]">support_agent</span>
+                            <h3 class="font-manrope font-bold text-base text-white mt-2">Need a hand?</h3>
+                            <p class="text-xs text-white/70 mt-1.5 leading-relaxed">
+                                Questions about an opportunity, or something wrong on your account? The OSIP team can
+                                help.
+                            </p>
+                            <a href="Contact.html"
+                                class="mt-4 inline-flex items-center gap-1.5 bg-white text-brand-green px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-wider hover:bg-brand-gold hover:text-brand-green transition-colors">
+                                <span class="material-symbols-outlined text-[14px]">mail</span>
+                                Contact Support
+                            </a>
+                        </div>
+                    </div>
+                    <!-- END: SupportCard -->
+
+                    <!-- BEGIN: SignOutCard -->
+                    <button type="button"
+                        class="w-full inline-flex items-center justify-center gap-2 border border-red-300 bg-red-50 text-red-700 px-4 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-wider hover:bg-red-800 hover:border-red-800 hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-[16px]">logout</span>
+                        Sign out
+                    </button>
+                    <!-- END: SignOutCard -->
+                </aside>
+                <!-- END: Sidebar -->
+            </div>
+        </div>
+        <!-- END: MainContainer -->
+        <div id="site-footer"></div>
+    </div>
+    <!-- /page-wrapper -->
+
+    <!-- BEGIN: ResetPasswordModal -->
+    <div id="modal-overlay">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-sm p-6 relative">
+            <button id="close-reset-password" type="button" class="absolute top-4 right-4 icon-btn" title="Close">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="flex items-center gap-3 mb-5">
+                <span class="w-1.5 h-6 bg-brand-gold rounded-full"></span>
+                <h3 class="text-lg font-manrope font-extrabold text-brand-green">Reset Password</h3>
+            </div>
+            <form id="reset-password-form" class="space-y-4">
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase mb-1" for="new-password">New
+                        Password</label>
+                    <input id="new-password" type="password" required minlength="8"
+                        class="w-full rounded-md border-gray-200 focus:border-brand-gold focus:ring-brand-gold text-sm"
+                        placeholder="Enter new password" />
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase mb-1"
+                        for="confirm-password">Confirm Password</label>
+                    <input id="confirm-password" type="password" required minlength="8"
+                        class="w-full rounded-md border-gray-200 focus:border-brand-gold focus:ring-brand-gold text-sm"
+                        placeholder="Re-enter new password" />
+                </div>
+                <p id="reset-password-error" class="text-xs font-semibold text-red-600 hidden"></p>
+                <div class="flex items-center gap-3 pt-2">
+                    <button type="submit"
+                        class="flex-1 bg-brand-green hover:bg-brand-container text-white font-bold text-sm py-2.5 rounded-md transition-colors">
+                        Save New Password
+                    </button>
+                    <button type="button" id="cancel-reset-password"
+                        class="px-4 py-2.5 text-sm font-bold text-brand-green bg-brand-sidebar hover:bg-gray-200 rounded-md transition-colors">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: ResetPasswordModal -->
+
+    <script>
+        // ============================================================
+        // Demo/placeholder profile data.
+        // Field set is intentionally limited to exactly what the
+        // registration form (Login.html) collects — no extra fields.
+        // Replace this object with a real fetch() to your user/session
+        // endpoint when wiring this page up to the backend.
+        // ============================================================
+        const profile = {
+            username: 'adaeze_invest',
+            identity: 'investor',        // investor | developer | consultant | vendor
+            orgType: 'private',          // individual | private | government
+            companyName: 'Meridian Capital Partners',
+            country: 'NG',
+            email: 'adaeze.okoye@com',
+            emailVerified: true,
+            phone: '+234 802 345 6789',
+            memberSince: '2026-03-14',
+            lastLogin: '2026-08-11T09:20:00'
+        };
+
+        // Same label sets as the register form's <select> options.
+        const IDENTITY_LABELS = {
+            investor: 'Institutional Investor',
+            developer: 'Project Developer',
+            consultant: 'Technical Consultant',
+            vendor: 'Technology Vendor'
+        };
+        const COUNTRY_LABELS = {
+            NG: 'Nigeria', US: 'United States', UK: 'United Kingdom', CN: 'China',
+            ZA: 'South Africa', IN: 'India', BR: 'Brazil', JP: 'Japan'
+        };
+        const ORG_TYPE = {
+            individual: { label: 'Individual', icon: 'person' },
+            private: { label: 'Private', icon: 'corporate_fare' },
+            government: { label: 'Government', icon: 'account_balance' }
+        };
+
+        function renderProfile() {
+            const roleLabel = IDENTITY_LABELS[profile.identity] || '—';
+            const orgInfo = ORG_TYPE[profile.orgType] || { label: '—', icon: 'person' };
+            const countryLabel = COUNTRY_LABELS[profile.country] || '—';
+
+            document.getElementById('profile-username').textContent = profile.username ? '@' + profile.username : '—';
+            document.getElementById('profile-role-text').textContent = roleLabel;
+            document.getElementById('profile-orgtype-text').textContent = orgInfo.label;
+            document.getElementById('profile-orgtype-icon').textContent = orgInfo.icon;
+
+            document.getElementById('detail-username').textContent = profile.username || '—';
+            document.getElementById('detail-role').textContent = roleLabel;
+            document.getElementById('detail-orgtype').textContent = orgInfo.label;
+            document.getElementById('detail-country').textContent = countryLabel;
+            document.getElementById('detail-phone').textContent = profile.phone || '—';
+            document.getElementById('detail-email').textContent = profile.email || '—';
+
+            // Company/Ministry name — only shown for private/government,
+            // exactly mirroring the conditional field in the register form.
+            const companyWrap = document.getElementById('detail-companyname-wrap');
+            if (profile.orgType === 'private' || profile.orgType === 'government') {
+                document.getElementById('detail-companyname-label').textContent =
+                    profile.orgType === 'government' ? 'Ministry Name' : 'Company Name';
+                document.getElementById('detail-companyname').textContent = profile.companyName || '—';
+                companyWrap.classList.remove('hidden');
+            } else {
+                companyWrap.classList.add('hidden');
+            }
+
+            // Email verification badge reflects state; falls back to "unverified" styling.
+            const badge = document.getElementById('email-verified-badge');
+            if (profile.emailVerified) {
+                badge.className = 'mt-2 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full';
+                badge.innerHTML = '<span class="material-symbols-outlined text-[12px]">verified</span> Verified';
+            } else {
+                badge.className = 'mt-2 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full';
+                badge.innerHTML = '<span class="material-symbols-outlined text-[12px]">schedule</span> Unverified';
+            }
+        }
+
+        renderProfile();
+
+        // ============================================================
+        // Inline Edit / Delete for every field
+        // ============================================================
+        function startEdit(item) {
+            const field = item.getAttribute('data-field');
+            const type = item.getAttribute('data-field-type');
+            const displayWrap = item.querySelector('[data-purpose="field-display"]');
+            if (!displayWrap || displayWrap.querySelector('.field-edit-input')) return; // already editing
+
+            const currentValue = profile[field] || '';
+            const originalHTML = displayWrap.innerHTML;
+
+            let inputHTML = '';
+            if (type === 'select') {
+                const optionsAttr = item.getAttribute('data-options');
+                const pairs = optionsAttr.split(',').map(p => p.split(':'));
+                inputHTML = `<select class="field-edit-input">` +
+                    pairs.map(([val, lbl]) => `<option value="${val}" ${val === currentValue ? 'selected' : ''}>${lbl}</option>`).join('') +
+                    `</select>`;
+            } else {
+                inputHTML = `<input type="text" class="field-edit-input" value="${currentValue.replace(/"/g, '&quot;')}" />`;
+            }
+
+            displayWrap.innerHTML = inputHTML +
+                `<div class="field-edit-actions">
+                    <span class="field-btn field-btn-save" data-action="save">Save</span>
+                    <span class="field-btn field-btn-cancel" data-action="cancel">Cancel</span>
+                </div>`;
+
+            const inputEl = displayWrap.querySelector('.field-edit-input');
+            inputEl.focus();
+
+            displayWrap.querySelector('[data-action="save"]').addEventListener('click', () => {
+                const newValue = inputEl.value.trim();
+                profile[field] = newValue;
+                renderProfile();
+            });
+            displayWrap.querySelector('[data-action="cancel"]').addEventListener('click', () => {
+                displayWrap.innerHTML = originalHTML;
+            });
+        }
+
+        function deleteField(item) {
+            const field = item.getAttribute('data-field');
+            const label = item.querySelector('h4') ? item.querySelector('h4').textContent : field;
+            const confirmed = window.confirm(`Clear the "${label}" field? This cannot be undone.`);
+            if (!confirmed) return;
+            profile[field] = '';
+            renderProfile();
+        }
+
+        document.querySelectorAll('[data-purpose="meta-item"]').forEach((item) => {
+            const editBtn = item.querySelector('[data-action="edit"]');
+            const deleteBtn = item.querySelector('[data-action="delete"]');
+            if (editBtn) editBtn.addEventListener('click', () => startEdit(item));
+            if (deleteBtn) deleteBtn.addEventListener('click', () => deleteField(item));
+        });
+
+        // ============================================================
+        // Reset Password modal
+        // ============================================================
+        const modalOverlay = document.getElementById('modal-overlay');
+        const openResetBtn = document.getElementById('open-reset-password');
+        const closeResetBtn = document.getElementById('close-reset-password');
+        const cancelResetBtn = document.getElementById('cancel-reset-password');
+        const resetForm = document.getElementById('reset-password-form');
+        const resetError = document.getElementById('reset-password-error');
+
+        function openModal() {
+            modalOverlay.classList.add('open');
+            resetError.classList.add('hidden');
+            resetForm.reset();
+            document.getElementById('new-password').focus();
+        }
+        function closeModal() {
+            modalOverlay.classList.remove('open');
+        }
+
+        openResetBtn.addEventListener('click', openModal);
+        closeResetBtn.addEventListener('click', closeModal);
+        cancelResetBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
+        });
+
+        resetForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (newPassword.length < 8) {
+                resetError.textContent = 'Password must be at least 8 characters.';
+                resetError.classList.remove('hidden');
+                return;
+            }
+            if (newPassword !== confirmPassword) {
+                resetError.textContent = 'Passwords do not match.';
+                resetError.classList.remove('hidden');
+                return;
+            }
+
+            // Replace with a real API call to update the password server-side.
+            resetError.classList.add('hidden');
+            closeModal();
+            window.alert('Password updated successfully.');
+        });
+    </script>
+
+    <!-- Shared site scripts (nav/footer injection) -->
+    <script src="footer.js"></script>
+    <script src="nav.js"></script>
+</body>
+
+</html>

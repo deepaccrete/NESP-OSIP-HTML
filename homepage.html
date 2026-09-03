@@ -15,6 +15,14 @@
     }
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KVTQG71B9P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-KVTQG71B9P');
+  </script>
   <title>OSIP - Home</title>
   <style type="text/css"
     data-vite-dev-id="D:/OneDrive - Accrete Infosolution Technologies llp/Desktop/NESP/NESP-OSIP-Frontend/Frontend/src/index.css">
@@ -3633,7 +3641,7 @@
               <a href="pages/Opportunities.html"
                 class="inline-flex items-center justify-center gap-2 min-h-[44px) min-h-[44px] bg-[#FFDDB4] hover:bg-[#e6c78b] text-[#0a1f1a] font-semibold px-3 py-2 rounded-lg text-[11px] sm:text-[12px] tracking-wide transition-all duration-300 text-center">
                 <span class="material-symbols-outlined text-[15px]">explore</span>Explore Investment Opportunities</a>
-              <a href="pages/OpportunitiesNew.html"
+              <a href="pages/OpportunitiesNew.html" data-investflow
                 class="inline-flex items-center justify-center gap-2 min-h-[44px] bg-[#FFDDB4] hover:bg-[#e6c78b] text-[#0a1f1a] font-semibold px-3 py-2 rounded-lg text-[11px] sm:text-[12px] tracking-wide transition-all duration-300 text-center">
                 <span class="material-symbols-outlined text-[15px]">rocket_launch</span>Start Your Investment
                 Journey</a>
@@ -4088,13 +4096,13 @@
                 <p class="text-[13px] sm:text-sm text-[#5f6368] leading-7 mt-1 mb-4">Join policymakers, investors,
                   developers, financiers, and industry leaders to explore opportunities across Nigeria's rapidly
                   growing clean energy sector.</p>
-                <a href="pages/notDecided.html"
+                <!-- <a href="pages/notDecided.html"
                   class="inline-flex items-center justify-center bg-[#0a5a37] hover:bg-[#0d7345] text-white font-semibold text-sm px-6 py-2.5 rounded-lg transition-all duration-300 w-full sm:w-auto"
-                  style="font-family: Manrope, sans-serif;">Register Now</a>
+                  style="font-family: Manrope, sans-serif;">Register Now</a> -->
               </div>
-            </div><button
-              class="w-full mt-7 sm:mt-8 h-[54px] sm:h-[58px] border border-[#d3d3d3] bg-transparent text-[#0a5a37] font-semibold text-sm sm:text-[15px] rounded-xl hover:bg-white transition-all duration-300"
-              onclick="location.href=\'Sector.html\'" style="font-family: Manrope, sans-serif;">View All Events</button>
+            </div><a href="pages/Event.html"
+              class="flex items-center justify-center w-full mt-7 sm:mt-8 h-[54px] sm:h-[58px] border border-[#d3d3d3] bg-transparent text-[#0a5a37] font-semibold text-sm sm:text-[15px] rounded-xl hover:bg-white transition-all duration-300"
+              style="font-family: Manrope, sans-serif;">View All Events</a>
           </div>
         </div>
       </section>
@@ -4349,21 +4357,21 @@
               <a href="https://nerc.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                 aria-label="Nigerian Electricity Regulatory Commission (NERC)">
                 <img src="pages/Nigerian Electricity Regulatory Commission logo.png" alt="NERC Logo"
-                  class="partner-logo" style="--logo-scale: 2.4";>
+                  class="partner-logo" style="--logo-scale: 2.4" ;>
               </a>
             </div>
 
             <div class="partner-item">
               <a href="https://rea.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                 aria-label="Rural Electrification Agency (REA)">
-                <img src="pages/REA-logo.png" alt="REA Logo" class="partner-logo " style="--logo-scale: 1.7";>
+                <img src="pages/REA-logo.png" alt="REA Logo" class="partner-logo " style="--logo-scale: 1.7" ;>
               </a>
             </div>
 
             <div class="partner-item">
               <a href="https://nipc.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                 aria-label="Nigerian Investment Promotion Commission (NIPC)">
-                <img src="pages/NIPC-logo.png" alt="NIPC Logo" class="partner-logo">
+                <img src="pages/nipc-logo.png" alt="NIPC Logo" class="partner-logo">
               </a>
             </div>
 
@@ -4407,8 +4415,7 @@
             </div>
 
             <div class="partner-item">
-              <a href="https://power.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
-                aria-label="State Gov">
+              <a target="_blank" rel="noopener noreferrer" class="partner-card group" aria-label="State Gov">
                 <span class="sr-only" style="font-weight: bold; color:gray;">State Gov</span>
               </a>
             </div>
@@ -4437,13 +4444,14 @@
                   the Platform</a></li>
               <li><a href="pages/Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Investor
                   Support</a></li>
-              <li><a href="pages/notDecided.html"
+              <li><a href="pages/FAQs.html"
                   class="text-sm sm:text-base hover:text-white transition-colors">FAQs</a></li>
               <li><a href="pages/Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Contact
                   Us</a></li>
-              <li><a href="pages/News.html" class="text-sm sm:text-base hover:text-white transition-colors">News &amp;
-                  Events</a></li>
-              <li><a href="pages/News.html"
+              <li><a href="pages/News.html" class="text-sm sm:text-base hover:text-white transition-colors">News</a></li>
+              <li><a href="pages/Event.html"
+                  class="text-sm sm:text-base hover:text-white transition-colors">Events</a></li>
+              <li><a href="pages/Announcements.html"
                   class="text-sm sm:text-base hover:text-white transition-colors">Announcements</a></li>
               <li><a href="pages/Contact.html"
                   class="text-sm sm:text-base hover:text-white transition-colors">Contact</a></li>
@@ -4529,7 +4537,7 @@
 
     // Active top-nav highlight + page wiring (golden bar follows the current page).
     (function () {
-      const NAV_HREF = { 'SECTORS': 'pages/Sector.html', 'OPPORTUNITIES': 'pages/Opportunities.html', 'REGULATIONS': 'pages/Regulation.html', 'DATA': 'pages/Data.html', 'NEWS': 'pages/News.html', 'CONTACT': 'pages/Contact.html', 'INVEST NOW': 'pages/Opportunities.html' };
+      const NAV_HREF = { 'SECTORS': 'pages/Sector.html', 'OPPORTUNITIES': 'pages/Opportunities.html', 'REGULATIONS': 'pages/Regulation.html', 'DATA': 'pages/Data.html', 'NEWS': 'pages/News.html', 'CONTACT': 'pages/Contact.html', 'INVEST NOW': 'pages/InvestorMatch.html' };
       const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
       const file = (location.pathname.split('/').pop() || '').toLowerCase();
       const active = PAGE_ACTIVE[file];
@@ -4887,7 +4895,7 @@
 
   <!-- Invest Now popup flow -->
   <script src="pages/investflow.js"></script>
-<script src="pages/nav.js"></script>
+  <script src="pages/nav.js"></script>
 </body>
 
 </html>

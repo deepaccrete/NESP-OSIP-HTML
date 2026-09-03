@@ -24,24 +24,37 @@
     regulations: base + 'Regulation.html',
     data: base + 'Data.html',
     news: base + 'News.html',
-    contact: base + 'Contact.html'
+    contact: base + 'Contact.html',
+    profile: base + 'AboutMe.html',
+    // "Invest Now" now opens the InvestorMatch quiz rather than the old
+    // InvestNow1-3 popup flow (see investflow.js).
+    invest: base + 'InvestorMatch.html'
   };
 
   // ---- Hover-dropdown menu data (single source) --------------------------
-  // Set `wide: true` on a menu to render its items in two columns.
+  // Every menu renders identically: one column, capped at 320px, scrolling
+  // with a visible bar once it holds more than that fits. There is nothing to
+  // opt into — a short menu simply never reaches the cap, so DATA and
+  // REGULATIONS look exactly as they always did, while NEWS and SECTORS scroll
+  // instead of running down the page. The panel used to have a `wide` variant
+  // too; it is gone, because a 660px three-column panel cannot coexist with a
+  // capped single-column scrolling one and the two silently fought.
+  //
+  // `compact: true` is still honoured: it drops the item descriptions and
+  // tightens the rows.
   var MENU = {
     'SECTORS': {
-      head: 'Strategic Priority Sectors', wide: true, scroll: true, items: [
+      head: 'Strategic Priority Sectors', items: [
         { t: 'Solar', d: 'Utility-scale and distributed solar PV generation projects.', href: base + 'DetailedSector.html' },
-        { t: 'Bioenergy', d: 'Biomass, biogas & waste-to-energy power generation.', href: base + 'DetailedSector.html' },
-        { t: 'Wind', d: 'Onshore wind generation across high-potential corridors.', href: base + 'DetailedSector.html' },
-        { t: 'Green Mobility', d: 'Electric vehicles, charging infrastructure & clean transport.', href: base + 'DetailedSector.html' },
-        { t: 'Clean Cooking', d: 'Improved cookstoves & clean fuel alternatives to biomass.', href: base + 'DetailedSector.html' },
-        { t: 'Storage', d: 'Battery energy storage systems (BESS) & grid balancing.', href: base + 'DetailedSector.html' },
-        { t: 'Small Hydro', d: 'Run-of-river & small-scale hydropower generation.', href: base + 'DetailedSector.html' },
-        { t: 'Energy Efficiency', d: 'Demand-side efficiency, ISO 50001 & industrial energy savings.', href: base + 'DetailedSector.html' },
-        { t: 'Green Hydrogen', d: 'Electrolysis-based hydrogen production & export potential.', href: base + 'DetailedSector.html' },
-        { t: 'Agricultural PUE', d: 'Productive use of energy for agro-processing & rural livelihoods.', href: base + 'DetailedSector.html' }
+        { t: 'Bioenergy', d: 'Biomass, biogas & waste-to-energy power generation.', href: base + 'Bioenergy.html' },
+        { t: 'Wind', d: 'Onshore wind generation across high-potential corridors.', href: base + 'Wind.html' },
+        { t: 'Green Mobility', d: 'Electric vehicles, charging infrastructure & clean transport.', href: base + 'GreenMobility.html' },
+        { t: 'Clean Cooking', d: 'Improved cookstoves & clean fuel alternatives to biomass.', href: base + 'CleanCooking.html' },
+        { t: 'Storage', d: 'Battery energy storage systems (BESS) & grid balancing.', href: base + 'Storage.html' },
+        { t: 'Small Hydro', d: 'Run-of-river & small-scale hydropower generation.', href: base + 'SmallHydro.html' },
+        { t: 'Energy Efficiency', d: 'Demand-side efficiency, ISO 50001 & industrial energy savings.', href: base + 'EnergyEfficiency.html' },
+        { t: 'Green Hydrogen', d: 'Electrolysis-based hydrogen production & export potential.', href: base + 'GreenHydrogen.html' },
+        { t: 'Agricultural PUE', d: 'Productive use of energy for agro-processing & rural livelihoods.', href: base + 'AgriculturePUE.html' }
       ]
     },
     'OPPORTUNITIES': {
@@ -73,7 +86,9 @@
         { t: 'Power & Energy', d: 'Generation, supply & market news.', href: base + 'News.html' },
         { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: base + 'News.html' },
         { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: base + 'News.html' },
-        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: base + 'News.html' }
+        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: base + 'News.html' },
+        { t: 'Announcements', d: 'Calls, deadlines & official notices.', href: base + 'Announcements.html' },
+        { t: 'Events', d: 'Forums, workshops & roadshows.', href: base + 'Event.html' }
       ]
     }
   };
@@ -81,8 +96,13 @@
   // Which top-level tab is "active" for a given page (basename -> label).
   var PAGE_ACTIVE = {
     'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS',
+    'wind.html': 'SECTORS', 'storage.html': 'SECTORS', 'smallhydro.html': 'SECTORS',
+    'greenmobility.html': 'SECTORS', 'energyefficiency.html': 'SECTORS', 'cleancooking.html': 'SECTORS',
+    'bioenergy.html': 'SECTORS', 'agriculturepue.html': 'SECTORS', 'greenhydrogen.html': 'SECTORS',
     'regulation.html': 'REGULATIONS', 'data.html': 'DATA',
     'news.html': 'NEWS', 'newsindetail.html': 'NEWS',
+    'announcements.html': 'NEWS', 'individualannouncement.html': 'NEWS',
+    'event.html': 'NEWS', 'individualevent.html': 'NEWS',
     'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES',
     'detailedoppnew.html': 'OPPORTUNITIES', 'contact.html': 'CONTACT'
   };
@@ -97,22 +117,39 @@
     '<nav class="bg-white border-b border-gray-100 sticky top-0 z-50">' +
     '<div class="max-w-[1440px] mx-auto px-6 lg:px-8">' +
     '<div class="flex items-center justify-between h-[74px]">' +
-    '<div class="flex items-center gap-10"><a href="' + HOME + '"><img alt="Logo" class="h-5 w-auto" src="' + base + 'Text.png"></a>' +
+    // Both logos sit together on the left, separated by a hairline so they
+    // read as two marks rather than one wordmark. The partner logo is stepped
+    // down to h-8 here: at its old h-9 it out-weighed the OSIP mark it now
+    // stands beside, which it never did alone on the far right.
+    '<div class="flex items-center gap-10">' +
+    '<div class="flex items-center gap-4">' +
+    '<img alt="Partner" class="h-8 w-auto object-contain" src="' + base + 'logoNESP.png">' +
+    '<span class="w-px h-6 bg-gray-200" aria-hidden="true"></span>' +
+    '<a href="' + HOME + '"><img alt="Logo" class="h-5 w-auto" src="' + base + 'Text.png"></a>' +
+    '</div>' +
     '<ul class="hidden lg:flex items-center">' +
     top('SECTORS', url.sectors) + top('OPPORTUNITIES', url.opportunities) + top('REGULATIONS', url.regulations) +
     top('DATA', url.data) + top('NEWS', url.news) +
     '</ul></div>' +
     '<div class="hidden lg:flex items-center gap-5">' +
     '<a href="' + url.contact + '" class="text-sm font-semibold text-[#047857]">Contact</a>' +
-    '<a href="' + url.opportunities + '" class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest Now</a>' +
-    '<img alt="Partner" class="h-9 object-contain" src="' + base + 'logoNESP.png"></div>' +
+    '<a href="' + url.invest + '" class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest Now</a>' +
+    // Account: icon only, 36px, outlined rather than filled. With the partner
+    // logo moved left this is the single mark on the right, so the row ends on
+    // one round shape instead of an icon and a logo competing side by side.
+    '<a href="' + url.profile + '" title="My Profile" aria-label="My Profile"' +
+    ' class="w-9 h-9 flex items-center justify-center rounded-full border border-[#047857]/25 text-[#047857] transition hover:bg-[#047857] hover:text-white hover:border-[#047857]">' +
+    '<span class="material-symbols-outlined text-[20px]">person</span></a>' +
+    '</div>' +
     '<button id="mobile-nav-toggle" aria-label="Open menu" class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>' +
     '</div>' +
     '<div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3"><ul class="flex flex-col">' +
     mtop('SECTORS', url.sectors) + mtop('OPPORTUNITIES', url.opportunities) + mtop('REGULATIONS', url.regulations) +
     mtop('DATA', url.data) + mtop('NEWS', url.news) +
     '<li><a href="' + url.contact + '" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>' +
-    '<li class="px-2 pt-2"><a href="' + url.opportunities + '" class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest Now</a></li>' +
+    '<li><a href="' + url.profile + '" class="flex items-center gap-2 px-2 py-3 text-sm font-semibold text-[#047857]">' +
+    '<span class="material-symbols-outlined text-[18px]">person</span>My Profile</a></li>' +
+    '<li class="px-2 pt-2"><a href="' + url.invest + '" class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest Now</a></li>' +
     '</ul></div>' +
     '</div></nav>';
 
@@ -135,15 +172,19 @@
       '.nesp-has-menu>a::after{content:"";display:inline-block;width:6px;height:6px;margin-left:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);opacity:.6;vertical-align:middle;transition:transform .2s ease}',
       '.nesp-has-menu:hover>a::after{transform:translateY(0) rotate(225deg)}',
       '.nesp-menu-list{display:grid;grid-template-columns:1fr}',
-      // Two-column wide variant, left-anchored so it never runs off the left edge.
-      '.nesp-dropdown--wide{left:0;right:auto;min-width:660px;max-width:calc(100vw - 48px);transform:translateX(0) translateY(8px)}',
-      '.nesp-has-menu:hover .nesp-dropdown--wide{transform:translateX(0) translateY(0)}',
-      '.nesp-dropdown--wide::after{left:38px;transform:rotate(45deg)}',
-      '.nesp-dropdown--wide .nesp-menu-list{grid-template-columns:1fr 1fr 1fr;gap:0 4px}',
       '.nesp-dropdown--compact .nesp-menu-item{padding:8px 12px}',
-      // Single-column, height-capped, scrollable variant (all 10 sectors reachable by scroll).
-      '.nesp-dropdown--scroll .nesp-menu-list{grid-template-columns:1fr;max-height:320px;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none}',
-      '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar{width:0;height:0;display:none}'
+      // Single-column, height-capped, scrollable list — applied to EVERY
+      // dropdown. The scrollbar is deliberately VISIBLE: the list
+      // is cut off mid-item with no other cue, so hiding it left readers with
+      // no way to know the menu continued past what they could see. Kept thin
+      // and in the palette so it reads as part of the panel.
+      // overscroll-behavior stops the page underneath scrolling on once the
+      // list reaches its end.
+      '.nesp-dropdown--scroll .nesp-menu-list{grid-template-columns:1fr;max-height:320px;overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin;scrollbar-color:#cbd8d2 transparent}',
+      '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar{width:6px}',
+      '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-track{background:transparent;margin:6px 0}',
+      '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-thumb{background:#cbd8d2;border-radius:999px}',
+      '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-thumb:hover{background:#047857}'
     ].join('');
     document.head.appendChild(st);
   }
@@ -180,7 +221,9 @@
         (it.d && !menu.compact ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
     });
     var panel = document.createElement('div');
-    panel.className = 'nesp-dropdown' + (menu.wide ? ' nesp-dropdown--wide' : '') + (menu.compact ? ' nesp-dropdown--compact' : '') + (menu.scroll ? ' nesp-dropdown--scroll' : '');
+    // --scroll is unconditional: see the note on MENU above. Short menus
+    // never reach the cap, so this changes nothing for them.
+    panel.className = 'nesp-dropdown nesp-dropdown--scroll' + (menu.compact ? ' nesp-dropdown--compact' : '');
     panel.innerHTML = '<div class="nesp-menu-head">' + menu.head + '</div><div class="nesp-menu-list">' + items + '</div>';
     li.appendChild(panel);
   });

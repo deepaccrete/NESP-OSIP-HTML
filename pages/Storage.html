@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Renewable Generation | OSIP - Nigerian Energy Investment Portal</title>
+    <meta content="width=device-width, initial-scale=1.0" name="vie1wport">
+    <title>Storage | OSIP - Nigerian Energy Investment Portal</title>
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -173,84 +173,88 @@
         }
 
         /* ============================================================
-           KEY FACTS BAR CHARTS
+           KEY FACTS DIAGRAMS
 
-           The bars were flat single-colour blocks floating on the card
-           background, which reads as 2D. These mirror the treatment in
-           EnergyEfficiency.html:
+           Shapes taken from the supplied battery-storage reference; every
+           colour, font and radius is this page's own. The reference's CSS
+           variables map onto the palette already in use here:
 
-             - a recessed track behind each bar, so the full scale is
-               visible and the bar reads as sitting *in* something
-             - a vertical gradient fill rather than one flat colour
-             - a highlight along the bar's top edge
+             --green-900 #12432F -> #00301f      --gray-900 #1F2430 -> #111827
+             --green-700 #1B6B45 -> #004225      --gray-600 #5B6472 -> #5f6368
+             --green-500 #2F9464 -> #1b6d24      --gray-400 #9AA2AC -> #9aa39e
+             --green-100 #E3F3E9 -> #e7f6ea      --gray-200 #E6E8EB -> #e0e3e1
+                                                 --gray-100 #F4F5F6 -> #f3f4f2
 
-           The track is `flex:1` rather than a fixed height, so the bar's
-           percentage resolves against the plotting area only. Previously
-           `height:100%` resolved against the whole column including the
-           label beneath it, so the tallest bar overflowed its container.
+           The one mid-tone the page lacked (the scale bar's midpoint) is a
+           tint of its own primary, not a value borrowed from the reference:
+             #004225 -> #b3cbc4 (70%)
 
-           Colours are all ones the page already uses:
-             #004225 #1b6d24 (accent)  #d7ddda #b9c6c0 (prior/baseline)
-             #f3f4f2 (track)  #5f6368 #9aa39e (labels)
+           Absolutely-positioned labels contribute no height, so every
+           reserved gap below is sized against the rendered line box
+           (font-size x 1.5, the inherited line-height), not the font-size.
            ============================================================ */
-        .kf-bars {
-            display: flex;
-            align-items: flex-end;
-            gap: 12px;
-        }
-
-        .kf-bar-col {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100%;
-        }
-
-        .kf-bar-track {
+        .kf-visual {
             flex: 1;
-            min-height: 0;
-            width: 36px;
-            background: #f3f4f2;
-            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 18px 0 14px;
+        }
+
+        .kf-note {
+            font-size: 10.5px;
+            color: #9aa39e;
+            text-align: center;
+            font-style: italic;
+            margin: 8px 0 0;
+        }
+
+        /* ---- Card 1: before / after cost comparison ---- */
+        .kf-compare {
+            width: 100%;
             display: flex;
             align-items: flex-end;
-            overflow: hidden;
-        }
-
-        .kf-bar {
-            display: block;
-            width: 100%;
-            border-radius: 8px 8px 0 0;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.30);
-        }
-
-        .kf-bar.is-prior {
-            background: linear-gradient(180deg, #d7ddda, #b9c6c0);
-        }
-
-        .kf-bar.is-latest {
-            background: linear-gradient(180deg, #1b6d24, #004225);
-        }
-
-        /* ---- Before / after comparison ---- */
-        .kf-compare {
-            display: flex;
-            align-items: stretch;
-            gap: 16px;
+            gap: 14px;
         }
 
         .kf-compare-col {
             flex: 1;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .kf-compare-track {
+            width: 100%;
+            height: 96px;
+            display: flex;
+            align-items: flex-end;
+            background: #f3f4f2;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .kf-compare-bar {
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.30);
+        }
+
+        .kf-compare-bar.is-before {
+            height: 100%;
+            background: #e0e3e1;
+        }
+
+        .kf-compare-bar.is-after {
+            background: linear-gradient(180deg, #1b6d24, #004225);
         }
 
         .kf-compare-label {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
             color: #5f6368;
             text-align: center;
-            margin-bottom: 4px;
         }
 
         .kf-compare-label.is-accent {
@@ -258,36 +262,134 @@
             font-weight: 700;
         }
 
-        .kf-compare-track {
-            flex: 1;
-            min-height: 0;
-            background: #f3f4f2;
-            border-radius: 8px;
-            display: flex;
-            align-items: flex-end;
-            overflow: hidden;
-        }
-
-        .kf-compare-bar {
-            display: block;
-            width: 100%;
-            border-radius: 8px 8px 0 0;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.30);
-        }
-
-        .kf-compare-bar.is-before {
-            background: linear-gradient(180deg, #d7ddda, #b9c6c0);
-        }
-
-        .kf-compare-bar.is-after {
-            background: linear-gradient(180deg, #1b6d24, #004225);
-        }
-
         .kf-compare-arrow {
             display: flex;
             align-items: center;
+            justify-content: center;
             color: #9aa39e;
+            padding-bottom: 44px;
         }
+
+        /* ---- Range scale ----
+           visuals.range-scale. Identical on every page that uses it —
+           Wind, Bioenergy, GreenMobility:
+
+             coloredFrom / coloredTo -> .kf-scale-fill, the coloured span
+             ScaleTick[i].value      -> the figure above the dot
+             ScaleTick[i].label      -> the grey line below it  (optional)
+             footNote                -> .kf-note under the bar  (optional)
+
+           The track is the EMPTY scale and .kf-scale-fill is the coloured
+           part, so a full-range scale (fill 0-100%) and a progress bar
+           (GreenMobility's 30% local-content target) are the same markup
+           with different numbers, not two components.
+
+           Tick labels are positioned per tick rather than spread with
+           space-between, because a scale can carry more than two — that
+           30% threshold sits mid-track. On a two-tick scale the first
+           clamps left and the last clamps right, landing exactly where
+           space-between put them, so this card renders unchanged.
+        */
+        .kf-scale {
+            width: 100%;
+        }
+
+        .kf-scale-track {
+            position: relative;
+            height: 12px;
+            border-radius: 6px;
+            margin: 34px 0 30px;
+            background: #f3f4f2;
+        }
+
+        .kf-scale-fill {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #d7ddda 0%, #80a192 55%, #004225 100%);
+        }
+
+        .kf-scale-pin {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 3px solid #004225;
+        }
+
+        .kf-scale-pin span {
+            position: absolute;
+            top: -27px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #111827;
+            white-space: nowrap;
+        }
+
+        /*
+           Absolutely positioned, so it contributes no height — the track's
+           30px bottom margin is what reserves the row. An 11px label on the
+           page's 1.5 line-height is a 16.5px box starting 10px below the
+           track, so 30px clears it.
+        */
+        .kf-scale-label {
+            position: absolute;
+            top: 22px;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: 600;
+            color: #9aa39e;
+            white-space: nowrap;
+        }
+
+        .kf-note {
+            font-size: 10.5px;
+            color: #9aa39e;
+            text-align: center;
+            font-style: italic;
+            margin: 8px 0 0;
+        }
+
+        /* ---- Card 3: battery technology mix ---- */
+        .kf-donut-row {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        .kf-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .kf-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            color: #5f6368;
+            font-weight: 600;
+        }
+
+        .kf-legend-item b {
+            color: #111827;
+        }
+
+        .kf-legend-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
     </style>
 </head>
 
@@ -306,7 +408,7 @@
               rather than eyeballed; see the note on the gradients below.
             -->
             <div class="absolute inset-0 bg-cover bg-center"
-                data-alt="Nigerian solar landscape" style="background-image: url('sector-Solar-hero.jpg')">
+                data-alt="Battery energy storage installation in Nigeria" style="background-image: url('sector-Storage-hero.jpg')">
             </div>
             <!--
               Vignette / depth gradients. The left-to-right scrim is what makes
@@ -328,14 +430,14 @@
                     <!-- Title -->
                     <h1
                         class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-                        Solar
+                        Storage
                     </h1>
 
                     <!-- Minimalist Description (From Docs) -->
                     <p
                         class="text-base sm:text-lg text-white/80 mb-10 leading-relaxed max-w-2xl border-l-4 border-amber-400 pl-6">
-                        Nigeria’s largest clean energy opportunity, driven by abundant sunlight and strong demand for
-                        reliable off-grid and embedded power solutions.
+                        Critical enabler for grid stability and renewable integration, unlocking reliable power supply
+                        through batteries and hybrid systems.
                     </p>
 
                     <!-- Quick Navigation Tabs (From Docs) -->
@@ -470,18 +572,24 @@
                         class="inline-flex items-center gap-3 text-secondary font-bold text-label-md uppercase tracking-[0.18em] mb-5">
                         <span class="w-8 h-[2px] bg-tertiary-fixed-dim"></span> Sector Overview
                     </span>
-                    <h2 class="font-h2 text-h2 text-primary leading-tight mb-6">Powering Nigeria's Renewable Future</h2>
+                    <h2 class="font-h2 text-h2 text-primary leading-tight mb-6">Storing Power for a Reliable Grid</h2>
                     <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">
-                        Nigeria has one of Africa’s strongest solar energy potentials due to its high solar radiation
-                        levels and growing demand for reliable electricity. Nigeria's solar market is the country's
-                        largest clean energy opportunity, driven by abundant sunlight and strong demand for reliable
-                        off-grid and embedded power solutions. The rising energy costs are accelerating the adoption of
-                        solar technologies across residential, commercial, industrial, and public-sector applications.
+                        Storage is becoming one of the most strategic segments in Nigeria’s energy transition because
+                        reliable electricity remains a major challenge across households, businesses, and industries. As
+                        solar deployment grows, battery systems are increasingly required to improve reliability, reduce
+                        diesel dependence, stabilise mini-grids, and support grid flexibility.
+                    </p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-5">
+                        Battery prices have declined significantly globally over the last decade, improving project
+                        economics for Nigerian developers and energy users. Storage demand in Nigeria is being driven by
+                        the need for reliable power, increasing renewable energy deployment, rising electricity costs,
+                        and efforts to reduce dependence on diesel generation. Key market segments include commercial
+                        and industrial facilities, telecommunications infrastructure, mini-grids, critical public
+                        services, and utility-scale renewable energy projects.
                     </p>
                     <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">
-                        Solar projects in Nigeria span utility-scale generation, mini-grids, solar home systems, and
-                        commercial and industrial installations. The sector continues to attract local and international
-                        investors as the country expands access to clean and reliable energy.
+                        Storage is also becoming central to Nigeria’s long-term renewable energy expansion, particularly
+                        as more distributed solar and mini-grid projects come online.
                     </p>
                     <!-- <ul class="space-y-4 mb-10">
                         <li class="flex items-start gap-3">
@@ -511,9 +619,9 @@
                 <!-- Image -->
                 <div class="relative">
                     <div class="overflow-hidden rounded-2xl shadow-xl">
-                        <img alt="Utility-scale solar farm in Nigeria"
+                        <img alt="Battery energy storage system in Nigeria"
                             class="w-full h-72 sm:h-96 lg:h-[480px] object-cover"
-                            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&amp;w=1740&amp;auto=format&amp;fit=crop" />
+                            src="sector-Storage-2.jpg" />
                     </div>
                     <!-- Floating stat card -->
                     <div
@@ -521,11 +629,11 @@
                         <span
                             class="w-12 h-12 bg-primary-container text-white rounded-lg flex items-center justify-center"><span
                                 class="material-symbols-outlined"
-                                style="font-variation-settings: 'FILL' 1;">bolt</span></span>
+                                style="font-variation-settings: 'FILL' 1;">battery_charging_full</span></span>
                         <div>
-                            <p class="font-h3 text-h3 text-primary leading-none">30 GW</p>
-                            <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">Target by
-                                2030</p>
+                            <p class="font-h3 text-h3 text-primary leading-none">US$3B+</p>
+                            <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">Annual
+                                opportunity</p>
                         </div>
                     </div>
                 </div>
@@ -545,166 +653,135 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-                    <!-- 803 MW — vertical bar chart 2024 vs 2025 -->
-                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
-                        <div class="flex items-start justify-between gap-6">
-                            <div class="flex-1">
-                                <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
-                                    style="font-family: Manrope, sans-serif;">803 MW</p>
-                                <p class="text-[#111827] font-semibold mt-3">New solar capacity installed in 2025</p>
-                                <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Making Nigeria Africa's
-                                    second-largest solar market that year.</p>
-                            </div>
-                            <div class="kf-bars h-[132px] flex-shrink-0">
-                                <div class="kf-bar-col">
-                                    <div class="kf-bar-track">
-                                        <span class="kf-bar is-prior" style="height:56%"></span>
-                                    </div>
-                                    <span class="text-[11px] text-[#5f6368] mt-2 font-medium">2024</span>
-                                </div>
-                                <div class="kf-bar-col">
-                                    <div class="kf-bar-track">
-                                        <span class="kf-bar is-latest" style="height:100%"></span>
-                                    </div>
-                                    <span class="text-[11px] text-[#004225] mt-2 font-bold">2025</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Global Solar
-                            Council — Africa Market Outlook 2026–2029.</p>
-                    </div>
-
-                    <!-- 140 Million+ — population icon graphic -->
-                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
-                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">140 Million+</p>
-                        <p class="text-[#111827] font-semibold mt-3">People with unreliable or inadequate electricity
-                            access</p>
-                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Creating strong demand for alternative
-                            energy solutions.</p>
-                        <div class="flex flex-wrap gap-x-1 gap-y-1 mt-auto pt-6 text-[#004225]">
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px] text-[#b9c6c0]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px] text-[#b9c6c0]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px] text-[#b9c6c0]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                        </div>
-                    </div>
-
-                    <!-- 20–30% — before vs after cost comparison -->
+                    <!-- 20–40% — before vs after cost comparison -->
                     <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
                         <div class="flex items-center gap-3 flex-wrap">
                             <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
-                                style="font-family: Manrope, sans-serif;">20–30%</p>
+                                style="font-family: Manrope, sans-serif;">20–40%</p>
                             <span
                                 class="inline-flex items-center gap-1 text-[#1b6d24] text-[12px] font-bold bg-[#e7f6ea] px-2.5 py-1 rounded-full"><span
                                     class="material-symbols-outlined text-[16px]">trending_down</span>Cost
                                 savings</span>
                         </div>
-                        <p class="text-[#111827] font-semibold mt-3">Switching from diesel generation to solar hybrid
-                            systems</p>
-                        <div class="kf-compare h-[92px] mt-6">
-                            <div class="kf-compare-col">
-                                <span class="kf-compare-label">Diesel</span>
-                                <div class="kf-compare-track">
-                                    <span class="kf-compare-bar is-before" style="height:100%"></span>
+                        <p class="text-[#111827] font-semibold mt-3">Potential energy-cost reduction from
+                            solar-plus-storage hybrid systems</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Compared with grid-only or diesel-only
+                            power for commercial and industrial users.</p>
+                        <div class="kf-visual">
+                            <div class="kf-compare">
+                                <div class="kf-compare-col">
+                                    <div class="kf-compare-track">
+                                        <span class="kf-compare-bar is-before"></span>
+                                    </div>
+                                    <span class="kf-compare-label">Grid / Diesel</span>
                                 </div>
-                            </div>
-                            <span class="kf-compare-arrow"><span
-                                    class="material-symbols-outlined">east</span></span>
-                            <div class="kf-compare-col">
-                                <span class="kf-compare-label is-accent">Solar hybrid</span>
-                                <div class="kf-compare-track">
-                                    <span class="kf-compare-bar is-after" style="height:72%"></span>
+                                <span class="kf-compare-arrow"><span
+                                        class="material-symbols-outlined">east</span></span>
+                                <div class="kf-compare-col">
+                                    <div class="kf-compare-track">
+                                        <span class="kf-compare-bar is-after" style="height:65%;"></span>
+                                    </div>
+                                    <span class="kf-compare-label is-accent">Solar + Storage</span>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Industry
-                            project data; BusinessDay Energy Reports (2026).</p>
+                        <p class="text-[#9aa39e] text-[11px] mt-auto pt-4 border-t border-[#eef0ef]">Source: IFC
+                            Distributed Solar Market Assessments; industry project data; REA market reports.</p>
                     </div>
 
-                    <!-- 5–8 GW — growth arrow / pipeline -->
+                    <!-- 3–8 hrs — battery duration range on a 0–12h scale -->
                     <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
                         <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">5–8 GW</p>
-                        <p class="text-[#111827] font-semibold mt-3">Medium-term pipeline opportunity</p>
-                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Across utility-scale solar, distributed
-                            solar, mini-grids, and battery storage.</p>
-                        <div class="flex items-center gap-3 mt-auto pt-6">
-                            <span
-                                class="px-4 py-3 rounded-lg bg-[#f3f4f2] text-[#5f6368] text-[12px] font-semibold text-center leading-tight">Current<br>market</span>
-                            <div class="flex-1 flex items-center">
-                                <div class="flex-1 h-[3px] rounded-full bg-gradient-to-r from-[#c9ceca] to-[#004225]">
-                                </div>
-                                <span class="material-symbols-outlined text-[#004225] -ml-1">arrow_right</span>
-                            </div>
-                            <span
-                                class="px-4 py-3 rounded-lg bg-[#004225] text-white text-[12px] font-bold text-center leading-tight">5–8
-                                GW<br>pipeline</span>
-                        </div>
-                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Energy
-                            Transition Plan, REA programmes, industry forecasts.</p>
-                    </div>
-                </div>
+                            style="font-family: Manrope, sans-serif;">3–8 hrs</p>
+                        <p class="text-[#111827] font-semibold mt-3">Typical battery storage duration in C&amp;I
+                            applications</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Discharge duration commonly deployed across
+                            commercial and industrial systems.</p>
+                        <div class="kf-visual">
+                            <div class="kf-scale">
+                                <div class="kf-scale-track" role="img"
+                                    aria-label="Typical discharge duration of three to eight hours on a zero to twelve hour scale">
+                                    <!-- coloredFrom 3h -> coloredTo 8h on a 0-12h scale:
+                                         3/12 = 25%, 8/12 = 66.67%, so the fill spans 41.67%. -->
+                                    <span class="kf-scale-fill" style="left:25%;width:41.67%;"></span>
 
-                <!-- 30 GW+ by 2060 — timeline (full width) -->
-                <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 mt-6">
-                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-10">
-                        <div class="max-w-xl">
-                            <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
-                                style="font-family: Manrope, sans-serif;">30 GW+</p>
-                            <p class="text-[#111827] font-semibold mt-3">Indicative solar capacity by 2060</p>
-                            <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Solar deployment target under Nigeria's
-                                Energy Transition Plan pathway toward net-zero emissions by 2060.</p>
+                                    <span class="kf-scale-pin" style="left:0%;"><span style="left:0;">0h</span></span>
+
+                                    <span class="kf-scale-pin" style="left:25%;"><span
+                                                style="left:50%;transform:translateX(-50%);">3h</span></span>
+                                    <span class="kf-scale-label" style="left:25%;">Typical minimum</span>
+
+                                    <span class="kf-scale-pin" style="left:66.67%;"><span
+                                                style="left:50%;transform:translateX(-50%);">8h</span></span>
+                                    <span class="kf-scale-label" style="left:66.67%;">Typical maximum</span>
+
+                                    <span class="kf-scale-pin" style="left:100%;"><span style="right:0;">12h</span></span>
+                                </div>
+                                <p class="kf-note">Deployed range shown on a 0–12 hour scale</p>
+                            </div>
                         </div>
+                        <p class="text-[#9aa39e] text-[11px] mt-auto pt-4 border-t border-[#eef0ef]">Source: Industry
+                            deployment data; battery supplier specifications; C&amp;I market assessments.</p>
                     </div>
-                    <div class="flex items-center">
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="w-3 h-3 rounded-full bg-[#c9ceca]"></div>
-                            <span class="text-[12px] text-[#5f6368] mt-2 font-medium">2025</span>
+
+                    <!-- Lithium-Ion — technology mix donut -->
+                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="text-[32px] lg:text-[36px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">Lithium&#8209;Ion</p>
+                        <p class="text-[#111827] font-semibold mt-3">Leading battery technology across Nigeria's storage
+                            market</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Dominant chemistry deployed, ahead of
+                            lead-acid, flow and other technologies. Proportions are indicative — the sources name
+                            lithium-ion as leading but publish no national split.</p>
+                        <div class="kf-visual">
+                            <div class="kf-donut-row">
+                                <!-- r=15.9 gives a circumference of ~100, so dasharray values read
+                                     directly as percentages. Each slice's dashoffset is the running
+                                     total of the ones before it, starting from 25 (12 o'clock).
+                                     Lithium-ion is the card's subject, so it takes brand primary. -->
+                                <svg width="128" height="128" viewBox="0 0 42 42" role="img"
+                                    aria-label="Nigeria's battery technology mix: lithium-ion 65 percent, lead-acid, flow and other 35 percent">
+                                    <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="#e0e3e1" stroke-width="6" />
+                                    <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="#004225" stroke-width="6"
+                                        stroke-dasharray="65 35" stroke-dashoffset="25" />
+                                    <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="#c9ceca" stroke-width="6"
+                                        stroke-dasharray="35 65" stroke-dashoffset="-40" />
+                                </svg>
+                                <div class="kf-legend">
+                                    <span class="kf-legend-item"><span class="kf-legend-dot" style="background:#004225;"></span><b>65%</b>&nbsp;Lithium-Ion</span>
+                                    <span class="kf-legend-item"><span class="kf-legend-dot" style="background:#c9ceca;"></span><b>35%</b>&nbsp;Lead-acid, flow &amp; other</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex-1 h-[2px] bg-[#e0e3e1] mx-1 mb-6"></div>
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="w-3 h-3 rounded-full bg-[#c9ceca]"></div>
-                            <span class="text-[12px] text-[#5f6368] mt-2 font-medium">2030</span>
-                        </div>
-                        <div class="flex-1 h-[2px] bg-[#e0e3e1] mx-1 mb-6"></div>
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="w-3 h-3 rounded-full bg-[#c9ceca]"></div>
-                            <span class="text-[12px] text-[#5f6368] mt-2 font-medium">2040</span>
-                        </div>
-                        <div class="flex-1 h-[2px] bg-[#e0e3e1] mx-1 mb-6"></div>
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="w-3 h-3 rounded-full bg-[#c9ceca]"></div>
-                            <span class="text-[12px] text-[#5f6368] mt-2 font-medium">2050</span>
-                        </div>
-                        <div class="flex-1 h-[2px] mx-1 mb-6" style="background:linear-gradient(90deg,#e0e3e1,#004225)">
-                        </div>
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <span
-                                class="text-[11px] font-bold text-white bg-[#004225] px-2.5 py-1 rounded-full mb-2 whitespace-nowrap">30
-                                GW+</span>
-                            <div class="w-5 h-5 rounded-full bg-[#004225] ring-4 ring-[#e7f0ec]"></div>
-                            <span class="text-[13px] text-[#004225] mt-2 font-bold">2060</span>
-                        </div>
+                        <p class="text-[#9aa39e] text-[11px] mt-auto pt-4 border-t border-[#eef0ef]">Source:
+                            International Renewable Energy Agency (IRENA); industry market reports.</p>
                     </div>
-                    <p class="text-[#9aa39e] text-[11px] mt-8 pt-4 border-t border-[#eef0ef]">Source: Nigeria Energy
-                        Transition Plan (ETP).</p>
+
+                    <!-- 100 kWh–10 MWh — project size spectrum -->
+                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="text-[30px] lg:text-[34px] font-extrabold text-[#004225] leading-none"
+                            style="font-family: Manrope, sans-serif;">100 kWh–10 MWh</p>
+                        <p class="text-[#111827] font-semibold mt-3">Typical battery storage project size</p>
+                        <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Range currently deployed across commercial,
+                            industrial, mini-grid and distributed energy applications.</p>
+                        <div class="kf-visual">
+                            <div class="kf-scale">
+                                <div class="kf-scale-track" role="img"
+                                    aria-label="Battery storage projects range from 100 kilowatt-hours to 10 megawatt-hours">
+                                    <!-- coloredFrom 0 -> coloredTo 100 -->
+                                    <span class="kf-scale-fill" style="left:0%;width:100%;"></span>
+
+                                    <span class="kf-scale-pin" style="left:0%;"><span style="left:0;">100 kWh</span></span>
+                                    <span class="kf-scale-label" style="left:0%;transform:translateX(0);">Small C&amp;I systems</span>
+
+                                    <span class="kf-scale-pin" style="left:100%;"><span style="right:0;">10 MWh</span></span>
+                                    <span class="kf-scale-label" style="left:100%;transform:translateX(-100%);">Mini-grid / utility-adjacent</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-[#9aa39e] text-[11px] mt-auto pt-4 border-t border-[#eef0ef]">Source: REA
+                            programmes; industry deployment data.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -724,29 +801,33 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
                     <!-- Body copy -->
                     <div class="lg:col-span-7 space-y-5 text-[#404846] text-base sm:text-[17px] leading-8">
-                        <p>Nigeria offers one of Africa's most accessible solar investment environments, supported by
-                            strong market demand, improving regulatory clarity, and favourable investment policies.
-                            Company incorporation through the Corporate Affairs Commission (CAC) is typically completed
-                            within 1–7 days, while 100% foreign ownership is permitted across the solar value chain.
-                            Investors may register with the Nigerian Investment Promotion Commission (NIPC) to access
-                            fiscal incentives, investment facilitation services, and other government-backed investment
-                            support programmes.</p>
-                        <p>The Electricity Act 2023 has expanded opportunities for private-sector participation in
-                            electricity generation, distribution, mini-grids, embedded generation, and distributed
-                            energy systems. Solar projects can be developed under multiple business models, including
-                            utility-scale projects, commercial and industrial (C&amp;I) installations, mini-grids, solar
-                            home systems, and solar-plus-storage solutions.</p>
-                        <p>Nigeria's investment framework also provides attractive fiscal incentives for renewable
-                            energy
-                            projects. Eligible investors may access a 3–5-year Pioneer Status tax holiday, which may be
-                            extended subject to performance conditions. Renewable energy equipment may also benefit from
-                            VAT incentives and import-duty concessions under applicable renewable energy policies and
-                            ECOWAS Common External Tariff (CET) provisions, helping to reduce project development
-                            costs.</p>
-                        <p>Nigeria further benefits from established regulatory frameworks for grid-connected and
-                            off-grid projects, growing local technical capacity, increasing availability of project
-                            financing, and active support from development partners such as REA, GIZ, AfDB, the World
-                            Bank, IFC, and other climate-finance institutions.</p>
+                        <p>Nigeria's energy storage market offers one of the fastest routes into the country's energy
+                            sector due to strong demand, flexible deployment models, and the growing need for reliable
+                            power across commercial, industrial, telecom, healthcare, and mini-grid markets. Unlike
+                            large power generation projects, many storage investments can be deployed within existing
+                            facilities and energy systems, reducing development timelines and permitting complexity.</p>
+                        <p>Battery storage can be integrated into multiple business models, including commercial and
+                            industrial (C&amp;I) energy solutions, solar-plus-storage systems, mini-grids, telecom
+                            infrastructure, data centres, hospitals, universities, and Energy-as-a-Service (EaaS)
+                            platforms. This flexibility allows investors to target both grid-connected and off-grid
+                            customers with proven demand for reliable electricity.</p>
+                        <p>Nigeria's policy environment is increasingly supportive of storage deployment. The
+                            Electricity Act 2023, Energy Transition Plan, NERC Mini-Grid Regulations, and broader
+                            renewable energy policies create a favorable framework for battery storage as an enabler of
+                            energy access, grid reliability, and renewable energy integration.</p>
+                        <p>Access to financing is also improving. Programmes led by REA, DARES, AfDB, IFC, GIZ, NSIA,
+                            and the World Bank are creating new opportunities for storage investments, particularly
+                            where battery systems are combined with solar generation, mini-grids, and productive-use
+                            energy applications.</p>
+                        <p>The strongest ease-of-entry opportunities currently exist in commercial and industrial
+                            solar-plus-storage systems, telecom energy solutions, mini-grid storage integration,
+                            healthcare facilities, educational institutions, cold-chain infrastructure, and battery
+                            assembly and manufacturing. Investors that can demonstrate clear energy-cost savings, diesel
+                            displacement, and reliable customer demand are often best positioned to secure financing and
+                            scale operations.</p>
+                        <p>For investors seeking exposure to Nigeria's energy transition, storage offers a rapidly
+                            growing market with relatively low barriers to entry, multiple revenue models, and strong
+                            long-term demand fundamentals.</p>
                     </div>
 
                     <!-- Investor Advantages -->
@@ -762,33 +843,32 @@
                             <ul class="space-y-4">
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">CAC incorporation typically
-                                        completed within 1–7 days</span></li>
+                                        class="text-[#404846] text-[15px] leading-6">Deployable inside existing
+                                        facilities, shortening development timelines</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">100% foreign ownership
-                                        permitted</span></li>
+                                        class="text-[#404846] text-[15px] leading-6">Lower permitting complexity than
+                                        large generation projects</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Access to Pioneer Status and other
-                                        investment incentives</span></li>
+                                        class="text-[#404846] text-[15px] leading-6">Multiple business models (C&amp;I,
+                                        solar-plus-storage, mini-grids, EaaS)</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Multiple market entry models
-                                        (utility-scale, C&amp;I, mini-grids, distributed solar)</span></li>
+                                        class="text-[#404846] text-[15px] leading-6">Addresses both grid-connected and
+                                        off-grid customers</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Strong demand driven by electricity
-                                        supply gaps and diesel replacement</span></li>
+                                        class="text-[#404846] text-[15px] leading-6">Strong demand across telecom,
+                                        healthcare, education and industry</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Established regulatory framework
-                                        under the Electricity Act 2023</span></li>
+                                        class="text-[#404846] text-[15px] leading-6">Supportive framework under the
+                                        Electricity Act 2023 and NERC Mini-Grid Regulations</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Growing availability of
-                                        concessional
-                                        finance and blended-finance support</span></li>
+                                        class="text-[#404846] text-[15px] leading-6">Financing support from REA, DARES,
+                                        AfDB, IFC, GIZ, NSIA and the World Bank</span></li>
                             </ul>
                         </div>
                     </div>
@@ -799,7 +879,8 @@
                     <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
                         style="font-variation-settings:'FILL' 1;">lightbulb</span>
                     <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Key Message:</span>
-                        Solar is one of the most mature, scalable, and investor-ready clean energy sectors in Nigeria.
+                        Storage offers a rapidly growing market with relatively low barriers to entry, multiple revenue
+                        models, and strong long-term demand fundamentals.
                     </p>
                 </div>
             </div>
@@ -819,12 +900,13 @@
                 <!-- Applicable Laws & Policies -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
                     style="font-family: Manrope, sans-serif;">Applicable Laws &amp; Policies</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar energy projects in Nigeria
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Battery energy storage projects in Nigeria
                     are primarily governed by the Electricity Act 2023, National Integrated Electricity Policy (NIEP)
                     2025, National Renewable Energy and Energy Efficiency Policy (NREEEP) 2015, Renewable Energy Master
-                    Plan (REMP), Energy Transition Plan (ETP) 2022, and Nigeria's updated Nationally Determined
-                    Contributions (NDCs). These policies support private-sector participation, renewable energy
-                    deployment, and long-term decarbonization objectives.</p>
+                    Plan (REMP), Energy Transition Plan (ETP) 2022, National Energy Policy (2025), and Nigeria's updated
+                    Nationally Determined Contributions (NDCs). These policies support grid modernisation, renewable
+                    energy integration, electricity reliability, private-sector participation, and long-term
+                    decarbonization objectives.</p>
                 <div class="flex flex-wrap gap-2 mt-5">
                     <span
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electricity
@@ -842,6 +924,9 @@
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Energy
                         Transition Plan (ETP) 2022</span>
                     <span
+                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">National
+                        Energy Policy 2025</span>
+                    <span
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Updated
                         NDCs</span>
                 </div>
@@ -849,43 +934,43 @@
                 <!-- Project Development Frameworks -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-2"
                     style="font-family: Manrope, sans-serif;">Project Development Frameworks</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's solar market supports
-                    multiple investment pathways:</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's energy storage market
+                    supports multiple investment pathways:</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">solar_power</span>
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">battery_charging_full</span>
                         <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Utility-Scale Solar</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Grid-connected projects supplying electricity to
-                            the national grid or eligible customers.</p>
+                            style="font-family: Manrope, sans-serif;">Utility-Scale Storage</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Grid-connected battery energy storage systems
+                            (BESS) providing grid support, reliability, and renewable energy integration services.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">factory</span>
                         <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Commercial &amp; Industrial (C&amp;I) Solar</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Captive and embedded generation for commercial
-                            and industrial energy users.</p>
+                            style="font-family: Manrope, sans-serif;">Commercial &amp; Industrial (C&amp;I) Storage</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Behind-the-meter storage systems deployed by
+                            businesses, industries, estates, hospitals, universities, and commercial facilities.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">hub</span>
                         <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Mini-Grids</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Isolated and interconnected systems serving
-                            communities, businesses, and productive-use customers.</p>
+                            style="font-family: Manrope, sans-serif;">Mini-Grid Storage</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Battery systems integrated into isolated and
+                            interconnected mini-grids to improve reliability and renewable energy utilisation.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">home</span>
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">solar_power</span>
                         <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Solar Home Systems (SHS)</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Standalone systems for residential and
-                            small-business users.</p>
+                            style="font-family: Manrope, sans-serif;">Solar-Plus-Storage Systems</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Hybrid projects combining battery storage with
+                            solar generation for residential, commercial, industrial, and community applications.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">battery_charging_full</span>
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">cell_tower</span>
                         <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Solar-Plus-Storage</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Hybrid projects combining solar generation with
-                            battery energy storage.</p>
+                            style="font-family: Manrope, sans-serif;">Telecom &amp; Critical Infrastructure</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Storage solutions supporting telecommunications
+                            networks, healthcare facilities, data centres, and other critical infrastructure.</p>
                     </div>
                 </div>
 
@@ -894,25 +979,32 @@
                     style="font-family: Manrope, sans-serif;">Regulatory Requirements</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
+                        <span
+                            class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">battery_charging_full</span>
+                        <p class="text-[#404846] text-[15px] leading-7"><span
+                                class="font-semibold text-[#111827]">Standalone battery storage projects</span>
+                            currently operate primarily under existing electricity, renewable energy, environmental, and
+                            technical regulatory frameworks.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
                         <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">bolt</span>
                         <p class="text-[#404846] text-[15px] leading-7"><span
-                                class="font-semibold text-[#111827]">Grid-connected
-                                projects above 1 MW</span> generally require a NERC Generation Licence and must comply
-                            with applicable grid connection requirements.</p>
+                                class="font-semibold text-[#111827]">Grid-connected storage projects</span> may require
+                            compliance with applicable NERC regulatory requirements, grid connection procedures, and
+                            technical standards depending on project configuration.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
                         <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">hub</span>
                         <p class="text-[#404846] text-[15px] leading-7"><span
-                                class="font-semibold text-[#111827]">Mini-grid
-                                projects</span> are regulated under the NERC Mini-Grid Regulations 2023 and applicable
-                            provisions of the Electricity Act 2023.</p>
+                                class="font-semibold text-[#111827]">Mini-grid storage deployments</span> are governed
+                            by the NERC Mini-Grid Regulations 2023 and relevant provisions of the Electricity Act
+                            2023.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
                         <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">forest</span>
-                        <p class="text-[#404846] text-[15px] leading-7"><span
-                                class="font-semibold text-[#111827]">Large-scale
-                                projects</span> may require Environmental Impact Assessment (EIA) approval from the
-                            Federal Ministry of Environment, depending on project size, location, and environmental
+                        <p class="text-[#404846] text-[15px] leading-7"><span class="font-semibold text-[#111827]">Large-scale
+                                storage projects</span> may require Environmental Impact Assessment (EIA) approval from
+                            the Federal Ministry of Environment, depending on project size, location, and environmental
                             sensitivity.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
@@ -1013,11 +1105,12 @@
                 <!-- Technical Standards -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Technical Standards</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar equipment imported into
-                    Nigeria must comply with applicable SON standards and certification requirements, including SONCAP
-                    where applicable. Electrical installations are subject to NEMSA inspection and certification
-                    requirements. Grid-connected projects must comply with the NERC Grid Code and TCN interconnection
-                    standards.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Battery energy storage systems imported
+                    into Nigeria must comply with applicable SON standards and certification requirements, including
+                    SONCAP where applicable. Electrical installations are subject to NEMSA inspection and certification
+                    requirements. Grid-connected storage projects must comply with applicable NERC Grid Code,
+                    Distribution Code, and TCN interconnection standards. Environmental and safety requirements may also
+                    apply for battery transport, handling, recycling, and disposal.</p>
 
                 <!-- ============================================================
      WORKFLOW PROCESS — zigzag / connector-path style
@@ -1283,19 +1376,20 @@
 
                     <div class="wf-inner">
 
-                        <!-- ===================== Utility-Scale Solar ===================== -->
+                        <!-- ===================== Utility-Scale Battery Storage ===================== -->
                         <section class="wf-section">
                             <div class="wf-inner">
                                 <div class="flex items-center gap-3 mb-3">
                                     <span class="block w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
                                     <span class="wf-eyebrow mb-0">Workflow Process</span>
                                 </div>
-                                <h3 class="wf-title">Utility-Scale Solar</h3>
+                                <h3 class="wf-title">Utility-Scale Battery Storage</h3>
 
                                 <!-- Desktop zigzag -->
                                 <div class="wf-track" data-wf-track>
                                     <svg class="wf-svg" data-wf-svg></svg>
-                                    <div class="wf-row" data-wf-row data-crm-group="utility-scale-solar-requirements">
+                                    <div class="wf-row" data-wf-row
+                                        data-crm-group="utility-scale-battery-storage-requirements">
 
                                         <div class="wf-node up" data-wf-node data-crm-field="company_incorporation_cac">
                                             <div class="wf-badge"><span class="wf-num">01</span>
@@ -1335,26 +1429,26 @@
                                                 applicable)</div>
                                         </div>
 
-                                        <div class="wf-node down" data-wf-node data-crm-field="nerc_licensing">
+                                        <div class="wf-node down" data-wf-node
+                                            data-crm-field="grid_connection_assessment">
                                             <div class="wf-badge"><span class="wf-num">04</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Grid Connection Assessment</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="regulatory_approvals">
+                                            <div class="wf-badge"><span class="wf-num">05</span>
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                                     <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
                                                     <path d="M9 12l2 2 4-4" />
                                                 </svg>
                                             </div>
-                                            <div class="wf-label">NERC Licensing<br>(where applicable)</div>
-                                        </div>
-
-                                        <div class="wf-node up" data-wf-node
-                                            data-crm-field="grid_connection_studies_approvals">
-                                            <div class="wf-badge"><span class="wf-num">05</span>
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
-                                                </svg>
-                                            </div>
-                                            <div class="wf-label">Grid Connection Studies &amp; Approvals</div>
+                                            <div class="wf-label">Regulatory Approvals<br>(where applicable)</div>
                                         </div>
 
                                         <div class="wf-node down" data-wf-node
@@ -1370,7 +1464,7 @@
                                         </div>
 
                                         <div class="wf-node up" data-wf-node
-                                            data-crm-field="construction_commissioning">
+                                            data-crm-field="construction_installation">
                                             <div class="wf-badge"><span class="wf-num">07</span>
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -1379,11 +1473,22 @@
                                                     <path d="M9 21v-5h6v5" />
                                                 </svg>
                                             </div>
-                                            <div class="wf-label">Construction &amp; Commissioning</div>
+                                            <div class="wf-label">Construction &amp; Installation</div>
                                         </div>
 
-                                        <div class="wf-node down" data-wf-node data-crm-field="commercial_operations">
+                                        <div class="wf-node down" data-wf-node data-crm-field="testing_commissioning">
                                             <div class="wf-badge"><span class="wf-num">08</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="9" />
+                                                    <path d="M8.5 12.5l2.5 2.5 4.5-5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Testing &amp; Commissioning</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="commercial_operations">
+                                            <div class="wf-badge"><span class="wf-num">09</span>
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                                     <path d="M4 20V10M11 20V4M18 20v-7" />
@@ -1438,10 +1543,10 @@
                                         <div class="wf-badge"><span class="wf-num">04</span><svg viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="1.8"
                                                 stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
                                             </svg></div>
                                         <div class="wf-item-text">
-                                            <div class="wf-item-label">NERC Licensing (where applicable)</div>
+                                            <div class="wf-item-label">Grid Connection Assessment</div>
                                         </div>
                                     </div>
                                     <div class="wf-connector"></div>
@@ -1449,10 +1554,10 @@
                                         <div class="wf-badge"><span class="wf-num">05</span><svg viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="1.8"
                                                 stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />
+                                                <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
                                             </svg></div>
                                         <div class="wf-item-text">
-                                            <div class="wf-item-label">Grid Connection Studies and Approvals</div>
+                                            <div class="wf-item-label">Regulatory Approvals (where applicable)</div>
                                         </div>
                                     </div>
                                     <div class="wf-connector"></div>
@@ -1476,12 +1581,24 @@
                                                 <path d="M9 21v-5h6v5" />
                                             </svg></div>
                                         <div class="wf-item-text">
-                                            <div class="wf-item-label">Construction and Commissioning</div>
+                                            <div class="wf-item-label">Construction and Installation</div>
                                         </div>
                                     </div>
                                     <div class="wf-connector"></div>
                                     <div class="wf-item">
                                         <div class="wf-badge"><span class="wf-num">08</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="9" />
+                                                <path d="M8.5 12.5l2.5 2.5 4.5-5" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Testing and Commissioning</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">09</span><svg viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="1.8"
                                                 stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M4 20V10M11 20V4M18 20v-7" />
@@ -1495,19 +1612,20 @@
                             </div>
                         </section>
 
-                        <!-- ===================== Solar Home Systems ===================== -->
+                        <!-- ===================== Commercial & Industrial Storage ===================== -->
                         <section class="wf-section">
                             <div class="wf-inner">
                                 <div class="flex items-center gap-3 mb-3">
                                     <span class="block w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
                                     <span class="wf-eyebrow mb-0">Workflow Process</span>
                                 </div>
-                                <h3 class="wf-title">Solar Home Systems</h3>
+                                <h3 class="wf-title">Commercial &amp; Industrial Storage</h3>
 
                                 <!-- Desktop zigzag -->
                                 <div class="wf-track" data-wf-track>
                                     <svg class="wf-svg" data-wf-svg></svg>
-                                    <div class="wf-row" data-wf-row data-crm-group="solar-home-systems-requirements">
+                                    <div class="wf-row" data-wf-row
+                                        data-crm-group="commercial-industrial-storage-requirements">
 
                                         <div class="wf-node up" data-wf-node data-crm-field="company_incorporation">
                                             <div class="wf-badge"><span class="wf-num">01</span>
@@ -1520,20 +1638,18 @@
                                             <div class="wf-label">Company Incorporation</div>
                                         </div>
 
-                                        <div class="wf-node down" data-wf-node
-                                            data-crm-field="product_certification_standards">
+                                        <div class="wf-node down" data-wf-node data-crm-field="project_design_sizing">
                                             <div class="wf-badge"><span class="wf-num">02</span>
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                                    <circle cx="12" cy="9" r="5" />
-                                                    <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                                    <path d="M3 21l3-1L17 9l-2-2L4 18l-1 3z" />
+                                                    <path d="M14 6l4 4" />
                                                 </svg>
                                             </div>
-                                            <div class="wf-label">Product Certification &amp; Standards Compliance</div>
+                                            <div class="wf-label">Project Design &amp; System Sizing</div>
                                         </div>
 
-                                        <div class="wf-node up" data-wf-node
-                                            data-crm-field="importation_distribution_approval">
+                                        <div class="wf-node up" data-wf-node data-crm-field="equipment_procurement">
                                             <div class="wf-badge"><span class="wf-num">03</span>
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -1543,19 +1659,63 @@
                                                     <circle cx="17.5" cy="19" r="1.6" />
                                                 </svg>
                                             </div>
-                                            <div class="wf-label">Importation / Distribution<br>Approval Requirements
-                                            </div>
+                                            <div class="wf-label">Equipment Procurement</div>
                                         </div>
 
-                                        <div class="wf-node down" data-wf-node data-crm-field="market_deployment">
+                                        <div class="wf-node down" data-wf-node data-crm-field="son_compliance">
                                             <div class="wf-badge"><span class="wf-num">04</span>
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" />
-                                                    <circle cx="12" cy="9.5" r="2.3" />
+                                                    <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
+                                                    <path d="M9 12l2 2 4-4" />
                                                 </svg>
                                             </div>
-                                            <div class="wf-label">Market Deployment</div>
+                                            <div class="wf-label">SON Compliance Requirements</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="installation">
+                                            <div class="wf-badge"><span class="wf-num">05</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="3" />
+                                                    <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+                                                    <path d="M4.9 4.9L7 7M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Installation</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="nemsa_inspection">
+                                            <div class="wf-badge"><span class="wf-num">06</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="9" r="5" />
+                                                    <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">NEMSA Inspection &amp; Certification<br>(where
+                                                applicable)</div>
+                                        </div>
+
+                                        <div class="wf-node up" data-wf-node data-crm-field="system_testing">
+                                            <div class="wf-badge"><span class="wf-num">07</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="9" />
+                                                    <path d="M8.5 12.5l2.5 2.5 4.5-5" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">System Testing</div>
+                                        </div>
+
+                                        <div class="wf-node down" data-wf-node data-crm-field="commercial_operations">
+                                            <div class="wf-badge"><span class="wf-num">08</span>
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 20V10M11 20V4M18 20v-7" />
+                                                </svg>
+                                            </div>
+                                            <div class="wf-label">Commercial Operations</div>
                                         </div>
 
                                     </div>
@@ -1579,12 +1739,11 @@
                                         <div class="wf-badge"><span class="wf-num">02</span><svg viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="1.8"
                                                 stroke-linecap="round" stroke-linejoin="round">
-                                                <circle cx="12" cy="9" r="5" />
-                                                <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                                <path d="M3 21l3-1L17 9l-2-2L4 18l-1 3z" />
+                                                <path d="M14 6l4 4" />
                                             </svg></div>
                                         <div class="wf-item-text">
-                                            <div class="wf-item-label">Product Certification and Standards Compliance
-                                            </div>
+                                            <div class="wf-item-label">Project Design and System Sizing</div>
                                         </div>
                                     </div>
                                     <div class="wf-connector"></div>
@@ -1596,8 +1755,7 @@
                                                 <path d="M14 10h4l3 3v3h-7z" />
                                             </svg></div>
                                         <div class="wf-item-text">
-                                            <div class="wf-item-label">Importation / Distribution Approval Requirements
-                                            </div>
+                                            <div class="wf-item-label">Equipment Procurement</div>
                                         </div>
                                     </div>
                                     <div class="wf-connector"></div>
@@ -1605,11 +1763,58 @@
                                         <div class="wf-badge"><span class="wf-num">04</span><svg viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="1.8"
                                                 stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M12 21s7-6.2 7-11.3A7 7 0 0 0 5 9.7C5 14.8 12 21 12 21z" />
-                                                <circle cx="12" cy="9.5" r="2.3" />
+                                                <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" />
                                             </svg></div>
                                         <div class="wf-item-text">
-                                            <div class="wf-item-label">Market Deployment</div>
+                                            <div class="wf-item-label">SON Compliance Requirements</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">05</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="3" />
+                                                <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Installation</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">06</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="9" r="5" />
+                                                <path d="M9 13.5 7 22l5-3 5 3-2-8.5" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">NEMSA Inspection and Certification (where
+                                                applicable)</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">07</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="9" />
+                                                <path d="M8.5 12.5l2.5 2.5 4.5-5" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">System Testing</div>
+                                        </div>
+                                    </div>
+                                    <div class="wf-connector"></div>
+                                    <div class="wf-item">
+                                        <div class="wf-badge"><span class="wf-num">08</span><svg viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M4 20V10M11 20V4M18 20v-7" />
+                                            </svg></div>
+                                        <div class="wf-item-text">
+                                            <div class="wf-item-label">Commercial Operations</div>
                                         </div>
                                     </div>
                                 </div>
@@ -1785,6 +1990,20 @@
                         <span
                             class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
                     </a>
+                    <a href="https://www.nesrea.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="nesrea.jpeg" alt="NESREA logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NESREA</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nesrea.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -1803,55 +2022,52 @@
                 <!-- Public Finance -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
                     style="font-family: Manrope, sans-serif;">Public Finance</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's solar sector benefits
-                    from growing public and development-finance support. The Rural Electrification Agency (REA),
-                    through the Rural Electrification Fund (REF), provides grants, subsidies, and performance-based
-                    incentives for mini-grid and solar access projects. The US$750 million DARES Programme supports
-                    isolated and interconnected mini-grids, Solar for Business initiatives, and productive-use energy
-                    projects.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">The Bank of Industry (BOI)
-                    provides concessional financing for renewable energy manufacturing, deployment, and productive-use
-                    applications, while the NSIA-anchored US$500 million Distributed Renewable Energy (DRE) Nigeria
-                    Fund supports mini-grids, solar home systems, commercial and industrial (C&amp;I) solar, and battery
-                    storage projects.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">The Rural Electrification Agency (REA), the
+                    World Bank-funded Distributed Access through Renewable Energy Scale-up (DARES) programme, GIZ, AfDB,
+                    and other development partners increasingly support battery storage deployment where linked to
+                    mini-grids, distributed renewable energy, productive-use energy applications, and rural
+                    electrification projects.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">The REA-backed DARES programme
+                    includes support for solar-plus-storage systems through grants, results-based financing (RBF),
+                    minimum subsidy tenders, and private-sector participation mechanisms.</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
                     <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">account_balance</span>
                         <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">REA / Rural Electrification Fund</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Grants, subsidies, and performance-based
-                            incentives for mini-grid and solar access projects.</p>
+                            style="font-family: Manrope, sans-serif;">Rural Electrification Agency (REA)</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Supports storage linked to mini-grids,
+                            distributed renewable energy, and rural electrification projects.</p>
                     </div>
                     <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
                         <span class="material-symbols-outlined text-[#004225] text-[32px]">payments</span>
                         <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
                             style="font-family: Manrope, sans-serif;">DARES Programme</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">US$750 million supporting mini-grids, Solar for
-                            Business, and productive-use energy projects.</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6">World Bank-funded support for solar-plus-storage
+                            systems and productive-use energy applications.</p>
                     </div>
                     <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">factory</span>
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">diversity_3</span>
                         <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Bank of Industry (BOI)</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Concessional financing for renewable energy
-                            manufacturing, deployment, and productive-use applications.</p>
+                            style="font-family: Manrope, sans-serif;">Development Partners</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">GIZ, AfDB, and other partners backing battery
+                            storage across distributed energy programmes.</p>
                     </div>
                     <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">battery_charging_full</span>
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">handshake</span>
                         <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">DRE Nigeria Fund</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">NSIA-anchored US$500 million fund for
-                            mini-grids, solar home systems, C&amp;I solar, and battery storage.</p>
+                            style="font-family: Manrope, sans-serif;">Grants &amp; Results-Based Financing</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Grants, RBF, minimum subsidy tenders, and
+                            private-sector participation mechanisms.</p>
                     </div>
                 </div>
 
                 <!-- Commercial Finance -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Commercial Finance</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Commercial financing for solar is
-                    expanding rapidly. Nigerian financial institutions including Access Bank, FCMB, Sterling Bank,
-                    Fidelity Bank, Ecobank, and Lotus Bank now offer renewable energy financing products for project
-                    developers, businesses, and end-users.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Commercial financing for battery storage is
+                    expanding rapidly, particularly where storage is paired with solar generation. Local financial
+                    institutions including Access Bank, FCMB, Sterling Bank, Fidelity Bank, Ecobank, and Lotus Bank are
+                    increasingly active in financing solar-plus-storage and commercial energy projects.</p>
                 <div class="flex flex-wrap gap-2 mt-5">
                     <span
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Access
@@ -1870,153 +2086,53 @@
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Lotus
                         Bank</span>
                 </div>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-6">The Lotus Bank–REA ₦100
-                    billion revolving credit facility provides counterpart financing for DARES-qualified developers,
-                    while commercial lenders increasingly support solar deployment across manufacturing, agriculture,
-                    healthcare, telecommunications, and commercial real estate sectors.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">International financiers
-                    including IFC, AfDB, Africa Finance Corporation (AFC), Africa50, and infrastructure-focused
-                    investors are also increasing debt and equity participation across the Nigerian solar market.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-6">Development finance institutions
+                    including the Bank of Industry (BOI), IFC, AfDB, and the Africa Finance Corporation (AFC) also
+                    provide debt, equity, and concessional financing for larger storage and energy-transition
+                    projects.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Financing is most readily available
+                    for projects serving commercial and industrial users, telecom infrastructure, healthcare facilities,
+                    educational institutions, and productive-use energy customers with predictable electricity
+                    demand.</p>
 
                 <!-- Guarantees & Risk Instruments -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Guarantees &amp; Risk Instruments</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">InfraCredit guarantees,
-                    NSIA-backed de-risking mechanisms, political risk insurance, and blended-finance structures are
-                    increasingly being used to unlock local-currency financing and reduce project risk.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Additional support is
-                    available through institutions such as MIGA, IFC, AfDB, and the World Bank Group, particularly for
-                    large-scale infrastructure, mini-grid, and distributed renewable energy investments.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">InfraCredit guarantees, NSIA-backed
+                    de-risking mechanisms, political risk insurance, and blended-finance structures are increasingly
+                    being used to support renewable energy and storage investments in Nigeria. Developers may also
+                    access credit enhancement instruments, partial risk guarantees (PRGs), and political risk cover from
+                    institutions such as the World Bank Group, AfDB, IFC, MIGA, and InfraCredit.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">For utility-scale and commercial
+                    battery storage projects, long-term power purchase agreements (PPAs), energy service agreements,
+                    capacity contracts, and strong revenue structures can significantly improve project bankability and
+                    access to financing.</p>
 
                 <!-- Blended Finance -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Blended Finance</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Blended finance remains the
-                    dominant funding structure for many solar projects. Programmes such as DARES, REF, and the DRE
-                    Nigeria Fund combine grants, concessional finance, private capital, and risk-sharing instruments to
-                    improve project bankability and crowd in private investment.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Emerging facilities such as
-                    the Renewable Energy Blended Finance Facility (REBF) are also expected to expand access to
-                    long-term capital for mini-grids, productive-use energy, agricultural electrification, and storage
-                    projects.</p>
-
-                <!-- Infrastructure Concession Arrangements -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
-                    style="font-family: Manrope, sans-serif;">Infrastructure Concession Arrangements</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Concession arrangements are
-                    increasingly being used to deliver solar energy projects in Nigeria through models that allocate
-                    project development, financing, and operational responsibility to private investors. Key structures
-                    adopted include:</p>
-                <div class="flex flex-wrap gap-2 mt-5">
-                    <span
-                        class="bg-[#f3f4f2] border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Build–Own–Operate
-                        (BOO) mini-grid concessions</span>
-                    <span
-                        class="bg-[#f3f4f2] border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Independent
-                        Power Producer (IPP) PPPs supported by long-term PPAs</span>
-                    <span
-                        class="bg-[#f3f4f2] border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Franchise-style
-                        distributed solar concessions (e.g., Solar Power Naija)</span>
-                </div>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-6">These frameworks allow
-                    investors to retain ownership, control cash flows, and operate assets over long durations, while
-                    leveraging government-backed risk mitigation mechanisms. Nigeria has an active portfolio of
-                    concession-backed solar projects across three main segments:</p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6">
-                        <span
-                            class="w-8 h-8 rounded-full bg-[#004225] text-white text-[14px] font-bold flex items-center justify-center flex-shrink-0 mb-3">a</span>
-                        <h4 class="text-[16px] font-bold text-[#111827] mb-2" style="font-family: Manrope, sans-serif;">
-                            Decentralized Mini-Grid Concessions</h4>
-                        <p class="text-[#5f6368] text-[14px] leading-6">Over 125 solar mini-grids already deployed under
-                            the Nigeria Electrification Project, alongside ongoing expansion under programmes such as
-                            DARES and AMP, involving multiple private developers across states. These operate under
-                            exclusive service-area concessions, generating revenue from end-user tariffs and
-                            performance-based subsidies.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6">
-                        <span
-                            class="w-8 h-8 rounded-full bg-[#004225] text-white text-[14px] font-bold flex items-center justify-center flex-shrink-0 mb-3">b</span>
-                        <h4 class="text-[16px] font-bold text-[#111827] mb-2" style="font-family: Manrope, sans-serif;">
-                            Utility-Scale Solar PPPs (IPP Model)</h4>
-                        <p class="text-[#5f6368] text-[14px] leading-6">Projects structured around long-term Power
-                            Purchase Agreements (PPAs), government or quasi-sovereign offtakers, and project finance
-                            structures compatible with international lenders.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6">
-                        <span
-                            class="w-8 h-8 rounded-full bg-[#004225] text-white text-[14px] font-bold flex items-center justify-center flex-shrink-0 mb-3">c</span>
-                        <h4 class="text-[16px] font-bold text-[#111827] mb-2" style="font-family: Manrope, sans-serif;">
-                            Distributed Solar and Franchise Models</h4>
-                        <p class="text-[#5f6368] text-[14px] leading-6">Programmes such as Solar Power Naija aim to
-                            deploy millions of solar connections nationwide via private operators, offering rapid market
-                            penetration, retail-scale recurring revenue streams, and lower reliance on grid
-                            infrastructure.</p>
-                    </div>
-                </div>
-
-                <!-- Infrastructure & Revenue Opportunities -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
-                    style="font-family: Manrope, sans-serif;">Infrastructure &amp; Revenue Opportunities</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Financing is increasingly
-                    available for projects linked to established demand centres and predictable revenue streams. These
-                    include:</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">factory</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Commercial and industrial solar
-                            projects</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">bolt</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Embedded generation and captive
-                            power systems</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span
-                            class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">cell_tower</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Telecom tower
-                            electrification</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span
-                            class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">agriculture</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Productive-use agriculture and
-                            agro-processing</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span
-                            class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">apartment</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Universities, hospitals,
-                            estates, and public facilities</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">hub</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Mini-grids supported through
-                            DARES and REA programmes</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span
-                            class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">battery_charging_full</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Solar-plus-storage
-                            solutions</span>
-                    </div>
-                </div>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-6">The introduction of the
-                    Electricity Act 2023, state electricity markets, embedded generation frameworks, and emerging net
-                    billing/net metering mechanisms is expected to further improve the commercial viability of
-                    distributed solar investments.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Most large-scale storage projects currently
+                    rely on blended financing structures combining grants, concessional debt, climate-finance
+                    instruments, and private capital. Key platforms include the $500 million DRE Nigeria Fund anchored
+                    by NSIA, the World Bank-supported DARES programme, AfDB financing windows, IFC investment
+                    facilities, and emerging blended-finance programmes such as the Renewable Energy Blended Finance
+                    Facility (REBF).</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">These facilities are increasingly
+                    targeting solar-plus-storage systems, mini-grids, productive-use energy applications, and commercial
+                    energy users.</p>
 
                 <!-- Investor Outlook -->
                 <div class="mt-12 lg:mt-16 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
                     <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
                         style="font-variation-settings:'FILL' 1;">insights</span>
                     <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Investor
-                            Outlook:</span> For investors able to solve financing, distribution, aggregation,
-                        energy-service delivery, or productive-use integration at scale, Nigeria's solar market remains
-                        significantly underpenetrated relative to long-term demand potential, offering substantial room
-                        for growth across both grid-connected and off-grid segments.</p>
+                            Outlook:</span> Storage projects are generally easiest to finance when they are linked to
+                        proven electricity demand and clear revenue streams. Investors that can demonstrate predictable
+                        energy consumption, measurable diesel displacement, strong customer creditworthiness, and
+                        long-term service agreements are typically best positioned to secure financing. As grid
+                        modernization accelerates and renewable energy deployment expands, utility-scale battery storage
+                        and grid-support applications are also expected to attract increasing investor and lender
+                        interest.</p>
                 </div>
             </div>
         </section>
@@ -2032,10 +2148,14 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
                     style="font-family: Manrope, sans-serif;">Opportunities</h2>
 
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's solar market presents
-                    one of the clearest investment entry points within the country's energy sector. Demand is already
-                    established across households, businesses, industries, agricultural value chains, and public
-                    institutions, while declining technology costs continue to improve project economics.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's energy storage market is
+                    expanding rapidly as businesses, communities, and infrastructure operators seek more reliable and
+                    cost-effective power solutions. Falling battery costs, growing solar deployment, increasing diesel
+                    prices, and strong demand for energy reliability are driving adoption across commercial, industrial,
+                    telecom, healthcare, education, and mini-grid sectors.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Storage is increasingly viewed not
+                    only as a backup solution, but as a core enabler of renewable energy integration, grid stability,
+                    energy cost reduction, and energy access.</p>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Investors can access a
                     growing pipeline of opportunities through national programmes and market intelligence platforms
                     such as
@@ -2050,44 +2170,28 @@
                     Visit Nigeria SE4ALL <span class="material-symbols-outlined text-lg">open_in_new</span>
                 </a>
 
-                <!-- Mini-Grid Development -->
+                <!-- Behind-the-Meter Storage -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
                     <div>
                         <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                            style="font-family: Manrope, sans-serif;">Mini-Grid Development</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">One of the largest immediate
-                            opportunities is the Distributed Access through Renewable Energy Scale-up (DARES)
-                            programme, supported by a US$750 million World Bank facility and implemented by the Rural
-                            Electrification Agency (REA). The programme targets the deployment of approximately 1,225
-                            mini-grids, 465 MW of new generation capacity, and electricity access for 17.5 million
-                            beneficiaries.</p>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-4">Private developers can
-                            participate through multiple windows, including isolated mini-grids, interconnected
-                            mini-grids, minimum subsidy tenders, and Solar for Business programmes. Performance-based
-                            subsidies are available upon successful project delivery and verified customer
-                            connections.</p>
+                            style="font-family: Manrope, sans-serif;">Behind-the-Meter Storage (Residential &amp;
+                            C&amp;I)</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's commercial and industrial
+                            sector presents one of the largest opportunities for battery storage deployment in Africa.
+                            Businesses are increasingly adopting solar-plus-storage systems to reduce diesel
+                            consumption, improve power reliability, and lower operating costs.</p>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-4">Key target markets include
+                            manufacturing facilities, hospitals, universities, cold-chain operators, telecom
+                            infrastructure, estates, hotels, shopping centres, and data centres.</p>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-4">Nigeria is one of Africa's
+                            fastest-growing battery storage markets, with demand growing steadily from customers seeking
+                            energy independence and protection from grid disruptions.</p>
                     </div>
 
                     <div class="relative">
-                        <!-- Video walkthrough — lazy-loads the YouTube iframe on click and plays in-page.
-                             Swap data-video-id with the real video id when available. -->
-                        <div class="video-facade relative overflow-hidden rounded-2xl shadow-xl w-full h-72 sm:h-80 bg-black"
-                            data-video-id="aqz-KE-bpKQ">
-                            <button type="button" aria-label="Play mini-grid walkthrough"
-                                class="facade-cover absolute inset-0 group cursor-pointer w-full h-full">
-                                <img alt="Solar mini-grid installation serving a Nigerian community"
-                                    class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity"
-                                    src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&amp;w=1200&amp;auto=format&amp;fit=crop"
-                                    loading="lazy" />
-                                <span class="absolute inset-0 flex items-center justify-center">
-                                    <span
-                                        class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600 flex items-center justify-center shadow-2xl group-hover:scale-105 transition-transform"
-                                        aria-hidden="true">
-                                        <span class="material-symbols-outlined text-white text-[40px]"
-                                            style="font-variation-settings: 'FILL' 1;">play_arrow</span>
-                                    </span>
-                                </span>
-                            </button>
+                        <div class="overflow-hidden rounded-2xl shadow-xl">
+                            <img alt="Battery storage system installed at a commercial facility"
+                                class="w-full h-72 sm:h-80 object-cover" src="sector-Storage.jpg" />
                         </div>
 
                         <!-- Floating Badge -->
@@ -2096,142 +2200,128 @@
                             <span
                                 class="w-10 h-10 bg-primary-container text-white rounded-lg flex items-center justify-center flex-shrink-0">
                                 <span class="material-symbols-outlined"
-                                    style="font-variation-settings: 'FILL' 1;">hub</span>
+                                    style="font-variation-settings: 'FILL' 1;">battery_charging_full</span>
                             </span>
                             <div>
-                                <p class="font-h4 text-[20px] font-extrabold text-primary leading-none">1,225</p>
+                                <p class="font-h4 text-[20px] font-extrabold text-primary leading-none">US$3B+</p>
                                 <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">
-                                    Mini-grids targeted</p>
+                                    Annual opportunity</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Lazy YouTube facade — swaps the thumbnail for an inline iframe on first click. -->
-                <style>
-                    .video-facade.is-playing>.facade-cover { display: none; }
-                    .video-facade iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-                </style>
-                <script>
-                    (function () {
-                        document.querySelectorAll('.video-facade').forEach(function (holder) {
-                            var id = holder.dataset.videoId;
-                            var cover = holder.querySelector('.facade-cover');
-                            if (!id || !cover) return;
-                            cover.addEventListener('click', function () {
-                                if (holder.classList.contains('is-playing')) return;
-                                var iframe = document.createElement('iframe');
-                                iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&modestbranding=1';
-                                iframe.title = 'Mini-grid walkthrough';
-                                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-                                iframe.setAttribute('allowfullscreen', '');
-                                holder.appendChild(iframe);
-                                holder.classList.add('is-playing');
-                            });
-                        });
-                    })();
-                </script>
-
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14 lg:mt-16">
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <p class="text-[28px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">$750M</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">World Bank facility backing the DARES
-                            programme.</p>
+                            style="font-family: Manrope, sans-serif;">US$3B+</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Estimated annual solar-plus-storage
+                            investment opportunity.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <p class="text-[28px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">465 MW</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">New generation capacity targeted under
-                            DARES.</p>
+                            style="font-family: Manrope, sans-serif;">1,225</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Mini-grids targeted under DARES, creating a
+                            battery storage pipeline.</p>
                     </div>
                     <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
                         <p class="text-[28px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">17.5M</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Beneficiaries targeted for electricity
-                            access.</p>
+                            style="font-family: Manrope, sans-serif;">20 kWh–2 MWh</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Typical storage deployed per mini-grid
+                            system.</p>
                     </div>
                 </div>
 
-                <!-- Commercial & Industrial Solar -->
+                <!-- Mini-Grid Storage Integration -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
                     <div class="relative lg:order-2">
                         <div class="overflow-hidden rounded-2xl shadow-xl">
-                            <img alt="Rooftop commercial and industrial solar installation"
-                                class="w-full h-72 sm:h-80 object-cover"
-                                src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" />
+                            <img alt="Mini-grid battery bank serving a Nigerian community"
+                                class="w-full h-72 sm:h-80 object-cover" src="sector-Storage-2.jpg" />
                         </div>
                     </div>
                     <div class="lg:order-1">
                         <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                            style="font-family: Manrope, sans-serif;">Commercial &amp; Industrial Solar</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Commercial and industrial (C&amp;I)
-                            solar remains one of the fastest-growing segments of the market. Rising diesel costs,
-                            energy-security concerns, and sustainability commitments are driving demand for solar and
-                            solar-plus-storage solutions across manufacturing, agriculture, telecommunications,
-                            healthcare, education, and commercial real estate sectors.</p>
+                            style="font-family: Manrope, sans-serif;">Mini-Grid Storage Integration</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Battery storage is becoming a
+                            standard component of modern mini-grid systems, helping improve reliability, increase
+                            renewable energy utilisation, and reduce fuel costs.</p>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-4">The DARES programme targets
+                            approximately 1,225 mini-grids, creating a significant pipeline for battery suppliers,
+                            storage integrators, EPC contractors, and project developers.</p>
                         <div class="flex flex-wrap gap-2 mt-5">
                             <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Manufacturing</span>
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">20
+                                kWh–2 MWh per mini-grid</span>
                             <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Agriculture</span>
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Rural
+                                communities</span>
                             <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Telecommunications</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Healthcare</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Education</span>
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Agricultural
+                                clusters</span>
                             <span
                                 class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Commercial
-                                Real Estate</span>
+                                hubs</span>
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Supported
+                                by REA &amp; DARES</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Manufacturing & Local Assembly -->
+                <!-- Battery Assembly & Manufacturing -->
                 <div class="mt-16 lg:mt-20">
                     <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                        style="font-family: Manrope, sans-serif;">Manufacturing &amp; Local Assembly</h3>
-                    <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar manufacturing, component
-                        assembly, and clean energy supply chains are emerging as strategic growth areas. Ongoing
-                        policy discussions around domestic industrialization, regional value chains, and local
-                        content development are creating opportunities for investors interested in module assembly,
-                        battery systems, mounting structures, inverters, and related clean-energy technologies.</p>
+                        style="font-family: Manrope, sans-serif;">Battery Assembly &amp; Manufacturing</h3>
+                    <p class="text-[#404846] text-base sm:text-[17px] leading-8">Local battery assembly and
+                        manufacturing represent an emerging investment opportunity as Nigeria seeks to strengthen
+                        domestic energy and electric mobility supply chains.</p>
+                    <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-4">Government policy increasingly
+                        supports local content development, technology transfer, and industrialisation, creating
+                        opportunities for battery pack assembly, component manufacturing, and energy storage value-chain
+                        development. High battery import volumes continue to drive market growth, local content
+                        requirements under emerging industrial and electric mobility policies are expected to stimulate
+                        domestic manufacturing, and opportunities exist for partnerships with NASENI, technology
+                        providers, and international battery manufacturers.</p>
                 </div>
 
-                <!-- Geographic Hotspots -->
+                <!-- Strongest Entry Points -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
                     <div class="relative lg:order-2">
                         <div class="overflow-hidden rounded-2xl shadow-xl">
-                            <img alt="Aerial view of a major Nigerian city skyline"
-                                class="w-full h-72 sm:h-80 object-cover"
-                                src="GeographicHotspots.jfif" />
+                            <img alt="Commercial and industrial demand centres across a Nigerian city"
+                                class="w-full h-72 sm:h-80 object-cover" src="GeographicHotspots.jfif" />
                         </div>
                     </div>
                     <div class="lg:order-1">
                         <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                            style="font-family: Manrope, sans-serif;">Geographic Hotspots</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">High-opportunity markets continue
-                            to emerge across Lagos, Abuja, Kano, Kaduna, and key agricultural corridors in
-                            North-Central Nigeria, where strong electricity demand, productive-use activities, and
-                            electrification need support project viability.</p>
+                            style="font-family: Manrope, sans-serif;">Strongest Entry Points</h3>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">For investors, the most attractive
+                            projects are those with predictable electricity demand, measurable diesel displacement, and
+                            long-term customer contracts, as these typically provide the clearest path to financing and
+                            scalable growth.</p>
                         <div class="flex flex-wrap gap-2 mt-5">
                             <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>Lagos</span>
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Commercial
+                                &amp; industrial solar-plus-storage</span>
                             <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>Abuja</span>
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Mini-grid
+                                battery integration</span>
                             <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>Kano</span>
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Telecom
+                                tower energy systems</span>
                             <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>Kaduna</span>
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Healthcare
+                                &amp; education</span>
                             <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>North-Central
-                                Agricultural Corridors</span>
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Data
+                                centres &amp; critical infrastructure</span>
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Battery
+                                assembly &amp; local manufacturing</span>
+                            <span
+                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Energy-as-a-Service
+                                (EaaS) &amp; storage leasing</span>
                         </div>
                     </div>
                 </div>

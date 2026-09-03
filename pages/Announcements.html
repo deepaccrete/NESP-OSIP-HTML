@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSIP - Announcements</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        /*
+           The M3 token set, verbatim from NewsInDetail.html / DetailedSector.html.
+
+           This page previously used Event.html's colours instead, and that was
+           the wrong parent to copy: Event.html is the one page in the set that
+           names no tokens at all — its own config comment says every colour it
+           uses is an arbitrary value. Every DETAIL page, and the React app's
+           styles/theme.css, are built from the roles below. Matching the list
+           page made this page match nothing else on the site.
+        */
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#edeeec",
+                        "surface-container-low": "#f3f4f2",
+                        "surface-bright": "#f9f9f7",
+                        "on-tertiary-container": "#bb8d00",
+                        "primary": "#001d17",
+                        "on-primary-fixed": "#00201a",
+                        "on-primary-container": "#709e91",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "surface-container-high": "#e8e8e6",
+                        "on-tertiary-fixed": "#261a00",
+                        "background": "#f9f9f7",
+                        "secondary": "#1b6d24",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#3b2a00",
+                        "on-error-container": "#93000a",
+                        "surface": "#f9f9f7",
+                        "on-surface-variant": "#404846",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e2e3e1",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-fixed": "#002204",
+                        "surface-dim": "#d9dad8",
+                        "on-secondary-fixed-variant": "#005312",
+                        "inverse-primary": "#a1d0c3",
+                        "primary-fixed": "#bdecde",
+                        "on-secondary-container": "#207128",
+                        "tertiary": "#211600",
+                        "surface-tint": "#3a665c",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#87d982",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdf9e",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00342b",
+                        "on-primary-fixed-variant": "#214e44",
+                        "outline-variant": "#c0c8c4",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-background": "#1a1c1b",
+                        "outline": "#717976",
+                        "inverse-surface": "#2f3130",
+                        "secondary-fixed": "#a3f69c",
+                        "secondary-container": "#a0f499",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f0f1ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-tablet": "32px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Manrope"],
+                        "nav-link": ["Inter"],
+                        "h4": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "h3": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "h1-mobile": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style data-purpose="custom-typography">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.015em;
+        }
+
+        /*
+          THE PINNED CARD'S LEFT PANEL. Event.html fills this with a flat green
+          gradient; here it is a photograph under the same gradient, which is the
+          one change asked for. The overlay is what keeps the 56px date legible —
+          a bare photo behind white type is a contrast failure waiting for the
+          wrong image.
+        */
+        .osip-featured-panel {
+            background-image:
+                linear-gradient(160deg, rgba(0, 66, 37, .90) 0%, rgba(10, 90, 55, .80) 55%, rgba(0, 66, 37, .92) 100%),
+                url('https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1740&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* The dot texture on the pinned panel. It used to be shared with the
+           page header; the header is now the site-wide hero and carries no
+           texture. */
+        .osip-featured-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.07;
+            background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0px);
+            background-size: 18px 18px;
+            pointer-events: none;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+
+            /* The hidden state lives INSIDE this query on purpose. Outside it, a
+               visitor who asks for reduced motion gets a permanently blank page. */
+            .osip-reveal {
+                opacity: 0;
+                transform: translateY(28px);
+                transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform .9s cubic-bezier(.2, .7, .2, 1);
+            }
+
+            .osip-reveal.is-visible {
+                opacity: 1;
+                transform: none;
+            }
+
+            /* The sweep across the pinned card's button, from Event.html. */
+            .osip-shine {
+                position: relative;
+                overflow: hidden;
+                isolation: isolate;
+            }
+
+            .osip-shine::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: -120%;
+                width: 55%;
+                background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .55), transparent);
+                transform: skewX(-22deg);
+                transition: left .9s ease;
+                z-index: 1;
+                pointer-events: none;
+            }
+
+            .osip-shine:hover::before {
+                left: 130%;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <!-- nav.js renders its own sticky header; no wrapper needed. -->
+    <div id="site-nav"></div>
+
+    <main>
+
+        <!-- ================================================== HERO ==== -->
+        <!-- Event.html's page header, structure for structure. -->
+        <section
+            class="relative min-h-[500px] lg:min-h-[550px] w-full overflow-hidden bg-primary flex items-center">
+            <!--
+              The photograph is tone-normalised so every hero on the site sits at
+              the same luminance, and cropped to the band of the picture that
+              `bg-cover` actually keeps in a box this shape - bg-center here. Both
+              were measured rather than eyeballed.
+            -->
+            <div class="absolute inset-0 bg-cover bg-center"
+                data-alt="Delegates at an OSIP investor forum" style="background-image: url('hero-events.jpg')">
+            </div>
+            <!--
+              Vignette / depth gradients, identical to the sector pages. The
+              left-to-right scrim is what makes the headline readable, so it
+              stays heavy across the copy and lifts over the right-hand third,
+              where nothing is written - that is the part of the photograph the
+              reader actually sees. The bottom-up wash seats the section against
+              whatever follows it.
+            -->
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
+                <div class="max-w-3xl">
+                    <div class="flex items-center gap-3 mb-5">
+                        <span class="w-8 sm:w-10 h-[3px] bg-[#ffb955]"></span>
+                        <span class="text-[#ffdcac] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">OFFICIAL
+                            NOTICES</span>
+                    </div>
+                    <h1 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-white leading-tight mb-4"
+                        style="font-family: Manrope, sans-serif;">Announcements</h1>
+                    <p class="text-white/80 text-[14px] sm:text-[15px] lg:text-[17px] leading-8 max-w-2xl">Funding windows,
+                        regulatory deadlines, programme updates and calls for expressions of interest &mdash; issued by OSIP
+                        and its partner agencies across Nigeria's clean energy sector.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================= PINNED NOTICE ==== -->
+        <!-- Event.html's featured-event card. The only change is the left
+             panel: a photograph under the same gradient instead of flat green. -->
+        <section class="bg-[#f6f8f7] py-12 sm:py-14 lg:py-16 px-5 sm:px-8 lg:px-16"
+            style="font-family: Inter, sans-serif;">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center gap-3 mb-8">
+                    <span class="w-8 h-[3px] bg-[#ffb955]"></span>
+                    <span class="text-[#1f5840] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">PINNED
+                        ANNOUNCEMENT</span>
+                </div>
+                <!-- isPinned | deadline | category | title | summary | issuingBody | slug -->
+                <div class="osip-reveal bg-white rounded-xl border border-[#e5e7eb] overflow-hidden shadow-sm">
+                    <div class="grid grid-cols-1 lg:grid-cols-3">
+                        <!-- The panel owns the WHEN; the body owns everything else,
+                             and neither repeats the other. -->
+                        <div
+                            class="osip-featured-panel relative lg:col-span-1 flex flex-col items-center justify-center p-8 lg:p-10 text-center overflow-hidden">
+                            <div class="relative">
+                                <span
+                                    class="block text-[10px] uppercase tracking-[0.2em] text-white/60 font-bold mb-3">Submissions
+                                    close</span>
+                                <span class="block text-white text-[56px] font-black leading-none tracking-tight"
+                                    style="font-family: Manrope, sans-serif;">30</span>
+                                <span class="block text-white/90 text-xl font-bold mt-1"
+                                    style="font-family: Manrope, sans-serif;">September 2026</span>
+                                <span class="block w-10 h-[2px] bg-[#ffb955] mx-auto my-4" aria-hidden="true"></span>
+                                <!-- Derived from the date above, not an extra fact:
+                                     30 September 2026 is a Wednesday. -->
+                                <span
+                                    class="block text-[11px] uppercase tracking-[0.14em] text-white/70 font-semibold">Wednesday
+                                    &middot; 17:00 WAT</span>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-2 p-6 sm:p-10 flex flex-col">
+                            <span
+                                class="self-start bg-[#e3efe8] text-[#0a5a37] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full mb-4">Funding</span>
+                            <h2 class="text-[22px] sm:text-[28px] font-bold text-[#111827] leading-snug mb-3"
+                                style="font-family: Manrope, sans-serif;">NESP III Results-Based Financing Window 3 opens
+                                for mini-grid and solar-hybrid developers</h2>
+                            <p class="text-[#5f6368] text-[14px] sm:text-[15px] leading-relaxed mb-6 max-w-2xl">
+                                Applications are invited from developers with shovel-ready interconnected and isolated
+                                mini-grid projects in Kaduna, Niger, Plateau and Ogun. Awards are made against verified
+                                connections rather than capacity installed.</p>
+
+                            <!-- One fact on a rule. The deadline is already announced
+                                 at 56px by the panel and is not repeated here. -->
+                            <div class="border-t border-[#eef1ef] pt-5 mb-7">
+                                <p class="text-sm text-[#5f6368] flex items-start gap-2.5">
+                                    <span
+                                        class="material-symbols-outlined text-[18px] text-[#0a5a37] mt-px">corporate_fare</span>
+                                    Issued by NESP III with the Rural Electrification Agency
+                                </p>
+                            </div>
+
+                            <!-- mt-auto: the button sits on the bottom edge of the card
+                                 whatever length the summary runs to. -->
+                            <a href="IndividualAnnouncement.html"
+                                class="osip-shine mt-auto self-start inline-flex items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-6 sm:px-7 py-3 text-sm font-medium tracking-wide transition-all duration-300 w-full sm:w-auto rounded-sm">
+                                <span class="material-symbols-outlined text-[18px]">description</span>Read the full
+                                notice</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================== ALL ANNOUNCEMENTS ==== -->
+        <!-- News.html's card grid, copied. Same article, same aspect-video
+             cover, same gold top rule, same date row, same Read More. -->
+        <section class="bg-white py-12 sm:py-14 lg:py-16 px-5 sm:px-8 lg:px-16"
+            style="font-family: Inter, sans-serif;">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center gap-3 mb-8">
+                    <span class="w-8 h-[3px] bg-[#ffb955]"></span>
+                    <span class="text-[#1f5840] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">ALL
+                        ANNOUNCEMENTS</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+                <!-- publishedAt | title | coverImage | slug -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1200&q=80" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-08-14">14 Aug 2026</time>
+                        </div>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            NERC publishes the draft Mini-Grid Regulations 2026 for public consultation</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="IndividualAnnouncement.html">
+                                Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- publishedAt | title | coverImage | slug -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="" src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=900&auto=format&fit=crop" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-08-11">11 Aug 2026</time>
+                        </div>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            OSIP investor portal moves to verified sign-in on 1 October 2026</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="IndividualAnnouncement.html">
+                                Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- publishedAt | title | coverImage | slug -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="" src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2070&auto=format&fit=crop" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-08-05">05 Aug 2026</time>
+                        </div>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Registration opens for the Nigeria Renewable Energy Investment Forum 2027</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="IndividualAnnouncement.html">
+                                Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- publishedAt | title | coverImage | slug -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="" src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-07-29">29 Jul 2026</time>
+                        </div>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Call for expressions of interest: clean cooking aggregation facility, Kano and Kaduna</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="IndividualAnnouncement.html">
+                                Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- publishedAt | title | coverImage | slug -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="" src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?q=80&w=1200&auto=format&fit=crop" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-07-22">22 Jul 2026</time>
+                        </div>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            NIPC updates the pioneer status application checklist for renewable energy projects</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="IndividualAnnouncement.html">
+                                Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- publishedAt | title | coverImage | slug -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="" src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=1200&auto=format&fit=crop" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-07-15">15 Jul 2026</time>
+                        </div>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            REA and OSIP publish a harmonised data template for project pipeline submissions</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="IndividualAnnouncement.html">
+                                Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- publishedAt | title | coverImage | slug -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="" src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-07-02">02 Jul 2026</time>
+                        </div>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Productive Use of Energy grant window 2, northern agricultural corridor</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="IndividualAnnouncement.html">
+                                Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- publishedAt | title | coverImage | slug -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="" src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1200&q=80" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-06-24">24 Jun 2026</time>
+                        </div>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Registration closed: Mini-Grid Developer Roundtable, Abuja</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="IndividualAnnouncement.html">
+                                Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- publishedAt | title | coverImage | slug -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="" src="https://images.unsplash.com/photo-1548337138-e87d889cc369?auto=format&fit=crop&w=1200&q=80" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-06-10">10 Jun 2026</time>
+                        </div>
+                        <h3
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Comment period on the Draft Distributed Generation Order 2026 has ended</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="IndividualAnnouncement.html">
+                                Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script>
+        // Scroll reveal. No-ops where IntersectionObserver is absent, and the
+        // CSS that hides .osip-reveal only applies when motion is welcome, so
+        // nothing here is required for the content to be readable.
+        (function () {
+            if (!('IntersectionObserver' in window)) return;
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+            document.querySelectorAll('.osip-reveal').forEach(function (el) { io.observe(el); });
+        })();
+    </script>
+
+    <script src="nav.js"></script>
+    <script src="footer.js"></script>
+</body>
+
+</html>

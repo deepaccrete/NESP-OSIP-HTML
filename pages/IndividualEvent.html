@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSIP - Nigeria Renewable Energy Investment Forum 2027</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        /*
+           The M3 token set, verbatim from NewsInDetail.html / DetailedSector.html.
+
+           This page previously used Event.html's colours instead, and that was
+           the wrong parent to copy: Event.html is the one page in the set that
+           names no tokens at all — its own config comment says every colour it
+           uses is an arbitrary value. Every DETAIL page, and the React app's
+           styles/theme.css, are built from the roles below. Matching the list
+           page made this page match nothing else on the site.
+        */
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#edeeec",
+                        "surface-container-low": "#f3f4f2",
+                        "surface-bright": "#f9f9f7",
+                        "on-tertiary-container": "#bb8d00",
+                        "primary": "#001d17",
+                        "on-primary-fixed": "#00201a",
+                        "on-primary-container": "#709e91",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "surface-container-high": "#e8e8e6",
+                        "on-tertiary-fixed": "#261a00",
+                        "background": "#f9f9f7",
+                        "secondary": "#1b6d24",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#3b2a00",
+                        "on-error-container": "#93000a",
+                        "surface": "#f9f9f7",
+                        "on-surface-variant": "#404846",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e2e3e1",
+                        "on-surface": "#1a1c1b",
+                        "on-secondary-fixed": "#002204",
+                        "surface-dim": "#d9dad8",
+                        "on-secondary-fixed-variant": "#005312",
+                        "inverse-primary": "#a1d0c3",
+                        "primary-fixed": "#bdecde",
+                        "on-secondary-container": "#207128",
+                        "tertiary": "#211600",
+                        "surface-tint": "#3a665c",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#87d982",
+                        "primary-fixed-dim": "#a1d0c3",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdf9e",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00342b",
+                        "on-primary-fixed-variant": "#214e44",
+                        "outline-variant": "#c0c8c4",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-background": "#1a1c1b",
+                        "outline": "#717976",
+                        "inverse-surface": "#2f3130",
+                        "secondary-fixed": "#a3f69c",
+                        "secondary-container": "#a0f499",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f0f1ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-tablet": "32px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Manrope"],
+                        "nav-link": ["Inter"],
+                        "h4": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "h3": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "h1-mobile": ["Manrope"],
+                        "h1": ["Manrope"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "h1-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style data-purpose="custom-typography">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.015em;
+        }
+
+        /*
+          THE EVENT'S OWN COVER IMAGE. The gradient is listed first so it paints
+          OVER the picture — white display type has to stay legible above a
+          photograph nobody has vetted for contrast, and it is also what lets
+          the hero degrade to flat green for an event with no image.
+        */
+        /*
+          THE HERO. The photograph is tone-normalised to the same luminance the
+          sector-page heroes use, and cropped to the band that survives
+          `background-size: cover` in a box this shape - both measured, not
+          eyeballed.
+
+          The overlay used to be a near-flat 86-93% wash, which left the picture
+          showing at under 14% and made the header read as a plain green panel.
+          It is now a directional scrim: heavy across the left where the copy
+          sits, lifting to 10% at the right edge so the photograph is actually
+          visible. The middle stop sits at 70% - where this page's text ends -
+          rather than at an arbitrary halfway point. Checked against the real
+          pixels behind the copy: the weakest white-on-photo contrast is 7.6:1,
+          clear of the 4.5:1 AA floor.
+        */
+        /* ===== Video facade (lazy YouTube swap) — the same component
+                 detailedOppNew.html uses for its project walkthrough. ===== */
+        .video-facade.is-playing>.facade-cover {
+            display: none;
+        }
+
+        .video-facade iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .card-lift {
+            transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease;
+        }
+
+        .card-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 34px -22px rgba(0, 29, 23, .45);
+        }
+
+        @media (min-width: 1024px) {
+
+            /* The register card follows the reader past the video and the
+               gallery. It carries the only action on the page. */
+            .sticky-rail {
+                position: sticky;
+                top: 96px;
+            }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+
+            .reveal {
+                opacity: 0;
+                transform: translateY(26px);
+                transition: opacity .8s cubic-bezier(.2, .7, .2, 1), transform .8s cubic-bezier(.2, .7, .2, 1);
+            }
+
+            .reveal.is-visible {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface min-h-screen">
+
+    <!-- nav.js renders its own sticky header; no wrapper needed. -->
+    <div id="site-nav"></div>
+
+    <main>
+
+        <!-- ==================================================== HERO ==== -->
+        <section
+            class="relative min-h-[500px] lg:min-h-[550px] w-full overflow-hidden bg-primary flex items-center">
+            <!--
+              The photograph is tone-normalised so every hero on the site sits at
+              the same luminance, and cropped to the band of the picture that
+              `bg-cover` actually keeps in a box this shape - bg-center here. Both
+              were measured rather than eyeballed.
+            -->
+            <div class="absolute inset-0 bg-cover bg-center"
+                data-alt="Conference hall set for a session" style="background-image: url('hero-event-detail.jpg')">
+            </div>
+            <!--
+              Vignette / depth gradients, identical to the sector pages. The
+              left-to-right scrim is what makes the headline readable, so it
+              stays heavy across the copy and lifts over the right-hand third,
+              where nothing is written - that is the part of the photograph the
+              reader actually sees. The bottom-up wash seats the section against
+              whatever follows it.
+            -->
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
+                <div class="max-w-3xl">
+                    <a href="Event.html"
+                        class="inline-flex items-center gap-1.5 text-primary-fixed-dim hover:text-tertiary-fixed-dim font-label-md text-label-md uppercase transition-colors mb-8">
+                        <span class="material-symbols-outlined text-[16px]">arrow_back</span>All events
+                    </a>
+
+                    <div class="flex flex-wrap items-center gap-2 mb-6">
+                        <!-- event_type -->
+                        <span
+                            class="inline-flex items-center bg-tertiary-fixed-dim text-on-tertiary-fixed font-label-md text-label-md uppercase px-3 py-1.5 rounded-full">Investor
+                            Forum</span>
+                        <!-- eventMode: "On-site" or "Virtual"; the icon follows the value. -->
+                        <span
+                            class="inline-flex items-center gap-1.5 border border-white/25 text-white/85 font-label-md text-label-md uppercase px-3 py-1.5 rounded-full">
+                            <span class="material-symbols-outlined text-[14px]">location_on</span>On-site
+                        </span>
+                    </div>
+
+                    <!--
+                      The type scale is written out rather than used as `text-h1-mobile
+                      md:text-h1`: only the font SIZE half of that pair has a responsive
+                      variant, so the 56px line-height would follow 32px type down to
+                      mobile. Spelling both out is the sanctioned way round it.
+                    -->
+                    <h1 class="font-h1 text-[32px] leading-[40px] md:text-[48px] md:leading-[56px] text-white max-w-4xl">
+                        Nigeria Renewable Energy Investment Forum 2027</h1>
+
+                    <p class="font-body-lg text-body-lg text-primary-fixed/90 mt-6 max-w-2xl">Three days of plenaries,
+                        project pitch sessions, and one-on-one investor matchmaking, bringing the national clean energy
+                        pipeline into one room.</p>
+                </div>
+            </div>
+        </section>
+
+        <!--
+          ============================================ QUICK FACTS ====
+
+          The four fields a reader checks before anything else, as cards rather
+          than a paragraph — the same treatment `opportunity.quickStats` gets on
+          the opportunity page. Every value here is an EXISTING field on the
+          Event content type.
+        -->
+        <section class="bg-surface-container-low border-b border-outline-variant">
+            <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-8">
+                <div class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))]">
+
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">calendar_month</span>
+                        <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-[#5f6368] mt-3">Dates</p>
+                        <p class="text-[15px] font-bold text-[#111827] mt-1">15&ndash;17 March 2027</p>
+                        <!-- Derived from startDate/endDate, never authored. -->
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-1">Mon &ndash; Wed &middot; 3 days
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">groups</span>
+                        <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-[#5f6368] mt-3">Format</p>
+                        <p class="text-[15px] font-bold text-[#111827] mt-1">On-site</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-1">Open to registered attendees
+                        </p>
+                    </div>
+
+                    <!-- address OR virtualMeetingLink — the CMS keeps one and
+                         discards the other, so this card has exactly one shape. -->
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">location_on</span>
+                        <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-[#5f6368] mt-3">Venue</p>
+                        <p class="text-[15px] font-bold text-[#111827] mt-1">Abuja</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-1">International Conference
+                            Centre</p>
+                    </div>
+
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">sell</span>
+                        <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-[#5f6368] mt-3">Event type</p>
+                        <p class="text-[15px] font-bold text-[#111827] mt-1">Investor Forum</p>
+                        <p class="text-[#5f6368] text-[13px] leading-6 mt-1">Part of the OSIP series</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================== BODY ==== -->
+        <section class="bg-background">
+            <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+                <div class="flex flex-col lg:flex-row gap-8">
+
+                    <!-- ------------------------------------------ Article -->
+                    <div class="flex-1 min-w-0 space-y-10">
+
+                        <!-- About -->
+                        <article class="reveal">
+                            <div class="mb-6">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
+                                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Overview</span>
+                                </div>
+                                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827]">About this event</h2>
+                            </div>
+                            <!--
+                              The `description` field. It is a single text field, so
+                              paragraphs come from blank lines in the stored value
+                              rather than from separate CMS fields.
+                            -->
+                            <div class="font-body-lg text-body-lg text-on-surface-variant space-y-5">
+                                <p>Join policymakers, investors, developers, financiers, and industry leaders to explore
+                                    opportunities across Nigeria&rsquo;s rapidly growing clean energy sector.</p>
+                                <p>The forum brings the national pipeline into one room: utility-scale generation,
+                                    mini-grids, storage, and productive-use projects at every stage from feasibility to
+                                    financial close. Sessions are structured so a developer with a bankable project and
+                                    an investor with a mandate can find each other without a broker in between.</p>
+                            </div>
+                        </article>
+
+                        <!--
+                          Video — the lazy YouTube facade from detailedOppNew.html,
+                          markup, CSS and script all reused rather than reinvented.
+                          Nothing loads from YouTube until the reader clicks.
+
+                          NEEDS A NEW CMS FIELD: `videoUrl` (or a video id) on the
+                          Event type. Nothing on the current schema can fill this.
+                        -->
+                        <section class="reveal">
+                            <div class="mb-6">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
+                                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Watch</span>
+                                </div>
+                                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827]">Event film</h2>
+                            </div>
+                            <div class="video-facade relative aspect-video rounded-xl overflow-hidden bg-black"
+                                data-video-id="aqz-KE-bpKQ">
+                                <button type="button" aria-label="Play the event film"
+                                    class="facade-cover absolute inset-0 group cursor-pointer w-full h-full">
+                                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=1600&auto=format&fit=crop"
+                                        alt="" class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity"
+                                        loading="lazy" />
+                                    <span class="absolute inset-0 flex items-center justify-center">
+                                        <span
+                                            class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600 flex items-center justify-center shadow-2xl group-hover:scale-105 transition-transform"
+                                            aria-hidden="true">
+                                            <span class="material-symbols-outlined text-white text-[40px]"
+                                                style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                                        </span>
+                                    </span>
+                                    <span
+                                        class="absolute left-3 bottom-3 right-3 flex items-center justify-between text-white text-xs sm:text-sm pointer-events-none">
+                                        <span class="bg-black/55 px-2.5 py-1 rounded">Highlights from the 2026
+                                            forum</span>
+                                        <span class="bg-red-600 px-2.5 py-1 rounded inline-flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[14px]">play_circle</span>
+                                            Play here
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                        </section>
+
+                        <!--
+                          What to expect — the icon-card grid used across the sector
+                          detail page (Project Development Frameworks, Public
+                          Finance).
+
+                          NEEDS A NEW CMS FIELD: a repeatable component
+                          `highlights` of { icon, title, description }.
+                        -->
+                        <section class="reveal">
+                            <div class="mb-6">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
+                                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Programme</span>
+                                </div>
+                                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827]">What to expect</h2>
+                            </div>
+                            <div class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(min(230px,100%),1fr))]">
+                                <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                                    <span class="material-symbols-outlined text-[#004225] text-[32px]">handshake</span>
+                                    <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1">Investor matchmaking</h4>
+                                    <p class="text-[#5f6368] text-[13px] leading-6">Scheduled one-on-one sessions between promoters and capital providers.</p>
+                                </div>
+                                <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                                    <span class="material-symbols-outlined text-[#004225] text-[32px]">campaign</span>
+                                    <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1">Project pitches</h4>
+                                    <p class="text-[#5f6368] text-[13px] leading-6">Shortlisted projects present to a room of qualified investors.</p>
+                                </div>
+                                <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                                    <span class="material-symbols-outlined text-[#004225] text-[32px]">gavel</span>
+                                    <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1">Policy briefings</h4>
+                                    <p class="text-[#5f6368] text-[13px] leading-6">Regulators on licensing, incentives and what is changing next.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!--
+                          Gallery — image cards, the same shape SectorCard uses.
+
+                          NEEDS A NEW CMS FIELD: `gallery`, media (multiple images).
+                        -->
+                        <section class="reveal">
+                            <div class="mb-6">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="w-8 h-[2px] bg-[#f7be26] flex-shrink-0"></span>
+                                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Gallery</span>
+                                </div>
+                                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827]">From the last edition</h2>
+                            </div>
+                            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                                <figure class="card-lift rounded-xl overflow-hidden border border-[#e5e7eb]">
+                                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=900&auto=format&fit=crop"
+                                        alt="Delegates in the plenary hall" class="w-full h-44 object-cover"
+                                        loading="lazy">
+                                </figure>
+                                <figure class="card-lift rounded-xl overflow-hidden border border-[#e5e7eb]">
+                                    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=900&auto=format&fit=crop"
+                                        alt="A pitch session in progress" class="w-full h-44 object-cover"
+                                        loading="lazy">
+                                </figure>
+                                <figure
+                                    class="card-lift rounded-xl overflow-hidden border border-[#e5e7eb] col-span-2 lg:col-span-1">
+                                    <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=900&auto=format&fit=crop"
+                                        alt="Delegates networking between sessions" class="w-full h-44 object-cover"
+                                        loading="lazy">
+                                </figure>
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <!-- ------------------------------------------ Sidebar -->
+                    <aside class="w-full lg:w-[360px] shrink-0">
+                        <div class="sticky-rail space-y-6">
+
+                            <!-- Register card -->
+                            <section
+                                class="bg-white border border-[#e5e7eb] rounded-xl overflow-hidden">
+                                <div class="bg-primary-container px-6 py-7 text-center">
+                                    <span
+                                        class="block font-label-md text-label-md uppercase text-primary-fixed-dim mb-2">Mark
+                                        your calendar</span>
+                                    <span class="block font-h1 text-[40px] leading-none text-white">15&ndash;17</span>
+                                    <span class="block font-h4 text-h4 text-white/90 mt-1">March 2027</span>
+                                    <span class="block w-9 h-[2px] bg-tertiary-fixed-dim mx-auto my-4"></span>
+                                    <span class="block font-label-md text-label-md uppercase text-white/70">Mon &ndash;
+                                        Wed &middot; 3 days</span>
+                                </div>
+
+                                <dl class="divide-y divide-[#e5e7eb]">
+                                    <div class="px-6 py-4">
+                                        <dt class="text-[11px] font-bold uppercase tracking-[0.14em] text-[#5f6368] mb-1">
+                                            Venue</dt>
+                                        <dd class="text-[13px] leading-6 text-[#111827]">International Conference
+                                            Centre, Herbert Macaulay Way, Abuja</dd>
+                                    </div>
+                                    <div class="px-6 py-4">
+                                        <dt class="text-[11px] font-bold uppercase tracking-[0.14em] text-[#5f6368] mb-1">
+                                            Format</dt>
+                                        <dd class="text-[13px] leading-6 text-[#111827]">On-site &middot; Investor
+                                            Forum</dd>
+                                    </div>
+                                </dl>
+
+                                <!--
+                                  hasRegistration + registrationUrl. The whole slot is
+                                  absent when an event carries no link, rather than
+                                  rendering a dead button — and a past event says
+                                  registration is closed instead.
+                                -->
+                                <div class="px-6 pb-6 pt-2">
+                                    <a href="Contact.html"
+                                        class="inline-flex w-full items-center justify-center gap-2 bg-primary-container hover:bg-primary text-white px-5 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors">
+                                        <span class="material-symbols-outlined text-[17px]">how_to_reg</span>Register
+                                        Interest
+                                    </a>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant text-center mt-3">
+                                        Registration is free for verified investors.</p>
+                                </div>
+                            </section>
+
+                            <!-- Share — the `ShareIcons` component the news page
+                                 already defines on its singleType. -->
+                            <section
+                                class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl px-6 py-5">
+                                <h3 class="text-[11px] font-bold uppercase tracking-[0.14em] text-[#5f6368] mb-3">Share this
+                                    event</h3>
+                                <div class="flex items-center gap-2">
+                                    <a href="#" aria-label="Share on LinkedIn"
+                                        class="w-10 h-10 rounded-full bg-white border border-[#e5e7eb] flex items-center justify-center text-[#004225] hover:bg-[#004225] hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-[18px]">share</span>
+                                    </a>
+                                    <a href="#" aria-label="Share by email"
+                                        class="w-10 h-10 rounded-full bg-white border border-[#e5e7eb] flex items-center justify-center text-[#004225] hover:bg-[#004225] hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-[18px]">mail</span>
+                                    </a>
+                                    <a href="#" aria-label="Copy link"
+                                        class="w-10 h-10 rounded-full bg-white border border-[#e5e7eb] flex items-center justify-center text-[#004225] hover:bg-[#004225] hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-[18px]">link</span>
+                                    </a>
+                                </div>
+                            </section>
+
+                        </div>
+                    </aside>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================== CTA ==== -->
+        <section class="bg-surface-container-low border-t border-outline-variant">
+            <div
+                class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <p class="font-body-md text-body-md text-on-surface-variant">Looking for something else? Browse every
+                    upcoming forum, workshop and roadshow.</p>
+                <a href="Event.html"
+                    class="inline-flex items-center justify-center gap-2 border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors shrink-0">
+                    All events
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script>
+        // Mobile top-nav hamburger toggle (matches nav.js expectations).
+        (function () {
+            const navToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            if (navToggle && mobileNav) {
+                navToggle.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+                window.addEventListener('resize', () => {
+                    if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden');
+                });
+            }
+        })();
+
+        // Lazy YouTube facade — swaps the thumbnail for an inline iframe on first
+        // click. Lifted from detailedOppNew.html so both pages behave identically.
+        (function () {
+            document.querySelectorAll('.video-facade').forEach(function (holder) {
+                const id = holder.dataset.videoId;
+                const cover = holder.querySelector('.facade-cover');
+                if (!id || !cover) return;
+                cover.addEventListener('click', function () {
+                    if (holder.classList.contains('is-playing')) return;
+                    const iframe = document.createElement('iframe');
+                    iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&modestbranding=1';
+                    iframe.title = 'Event film';
+                    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                    iframe.setAttribute('allowfullscreen', '');
+                    holder.appendChild(iframe);
+                    holder.classList.add('is-playing');
+                });
+            });
+        })();
+
+        // Scroll reveal.
+        (function () {
+            if (!('IntersectionObserver' in window)) return;
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+            document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+        })();
+    </script>
+
+    <script src="nav.js"></script>
+    <script src="footer.js"></script>
+</body>
+
+</html>

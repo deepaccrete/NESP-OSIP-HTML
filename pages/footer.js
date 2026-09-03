@@ -39,13 +39,14 @@
                   the Platform</a></li>
               <li><a href="{{base}}Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Investor
                   Support</a></li>
-              <li><a href="{{base}}notDecided.html"
+              <li><a href="{{base}}FAQs.html"
                   class="text-sm sm:text-base hover:text-white transition-colors">FAQs</a></li>
               <li><a href="{{base}}Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Contact
                   Us</a></li>
-              <li><a href="{{base}}News.html" class="text-sm sm:text-base hover:text-white transition-colors">News &amp;
-                  Events</a></li>
-              <li><a href="{{base}}News.html"
+              <li><a href="{{base}}News.html" class="text-sm sm:text-base hover:text-white transition-colors">News</a></li>
+              <li><a href="{{base}}Event.html"
+                  class="text-sm sm:text-base hover:text-white transition-colors">Events</a></li>
+              <li><a href="{{base}}Announcements.html"
                   class="text-sm sm:text-base hover:text-white transition-colors">Announcements</a></li>
               <li><a href="{{base}}Contact.html"
                   class="text-sm sm:text-base hover:text-white transition-colors">Contact</a></li>

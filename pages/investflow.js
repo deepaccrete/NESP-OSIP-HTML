@@ -1,10 +1,16 @@
 /*
- * OSIP "Invest Now" flow.
- * Clicking any nav "Invest Now" button opens InvestNow1.html inside a popup
- * modal (iframe) with the page behind it blurred — mirroring the login modal
- * in detailedOppNew.html. InvestNow1 -> InvestNow2 navigate inside the iframe
- * (stay in the popup); InvestNow2's "Continue" uses target="_top" to break out
- * to InvestNow3.html as a normal full-screen page.
+ * OSIP InvestNow popup flow (InvestNow1 -> InvestNow2 -> InvestNow3).
+ *
+ * NOTE: the nav "Invest Now" button no longer opens this popup. It is a plain
+ * link to InvestorMatch.html (see nav.js) — the quiz that replaced this flow.
+ * What is left here only fires for elements that opt in explicitly with the
+ * data-investflow attribute.
+ *
+ * When it does fire: InvestNow1.html loads inside a popup modal (iframe) with
+ * the page behind it blurred — mirroring the login modal in detailedOppNew.html.
+ * InvestNow1 -> InvestNow2 navigate inside the iframe (stay in the popup);
+ * InvestNow2's "Continue" uses target="_top" to break out to InvestNow3.html as
+ * a normal full-screen page.
  */
 (function () {
     // Resolve InvestNow1.html relative to this script's own URL, so the iframe
@@ -74,11 +80,16 @@
         if (e.data === 'investflow-close') closeModal();
     });
 
-    // ---- Wire nav "Invest Now" triggers ------------------------------------
+    // ---- Wire opt-in triggers ----------------------------------------------
+    //
+    // The nav "Invest Now" button is deliberately NOT wired here any more: it
+    // is a normal link to InvestorMatch.html and must be allowed to navigate.
     function wire() {
-        document.querySelectorAll('nav a, nav button').forEach(function (el) {
-            var t = (el.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
-            if (t === 'invest now') el.addEventListener('click', openModal);
+        // Any element (anywhere on the page) can opt into the popup with
+        // data-investflow — used by CTAs like the hero "Start Your Investment
+        // Journey" button. Its href stays as a no-JS fallback.
+        document.querySelectorAll('[data-investflow]').forEach(function (el) {
+            el.addEventListener('click', openModal);
         });
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wire);
