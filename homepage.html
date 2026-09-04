@@ -3568,7 +3568,7 @@
 
     /* HP-02: compact one-row quick-access strip + clean gap under the hero */
     .osip-quickaccess { padding-top: 3rem; padding-bottom: 3rem; background-color: #f3f4f2; }
-    .osip-qa-head { margin-bottom: 1.75rem; max-width: 48rem; }
+    .osip-qa-head { margin-bottom: 1.75rem; }
     .osip-qa-head p { line-height: 2rem; }
     .osip-qa-card { display: flex; align-items: center; gap: .75rem; padding: 1rem; }
     .osip-qa-icon { font-size: 26px; flex: 0 0 auto; }
@@ -3753,7 +3753,7 @@
 
       <section class="osip-quickaccess px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
-          <div class="osip-qa-head max-w-3xl">
+          <div class="osip-qa-head">
             <h2 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-[#111827] leading-tight mb-4"
               style="font-family: Manrope, sans-serif;">How Can We Help You Today?</h2>
             <p class="text-[#5f6368] text-[15px] lg:text-[17px] leading-8">Whether you are exploring the Nigerian market
@@ -3807,6 +3807,25 @@
       <style>
         .osip-opp-head {
           margin-bottom: 2rem;
+        }
+
+        /* Heading runs on one line like the other section headings; the CTA keeps
+           its own width instead of squeezing it. */
+        .osip-opp-headtext {
+          flex: 1 1 auto;
+          min-width: 0;
+        }
+
+        .osip-opp-head > a {
+          flex: 0 0 auto;
+        }
+
+        /* Stacked layout: full width on phones, hugs its own label from sm up
+           instead of stretching across the column. */
+        @media (width >=40rem) and (width < 64rem) {
+          .osip-opp-head > a {
+            align-self: flex-start;
+          }
         }
 
         .osip-opp-grid {
@@ -4055,6 +4074,14 @@
 
           .osip-opp-head {
             margin-bottom: 2.5rem;
+            /* The CTA sits on the heading row instead of hanging off the bottom
+               of the lead paragraph. flex-start puts it level with the h2, and
+               the 2px nudge optically centres a 48px button on the 52.5px line. */
+            align-items: flex-start;
+          }
+
+          .osip-opp-head > a {
+            margin-top: 2px;
           }
         }
       </style>
@@ -4062,7 +4089,7 @@
       <section class="bg-white py-12 sm:py-14 lg:py-16 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
           <div class="osip-opp-head flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
-            <div class="max-w-2xl">
+            <div class="osip-opp-headtext">
               <h2 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-[#111827] leading-tight mb-4"
                 style="font-family: Manrope, sans-serif;">Priority Investment Opportunities</h2>
               <p class="text-[#5f6368] text-[15px] lg:text-[17px]">Validated projects open to private capital across
@@ -4204,39 +4231,72 @@
       <section class="bg-white py-12 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
         style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div class="order-2 lg:order-1">
+          <div>
             <div class="flex items-center gap-3 mb-5 sm:mb-6"><span
                 class="w-8 sm:w-10 h-[3px] bg-[#ffb955]"></span><span
                 class="text-[#1f5840] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">ABOUT OSIP
               </span></div>
 
-            <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8 mb-8 max-w-2xl">One Stop
-              Investment Platform (OSIP) is the data/information gateway to investing in renewable energy and energy
-              efficiency in Nigeria.</p>
             <h2 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-[#111827] leading-tight mb-4"
               style="font-family: Manrope, sans-serif;">Why OSIP?</h2>
             <div class="flex flex-col gap-4 mb-8 max-w-2xl">
-              <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8">Nigeria currently has an
-                installed electricity capacity that is far below national demand, renewable energy potential that is
-                among the largest on the continent, and a policy environment increasingly aligned with the energy
-                transition.</p>
-              <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8">The conditions for
-                transformative clean energy investment exist. What has been missing is a single, reliable entry point
-                for investors who want to act and take advantage of the opportunity.</p>
               <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8">The One-Stop Investment
-                Platform (OSIP) was built to fill that gap.</p>
+                Platform (OSIP) is Nigeria's data and information gateway for investing in renewable energy and energy
+                efficiency.</p>
+              <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8">It exists to give
+                investors a single, reliable entry point into a market where the opportunity is clear but the
+                information has been scattered.</p>
             </div><a href="pages/AboutOSIP.html"
               class="inline-flex items-center justify-center bg-[#004225] hover:bg-[#1a5c3a] text-white px-6 sm:px-7 py-3 text-sm font-medium tracking-wide transition-all duration-300 w-full sm:w-auto">Read
               More</a>
           </div>
-          <div class="order-1 lg:order-2">
-            <div class="relative bg-gray-100 overflow-hidden h-[260px] sm:h-[380px] lg:h-[520px] shadow-sm">
-              <img alt="Nigeria's Official Gateway for Institutional Energy Assets" class="w-full h-full object-cover"
+          <div>
+            <div class="osip-about-img osip-gallery relative bg-gray-100 overflow-hidden shadow-sm">
+              <img alt="Rooftop solar array at sunrise" class="osip-gallery-slide is-active"
                 src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=1200&q=80">
+              <img alt="Onshore wind turbines across open grassland" class="osip-gallery-slide"
+                src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1200&q=80">
+              <img alt="Grid-scale battery energy storage units" class="osip-gallery-slide"
+                src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&w=1200&q=80">
+              <div class="osip-gallery-scrim"></div>
+              <div class="osip-gallery-dots" aria-hidden="true">
+                <span class="is-active"></span><span></span><span></span>
+              </div>
+              <div class="osip-gallery-nav">
+                <button type="button" class="osip-gallery-btn" data-dir="-1" aria-label="Previous image">
+                  <span class="material-symbols-outlined">chevron_left</span></button>
+                <button type="button" class="osip-gallery-btn" data-dir="1" aria-label="Next image">
+                  <span class="material-symbols-outlined">chevron_right</span></button>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      <script>
+        // Why OSIP gallery. Manual only: no autoplay, so nothing on the homepage
+        // moves without the reader asking it to.
+        (function () {
+          var g = document.querySelector('.osip-gallery');
+          if (!g) return;
+          var slides = g.querySelectorAll('.osip-gallery-slide');
+          var dots = g.querySelectorAll('.osip-gallery-dots span');
+          if (slides.length < 2) return;
+          var i = 0;
+
+          function go(step) {
+            slides[i].classList.remove('is-active');
+            if (dots[i]) dots[i].classList.remove('is-active');
+            i = (i + step + slides.length) % slides.length;
+            slides[i].classList.add('is-active');
+            if (dots[i]) dots[i].classList.add('is-active');
+          }
+
+          g.querySelectorAll('.osip-gallery-btn').forEach(function (b) {
+            b.addEventListener('click', function () { go(parseInt(b.getAttribute('data-dir'), 10)); });
+          });
+        })();
+      </script>
 
       <section class="bg-[#f6f8f7] py-12 lg:py-16 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
@@ -4289,9 +4349,8 @@
                 state-level opportunities.</p>
             </div>
           </div>
-          <a href="pages/notDecided.html"
-            class="inline-flex items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-6 sm:px-7 py-3 text-sm font-medium tracking-wide transition-all duration-300 w-full sm:w-auto"><span
-              class="material-symbols-outlined text-[20px]">download</span>Download Investor Guide</a>
+          <span class="osip-cta-soon"><span class="material-symbols-outlined">download</span>Investor Guide
+            <em>Coming soon</em></span>
         </div>
       </section>
 
@@ -4358,10 +4417,16 @@
       <section class="bg-white py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
           <div class="mb-10 lg:mb-14">
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 uppercase tracking-wide"
-              style="font-family: Manrope, sans-serif;">Explore by State</h2>
+            <!-- NAV-03 gave the States tab a real page, so this teaser now has
+                 somewhere to send people for the other 32 states. -->
+            <div class="osip-states-headrow">
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 uppercase tracking-wide"
+                style="font-family: Manrope, sans-serif;">Explore by State</h2>
+              <a href="pages/States.html" class="osip-states-cta">View all states <span
+                  class="material-symbols-outlined">arrow_forward</span></a>
+            </div>
             <p class="text-[#5f6368] text-[15px] leading-7 max-w-2xl mt-4">Discover investment profiles, incentives and
-              Live opportunities across Nigeria's leading states.</p>
+              published opportunities across Nigeria's leading states.</p>
             <div class="w-14 h-[2px] bg-[#1a5c3a] mt-4"></div>
           </div>
           <div class="osip-states-grid">
@@ -4391,57 +4456,359 @@
               <span class="osip-state-tag">Profile in preparation</span>
             </div>
           </div>
+
+          <!-- Second route to the States page. The CTA beside the heading catches
+               people who scan; this catches the reader who has just finished the
+               five cards and wants the other 32. -->
+          <div class="osip-states-foot">
+            <span class="osip-states-count">Showing 5 of 37 territories</span>
+            <a href="pages/States.html" class="osip-states-more">See all 36 states and the FCT <span
+                class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
         </div>
       </section>
+
+      <!-- HP-06: data teaser. The block this replaces was a 420px "MAP" placeholder and
+           two "CHART" placeholders, and its figures (12522 MW, 84 ACTIVE) contradicted
+           pages/Data.html (2.1 GW, 140+). The four tiles below are the four headline
+           stats from that page, verbatim, so the teaser and the Data tab agree. The
+           detailed intelligence view already lives on Data.html. -->
+      <style>
+        .osip-data-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 16px;
+        }
+
+        .osip-data-tile {
+          position: relative;
+          background: #ffffff;
+          padding: 24px 22px 22px;
+          overflow: hidden;
+        }
+
+        .osip-data-tile::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 4px;
+          background: #f59e0b;
+        }
+
+        .osip-data-label {
+          display: block;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: .16em;
+          text-transform: uppercase;
+          color: #004225;
+          margin-bottom: 14px;
+        }
+
+        .osip-data-value {
+          display: block;
+          font-family: Manrope, sans-serif;
+          font-variant-numeric: tabular-nums;
+          font-size: 38px;
+          font-weight: 800;
+          line-height: 1;
+          letter-spacing: -.02em;
+          color: #004225;
+          margin-bottom: 10px;
+        }
+
+        .osip-data-note {
+          display: block;
+          font-size: 13px;
+          line-height: 1.5;
+          color: #5f6368;
+        }
+
+        /* Why OSIP image: sized to sit beside the shortened statement, not tower over it. */
+    .osip-about-img { height: 220px; }
+
+    @media (width >=40rem) {
+      .osip-about-img { height: 300px; }
+    }
+
+    @media (width >=64rem) {
+      .osip-about-img { height: 380px; }
+    }
+
+    /* A CTA whose destination does not exist yet is shown as a label. Linking it to
+       the Coming Soon placeholder is what HP-09 rules out. */
+    .osip-cta-soon {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border: 1px dashed #c3cdc8;
+      background: #f7f9f8;
+      color: #6b746f;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: .02em;
+    }
+
+    .osip-cta-soon .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    .osip-cta-soon em {
+      font-style: normal;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: 1px dashed #c3cdc8;
+      border-radius: 999px;
+      padding: 1px 8px;
+      color: #7d8f88;
+      white-space: nowrap;
+    }
+
+    /* Why OSIP gallery: three stacked frames that cross-fade, with a quiet pair of
+       arrows in the corner. Slides are stacked absolutely so the block never changes
+       height as it advances. */
+    .osip-gallery-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity .6s ease;
+    }
+
+    .osip-gallery-slide.is-active {
+      opacity: 1;
+    }
+
+    /* Just enough shading in the bottom corners to keep the controls legible on a
+       bright frame, without greying the photograph. */
+    .osip-gallery-scrim {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(7, 21, 16, .38) 0%, rgba(7, 21, 16, 0) 34%);
+    }
+
+    .osip-gallery-nav {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .osip-gallery-btn {
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .92);
+      color: #0a1f1a;
+      cursor: pointer;
+      box-shadow: 0 6px 18px -8px rgba(6, 20, 16, .5);
+      transition: background .25s ease, color .25s ease, transform .25s ease;
+    }
+
+    .osip-gallery-btn:hover {
+      background: #004225;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .osip-gallery-btn:focus-visible {
+      outline: 2px solid #ffb955;
+      outline-offset: 2px;
+    }
+
+    .osip-gallery-btn .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    .osip-gallery-dots {
+      position: absolute;
+      left: 16px;
+      bottom: 25px;
+      display: flex;
+      gap: 6px;
+      z-index: 2;
+    }
+
+    .osip-gallery-dots span {
+      width: 16px;
+      height: 2px;
+      background: rgba(255, 255, 255, .45);
+      transition: background .25s ease, width .25s ease;
+    }
+
+    .osip-gallery-dots span.is-active {
+      width: 26px;
+      background: #ffb955;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .osip-gallery-slide {
+        transition: none;
+      }
+    }
+
+    /* Every figure on the homepage has to say where it came from. */
+        .osip-data-source {
+          margin-top: 20px;
+          font-size: 13px;
+          line-height: 1.6;
+          color: #6b746f;
+        }
+
+        .osip-data-source a {
+          color: #004225;
+          font-weight: 600;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+        }
+
+        .osip-data-source a .material-symbols-outlined {
+          font-size: 15px;
+          vertical-align: -3px;
+        }
+
+        @media (width >=40rem) {
+          .osip-data-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+          }
+        }
+
+        @media (width >=64rem) {
+          .osip-data-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 24px;
+          }
+
+          .osip-data-tile {
+            padding: 28px 26px 26px;
+          }
+
+          .osip-data-value {
+            font-size: 42px;
+          }
+        }
+      </style>
 
       <section class="bg-[#f4f3f8] py-14 lg:py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
           <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
             <div>
               <h2 class="text-[32px] lg:text-[42px] leading-tight font-bold text-[#111827] mb-3"
-                style="font-family: Manrope, sans-serif;">National Energy Intelligence</h2>
-              <p class="text-[#5f6368] text-[15px] leading-7 max-w-2xl">Real-time monitoring of grid performance,
-                project pipeline, and market trends.</p>
+                style="font-family: Manrope, sans-serif;">Data and Insights</h2>
+              <p class="text-[#5f6368] text-[15px] leading-7">Four headline numbers on Nigeria's energy
+                transition. Grid performance, the project pipeline and market trends sit in full on the Data tab.</p>
             </div>
-            <div class="flex flex-wrap items-center gap-4"><a href="#"
-                class="bg-white text-[#111827] border border-[#e5e7eb] px-6 py-3 text-[14px] font-semibold transition-all duration-300 hover:shadow-md">Download
-                Data Set</a><a href="pages/Data.html"
-                class="bg-[#004225] text-white px-6 py-3 text-[14px] font-semibold transition-all duration-300 hover:opacity-90">Live
-                Dashboard</a></div>
+            <a href="pages/Data.html"
+              class="inline-flex items-center gap-2 bg-[#004225] text-white px-6 py-3 text-[14px] font-semibold transition-all duration-300 hover:opacity-90">View
+              data and insights <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
           </div>
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div
-              class="lg:col-span-2 bg-white relative min-h-[420px] flex flex-col items-center justify-center overflow-hidden">
-              <div class="absolute left-0 top-0 h-full w-[4px] bg-[#f59e0b]"></div><span
-                class="text-[70px] lg:text-[110px] font-black text-[#ececec] leading-none select-none"
-                style="font-family: Manrope, sans-serif;">MAP</span><span
-                class="mt-4 text-[13px] tracking-[2px] uppercase text-[#4b5563] font-semibold text-center px-4">MAP</span>
+          <div class="osip-data-grid">
+
+            <div class="osip-data-tile">
+              <span class="osip-data-label">RE &amp; EE Investment Deployed</span>
+              <span class="osip-data-value">$12.4B+</span>
+              <span class="osip-data-note">Toward $20B+ by 2030</span>
             </div>
-            <div class="flex flex-col gap-5">
-              <div class="bg-white relative min-h-[200px] p-6 flex flex-col justify-between overflow-hidden">
-                <div class="absolute left-0 top-0 h-full w-[4px] bg-[#f59e0b]"></div>
-                <div>
-                  <p class="text-[12px] tracking-[2px] uppercase font-bold text-[#004225] mb-10">INSTALLED CAPACITY</p>
-                  <div class="text-[#ececec] text-[42px] lg:text-[56px] font-black leading-none mb-8"
-                    style="font-family: Manrope, sans-serif;">CHART</div>
-                </div>
-                <h3 class="text-[34px] lg:text-[42px] font-bold text-[#004225] leading-none"
-                  style="font-family: Manrope, sans-serif;">12522 MW</h3>
-              </div>
-              <div class="bg-white relative min-h-[200px] p-6 flex flex-col justify-between overflow-hidden">
-                <div class="absolute left-0 top-0 h-full w-[4px] bg-[#f59e0b]"></div>
-                <div>
-                  <p class="text-[12px] tracking-[2px] uppercase font-bold text-[#004225] mb-10">ACTIVE PROJECTS</p>
-                  <div class="text-[#ececec] text-[42px] lg:text-[56px] font-black leading-none mb-8"
-                    style="font-family: Manrope, sans-serif;">CHART</div>
-                </div>
-                <h3 class="text-[34px] lg:text-[42px] font-bold text-[#004225] leading-none"
-                  style="font-family: Manrope, sans-serif;">84 ACTIVE</h3>
-              </div>
+
+            <div class="osip-data-tile">
+              <span class="osip-data-label">Tracked Projects</span>
+              <span class="osip-data-value">140+</span>
+              <span class="osip-data-note">Across all 6 geopolitical zones</span>
             </div>
+
+            <div class="osip-data-tile">
+              <span class="osip-data-label">RE Installed Capacity</span>
+              <span class="osip-data-value">2.1 GW</span>
+              <span class="osip-data-note">Grid-tied and off-grid combined</span>
+            </div>
+
+            <div class="osip-data-tile">
+              <span class="osip-data-label">States Covered</span>
+              <span class="osip-data-value">36 + FCT</span>
+              <span class="osip-data-note">Federal Capital Territory included</span>
+            </div>
+
           </div>
+          <p class="osip-data-source">Headline figures as published on the OSIP Data tab. Project maps and
+            downloadable datasets are hosted on <a href="https://nigeriase4all.gov.ng/" target="_blank"
+              rel="noopener">Nigeria SE4ALL <span class="material-symbols-outlined">open_in_new</span></a>.</p>
         </div>
       </section>
+
+      <script>
+        // HP-06 stat tiles count up the first time they scroll into view.
+        //
+        // The final text is the source of truth in the markup, so the value is still
+        // correct with JS off. Each label is split into prefix / number / suffix, so
+        // "$12.4B+", "2.1 GW" and "36 + FCT" all animate their numeric part and keep
+        // their wording. A timeout completes any tile the observer never reports on,
+        // so a stat can never be left stuck showing zero.
+        (function () {
+          var tiles = document.querySelectorAll('.osip-data-value');
+          if (!tiles.length) return;
+
+          var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (reduced || !('IntersectionObserver' in window) || !window.requestAnimationFrame) return;
+
+          var parts = [];
+          tiles.forEach(function (el) {
+            var raw = (el.textContent || '').trim();
+            var m = raw.match(/^(\D*?)([\d,]+(?:\.\d+)?)(.*)$/);
+            if (!m) { parts.push(null); return; }
+            var decimals = (m[2].split('.')[1] || '').length;
+            var p = {
+              el: el, prefix: m[1], suffix: m[3], decimals: decimals,
+              target: parseFloat(m[2].replace(/,/g, '')), started: false
+            };
+            p.show = function (v) { el.textContent = p.prefix + v.toFixed(p.decimals) + p.suffix; };
+            parts.push(p);
+            p.show(0);
+          });
+
+          function run(p) {
+            if (!p || p.started) return;
+            p.started = true;
+            var start = null, dur = 1400;
+            requestAnimationFrame(function frame(t) {
+              if (start === null) start = t;
+              var k = Math.min((t - start) / dur, 1);
+              p.show(p.target * (1 - Math.pow(1 - k, 3)));   // ease-out cubic
+              if (k < 1) requestAnimationFrame(frame);
+              else p.show(p.target);
+            });
+          }
+
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              run(parts[Array.prototype.indexOf.call(tiles, e.target)]);
+              io.unobserve(e.target);
+            });
+          }, { threshold: 0.4 });
+
+          tiles.forEach(function (el) { io.observe(el); });
+
+          // Safety net: never leave a stat reading zero because the observer stayed quiet.
+          setTimeout(function () {
+            parts.forEach(function (p) { if (p && !p.started) { p.started = true; p.show(p.target); } });
+          }, 6000);
+        })();
+      </script>
 
       <section class="py-12 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8"
         style="font-family: Inter, sans-serif; background-color: rgb(238, 238, 245);">
@@ -4539,107 +4906,288 @@
               class="text-[#004225] font-semibold text-sm sm:text-base lg:text-lg border-b border-[#004225] pb-1 hover:opacity-70 transition-opacity w-fit"
               style="font-family: Manrope, sans-serif;">View All Sectors <span>→</span></a>
           </div>
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
+          <!-- HP-05: all 10 sectors in one open grid. The three magazine-style feature
+               cards this replaces showed Solar, Wind and Storage only, and every one of
+               them pointed at DetailedSector.html regardless of which sector it named.
+               Each tile below links to that sector's own page. -->
+          <style>
+            .osip-sec-grid {
+              display: grid;
+              grid-template-columns: minmax(0, 1fr);
+              gap: 12px;
+            }
 
-            <!-- Card 1: Solar -->
-            <a href="pages/DetailedSector.html"
-              class="lg:col-span-7 relative min-h-[420px] sm:min-h-[520px] lg:h-[580px] overflow-hidden group block cursor-pointer">
-              <img alt="Solar"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1200&q=80">
-              <div class="absolute inset-0 bg-gradient-to-t from-[#00351f]/95 via-[#00351f]/40 to-transparent"></div>
-              <div class="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-5 sm:left-7 lg:left-10 right-5 sm:right-7">
-                <!-- Icon: Solar Panel & Sun -->
+            .osip-sec-card {
+              display: flex;
+              flex-direction: column;
+              background: #ffffff;
+              border: 1px solid #e6e3ee;
+              border-radius: 4px;
+              padding: 18px 16px;
+              text-decoration: none;
+              transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+            }
 
-                <span
-                  class="bg-[#8c5a11] text-white text-[10px] sm:text-[11px] uppercase tracking-[0.15em] px-3 sm:px-4 py-2 inline-block mb-4 sm:mb-6 font-bold"
-                  style="font-family: Manrope, sans-serif;">HIGH DEMAND</span>
-                <h3 class="text-white text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4"
-                  style="font-family: Manrope, sans-serif;">Solar</h3>
-                <p class="text-white/75 text-sm sm:text-lg lg:text-xl leading-relaxed mb-6">Nigeria's largest clean
-                  energy opportunity, driven by abundant sunlight and strong demand for reliable off-grid and embedded
-                  power solutions.</p>
-                <span
-                  class="inline-flex items-center gap-3 text-white uppercase tracking-[0.12em] text-xs sm:text-sm font-bold group-hover:gap-5 transition-all">VIEW
-                  SECTOR IN DETAIL<span>→</span></span>
-              </div>
+            .osip-sec-card:hover {
+              border-color: #004225;
+              box-shadow: 0 18px 40px -22px rgba(6, 20, 16, .35);
+              transform: translateY(-4px);
+            }
+
+            .osip-sec-icon {
+              font-size: 28px;
+              color: #004225;
+              margin-bottom: 12px;
+            }
+
+            .osip-sec-name {
+              font-family: Manrope, sans-serif;
+              font-size: 16px;
+              font-weight: 700;
+              line-height: 1.25;
+              color: #111827;
+              margin-bottom: 6px;
+            }
+
+            .osip-sec-desc {
+              font-size: 12.5px;
+              line-height: 1.5;
+              color: #5f6368;
+              flex: 1 1 auto;
+            }
+
+            .osip-sec-more {
+              display: inline-flex;
+              align-items: center;
+              gap: 5px;
+              margin-top: 12px;
+              font-size: 11px;
+              font-weight: 700;
+              letter-spacing: .1em;
+              text-transform: uppercase;
+              color: #004225;
+              transition: gap .3s ease;
+            }
+
+            .osip-sec-card:hover .osip-sec-more {
+              gap: 10px;
+            }
+
+            .osip-sec-more .material-symbols-outlined {
+              font-size: 15px;
+            }
+
+            @media (width >=40rem) {
+              .osip-sec-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
+              }
+            }
+
+            @media (width >=48rem) {
+              .osip-sec-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+              }
+            }
+
+            @media (width >=64rem) {
+              .osip-sec-grid {
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+                gap: 20px;
+              }
+
+              .osip-sec-card {
+                padding: 22px 20px;
+              }
+
+              .osip-sec-name {
+                font-size: 17px;
+              }
+
+              .osip-sec-desc {
+                font-size: 13px;
+              }
+            }
+          </style>
+
+          <div class="osip-sec-grid">
+
+            <a href="pages/DetailedSector.html" class="osip-sec-card">
+              <span class="osip-sec-icon material-symbols-outlined">solar_power</span>
+              <span class="osip-sec-name">Solar</span>
+              <span class="osip-sec-desc">Utility-scale and distributed solar PV generation projects.</span>
+              <span class="osip-sec-more">Explore <span
+                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <!-- Card 2: Wind -->
-            <a href="pages/DetailedSector.html"
-              class="lg:col-span-5 relative min-h-[420px] sm:min-h-[520px] lg:h-[580px] overflow-hidden group block cursor-pointer">
-              <img alt="Wind" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1200&q=80">
-              <div class="absolute inset-0 bg-gradient-to-t from-[#002d18]/95 via-[#002d18]/35 to-transparent"></div>
-              <div class="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-5 sm:left-7 lg:left-10 right-5 sm:right-10">
-                <!-- Icon: Wind Turbine -->
-
-                <span
-                  class="bg-[#8c5a11] text-white text-[10px] sm:text-[11px] uppercase tracking-[0.15em] px-3 sm:px-4 py-2 inline-block mb-4 sm:mb-6 font-bold"
-                  style="font-family: Manrope, sans-serif;">EMERGING MARKET</span>
-                <h3 class="text-white text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight mb-4"
-                  style="font-family: Manrope, sans-serif;">Wind</h3>
-                <p class="text-white/70 text-sm sm:text-base lg:text-lg leading-relaxed mb-6">Nigeria's wind energy
-                  market is early stage but gaining policy momentum, with megawatts of untapped potential concentrated
-                  in the northern states.</p>
-                <span
-                  class="inline-flex items-center gap-3 text-white uppercase tracking-[0.12em] text-xs sm:text-sm font-bold group-hover:gap-5 transition-all">VIEW
-                  SECTOR IN DETAIL<span>→</span></span>
-              </div>
+            <a href="pages/Wind.html" class="osip-sec-card">
+              <span class="osip-sec-icon material-symbols-outlined">wind_power</span>
+              <span class="osip-sec-name">Wind</span>
+              <span class="osip-sec-desc">Onshore wind generation across high-potential corridors.</span>
+              <span class="osip-sec-more">Explore <span
+                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <!-- Card 3: Storage -->
-            <a href="pages/DetailedSector.html"
-              class="lg:col-span-4 relative min-h-[320px] sm:h-[360px] overflow-hidden group block cursor-pointer">
-              <img alt="Storage"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&w=1200&q=80">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/10"></div>
-              <div class="absolute bottom-6 sm:bottom-8 left-5 sm:left-8 right-5 sm:right-8">
-
-                <span
-                  class="bg-[#8c5a11] text-white text-[10px] uppercase tracking-[0.15em] px-3 py-2 inline-block mb-4 font-bold"
-                  style="font-family: Manrope, sans-serif;">STRATEGIC TRANSITION</span>
-                <h3 class="text-white text-2xl sm:text-3xl font-bold mb-3" style="font-family: Manrope, sans-serif;">
-                  Storage</h3>
-                <p class="text-white/70 text-sm sm:text-base lg:text-lg leading-relaxed mb-5">Critical enabler for grid
-                  stability and renewable integration, unlocking reliable power supply through batteries and hybrid
-                  systems.</p>
-                <span
-                  class="inline-flex items-center gap-3 text-white uppercase tracking-[0.12em] text-xs sm:text-sm font-bold group-hover:gap-5 transition-all">VIEW
-                  SECTOR IN DETAIL<span>→</span></span>
-              </div>
+            <a href="pages/Storage.html" class="osip-sec-card">
+              <span class="osip-sec-icon material-symbols-outlined">battery_charging_full</span>
+              <span class="osip-sec-name">Storage</span>
+              <span class="osip-sec-desc">Battery energy storage systems (BESS) and grid balancing.</span>
+              <span class="osip-sec-more">Explore <span
+                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <!-- Card 4: Interactive Market Analytics (unchanged) -->
-            <div
-              class="lg:col-span-8 bg-[#004d23] relative overflow-hidden min-h-[320px] sm:h-[360px] p-6 sm:p-10 lg:p-14 flex flex-col justify-center">
-              <div class="absolute right-0 bottom-0 opacity-20">
-                <div
-                  class="w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 border-[20px] sm:border-[24px] lg:border-[28px] border-white rounded-tl-[60px]">
-                </div>
-              </div>
-              <div class="relative z-10 max-w-2xl">
-                <h3 class="text-white text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 sm:mb-6"
-                  style="font-family: Manrope, sans-serif;">Interactive Market Analytics</h3>
-                <p class="text-white/70 text-sm sm:text-lg lg:text-xl leading-relaxed mb-8">Access real-time pricing,
-                  demand forecasting, and grid performance analytics before you invest.</p>
-                <a href="pages/Data.html"
-                  class="inline-flex items-center bg-[#f2b84b] hover:bg-[#e0a63b] text-[#1a1a1a] px-5 sm:px-8 py-3 sm:py-4 uppercase tracking-[0.12em] text-xs sm:text-sm font-bold transition-colors">VIEW
-                  ANALYTICS</a>
-              </div>
-            </div>
+            <a href="pages/SmallHydro.html" class="osip-sec-card">
+              <span class="osip-sec-icon material-symbols-outlined">water_drop</span>
+              <span class="osip-sec-name">Small Hydro</span>
+              <span class="osip-sec-desc">Run-of-river and small-scale hydropower generation.</span>
+              <span class="osip-sec-more">Explore <span
+                  class="material-symbols-outlined">arrow_forward</span></span>
+            </a>
+
+            <a href="pages/GreenMobility.html" class="osip-sec-card">
+              <span class="osip-sec-icon material-symbols-outlined">electric_car</span>
+              <span class="osip-sec-name">Green Mobility</span>
+              <span class="osip-sec-desc">Electric vehicles, charging infrastructure and clean transport.</span>
+              <span class="osip-sec-more">Explore <span
+                  class="material-symbols-outlined">arrow_forward</span></span>
+            </a>
+
+            <a href="pages/EnergyEfficiency.html" class="osip-sec-card">
+              <span class="osip-sec-icon material-symbols-outlined">energy_savings_leaf</span>
+              <span class="osip-sec-name">Energy Efficiency</span>
+              <span class="osip-sec-desc">Demand-side efficiency, ISO 50001 and industrial energy savings.</span>
+              <span class="osip-sec-more">Explore <span
+                  class="material-symbols-outlined">arrow_forward</span></span>
+            </a>
+
+            <a href="pages/CleanCooking.html" class="osip-sec-card">
+              <span class="osip-sec-icon material-symbols-outlined">local_fire_department</span>
+              <span class="osip-sec-name">Clean Cooking</span>
+              <span class="osip-sec-desc">Improved cookstoves and clean fuel alternatives to biomass.</span>
+              <span class="osip-sec-more">Explore <span
+                  class="material-symbols-outlined">arrow_forward</span></span>
+            </a>
+
+            <a href="pages/Bioenergy.html" class="osip-sec-card">
+              <span class="osip-sec-icon material-symbols-outlined">compost</span>
+              <span class="osip-sec-name">Bioenergy</span>
+              <span class="osip-sec-desc">Biomass, biogas and waste-to-energy power generation.</span>
+              <span class="osip-sec-more">Explore <span
+                  class="material-symbols-outlined">arrow_forward</span></span>
+            </a>
+
+            <a href="pages/AgriculturePUE.html" class="osip-sec-card">
+              <span class="osip-sec-icon material-symbols-outlined">agriculture</span>
+              <span class="osip-sec-name">Agriculture PUE</span>
+              <span class="osip-sec-desc">Productive use of energy for agro-processing and rural livelihoods.</span>
+              <span class="osip-sec-more">Explore <span
+                  class="material-symbols-outlined">arrow_forward</span></span>
+            </a>
+
+            <a href="pages/GreenHydrogen.html" class="osip-sec-card">
+              <span class="osip-sec-icon material-symbols-outlined">science</span>
+              <span class="osip-sec-name">Green Hydrogen</span>
+              <span class="osip-sec-desc">Electrolysis-based hydrogen production and export potential.</span>
+              <span class="osip-sec-more">Explore <span
+                  class="material-symbols-outlined">arrow_forward</span></span>
+            </a>
 
           </div>
+
         </div>
       </section>
 
       <!-- Explore by State -->
       <style>
+        /* Heading and its CTA share one row so the button centres on the
+           heading by flexbox rather than by a magic offset. The lead paragraph
+           keeps the full width underneath. */
+        .osip-states-headrow {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1.25rem;
+        }
+
+        .osip-states-cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: .5rem;
+          flex: 0 0 auto;
+          background: #004225;
+          color: #ffffff;
+          padding: 12px 24px;
+          font-size: 14px;
+          font-weight: 600;
+          border-radius: 2px;
+          text-decoration: none;
+          transition: opacity .3s ease;
+        }
+
+        .osip-states-cta:hover {
+          opacity: .9;
+        }
+
+        .osip-states-cta .material-symbols-outlined {
+          font-size: 18px;
+        }
+
+        @media (width >=64rem) {
+          .osip-states-headrow {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+          }
+        }
+
         .osip-states-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
           gap: 24px;
+        }
+
+        .osip-states-foot {
+          margin-top: 1.75rem;
+          padding-top: 1.25rem;
+          border-top: 1px solid #e8ebe9;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: .75rem;
+        }
+
+        .osip-states-count {
+          font-size: 13px;
+          color: #6b746f;
+        }
+
+        .osip-states-more {
+          display: inline-flex;
+          align-items: center;
+          gap: .5rem;
+          font-size: 14px;
+          font-weight: 600;
+          color: #004225;
+          text-decoration: none;
+          transition: gap .3s ease;
+        }
+
+        .osip-states-more:hover {
+          gap: .85rem;
+        }
+
+        .osip-states-more .material-symbols-outlined {
+          font-size: 18px;
+        }
+
+        @media (width >=48rem) {
+          .osip-states-foot {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+          }
         }
 
         .osip-state-card {
@@ -4715,6 +5263,14 @@
         }
 
         @media (width < 40rem) {
+          .osip-states-headrow {
+            align-items: stretch;
+          }
+
+          .osip-states-cta {
+            width: 100%;
+          }
+
           .osip-states-grid {
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 14px;
@@ -4896,113 +5452,10 @@
         </div>
       </section>
 
-      <footer class="bg-[#022c22] text-gray-400 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
-        <div
-          class="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-10 lg:mb-12">
-          <div class="lg:col-span-2">
-            <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">One-Stop Investment Platform (OSIP)</h3>
-            <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">Supporting transparent, informed, and
-              sustainable investment in Nigeria's clean energy future. The Nigerian Energy Support Programme (NESP) is a
-              technical assistance programme co-funded by the European Union and the German Federal Ministry of Economic
-              Cooperation and Development (BMZ) and implemented by Deutsche Gesellschaft für Internationale
-              Zusammenarbeit (GIZ) GmbH in collaboration with the Federal Ministry of Power. It aims to foster
-              investments in the domestic renewable energy and energy efficiency sector.</p>
-          </div>
-          <div>
-            <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Quick Links</h4>
-            <ul class="grid grid-cols-1 gap-y-3">
-              <li><a href="pages/AboutOSIP.html" class="text-sm sm:text-base hover:text-white transition-colors">About
-                  OSIP</a></li>
-              <li><a href="pages/AboutOSIP.html" class="text-sm sm:text-base hover:text-white transition-colors">About
-                  the Platform</a></li>
-              <li><a href="pages/Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Investor
-                  Support</a></li>
-<<<<<<< HEAD
-              <li><a href="pages/FAQs.html"
-                  class="text-sm sm:text-base hover:text-white transition-colors">FAQs</a></li>
-              <li><a href="pages/Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Contact
-                  Us</a></li>
-              <li><a href="pages/News.html" class="text-sm sm:text-base hover:text-white transition-colors">News</a></li>
-              <li><a href="pages/Event.html"
-                  class="text-sm sm:text-base hover:text-white transition-colors">Events</a></li>
-              <li><a href="pages/Announcements.html"
-=======
-              <li><a href="pages/notDecided.html"
-                  class="text-sm sm:text-base hover:text-white transition-colors">FAQs</a></li>
-              <li><a href="pages/Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Contact
-                  Us</a></li>
-              <li><a href="pages/News.html" class="text-sm sm:text-base hover:text-white transition-colors">News &amp;
-                  Events</a></li>
-              <li><a href="pages/News.html"
->>>>>>> 82aa839615c26f3608d0fae6af99d80915e1a9dc
-                  class="text-sm sm:text-base hover:text-white transition-colors">Announcements</a></li>
-              <li><a href="pages/Contact.html"
-                  class="text-sm sm:text-base hover:text-white transition-colors">Contact</a></li>
-              <li><a href="pages/Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">OSIP Help
-                  Desk</a></li>
-              <li><a href="pages/notDecided.html"
-                  class="text-sm sm:text-base hover:text-white transition-colors">Privacy
-                  Policy</a></li>
-              <li><a href="pages/notDecided.html" class="text-sm sm:text-base hover:text-white transition-colors">Terms
-                  of Use</a></li>
-              <li><a href="pages/notDecided.html"
-                  class="text-sm sm:text-base hover:text-white transition-colors">Disclaimer</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Contact</h4>
-            <ul class="flex flex-col gap-4 mb-6">
-              <li class="flex items-start gap-3"><span
-                  class="material-symbols-outlined text-[20px] text-white/70 flex-shrink-0">mail</span><a
-                  href="mailto:info@osip.gov.ng"
-                  class="text-sm sm:text-base hover:text-white transition-colors break-all">info@osip.gov.ng</a></li>
-              <li class="flex items-start gap-3"><span
-                  class="material-symbols-outlined text-[20px] text-white/70 flex-shrink-0">call</span><a
-                  href="tel:+2349000000000" class="text-sm sm:text-base hover:text-white transition-colors">+234 (0)9
-                  000 0000</a></li>
-              <li class="flex items-start gap-3"><span
-                  class="material-symbols-outlined text-[20px] text-white/70 flex-shrink-0">location_on</span><span
-                  class="text-sm sm:text-base">Federal Ministry of Power, Abuja, Nigeria</span></li>
-            </ul>
-            <p class="text-white text-xs font-bold uppercase tracking-widest mb-4">Social Media Links</p>
-            <div class="flex flex-wrap gap-3"><a href="#" aria-label="LinkedIn"
-                class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
-                  class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.74-2.46C21.6 7.73 24 10 24 14.4V24h-5v-8.5c0-2.03-.73-3.42-2.55-3.42-1.39 0-2.22.94-2.58 1.85-.13.32-.17.77-.17 1.22V24h-5V8z" />
-                </svg></a><a href="#" aria-label="X"
-                class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
-                  class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
-                </svg></a>
-              <a href="#" aria-label="Instagram"
-                class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
-                  class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg></a>
-              <a href="#" aria-label="YouTube"
-                class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
-                  class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                </svg></a>
-              <a href="#" aria-label="Facebook"
-                class="w-9 h-9 border border-white/20 rounded flex items-center justify-center hover:border-white/50 hover:text-white transition-colors"><svg
-                  class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.408.593 24 1.325 24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.099 1.894-4.785 4.659-4.785 1.325 0 2.464.099 2.797.143v3.24l-1.918.001c-1.504 0-1.795.716-1.795 1.764v2.31h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.592 1.323-1.325V1.325C24 .593 23.408 0 22.675 0z" />
-                </svg></a>
-            </div>
-          </div>
-        </div>
-        <div
-          class="max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <span class="text-xs sm:text-sm">© 2026 OSIP Nigeria. All rights reserved.</span><span
-            class="text-xs sm:text-sm">Designed for Nigeria Federal Ministry of Power.</span>
-        </div>
-      </footer>
+      <!-- Footer comes from pages/footer.js, the single source CLAUDE.md nominates.
+           The inline copy that used to sit here had drifted and still carried an
+           unresolved merge conflict, so it is gone rather than re-merged. -->
+      <div id="site-footer"></div>
     </div>
   </div>
   <script>
@@ -5199,7 +5652,7 @@
         },
         'DATA': {
           head: 'Data & Insights', items: [
-            { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'pages/Data.html' },
+            { t: 'Investment & Capacity', d: 'Investment and capacity indicators by sector.', href: 'pages/Data.html' },
             { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'pages/Data.html' },
             { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'pages/Data.html' }
           ]
@@ -5377,6 +5830,7 @@
   <!-- Invest Now popup flow -->
   <script src="pages/investflow.js"></script>
   <script src="pages/nav.js"></script>
+  <script src="pages/footer.js"></script>
 </body>
 
 </html>

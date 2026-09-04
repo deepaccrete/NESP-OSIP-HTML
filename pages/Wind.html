@@ -504,9 +504,17 @@
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
                                 Facts
                             </a>
+                            <a href="#participate"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Participate
+                            </a>
                             <a href="#regulations"
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
                                 Regulations
+                            </a>
+                            <a href="#technical"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Technical
                             </a>
                             <a href="#finance"
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
@@ -515,6 +523,10 @@
                             <a href="#opportunities"
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
                                 Opportunities
+                            </a>
+                            <a href="#resources"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Resources
                             </a>
                         </div>
                     </div>
@@ -916,6 +928,48 @@
             </div>
         </section>
 
+        <!-- SEC-02: "Project Development Frameworks" renamed to the reader-facing
+             "How Investors Can Participate" and lifted out of Regulations to the
+             slot the standard sector order gives it, straight after Key Facts.
+             The pathway cards themselves are unchanged. -->
+        <section class="bg-white border-b border-[#e8ebe9] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="participate">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Entry Routes</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-4"
+                    style="font-family: Manrope, sans-serif;">How Investors Can Participate</h2>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Regulatory treatment in Nigeria's
+                    renewable energy sector is determined primarily by project capacity, not technology. Three tiers
+                    apply to wind projects:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">sensors</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Under 100 kW (Off-Grid)</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">NERC Registration only — the lightest-touch tier
+                            for community and isolated-system wind deployment.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">hub</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">100 kW – 1 MW (Mini-Grid)</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">NERC Mini-Grid Permit required. Qualifying
+                            systems can be approved in approximately 30 days under NERC Mini-Grid Regulations 2023.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">bolt</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Above 1 MW (Grid-Connected)</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Full NERC Generation License required. Must
+                            comply with NERC Grid Code and execute a TCN Grid Connection Agreement. Typical range: 10–50
+                            MW.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Ease of Doing Business -->
         <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;">
             <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -1044,37 +1098,6 @@
                     <span
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Energy
                         Transition Plan 2022</span>
-                </div>
-
-                <!-- Project Development Frameworks -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-2"
-                    style="font-family: Manrope, sans-serif;">Project Development Frameworks</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Regulatory treatment in Nigeria's
-                    renewable energy sector is determined primarily by project capacity, not technology. Three tiers
-                    apply to wind projects:</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">sensors</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Under 100 kW (Off-Grid)</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">NERC Registration only — the lightest-touch tier
-                            for community and isolated-system wind deployment.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">hub</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">100 kW – 1 MW (Mini-Grid)</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">NERC Mini-Grid Permit required. Qualifying
-                            systems can be approved in approximately 30 days under NERC Mini-Grid Regulations 2023.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">bolt</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Above 1 MW (Grid-Connected)</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Full NERC Generation License required. Must
-                            comply with NERC Grid Code and execute a TCN Grid Connection Agreement. Typical range: 10–50
-                            MW.</p>
-                    </div>
                 </div>
 
                 <!-- Regulatory Requirements -->
@@ -1206,16 +1229,6 @@
                         <span class="text-[#111827] text-[14px] font-medium">Energy Commission of Nigeria</span>
                     </a>
                 </div>
-
-                <!-- Technical Standards -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
-                    style="font-family: Manrope, sans-serif;">Technical Standards</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Wind equipment imported into Nigeria must
-                    comply with applicable NIS/IEC standards and SON certification requirements, including SONCAP and
-                    MANCAP where applicable. NEMSA certification is required for electrical safety compliance.
-                    Grid-connected wind projects must comply with the NERC Grid Code and TCN interconnection standards.
-                    All wind turbines and associated RE equipment attract 0% import duty and VAT exemption under ECOWAS
-                    CET and 2026 NTA exemptions.</p>
 
                 <!-- ============================================================
      WORKFLOW PROCESS — zigzag / connector-path style
@@ -1907,155 +1920,28 @@
                             if (document.fonts && document.fonts.ready) { document.fonts.ready.then(drawAll); }
                         })();
                 </script>
+            </div>
+        </section>
 
-                <!-- Useful Resources -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
-                    style="font-family: Manrope, sans-serif;">Useful Resources</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
-                                    class="w-8 h-8 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NERC</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nerc.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.rea.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">REA</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.rea.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NIPC</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nipc.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.son.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">SON</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.son.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NEMSA</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nemsa.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.n-wec.org" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-[#004225] text-[22px]">air</span>
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Nigerian
-                                    Wind Energy Council (NWEC)</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.n-wec.org</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://globalwindatlas.info/area/Nigeria" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-[#004225] text-[22px]">language</span>
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Global
-                                    Wind Atlas – Nigeria</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">globalwindatlas.info</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.energytransition.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-[#004225] text-[22px]">eco</span>
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Nigeria
-                                    Energy Transition Plan</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.energytransition.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.irena.org/Publications/2023/Jan/Renewable-Energy-Roadmap-Nigeria"
-                        target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-[#004225] text-[22px]">menu_book</span>
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">IRENA
-                                    Renewable Energy Roadmap Nigeria</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.irena.org</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.energy.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
-                                <span
-                                    class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Energy
-                                    Commission of Nigeria</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.energy.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
+        <!-- SEC-04: standards, certification and safety used to be one sub-heading
+             buried at the end of Regulations. It is its own block now, sitting
+             directly after Regulations as the standard sector order requires.
+             The copy itself is unchanged. The hairline below marks the boundary
+             with Finance, which is white too. -->
+        <section class="bg-white border-b border-[#e8ebe9] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="technical">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Standards &amp; Certification</span>
                 </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-6"
+                    style="font-family: Manrope, sans-serif;">Technical &amp; Safety</h2>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Wind equipment imported into Nigeria must
+                    comply with applicable NIS/IEC standards and SON certification requirements, including SONCAP and
+                    MANCAP where applicable. NEMSA certification is required for electrical safety compliance.
+                    Grid-connected wind projects must comply with the NERC Grid Code and TCN interconnection standards.
+                    All wind turbines and associated RE equipment attract 0% import duty and VAT exemption under ECOWAS
+                    CET and 2026 NTA exemptions.</p>
             </div>
         </section>
 
@@ -2362,6 +2248,165 @@
                                     class="material-symbols-outlined text-[15px]">location_on</span>Katsina State</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEC-01: the standard sector order ends on "Useful resources / data".
+             This block used to sit inside Regulations, ahead of Finance, so it is
+             now its own section here. The links themselves are unchanged. -->
+        <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="resources">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Reference</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
+                    style="font-family: Manrope, sans-serif;">Useful Resources and Data</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
+                                    class="w-8 h-8 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NERC</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nerc.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.rea.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">REA</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.rea.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NIPC</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nipc.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.son.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">SON</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.son.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NEMSA</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nemsa.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.n-wec.org" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">air</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Nigerian
+                                    Wind Energy Council (NWEC)</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.n-wec.org</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://globalwindatlas.info/area/Nigeria" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">language</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Global
+                                    Wind Atlas – Nigeria</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">globalwindatlas.info</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.energytransition.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">eco</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Nigeria
+                                    Energy Transition Plan</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.energytransition.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.irena.org/Publications/2023/Jan/Renewable-Energy-Roadmap-Nigeria"
+                        target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-[#004225] text-[22px]">menu_book</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">IRENA
+                                    Renewable Energy Roadmap Nigeria</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.irena.org</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.energy.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span
+                                    class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Energy
+                                    Commission of Nigeria</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.energy.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -2725,6 +2770,7 @@
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
     <script src="nav.js"></script>
+    <script src="glossary.js"></script>
 </body>
 
 </html>

@@ -20,6 +20,9 @@
   var HOME = base + '../homepage.html';
   var url = {
     sectors: base + 'Sector.html',
+    // NAV-03: the state overview. Live profiles are links there, every state
+    // still in the pipeline is marked "profile in preparation".
+    states: base + 'States.html',
     opportunities: base + 'Opportunities.html',
     regulations: base + 'Regulation.html',
     data: base + 'Data.html',
@@ -28,8 +31,31 @@
     profile: base + 'AboutMe.html',
     // "Invest Now" now opens the InvestorMatch quiz rather than the old
     // InvestNow1-3 popup flow (see investflow.js).
-    invest: base + 'InvestorMatch.html'
+    invest: base + 'InvestorMatch.html',
+    faqs: base + 'FAQs.html',
+    events: base + 'Event.html',
+    announcements: base + 'Announcements.html'
   };
+
+  // NAV-01 asks for: Invest, Sectors, States, Regulations, Financing,
+  // Data & Insights, News & Events, Support.
+  //
+  // FINANCING still has no page in this build. Rather than send people to the
+  // Coming Soon placeholder (HP-08/HP-09 rule that out) it renders blurred and
+  // unclickable, so the full menu the client asked for is visible while it stays
+  // obvious which part is not built yet. Give an item an href here and it
+  // becomes a normal link with no other change.
+  // STATES stopped being one of those at NAV-03, when States.html was added.
+  var TOP = [
+    { label: 'INVEST', href: url.opportunities },
+    { label: 'SECTORS', href: url.sectors },
+    { label: 'STATES', href: url.states },
+    { label: 'REGULATIONS', href: url.regulations },
+    { label: 'FINANCING', href: null },
+    { label: 'DATA & INSIGHTS', href: url.data },
+    { label: 'NEWS & EVENTS', href: url.news },
+    { label: 'SUPPORT', href: url.contact }
+  ];
 
   // ---- Hover-dropdown menu data (single source) --------------------------
   // Every menu renders identically: one column, capped at 320px, scrolling
@@ -57,12 +83,20 @@
         { t: 'Agricultural PUE', d: 'Productive use of energy for agro-processing & rural livelihoods.', href: base + 'AgriculturePUE.html' }
       ]
     },
-    'OPPORTUNITIES': {
+    'INVEST': {
       head: 'Investment Opportunities', items: [
         { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: base + 'Opportunities.html' },
         { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: base + 'Opportunities.html' },
         { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: base + 'Opportunities.html' },
-        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: base + 'Opportunities.html' }
+        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: base + 'Opportunities.html' },
+        { t: 'Investor match', d: 'Answer a few questions and get matched.', href: base + 'InvestorMatch.html' }
+      ]
+    },
+    'SUPPORT': {
+      head: 'Help and Support', items: [
+        { t: 'Contact us', d: 'Reach the OSIP team directly.', href: base + 'Contact.html' },
+        { t: 'FAQs', d: 'Answers to the questions we are asked most.', href: base + 'FAQs.html' },
+        { t: 'OSIP Help Desk', d: 'Investor support services.', href: base + 'Contact.html' }
       ]
     },
     'REGULATIONS': {
@@ -73,15 +107,15 @@
         { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: base + 'Regulation.html' }
       ]
     },
-    'DATA': {
+    'DATA & INSIGHTS': {
       head: 'Data & Insights', items: [
-        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: base + 'Data.html' },
+        { t: 'Investment & Capacity', d: 'Investment and capacity indicators by sector.', href: base + 'Data.html' },
         { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: base + 'Data.html' },
         { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: base + 'Data.html' }
       ]
     },
-    'NEWS': {
-      head: 'News Categories', items: [
+    'NEWS & EVENTS': {
+      head: 'News and Events', items: [
         { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: base + 'News.html' },
         { t: 'Power & Energy', d: 'Generation, supply & market news.', href: base + 'News.html' },
         { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: base + 'News.html' },
@@ -99,19 +133,43 @@
     'wind.html': 'SECTORS', 'storage.html': 'SECTORS', 'smallhydro.html': 'SECTORS',
     'greenmobility.html': 'SECTORS', 'energyefficiency.html': 'SECTORS', 'cleancooking.html': 'SECTORS',
     'bioenergy.html': 'SECTORS', 'agriculturepue.html': 'SECTORS', 'greenhydrogen.html': 'SECTORS',
-    'regulation.html': 'REGULATIONS', 'data.html': 'DATA',
-    'news.html': 'NEWS', 'newsindetail.html': 'NEWS',
-    'announcements.html': 'NEWS', 'individualannouncement.html': 'NEWS',
-    'event.html': 'NEWS', 'individualevent.html': 'NEWS',
-    'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES',
-    'detailedoppnew.html': 'OPPORTUNITIES', 'contact.html': 'CONTACT'
+    'regulation.html': 'REGULATIONS', 'data.html': 'DATA & INSIGHTS',
+    'news.html': 'NEWS & EVENTS', 'newsindetail.html': 'NEWS & EVENTS',
+    'announcements.html': 'NEWS & EVENTS', 'individualannouncement.html': 'NEWS & EVENTS',
+    'event.html': 'NEWS & EVENTS', 'individualevent.html': 'NEWS & EVENTS',
+    'opportunities.html': 'INVEST', 'opportunitiesnew.html': 'INVEST',
+    'detailedoppnew.html': 'INVEST', 'investormatch.html': 'INVEST',
+    'contact.html': 'SUPPORT', 'faqs.html': 'SUPPORT'
   };
 
   // ---- Header markup -----------------------------------------------------
-  var linkCls = 'relative px-5 py-7 text-[13px] font-bold uppercase tracking-[0.12em] transition-all text-[#047857]';
+  // Eight top-level items do not fit at the old px-5/13px, so the row is tightened
+  // and the desktop menu now appears at xl (1280px) instead of lg. Below that the
+  // hamburger takes over, which it already did well.
+  // `nesp-top` marks a desktop top-level item: the dropdown injector keys off that
+  // rather than off a padding utility, so spacing can change without breaking it.
+  var linkCls = 'nesp-top relative px-3.5 py-7 text-[12px] font-bold uppercase tracking-[0.08em] whitespace-nowrap transition-all text-[#047857]';
   var mLinkCls = 'block px-2 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-[#047857]';
-  function top(label, href) { return '<li><a href="' + href + '" class="' + linkCls + '">' + label + '</a></li>'; }
-  function mtop(label, href) { return '<li><a href="' + href + '" class="' + mLinkCls + '">' + label + '</a></li>'; }
+
+  function top(item) {
+    if (!item.href) {
+      return '<li><span class="nesp-nav-soon ' + linkCls + '" aria-disabled="true"' +
+        ' title="' + item.label.charAt(0) + item.label.slice(1).toLowerCase() + ' is not published yet">' +
+        item.label + '</span></li>';
+    }
+    return '<li><a href="' + item.href + '" class="' + linkCls + '">' + item.label + '</a></li>';
+  }
+
+  function mtop(item) {
+    if (!item.href) {
+      return '<li><span class="nesp-nav-soon ' + mLinkCls + '" aria-disabled="true">' + item.label +
+        '<em>Coming soon</em></span></li>';
+    }
+    return '<li><a href="' + item.href + '" class="' + mLinkCls + '">' + item.label + '</a></li>';
+  }
+
+  var topItems = TOP.map(top).join('');
+  var mobileItems = TOP.map(mtop).join('');
 
   var NAV =
     '<nav class="bg-white border-b border-gray-100 sticky top-0 z-50">' +
@@ -127,12 +185,10 @@
     '<span class="w-px h-6 bg-gray-200" aria-hidden="true"></span>' +
     '<a href="' + HOME + '"><img alt="Logo" class="h-5 w-auto" src="' + base + 'Text.png"></a>' +
     '</div>' +
-    '<ul class="hidden lg:flex items-center">' +
-    top('SECTORS', url.sectors) + top('OPPORTUNITIES', url.opportunities) + top('REGULATIONS', url.regulations) +
-    top('DATA', url.data) + top('NEWS', url.news) +
+    '<ul class="nesp-nav-top hidden xl:flex items-center">' + topItems +
     '</ul></div>' +
-    '<div class="hidden lg:flex items-center gap-5">' +
-    '<a href="' + url.contact + '" class="text-sm font-semibold text-[#047857]">Contact</a>' +
+    '<div class="nesp-nav-actions hidden xl:flex items-center gap-5">' +
+    // The standalone "Contact" link is gone: SUPPORT covers it in the menu now.
     '<a href="' + url.invest + '" class="bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm transition hover:opacity-90">Invest Now</a>' +
     // Account: icon only, 36px, outlined rather than filled. With the partner
     // logo moved left this is the single mark on the right, so the row ends on
@@ -142,13 +198,11 @@
     '<span class="material-symbols-outlined text-[20px]">person</span></a>' +
     '</div>' +
     '<button id="mobile-nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"' +
-    ' class="nesp-nav-toggle lg:hidden text-[#047857]"><span class="nesp-nav-toggle-icon" aria-hidden="true">☰</span></button>' +
+    ' class="nesp-nav-toggle xl:hidden text-[#047857]"><span class="nesp-nav-toggle-icon" aria-hidden="true">☰</span></button>' +
     '</div>' +
-    '<div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3"><ul class="flex flex-col">' +
-    mtop('SECTORS', url.sectors) + mtop('OPPORTUNITIES', url.opportunities) + mtop('REGULATIONS', url.regulations) +
-    mtop('DATA', url.data) + mtop('NEWS', url.news) +
-    '<li class="nesp-m-group"><a href="' + url.contact + '" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>' +
-    '<li><a href="' + url.profile + '" class="block px-2 py-3 text-sm font-semibold text-[#047857]">My Profile</a></li>' +
+    '<div id="mobile-nav" class="hidden xl:hidden border-t border-gray-100 py-3"><ul class="flex flex-col">' +
+    mobileItems +
+    '<li class="nesp-m-group"><a href="' + url.profile + '" class="block px-2 py-3 text-sm font-semibold text-[#047857]">My Profile</a></li>' +
     '<li class="px-2 pt-2"><a href="' + url.invest + '" class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest Now</a></li>' +
     '</ul></div>' +
     '</div></nav>';
@@ -194,9 +248,37 @@
       // `display:inline-flex` here would beat `lg:hidden` and leak the
       // hamburger onto desktop. Only turn it on below the lg breakpoint.
       '.nesp-nav-toggle{align-items:center;justify-content:center;width:42px;height:42px;margin-right:-8px;border-radius:8px;font-size:26px;font-weight:300;line-height:1;transition:background .18s ease,color .18s ease}',
-      '@media (width < 64rem){.nesp-nav-toggle{display:inline-flex}}',
       '.nesp-nav-toggle:hover{background:#f1f8f4}',
       '.nesp-nav-toggle-icon{display:block;pointer-events:none}',
+      // NAV-01: menu entries with no page yet. Blurred and unclickable rather
+      // than linked to the Coming Soon placeholder.
+      '.nesp-nav-soon{opacity:.42;filter:blur(.6px);cursor:default;user-select:none}',
+      '.nesp-nav-soon:hover{opacity:.6;filter:blur(.3px)}',
+      '#mobile-nav .nesp-nav-soon{display:flex;align-items:center;gap:8px}',
+      '#mobile-nav .nesp-nav-soon em{font-style:normal;font-size:9.5px;letter-spacing:.08em;border:1px dashed #cfd8d4;border-radius:999px;padding:0 7px;color:#6b746f;filter:blur(0)}',
+      // The desktop/mobile switch is stated HERE, not left to `hidden xl:flex`.
+      // homepage.html's frozen Tailwind build has lg:* but NO xl:* utilities, so
+      // relying on them hid the whole menu at 1440 and leaked the hamburger onto
+      // desktop. These rules are unlayered, so they hold on every page whether it
+      // ships a frozen build or the CDN.
+      '.nesp-nav-top{display:none;gap:0}',
+      // Same reason as the breakpoint above: px-3.5, text-[12px] and
+      // tracking-[0.08em] are not in homepage.html's frozen build, so the items
+      // rendered with no padding at all and ran into each other. Stated here.
+      '.nesp-nav-top .nesp-top{position:relative;display:inline-block;padding:1.75rem .875rem;font-size:12px;font-weight:700;line-height:1;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;color:#047857;text-decoration:none;transition:color .2s ease,opacity .2s ease}',
+      '.nesp-nav-actions{display:none}',
+      // "Invest Now" broke onto two lines on every CDN-Tailwind page once the
+      // real webfont loaded. Stated here rather than as a utility class so it
+      // holds on the frozen-build pages too.
+      '.nesp-nav-actions a{white-space:nowrap}',
+      '.nesp-nav-toggle{display:inline-flex}',
+      '@media (width >=78rem){',
+      '.nesp-nav-top{display:flex;align-items:center}',
+      '.nesp-nav-actions{display:flex;align-items:center;gap:1.25rem}',
+      '.nesp-nav-toggle{display:none}',
+      '#mobile-nav{display:none}',
+      '}',
+      '@media (width >=90rem){.nesp-nav-top .nesp-top{padding-left:1.2rem;padding-right:1.2rem;font-size:12.5px}}',
       // A long menu must not push the page: cap it to the viewport and scroll.
       '#mobile-nav{max-height:calc(100svh - 74px);overflow-y:auto;overscroll-behavior:contain}',
       '#mobile-nav a{border-radius:6px}',
@@ -205,7 +287,7 @@
       '#mobile-nav .nesp-m-group{margin-top:.5rem;padding-top:.5rem;border-top:1px solid #f0f2f1}',
       '#mobile-nav a:hover{background:#f1f8f4}',
       // Tablet / large phone: tighten the gutters the desktop bar assumes.
-      '@media (width < 64rem){.nesp-nav-brand{gap:0}}',
+      '@media (width < 78rem){.nesp-nav-brand{gap:0}}',
       // Phone: shorter bar, smaller marks, so the logos stop crowding the toggle.
       '@media (width < 40rem){' +
       '.nesp-nav-wrap{padding-left:1rem;padding-right:1rem}' +
@@ -232,7 +314,7 @@
   var active = PAGE_ACTIVE[file];
 
   nav.querySelectorAll('a').forEach(function (a) {
-    if ((a.className || '').indexOf('px-5') === -1) return; // desktop top-level only
+    if ((a.className || '').indexOf('nesp-top') === -1) return; // desktop top-level only
     var label = (a.textContent || '').replace(/\s+/g, ' ').trim().toUpperCase();
 
     // Active-tab gold underline.
@@ -300,7 +382,7 @@
 
     // Crossing into desktop must also reset the icon, not just hide the panel.
     window.addEventListener('resize', function () {
-      if (window.matchMedia('(min-width: 1024px)').matches) setOpen(false);
+      if (window.matchMedia('(min-width: 1248px)').matches) setOpen(false);
     });
   }
 })();

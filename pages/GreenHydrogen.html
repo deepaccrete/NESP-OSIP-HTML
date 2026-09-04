@@ -363,9 +363,17 @@
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
                                 Facts
                             </a>
+                            <a href="#participate"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Participate
+                            </a>
                             <a href="#regulations"
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
                                 Regulations
+                            </a>
+                            <a href="#technical"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Technical
                             </a>
                             <a href="#finance"
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
@@ -374,6 +382,10 @@
                             <a href="#opportunities"
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
                                 Opportunities
+                            </a>
+                            <a href="#resources"
+                                class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
+                                Resources
                             </a>
                         </div>
                     </div>
@@ -732,6 +744,60 @@
             </div>
         </section>
 
+        <!-- SEC-02: "Project Development Frameworks" renamed to the reader-facing
+             "How Investors Can Participate" and lifted out of Regulations to the
+             slot the standard sector order gives it, straight after Key Facts.
+             The pathway cards themselves are unchanged. -->
+        <section class="bg-white border-b border-[#e8ebe9] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="participate">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Entry Routes</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-4"
+                    style="font-family: Manrope, sans-serif;">How Investors Can Participate</h2>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's green hydrogen market
+                    supports multiple investment pathways:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">science</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Green Ammonia Production</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Hydrogen production for fertilizer
+                            manufacturing and export markets.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">local_gas_station</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Green Methanol Production</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Hydrogen-based fuels and industrial feedstocks
+                            for domestic and international markets.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">factory</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Industrial Decarbonisation</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Hydrogen supply for refineries,
+                            petrochemicals, cement, steel, and other hard-to-abate industries.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">bolt</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Hydrogen-Powered Energy Systems</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Integration of hydrogen storage and fuel-cell
+                            technologies into power systems, mini-grids, and industrial energy applications.</p>
+                    </div>
+                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                        <span class="material-symbols-outlined text-[#004225] text-[32px]">directions_boat</span>
+                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
+                            style="font-family: Manrope, sans-serif;">Export-Oriented Hydrogen Projects</h4>
+                        <p class="text-[#5f6368] text-[13px] leading-6">Large-scale hydrogen, ammonia, and derivative
+                            fuel projects located near ports and Free Trade Zones.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Ease of Doing Business -->
         <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;">
             <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -877,49 +943,6 @@
                         Tax Act 2026</span>
                 </div>
 
-                <!-- Project Development Frameworks -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-2"
-                    style="font-family: Manrope, sans-serif;">Project Development Frameworks</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's green hydrogen market
-                    supports multiple investment pathways:</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">science</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Green Ammonia Production</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Hydrogen production for fertilizer
-                            manufacturing and export markets.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">local_gas_station</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Green Methanol Production</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Hydrogen-based fuels and industrial feedstocks
-                            for domestic and international markets.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">factory</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Industrial Decarbonisation</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Hydrogen supply for refineries,
-                            petrochemicals, cement, steel, and other hard-to-abate industries.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">bolt</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Hydrogen-Powered Energy Systems</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Integration of hydrogen storage and fuel-cell
-                            technologies into power systems, mini-grids, and industrial energy applications.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">directions_boat</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Export-Oriented Hydrogen Projects</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Large-scale hydrogen, ammonia, and derivative
-                            fuel projects located near ports and Free Trade Zones.</p>
-                    </div>
-                </div>
-
                 <!-- Regulatory Requirements -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Regulatory Requirements</h3>
@@ -1054,16 +1077,6 @@
                             (SON)</span>
                     </a>
                 </div>
-
-                <!-- Technical Standards -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
-                    style="font-family: Manrope, sans-serif;">Technical Standards</h3>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Until dedicated Nigerian hydrogen
-                    standards are introduced, projects are expected to comply with applicable international IEC, ISO,
-                    industrial safety, environmental, engineering, storage, transportation, and process safety
-                    standards. Hydrogen production facilities, storage systems, pipelines, export terminals, and
-                    associated renewable energy infrastructure must also comply with applicable national electrical,
-                    environmental, occupational health, and safety requirements.</p>
 
                 <!-- ============================================================
      WORKFLOW PROCESS — zigzag / connector-path style
@@ -1852,114 +1865,28 @@
                             if (document.fonts && document.fonts.ready) { document.fonts.ready.then(drawAll); }
                         })();
                 </script>
+            </div>
+        </section>
 
-                <!-- Useful Resources -->
-                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
-                    style="font-family: Manrope, sans-serif;">Useful Resources</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    <a href="https://www.energy.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="ECN.png" alt="ECN logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">ECN</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.energy.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
-                                    class="w-8 h-8 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NERC</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nerc.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NIPC</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nipc.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nepc.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
-                                <span
-                                    class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NEPC</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nepc.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nepza.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
-                                <span
-                                    class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NEPZA</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nepza.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nesrea.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="nesrea.jpeg" alt="NESREA logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NESREA</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nesrea.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.environment.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="FMEnew.png" alt="Federal Ministry of Environment logo"
-                                    class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Federal
-                                    Ministry of Environment</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.environment.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
+        <!-- SEC-04: standards, certification and safety used to be one sub-heading
+             buried at the end of Regulations. It is its own block now, sitting
+             directly after Regulations as the standard sector order requires.
+             The copy itself is unchanged. The hairline below marks the boundary
+             with Finance, which is white too. -->
+        <section class="bg-white border-b border-[#e8ebe9] py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="technical">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Standards &amp; Certification</span>
                 </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-6"
+                    style="font-family: Manrope, sans-serif;">Technical &amp; Safety</h2>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Until dedicated Nigerian hydrogen
+                    standards are introduced, projects are expected to comply with applicable international IEC, ISO,
+                    industrial safety, environmental, engineering, storage, transportation, and process safety
+                    standards. Hydrogen production facilities, storage systems, pipelines, export terminals, and
+                    associated renewable energy infrastructure must also comply with applicable national electrical,
+                    environmental, occupational health, and safety requirements.</p>
             </div>
         </section>
 
@@ -2223,6 +2150,124 @@
                                 Centres</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEC-01: the standard sector order ends on "Useful resources / data".
+             This block used to sit inside Regulations, ahead of Finance, so it is
+             now its own section here. The links themselves are unchanged. -->
+        <section class="bg-white py-12 lg:py-16" style="font-family: Inter, sans-serif;" id="resources">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[2px] bg-[#f7be26]"></span>
+                    <span class="text-[#004225] text-[11px] font-bold uppercase tracking-[0.18em]">Reference</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
+                    style="font-family: Manrope, sans-serif;">Useful Resources and Data</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <a href="https://www.energy.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="ECN.png" alt="ECN logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">ECN</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.energy.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
+                                    class="w-8 h-8 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NERC</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nerc.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NIPC</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nipc.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nepc.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span
+                                    class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NEPC</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nepc.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nepza.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0">
+                                <span
+                                    class="material-symbols-outlined text-[#004225] text-[22px]">account_balance</span>
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NEPZA</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nepza.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.nesrea.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="nesrea.jpeg" alt="NESREA logo" class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span
+                                    class="block text-[#111827] text-[14px] font-semibold">NESREA</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.nesrea.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
+                    <a href="https://www.environment.gov.ng" target="_blank" rel="noopener"
+                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <span
+                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <img src="FMEnew.png" alt="Federal Ministry of Environment logo"
+                                    class="w-7 h-7 object-contain" />
+                            </span>
+                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Federal
+                                    Ministry of Environment</span><span
+                                    class="block text-[#5f6368] text-[13px] truncate">www.environment.gov.ng</span></span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -2586,6 +2631,7 @@
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
     <script src="nav.js"></script>
+    <script src="glossary.js"></script>
 </body>
 
 </html>
