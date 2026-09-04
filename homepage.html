@@ -3539,6 +3539,126 @@
       }
     }
   </style>
+  <!-- OSIP change-tracker layout utilities (the inline Tailwind build is precompiled; new arbitrary
+       utilities are not in it, so the rules these elements need are defined here). -->
+  <style>
+    /* HP-01 hero, themed to match pages/DetailedSector.html: same 500/550px band,
+       same two flat #001d17 scrims over the photograph, same type scale. Top inset
+       tracks the real header height (74px desktop / 62px phone). */
+    .osip-hero { min-height: calc(500px + 74px); padding-top: 74px; background-color: #001d17; }
+    .osip-hero-inner { min-height: 500px; padding-top: 3rem; padding-bottom: 3rem; }
+
+    /* The horizontal scrim carries the copy; the bottom wash seats the section
+       against the block beneath it. Both are lifted straight from the sector hero. */
+    .osip-hero-scrim {
+      background-image: linear-gradient(to right, rgba(0, 29, 23, .95) 0%, rgba(0, 29, 23, .80) 50%, rgba(0, 29, 23, .10) 100%);
+    }
+
+    .osip-hero-scrim-b {
+      background-image: linear-gradient(to top, rgba(0, 29, 23, .60) 0%, rgba(0, 29, 23, 0) 50%, rgba(0, 29, 23, 0) 100%);
+    }
+
+    .osip-hero-title { font-size: 2.25rem; line-height: 1.15; font-weight: 800; letter-spacing: -.025em; margin-bottom: 1.5rem; }
+    .osip-hero-lead { font-size: 1rem; line-height: 1.625; color: rgba(255, 255, 255, .8); margin-bottom: 2.5rem; }
+    .osip-hero-cta { min-height: 44px; font-size: 12px; }
+    /* `max-w-[820px]`, `max-w-3xl` and `leading-8` sit in the markup but are absent
+       from the frozen Tailwind build, so the headline and lead ran the full width of
+       a wide monitor. Re-stated here, scoped to these two sections only. */
+    .osip-hero-copy { max-width: 48rem; }
+
+    /* HP-02: compact one-row quick-access strip + clean gap under the hero */
+    .osip-quickaccess { padding-top: 3rem; padding-bottom: 3rem; background-color: #f3f4f2; }
+    .osip-qa-head { margin-bottom: 1.75rem; max-width: 48rem; }
+    .osip-qa-head p { line-height: 2rem; }
+    .osip-qa-card { display: flex; align-items: center; gap: .75rem; padding: 1rem; }
+    .osip-qa-icon { font-size: 26px; flex: 0 0 auto; }
+    .osip-qa-label { flex: 1 1 auto; font-size: 14px; }
+    .osip-qa-arrow { flex: 0 0 auto; transition: transform .3s ease; }
+    .group:hover .osip-qa-arrow { transform: translateX(4px); }
+
+    @media (width >=40rem) {
+      .osip-hero-title { font-size: 3rem; line-height: 1.1; }
+      .osip-hero-lead { font-size: 1.125rem; }
+      .osip-hero-cta { font-size: 13px; }
+      .osip-quickaccess { padding-top: 3.5rem; }
+    }
+
+    @media (width >=64rem) {
+      .osip-hero { min-height: calc(550px + 74px); }
+      .osip-hero-inner { min-height: 550px; padding-top: 4rem; padding-bottom: 4rem; }
+      .osip-hero-title { font-size: 3.75rem; }
+      .osip-quickaccess { padding-top: 5rem; padding-bottom: 4rem; }
+      .osip-qa-head { margin-bottom: 2rem; }
+      .osip-qa-card { padding: 1.25rem; }
+      .osip-qa-label { font-size: 16px; }
+    }
+
+    /* ------------------------------------------------------------------
+       Responsive pass (standing rule: every screen, every change).
+       These rules are UNLAYERED, so they beat Tailwind's @layer utilities
+       without needing !important.
+       ------------------------------------------------------------------ */
+
+    /* Quick-access strip: 1 col on phones, 2 on large phones/tablets, 4 on desktop */
+    .osip-qa-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+
+    @media (width >=30rem) {
+      .osip-qa-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (width >=64rem) {
+      .osip-qa-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+    }
+
+    /* Phones: the header collapses to 62px, so the hero's top inset follows it;
+       the CTA goes full-bleed because a centred pill reads as unfinished at 360px. */
+    @media (width < 40rem) {
+      .osip-hero { padding-top: 62px; min-height: calc(500px + 62px); }
+      .osip-hero-inner { padding-top: 2.5rem; padding-bottom: 3.5rem; }
+      .osip-hero-cta { width: 100%; }
+      /* A left-to-right scrim leaves the right half of a 360px screen unreadable,
+         so go vertical and the copy keeps contrast edge to edge. */
+      .osip-hero-scrim {
+        background-image: linear-gradient(to bottom, rgba(0, 29, 23, .60) 0%, rgba(0, 29, 23, .85) 60%, rgba(0, 29, 23, .93) 100%);
+      }
+    }
+
+    /* Tablets: keep the scrim angled but stop it fading out under the text. */
+    @media (width >=40rem) and (width < 64rem) {
+      .osip-hero-scrim {
+        background-image: linear-gradient(to right, rgba(0, 29, 23, .95) 0%, rgba(0, 29, 23, .82) 60%, rgba(0, 29, 23, .30) 100%);
+      }
+    }
+
+    /* Scroll cue: the mouse-wheel capsule is meaningless without a mouse, so on
+       touch/narrow screens it becomes a nudging chevron instead. */
+    @media (width < 64rem), (pointer: coarse) {
+      .osip-scroll-cue {
+        width: 26px;
+        height: 26px;
+        border: 0;
+        border-radius: 0;
+        bottom: 14px;
+      }
+
+      .osip-scroll-cue::after {
+        top: 2px;
+        width: 12px;
+        height: 12px;
+        background: none;
+        border-radius: 1px;
+        border-right: 2px solid #ffb955;
+        border-bottom: 2px solid #ffb955;
+        animation: osip-scroll-chevron 1.8s ease-in-out infinite;
+      }
+    }
+
+    @keyframes osip-scroll-chevron {
+      0%, 100% { opacity: .35; transform: translate(-50%, 0) rotate(45deg); }
+      50% { opacity: 1; transform: translate(-50%, 6px) rotate(45deg); }
+    }
+  </style>
+
 </head>
 
 <body>
@@ -3588,109 +3708,31 @@
         </style>
       </header>
 
-      <section class="relative overflow-hidden pt-[72px] min-h-[100svh]" style="font-family: Inter, sans-serif;">
+      <section class="osip-hero relative overflow-hidden pt-[72px]" style="font-family: Inter, sans-serif;">
         <div class="absolute inset-0">
           <div class="absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100"><img alt=""
               class="w-full h-full object-cover"
               src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80">
-            <div class="absolute inset-0 bg-black/45"></div>
-            <div class="absolute inset-0 opacity-[0.04]"
-              style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0px); background-size: 32px 32px;">
-            </div>
-          </div>
-          <div class="absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0"><img alt=""
-              class="w-full h-full object-cover"
-              src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1920&q=80">
-            <div class="absolute inset-0 bg-black/45"></div>
-            <div class="absolute inset-0 opacity-[0.04]"
-              style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0px); background-size: 32px 32px;">
-            </div>
           </div>
         </div>
-        <div class="absolute inset-0 bg-gradient-to-r from-[#071510] via-[#071510]/85 to-transparent z-10"></div>
+        <div class="osip-hero-scrim absolute inset-0 z-10"></div>
+        <div class="osip-hero-scrim-b absolute inset-0 z-10"></div>
         <div
-          class="relative z-20 flex items-center min-h-[calc(100svh-72px)] px-5 sm:px-8 lg:px-16 py-20 sm:py-20 lg:py-25">
-          <div class="max-w-[820px] w-full">
-            <h1 class="
-                  text-[34px]
-                  sm:text-[46px]
-                  md:text-[56px]
-                  lg:text-[64px]
-                  xl:text-[72px]
-                  leading-[1.05]
-                  font-bold
-                  text-white
-                  mb-10
-                  
-                " style="font-family: Manrope, sans-serif; animation: 0.6s ease 0s 1 normal forwards running fadeUp;">
+          class="osip-hero-inner relative z-20 flex items-center w-full px-6 lg:px-8">
+          <div class="w-full max-w-7xl mx-auto">
+            <div class="osip-hero-copy">
+            <h1 class="osip-hero-title text-white"
+              style="font-family: Manrope, sans-serif; animation: 0.6s ease 0s 1 normal forwards running fadeUp;">
               Invest in Nigeria's Clean Energy Future</h1>
-            <p class="
-                  text-[14px]
-                  sm:text-[15px]
-                  lg:text-[17px]
-                  text-[#d1d5db]
-                  leading-7
-                  max-w-2xl
-                  mb-10
-                " style="animation: 0.7s ease 0s 1 normal forwards running fadeUp;">The One-Stop Investment Platform
-              (OSIP) is Nigeria's central gateway for renewable energy and clean energy investment information. Access
-              regulatory requirements, licensing pathways, investment opportunities, incentives, market insights,
-              financing options, and sector-specific guidance, etc., all in one place.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full max-w-2xl mb-10"
-              style="animation: 0.8s ease 0s 1 normal forwards running fadeUp;">
+            <p class="osip-hero-lead max-w-2xl"
+              style="animation: 0.7s ease 0s 1 normal forwards running fadeUp;">The One-Stop Investment
+              Platform (OSIP) is Nigeria's single gateway to clean energy investment: regulations, opportunities,
+              incentives and market data in one place.</p>
+            <div class="flex w-full max-w-2xl" style="animation: 0.8s ease 0s 1 normal forwards running fadeUp;">
               <a href="pages/Opportunities.html"
-                class="inline-flex items-center justify-center gap-2 min-h-[44px) min-h-[44px] bg-[#FFDDB4] hover:bg-[#e6c78b] text-[#0a1f1a] font-semibold px-3 py-2 rounded-lg text-[11px] sm:text-[12px] tracking-wide transition-all duration-300 text-center">
-                <span class="material-symbols-outlined text-[15px]">explore</span>Explore Investment Opportunities</a>
-              <a href="pages/OpportunitiesNew.html" data-investflow
-                class="inline-flex items-center justify-center gap-2 min-h-[44px] bg-[#FFDDB4] hover:bg-[#e6c78b] text-[#0a1f1a] font-semibold px-3 py-2 rounded-lg text-[11px] sm:text-[12px] tracking-wide transition-all duration-300 text-center">
-                <span class="material-symbols-outlined text-[15px]">rocket_launch</span>Start Your Investment
-                Journey</a>
-              <a href="pages/Regulation.html"
-                class="inline-flex items-center justify-center gap-2 min-h-[44px] border border-white/40 hover:border-white hover:bg-white/10 text-white font-semibold px-3 py-2 rounded-lg text-[11px] sm:text-[12px] tracking-wide transition-all duration-300 text-center">
-                <span class="material-symbols-outlined text-[15px]">account_balance</span>View Regulatory Pathways</a>
-              <a href="pages/notDecided.html"
-                class="inline-flex items-center justify-center gap-2 min-h-[44px] border border-white/40 hover:border-white hover:bg-white/10 text-white font-semibold px-3 py-2 rounded-lg text-[11px] sm:text-[12px] tracking-wide transition-all duration-300 text-center">
-                <span class="material-symbols-outlined text-[15px]">download</span>Download Investment Guide</a>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-5 pt-6"
-              style="animation: 0.9s ease 0s 1 normal forwards running fadeUp;">
-              <div>
-                <div class="text-white font-bold text-[22px] sm:text-[26px] leading-none"
-                  style="font-family: Manrope, sans-serif;">220+ Million</div>
-                <div class="text-[#d1d5db] text-[11px] sm:text-xs mt-1.5 leading-snug">Population</div>
+                class="osip-hero-cta inline-flex items-center justify-center gap-2 bg-[#FFDDB4] hover:bg-[#e6c78b] text-[#0a1f1a] font-semibold px-6 py-3 rounded-lg tracking-wide transition-all duration-300 text-center">
+                <span class="material-symbols-outlined text-[16px]">explore</span>Explore Investment Opportunities</a>
               </div>
-              <div>
-                <div class="text-white font-bold text-[22px] sm:text-[26px] leading-none"
-                  style="font-family: Manrope, sans-serif;">85+ Million</div>
-                <div class="text-[#d1d5db] text-[11px] sm:text-xs mt-1.5 leading-snug">People without reliable
-                  electricity</div>
-              </div>
-              <div>
-                <div class="text-white font-bold text-[22px] sm:text-[26px] leading-none"
-                  style="font-family: Manrope, sans-serif;">$410 Billion+</div>
-                <div class="text-[#d1d5db] text-[11px] sm:text-xs mt-1.5 leading-snug">Energy Transition Investment
-                  Need by 2060</div>
-              </div>
-              <div>
-                <div class="text-white font-bold text-[22px] sm:text-[26px] leading-none"
-                  style="font-family: Manrope, sans-serif;">2060</div>
-                <div class="text-[#d1d5db] text-[11px] sm:text-xs mt-1.5 leading-snug">Net-Zero Target Year</div>
-              </div>
-              <div>
-                <div class="text-white font-bold text-[22px] sm:text-[26px] leading-none"
-                  style="font-family: Manrope, sans-serif;">36 States + FCT</div>
-                <div class="text-[#d1d5db] text-[11px] sm:text-xs mt-1.5 leading-snug">Investment Coverage</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="absolute bottom-5 sm:bottom-8 left-0 right-0 z-20 px-5 sm:px-8 lg:px-16">
-          <div class="flex items-center justify-between gap-6 flex-wrap">
-            <div class="flex items-center gap-2 flex-wrap"><button aria-label="Go to slide 1"
-                class="h-[2px] transition-all duration-300 w-10 bg-[#c8a84b]"></button><button
-                aria-label="Go to slide 2"
-                class="h-[2px] transition-all duration-300 w-4 bg-white/30 hover:bg-white/60"></button></div>
-            <div class="text-white/35 text-[10px] sm:text-xs tracking-[0.25em] font-mono whitespace-nowrap">01 / 02
             </div>
           </div>
         </div>
@@ -3709,76 +3751,454 @@
         </style>
       </section>
 
-      <section class="bg-white py-12 lg:py-16 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+      <section class="osip-quickaccess px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
-          <div class="max-w-3xl mb-10 lg:mb-14">
+          <div class="osip-qa-head max-w-3xl">
             <h2 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-[#111827] leading-tight mb-4"
               style="font-family: Manrope, sans-serif;">How Can We Help You Today?</h2>
             <p class="text-[#5f6368] text-[15px] lg:text-[17px] leading-8">Whether you are exploring the Nigerian market
               for the first time or expanding an existing energy portfolio, OSIP provides the information you need to
               make informed investment decisions.</p>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 lg:gap-6"><a
-              href="pages/Opportunities.html"
-              class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
-              <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">savings</span></div>
-              <h3
-                class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
-                style="font-family: Manrope, sans-serif;">I Want to Invest</h3>
-              <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7 mb-5 flex-1">Explore opportunities across
-                Nigeria's renewable energy and clean energy sectors.</p>
+          <div class="osip-qa-grid"><a href="pages/Opportunities.html"
+              class="osip-qa-card group bg-white border border-[#e5e7eb] rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300">
+              <span class="osip-qa-icon material-symbols-outlined text-[#004225]">savings</span>
               <span
-                class="inline-flex items-center gap-1.5 text-[#004225] text-[13px] lg:text-sm font-semibold tracking-wide group-hover:gap-2.5 transition-all">View
-                Investment Opportunities <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+                class="osip-qa-label font-bold text-[#111827] leading-snug group-hover:text-[#004225] transition-colors"
+                style="font-family: Manrope, sans-serif;">I Want to Invest</span>
+              <span
+                class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
             </a><a href="pages/Regulation.html"
-              class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
-              <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">gavel</span></div>
-              <h3
-                class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
-                style="font-family: Manrope, sans-serif;">I Need Licences &amp; Approvals</h3>
-              <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7 mb-5 flex-1">Understand permits, approvals,
-                timelines, and regulatory requirements.</p>
+              class="osip-qa-card group bg-white border border-[#e5e7eb] rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300">
+              <span class="osip-qa-icon material-symbols-outlined text-[#004225]">gavel</span>
               <span
-                class="inline-flex items-center gap-1.5 text-[#004225] text-[13px] lg:text-sm font-semibold tracking-wide group-hover:gap-2.5 transition-all">View
-                Regulatory Pathways <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+                class="osip-qa-label font-bold text-[#111827] leading-snug group-hover:text-[#004225] transition-colors"
+                style="font-family: Manrope, sans-serif;">I Need Licences &amp; Approvals</span>
+              <span
+                class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
             </a><a href="pages/Data.html"
-              class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
-              <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">insights</span></div>
-              <h3
-                class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
-                style="font-family: Manrope, sans-serif;">I Need Market Data</h3>
-              <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7 mb-5 flex-1">Access sector statistics,
-                policy information, and investment insights.</p>
+              class="osip-qa-card group bg-white border border-[#e5e7eb] rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300">
+              <span class="osip-qa-icon material-symbols-outlined text-[#004225]">insights</span>
               <span
-                class="inline-flex items-center gap-1.5 text-[#004225] text-[13px] lg:text-sm font-semibold tracking-wide group-hover:gap-2.5 transition-all">View
-                Data &amp; Insights <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
-            </a><a href="pages/notDecided.html"
-              class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
-              <div class="mb-5"><span
-                  class="material-symbols-outlined text-[40px] text-[#004225]">account_balance</span></div>
-              <h3
-                class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
-                style="font-family: Manrope, sans-serif;">I Need Financing</h3>
-              <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7 mb-5 flex-1">Discover incentives, financing
-                programmes, grants, and investment support.</p>
+                class="osip-qa-label font-bold text-[#111827] leading-snug group-hover:text-[#004225] transition-colors"
+                style="font-family: Manrope, sans-serif;">I Need Market Data</span>
               <span
-                class="inline-flex items-center gap-1.5 text-[#004225] text-[13px] lg:text-sm font-semibold tracking-wide group-hover:gap-2.5 transition-all">Explore
-                Financing Options <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+                class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
             </a><a href="pages/Contact.html"
-              class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
-              <div class="mb-5"><span class="material-symbols-outlined text-[40px] text-[#004225]">support_agent</span>
-              </div>
-              <h3
-                class="text-[18px] lg:text-[20px] font-bold text-[#111827] leading-snug mb-3 group-hover:text-[#004225] transition-colors"
-                style="font-family: Manrope, sans-serif;">I Need Help</h3>
-              <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7 mb-5 flex-1">Contact the OSIP team or access
-                investor support services.</p>
+              class="osip-qa-card group bg-white border border-[#e5e7eb] rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300">
+              <span class="osip-qa-icon material-symbols-outlined text-[#004225]">support_agent</span>
               <span
-                class="inline-flex items-center gap-1.5 text-[#004225] text-[13px] lg:text-sm font-semibold tracking-wide group-hover:gap-2.5 transition-all">Contact
-                Support <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+                class="osip-qa-label font-bold text-[#111827] leading-snug group-hover:text-[#004225] transition-colors"
+                style="font-family: Manrope, sans-serif;">I Need Help</span>
+              <span
+                class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
             </a></div>
         </div>
       </section>
+
+      <!-- HP-04: priority projects.
+           The cards are the SAME cards as pages/Opportunities.html: identical markup,
+           identical field order, identical figures. Homepage's Tailwind build is a
+           frozen dump that does not carry the M3 token utilities that page compiles
+           (text-label-sm, text-on-surface-variant, bg-primary-container, ...), so the
+           rules below restate them, resolved to the same hex values from that page's
+           tailwind.config and SCOPED to .osip-opp-grid so nothing leaks into the rest
+           of the homepage. -->
+      <style>
+        .osip-opp-head {
+          margin-bottom: 2rem;
+        }
+
+        .osip-opp-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 16px;
+        }
+
+        /* ---- verbatim from pages/Opportunities.html ---- */
+        .osip-opp-grid .opportunity-card {
+          border-top: 4px solid #dfa800 !important;
+        }
+
+        .osip-opp-grid .inv-box {
+          background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
+          border: 1px solid rgba(0, 52, 43, 0.08);
+          border-radius: 8px;
+          padding: 12px 14px;
+        }
+
+        .osip-opp-grid .sector-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          margin-top: 6px;
+          padding: 3px 10px;
+          border-radius: 9999px;
+          background: rgba(223, 168, 0, 0.14);
+          border: 1px solid rgba(223, 168, 0, 0.35);
+          color: #5b4300;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          line-height: 1.45;
+        }
+
+        .osip-opp-grid .sector-badge .material-symbols-outlined {
+          font-size: 14px;
+          color: #c98a00;
+        }
+
+        .osip-opp-grid .font-title-md {
+          font-family: 'Manrope', 'Inter', sans-serif !important;
+          letter-spacing: -0.015em;
+        }
+
+        /* ---- M3 tokens the homepage build lacks, same values as that page ---- */
+        .osip-opp-grid .text-label-sm {
+          font-size: 12px;
+          line-height: 16px;
+          letter-spacing: .05em;
+          font-weight: 600;
+        }
+
+        .osip-opp-grid .text-label-md {
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: .01em;
+          font-weight: 500;
+        }
+
+        /* declared after text-label-md so it wins, the same order that page compiles */
+        .osip-opp-grid .font-semibold {
+          font-weight: 600;
+        }
+
+        .osip-opp-grid .mb-1 {
+          margin-bottom: 4px;
+        }
+
+        .osip-opp-grid .rounded {
+          border-radius: 2px;
+        }
+
+        .osip-opp-grid .text-headline-lg-mobile {
+          font-size: 24px;
+          line-height: 32px;
+        }
+
+        .osip-opp-grid .text-on-surface {
+          color: #161d1b;
+        }
+
+        .osip-opp-grid .text-on-surface-variant {
+          color: #3f4945;
+        }
+
+        .osip-opp-grid .text-primary {
+          color: #00342b;
+        }
+
+        .osip-opp-grid .border-outline-variant {
+          border-color: #bfc9c4;
+        }
+
+        .osip-opp-grid .bg-primary-container {
+          background-color: #004d40;
+        }
+
+        .osip-opp-grid .hover\:bg-surface-container-lowest:hover {
+          background-color: #ffffff;
+        }
+
+        .osip-opp-grid .hover\:bg-surface-container-high:hover {
+          background-color: #e3eae7;
+        }
+
+        /* ---- structural utilities the frozen build is missing ---- */
+        .osip-opp-grid .opportunity-card {
+          border-radius: 4px;
+          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+          transition: all .3s ease;
+        }
+
+        /* The homepage teaser runs tighter than the full listing page: no 380px floor
+           and trimmed internal spacing, so three cards do not swallow the fold. The
+           markup stays identical to Opportunities.html; only the metrics differ. */
+        .osip-opp-grid .opportunity-card {
+          min-height: 0;
+          padding: 18px 20px;
+        }
+
+        .osip-opp-grid .opportunity-card > .mb-6 {
+          margin-bottom: 14px;
+        }
+
+        .osip-opp-grid .opportunity-card > .mb-4 {
+          margin-bottom: 12px;
+        }
+
+        .osip-opp-grid .inv-box {
+          padding: 10px 12px;
+        }
+
+        .osip-opp-grid .opportunity-card .py-4 {
+          padding-top: 12px;
+          padding-bottom: 12px;
+        }
+
+        .osip-opp-grid .opportunity-card .pt-2 {
+          padding-top: 12px;
+        }
+
+        /* Same rule as the Explore-by-State cards: an entry that is not live yet is
+           marked, not linked. Dashed edge, muted gold cap, nothing to click. */
+        .osip-opp-grid .opportunity-card.is-pending {
+          border-style: dashed;
+          border-top: 4px solid #ecd9a3 !important;
+          background: #fbfcfb;
+          cursor: default;
+        }
+
+        .osip-opp-grid .opportunity-card.is-pending:hover {
+          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+          background: #fbfcfb;
+        }
+
+        .osip-opp-grid .opportunity-card.is-pending .sector-badge {
+          background: rgba(223, 168, 0, .08);
+          border-color: rgba(223, 168, 0, .22);
+          color: #7d6a3c;
+        }
+
+        .osip-opp-grid .opportunity-card.is-pending .text-primary {
+          color: #4a5a55;
+        }
+
+        .osip-opp-pending {
+          flex: 1 1 auto;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 8px 12px;
+          border: 1px dashed #cfd8d4;
+          border-radius: 4px;
+          background: #f4f6f5;
+          color: #6b746f;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: .08em;
+          text-transform: uppercase;
+        }
+
+        .osip-opp-grid .opportunity-card:hover {
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
+        }
+
+        .osip-opp-grid .space-y-2 > * + * {
+          margin-top: .5rem;
+        }
+
+        .osip-opp-grid .border-y {
+          border-top-width: 1px;
+          border-bottom-width: 1px;
+          border-top-style: solid;
+          border-bottom-style: solid;
+        }
+
+        .osip-opp-grid .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+        }
+
+        .osip-opp-grid .mt-auto {
+          margin-top: auto;
+        }
+
+        .osip-opp-grid .flex-1 {
+          flex: 1 1 0%;
+        }
+
+        .osip-opp-grid .tracking-wider {
+          letter-spacing: .05em;
+        }
+
+        .osip-opp-grid .tracking-tight {
+          letter-spacing: -.025em;
+        }
+
+        .osip-opp-grid .border-transparent {
+          border-color: transparent;
+        }
+
+        .osip-opp-grid .font-normal {
+          font-weight: 400;
+        }
+
+        .osip-opp-grid .pt-2 {
+          padding-top: .5rem;
+        }
+
+        @media (width >=40rem) {
+          .osip-opp-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+          }
+        }
+
+        @media (width >=64rem) {
+          .osip-opp-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+          }
+
+          .osip-opp-head {
+            margin-bottom: 2.5rem;
+          }
+        }
+      </style>
+
+      <section class="bg-white py-12 sm:py-14 lg:py-16 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+        <div class="max-w-7xl mx-auto">
+          <div class="osip-opp-head flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
+            <div class="max-w-2xl">
+              <h2 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-[#111827] leading-tight mb-4"
+                style="font-family: Manrope, sans-serif;">Priority Investment Opportunities</h2>
+              <p class="text-[#5f6368] text-[15px] lg:text-[17px]">Validated projects open to private capital across
+                Nigeria's energy and infrastructure pipeline.</p>
+            </div>
+            <a href="pages/Opportunities.html"
+              class="inline-flex items-center gap-2 bg-[#004225] text-white px-6 py-3 text-[14px] font-semibold rounded-sm transition-all duration-300 hover:opacity-90">View
+              all opportunities <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+          </div>
+          <div class="osip-opp-grid">
+
+            <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+              data-sector="grid" data-state="kano" data-scheme="nipp" data-stage="execution"
+              data-href="pages/detailedOppNew.html">
+              <div class="mb-6">
+                <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                  2024-ENE-03</p>
+                <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                  AKK Gas Pipeline Project</h3>
+                <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid
+                  Infrastructure</span>
+              </div>
+              <div class="mb-4 inv-box">
+                <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 2.80 <span
+                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
+              </div>
+              <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                <div class="flex justify-between text-label-sm">
+                  <span class="text-on-surface-variant">State:</span>
+                  <span class="font-semibold">Ajaokuta - Kaduna - Kano</span>
+                </div>
+                <div class="flex justify-between text-label-sm"><span
+                    class="text-on-surface-variant">Published:</span><span class="font-semibold">10 Nov
+                    2024</span></div>
+              </div>
+              <div class="flex gap-2 mt-auto pt-2">
+                <button
+                  class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
+                  in Detail</button>
+                <button
+                  class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
+                  Now</button>
+              </div>
+            </div>
+
+            <div class="opportunity-card is-pending min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm transition-all duration-300"
+              data-sector="renewable" data-state="rivers" data-scheme="" data-stage="tendering" aria-disabled="true">
+              <div class="mb-6">
+                <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                  2025-H2-01</p>
+                <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                  Green Hydrogen Niger Delta Pilot</h3>
+                <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Renewable
+                  Generation</span>
+              </div>
+              <div class="mb-4 inv-box">
+                <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.40 <span
+                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
+              </div>
+              <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                <div class="flex justify-between text-label-sm">
+                  <span class="text-on-surface-variant">State:</span>
+                  <span class="font-semibold">Rivers State</span>
+                </div>
+                <div class="flex justify-between text-label-sm"><span
+                    class="text-on-surface-variant">Published:</span><span class="font-semibold">18 Feb
+                    2025</span></div>
+              </div>
+              <div class="flex gap-2 mt-auto pt-2">
+                <span class="osip-opp-pending">Listing in preparation</span>
+              </div>
+            </div>
+
+            <div class="opportunity-card is-pending min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm transition-all duration-300"
+              data-sector="renewable" data-state="" data-scheme="solar-naija" data-stage="planning" aria-disabled="true">
+              <div class="mb-6">
+                <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                  2025-ENE-09</p>
+                <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                  Solar Power Naija - Phase II</h3>
+                <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Renewable
+                  Generation</span>
+              </div>
+              <div class="mb-4 inv-box">
+                <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.24 <span
+                    class="text-label-md font-normal text-on-surface-variant">bn</span></p>
+              </div>
+              <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                <div class="flex justify-between text-label-sm">
+                  <span class="text-on-surface-variant">State:</span>
+                  <span class="font-semibold">Multi-State Off-grid</span>
+                </div>
+                <div class="flex justify-between text-label-sm"><span
+                    class="text-on-surface-variant">Published:</span><span class="font-semibold">05 Jan
+                    2026</span></div>
+              </div>
+              <div class="flex gap-2 mt-auto pt-2">
+                <span class="osip-opp-pending">Listing in preparation</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <script>
+        // Same card behaviour as pages/Opportunities.html: the whole card and its
+        // "View in Detail" button open the project, "Invest Now" enters the investor
+        // flow, and the card presses in on mousedown. Each card carries its own
+        // data-href because only AKK has a real detail page in this build.
+        (function () {
+          document.querySelectorAll('.osip-opp-grid .opportunity-card').forEach(function (card) {
+            var href = card.getAttribute('data-href');
+            if (!href) return;   // "Listing in preparation" cards are marked, not linked
+            var go = function (e) { if (e) e.stopPropagation(); location.href = href; };
+
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function () { location.href = href; });
+            card.addEventListener('mousedown', function () { card.style.transform = 'scale(0.98)'; });
+            card.addEventListener('mouseup', function () { card.style.transform = 'scale(1)'; });
+            card.addEventListener('mouseleave', function () { card.style.transform = 'scale(1)'; });
+
+            card.querySelectorAll('button').forEach(function (b) {
+              var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+              if (t === 'view in detail') b.addEventListener('click', go);
+              if (t === 'invest now') b.addEventListener('click', function (e) {
+                e.stopPropagation();
+                location.href = 'pages/InvestorMatch.html';
+              });
+            });
+          });
+        })();
+      </script>
 
 
       <section class="bg-white py-12 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
@@ -3950,26 +4370,26 @@
               <span class="osip-state-name">Enugu</span>
               <span class="osip-state-tag">View profile</span>
             </a>
-            <a href="pages/notDecided.html" class="osip-state-card">
+            <div class="osip-state-card is-pending" aria-disabled="true">
               <img class="osip-state-emblem" src="pages/state-lagos.png" alt="Lagos State emblem">
               <span class="osip-state-name">Lagos</span>
-              <span class="osip-state-tag">Coming soon</span>
-            </a>
-            <a href="pages/notDecided.html" class="osip-state-card">
+              <span class="osip-state-tag">Profile in preparation</span>
+            </div>
+            <div class="osip-state-card is-pending" aria-disabled="true">
               <img class="osip-state-emblem" src="pages/state-rivers.png" alt="Rivers State emblem">
               <span class="osip-state-name">Rivers</span>
-              <span class="osip-state-tag">Coming soon</span>
-            </a>
-            <a href="pages/notDecided.html" class="osip-state-card">
+              <span class="osip-state-tag">Profile in preparation</span>
+            </div>
+            <div class="osip-state-card is-pending" aria-disabled="true">
               <img class="osip-state-emblem" src="pages/state-kano.png" alt="Kano State emblem">
               <span class="osip-state-name">Kano</span>
-              <span class="osip-state-tag">Coming soon</span>
-            </a>
-            <a href="pages/notDecided.html" class="osip-state-card">
+              <span class="osip-state-tag">Profile in preparation</span>
+            </div>
+            <div class="osip-state-card is-pending" aria-disabled="true">
               <img class="osip-state-emblem" src="pages/state-anambra.png" alt="Anambra State emblem">
               <span class="osip-state-name">Anambra</span>
-              <span class="osip-state-tag">Coming soon</span>
-            </a>
+              <span class="osip-state-tag">Profile in preparation</span>
+            </div>
           </div>
         </div>
       </section>
@@ -4266,6 +4686,59 @@
 
         .osip-state-card.is-live .osip-state-tag {
           color: #1a5c3a;
+        }
+
+        /* HP-03: states whose profile is not ready are marked, not linked. They sit
+           flat and unlit so the one live profile is the only thing that invites a click. */
+        .osip-state-card.is-pending {
+          cursor: default;
+          background: #fbfcfb;
+          border-style: dashed;
+        }
+
+        .osip-state-card.is-pending:hover {
+          transform: none;
+          box-shadow: none;
+          border-color: #e5e7eb;
+        }
+
+        .osip-state-card.is-pending .osip-state-emblem {
+          opacity: .55;
+        }
+
+        .osip-state-card.is-pending .osip-state-name {
+          color: #55605a;
+        }
+
+        .osip-state-tag {
+          line-height: 1.5;
+        }
+
+        @media (width < 40rem) {
+          .osip-states-grid {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+          }
+
+          .osip-state-card {
+            padding: 20px 12px;
+            border-radius: 12px;
+          }
+
+          .osip-state-emblem {
+            height: 62px;
+            width: 62px;
+            margin-bottom: 12px;
+          }
+
+          .osip-state-name {
+            font-size: 16px;
+          }
+
+          .osip-state-tag {
+            font-size: 10px;
+            letter-spacing: .08em;
+          }
         }
       </style>
 
@@ -4784,11 +5257,9 @@
         hero.querySelectorAll('.transition-opacity.duration-700').forEach(function (s) { s.classList.add('osip-kenburns'); });
 
         if (!reduced) {
-          var wrap = document.createElement('div');
-          wrap.className = 'osip-orb-wrap';
-          wrap.innerHTML = '<div class="osip-orb osip-orb-amber"></div><div class="osip-orb osip-orb-green"></div>';
-          hero.appendChild(wrap);
-
+          // The amber/green glow orbs are gone: the hero now follows the
+          // DetailedSector treatment, which is a clean photograph under two
+          // flat scrims with no coloured wash over it.
           var cue = document.createElement('div');
           cue.className = 'osip-scroll-cue';
           hero.appendChild(cue);

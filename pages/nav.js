@@ -115,14 +115,14 @@
 
   var NAV =
     '<nav class="bg-white border-b border-gray-100 sticky top-0 z-50">' +
-    '<div class="max-w-[1440px] mx-auto px-6 lg:px-8">' +
-    '<div class="flex items-center justify-between h-[74px]">' +
+    '<div class="nesp-nav-wrap max-w-[1440px] mx-auto px-6 lg:px-8">' +
+    '<div class="nesp-nav-row flex items-center justify-between h-[74px]">' +
     // Both logos sit together on the left, separated by a hairline so they
     // read as two marks rather than one wordmark. The partner logo is stepped
     // down to h-8 here: at its old h-9 it out-weighed the OSIP mark it now
     // stands beside, which it never did alone on the far right.
-    '<div class="flex items-center gap-10">' +
-    '<div class="flex items-center gap-4">' +
+    '<div class="nesp-nav-brand flex items-center gap-10">' +
+    '<div class="nesp-nav-marks flex items-center gap-4">' +
     '<img alt="Partner" class="h-8 w-auto object-contain" src="' + base + 'logoNESP.png">' +
     '<span class="w-px h-6 bg-gray-200" aria-hidden="true"></span>' +
     '<a href="' + HOME + '"><img alt="Logo" class="h-5 w-auto" src="' + base + 'Text.png"></a>' +
@@ -141,14 +141,14 @@
     ' class="w-9 h-9 flex items-center justify-center rounded-full border border-[#047857]/25 text-[#047857] transition hover:bg-[#047857] hover:text-white hover:border-[#047857]">' +
     '<span class="material-symbols-outlined text-[20px]">person</span></a>' +
     '</div>' +
-    '<button id="mobile-nav-toggle" aria-label="Open menu" class="lg:hidden text-[#047857] text-3xl font-light leading-none">☰</button>' +
+    '<button id="mobile-nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"' +
+    ' class="nesp-nav-toggle lg:hidden text-[#047857]"><span class="nesp-nav-toggle-icon" aria-hidden="true">☰</span></button>' +
     '</div>' +
     '<div id="mobile-nav" class="hidden lg:hidden border-t border-gray-100 py-3"><ul class="flex flex-col">' +
     mtop('SECTORS', url.sectors) + mtop('OPPORTUNITIES', url.opportunities) + mtop('REGULATIONS', url.regulations) +
     mtop('DATA', url.data) + mtop('NEWS', url.news) +
-    '<li><a href="' + url.contact + '" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>' +
-    '<li><a href="' + url.profile + '" class="flex items-center gap-2 px-2 py-3 text-sm font-semibold text-[#047857]">' +
-    '<span class="material-symbols-outlined text-[18px]">person</span>My Profile</a></li>' +
+    '<li class="nesp-m-group"><a href="' + url.contact + '" class="block px-2 py-3 text-sm font-semibold text-[#047857]">Contact</a></li>' +
+    '<li><a href="' + url.profile + '" class="block px-2 py-3 text-sm font-semibold text-[#047857]">My Profile</a></li>' +
     '<li class="px-2 pt-2"><a href="' + url.invest + '" class="block text-center bg-[#047857] text-white px-6 py-2.5 text-[13px] font-semibold rounded-sm hover:opacity-90">Invest Now</a></li>' +
     '</ul></div>' +
     '</div></nav>';
@@ -184,7 +184,39 @@
       '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar{width:6px}',
       '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-track{background:transparent;margin:6px 0}',
       '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-thumb{background:#cbd8d2;border-radius:999px}',
-      '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-thumb:hover{background:#047857}'
+      '.nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-thumb:hover{background:#047857}',
+
+      // ---- Responsive header ------------------------------------------------
+      // The hamburger is a real 42px tap target (it was a bare glyph before) and
+      // swaps its own icon, so "open" is visible rather than inferred.
+      // NOTE: no `display` in the base rule. This stylesheet is unlayered and
+      // Tailwind's utilities live in @layer utilities, so an unlayered
+      // `display:inline-flex` here would beat `lg:hidden` and leak the
+      // hamburger onto desktop. Only turn it on below the lg breakpoint.
+      '.nesp-nav-toggle{align-items:center;justify-content:center;width:42px;height:42px;margin-right:-8px;border-radius:8px;font-size:26px;font-weight:300;line-height:1;transition:background .18s ease,color .18s ease}',
+      '@media (width < 64rem){.nesp-nav-toggle{display:inline-flex}}',
+      '.nesp-nav-toggle:hover{background:#f1f8f4}',
+      '.nesp-nav-toggle-icon{display:block;pointer-events:none}',
+      // A long menu must not push the page: cap it to the viewport and scroll.
+      '#mobile-nav{max-height:calc(100svh - 74px);overflow-y:auto;overscroll-behavior:contain}',
+      '#mobile-nav a{border-radius:6px}',
+      // Contact + My Profile read as account business rather than site sections,
+      // so a hairline sets them off from the uppercase nav list above.
+      '#mobile-nav .nesp-m-group{margin-top:.5rem;padding-top:.5rem;border-top:1px solid #f0f2f1}',
+      '#mobile-nav a:hover{background:#f1f8f4}',
+      // Tablet / large phone: tighten the gutters the desktop bar assumes.
+      '@media (width < 64rem){.nesp-nav-brand{gap:0}}',
+      // Phone: shorter bar, smaller marks, so the logos stop crowding the toggle.
+      '@media (width < 40rem){' +
+      '.nesp-nav-wrap{padding-left:1rem;padding-right:1rem}' +
+      '.nesp-nav-row{height:62px}' +
+      '.nesp-nav-marks{gap:.625rem}' +
+      '.nesp-nav-marks img[alt="Partner"]{height:1.5rem}' +
+      '.nesp-nav-marks img[alt="Logo"]{height:.9375rem}' +
+      '#mobile-nav{max-height:calc(100svh - 62px)}' +
+      '}',
+      // Very narrow (<=360px): drop the partner mark rather than let the row wrap.
+      '@media (width < 22.5rem){.nesp-nav-marks img[alt="Partner"],.nesp-nav-marks span[aria-hidden]{display:none}}'
     ].join('');
     document.head.appendChild(st);
   }
@@ -229,12 +261,46 @@
   });
 
   // Mobile hamburger toggle.
+  //
+  // The panel's open/closed state now drives three things at once : the panel
+  // itself, the button's icon (hamburger <-> cross) and `aria-expanded`, so
+  // they can never disagree. Everything routes through setOpen() for that
+  // reason; don't toggle the 'hidden' class from anywhere else.
   var toggle = nav.querySelector('#mobile-nav-toggle');
   var mobile = nav.querySelector('#mobile-nav');
   if (toggle && mobile) {
-    toggle.addEventListener('click', function () { mobile.classList.toggle('hidden'); });
+    var icon = toggle.querySelector('.nesp-nav-toggle-icon') || toggle;
+
+    function setOpen(open) {
+      mobile.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      icon.textContent = open ? '✕' : '☰';
+    }
+
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setOpen(mobile.classList.contains('hidden'));
+    });
+
+    // Tapping a destination should close the sheet behind you.
+    mobile.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setOpen(false);
+    });
+
+    // Tap-away and Esc, the two things people try when a mobile menu is open.
+    document.addEventListener('click', function (e) {
+      if (mobile.classList.contains('hidden')) return;
+      if (mobile.contains(e.target) || toggle.contains(e.target)) return;
+      setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' || e.key === 'Esc') setOpen(false);
+    });
+
+    // Crossing into desktop must also reset the icon, not just hide the panel.
     window.addEventListener('resize', function () {
-      if (window.matchMedia('(min-width: 1024px)').matches) mobile.classList.add('hidden');
+      if (window.matchMedia('(min-width: 1024px)').matches) setOpen(false);
     });
   }
 })();
