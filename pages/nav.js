@@ -99,12 +99,20 @@
         { t: 'OSIP Help Desk', d: 'Investor support services.', href: base + 'Contact.html' }
       ]
     },
+    // UX-NAV-04: all four entries used to open Regulation.html itself, so the
+    // menu promised detail and delivered a general page. The audit's example was
+    // this menu's own "Tax & Fiscal Policy". Each entry now opens the section it
+    // names, which REG-01 gave the page. The labels mirror those sections rather
+    // than describing content that is not there: the old "Technical Guidelines"
+    // had no block to land on and is gone.
     'REGULATIONS': {
       head: 'Regulations & Compliance', items: [
-        { t: 'Legislation & Acts', d: 'Electricity Act, PIA & core energy laws.', href: base + 'Regulation.html' },
-        { t: 'Technical Guidelines', d: 'Licensing & mini-grid rules.', href: base + 'Regulation.html' },
-        { t: 'Tax & Fiscal Policy', d: 'Incentives & pioneer status.', href: base + 'Regulation.html' },
-        { t: 'Regulatory Bodies', d: 'NERC, REA, NIPC & more.', href: base + 'Regulation.html' }
+        { t: 'Core Laws & Policies', d: 'Electricity Act, PIA, NIEP & the core energy laws.', href: base + 'Regulation.html#core-laws' },
+        { t: 'Business Registration', d: 'CAC incorporation, NIPC registration & licensing.', href: base + 'Regulation.html#registration' },
+        { t: 'Tax & Fiscal Policy', d: 'Rates, Pioneer Status & equipment reliefs.', href: base + 'Regulation.html#tax' },
+        { t: 'Import & Export', d: 'Duty treatment, SONCAP conformity & free zones.', href: base + 'Regulation.html#trade' },
+        { t: 'Treaties & Immigration', d: 'Investment guarantees, CERPAC & expatriate quota.', href: base + 'Regulation.html#treaties' },
+        { t: 'Regulatory Bodies', d: 'NERC, REA & NIPC.', href: base + 'Regulation.html#bodies' }
       ]
     },
     'DATA & INSIGHTS': {
@@ -298,7 +306,13 @@
       '#mobile-nav{max-height:calc(100svh - 62px)}' +
       '}',
       // Very narrow (<=360px): drop the partner mark rather than let the row wrap.
-      '@media (width < 22.5rem){.nesp-nav-marks img[alt="Partner"],.nesp-nav-marks span[aria-hidden]{display:none}}'
+      '@media (width < 22.5rem){.nesp-nav-marks img[alt="Partner"],.nesp-nav-marks span[aria-hidden]{display:none}}',
+      // The header is sticky, so an in-page jump used to park the target under it
+      // and the reader landed on body copy with the section heading hidden above.
+      // Every anchor target now keeps the header height clear, so a jump lands on
+      // the heading. measureNav() below fills the variable in from the real
+      // rendered height; the fallback covers the moment before it runs.
+      '[id]{scroll-margin-top:var(--osip-nav-offset,7.5rem)}'
     ].join('');
     document.head.appendChild(st);
   }
@@ -309,6 +323,27 @@
   mount.outerHTML = NAV;
   var nav = document.querySelector('nav.bg-white');
   if (!nav) return;
+
+  // ---- Sticky-header offset for in-page anchors --------------------------
+  // The header height is not a constant: it changes with the breakpoint, and it
+  // changes again when the webfont lands and the nav labels settle. Measuring it
+  // once at parse time gives the wrong number, so re-measure on load, on
+  // fonts.ready and on resize. 20px of clearance keeps the heading off the rule
+  // underneath the header rather than flush against it.
+  function measureNav() {
+    var h = nav.getBoundingClientRect().height;
+    if (h > 0) {
+      document.documentElement.style.setProperty('--osip-nav-offset', (Math.round(h) + 20) + 'px');
+    }
+  }
+  measureNav();
+  window.addEventListener('load', measureNav);
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(measureNav); }
+  var navT;
+  window.addEventListener('resize', function () {
+    clearTimeout(navT);
+    navT = setTimeout(measureNav, 150);
+  });
 
   var file = (location.pathname.split('/').pop() || '').toLowerCase();
   var active = PAGE_ACTIVE[file];

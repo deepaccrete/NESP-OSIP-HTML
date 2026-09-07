@@ -161,186 +161,451 @@
                 </div>
             </div>
             <!-- Intro -->
-            <p class="font-body-md text-on-surface-variant leading-relaxed mb-10 max-w-3xl">
+            <p class="font-body-md text-on-surface-variant leading-relaxed mb-10">
                 Nigeria's energy sector is undergoing a major transformation under the <strong>Petroleum Industry Act
                     (PIA)</strong> and the <strong>Electricity Act 2023</strong>. Browse the core legal frameworks,
                 technical guidelines, and fiscal policies that govern investment across the value chain.
             </p>
-            <!-- Regulation Cards Grid -->
-            <div id="reg-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
-                <article
-                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
-                    data-type="legislation" data-sector="transmission renewables">
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="flex items-center justify-between mb-4">
-                            <span
-                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
-                                    class="material-symbols-outlined text-primary"
-                                    style="font-variation-settings: 'FILL' 1;">gavel</span></span>
-                            <span class="text-label-md text-on-surface-variant font-semibold">2023</span>
-                        </div>
-                        <span
-                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Legislation</span>
-                        <h3
-                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
-                            Electricity Act 2023</h3>
-                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">The comprehensive
-                            legislation governing the power sector value chain.</p>
-                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="notDecided.html">View Full PDF <span
-                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
-                            <span
-                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
-                        </div>
+            <!-- REG-01: this is the general investor reference page now, so it runs
+                 long. The jump strip keeps every topic one click away, and wraps
+                 to as many rows as the screen needs. -->
+            <nav aria-label="On this page" class="flex flex-wrap gap-2 mb-10">
+                <a class="text-label-md font-semibold text-primary bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 hover:bg-primary-container hover:text-white hover:border-primary-container transition-colors" href="#core-laws">Core laws</a>
+                <a class="text-label-md font-semibold text-primary bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 hover:bg-primary-container hover:text-white hover:border-primary-container transition-colors" href="#pathway">Pathway finder</a>
+                <a class="text-label-md font-semibold text-primary bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 hover:bg-primary-container hover:text-white hover:border-primary-container transition-colors" href="#registration">Business registration</a>
+                <a class="text-label-md font-semibold text-primary bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 hover:bg-primary-container hover:text-white hover:border-primary-container transition-colors" href="#tax">Tax &amp; fiscal</a>
+                <a class="text-label-md font-semibold text-primary bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 hover:bg-primary-container hover:text-white hover:border-primary-container transition-colors" href="#trade">Import &amp; export</a>
+                <a class="text-label-md font-semibold text-primary bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 hover:bg-primary-container hover:text-white hover:border-primary-container transition-colors" href="#treaties">Treaties &amp; immigration</a>
+                <a class="text-label-md font-semibold text-primary bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 hover:bg-primary-container hover:text-white hover:border-primary-container transition-colors" href="#bodies">Regulatory bodies</a>
+                <a class="text-label-md font-semibold text-primary bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 hover:bg-primary-container hover:text-white hover:border-primary-container transition-colors" href="#process">Investment journey</a>
+                <a class="text-label-md font-semibold text-primary bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 hover:bg-primary-container hover:text-white hover:border-primary-container transition-colors" href="#faq">FAQ</a>
+            </nav>
+            <!-- Core Laws and Policies. The grid had no heading of its own, so a jump
+                 to it landed on the first card. The wrapper carries the anchor; the
+                 grid keeps its reg-grid id, which the search script below looks up. -->
+            <section id="core-laws">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                    <div>
+                        <span class="text-label-md text-secondary font-bold tracking-widest uppercase">Legal Foundation</span>
+                        <h3 class="font-h3 text-h3 text-primary">Core Laws and Policies</h3>
                     </div>
-                </article>
-                <article
-                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
-                    data-type="legislation" data-sector="gas">
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="flex items-center justify-between mb-4">
+                </div>
+                <!-- Regulation Cards Grid -->
+                <div id="reg-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+                    <article
+                        class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                        data-type="legislation" data-sector="transmission renewables">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary"
+                                        style="font-variation-settings: 'FILL' 1;">gavel</span></span>
+                                <span class="text-label-md text-on-surface-variant font-semibold">2023</span>
+                            </div>
                             <span
-                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
-                                    class="material-symbols-outlined text-primary"
-                                    style="font-variation-settings: 'FILL' 1;">oil_barrel</span></span>
-                            <span class="text-label-md text-on-surface-variant font-semibold">2021</span>
+                                class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Legislation</span>
+                            <h3
+                                class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                                Electricity Act 2023</h3>
+                            <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">The comprehensive
+                                legislation governing the power sector value chain.</p>
+                            <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                                <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                    href="docs/sample-electricity-act-2023.pdf" target="_blank" rel="noopener">View Full PDF <span
+                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <span
+                                    class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                            </div>
                         </div>
-                        <span
-                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Legislation</span>
-                        <h3
-                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
-                            Petroleum Industry Act (PIA)</h3>
-                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Fundamental reform of the
-                            oil &amp; gas regulatory and fiscal framework.</p>
-                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="notDecided.html">View Full PDF <span
-                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                    </article>
+                    <article
+                        class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                        data-type="legislation" data-sector="gas">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary"
+                                        style="font-variation-settings: 'FILL' 1;">oil_barrel</span></span>
+                                <span class="text-label-md text-on-surface-variant font-semibold">2021</span>
+                            </div>
                             <span
-                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                                class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Legislation</span>
+                            <h3
+                                class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                                Petroleum Industry Act (PIA)</h3>
+                            <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Fundamental reform of the
+                                oil &amp; gas regulatory and fiscal framework.</p>
+                            <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                                <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                    href="docs/sample-petroleum-industry-act.pdf" target="_blank" rel="noopener">View Full PDF <span
+                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <span
+                                    class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                            </div>
                         </div>
+                    </article>
+                    <article
+                        class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                        data-type="policy" data-sector="renewables">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary"
+                                        style="font-variation-settings: 'FILL' 1;">solar_power</span></span>
+                                <span class="text-label-md text-on-surface-variant font-semibold">2015</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Policy</span>
+                            <h3
+                                class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                                National Renewable Energy Policy (NREP)</h3>
+                            <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Framework for achieving
+                                Nigeria's green energy mix targets by 2030.</p>
+                            <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                                <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                    href="docs/sample-national-renewable-energy-policy.pdf" target="_blank" rel="noopener">View Full PDF <span
+                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <span
+                                    class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article
+                        class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                        data-type="technical" data-sector="renewables transmission">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary"
+                                        style="font-variation-settings: 'FILL' 1;">bolt</span></span>
+                                <span class="text-label-md text-on-surface-variant font-semibold">2016</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Technical
+                                Guidelines</span>
+                            <h3
+                                class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                                NERC Mini-Grid Regulations</h3>
+                            <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Rules for developing and
+                                operating isolated and interconnected mini-grids.</p>
+                            <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                                <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                    href="docs/sample-nerc-mini-grid-regulations.pdf" target="_blank" rel="noopener">View Full PDF <span
+                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <span
+                                    class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article
+                        class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                        data-type="tax" data-sector="renewables gas">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary"
+                                        style="font-variation-settings: 'FILL' 1;">savings</span></span>
+                                <span class="text-label-md text-on-surface-variant font-semibold">2022</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Tax
+                                Policy</span>
+                            <h3
+                                class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                                Pioneer Status Incentive (NIPC)</h3>
+                            <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Tax holidays and fiscal
+                                incentives for qualifying energy investments.</p>
+                            <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                                <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                    href="docs/sample-pioneer-status-incentive.pdf" target="_blank" rel="noopener">View Full PDF <span
+                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <span
+                                    class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article
+                        class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                        data-type="technical" data-sector="gas transmission">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary"
+                                        style="font-variation-settings: 'FILL' 1;">groups</span></span>
+                                <span class="text-label-md text-on-surface-variant font-semibold">2010</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Technical
+                                Guidelines</span>
+                            <h3
+                                class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                                NOGICD Local Content Guidelines</h3>
+                            <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Local workforce and
+                                procurement requirements across the value chain.</p>
+                            <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                                <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                    href="docs/sample-nogicd-local-content-guidelines.pdf" target="_blank" rel="noopener">View Full PDF <span
+                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <span
+                                    class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article
+                        class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                        data-type="policy" data-sector="renewables transmission">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
+                                        class="material-symbols-outlined text-primary"
+                                        style="font-variation-settings: 'FILL' 1;">policy</span></span>
+                                <span class="text-label-md text-on-surface-variant font-semibold">2025</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Policy</span>
+                            <h3
+                                class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
+                                National Integrated Electricity Policy (NIEP)</h3>
+                            <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">The umbrella policy for
+                                the electricity sector, sitting over the Electricity Act 2023.</p>
+                            <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
+                                <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                    href="docs/sample-national-integrated-electricity-policy.pdf" target="_blank" rel="noopener">View Full PDF <span
+                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <span
+                                    class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- No results message -->
+                <div id="reg-no-results" class="hidden flex-col items-center justify-center text-center py-16">
+                    <span class="material-symbols-outlined text-[56px] text-outline-variant mb-3">search_off</span>
+                    <h3 class="font-h4 text-h4 text-primary mb-1">No regulations found</h3>
+                    <p class="text-body-sm text-on-surface-variant">Try adjusting your search terms.</p>
+                </div>
+            </section>
+            <!-- REG-03: the regulatory pathway finder. The five questions come from the
+                 tracker row. Everything it prints is repeated from the sector pages via
+                 pathwaydata.js, which is generated from them, so the tool cannot state a
+                 requirement those pages do not. The safeguards the row lists live in
+                 pathwayfinder.js: "may apply" wording, a disclaimer, source links back to
+                 the sector page, an explicit federal/state note, and a review date that
+                 stays hidden until someone sets one. -->
+            <section id="pathway" class="mt-20">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                    <div>
+                        <span class="text-label-md text-secondary font-bold tracking-widest uppercase">Pathway Finder</span>
+                        <h3 class="font-h3 text-h3 text-primary">Find Your Regulatory Pathway</h3>
                     </div>
-                </article>
-                <article
-                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
-                    data-type="policy" data-sector="renewables">
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="flex items-center justify-between mb-4">
-                            <span
-                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
-                                    class="material-symbols-outlined text-primary"
-                                    style="font-variation-settings: 'FILL' 1;">solar_power</span></span>
-                            <span class="text-label-md text-on-surface-variant font-semibold">2015</span>
-                        </div>
-                        <span
-                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Policy</span>
-                        <h3
-                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
-                            National Renewable Energy Policy (NREP)</h3>
-                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Framework for achieving
-                            Nigeria's green energy mix targets by 2030.</p>
-                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="notDecided.html">View Full PDF <span
-                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
-                            <span
-                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
-                        </div>
+                </div>
+                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">Answer five
+                    questions and this assembles the licensing steps and requirements the OSIP sector pages
+                    publish for that kind of project, and names the page each one came from. It is a starting
+                    point for the conversation with the agency, not a determination of what your project needs.</p>
+                <div id="osip-pathway"></div>
+            </section>
+            <!-- REG-01: business registration. The row asks for it and the closest
+                 source in the build is the Ease of Doing Business copy carried on
+                 every sector page, which is where these figures come from. -->
+            <section id="registration" class="mt-20">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                    <div>
+                        <span class="text-label-md text-secondary font-bold tracking-widest uppercase">Getting Started</span>
+                        <h3 class="font-h3 text-h3 text-primary">Business Registration</h3>
                     </div>
-                </article>
-                <article
-                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
-                    data-type="technical" data-sector="renewables transmission">
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="flex items-center justify-between mb-4">
-                            <span
-                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
-                                    class="material-symbols-outlined text-primary"
-                                    style="font-variation-settings: 'FILL' 1;">bolt</span></span>
-                            <span class="text-label-md text-on-surface-variant font-semibold">2016</span>
+                </div>
+                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">Setting up to invest in Nigerian energy runs through three doors, and none of them are closed to foreign investors. Incorporation goes through the Corporate Affairs Commission, registration with the Nigerian Investment Promotion Commission opens the incentive and facilitation channel, and the sector licence follows from whichever regulator covers the business model you have chosen.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">domain_add</span>
                         </div>
-                        <span
-                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Technical
-                            Guidelines</span>
-                        <h3
-                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
-                            NERC Mini-Grid Regulations</h3>
-                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Rules for developing and
-                            operating isolated and interconnected mini-grids.</p>
-                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="notDecided.html">View Full PDF <span
-                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
-                            <span
-                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
-                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Incorporate with the CAC</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Company incorporation is typically completed within 1 to 7 days. There is no minimum share capital requirement, and 100% foreign ownership is permitted across the energy value chain.</p>
+                        <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1 mt-4 w-fit"
+                            href="https://www.cac.gov.ng" target="_blank" rel="noopener">cac.gov.ng <span
+                                class="material-symbols-outlined text-sm">open_in_new</span></a>
                     </div>
-                </article>
-                <article
-                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
-                    data-type="tax" data-sector="renewables gas">
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="flex items-center justify-between mb-4">
-                            <span
-                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
-                                    class="material-symbols-outlined text-primary"
-                                    style="font-variation-settings: 'FILL' 1;">savings</span></span>
-                            <span class="text-label-md text-on-surface-variant font-semibold">2022</span>
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">how_to_reg</span>
                         </div>
-                        <span
-                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Tax
-                            Policy</span>
-                        <h3
-                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
-                            Pioneer Status Incentive (NIPC)</h3>
-                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Tax holidays and fiscal
-                            incentives for qualifying energy investments.</p>
-                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="notDecided.html">View Full PDF <span
-                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
-                            <span
-                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
-                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Register with the NIPC</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Registration with the Nigerian Investment Promotion Commission is what opens access to fiscal incentives and investment facilitation, including the One-Stop Investment Centre where several federal agencies sit under one roof.</p>
+                        <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1 mt-4 w-fit"
+                            href="https://www.nipc.gov.ng" target="_blank" rel="noopener">nipc.gov.ng <span
+                                class="material-symbols-outlined text-sm">open_in_new</span></a>
                     </div>
-                </article>
-                <article
-                    class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
-                    data-type="technical" data-sector="gas transmission">
-                    <div class="p-6 flex flex-col flex-1">
-                        <div class="flex items-center justify-between mb-4">
-                            <span
-                                class="w-11 h-11 bg-surface-container rounded-lg flex items-center justify-center"><span
-                                    class="material-symbols-outlined text-primary"
-                                    style="font-variation-settings: 'FILL' 1;">groups</span></span>
-                            <span class="text-label-md text-on-surface-variant font-semibold">2010</span>
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">badge</span>
                         </div>
-                        <span
-                            class="inline-flex items-center gap-1.5 text-label-md font-bold uppercase tracking-wider text-secondary mb-2 w-fit">Technical
-                            Guidelines</span>
-                        <h3
-                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors mb-2">
-                            NOGICD Local Content Guidelines</h3>
-                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Local workforce and
-                            procurement requirements across the value chain.</p>
-                        <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="notDecided.html">View Full PDF <span
-                                    class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
-                            <span
-                                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
-                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Licence the business model</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Generation, distribution, embedded generation and mini-grid activity are licensed by NERC under the Electricity Act 2023. Off-grid and rural electrification programmes are coordinated by the Rural Electrification Agency.</p>
+                        <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1 mt-4 w-fit"
+                            href="https://www.nerc.gov.ng" target="_blank" rel="noopener">nerc.gov.ng <span
+                                class="material-symbols-outlined text-sm">open_in_new</span></a>
                     </div>
-                </article>
-            </div>
-            <!-- No results message -->
-            <div id="reg-no-results" class="hidden flex-col items-center justify-center text-center py-16">
-                <span class="material-symbols-outlined text-[56px] text-outline-variant mb-3">search_off</span>
-                <h3 class="font-h4 text-h4 text-primary mb-1">No regulations found</h3>
-                <p class="text-body-sm text-on-surface-variant">Try adjusting your search terms.</p>
-            </div>
+                </div>
+            </section>
+            <!-- REG-01: tax and fiscal policy. Rates and the Pioneer Status terms are
+                 the ones already stated on the sector pages, not new numbers. -->
+            <section id="tax" class="mt-20">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                    <div>
+                        <span class="text-label-md text-secondary font-bold tracking-widest uppercase">Fiscal Framework</span>
+                        <h3 class="font-h3 text-h3 text-primary">Tax and Fiscal Policy</h3>
+                    </div>
+                </div>
+                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">The headline rates are 30% companies income tax and 7.5% VAT, assessed by the Federal Inland Revenue Service. Sitting on top of them is an incentive stack aimed squarely at renewable energy, most of it administered through the NIPC.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Standard rates</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Companies income tax is charged at 30% and VAT at 7.5%. Both apply to energy businesses in the ordinary way, before any incentive is taken into account.</p>
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">savings</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Pioneer Status Incentive</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Eligible projects can claim a companies income tax holiday of three to five years, extendable subject to performance conditions. Applications are made through the NIPC.</p>
+                        <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1 mt-4 w-fit"
+                            href="https://www.nipc.gov.ng" target="_blank" rel="noopener">nipc.gov.ng <span
+                                class="material-symbols-outlined text-sm">open_in_new</span></a>
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Equipment reliefs</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Eligible renewable energy equipment attracts 0% import duty and VAT exemption under the ECOWAS Common External Tariff and the 2026 NTA exemptions, which matters on capital intensive projects.</p>
+                    </div>
+                </div>
+            </section>
+            <!-- REG-01: import and export. The row calls this out as missing, and it
+                 was. The duty, SONCAP and MANCAP wording matches the sector pages. -->
+            <section id="trade" class="mt-20">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                    <div>
+                        <span class="text-label-md text-secondary font-bold tracking-widest uppercase">Cross-Border Trade</span>
+                        <h3 class="font-h3 text-h3 text-primary">Import and Export</h3>
+                    </div>
+                </div>
+                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">Most energy plant is imported, so customs treatment and product conformity belong in the project plan rather than at the end of it. Clearance is handled by the Nigeria Customs Service and conformity by the Standards Organisation of Nigeria.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">payments</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Duty and VAT treatment</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Eligible renewable energy equipment attracts 0% import duty and VAT exemption under the ECOWAS Common External Tariff and the 2026 NTA exemptions. Confirm the tariff line for your specific equipment before you ship.</p>
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Conformity: SONCAP and MANCAP</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">SON administers SONCAP for imported goods and MANCAP for goods manufactured in Nigeria. Imported equipment must meet NIS and IEC standards, with NEMSA certification wherever electrical safety is involved.</p>
+                        <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1 mt-4 w-fit"
+                            href="https://www.son.gov.ng" target="_blank" rel="noopener">son.gov.ng <span
+                                class="material-symbols-outlined text-sm">open_in_new</span></a>
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">factory</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Free zones and export</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Projects sited in a free zone operate under the Nigeria Export Processing Zones Authority regime. Export promotion support is handled by the Nigerian Export Promotion Council.</p>
+                        <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1 mt-4 w-fit"
+                            href="https://www.nepza.gov.ng" target="_blank" rel="noopener">nepza.gov.ng <span
+                                class="material-symbols-outlined text-sm">open_in_new</span></a>
+                    </div>
+                </div>
+            </section>
+            <!-- REG-01: treaties and immigration. CERPAC and the expatriate quota
+                 wording come from the sector pages. The treaty card is the one piece
+                 with no source in this build and needs client sign-off. -->
+            <section id="treaties" class="mt-20">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
+                    <div>
+                        <span class="text-label-md text-secondary font-bold tracking-widest uppercase">Protections and People</span>
+                        <h3 class="font-h3 text-h3 text-primary">Investment Treaties and Immigration</h3>
+                    </div>
+                </div>
+                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">Two questions come up in every cross-border conversation: what protects the capital, and how do you get your people into the country. Both are answered before a project reaches financial close, not after.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">gavel</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Statutory investment guarantees</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">The NIPC Act guarantees against nationalisation or expropriation without due process and compensation, and permits repatriation of capital, profits and dividends through authorised channels.</p>
+                        <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1 mt-4 w-fit"
+                            href="https://www.nipc.gov.ng" target="_blank" rel="noopener">nipc.gov.ng <span
+                                class="material-symbols-outlined text-sm">open_in_new</span></a>
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">handshake</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Treaties and double taxation</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Nigeria is party to bilateral investment treaties and double taxation agreements with a number of partner countries. Whether your home jurisdiction is covered, and on what terms, is worth confirming with the NIPC before you settle the holding structure.</p>
+                    </div>
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">badge</span>
+                        </div>
+                        <h4 class="font-h4 text-h4 text-primary mb-2">Expatriate quota and CERPAC</h4>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Expatriate quota approvals and CERPAC residence permits run through the NIPC One-Stop Investment Centre, where the Federal Ministry of Interior and the Nigeria Immigration Service are represented. Renewable energy applications can be fast-tracked.</p>
+                    </div>
+                </div>
+            </section>
             <!-- Key Regulatory Bodies -->
+            <!-- The UX audit names exactly three regulator links here, NIPC, REA and
+                 NERC, and asks only that they stop pointing at Coming Soon. The URLs
+                 below are the ones the homepage footer already uses. Nothing else is
+                 added: the audit does not ask for a wider agency list. -->
             <section id="bodies" class="mt-20">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
@@ -352,44 +617,43 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
                     <div
                         class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300">
-                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
-                            <span class="material-symbols-outlined text-primary"
-                                style="font-variation-settings: 'FILL' 1;">trending_up</span>
+                        <div
+                            class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden mb-4">
+                            <img src="nipc-logo.png" alt="NIPC logo"
+                                class="w-9 h-9 object-contain" loading="lazy" />
                         </div>
                         <h4 class="font-h4 text-h4 text-primary mb-2">NIPC</h4>
-                        <p class="text-body-sm text-on-surface-variant mb-4">Nigerian Investment Promotion Commission:
-                            Central hub for cross-border investments.</p>
+                        <p class="text-body-sm text-on-surface-variant mb-4">Nigerian Investment Promotion Commission: Central hub for cross-border investments.</p>
                         <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1"
-                            href="notDecided.html">Visit Website <span
+                            href="https://nipc.gov.ng/" target="_blank" rel="noopener">Visit Website <span
                                 class="material-symbols-outlined text-sm">open_in_new</span></a>
                     </div>
                     <div
                         class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300">
-                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
-                            <span class="material-symbols-outlined text-primary"
-                                style="font-variation-settings: 'FILL' 1;">solar_power</span>
+                        <div
+                            class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden mb-4">
+                            <img src="REA-logo.png" alt="REA logo"
+                                class="w-9 h-9 object-contain" loading="lazy" />
                         </div>
                         <h4 class="font-h4 text-h4 text-primary mb-2">REA</h4>
-                        <p class="text-body-sm text-on-surface-variant mb-4">Rural Electrification Agency: Responsible
-                            for off-grid and renewable power deployments.</p>
+                        <p class="text-body-sm text-on-surface-variant mb-4">Rural Electrification Agency: Responsible for off-grid and renewable power deployments.</p>
                         <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1"
-                            href="notDecided.html">Visit Website <span
+                            href="https://rea.gov.ng/" target="_blank" rel="noopener">Visit Website <span
                                 class="material-symbols-outlined text-sm">open_in_new</span></a>
                     </div>
                     <div
                         class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300">
-                        <div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
-                            <span class="material-symbols-outlined text-primary"
-                                style="font-variation-settings: 'FILL' 1;">account_balance</span>
+                        <div
+                            class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden mb-4">
+                            <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
+                                class="w-9 h-9 object-contain" loading="lazy" />
                         </div>
                         <h4 class="font-h4 text-h4 text-primary mb-2">NERC</h4>
-                        <p class="text-body-sm text-on-surface-variant mb-4">Nigerian Electricity Regulatory Commission:
-                            Primary regulator for the power sector.</p>
+                        <p class="text-body-sm text-on-surface-variant mb-4">Nigerian Electricity Regulatory Commission: Primary regulator for the power sector.</p>
                         <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1"
-                            href="notDecided.html">Visit Website <span
+                            href="https://nerc.gov.ng/" target="_blank" rel="noopener">Visit Website <span
                                 class="material-symbols-outlined text-sm">open_in_new</span></a>
                     </div>
-
                 </div>
             </section>
             <!-- Implementation Journey -->
@@ -721,6 +985,8 @@
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
 <script src="nav.js"></script>
+    <script src="pathwaydata.js"></script>
+    <script src="pathwayfinder.js"></script>
 </body>
 
 </html>

@@ -99,6 +99,10 @@
       while (p && p !== root.parentNode) {
         var n = p.nodeName;
         if (n === 'SCRIPT' || n === 'STYLE' || n === 'ABBR' || n === 'TITLE') return true;
+        // Opt-out for blocks that already say what the acronym means. The Key
+        // Regulatory Agencies cards spell the agency out and put the short form
+        // in brackets right after it, so a hover there explains nothing.
+        if (p.hasAttribute && p.hasAttribute('data-no-glossary')) return true;
         // An <abbr> is not valid inside SVG and would not render, so leave the
         // workflow diagrams and inline icons alone.
         if (p.namespaceURI === SVG_NS) return true;

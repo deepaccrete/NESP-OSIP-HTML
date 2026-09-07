@@ -364,6 +364,90 @@
 
     </main>
 
+
+    <!-- INV-02: the climate finance route. The client asked for a Climate Finance
+         tab leading to the NCCC website, "an optional guided route", and was
+         explicit that it "should not be presented as an OSIP-owned service unless
+         ownership and content are confirmed". So this sits beside the guided flow
+         rather than inside it, every card routes outward or to the sector page
+         that names the source, and the copy says plainly that OSIP administers
+         none of them. Set NCCC_URL in scratchpad/apply_inv02.py, or edit the
+         first card here, once the official address is confirmed. -->
+    <section id="climate-finance" class="bg-surface-container-low border-t border-outline-variant">
+        <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-1 h-10 bg-tertiary-fixed-dim shrink-0" aria-hidden="true"></div>
+                <div>
+                    <p class="font-label-md text-label-md uppercase text-tertiary-fixed-dim font-bold">Optional route</p>
+                    <h2 class="font-h3 text-h3 text-primary">Climate finance</h2>
+                </div>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-8">If your capital is climate or
+                transition finance rather than a straight commercial ticket, these are the routes the OSIP sector
+                pages already point to. <strong class="text-on-surface">OSIP does not administer any of them.</strong>
+                Each one is run by the organisation named on the card, and this page only shows you where to go.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div aria-disabled="true"
+                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4">
+                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">public</span></span>
+                        <span class="min-w-0">
+                            <span class="block font-body-md text-body-md font-semibold text-on-surface">National Council on Climate Change (NCCC)</span>
+                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Nigeria&rsquo;s climate change body and the route the client asked this card to point at.</span>
+                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Official link being confirmed</span>
+                        </span>
+                    </div>
+                    <a href="GreenHydrogen.html#finance"
+                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4 hover:border-primary transition-colors">
+                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">eco</span></span>
+                        <span class="min-w-0">
+                            <span class="block font-body-md text-body-md font-semibold text-on-surface">Global Clean Hydrogen Programme</span>
+                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">A GEF, UNIDO and ECN initiative supporting hydrogen sector development in Nigeria.</span>
+                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on the Green Hydrogen page</span>
+                        </span>
+                    </a>
+                    <a href="GreenHydrogen.html#finance"
+                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4 hover:border-primary transition-colors">
+                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">account_balance</span></span>
+                        <span class="min-w-0">
+                            <span class="block font-body-md text-body-md font-semibold text-on-surface">AfDB Sustainable Energy Fund for Africa (SEFA)</span>
+                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Supports clean energy transition projects, including green hydrogen.</span>
+                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on the Green Hydrogen page</span>
+                        </span>
+                    </a>
+                    <a href="Wind.html#finance"
+                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4 hover:border-primary transition-colors">
+                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">savings</span></span>
+                        <span class="min-w-0">
+                            <span class="block font-body-md text-body-md font-semibold text-on-surface">Green bonds and InfraCredit guarantees</span>
+                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Available for well-structured transactions alongside hybrid capital instruments.</span>
+                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on the Wind and Bioenergy pages</span>
+                        </span>
+                    </a>
+                    <a href="CleanCooking.html#finance"
+                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4 hover:border-primary transition-colors">
+                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">co2</span></span>
+                        <span class="min-w-0">
+                            <span class="block font-body-md text-body-md font-semibold text-on-surface">Carbon and results-based finance</span>
+                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Concessional capital, carbon finance and RBF mechanisms underpin most clean cooking models.</span>
+                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on the Clean Cooking page</span>
+                        </span>
+                    </a>
+                    <a href="Sector.html"
+                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4 hover:border-primary transition-colors">
+                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">handshake</span></span>
+                        <span class="min-w-0">
+                            <span class="block font-body-md text-body-md font-semibold text-on-surface">Concessional and blended finance</span>
+                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Grants, concessional debt and development finance combined with private capital.</span>
+                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on all ten sector pages</span>
+                        </span>
+                    </a>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-6">Eligibility, terms and whether a
+                facility is open at all are decided by the organisation running it, not by OSIP. Confirm directly
+                with them before you plan around any of this.</p>
+        </div>
+    </section>
+
     <div id="site-footer"></div>
 
     <script>
