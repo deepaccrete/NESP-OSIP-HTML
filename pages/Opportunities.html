@@ -164,8 +164,8 @@
         /* Sidebar as overlay on mobile */
         #sidebar.mobile-overlay {
             position: fixed;
-            top: 74px;
-            /* below the 74px header */
+            top: 68px;
+            /* below the 68px header */
             left: 0;
             bottom: 0;
             height: auto;
@@ -241,10 +241,15 @@
             display: none;
         }
 
-        /* Prevent horizontal overflow on small screens (Safari/Mac safe) */
+        /* Prevent horizontal overflow on small screens (Safari/Mac safe).
+           `clip`, NOT `hidden`: overflow-x:hidden on html/body turns the root
+           into a scroll container, and a scroll container kills position:sticky
+           for everything inside it. That is the only reason the header did not
+           stick on this page while it stuck everywhere else. `clip` trims the
+           same overflow without creating that scroll container. */
         html,
         body {
-            overflow-x: hidden;
+            overflow-x: clip;
             max-width: 100%;
         }
 
@@ -290,6 +295,76 @@
             font-size: 14px;
             color: #c98a00;
         }
+
+        /* Every opportunity card keeps the shape it has on the Opportunities page:
+           314 wide, 404 tall. auto-fill packs as many 314px tracks as the row can
+           hold and centres them, so the card shrinks with a narrow screen but never
+           stretches into a slab on a wide one, and no page needs column breakpoints
+           of its own any more. The cap on the card itself is the backstop for any
+           grid that is not this one. */
+        .opp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0, 314px));
+            /* start, not centre: the first card lines up with the heading's gold
+               rule above it. Centred, a part filled row floated away from the
+               heading and read as though it belonged to nothing. */
+            justify-content: start;
+            gap: 24px;
+        }
+
+        .opportunity-card {
+            min-height: 404px;
+            max-width: 314px;
+            width: 100%;
+            margin-inline: auto;
+        }
+
+        @media (max-width: 400px) {
+            .opp-grid {
+                gap: 16px;
+            }
+        }
+
+        /* OPP-02: readiness tag. Six values share one neutral pill and only the
+           dot changes colour, so a card can carry both the gold sector badge and
+           a readiness state without turning into a row of traffic lights. Change
+           a card's data-readiness to any of concept / preparation / interest /
+           tender / financing / validation and the dot follows. */
+        .readiness-tag {
+            /* flex, not inline-flex: the tag takes its own row under the sector
+               badge on every card. Left inline it sat beside a short badge and
+               wrapped under a long one, so no two cards in a row lined up. */
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 3px 10px 3px 8px;
+            border-radius: 9999px;
+            background: #fbfcfb;
+            border: 1px solid #e2e8e5;
+            color: #55635c;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        .readiness-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #9aa8a1;
+            flex: 0 0 auto;
+        }
+
+        .readiness-tag[data-readiness="concept"] .readiness-dot { background: #94a3b8; }
+        .readiness-tag[data-readiness="preparation"] .readiness-dot { background: #d19a2e; }
+        .readiness-tag[data-readiness="interest"] .readiness-dot { background: #1f9d5f; }
+        .readiness-tag[data-readiness="tender"] .readiness-dot { background: #3b7dd8; }
+        .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
+        .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
     </style>
 </head>
 
@@ -298,9 +373,9 @@
     <div id="site-nav"></div>
 
     </header>
-    <div class="flex w-full relative min-h-[calc(100dvh-74px)] max-w-[1440px] mx-auto">
+    <div class="flex w-full relative min-h-[calc(100dvh-68px)] max-w-[1440px] mx-auto">
         <!-- Backdrop (mobile only, shown when sidebar is open) -->
-        <div id="sidebar-backdrop" class="hidden fixed left-0 right-0 bottom-0 top-[74px] bg-black/40 z-30 lg:hidden">
+        <div id="sidebar-backdrop" class="hidden fixed left-0 right-0 bottom-0 top-[68px] bg-black/40 z-30 lg:hidden">
         </div>
         <!-- Side Navigation Bar (Filters) -->
         <aside id="sidebar"
@@ -613,7 +688,7 @@
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
                 <div class="flex items-center gap-4">
                     <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
-                    <h1 class="font-headline-lg text-[28px] sm:text-[36px] font-bold text-primary">Opportunities</h1>
+                    <h1 class="font-headline-lg text-[28px] sm:text-[36px] font-bold text-primary">Investment Opportunities</h1>
                 </div>
                 <div class="relative w-full md:w-96">
                     <input id="search-opportunities"
@@ -624,10 +699,10 @@
                 </div>
             </div>
             <!-- Opportunities Grid — responsive, wraps & reflows like the News grid -->
-            <div id="opportunities-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+            <div id="opportunities-grid" class="opp-grid">
                 <!-- Opportunity Card 1 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="grid" data-state="kano" data-scheme="nipp" data-stage="execution"
+                    data-sector="grid" data-state="kano" data-scheme="nipp" data-stage="execution" data-readiness="interest"
                     style="transform: scale(1);">
                     <div class="mb-6">
                         <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
@@ -636,6 +711,7 @@
                             AKK Gas Pipeline Project</h3>
                         <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid
                             Infrastructure</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -662,7 +738,7 @@
                 </div>
                 <!-- Opportunity Card 2 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="grid" data-state="" data-scheme="ritcs" data-stage="tendering"
+                    data-sector="grid" data-state="" data-scheme="ritcs" data-stage="tendering" data-readiness="tender"
                     style="transform: scale(1);">
                     <div class="mb-6">
                         <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
@@ -671,6 +747,7 @@
                             Sokoto-Badagry Superhighway</h3>
                         <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid
                             Infrastructure</span>
+                            <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot" aria-hidden="true"></span>Tender / procurement</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -696,7 +773,7 @@
                 </div>
                 <!-- Opportunity Card 7 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="grid" data-state="lagos" data-scheme="rhidf" data-stage="tendering"
+                    data-sector="grid" data-state="lagos" data-scheme="rhidf" data-stage="tendering" data-readiness="tender"
                     style="transform: scale(1);">
                     <div class="mb-6">
                         <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
@@ -705,6 +782,7 @@
                             Lagos Fourth Mainland Bridge</h3>
                         <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid
                             Infrastructure</span>
+                            <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot" aria-hidden="true"></span>Tender / procurement</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -730,7 +808,7 @@
                 </div>
                 <!-- Opportunity Card 3 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="grid" data-state="lagos" data-scheme="rhidf" data-stage="execution"
+                    data-sector="grid" data-state="lagos" data-scheme="rhidf" data-stage="execution" data-readiness="interest"
                     style="transform: scale(1);">
                     <div class="mb-6">
                         <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
@@ -739,6 +817,7 @@
                             Lagos-Calabar Coastal Highway</h3>
                         <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid
                             Infrastructure</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -764,7 +843,7 @@
                 </div>
                 <!-- Opportunity Card 4 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="renewable" data-state="" data-scheme="solar-naija" data-stage="planning"
+                    data-sector="renewable" data-state="" data-scheme="solar-naija" data-stage="planning" data-readiness="preparation"
                     style="transform: scale(1);">
                     <div class="mb-6">
                         <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
@@ -773,6 +852,7 @@
                             Solar Power Naija - Phase II</h3>
                         <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                             Renewable Generation</span>
+                            <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot" aria-hidden="true"></span>Under preparation</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -798,7 +878,7 @@
                 </div>
                 <!-- Opportunity Card 8 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="grid" data-state="delta" data-scheme="nipp" data-stage="execution"
+                    data-sector="grid" data-state="delta" data-scheme="nipp" data-stage="execution" data-readiness="interest"
                     style="transform: scale(1);">
                     <div class="mb-6">
                         <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
@@ -807,6 +887,7 @@
                             Delta Gas-to-Power Plant</h3>
                         <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid
                             Infrastructure</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -832,7 +913,7 @@
                 </div>
                 <!-- Opportunity Card 5 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="storage" data-state="nasarawa" data-scheme="" data-stage="execution">
+                    data-sector="storage" data-state="nasarawa" data-scheme="" data-stage="execution" data-readiness="interest">
                     <div class="mb-6">
                         <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
                             2024-MIN-15</p>
@@ -840,6 +921,7 @@
                             Nasarawa Lithium Processing Hub</h3>
                         <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                             Energy Storage</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -865,7 +947,7 @@
                 </div>
                 <!-- Opportunity Card 6 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="renewable" data-state="rivers" data-scheme="" data-stage="tendering">
+                    data-sector="renewable" data-state="rivers" data-scheme="" data-stage="tendering" data-readiness="tender">
                     <div class="mb-6">
                         <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
                             2025-H2-01</p>
@@ -873,6 +955,7 @@
                             Green Hydrogen Niger Delta Pilot</h3>
                         <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                             Renewable Generation</span>
+                            <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot" aria-hidden="true"></span>Tender / procurement</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -898,7 +981,7 @@
                 </div>
                 <!-- Opportunity Card 9 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="storage" data-state="kano" data-scheme="" data-stage="planning"
+                    data-sector="storage" data-state="kano" data-scheme="" data-stage="planning" data-readiness="preparation"
                     style="transform: scale(1);">
                     <div class="mb-6">
                         <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
@@ -907,6 +990,7 @@
                             Kano Solid Minerals Processing Hub</h3>
                         <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                             Energy Storage</span>
+                            <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot" aria-hidden="true"></span>Under preparation</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>

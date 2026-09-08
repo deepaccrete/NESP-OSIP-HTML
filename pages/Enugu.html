@@ -72,6 +72,76 @@
             color: #c98a00;
         }
 
+        /* Every opportunity card keeps the shape it has on the Opportunities page:
+           314 wide, 404 tall. auto-fill packs as many 314px tracks as the row can
+           hold and centres them, so the card shrinks with a narrow screen but never
+           stretches into a slab on a wide one, and no page needs column breakpoints
+           of its own any more. The cap on the card itself is the backstop for any
+           grid that is not this one. */
+        .opp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0, 314px));
+            /* start, not centre: the first card lines up with the heading's gold
+               rule above it. Centred, a part filled row floated away from the
+               heading and read as though it belonged to nothing. */
+            justify-content: start;
+            gap: 24px;
+        }
+
+        .opportunity-card {
+            min-height: 404px;
+            max-width: 314px;
+            width: 100%;
+            margin-inline: auto;
+        }
+
+        @media (max-width: 400px) {
+            .opp-grid {
+                gap: 16px;
+            }
+        }
+
+        /* OPP-02: readiness tag. Six values share one neutral pill and only the
+           dot changes colour, so a card can carry both the gold sector badge and
+           a readiness state without turning into a row of traffic lights. Change
+           a card's data-readiness to any of concept / preparation / interest /
+           tender / financing / validation and the dot follows. */
+        .readiness-tag {
+            /* flex, not inline-flex: the tag takes its own row under the sector
+               badge on every card. Left inline it sat beside a short badge and
+               wrapped under a long one, so no two cards in a row lined up. */
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 3px 10px 3px 8px;
+            border-radius: 9999px;
+            background: #fbfcfb;
+            border: 1px solid #e2e8e5;
+            color: #55635c;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        .readiness-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #9aa8a1;
+            flex: 0 0 auto;
+        }
+
+        .readiness-tag[data-readiness="concept"] .readiness-dot { background: #94a3b8; }
+        .readiness-tag[data-readiness="preparation"] .readiness-dot { background: #d19a2e; }
+        .readiness-tag[data-readiness="interest"] .readiness-dot { background: #1f9d5f; }
+        .readiness-tag[data-readiness="tender"] .readiness-dot { background: #3b7dd8; }
+        .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
+        .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
+
         /* Scroll-reveal animation (applied only when JS is active) */
         .js-anim .reveal {
             opacity: 0;
@@ -163,9 +233,7 @@
 
 <body class="bg-surface text-on-surface" style="font-family: Inter, sans-serif;">
     <!-- TopNavBar -->
-    <header class="bg-surface border-b border-outline-variant sticky top-0 z-50">
         <div id="site-nav"></div>
-    </header>
 
     <!-- Main Content Canvas -->
     <main class="min-h-screen">
@@ -411,7 +479,7 @@
                         <div class="w-14 h-[3px] bg-[#1a5c3a] mt-3"></div>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+                <div class="opp-grid">
 
                     <!-- Opportunity 1 -->
                     <div
@@ -422,6 +490,7 @@
                                 style="font-family: Manrope, sans-serif;">Enugu Agro-Industrial Cluster</h3>
                             <span class="sector-badge"><span
                                     class="material-symbols-outlined">category</span>Sector : Agriculture</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-[12px] mb-1">Investment Amount</p>
@@ -453,6 +522,7 @@
                                 style="font-family: Manrope, sans-serif;">Enugu Coal-to-Power Programme</h3>
                             <span class="sector-badge"><span
                                     class="material-symbols-outlined">category</span>Sector : Energy &amp; Mining</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-[12px] mb-1">Investment Amount</p>
@@ -484,6 +554,7 @@
                                 style="font-family: Manrope, sans-serif;">Awhum Waterfall Eco-Resort</h3>
                             <span class="sector-badge"><span
                                     class="material-symbols-outlined">category</span>Sector : Tourism &amp; Hospitality</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-[12px] mb-1">Investment Amount</p>

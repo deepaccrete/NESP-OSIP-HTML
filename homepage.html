@@ -3545,52 +3545,178 @@
     /* HP-01 hero, themed to match pages/DetailedSector.html: same 500/550px band,
        same two flat #001d17 scrims over the photograph, same type scale. Top inset
        tracks the real header height (74px desktop / 62px phone). */
-    .osip-hero { min-height: calc(500px + 74px); padding-top: 74px; background-color: #001d17; }
-    .osip-hero-inner { min-height: 500px; padding-top: 3rem; padding-bottom: 3rem; }
+    .osip-hero {
+      min-height: calc(500px + 68px);
+      padding-top: 68px;
+      background-color: #001d17;
+    }
+
+    .osip-hero-inner {
+      min-height: 500px;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
 
     /* The horizontal scrim carries the copy; the bottom wash seats the section
        against the block beneath it. Both are lifted straight from the sector hero. */
     .osip-hero-scrim {
-      background-image: linear-gradient(to right, rgba(0, 29, 23, .95) 0%, rgba(0, 29, 23, .80) 50%, rgba(0, 29, 23, .10) 100%);
+      background-image: linear-gradient(100deg, rgba(0, 29, 23, .94) 0%, rgba(0, 29, 23, .89) 38%, rgba(0, 29, 23, .66) 72%, rgba(0, 29, 23, .18) 100%);
     }
 
     .osip-hero-scrim-b {
-      background-image: linear-gradient(to top, rgba(0, 29, 23, .60) 0%, rgba(0, 29, 23, 0) 50%, rgba(0, 29, 23, 0) 100%);
+      background-image: linear-gradient(to top, rgba(0, 29, 23, .72) 0%, rgba(0, 29, 23, .12) 34%, rgba(0, 29, 23, 0) 58%);
     }
 
-    .osip-hero-title { font-size: 2.25rem; line-height: 1.15; font-weight: 800; letter-spacing: -.025em; margin-bottom: 1.5rem; }
-    .osip-hero-lead { font-size: 1rem; line-height: 1.625; color: rgba(255, 255, 255, .8); margin-bottom: 2.5rem; }
-    .osip-hero-cta { min-height: 44px; font-size: 12px; }
+    .osip-hero-title {
+      font-size: 2.25rem;
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -.022em;
+      margin-bottom: 1.25rem;
+    }
+
+    /* The headline is set in two lines on purpose, with "Energy Future" carried to
+       the second. Below the wide layout the break is dropped and the line wraps
+       where it naturally falls, since a forced break at 420px lands mid-phrase. */
+    .osip-hero-break {
+      display: none;
+    }
+
+    @media (width >=60rem) {
+      .osip-hero-break {
+        display: inline;
+      }
+    }
+
+    .osip-hero-lead {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .88);
+      margin-bottom: 2.25rem;
+    }
+
+    .osip-hero-cta {
+      min-height: 44px;
+      font-size: 12px;
+    }
+
     /* `max-w-[820px]`, `max-w-3xl` and `leading-8` sit in the markup but are absent
        from the frozen Tailwind build, so the headline and lead ran the full width of
        a wide monitor. Re-stated here, scoped to these two sections only. */
-    .osip-hero-copy { max-width: 48rem; }
+    .osip-hero-copy {
+      max-width: 48rem;
+    }
+
+    /* The lead is a long paragraph and at 40rem it broke into five short lines
+       against a hero that is 1440px wide. The column opens up with the viewport
+       instead. It stops short of the full width on purpose: past roughly two
+       thirds the scrim has faded into the photograph and white text stops
+       holding up. The scrim's mid stop moved right to cover the longer line. */
+    /* 60rem, not 64: a 1024px laptop reports about 1009px once its scrollbar is
+       counted, so a 64rem step would have missed the exact machine it was for. */
+    @media (width >=60rem) {
+      .osip-hero-copy {
+        max-width: 62rem;
+      }
+    }
+
+    @media (width >=80rem) {
+      .osip-hero-copy {
+        max-width: 68rem;
+      }
+    }
 
     /* HP-02: compact one-row quick-access strip + clean gap under the hero */
-    .osip-quickaccess { padding-top: 3rem; padding-bottom: 3rem; background-color: #f3f4f2; }
-    .osip-qa-head { margin-bottom: 1.75rem; }
-    .osip-qa-head p { line-height: 2rem; }
-    .osip-qa-card { display: flex; align-items: center; gap: .75rem; padding: 1rem; }
-    .osip-qa-icon { font-size: 26px; flex: 0 0 auto; }
-    .osip-qa-label { flex: 1 1 auto; font-size: 14px; }
-    .osip-qa-arrow { flex: 0 0 auto; transition: transform .3s ease; }
-    .group:hover .osip-qa-arrow { transform: translateX(4px); }
+    .osip-quickaccess {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+      background-color: #f3f4f2;
+    }
+
+    .osip-qa-head {
+      margin-bottom: 1.75rem;
+    }
+
+    .osip-qa-head p {
+      line-height: 2rem;
+    }
+
+    .osip-qa-card {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: 1rem;
+    }
+
+    .osip-qa-icon {
+      font-size: 26px;
+      flex: 0 0 auto;
+    }
+
+    .osip-qa-label {
+      flex: 1 1 auto;
+      font-size: 14px;
+    }
+
+    .osip-qa-arrow {
+      flex: 0 0 auto;
+      transition: transform .3s ease;
+    }
+
+    .group:hover .osip-qa-arrow {
+      transform: translateX(4px);
+    }
 
     @media (width >=40rem) {
-      .osip-hero-title { font-size: 3rem; line-height: 1.1; }
-      .osip-hero-lead { font-size: 1.125rem; }
-      .osip-hero-cta { font-size: 13px; }
-      .osip-quickaccess { padding-top: 3.5rem; }
+      .osip-hero-title {
+        font-size: 3rem;
+        line-height: 1.1;
+      }
+
+      .osip-hero-lead {
+        font-size: 1.125rem;
+      }
+
+      .osip-hero-cta {
+        font-size: 13px;
+      }
+
+      .osip-quickaccess {
+        padding-top: 3.5rem;
+      }
     }
 
     @media (width >=64rem) {
-      .osip-hero { min-height: calc(550px + 74px); }
-      .osip-hero-inner { min-height: 550px; padding-top: 4rem; padding-bottom: 4rem; }
-      .osip-hero-title { font-size: 3.75rem; }
-      .osip-quickaccess { padding-top: 5rem; padding-bottom: 4rem; }
-      .osip-qa-head { margin-bottom: 2rem; }
-      .osip-qa-card { padding: 1.25rem; }
-      .osip-qa-label { font-size: 16px; }
+      .osip-hero {
+        min-height: calc(550px + 68px);
+      }
+
+      .osip-hero-inner {
+        min-height: 550px;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+
+      .osip-hero-title {
+        font-size: 3.75rem;
+      }
+
+      .osip-quickaccess {
+        padding-top: 5rem;
+        padding-bottom: 4rem;
+      }
+
+      .osip-qa-head {
+        margin-bottom: 2rem;
+      }
+
+      .osip-qa-card {
+        padding: 1.25rem;
+      }
+
+      .osip-qa-label {
+        font-size: 16px;
+      }
     }
 
     /* ------------------------------------------------------------------
@@ -3600,22 +3726,42 @@
        ------------------------------------------------------------------ */
 
     /* Quick-access strip: 1 col on phones, 2 on large phones/tablets, 4 on desktop */
-    .osip-qa-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+    .osip-qa-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: .75rem;
+    }
 
     @media (width >=30rem) {
-      .osip-qa-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .osip-qa-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (width >=64rem) {
-      .osip-qa-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+      .osip-qa-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+      }
     }
 
-    /* Phones: the header collapses to 62px, so the hero's top inset follows it;
+    /* Phones: the header collapses to 58px, so the hero's top inset follows it;
        the CTA goes full-bleed because a centred pill reads as unfinished at 360px. */
     @media (width < 40rem) {
-      .osip-hero { padding-top: 62px; min-height: calc(500px + 62px); }
-      .osip-hero-inner { padding-top: 2.5rem; padding-bottom: 3.5rem; }
-      .osip-hero-cta { width: 100%; }
+      .osip-hero {
+        padding-top: 58px;
+        min-height: calc(500px + 58px);
+      }
+
+      .osip-hero-inner {
+        padding-top: 2.5rem;
+        padding-bottom: 3.5rem;
+      }
+
+      .osip-hero-cta {
+        width: 100%;
+      }
+
       /* A left-to-right scrim leaves the right half of a 360px screen unreadable,
          so go vertical and the copy keeps contrast edge to edge. */
       .osip-hero-scrim {
@@ -3626,13 +3772,14 @@
     /* Tablets: keep the scrim angled but stop it fading out under the text. */
     @media (width >=40rem) and (width < 64rem) {
       .osip-hero-scrim {
-        background-image: linear-gradient(to right, rgba(0, 29, 23, .95) 0%, rgba(0, 29, 23, .82) 60%, rgba(0, 29, 23, .30) 100%);
+        background-image: linear-gradient(100deg, rgba(0, 29, 23, .94) 0%, rgba(0, 29, 23, .86) 55%, rgba(0, 29, 23, .34) 100%);
       }
     }
 
     /* Scroll cue: the mouse-wheel capsule is meaningless without a mouse, so on
        touch/narrow screens it becomes a nudging chevron instead. */
-    @media (width < 64rem), (pointer: coarse) {
+    @media (width < 64rem),
+    (pointer: coarse) {
       .osip-scroll-cue {
         width: 26px;
         height: 26px;
@@ -3654,8 +3801,17 @@
     }
 
     @keyframes osip-scroll-chevron {
-      0%, 100% { opacity: .35; transform: translate(-50%, 0) rotate(45deg); }
-      50% { opacity: 1; transform: translate(-50%, 6px) rotate(45deg); }
+
+      0%,
+      100% {
+        opacity: .35;
+        transform: translate(-50%, 0) rotate(45deg);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translate(-50%, 6px) rotate(45deg);
+      }
     }
   </style>
 
@@ -3708,7 +3864,7 @@
         </style>
       </header>
 
-      <section class="osip-hero relative overflow-hidden pt-[72px]" style="font-family: Inter, sans-serif;">
+      <section class="osip-hero relative overflow-hidden" style="font-family: Inter, sans-serif;">
         <div class="absolute inset-0">
           <div class="absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100"><img alt=""
               class="w-full h-full object-cover"
@@ -3717,21 +3873,21 @@
         </div>
         <div class="osip-hero-scrim absolute inset-0 z-10"></div>
         <div class="osip-hero-scrim-b absolute inset-0 z-10"></div>
-        <div
-          class="osip-hero-inner relative z-20 flex items-center w-full px-6 lg:px-8">
+        <div class="osip-hero-inner relative z-20 flex items-center w-full px-6 lg:px-8">
           <div class="w-full max-w-7xl mx-auto">
             <div class="osip-hero-copy">
-            <h1 class="osip-hero-title text-white"
-              style="font-family: Manrope, sans-serif; animation: 0.6s ease 0s 1 normal forwards running fadeUp;">
-              Invest in Nigeria's Clean Energy Future</h1>
-            <p class="osip-hero-lead max-w-2xl"
-              style="animation: 0.7s ease 0s 1 normal forwards running fadeUp;">The One-Stop Investment
-              Platform (OSIP) is Nigeria's single gateway to clean energy investment: regulations, opportunities,
-              incentives and market data in one place.</p>
-            <div class="flex w-full max-w-2xl" style="animation: 0.8s ease 0s 1 normal forwards running fadeUp;">
-              <a href="pages/Opportunities.html"
-                class="osip-hero-cta inline-flex items-center justify-center gap-2 bg-[#FFDDB4] hover:bg-[#e6c78b] text-[#0a1f1a] font-semibold px-6 py-3 rounded-lg tracking-wide transition-all duration-300 text-center">
-                <span class="material-symbols-outlined text-[16px]">explore</span>Explore Investment Opportunities</a>
+              <h1 class="osip-hero-title text-white"
+                style="font-family: Manrope, sans-serif; animation: 0.6s ease 0s 1 normal forwards running fadeUp;">
+                Invest in Nigeria's Clean<br class="osip-hero-break">Energy Future</h1>
+              <p class="osip-hero-lead" style="animation: 0.7s ease 0s 1 normal forwards running fadeUp;">The
+                One-Stop Investment Platform (OSIP) is Nigeria's central gateway for renewable energy and clean energy
+                investment information. Access regulatory requirements, licensing pathways, investment opportunities,
+                incentives, market insights, financing options, and sector-specific guidance, etc., all in one place.
+              </p>
+              <div class="flex w-full max-w-2xl" style="animation: 0.8s ease 0s 1 normal forwards running fadeUp;">
+                <a href="pages/Opportunities.html"
+                  class="osip-hero-cta inline-flex items-center justify-center gap-2 bg-[#FFDDB4] hover:bg-[#e6c78b] text-[#0a1f1a] font-semibold px-6 py-3 rounded-lg tracking-wide transition-all duration-300 text-center">
+                  <span class="material-symbols-outlined text-[16px]">explore</span>Explore Investment Opportunities</a>
               </div>
             </div>
           </div>
@@ -3766,32 +3922,28 @@
               <span
                 class="osip-qa-label font-bold text-[#111827] leading-snug group-hover:text-[#004225] transition-colors"
                 style="font-family: Manrope, sans-serif;">I Want to Invest</span>
-              <span
-                class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
+              <span class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
             </a><a href="pages/Regulation.html"
               class="osip-qa-card group bg-white border border-[#e5e7eb] rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300">
               <span class="osip-qa-icon material-symbols-outlined text-[#004225]">gavel</span>
               <span
                 class="osip-qa-label font-bold text-[#111827] leading-snug group-hover:text-[#004225] transition-colors"
                 style="font-family: Manrope, sans-serif;">I Need Licences &amp; Approvals</span>
-              <span
-                class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
+              <span class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
             </a><a href="pages/Data.html"
               class="osip-qa-card group bg-white border border-[#e5e7eb] rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300">
               <span class="osip-qa-icon material-symbols-outlined text-[#004225]">insights</span>
               <span
                 class="osip-qa-label font-bold text-[#111827] leading-snug group-hover:text-[#004225] transition-colors"
                 style="font-family: Manrope, sans-serif;">I Need Market Data</span>
-              <span
-                class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
+              <span class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
             </a><a href="pages/Contact.html"
               class="osip-qa-card group bg-white border border-[#e5e7eb] rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300">
               <span class="osip-qa-icon material-symbols-outlined text-[#004225]">support_agent</span>
               <span
                 class="osip-qa-label font-bold text-[#111827] leading-snug group-hover:text-[#004225] transition-colors"
                 style="font-family: Manrope, sans-serif;">I Need Help</span>
-              <span
-                class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
+              <span class="osip-qa-arrow material-symbols-outlined text-[18px] text-[#004225]">arrow_forward</span>
             </a></div>
         </div>
       </section>
@@ -3816,22 +3968,24 @@
           min-width: 0;
         }
 
-        .osip-opp-head > a {
+        .osip-opp-head>a {
           flex: 0 0 auto;
         }
 
         /* Stacked layout: full width on phones, hugs its own label from sm up
            instead of stretching across the column. */
         @media (width >=40rem) and (width < 64rem) {
-          .osip-opp-head > a {
+          .osip-opp-head>a {
             align-self: flex-start;
           }
         }
 
         .osip-opp-grid {
           display: grid;
-          grid-template-columns: minmax(0, 1fr);
-          gap: 16px;
+          grid-template-columns: repeat(auto-fit, minmax(0, 314px));
+          /* start, not centre: the first card lines up with the heading above it. */
+          justify-content: start;
+          gap: 24px;
         }
 
         /* ---- verbatim from pages/Opportunities.html ---- */
@@ -3866,6 +4020,76 @@
           font-size: 14px;
           color: #c98a00;
         }
+
+        /* Every opportunity card keeps the shape it has on the Opportunities page:
+           314 wide, 404 tall. auto-fill packs as many 314px tracks as the row can
+           hold and centres them, so the card shrinks with a narrow screen but never
+           stretches into a slab on a wide one, and no page needs column breakpoints
+           of its own any more. The cap on the card itself is the backstop for any
+           grid that is not this one. */
+        .opp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0, 314px));
+            /* start, not centre: the first card lines up with the heading's gold
+               rule above it. Centred, a part filled row floated away from the
+               heading and read as though it belonged to nothing. */
+            justify-content: start;
+            gap: 24px;
+        }
+
+        .opportunity-card {
+            min-height: 404px;
+            max-width: 314px;
+            width: 100%;
+            margin-inline: auto;
+        }
+
+        @media (max-width: 400px) {
+            .opp-grid {
+                gap: 16px;
+            }
+        }
+
+        /* OPP-02: readiness tag. Six values share one neutral pill and only the
+           dot changes colour, so a card can carry both the gold sector badge and
+           a readiness state without turning into a row of traffic lights. Change
+           a card's data-readiness to any of concept / preparation / interest /
+           tender / financing / validation and the dot follows. */
+        .readiness-tag {
+            /* flex, not inline-flex: the tag takes its own row under the sector
+               badge on every card. Left inline it sat beside a short badge and
+               wrapped under a long one, so no two cards in a row lined up. */
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 3px 10px 3px 8px;
+            border-radius: 9999px;
+            background: #fbfcfb;
+            border: 1px solid #e2e8e5;
+            color: #55635c;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        .readiness-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #9aa8a1;
+            flex: 0 0 auto;
+        }
+
+        .readiness-tag[data-readiness="concept"] .readiness-dot { background: #94a3b8; }
+        .readiness-tag[data-readiness="preparation"] .readiness-dot { background: #d19a2e; }
+        .readiness-tag[data-readiness="interest"] .readiness-dot { background: #1f9d5f; }
+        .readiness-tag[data-readiness="tender"] .readiness-dot { background: #3b7dd8; }
+        .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
+        .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
 
         .osip-opp-grid .font-title-md {
           font-family: 'Manrope', 'Inter', sans-serif !important;
@@ -3940,33 +4164,13 @@
           transition: all .3s ease;
         }
 
-        /* The homepage teaser runs tighter than the full listing page: no 380px floor
-           and trimmed internal spacing, so three cards do not swallow the fold. The
-           markup stays identical to Opportunities.html; only the metrics differ. */
+        /* The teaser used to run tighter than the listing page: no height floor and
+           trimmed internal spacing, so three cards did not swallow the fold. That is
+           gone, because a card should be the same object wherever it appears. It now
+           carries the listing page's own metrics: 314 by 404, 24px padding. */
         .osip-opp-grid .opportunity-card {
-          min-height: 0;
-          padding: 18px 20px;
-        }
-
-        .osip-opp-grid .opportunity-card > .mb-6 {
-          margin-bottom: 14px;
-        }
-
-        .osip-opp-grid .opportunity-card > .mb-4 {
-          margin-bottom: 12px;
-        }
-
-        .osip-opp-grid .inv-box {
-          padding: 10px 12px;
-        }
-
-        .osip-opp-grid .opportunity-card .py-4 {
-          padding-top: 12px;
-          padding-bottom: 12px;
-        }
-
-        .osip-opp-grid .opportunity-card .pt-2 {
-          padding-top: 12px;
+          min-height: 404px;
+          padding: 24px;
         }
 
         /* Same rule as the Explore-by-State cards: an entry that is not live yet is
@@ -4013,7 +4217,7 @@
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
         }
 
-        .osip-opp-grid .space-y-2 > * + * {
+        .osip-opp-grid .space-y-2>*+* {
           margin-top: .5rem;
         }
 
@@ -4061,14 +4265,14 @@
 
         @media (width >=40rem) {
           .osip-opp-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(0, 314px));
             gap: 20px;
           }
         }
 
         @media (width >=64rem) {
           .osip-opp-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(0, 314px));
             gap: 24px;
           }
 
@@ -4080,7 +4284,7 @@
             align-items: flex-start;
           }
 
-          .osip-opp-head > a {
+          .osip-opp-head>a {
             margin-top: 2px;
           }
         }
@@ -4101,8 +4305,9 @@
           </div>
           <div class="osip-opp-grid">
 
-            <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-              data-sector="grid" data-state="kano" data-scheme="nipp" data-stage="execution"
+            <div
+              class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+              data-sector="grid" data-state="kano" data-scheme="nipp" data-stage="execution" data-readiness="interest"
               data-href="pages/detailedOppNew.html">
               <div class="mb-6">
                 <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
@@ -4111,6 +4316,7 @@
                   AKK Gas Pipeline Project</h3>
                 <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Grid
                   Infrastructure</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
               </div>
               <div class="mb-4 inv-box">
                 <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -4136,8 +4342,9 @@
               </div>
             </div>
 
-            <div class="opportunity-card is-pending min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm transition-all duration-300"
-              data-sector="renewable" data-state="rivers" data-scheme="" data-stage="tendering" aria-disabled="true">
+            <div
+              class="opportunity-card is-pending min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm transition-all duration-300"
+              data-sector="renewable" data-state="rivers" data-scheme="" data-stage="tendering" data-readiness="tender" aria-disabled="true">
               <div class="mb-6">
                 <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
                   2025-H2-01</p>
@@ -4145,6 +4352,7 @@
                   Green Hydrogen Niger Delta Pilot</h3>
                 <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Renewable
                   Generation</span>
+                            <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot" aria-hidden="true"></span>Tender / procurement</span>
               </div>
               <div class="mb-4 inv-box">
                 <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -4165,8 +4373,10 @@
               </div>
             </div>
 
-            <div class="opportunity-card is-pending min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm transition-all duration-300"
-              data-sector="renewable" data-state="" data-scheme="solar-naija" data-stage="planning" aria-disabled="true">
+            <div
+              class="opportunity-card is-pending min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm transition-all duration-300"
+              data-sector="renewable" data-state="" data-scheme="solar-naija" data-stage="planning" data-readiness="preparation"
+              aria-disabled="true">
               <div class="mb-6">
                 <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
                   2025-ENE-09</p>
@@ -4174,6 +4384,7 @@
                   Solar Power Naija - Phase II</h3>
                 <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : Renewable
                   Generation</span>
+                            <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot" aria-hidden="true"></span>Under preparation</span>
               </div>
               <div class="mb-4 inv-box">
                 <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -4251,49 +4462,44 @@
               More</a>
           </div>
           <div>
-            <div class="osip-about-img osip-gallery relative bg-gray-100 overflow-hidden shadow-sm">
-              <img alt="Rooftop solar array at sunrise" class="osip-gallery-slide is-active"
-                src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=1200&q=80">
-              <img alt="Onshore wind turbines across open grassland" class="osip-gallery-slide"
-                src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1200&q=80">
-              <img alt="Grid-scale battery energy storage units" class="osip-gallery-slide"
-                src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&w=1200&q=80">
-              <div class="osip-gallery-scrim"></div>
-              <div class="osip-gallery-dots" aria-hidden="true">
-                <span class="is-active"></span><span></span><span></span>
-              </div>
-              <div class="osip-gallery-nav">
-                <button type="button" class="osip-gallery-btn" data-dir="-1" aria-label="Previous image">
-                  <span class="material-symbols-outlined">chevron_left</span></button>
-                <button type="button" class="osip-gallery-btn" data-dir="1" aria-label="Next image">
-                  <span class="material-symbols-outlined">chevron_right</span></button>
-              </div>
+            <!-- Video walkthrough. Same facade the sector pages use under Technical
+                 and Safety: the thumbnail is this section's own photograph and the
+                 YouTube iframe is only built on the first click, so nothing is
+                 requested from youtube.com until a visitor asks for it. Swap
+                 data-video-id once the real overview film is cut. -->
+            <div class="osip-about-img osip-video relative overflow-hidden shadow-sm"
+              data-video-id="aqz-KE-bpKQ">
+              <button type="button" class="osip-video-cover" aria-label="Play the OSIP overview film">
+                <img alt="Rooftop solar array at sunrise"
+                  src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=1200&q=80">
+                <span class="osip-video-play" aria-hidden="true">
+                  <span class="material-symbols-outlined">play_arrow</span>
+                </span>
+              </button>
             </div>
           </div>
         </div>
       </section>
 
       <script>
-        // Why OSIP gallery. Manual only: no autoplay, so nothing on the homepage
-        // moves without the reader asking it to.
+        // Why OSIP film. The iframe is created on click and never before, so the
+        // homepage makes no request to youtube.com unless a reader asks for it.
         (function () {
-          var g = document.querySelector('.osip-gallery');
-          if (!g) return;
-          var slides = g.querySelectorAll('.osip-gallery-slide');
-          var dots = g.querySelectorAll('.osip-gallery-dots span');
-          if (slides.length < 2) return;
-          var i = 0;
-
-          function go(step) {
-            slides[i].classList.remove('is-active');
-            if (dots[i]) dots[i].classList.remove('is-active');
-            i = (i + step + slides.length) % slides.length;
-            slides[i].classList.add('is-active');
-            if (dots[i]) dots[i].classList.add('is-active');
-          }
-
-          g.querySelectorAll('.osip-gallery-btn').forEach(function (b) {
-            b.addEventListener('click', function () { go(parseInt(b.getAttribute('data-dir'), 10)); });
+          document.querySelectorAll('.osip-video').forEach(function (holder) {
+            var id = holder.getAttribute('data-video-id');
+            var cover = holder.querySelector('.osip-video-cover');
+            if (!id || !cover) return;
+            cover.addEventListener('click', function () {
+              if (holder.classList.contains('is-playing')) return;
+              var iframe = document.createElement('iframe');
+              iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) +
+                '?autoplay=1&rel=0&modestbranding=1';
+              iframe.title = 'OSIP overview';
+              iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+              iframe.setAttribute('allowfullscreen', '');
+              holder.appendChild(iframe);
+              holder.classList.add('is-playing');
+            });
           });
         })();
       </script>
@@ -4429,31 +4635,38 @@
               published opportunities across Nigeria's leading states.</p>
             <div class="w-14 h-[2px] bg-[#1a5c3a] mt-4"></div>
           </div>
-          <div class="osip-states-grid">
-            <a href="pages/Enugu.html" class="osip-state-card is-live">
-              <img class="osip-state-emblem" src="pages/state-enugu.jpg" alt="Enugu State emblem">
-              <span class="osip-state-name">Enugu</span>
-              <span class="osip-state-tag">View profile</span>
-            </a>
-            <div class="osip-state-card is-pending" aria-disabled="true">
-              <img class="osip-state-emblem" src="pages/state-lagos.png" alt="Lagos State emblem">
-              <span class="osip-state-name">Lagos</span>
-              <span class="osip-state-tag">Profile in preparation</span>
-            </div>
-            <div class="osip-state-card is-pending" aria-disabled="true">
-              <img class="osip-state-emblem" src="pages/state-rivers.png" alt="Rivers State emblem">
-              <span class="osip-state-name">Rivers</span>
-              <span class="osip-state-tag">Profile in preparation</span>
-            </div>
-            <div class="osip-state-card is-pending" aria-disabled="true">
-              <img class="osip-state-emblem" src="pages/state-kano.png" alt="Kano State emblem">
-              <span class="osip-state-name">Kano</span>
-              <span class="osip-state-tag">Profile in preparation</span>
-            </div>
-            <div class="osip-state-card is-pending" aria-disabled="true">
-              <img class="osip-state-emblem" src="pages/state-anambra.png" alt="Anambra State emblem">
-              <span class="osip-state-name">Anambra</span>
-              <span class="osip-state-tag">Profile in preparation</span>
+          <!-- All 36 states and the FCT, on a rail that drifts right to left. The
+               five cards below are the no-script fallback; the script replaces them
+               with the full set, twice over, so the loop has no seam. -->
+          <div class="osip-states-marquee">
+            <div class="osip-states-track">
+              <div class="osip-states-set">
+                <a href="pages/Enugu.html" class="osip-state-card is-live">
+                  <img class="osip-state-emblem" src="pages/state-enugu.jpg" alt="Enugu State emblem">
+                  <span class="osip-state-name">Enugu</span>
+                  <span class="osip-state-tag">View profile</span>
+                </a>
+                <div class="osip-state-card is-pending" aria-disabled="true">
+                  <img class="osip-state-emblem" src="pages/state-lagos.png" alt="Lagos State emblem">
+                  <span class="osip-state-name">Lagos</span>
+                  <span class="osip-state-tag">Profile in preparation</span>
+                </div>
+                <div class="osip-state-card is-pending" aria-disabled="true">
+                  <img class="osip-state-emblem" src="pages/state-rivers.png" alt="Rivers State emblem">
+                  <span class="osip-state-name">Rivers</span>
+                  <span class="osip-state-tag">Profile in preparation</span>
+                </div>
+                <div class="osip-state-card is-pending" aria-disabled="true">
+                  <img class="osip-state-emblem" src="pages/state-kano.png" alt="Kano State emblem">
+                  <span class="osip-state-name">Kano</span>
+                  <span class="osip-state-tag">Profile in preparation</span>
+                </div>
+                <div class="osip-state-card is-pending" aria-disabled="true">
+                  <img class="osip-state-emblem" src="pages/state-anambra.png" alt="Anambra State emblem">
+                  <span class="osip-state-name">Anambra</span>
+                  <span class="osip-state-tag">Profile in preparation</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -4461,12 +4674,71 @@
                people who scan; this catches the reader who has just finished the
                five cards and wants the other 32. -->
           <div class="osip-states-foot">
-            <span class="osip-states-count">Showing 5 of 37 territories</span>
-            <a href="pages/States.html" class="osip-states-more">See all 36 states and the FCT <span
+            <span class="osip-states-count">1 published profile, 36 in preparation</span>
+            <a href="pages/States.html" class="osip-states-more">Open the states map <span
                 class="material-symbols-outlined">arrow_forward</span></a>
           </div>
         </div>
       </section>
+
+      <script>
+        // Explore by State rail. The five cards in the markup are the fallback; this
+        // builds all 36 states and the FCT, then repeats the set so the loop closes
+        // with no seam. Only a state with an emblem on file gets one: the rest carry
+        // their initials rather than a borrowed crest.
+        (function () {
+          var track = document.querySelector('.osip-states-track');
+          if (!track) return;
+
+          var EMBLEM = {
+            'Enugu': 'pages/state-enugu.jpg',
+            'Lagos': 'pages/state-lagos.png',
+            'Rivers': 'pages/state-rivers.png',
+            'Kano': 'pages/state-kano.png',
+            'Anambra': 'pages/state-anambra.png'
+          };
+          // HP-03 still holds: only a published profile is a link.
+          var LIVE = { 'Enugu': 'pages/Enugu.html' };
+
+          // The five that were already on the page lead, in their existing order,
+          // then the remaining 32 alphabetically.
+          var ORDER = [
+            'Enugu', 'Lagos', 'Rivers', 'Kano', 'Anambra',
+            'Abia', 'Adamawa', 'Akwa Ibom', 'Bauchi', 'Bayelsa', 'Benue', 'Borno',
+            'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'FCT Abuja', 'Gombe',
+            'Imo', 'Jigawa', 'Kaduna', 'Katsina', 'Kebbi', 'Kogi', 'Kwara', 'Nasarawa',
+            'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau', 'Sokoto', 'Taraba',
+            'Yobe', 'Zamfara'
+          ];
+
+          // Three letters, not two: at two, Bauchi and Bayelsa produced the same
+          // mark and so did Kaduna and Katsina, and those pairs sit next to each
+          // other on the rail. Three is unique across all 37 and reads as a code.
+          function code(name) {
+            return name.replace(/\s+/g, '').slice(0, 3).toUpperCase();
+          }
+
+          function card(name) {
+            var mark = EMBLEM[name]
+              ? '<img class="osip-state-emblem" src="' + EMBLEM[name] + '" alt="' + name + ' State emblem">'
+              : '<span class="osip-state-mark" aria-hidden="true">' + code(name) + '</span>';
+            var body = mark +
+              '<span class="osip-state-name">' + name + '</span>';
+            if (LIVE[name]) {
+              return '<a href="' + LIVE[name] + '" class="osip-state-card is-live">' + body +
+                '<span class="osip-state-tag">View profile</span></a>';
+            }
+            return '<div class="osip-state-card is-pending" aria-disabled="true">' + body +
+              '<span class="osip-state-tag">Profile in preparation</span></div>';
+          }
+
+          var set = ORDER.map(card).join('');
+          track.innerHTML =
+            '<div class="osip-states-set">' + set + '</div>' +
+            '<div class="osip-states-set" aria-hidden="true">' + set + '</div>';
+          track.classList.add('is-rolling');
+        })();
+      </script>
 
       <!-- HP-06: data teaser. The block this replaces was a 420px "MAP" placeholder and
            two "CHART" placeholders, and its figures (12522 MW, 84 ACTIVE) contradicted
@@ -4527,141 +4799,149 @@
         }
 
         /* Why OSIP image: sized to sit beside the shortened statement, not tower over it. */
-    .osip-about-img { height: 220px; }
+        .osip-about-img {
+          height: 220px;
+        }
 
-    @media (width >=40rem) {
-      .osip-about-img { height: 300px; }
-    }
+        @media (width >=40rem) {
+          .osip-about-img {
+            height: 300px;
+          }
+        }
 
-    @media (width >=64rem) {
-      .osip-about-img { height: 380px; }
-    }
+        @media (width >=64rem) {
+          .osip-about-img {
+            height: 380px;
+          }
+        }
 
-    /* A CTA whose destination does not exist yet is shown as a label. Linking it to
+        /* A CTA whose destination does not exist yet is shown as a label. Linking it to
        the Coming Soon placeholder is what HP-09 rules out. */
-    .osip-cta-soon {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 22px;
-      border: 1px dashed #c3cdc8;
-      background: #f7f9f8;
-      color: #6b746f;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: .02em;
-    }
+        .osip-cta-soon {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 22px;
+          border: 1px dashed #c3cdc8;
+          background: #f7f9f8;
+          color: #6b746f;
+          font-size: 14px;
+          font-weight: 500;
+          letter-spacing: .02em;
+        }
 
-    .osip-cta-soon .material-symbols-outlined {
-      font-size: 20px;
-    }
+        .osip-cta-soon .material-symbols-outlined {
+          font-size: 20px;
+        }
 
-    .osip-cta-soon em {
-      font-style: normal;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      border: 1px dashed #c3cdc8;
-      border-radius: 999px;
-      padding: 1px 8px;
-      color: #7d8f88;
-      white-space: nowrap;
-    }
+        .osip-cta-soon em {
+          font-style: normal;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: .1em;
+          text-transform: uppercase;
+          border: 1px dashed #c3cdc8;
+          border-radius: 999px;
+          padding: 1px 8px;
+          color: #7d8f88;
+          white-space: nowrap;
+        }
 
-    /* Why OSIP gallery: three stacked frames that cross-fade, with a quiet pair of
-       arrows in the corner. Slides are stacked absolutely so the block never changes
-       height as it advances. */
-    .osip-gallery-slide {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity .6s ease;
-    }
+        /* Why OSIP film. The cover is a button filling the frame, so the whole
+       image is the play target rather than a small control in a corner. */
+        .osip-video {
+          background: #0a1f1a;
+        }
 
-    .osip-gallery-slide.is-active {
-      opacity: 1;
-    }
+        .osip-video-cover {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          border: 0;
+          background: none;
+          cursor: pointer;
+          display: block;
+        }
 
-    /* Just enough shading in the bottom corners to keep the controls legible on a
-       bright frame, without greying the photograph. */
-    .osip-gallery-scrim {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(to top, rgba(7, 21, 16, .38) 0%, rgba(7, 21, 16, 0) 34%);
-    }
+        .osip-video-cover img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: .85;
+          transition: opacity .3s ease, transform .5s ease;
+        }
 
-    .osip-gallery-nav {
-      position: absolute;
-      right: 14px;
-      bottom: 14px;
-      display: flex;
-      gap: 8px;
-      z-index: 2;
-    }
+        .osip-video-cover:hover img {
+          opacity: .95;
+          transform: scale(1.02);
+        }
 
-    .osip-gallery-btn {
-      width: 34px;
-      height: 34px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .92);
-      color: #0a1f1a;
-      cursor: pointer;
-      box-shadow: 0 6px 18px -8px rgba(6, 20, 16, .5);
-      transition: background .25s ease, color .25s ease, transform .25s ease;
-    }
+        .osip-video-play {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 72px;
+          height: 72px;
+          border-radius: 999px;
+          background: #dc2626;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 18px 40px -12px rgba(6, 20, 16, .65);
+          transition: transform .3s ease, background .3s ease;
+        }
 
-    .osip-gallery-btn:hover {
-      background: #004225;
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
+        .osip-video-cover:hover .osip-video-play {
+          transform: translate(-50%, -50%) scale(1.06);
+          background: #ef3b3b;
+        }
 
-    .osip-gallery-btn:focus-visible {
-      outline: 2px solid #ffb955;
-      outline-offset: 2px;
-    }
+        .osip-video-play .material-symbols-outlined {
+          color: #ffffff;
+          font-size: 40px;
+          font-variation-settings: 'FILL' 1;
+        }
 
-    .osip-gallery-btn .material-symbols-outlined {
-      font-size: 20px;
-    }
+        .osip-video-cover:focus-visible {
+          outline: 2px solid #ffb955;
+          outline-offset: -4px;
+        }
 
-    .osip-gallery-dots {
-      position: absolute;
-      left: 16px;
-      bottom: 25px;
-      display: flex;
-      gap: 6px;
-      z-index: 2;
-    }
+        .osip-video.is-playing > .osip-video-cover {
+          display: none;
+        }
 
-    .osip-gallery-dots span {
-      width: 16px;
-      height: 2px;
-      background: rgba(255, 255, 255, .45);
-      transition: background .25s ease, width .25s ease;
-    }
+        .osip-video iframe {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          border: 0;
+        }
 
-    .osip-gallery-dots span.is-active {
-      width: 26px;
-      background: #ffb955;
-    }
+        @media (max-width: 640px) {
+          .osip-video-play {
+            width: 60px;
+            height: 60px;
+          }
 
-    @media (prefers-reduced-motion: reduce) {
-      .osip-gallery-slide {
-        transition: none;
-      }
-    }
+          .osip-video-play .material-symbols-outlined {
+            font-size: 34px;
+          }
+        }
 
-    /* Every figure on the homepage has to say where it came from. */
+        @media (prefers-reduced-motion: reduce) {
+
+          .osip-video-cover img,
+          .osip-video-play {
+            transition: none;
+          }
+        }
+
+        /* Every figure on the homepage has to say where it came from. */
         .osip-data-source {
           margin-top: 20px;
           font-size: 13px;
@@ -4810,7 +5090,7 @@
         })();
       </script>
 
-      <section class="py-12 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8"
+      <section class="osip-news-sec py-12 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8"
         style="font-family: Inter, sans-serif; background-color: rgb(238, 238, 245);">
         <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-12 xl:gap-16">
           <div class="min-w-0">
@@ -4894,10 +5174,10 @@
         </div>
       </section>
 
-      <section class="bg-[#f3f1f7] py-12 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8"
+      <section class="osip-sectors-sec bg-[#f3f1f7] py-12 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8"
         style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
-          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 lg:mb-14">
+          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-6 lg:mb-8">
             <div class="max-w-2xl">
               <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-[#004225]"
                 style="font-family: Manrope, sans-serif;">Sectors</h2>
@@ -4911,185 +5191,352 @@
                them pointed at DetailedSector.html regardless of which sector it named.
                Each tile below links to that sector's own page. -->
           <style>
+            /* News & Updates and Sectors sit on near enough the same lavender, so
+               the boundary between them is invisible and their two lg:py-20 paddings
+               stacked into 160px of empty band. Halved, from both sides. */
+            .osip-news-sec {
+              padding-bottom: 2.25rem;
+            }
+
+            .osip-sectors-sec {
+              padding-top: 2.25rem;
+            }
+
+            @media (width >=64rem) {
+              .osip-news-sec {
+                padding-bottom: 3rem;
+              }
+
+              .osip-sectors-sec {
+                padding-top: 3rem;
+              }
+            }
+
             .osip-sec-grid {
               display: grid;
               grid-template-columns: minmax(0, 1fr);
-              gap: 12px;
+              gap: 14px;
             }
 
+            /* The photograph IS the card. Two earlier attempts kept it as a pale wash
+               and then as a strip under the text, and both read as a picture stuck
+               onto a white box rather than as a designed tile. Here the image fills
+               the card, a deep green gradient carries over it and the words sit on
+               that. It is the treatment the sector heroes already use, and it is the
+               only one where an awkward crop of the source photo still looks
+               deliberate: the gradient carries the card, not the crop. The wash is
+               light across the top so each photograph keeps its own colour, and only
+               turns heavy over the last third, where the words are. */
             .osip-sec-card {
+              position: relative;
+              overflow: hidden;
               display: flex;
               flex-direction: column;
-              background: #ffffff;
-              border: 1px solid #e6e3ee;
-              border-radius: 4px;
-              padding: 18px 16px;
+              min-height: 208px;
+              background-color: #0c2b21;
+              border: 0;
+              border-radius: 14px;
+              padding: 20px 18px;
               text-decoration: none;
-              transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+              box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .07);
+              transition: box-shadow .35s ease, transform .35s ease;
             }
 
             .osip-sec-card:hover {
-              border-color: #004225;
-              box-shadow: 0 18px 40px -22px rgba(6, 20, 16, .35);
               transform: translateY(-4px);
+              box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14), 0 26px 50px -24px rgba(6, 20, 16, .55);
             }
 
+            .osip-sec-card::before {
+              content: "";
+              position: absolute;
+              inset: 0;
+              background-image: linear-gradient(180deg, rgba(5, 34, 25, .12) 0%, rgba(5, 34, 25, .34) 38%, rgba(5, 33, 24, .78) 72%, rgba(5, 31, 23, .93) 100%), var(--sec-img, none);
+              background-size: cover;
+              background-position: center;
+              filter: saturate(1.08) contrast(1.03);
+              pointer-events: none;
+              transform: scale(1.02);
+              transition: transform .6s ease;
+            }
+
+            .osip-sec-card:hover::before {
+              transform: scale(1.08);
+              filter: saturate(1.2) contrast(1.05);
+            }
+
+            .osip-sec-card > * {
+              position: relative;
+              z-index: 1;
+            }
+
+            /* Glass chip rather than the mint one: on a photograph a solid pale square
+               looks stuck on, and this picks up whatever sits behind it. */
             .osip-sec-icon {
-              font-size: 28px;
-              color: #004225;
-              margin-bottom: 12px;
+              width: 40px;
+              height: 40px;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 11px;
+              background: rgba(6, 30, 22, .34);
+              border: 1px solid rgba(255, 255, 255, .34);
+              -webkit-backdrop-filter: blur(6px);
+              backdrop-filter: blur(6px);
+              color: #ffffff;
+              font-size: 22px;
+              margin-bottom: auto;
+              transition: background-color .3s ease, border-color .3s ease;
+            }
+
+            .osip-sec-card:hover .osip-sec-icon {
+              background: rgba(6, 30, 22, .5);
+              border-color: rgba(255, 255, 255, .6);
             }
 
             .osip-sec-name {
               font-family: Manrope, sans-serif;
               font-size: 16px;
               font-weight: 700;
-              line-height: 1.25;
-              color: #111827;
-              margin-bottom: 6px;
+              line-height: 1.3;
+              letter-spacing: -.005em;
+              color: #ffffff;
+              margin-top: 16px;
+              margin-bottom: 5px;
+              text-shadow: 0 1px 12px rgba(4, 24, 18, .5);
             }
 
             .osip-sec-desc {
               font-size: 12.5px;
-              line-height: 1.5;
-              color: #5f6368;
-              flex: 1 1 auto;
+              line-height: 1.55;
+              color: rgba(255, 255, 255, .8);
+              flex: 0 0 auto;
+              text-shadow: 0 1px 10px rgba(4, 24, 18, .5);
             }
 
-            .osip-sec-more {
-              display: inline-flex;
-              align-items: center;
-              gap: 5px;
-              margin-top: 12px;
-              font-size: 11px;
-              font-weight: 700;
-              letter-spacing: .1em;
-              text-transform: uppercase;
-              color: #004225;
-              transition: gap .3s ease;
+            /* One quiet arrow on hover, in place of a green EXPLORE label printed ten
+               times. The whole card was already the link. */
+            .osip-sec-card::after {
+              content: "";
+              position: absolute;
+              top: 30px;
+              right: 20px;
+              z-index: 1;
+              width: 7px;
+              height: 7px;
+              border-right: 2px solid rgba(255, 255, 255, .9);
+              border-top: 2px solid rgba(255, 255, 255, .9);
+              transform: translateX(-4px) rotate(45deg);
+              opacity: 0;
+              transition: opacity .25s ease, transform .25s ease;
             }
 
-            .osip-sec-card:hover .osip-sec-more {
-              gap: 10px;
-            }
-
-            .osip-sec-more .material-symbols-outlined {
-              font-size: 15px;
+            .osip-sec-card:hover::after {
+              opacity: 1;
+              transform: translateX(0) rotate(45deg);
             }
 
             @media (width >=40rem) {
               .osip-sec-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 16px;
-              }
-            }
-
-            @media (width >=48rem) {
-              .osip-sec-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-              }
-            }
-
-            @media (width >=64rem) {
-              .osip-sec-grid {
-                grid-template-columns: repeat(5, minmax(0, 1fr));
                 gap: 20px;
               }
+            }
 
+            /* Below the five column grid the card is wide and short, so it turns on
+               its side: chip to the left, name and line to the right. Same markup,
+               laid out on a grid instead of a column. */
+            @media (width < 64rem) {
               .osip-sec-card {
-                padding: 22px 20px;
+                display: grid;
+                grid-template-columns: auto minmax(0, 1fr);
+                column-gap: 16px;
+                align-items: center;
+                min-height: 0;
+                padding: 18px 20px;
+              }
+
+              .osip-sec-icon {
+                grid-column: 1;
+                grid-row: 1 / span 2;
+                margin-bottom: 0;
               }
 
               .osip-sec-name {
-                font-size: 17px;
+                grid-column: 2;
+                grid-row: 1;
+                margin-top: 0;
+                margin-bottom: 3px;
               }
 
               .osip-sec-desc {
-                font-size: 13px;
+                grid-column: 2;
+                grid-row: 2;
+              }
+
+              /* The card is only about 90px tall here, so the same gradient arrives
+                 compressed and the words end up on a much lighter ground than they do
+                 on a 224px tile. The wash starts heavier to compensate. */
+              .osip-sec-card::before {
+                background-image: linear-gradient(180deg, rgba(5, 34, 25, .34) 0%, rgba(5, 33, 24, .62) 55%, rgba(5, 31, 23, .88) 100%), var(--sec-img, none);
+              }
+
+              .osip-sec-card::after {
+                top: 50%;
+                margin-top: -4px;
+              }
+            }
+
+            /* Ten tiles divide evenly by one, two and five and by nothing else, so
+               those are the only column counts used. Three left a single tile alone on
+               a fourth row and four left two on a third, and a half empty last row is
+               what makes a grid look unfinished rather than full. */
+            @media (width >=64rem) {
+              .osip-sec-grid {
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+                gap: 24px;
+              }
+
+              .osip-sec-card {
+                display: flex;
+                flex-direction: column;
+                padding: 18px 16px;
+              }
+
+              .osip-sec-name {
+                font-size: 15px;
+              }
+
+              .osip-sec-desc {
+                font-size: 12px;
+              }
+            }
+
+            @media (width >=80rem) {
+              .osip-sec-grid {
+                gap: 30px;
+              }
+
+              .osip-sec-card {
+                min-height: 236px;
+                padding: 24px 22px;
+              }
+
+              .osip-sec-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 24px;
+              }
+
+              .osip-sec-name {
+                font-size: 16.5px;
+              }
+
+              .osip-sec-desc {
+                font-size: 12.5px;
+              }
+
+              .osip-sec-card::after {
+                top: 34px;
+                right: 22px;
+              }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+
+              .osip-sec-card,
+              .osip-sec-card::before {
+                transition: none;
+              }
+
+              .osip-sec-card:hover::before {
+                transform: scale(1.02);
               }
             }
           </style>
 
+          <script>
+            // Ten sector photographs is about 2MB, and they are decoration at 12%
+            // opacity. Nothing is fetched until the grid is within a screen of the
+            // viewport, so they cost nothing on first paint and are already there by
+            // the time anyone scrolls to them. Without JS the cards stay plain white,
+            // which is what they looked like before.
+            document.addEventListener('DOMContentLoaded', function () {
+              var grid = document.querySelector('.osip-sec-grid');
+              if (!grid) return;
+              function load() {
+                grid.querySelectorAll('[data-img]').forEach(function (card) {
+                  card.style.setProperty('--sec-img', 'url("' + card.getAttribute('data-img') + '")');
+                });
+              }
+              if (!('IntersectionObserver' in window)) { load(); return; }
+              var io = new IntersectionObserver(function (entries) {
+                if (entries[0].isIntersecting) { load(); io.disconnect(); }
+              }, { rootMargin: '100% 0px' });
+              io.observe(grid);
+            });
+          </script>
+
           <div class="osip-sec-grid">
 
-            <a href="pages/DetailedSector.html" class="osip-sec-card">
+            <a href="pages/DetailedSector.html" class="osip-sec-card" data-img="pages/sector-Solar-hero.jpg">
               <span class="osip-sec-icon material-symbols-outlined">solar_power</span>
               <span class="osip-sec-name">Solar</span>
               <span class="osip-sec-desc">Utility-scale and distributed solar PV generation projects.</span>
-              <span class="osip-sec-more">Explore <span
-                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <a href="pages/Wind.html" class="osip-sec-card">
+            <a href="pages/Wind.html" class="osip-sec-card" data-img="pages/sector-Wind-2.jpg">
               <span class="osip-sec-icon material-symbols-outlined">wind_power</span>
               <span class="osip-sec-name">Wind</span>
               <span class="osip-sec-desc">Onshore wind generation across high-potential corridors.</span>
-              <span class="osip-sec-more">Explore <span
-                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <a href="pages/Storage.html" class="osip-sec-card">
+            <a href="pages/Storage.html" class="osip-sec-card" data-img="pages/sector-Storage.jpg">
               <span class="osip-sec-icon material-symbols-outlined">battery_charging_full</span>
               <span class="osip-sec-name">Storage</span>
               <span class="osip-sec-desc">Battery energy storage systems (BESS) and grid balancing.</span>
-              <span class="osip-sec-more">Explore <span
-                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <a href="pages/SmallHydro.html" class="osip-sec-card">
+            <a href="pages/SmallHydro.html" class="osip-sec-card" data-img="pages/sector-SmallHydro-2.jpg">
               <span class="osip-sec-icon material-symbols-outlined">water_drop</span>
               <span class="osip-sec-name">Small Hydro</span>
               <span class="osip-sec-desc">Run-of-river and small-scale hydropower generation.</span>
-              <span class="osip-sec-more">Explore <span
-                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <a href="pages/GreenMobility.html" class="osip-sec-card">
+            <a href="pages/GreenMobility.html" class="osip-sec-card" data-img="pages/sector-GreenMobility.jpg">
               <span class="osip-sec-icon material-symbols-outlined">electric_car</span>
               <span class="osip-sec-name">Green Mobility</span>
               <span class="osip-sec-desc">Electric vehicles, charging infrastructure and clean transport.</span>
-              <span class="osip-sec-more">Explore <span
-                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <a href="pages/EnergyEfficiency.html" class="osip-sec-card">
+            <a href="pages/EnergyEfficiency.html" class="osip-sec-card" data-img="pages/sector-EnergyEfficiency.jpg">
               <span class="osip-sec-icon material-symbols-outlined">energy_savings_leaf</span>
               <span class="osip-sec-name">Energy Efficiency</span>
               <span class="osip-sec-desc">Demand-side efficiency, ISO 50001 and industrial energy savings.</span>
-              <span class="osip-sec-more">Explore <span
-                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <a href="pages/CleanCooking.html" class="osip-sec-card">
+            <a href="pages/CleanCooking.html" class="osip-sec-card" data-img="pages/sector-CleanCooking.jpg">
               <span class="osip-sec-icon material-symbols-outlined">local_fire_department</span>
               <span class="osip-sec-name">Clean Cooking</span>
               <span class="osip-sec-desc">Improved cookstoves and clean fuel alternatives to biomass.</span>
-              <span class="osip-sec-more">Explore <span
-                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <a href="pages/Bioenergy.html" class="osip-sec-card">
+            <a href="pages/Bioenergy.html" class="osip-sec-card" data-img="pages/sector-Bioenergy.jpg">
               <span class="osip-sec-icon material-symbols-outlined">compost</span>
               <span class="osip-sec-name">Bioenergy</span>
               <span class="osip-sec-desc">Biomass, biogas and waste-to-energy power generation.</span>
-              <span class="osip-sec-more">Explore <span
-                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <a href="pages/AgriculturePUE.html" class="osip-sec-card">
+            <a href="pages/AgriculturePUE.html" class="osip-sec-card" data-img="pages/sector-AgriculturePUE.jpg">
               <span class="osip-sec-icon material-symbols-outlined">agriculture</span>
               <span class="osip-sec-name">Agriculture PUE</span>
               <span class="osip-sec-desc">Productive use of energy for agro-processing and rural livelihoods.</span>
-              <span class="osip-sec-more">Explore <span
-                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
-            <a href="pages/GreenHydrogen.html" class="osip-sec-card">
+            <a href="pages/GreenHydrogen.html" class="osip-sec-card" data-img="pages/sector-GreenHydrogen.jpg">
               <span class="osip-sec-icon material-symbols-outlined">science</span>
               <span class="osip-sec-name">Green Hydrogen</span>
               <span class="osip-sec-desc">Electrolysis-based hydrogen production and export potential.</span>
-              <span class="osip-sec-more">Explore <span
-                  class="material-symbols-outlined">arrow_forward</span></span>
             </a>
 
           </div>
@@ -5142,10 +5589,100 @@
           }
         }
 
-        .osip-states-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        /* The rail. Two identical sets sit side by side and the track slides left by
+       exactly one of them, so the loop closes with no visible seam. Each set carries
+       a trailing gap of its own, which is what keeps that 50% honest. */
+        .osip-states-marquee {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .osip-states-marquee::before,
+        .osip-states-marquee::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 72px;
+          z-index: 2;
+          pointer-events: none;
+        }
+
+        .osip-states-marquee::before {
+          left: 0;
+          background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0));
+        }
+
+        .osip-states-marquee::after {
+          right: 0;
+          background: linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0));
+        }
+
+        .osip-states-track {
+          display: flex;
+          width: max-content;
+        }
+
+        /* Only the script turns the motion on, so without it the five fallback cards
+       sit still instead of drifting off the edge and never coming back. */
+        .osip-states-track.is-rolling {
+          animation: osipStatesRoll 120s linear infinite;
+        }
+
+        .osip-states-marquee:hover .osip-states-track.is-rolling,
+        .osip-states-marquee:focus-within .osip-states-track.is-rolling {
+          animation-play-state: paused;
+        }
+
+        @keyframes osipStatesRoll {
+          from {
+            transform: translateX(0);
+          }
+
+          to {
+            transform: translateX(-50%);
+          }
+        }
+
+        .osip-states-set {
+          display: flex;
           gap: 24px;
+          padding-right: 24px;
+        }
+
+        /* The card keeps the width it had as one of five across a 1280px row. */
+        .osip-states-track .osip-state-card {
+          flex: 0 0 236px;
+        }
+
+        /* A state with no emblem on file gets its initials rather than a borrowed
+       crest. Same 84px box, so the rail stays even. */
+        .osip-state-mark {
+          height: 84px;
+          width: 84px;
+          margin-bottom: 18px;
+          border-radius: 999px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #eef4f0;
+          border: 1px solid #dde7e1;
+          color: #1a5c3a;
+          font-family: Manrope, sans-serif;
+          font-weight: 800;
+          font-size: 21px;
+          letter-spacing: .06em;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .osip-states-track.is-rolling {
+            animation: none;
+          }
+
+          /* Nothing moves, so the reader needs a way to reach the rest by hand. */
+          .osip-states-marquee {
+            overflow-x: auto;
+          }
         }
 
         .osip-states-foot {

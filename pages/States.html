@@ -900,6 +900,29 @@
                         document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'start' });
                     });
                 });
+
+                // NAV-03: the header's States menu links here as States.html#kano,
+                // one hash per territory ("cross-river", "fct-abuja"), so a state
+                // picked in the nav arrives already selected on the map instead of
+                // dropping the reader on the page to find it themselves. The six
+                // zone hashes (#north-central and friends) are real element ids on
+                // the directory below and are left to the browser: no state matches
+                // them, so this returns and the native anchor jump happens.
+                function fromHash() {
+                    var want = decodeURIComponent((location.hash || '').replace(/^#/, ''))
+                        .replace(/-/g, ' ').trim().toLowerCase();
+                    if (!want) return;
+                    var match = null;
+                    svgStates.forEach(function (s) {
+                        if ((s.getAttribute('data-state') || '').toLowerCase() === want) match = s;
+                    });
+                    if (!match) return;
+                    select(match);
+                    var map = document.getElementById('map');
+                    if (map) map.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                fromHash();
+                window.addEventListener('hashchange', fromHash);
             })();
         </script>
 

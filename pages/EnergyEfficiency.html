@@ -172,6 +172,76 @@
             color: #c98a00;
         }
 
+        /* Every opportunity card keeps the shape it has on the Opportunities page:
+           314 wide, 404 tall. auto-fill packs as many 314px tracks as the row can
+           hold and centres them, so the card shrinks with a narrow screen but never
+           stretches into a slab on a wide one, and no page needs column breakpoints
+           of its own any more. The cap on the card itself is the backstop for any
+           grid that is not this one. */
+        .opp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0, 314px));
+            /* start, not centre: the first card lines up with the heading's gold
+               rule above it. Centred, a part filled row floated away from the
+               heading and read as though it belonged to nothing. */
+            justify-content: start;
+            gap: 24px;
+        }
+
+        .opportunity-card {
+            min-height: 404px;
+            max-width: 314px;
+            width: 100%;
+            margin-inline: auto;
+        }
+
+        @media (max-width: 400px) {
+            .opp-grid {
+                gap: 16px;
+            }
+        }
+
+        /* OPP-02: readiness tag. Six values share one neutral pill and only the
+           dot changes colour, so a card can carry both the gold sector badge and
+           a readiness state without turning into a row of traffic lights. Change
+           a card's data-readiness to any of concept / preparation / interest /
+           tender / financing / validation and the dot follows. */
+        .readiness-tag {
+            /* flex, not inline-flex: the tag takes its own row under the sector
+               badge on every card. Left inline it sat beside a short badge and
+               wrapped under a long one, so no two cards in a row lined up. */
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 3px 10px 3px 8px;
+            border-radius: 9999px;
+            background: #fbfcfb;
+            border: 1px solid #e2e8e5;
+            color: #55635c;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        .readiness-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #9aa8a1;
+            flex: 0 0 auto;
+        }
+
+        .readiness-tag[data-readiness="concept"] .readiness-dot { background: #94a3b8; }
+        .readiness-tag[data-readiness="preparation"] .readiness-dot { background: #d19a2e; }
+        .readiness-tag[data-readiness="interest"] .readiness-dot { background: #1f9d5f; }
+        .readiness-tag[data-readiness="tender"] .readiness-dot { background: #3b7dd8; }
+        .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
+        .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
+
         /* ============================================================
            KEY FACTS VISUALS
            Diagrams for the Key Facts cards. The reference designs came
@@ -2439,7 +2509,7 @@
                         </select>
                     </div>
                 </div>
-                <div id="opportunities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-gutter">
+                <div id="opportunities-grid" class="opp-grid">
                     <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                         data-sector="renewable">
                         <div class="mb-6">
@@ -2450,6 +2520,7 @@
                                 Solar Power Naija - Phase II</h3>
                             <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                                 Renewable Generation</span>
+                            <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot" aria-hidden="true"></span>Under preparation</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -2483,6 +2554,7 @@
                                 Green Hydrogen Niger Delta Pilot</h3>
                             <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                                 Renewable Generation</span>
+                            <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot" aria-hidden="true"></span>Tender / procurement</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -2517,6 +2589,7 @@
                                 Nasarawa Lithium Processing Hub</h3>
                             <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                                 Energy Storage</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>

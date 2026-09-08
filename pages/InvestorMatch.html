@@ -20,7 +20,7 @@
 
            This page previously used Event.html's colours instead, and that was
            the wrong parent to copy: Event.html is the one page in the set that
-           names no tokens at all — its own config comment says every colour it
+           names no tokens at all: its own config comment says every colour it
            uses is an arbitrary value. Every DETAIL page, and the React app's
            styles/theme.css, are built from the roles below. Matching the list
            page made this page match nothing else on the site.
@@ -160,8 +160,8 @@
 
         /*
           The option card's radio dot. A real <input type="radio"> is inside
-          each card and is what the keyboard and screen reader actually use —
-          this only draws it, because the native control cannot be styled to
+          each card and is what the keyboard and screen reader actually use.
+          This only draws it, because the native control cannot be styled to
           match the mockup and hiding it outright would take the label, the
           arrow keys and the focus ring with it.
         */
@@ -253,6 +253,76 @@
             font-size: 14px;
             color: #c98a00;
         }
+
+        /* Every opportunity card keeps the shape it has on the Opportunities page:
+           314 wide, 404 tall. auto-fill packs as many 314px tracks as the row can
+           hold and centres them, so the card shrinks with a narrow screen but never
+           stretches into a slab on a wide one, and no page needs column breakpoints
+           of its own any more. The cap on the card itself is the backstop for any
+           grid that is not this one. */
+        .opp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0, 314px));
+            /* start, not centre: the first card lines up with the heading's gold
+               rule above it. Centred, a part filled row floated away from the
+               heading and read as though it belonged to nothing. */
+            justify-content: start;
+            gap: 24px;
+        }
+
+        .opportunity-card {
+            min-height: 404px;
+            max-width: 314px;
+            width: 100%;
+            margin-inline: auto;
+        }
+
+        @media (max-width: 400px) {
+            .opp-grid {
+                gap: 16px;
+            }
+        }
+
+        /* OPP-02: readiness tag. Six values share one neutral pill and only the
+           dot changes colour, so a card can carry both the gold sector badge and
+           a readiness state without turning into a row of traffic lights. Change
+           a card's data-readiness to any of concept / preparation / interest /
+           tender / financing / validation and the dot follows. */
+        .readiness-tag {
+            /* flex, not inline-flex: the tag takes its own row under the sector
+               badge on every card. Left inline it sat beside a short badge and
+               wrapped under a long one, so no two cards in a row lined up. */
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 3px 10px 3px 8px;
+            border-radius: 9999px;
+            background: #fbfcfb;
+            border: 1px solid #e2e8e5;
+            color: #55635c;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        .readiness-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #9aa8a1;
+            flex: 0 0 auto;
+        }
+
+        .readiness-tag[data-readiness="concept"] .readiness-dot { background: #94a3b8; }
+        .readiness-tag[data-readiness="preparation"] .readiness-dot { background: #d19a2e; }
+        .readiness-tag[data-readiness="interest"] .readiness-dot { background: #1f9d5f; }
+        .readiness-tag[data-readiness="tender"] .readiness-dot { background: #3b7dd8; }
+        .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
+        .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
     </style>
 </head>
 
@@ -264,7 +334,7 @@
     <!--
       The progress rail sits directly under the nav and spans the full width,
       as in the reference. `aria-hidden` because the live region below already
-      announces "Question 3 of 10" — a screen reader reading a percentage as
+      announces "Question 3 of 10". A screen reader reading a percentage as
       well would be saying the same thing twice.
     -->
     <div class="w-full h-[3px] bg-surface-container-high" aria-hidden="true">
@@ -301,7 +371,7 @@
                 </fieldset>
 
                 <p class="font-body-sm text-body-sm text-on-surface-variant mt-7">
-                    Nothing here is stored or sent anywhere &mdash; it runs in your browser to point you at the
+                    Nothing here is stored or sent anywhere. It runs in your browser to point you at the
                     right part of the portal.
                 </p>
             </div>
@@ -309,7 +379,11 @@
 
         <!-- ================================================ RESULTS ==== -->
         <section id="quiz-result" class="bg-background hidden">
-            <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+            <!-- 1118 = three 314px cards + two 24px gaps + the 64px gutter each side. The
+                 shell was screen-2xl, so every three-up row ended 290px short of the
+                 right edge and left a hole beside it. Sized to the grid instead, the
+                 rows run flush and the prose gets a readable measure. -->
+            <div class="max-w-[1118px] mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
 
                 <div class="max-w-3xl">
                     <p class="font-label-md text-label-md uppercase text-tertiary-fixed-dim font-bold mb-3">Your
@@ -326,7 +400,7 @@
                 <div class="mt-12">
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-1 h-10 bg-tertiary-fixed-dim shrink-0" aria-hidden="true"></div>
-                        <h2 class="font-h3 text-h3 text-primary">Sectors to start with</h2>
+                        <h2 id="quiz-sectors-heading" class="font-h3 text-h3 text-primary">Sectors to start with</h2>
                     </div>
                     <!-- sector.name / sector.slug / sector.description / sector.coverImage -->
                     <!-- Sector.html's grid: 1 / 2 / 3 columns, gap-6. -->
@@ -340,41 +414,26 @@
                     </div>
                     <!-- opportunity.opportunityId / title / sector / TotalProjectCost / state / publishedAt -->
                     <!-- Opportunities.html's grid: 1 / 2 / 3 columns, gap-gutter. -->
-                    <div id="quiz-opps" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter"></div>
+                    <div id="quiz-opps" class="opp-grid"></div>
                 </div>
 
-                <div
-                    class="mt-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border border-[#e5e7eb] rounded-xl p-6">
-                    <p class="font-body-md text-body-md text-on-surface-variant">Want the full project dossiers,
-                        promoter contacts and the data room? Those sit behind a free OSIP account.</p>
-                    <div class="flex flex-wrap gap-3 shrink-0">
-                        <a href="Login.html"
-                            class="inline-flex items-center justify-center gap-2 bg-primary-container hover:bg-primary text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors">
-                            <span class="material-symbols-outlined text-[17px]">how_to_reg</span>Create an account
-                        </a>
-                        <button type="button" id="quiz-restart"
-                            class="inline-flex items-center justify-center gap-2 border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors">
-                            Start over
-                        </button>
-                    </div>
-                </div>
+                <!-- INV-01/02/03: the rest of the result the client asked for, in
+                     their order: regulatory guidance, business frameworks and
+                     models, finance and market information, relevant MDAs, and
+                     contacts. Built by the script below from pathwaydata.js, which
+                     is generated from the sector pages, so it is front-end
+                     filtering over published content blocks and needs no backend. -->
+                <div id="quiz-detail"></div>
+                <!-- INV-02: the climate finance route. The doc asks for a Climate
+                     Finance tab leading to the NCCC website, "an optional guided route",
+                     and is explicit that it "should not be presented as an OSIP-owned
+                     service unless ownership and content are confirmed". It renders as
+                     part of the result, moved into place after Finance and market
+                     information, because a permanent slab under the questions competed
+                     with the flow. Every card routes outward or to the sector page that
+                     names the source. -->
+                <div class="mt-12" id="climate-finance">
 
-            </div>
-        </section>
-
-    </main>
-
-
-    <!-- INV-02: the climate finance route. The client asked for a Climate Finance
-         tab leading to the NCCC website, "an optional guided route", and was
-         explicit that it "should not be presented as an OSIP-owned service unless
-         ownership and content are confirmed". So this sits beside the guided flow
-         rather than inside it, every card routes outward or to the sector page
-         that names the source, and the copy says plainly that OSIP administers
-         none of them. Set NCCC_URL in scratchpad/apply_inv02.py, or edit the
-         first card here, once the official address is confirmed. -->
-    <section id="climate-finance" class="bg-surface-container-low border-t border-outline-variant">
-        <div class="max-w-screen-2xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
             <div class="flex items-center gap-4 mb-6">
                 <div class="w-1 h-10 bg-tertiary-fixed-dim shrink-0" aria-hidden="true"></div>
                 <div>
@@ -383,16 +442,17 @@
                 </div>
             </div>
             <p class="font-body-md text-body-md text-on-surface-variant mb-8">If your capital is climate or
-                transition finance rather than a straight commercial ticket, these are the routes the OSIP sector
-                pages already point to. <strong class="text-on-surface">OSIP does not administer any of them.</strong>
+                transition finance rather than a straight commercial ticket, these are the climate finance sources the
+                OSIP sector pages already name, alongside the national climate change body. <strong class="text-on-surface">OSIP does not administer any of them, and this is
+                not an approved-source list</strong> &ndash; it is what the sector pages themselves cite.
                 Each one is run by the organisation named on the card, and this page only shows you where to go.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div aria-disabled="true"
                         class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4">
                         <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">public</span></span>
                         <span class="min-w-0">
                             <span class="block font-body-md text-body-md font-semibold text-on-surface">National Council on Climate Change (NCCC)</span>
-                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Nigeria&rsquo;s climate change body and the route the client asked this card to point at.</span>
+                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Nigeria&rsquo;s national climate change body.</span>
                             <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Official link being confirmed</span>
                         </span>
                     </div>
@@ -441,15 +501,44 @@
                             <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on all ten sector pages</span>
                         </span>
                     </a>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-6">Eligibility, terms and whether a
+                    facility is open at all are decided by the organisation running it, not by OSIP. Confirm directly
+                    with them before you plan around any of this.</p>
             </div>
-            <p class="font-body-sm text-body-sm text-on-surface-variant mt-6">Eligibility, terms and whether a
-                facility is open at all are decided by the organisation running it, not by OSIP. Confirm directly
-                with them before you plan around any of this.</p>
-        </div>
-    </section>
+
+                <!-- Contacts first, then the account card. A reader who has just been
+                     told which sector and which projects fit wants the people before
+                     they want the sign-up, and the card carries Start over, which
+                     belongs at the very end of the result rather than in the middle. -->
+                <div id="quiz-contact"></div>
+
+                <div
+                    class="mt-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border border-[#e5e7eb] rounded-xl p-6">
+                    <p class="font-body-md text-body-md text-on-surface-variant">Want the full project dossiers,
+                        promoter contacts and the data room? Those sit behind a free OSIP account.</p>
+                    <div class="flex flex-wrap gap-3 shrink-0">
+                        <a href="Login.html"
+                            class="inline-flex items-center justify-center gap-2 bg-primary-container hover:bg-primary text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors">
+                            <span class="material-symbols-outlined text-[17px]">how_to_reg</span>Create an account
+                        </a>
+                        <button type="button" id="quiz-restart"
+                            class="inline-flex items-center justify-center gap-2 border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors">
+                            Start over
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
 
     <div id="site-footer"></div>
 
+    <script src="pathwaydata.js"></script>
     <script>
         (function () {
             'use strict';
@@ -458,7 +547,7 @@
               THE QUESTIONS.
 
               Adapted from the reference flow, but every option here comes from
-              something this portal actually holds — the ten sectors in the
+              something this portal actually holds: the ten sectors in the
               Sector collection, the projectStage enumeration on
               opportunity.statusInfo, the currency/unit enums on
               investmentDetails, and the organisation types the register form
@@ -494,7 +583,7 @@
                         { key: 'energy-efficiency', label: 'Energy efficiency' },
                         { key: 'agriculture-pue', label: 'Agriculture &amp; productive use' },
                         { key: 'green-mobility', label: 'Green mobility' },
-                        { key: 'open', label: 'Not decided &mdash; show me what fits', hint: 'We will pick from your other answers' }
+                        { key: 'open', label: 'Not decided, show me what fits', hint: 'We will pick from your other answers' }
                     ]
                 },
                 {
@@ -551,7 +640,7 @@
                         { key: 'sw', label: 'South West', hint: 'Lagos, Ogun and neighbours' },
                         { key: 'se', label: 'South East', hint: 'Abia, Ebonyi, Enugu' },
                         { key: 'ss', label: 'South South', hint: 'Delta, Cross River, Rivers' },
-                        { key: 'any', label: 'No preference &mdash; nationwide' }
+                        { key: 'any', label: 'No preference, nationwide' }
                     ]
                 },
                 {
@@ -568,7 +657,7 @@
                     id: 'stage',
                     q: 'Which project stage suits your risk appetite?',
                     options: [
-                        { key: 'early', label: 'Early stage', hint: 'Planning and design &mdash; highest risk, highest upside' },
+                        { key: 'early', label: 'Early stage', hint: 'Planning and design, the highest risk and the highest upside' },
                         { key: 'mid', label: 'Development stage', hint: 'Approvals, tendering, under development' },
                         { key: 'build', label: 'Construction ready', hint: 'Permits secured, breaking ground' },
                         { key: 'operating', label: 'Operating assets', hint: 'Commissioned and generating' },
@@ -618,16 +707,27 @@
               everything rather than an empty section.
             */
             var OPPORTUNITIES = [
-                { id: '2024-ENE-03', title: 'AKK Gas Pipeline Project', sectorLabel: 'Grid Infrastructure', amount: 'USD 2.80', unit: 'bn', state: 'Ajaokuta - Kaduna - Kano', published: '10 Nov 2024', slugs: ['storage'] },
-                { id: '2024-002', title: 'Sokoto-Badagry Superhighway', sectorLabel: 'Grid Infrastructure', amount: 'USD 8.40', unit: 'bn', state: 'North-South Corridor', published: '22 Jan 2025', slugs: ['green-mobility'] },
-                { id: '2024-003', title: 'Lagos Fourth Mainland Bridge', sectorLabel: 'Grid Infrastructure', amount: 'USD 2.50', unit: 'bn', state: 'Lagos State', published: '08 Apr 2024', slugs: ['green-mobility'] },
-                { id: '2024-001', title: 'Lagos-Calabar Coastal Highway', sectorLabel: 'Grid Infrastructure', amount: 'USD 11.06', unit: 'bn', state: 'Lagos - Cross River', published: '15 Mar 2024', slugs: ['green-mobility'] },
-                { id: '2025-ENE-09', title: 'Solar Power Naija - Phase II', sectorLabel: 'Renewable Generation', amount: 'USD 0.24', unit: 'bn', state: 'Multi-State Off-grid', published: '05 Jan 2026', slugs: ['solar', 'agriculture-pue'] },
-                { id: '2025-ENE-12', title: 'Delta Gas-to-Power Plant', sectorLabel: 'Grid Infrastructure', amount: 'USD 1.20', unit: 'bn', state: 'Delta State', published: '28 Mar 2025', slugs: ['storage', 'energy-efficiency'] },
-                { id: '2024-MIN-15', title: 'Nasarawa Lithium Processing Hub', sectorLabel: 'Energy Storage', amount: 'USD 0.15', unit: 'bn', state: 'Nasarawa State', published: '12 Aug 2024', slugs: ['storage'] },
-                { id: '2025-H2-01', title: 'Green Hydrogen Niger Delta Pilot', sectorLabel: 'Renewable Generation', amount: 'USD 0.40', unit: 'bn', state: 'Rivers State', published: '18 Feb 2025', slugs: ['green-hydrogen', 'solar'] },
-                { id: '2025-MIN-22', title: 'Kano Solid Minerals Processing Hub', sectorLabel: 'Energy Storage', amount: 'USD 0.30', unit: 'bn', state: 'Kano State', published: '14 Jan 2026', slugs: ['storage'] }
+                { id: '2024-ENE-03', title: 'AKK Gas Pipeline Project', sectorLabel: 'Grid Infrastructure', amount: 'USD 2.80', unit: 'bn', state: 'Ajaokuta - Kaduna - Kano', published: '10 Nov 2024', readiness: 'interest', slugs: ['storage'] },
+                { id: '2024-002', title: 'Sokoto-Badagry Superhighway', sectorLabel: 'Grid Infrastructure', amount: 'USD 8.40', unit: 'bn', state: 'North-South Corridor', published: '22 Jan 2025', readiness: 'tender', slugs: ['green-mobility'] },
+                { id: '2024-003', title: 'Lagos Fourth Mainland Bridge', sectorLabel: 'Grid Infrastructure', amount: 'USD 2.50', unit: 'bn', state: 'Lagos State', published: '08 Apr 2024', readiness: 'tender', slugs: ['green-mobility'] },
+                { id: '2024-001', title: 'Lagos-Calabar Coastal Highway', sectorLabel: 'Grid Infrastructure', amount: 'USD 11.06', unit: 'bn', state: 'Lagos - Cross River', published: '15 Mar 2024', readiness: 'interest', slugs: ['green-mobility'] },
+                { id: '2025-ENE-09', title: 'Solar Power Naija - Phase II', sectorLabel: 'Renewable Generation', amount: 'USD 0.24', unit: 'bn', state: 'Multi-State Off-grid', published: '05 Jan 2026', readiness: 'preparation', slugs: ['solar', 'agriculture-pue'] },
+                { id: '2025-ENE-12', title: 'Delta Gas-to-Power Plant', sectorLabel: 'Grid Infrastructure', amount: 'USD 1.20', unit: 'bn', state: 'Delta State', published: '28 Mar 2025', readiness: 'interest', slugs: ['storage', 'energy-efficiency'] },
+                { id: '2024-MIN-15', title: 'Nasarawa Lithium Processing Hub', sectorLabel: 'Energy Storage', amount: 'USD 0.15', unit: 'bn', state: 'Nasarawa State', published: '12 Aug 2024', readiness: 'interest', slugs: ['storage'] },
+                { id: '2025-H2-01', title: 'Green Hydrogen Niger Delta Pilot', sectorLabel: 'Renewable Generation', amount: 'USD 0.40', unit: 'bn', state: 'Rivers State', published: '18 Feb 2025', readiness: 'tender', slugs: ['green-hydrogen', 'solar'] },
+                { id: '2025-MIN-22', title: 'Kano Solid Minerals Processing Hub', sectorLabel: 'Energy Storage', amount: 'USD 0.30', unit: 'bn', state: 'Kano State', published: '14 Jan 2026', readiness: 'preparation', slugs: ['storage'] }
             ];
+
+            /* OPP-02 readiness taxonomy. Same six values and the same wording as the
+               static cards carry on every other page. */
+            var READINESS = {
+                'concept': 'Concept',
+                'preparation': 'Under preparation',
+                'interest': 'Seeking investor interest',
+                'tender': 'Tender / procurement',
+                'financing': 'Financing sought',
+                'validation': 'Requires validation'
+            };
 
             /* When someone has no sector in mind, their objective decides.
                Three each, most relevant first. */
@@ -670,7 +770,10 @@
                 summary: document.getElementById('quiz-summary'),
                 chips: document.getElementById('quiz-chips'),
                 sectors: document.getElementById('quiz-sectors'),
+                sectorsHeading: document.getElementById('quiz-sectors-heading'),
                 opps: document.getElementById('quiz-opps'),
+                detail: document.getElementById('quiz-detail'),
+                contact: document.getElementById('quiz-contact'),
                 restart: document.getElementById('quiz-restart')
             };
 
@@ -723,7 +826,7 @@
                 /*
                   A short pause before advancing. Without it the card the
                   reader just clicked vanishes in the same frame, so there is
-                  no confirmation that the click landed — which is the thing
+                  no confirmation that the click landed, which is the thing
                   that makes a one-click-per-question flow feel broken.
                 */
                 window.setTimeout(function () {
@@ -756,6 +859,122 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
+
+            /*
+              The pathway data, shared with the Regulations page and generated
+              from the sector pages. Read on every call rather than cached: this
+              script runs before pathwaydata.js has finished loading, so a
+              snapshot taken here would be empty.
+
+              The quiz and the pathway data agree on every sector key except
+              bioenergy, which the quiz spells with a hyphen.
+            */
+            var PATH_KEY = { 'bio-energy': 'bioenergy' };
+
+            function pathSector(slug) {
+                var list = (window.OSIP_PATHWAYS && window.OSIP_PATHWAYS.sectors) || [];
+                var want = PATH_KEY[slug] || slug;
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].id === want) return list[i];
+                }
+                return null;
+            }
+
+            function detailBlock(title, inner, id) {
+                return '<div class="mt-12"' + (id ? ' id="' + id + '"' : '') + '>' +
+                    '<div class="flex items-center gap-4 mb-6">' +
+                    '<div class="w-1 h-10 bg-tertiary-fixed-dim shrink-0" aria-hidden="true"></div>' +
+                    '<h2 class="font-h3 text-h3 text-primary">' + title + '</h2>' +
+                    '</div>' + inner + '</div>';
+            }
+
+            function detailLink(href, text) {
+                return '<a class="text-secondary font-semibold hover:underline" href="' + href + '">' + text + '</a>';
+            }
+
+            /*
+              Everything below repeats what the named sector page publishes. The
+              result narrows it to one sector; it never states a requirement that
+              page does not.
+            */
+            function renderDetail(slug) {
+                var host = els.detail;
+                if (!host) return;
+                var path = pathSector(slug);
+                var sector = SECTORS[slug];
+                if (!path || !sector) { host.innerHTML = ''; return; }
+                var page = path.page;
+                var name = sector.name;
+                var html = '';
+
+                /* business frameworks and models */
+                html += detailBlock('Business models in ' + name,
+                    '<div class="grid gap-6 sm:grid-cols-2">' +
+                    path.models.map(function (m) {
+                        return '<a href="' + page + '#participate" class="bg-white border border-outline-variant ' +
+                            'rounded-xl p-5 block hover:border-primary transition-colors">' +
+                            '<span class="block font-body-md text-body-md font-semibold text-on-surface">' +
+                            m.label + '</span>' +
+                            '<span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">' +
+                            m.steps.length + ' published steps, from ' + m.steps[0].label + ' to ' +
+                            m.steps[m.steps.length - 1].label.toLowerCase() + '.</span></a>';
+                    }).join('') + '</div>');
+
+                /* regulatory guidance */
+                html += detailBlock('Regulatory guidance',
+                    '<ul class="grid gap-3 list-none p-0 m-0">' +
+                    path.requirements.map(function (r) {
+                        return '<li class="bg-surface-container-low border border-outline-variant rounded-xl px-5 py-4 ' +
+                            'font-body-sm text-body-sm text-on-surface-variant">' + r.text + '</li>';
+                    }).join('') + '</ul>' +
+                    '<p class="font-body-sm text-body-sm text-on-surface-variant mt-4">Published on the ' + name +
+                    ' page under ' + detailLink(page + '#regulations', 'regulations') + ' and ' +
+                    detailLink(page + '#technical', 'technical and safety') + ', and phrased as what may apply. ' +
+                    'Narrow it by project size and connection type in the ' +
+                    detailLink('Regulation.html#pathway', 'pathway finder') + '.</p>');
+
+                /* finance and market information */
+                html += detailBlock('Finance and market information',
+                    '<p class="font-body-md text-body-md text-on-surface-variant">Incentives and funding routes for ' +
+                    name + ' are set out under ' + detailLink(page + '#finance', 'finance and incentives') +
+                    '. The rules that apply whatever the sector are on ' +
+                    detailLink('Regulation.html#tax', 'Tax and fiscal policy') + '. Market data sits in ' +
+                    detailLink('Data.html', 'Data &amp; Insights') + ', and if your capital is climate or transition ' +
+                    'finance there is a ' + detailLink('#climate-finance', 'climate finance route') +
+                    ' below.</p>', 'res-finance');
+
+                /* relevant MDAs */
+                html += detailBlock('Agencies you would deal with',
+                    '<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">' +
+                    path.agencies.map(function (a) {
+                        var body = '<span class="block font-body-md text-body-md font-semibold text-on-surface">' +
+                            a.name + '</span>' +
+                            '<span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">' +
+                            a.role + '</span>';
+                        return /^https?:/.test(a.href)
+                            ? '<a href="' + a.href + '" target="_blank" rel="noopener" class="bg-white border ' +
+                              'border-outline-variant rounded-xl p-5 block hover:border-primary transition-colors">' +
+                              body + '</a>'
+                            : '<div class="bg-white border border-outline-variant rounded-xl p-5">' + body + '</div>';
+                    }).join('') + '</div>');
+
+                host.innerHTML = html;
+
+                /* The climate finance route is markup, not a string, so it is
+                   moved into position rather than rebuilt. It reads as part of
+                   the finance answer instead of a slab under the questions. */
+                var route = document.getElementById('climate-finance');
+                var fin = document.getElementById('res-finance');
+                if (route && fin) fin.insertAdjacentElement('afterend', route);
+
+                /* contacts, rendered into its own mount at the foot of the result */
+                if (els.contact) els.contact.innerHTML = detailBlock('Contacts',
+                    '<p class="font-body-md text-body-md text-on-surface-variant">Each agency above links to its own ' +
+                    'site. For a route into the right one, or anything this page does not answer, ' +
+                    detailLink('Contact.html', 'contact the OSIP team') + '. Nothing here is a determination about ' +
+                    'your project; the responsible agency decides that.</p>');
+            }
+
             function labelFor(questionId, key) {
                 var question = QUESTIONS.filter(function (item) { return item.id === questionId; })[0];
                 if (!question) return key;
@@ -763,23 +982,38 @@
                 return option ? option.label : key;
             }
 
+            /* A reader who named a sector gets that sector and nothing else. It used
+               to return their pick plus two neighbours from ADJACENT, which meant
+               choosing Wind produced Wind, Storage and Solar, and the two they never
+               asked for looked arbitrary sitting beside the one they did.
+               The three-sector spread is now only for someone who answered "Not
+               decided", where picking on their behalf is the whole point of the
+               option. ADJACENT is kept below: renderDetail still reads it to name
+               what a sector is usually built alongside. */
             function recommendedSectors() {
                 var picked = answers.sector;
                 if (picked && picked !== 'open' && SECTORS[picked]) {
-                    return [picked].concat(ADJACENT[picked] || []).slice(0, 3);
+                    return [picked];
                 }
                 return (BY_OBJECTIVE[answers.objective] || ['solar', 'storage', 'clean-cooking']).slice(0, 3);
             }
 
             function finish() {
                 var slugs = recommendedSectors();
+                /* True when the reader named a sector, so the copy can talk about one
+                   sector rather than three. */
+                var named = slugs.length === 1;
                 progress(1);
 
                 els.stepSection.classList.add('hidden');
                 els.resultSection.classList.remove('hidden');
 
+                if (els.sectorsHeading) {
+                    els.sectorsHeading.textContent = named ? 'The sector you chose' : 'Sectors to start with';
+                }
+
                 els.summary.innerHTML = 'Based on your answers, these are the parts of the pipeline worth your time ' +
-                    'first. Nothing is ruled out &mdash; the full list stays open on ' +
+                    'first. Nothing is ruled out: the full list stays open on ' +
                     '<a class="text-secondary font-semibold hover:underline" href="Sector.html">Sectors</a> and ' +
                     '<a class="text-secondary font-semibold hover:underline" href="Opportunities.html">Opportunities</a>.';
 
@@ -800,9 +1034,13 @@
                       addition - it is the one thing the quiz knows that the
                       sectors page does not.
                     */
-                    var pill = index === 0
-                        ? '<span class="absolute top-3 left-3 bg-[#1f5940] text-white text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Best fit</span>'
-                        : '<span class="absolute top-3 left-3 bg-white/95 text-[#1f5940] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Also worth a look</span>';
+                    /* "Best fit" only reads as a judgement when there is something to
+                       judge against. On a single card it is the reader's own answer. */
+                    var pill = named
+                        ? '<span class="absolute top-3 left-3 bg-[#1f5940] text-white text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Your pick</span>'
+                        : index === 0
+                            ? '<span class="absolute top-3 left-3 bg-[#1f5940] text-white text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Best fit</span>'
+                            : '<span class="absolute top-3 left-3 bg-white/95 text-[#1f5940] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Also worth a look</span>';
                     return '' +
                         '<a href="' + sector.href + '" class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">' +
                         '<div class="h-[4px] w-full bg-[#1f5940]"></div>' +
@@ -849,6 +1087,8 @@
                         '<p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID: ' + opportunity.id + '</p>' +
                         '<h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">' + opportunity.title + '</h3>' +
                         '<span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : ' + opportunity.sectorLabel + '</span>' +
+                        (opportunity.readiness ? '<span class="readiness-tag" data-readiness="' + opportunity.readiness + '">' +
+                            '<span class="readiness-dot" aria-hidden="true"></span>' + READINESS[opportunity.readiness] + '</span>' : '') +
                         '</div>' +
                         '<div class="mb-4 inv-box">' +
                         '<p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>' +
@@ -868,10 +1108,13 @@
                         '</div>';
                 }).join('');
 
+                renderDetail(slugs[0]);
+
                 if (!exact) {
                     els.opps.insertAdjacentHTML('beforebegin',
                         '<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">' +
-                        'Nothing is listed in those sectors yet, so here is everything currently published.</p>');
+                        'Nothing is listed in ' + (named ? 'that sector' : 'those sectors') +
+                        ' yet, so here is everything currently published.</p>');
                 }
             }
 
