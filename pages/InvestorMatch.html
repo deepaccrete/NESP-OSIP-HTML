@@ -130,6 +130,13 @@
     <style data-purpose="custom-typography">
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Climate finance uses icons where the agency cards use logos, and its
+           densest glyphs read as black at weight 400. Drawn at 300, the same
+           weight the sector pages use, the brand green comes through. */
+        #climate-finance .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
         }
 
@@ -165,15 +172,81 @@
           match the mockup and hiding it outright would take the label, the
           arrow keys and the focus ring with it.
         */
+        /* The option card. It was borrowing .card-lift, which throws it up 4px on
+           hover: fine for a content card, showy for a radio button you are about
+           to click. The card now answers with its edge and a tint instead, and
+           the dot picks up the brand colour so the target is obvious. */
+        .quiz-option {
+            transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #cfd8d2;
+            background-color: #fbfdfc;
+            box-shadow: 0 1px 2px rgba(6, 20, 16, .05);
+        }
+
+        .quiz-option:hover .quiz-box {
+            border-color: #047857;
+        }
+
+        /* Two controls, because the questions are not all the same: a round dot
+           where one answer is wanted, a square box with a tick where several are.
+           The shape is what tells the reader which this is, so no instruction line
+           has to sit under the question saying it. */
+        .quiz-dot {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d6ddd9;
+            border-radius: 999px;
+            flex-shrink: 0;
+            transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+        }
+
+        .quiz-option:hover .quiz-dot {
+            border-color: #047857;
+        }
+
         .quiz-option input:checked~.quiz-dot {
-            border-color: #001d17;
-            background-color: #001d17;
+            border-color: #047857;
+            background-color: #047857;
             box-shadow: inset 0 0 0 3px #ffffff;
         }
 
+        .quiz-box {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d6ddd9;
+            border-radius: 6px;
+            flex-shrink: 0;
+            transition: border-color .2s ease, background-color .2s ease;
+        }
+
+        .quiz-option input:checked~.quiz-box {
+            border-color: #047857;
+            background-color: #047857;
+        }
+
+        .quiz-option input:checked~.quiz-box::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 9px;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+            transform: rotate(45deg);
+        }
+
+        /* Selected reads in the brand green, with no second ring. It used to be
+           #001d17 plus a 1px outline of the same colour, which put a near black
+           double border around a card in a light form. */
         .quiz-option:has(input:checked) {
-            border-color: #001d17;
-            box-shadow: 0 0 0 1px #001d17;
+            border-color: #047857;
+            background-color: #f1f8f4;
         }
 
         /* The focus ring lands on the CARD, not the hidden dot, so keyboard
@@ -192,13 +265,34 @@
                lives INSIDE this query: outside it, a reader who asked for
                reduced motion would get a permanently invisible question. */
             .quiz-enter {
-                animation: quiz-in .32s cubic-bezier(.2, .7, .2, 1) both;
+                animation: quiz-in .42s cubic-bezier(.22, .61, .36, 1) both;
+            }
+
+            /* Each option follows the question by a beat. The delay is set inline
+               per card, so a long list still finishes quickly.
+               This lives inside the reduced-motion query with .quiz-enter for the
+               same reason: the animation fills backwards, so outside the query a
+               reader who asked for no motion would get invisible options. */
+            .quiz-option-in {
+                animation: quiz-opt-in .4s cubic-bezier(.22, .61, .36, 1) both;
+            }
+
+            @keyframes quiz-opt-in {
+                from {
+                    opacity: 0;
+                    transform: translateY(6px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
             }
 
             @keyframes quiz-in {
                 from {
                     opacity: 0;
-                    transform: translateY(10px);
+                    transform: translateY(8px);
                 }
 
                 to {
@@ -345,12 +439,10 @@
 
         <!-- ============================================== QUESTIONS ==== -->
         <section id="quiz-step" class="bg-background">
+            <!-- The questions keep their own centred column. It is narrower than the
+                 result shell on purpose: a form reads better in a tighter measure, and
+                 centring it is what stops the step drifting off the middle of the screen. -->
             <div class="w-full max-w-5xl mx-auto px-margin-mobile md:px-margin-desktop pt-6 md:pt-8 pb-12 md:pb-16">
-
-                <button id="quiz-back" type="button"
-                    class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors mb-5">
-                    <span class="material-symbols-outlined text-[20px]">arrow_back</span>Back
-                </button>
 
                 <!-- The question counter and the question itself. `aria-live`
                      so a screen reader announces the new question when the
@@ -369,6 +461,30 @@
                     <legend class="sr-only" id="quiz-legend"></legend>
                     <div id="quiz-options" class="grid gap-3 sm:grid-cols-2"></div>
                 </fieldset>
+
+                <!-- Every control in one row under the options, where the reader
+                     ends up after reading them: back on the left, the way out of the
+                     question on the right. Back used to sit above the question, which
+                     put the two halves of the same decision at opposite ends of the
+                     screen. Next stays disabled until something is chosen, because a
+                     question with no answer narrows nothing; Skip is the way past it. -->
+                <div class="mt-9 pt-6 border-t border-[#e8ebe9] flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
+                    <button id="quiz-back" type="button"
+                        class="inline-flex items-center gap-1.5 bg-white border border-[#e5e7eb] rounded-full pl-2.5 pr-4 py-2 text-[#55635c] hover:text-primary hover:border-[#cfd8d2] text-[13px] font-medium transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">arrow_back</span>Back
+                    </button>
+                    <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+                        <button id="quiz-skip" type="button"
+                            class="text-[#55635c] hover:text-primary underline underline-offset-4 decoration-[#cfd8d2] hover:decoration-current text-[13px] font-medium transition-colors">
+                            Skip this question
+                        </button>
+                        <button id="quiz-next" type="button" disabled aria-disabled="true"
+                            class="inline-flex items-center justify-center gap-2 bg-primary-container hover:bg-primary text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+                            <span id="quiz-next-label">Next</span>
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
 
                 <p class="font-body-sm text-body-sm text-on-surface-variant mt-7">
                     Nothing here is stored or sent anywhere. It runs in your browser to point you at the
@@ -395,7 +511,7 @@
 
                 <!-- The answers, so the reader can see what this was based on
                      rather than being handed a conclusion with no working. -->
-                <div class="mt-8 flex flex-wrap gap-2" id="quiz-chips"></div>
+                <div class="mt-8" id="quiz-chips"></div>
 
                 <div class="mt-12">
                     <div class="flex items-center gap-4 mb-6">
@@ -446,59 +562,59 @@
                 OSIP sector pages already name, alongside the national climate change body. <strong class="text-on-surface">OSIP does not administer any of them, and this is
                 not an approved-source list</strong> &ndash; it is what the sector pages themselves cite.
                 Each one is run by the organisation named on the card, and this page only shows you where to go.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-no-glossary>
                     <div aria-disabled="true"
-                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4">
-                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">public</span></span>
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3">
+                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">public</span></span>
                         <span class="min-w-0">
-                            <span class="block font-body-md text-body-md font-semibold text-on-surface">National Council on Climate Change (NCCC)</span>
-                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Nigeria&rsquo;s national climate change body.</span>
-                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Official link being confirmed</span>
+                            <span class="block text-[#111827] text-[14px] font-medium">National Council on Climate Change (NCCC)</span>
+                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Nigeria&rsquo;s national climate change body.</span>
+                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Official link being confirmed</span>
                         </span>
                     </div>
                     <a href="GreenHydrogen.html#finance"
-                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4 hover:border-primary transition-colors">
-                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">eco</span></span>
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">eco</span></span>
                         <span class="min-w-0">
-                            <span class="block font-body-md text-body-md font-semibold text-on-surface">Global Clean Hydrogen Programme</span>
-                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">A GEF, UNIDO and ECN initiative supporting hydrogen sector development in Nigeria.</span>
-                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on the Green Hydrogen page</span>
+                            <span class="block text-[#111827] text-[14px] font-medium">Global Clean Hydrogen Programme</span>
+                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">A GEF, UNIDO and ECN initiative supporting hydrogen sector development in Nigeria.</span>
+                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Named on the Green Hydrogen page</span>
                         </span>
                     </a>
                     <a href="GreenHydrogen.html#finance"
-                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4 hover:border-primary transition-colors">
-                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">account_balance</span></span>
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">account_balance</span></span>
                         <span class="min-w-0">
-                            <span class="block font-body-md text-body-md font-semibold text-on-surface">AfDB Sustainable Energy Fund for Africa (SEFA)</span>
-                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Supports clean energy transition projects, including green hydrogen.</span>
-                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on the Green Hydrogen page</span>
+                            <span class="block text-[#111827] text-[14px] font-medium">AfDB Sustainable Energy Fund for Africa (SEFA)</span>
+                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Supports clean energy transition projects, including green hydrogen.</span>
+                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Named on the Green Hydrogen page</span>
                         </span>
                     </a>
                     <a href="Wind.html#finance"
-                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4 hover:border-primary transition-colors">
-                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">savings</span></span>
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">savings</span></span>
                         <span class="min-w-0">
-                            <span class="block font-body-md text-body-md font-semibold text-on-surface">Green bonds and InfraCredit guarantees</span>
-                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Available for well-structured transactions alongside hybrid capital instruments.</span>
-                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on the Wind and Bioenergy pages</span>
+                            <span class="block text-[#111827] text-[14px] font-medium">Green bonds and InfraCredit guarantees</span>
+                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Available for well-structured transactions alongside hybrid capital instruments.</span>
+                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Named on the Wind and Bioenergy pages</span>
                         </span>
                     </a>
                     <a href="CleanCooking.html#finance"
-                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4 hover:border-primary transition-colors">
-                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">co2</span></span>
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">co2</span></span>
                         <span class="min-w-0">
-                            <span class="block font-body-md text-body-md font-semibold text-on-surface">Carbon and results-based finance</span>
-                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Concessional capital, carbon finance and RBF mechanisms underpin most clean cooking models.</span>
-                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on the Clean Cooking page</span>
+                            <span class="block text-[#111827] text-[14px] font-medium">Carbon and results-based finance</span>
+                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Concessional capital, carbon finance and RBF mechanisms underpin most clean cooking models.</span>
+                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Named on the Clean Cooking page</span>
                         </span>
                     </a>
                     <a href="Sector.html"
-                        class="bg-white border border-outline-variant rounded-xl p-5 flex gap-4 hover:border-primary transition-colors">
-                        <span class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">handshake</span></span>
+                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">handshake</span></span>
                         <span class="min-w-0">
-                            <span class="block font-body-md text-body-md font-semibold text-on-surface">Concessional and blended finance</span>
-                            <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Grants, concessional debt and development finance combined with private capital.</span>
-                            <span class="block font-label-md text-label-md uppercase text-on-surface-variant/70 mt-2">Named on all ten sector pages</span>
+                            <span class="block text-[#111827] text-[14px] font-medium">Concessional and blended finance</span>
+                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Grants, concessional debt and development finance combined with private capital.</span>
+                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Named on all ten sector pages</span>
                         </span>
                     </a>
                 </div>
@@ -572,6 +688,7 @@
                 {
                     id: 'sector',
                     q: 'Which sector interests you most?',
+                    multi: true,
                     options: [
                         { key: 'solar', label: 'Solar' },
                         { key: 'wind', label: 'Wind' },
@@ -594,16 +711,22 @@
                         { key: 'diversify', label: 'Entering a new market', hint: 'Building exposure to West Africa' },
                         { key: 'strategic', label: 'A strategic or industrial footprint', hint: 'Manufacturing, supply chain, offtake' },
                         { key: 'impact', label: 'Development impact', hint: 'Energy access, jobs, emissions' },
-                        { key: 'supply', label: 'Supplying technology or services', hint: 'EPC, equipment, advisory' }
+                        { key: 'supply', label: 'Supplying technology or services', hint: 'EPC, equipment, advisory' },
+                        { key: 'unsure', label: 'Not sure yet', hint: 'We will suggest from your other answers' }
                     ]
                 },
                 {
                     id: 'entry',
                     q: 'How do you want to enter the market?',
+                    multi: true,
                     options: [
                         { key: 'equity', label: 'Equity in a project company' },
                         { key: 'debt', label: 'Debt or project finance' },
                         { key: 'jv', label: 'Joint venture with a Nigerian developer' },
+                        { key: 'ppp', label: 'A public private partnership or concession' },
+                        { key: 'offtake', label: 'A power purchase or offtake agreement' },
+                        { key: 'acquire', label: 'Acquiring an operating asset' },
+                        { key: 'fund', label: 'Through a fund or co-investment vehicle' },
                         { key: 'epc', label: 'An EPC or supply contract' },
                         { key: 'blended', label: 'Grant or blended finance alongside others' },
                         { key: 'unsure', label: 'Still deciding' }
@@ -627,12 +750,14 @@
                         { key: 'now', label: 'Ready to commit now', hint: 'Within six months' },
                         { key: 'year', label: 'Six to twelve months' },
                         { key: 'two', label: 'One to two years' },
-                        { key: 'watch', label: 'Researching for now' }
+                        { key: 'watch', label: 'Researching for now' },
+                        { key: 'unsure', label: 'Not sure yet' }
                     ]
                 },
                 {
                     id: 'region',
                     q: 'Where in Nigeria are you looking?',
+                    multi: true,
                     options: [
                         { key: 'nw', label: 'North West', hint: 'Kano, Kaduna, Sokoto and neighbours' },
                         { key: 'ne', label: 'North East', hint: 'Bauchi, Gombe, Adamawa' },
@@ -667,6 +792,7 @@
                 {
                     id: 'concern',
                     q: 'What is your biggest concern about investing here?',
+                    multi: true,
                     options: [
                         { key: 'regulatory', label: 'Regulatory and licensing clarity' },
                         { key: 'fx', label: 'Foreign exchange and repatriation' },
@@ -756,7 +882,13 @@
             };
 
             var step = 0;
+            /* One question, many answers: every value here is an array of option
+               keys. Everything downstream reads it through selected(). */
             var answers = {};
+
+            function selected(id) {
+                return answers[id] || [];
+            }
 
             var els = {
                 bar: document.getElementById('quiz-bar'),
@@ -774,7 +906,10 @@
                 opps: document.getElementById('quiz-opps'),
                 detail: document.getElementById('quiz-detail'),
                 contact: document.getElementById('quiz-contact'),
-                restart: document.getElementById('quiz-restart')
+                restart: document.getElementById('quiz-restart'),
+                skip: document.getElementById('quiz-skip'),
+                next: document.getElementById('quiz-next'),
+                nextLabel: document.getElementById('quiz-next-label')
             };
 
             function progress(fraction) {
@@ -783,7 +918,7 @@
 
             function render() {
                 var item = QUESTIONS[step];
-                var chosen = answers[item.id];
+                var chosen = selected(item.id);
 
                 els.count.textContent = 'Question ' + (step + 1) + ' of ' + QUESTIONS.length;
                 els.question.innerHTML = item.q;
@@ -793,14 +928,15 @@
                 els.options.innerHTML = item.options.map(function (option, index) {
                     var id = item.id + '-' + option.key;
                     return '' +
-                        '<label class="quiz-option card-lift flex items-center gap-4 bg-white border border-[#e5e7eb] rounded-xl px-5 py-4 cursor-pointer" for="' + id + '">' +
-                        '<input class="sr-only" type="radio" name="' + item.id + '" id="' + id + '" value="' + option.key + '"' +
-                        (chosen === option.key ? ' checked' : '') + (index === 0 && !chosen ? '' : '') + '>' +
+                        '<label class="quiz-option quiz-option-in flex items-center gap-4 bg-white border border-[#e5e7eb] rounded-xl px-5 py-4 cursor-pointer"' +
+                        ' for="' + id + '" style="animation-delay:' + (index * 30) + 'ms">' +
+                        '<input class="sr-only" type="' + (item.multi ? 'checkbox' : 'radio') + '" name="' + item.id + '" id="' + id + '" value="' + option.key + '"' +
+                        (chosen.indexOf(option.key) > -1 ? ' checked' : '') + '>' +
                         '<span class="flex-1 min-w-0">' +
                         '<span class="block font-body-md text-body-md text-[#111827] font-medium">' + option.label + '</span>' +
                         (option.hint ? '<span class="block font-body-sm text-body-sm text-on-surface-variant mt-0.5">' + option.hint + '</span>' : '') +
                         '</span>' +
-                        '<span class="quiz-dot w-5 h-5 rounded-[50%] border-2 border-outline-variant shrink-0" aria-hidden="true"></span>' +
+                        '<span class="' + (item.multi ? 'quiz-box' : 'quiz-dot') + '" aria-hidden="true"></span>' +
                         '</label>';
                 }).join('');
 
@@ -814,30 +950,60 @@
 
                 els.back.textContent = '';
                 els.back.insertAdjacentHTML('afterbegin',
-                    '<span class="material-symbols-outlined text-[20px]">arrow_back</span>' +
+                    '<span class="material-symbols-outlined text-[18px]">arrow_back</span>' +
                     (step === 0 ? 'Leave' : 'Back'));
+
+                els.nextLabel.textContent = step === QUESTIONS.length - 1 ? 'See my result' : 'Next';
+                syncNext();
+            }
+
+            /* Nothing to narrow with means nothing to press. */
+            function syncNext() {
+                var has = selected(QUESTIONS[step].id).length > 0;
+                els.next.disabled = !has;
+                els.next.setAttribute('aria-disabled', has ? 'false' : 'true');
+            }
+
+            function go() {
+                if (step < QUESTIONS.length - 1) {
+                    step += 1;
+                    render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    finish();
+                }
             }
 
             els.options.addEventListener('change', function (event) {
                 var input = event.target;
-                if (!input || input.type !== 'radio') return;
-                answers[QUESTIONS[step].id] = input.value;
-
-                /*
-                  A short pause before advancing. Without it the card the
-                  reader just clicked vanishes in the same frame, so there is
-                  no confirmation that the click landed, which is the thing
-                  that makes a one-click-per-question flow feel broken.
-                */
-                window.setTimeout(function () {
-                    if (step < QUESTIONS.length - 1) {
-                        step += 1;
-                        render();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    } else {
-                        finish();
+                if (!input || (input.type !== 'checkbox' && input.type !== 'radio')) return;
+                var id = QUESTIONS[step].id;
+                if (input.type === 'radio') {
+                    /* One answer: the new pick replaces the old rather than joining it. */
+                    answers[id] = [input.value];
+                } else {
+                    var list = selected(id).slice();
+                    var at = list.indexOf(input.value);
+                    if (input.checked) {
+                        if (at === -1) list.push(input.value);
+                    } else if (at > -1) {
+                        list.splice(at, 1);
                     }
-                }, 220);
+                    answers[id] = list;
+                }
+                syncNext();
+            });
+
+            els.next.addEventListener('click', function () {
+                if (els.next.disabled) return;
+                go();
+            });
+
+            /* Skipping clears the question rather than leaving a stale answer behind
+               from an earlier pass through it. */
+            els.skip.addEventListener('click', function () {
+                answers[QUESTIONS[step].id] = [];
+                go();
             });
 
             els.back.addEventListener('click', function () {
@@ -880,6 +1046,56 @@
                 return null;
             }
 
+            /* The sector pages give every Regulatory Requirements card an icon
+               chosen for what the card is about. The requirement text is all this
+               page gets from pathwaydata, so the icon is picked from the same
+               vocabulary those pages use, on the words the requirement itself
+               contains. Anything unmatched falls back to the neutral policy mark
+               rather than guessing. */
+            var REQ_ICONS = [
+                [/\b(cac|incorporat|nipc|company registration|business registration)/i, 'business'],
+                [/\b(eia|environment|fmenv|nesrea|emission)/i, 'eco'],
+                [/\b(land|governor|site)/i, 'terrain'],
+                [/\b(incentive|duty|tax|vat|pioneer|fiscal|exempt|tariff)/i, 'savings'],
+                [/\b(feedstock|biomass|forest|crop|agric)/i, 'forest'],
+                [/\b(transmission|tcn|grid connection|network)/i, 'hub'],
+                [/\b(standard|son|soncap|nemsa|certif|complian|safety)/i, 'verified'],
+                [/\b(hydro|water|river)/i, 'water'],
+                [/\b(licence|license|nerc|generation|mini-grid|electricity|power)/i, 'bolt']
+            ];
+
+            function reqIcon(text) {
+                for (var i = 0; i < REQ_ICONS.length; i++) {
+                    if (REQ_ICONS[i][0].test(text)) return REQ_ICONS[i][1];
+                }
+                return 'policy';
+            }
+
+            /* The same logos the sector pages put on their Key Regulatory Agencies
+               cards. An agency with no logo on file gets the material mark those
+               pages use in its place, so the row still reads as one set. */
+            var AGENCY_LOGOS = {
+                'Federal Ministry of Power': 'logoNESP.png',
+                'Federal Ministry of Environment': 'FMEnew.png',
+                'Federal Ministry of Environment (FMEnv)': 'FMEnew.png',
+                'Energy Commission of Nigeria': 'ECN.png',
+                'Energy Commission of Nigeria (ECN)': 'ECN.png',
+                'National Environmental Standards & Regulations Enforcement Agency (NESREA)': 'nesrea.jpeg',
+                'National Environmental Standards and Regulations Enforcement Agency (NESREA)': 'nesrea.jpeg',
+                'Nigerian Electricity Regulatory Commission': 'Nigerian Electricity Regulatory Commission logo.png',
+                'Nigerian Electricity Regulatory Commission (NERC)': 'Nigerian Electricity Regulatory Commission logo.png',
+                'Nigerian Electricity Management Services Agency': 'NEMSA.png',
+                'Nigerian Electricity Management Services Agency (NEMSA)': 'NEMSA.png',
+                'Nigerian Investment Promotion Commission': 'nipc-logo.png',
+                'Nigerian Investment Promotion Commission (NIPC)': 'nipc-logo.png',
+                'Rural Electrification Agency': 'REA-logo.png',
+                'Rural Electrification Agency (REA)': 'REA-logo.png',
+                'Standards Organisation of Nigeria (SON)': 'son_png.png',
+                'Standards Organization of Nigeria': 'son_png.png',
+                'Standards Organization of Nigeria (SON)': 'son_png.png',
+                'Transmission Company of Nigeria (TCN)': 'TCN.png'
+            };
+
             function detailBlock(title, inner, id) {
                 return '<div class="mt-12"' + (id ? ' id="' + id + '"' : '') + '>' +
                     '<div class="flex items-center gap-4 mb-6">' +
@@ -897,9 +1113,11 @@
               result narrows it to one sector; it never states a requirement that
               page does not.
             */
-            function renderDetail(slug) {
+            function renderDetail(slugs) {
                 var host = els.detail;
                 if (!host) return;
+                slugs = [].concat(slugs);
+                var slug = slugs[0];
                 var path = pathSector(slug);
                 var sector = SECTORS[slug];
                 if (!path || !sector) { host.innerHTML = ''; return; }
@@ -921,12 +1139,18 @@
                     }).join('') + '</div>');
 
                 /* regulatory guidance */
+                /* Card for card, this is the sector pages' own Regulatory Requirements
+                   block: white card, 24px padding, brand-green icon on the left and
+                   the requirement beside it at 15px/28. */
                 html += detailBlock('Regulatory guidance',
-                    '<ul class="grid gap-3 list-none p-0 m-0">' +
+                    '<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">' +
                     path.requirements.map(function (r) {
-                        return '<li class="bg-surface-container-low border border-outline-variant rounded-xl px-5 py-4 ' +
-                            'font-body-sm text-body-sm text-on-surface-variant">' + r.text + '</li>';
-                    }).join('') + '</ul>' +
+                        return '<div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">' +
+                            '<span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">' +
+                            reqIcon(r.text) + '</span>' +
+                            '<p class="text-[#404846] text-[15px] leading-7">' + r.text + '</p>' +
+                            '</div>';
+                    }).join('') + '</div>' +
                     '<p class="font-body-sm text-body-sm text-on-surface-variant mt-4">Published on the ' + name +
                     ' page under ' + detailLink(page + '#regulations', 'regulations') + ' and ' +
                     detailLink(page + '#technical', 'technical and safety') + ', and phrased as what may apply. ' +
@@ -944,19 +1168,44 @@
                     ' below.</p>', 'res-finance');
 
                 /* relevant MDAs */
+                /* And this is those pages' Key Regulatory Agencies card: logo or mark
+                   in a 40px tinted tile, name at 14px, role underneath, lifting a
+                   half step on hover. data-no-glossary matches the sector pages,
+                   which keep the glossary out of agency names. */
                 html += detailBlock('Agencies you would deal with',
-                    '<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">' +
+                    '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-no-glossary>' +
                     path.agencies.map(function (a) {
-                        var body = '<span class="block font-body-md text-body-md font-semibold text-on-surface">' +
-                            a.name + '</span>' +
-                            '<span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">' +
-                            a.role + '</span>';
+                        var logo = AGENCY_LOGOS[a.name];
+                        var mark = logo
+                            ? '<img src="' + logo + '" alt="' + a.name + ' logo" class="w-8 h-8 object-contain" />'
+                            : '<span class="material-symbols-outlined text-[#004225]">account_balance</span>';
+                        var body =
+                            '<span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center ' +
+                            'flex-shrink-0 overflow-hidden">' + mark + '</span>' +
+                            '<span class="min-w-0">' +
+                            '<span class="block text-[#111827] text-[14px] font-medium">' + a.name + '</span>' +
+                            '<span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">' +
+                            a.role + '</span>' +
+                            '</span>';
+                        var base = 'bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3';
                         return /^https?:/.test(a.href)
-                            ? '<a href="' + a.href + '" target="_blank" rel="noopener" class="bg-white border ' +
-                              'border-outline-variant rounded-xl p-5 block hover:border-primary transition-colors">' +
-                              body + '</a>'
-                            : '<div class="bg-white border border-outline-variant rounded-xl p-5">' + body + '</div>';
+                            ? '<a href="' + a.href + '" target="_blank" rel="noopener" class="' + base +
+                              ' hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">' + body + '</a>'
+                            : '<div class="' + base + '">' + body + '</div>';
                     }).join('') + '</div>');
+
+                /* The blocks below are per sector, and a reader who ticked several
+                   would otherwise get the first one's regulations with nothing saying
+                   so. Named, with the others linked to their own pages. */
+                if (slugs.length > 1) {
+                    var others = slugs.slice(1).map(function (other) {
+                        var o = SECTORS[other];
+                        return o ? detailLink(o.href, o.name) : '';
+                    }).filter(Boolean);
+                    html = '<p class="font-body-sm text-body-sm text-on-surface-variant mt-12">' +
+                        'What follows is published for ' + name + ', the first sector you ticked. ' +
+                        others.join(', ') + ' set out the same sections on their own pages.</p>' + html;
+                }
 
                 host.innerHTML = html;
 
@@ -975,6 +1224,26 @@
                     'your project; the responsible agency decides that.</p>');
             }
 
+            /* A one or two word name for each question, for the answer summary.
+               The questions themselves are full sentences and read badly stacked
+               ten deep above a result. */
+            var ANSWER_LABELS = {
+                investor: 'Investor type',
+                sector: 'Sector',
+                objective: 'Objective',
+                entry: 'Market entry',
+                ticket: 'Ticket size',
+                timeline: 'Timeline',
+                region: 'Region',
+                presence: 'Presence in Nigeria',
+                stage: 'Project stage',
+                concern: 'Main concern'
+            };
+
+            function labelsFor(questionId, keys) {
+                return (keys || []).map(function (k) { return labelFor(questionId, k); });
+            }
+
             function labelFor(questionId, key) {
                 var question = QUESTIONS.filter(function (item) { return item.id === questionId; })[0];
                 if (!question) return key;
@@ -991,25 +1260,33 @@
                option. ADJACENT is kept below: renderDetail still reads it to name
                what a sector is usually built alongside. */
             function recommendedSectors() {
-                var picked = answers.sector;
-                if (picked && picked !== 'open' && SECTORS[picked]) {
-                    return [picked];
-                }
-                return (BY_OBJECTIVE[answers.objective] || ['solar', 'storage', 'clean-cooking']).slice(0, 3);
+                /* Every sector the reader ticked, in the order the question lists
+                   them, and nothing else. Only someone who ticked nothing but "Not
+                   decided" gets a spread chosen for them. */
+                var picked = selected('sector').filter(function (k) {
+                    return k !== 'open' && SECTORS[k];
+                });
+                if (picked.length) return picked;
+                var objective = selected('objective')[0];
+                return (BY_OBJECTIVE[objective] || ['solar', 'storage', 'clean-cooking']).slice(0, 3);
             }
 
             function finish() {
                 var slugs = recommendedSectors();
                 /* True when the reader named a sector, so the copy can talk about one
                    sector rather than three. */
-                var named = slugs.length === 1;
+                var named = selected('sector').filter(function (k) {
+                    return k !== 'open' && SECTORS[k];
+                }).length > 0;
                 progress(1);
 
                 els.stepSection.classList.add('hidden');
                 els.resultSection.classList.remove('hidden');
 
                 if (els.sectorsHeading) {
-                    els.sectorsHeading.textContent = named ? 'The sector you chose' : 'Sectors to start with';
+                    els.sectorsHeading.textContent = named
+                        ? (slugs.length > 1 ? 'The sectors you chose' : 'The sector you chose')
+                        : 'Sectors to start with';
                 }
 
                 els.summary.innerHTML = 'Based on your answers, these are the parts of the pipeline worth your time ' +
@@ -1017,12 +1294,32 @@
                     '<a class="text-secondary font-semibold hover:underline" href="Sector.html">Sectors</a> and ' +
                     '<a class="text-secondary font-semibold hover:underline" href="Opportunities.html">Opportunities</a>.';
 
-                els.chips.innerHTML = QUESTIONS.map(function (item) {
-                    var value = answers[item.id];
-                    if (!value) return '';
-                    return '<span class="inline-flex items-center bg-surface-container-low border border-outline-variant text-on-surface-variant font-label-md text-label-md uppercase px-3 py-1.5 rounded-full">' +
-                        labelFor(item.id, value) + '</span>';
-                }).join('');
+                /* Ten bare pills read as a pile of unrelated tags: "Green mobility",
+                   "North East", "$50 to 250 million" with nothing saying which
+                   question each one answered. Same answers, each under the question
+                   it belongs to, in the card the rest of the page uses. */
+                /* One card per question rather than ten rows inside a single panel.
+                   A question can now hold several answers, and stacked inside one
+                   box they ran together with no telling where one answer ended and
+                   the next began. Same card as the rest of the result page. */
+                els.chips.innerHTML =
+                    '<p class="text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mb-4">Your answers</p>' +
+                    '<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">' +
+                    QUESTIONS.map(function (item) {
+                        var values = selected(item.id);
+                        if (!values.length) return '';
+                        return '<div class="bg-white border border-[#e5e7eb] rounded-xl px-5 py-4">' +
+                            '<span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em]">' +
+                            (ANSWER_LABELS[item.id] || item.id) +
+                            (values.length > 1 ? ' <span class="text-[#b3bdb8]">(' + values.length + ')</span>' : '') +
+                            '</span>' +
+                            labelsFor(item.id, values).map(function (text) {
+                                return '<span class="block text-[#111827] text-[14px] font-medium leading-5 mt-1.5">' +
+                                    text + '</span>';
+                            }).join('') +
+                            '</div>';
+                    }).join('') +
+                    '</div>';
 
                 els.sectors.innerHTML = slugs.map(function (slug, index) {
                     var sector = SECTORS[slug];
@@ -1108,7 +1405,7 @@
                         '</div>';
                 }).join('');
 
-                renderDetail(slugs[0]);
+                renderDetail(slugs);
 
                 if (!exact) {
                     els.opps.insertAdjacentHTML('beforebegin',

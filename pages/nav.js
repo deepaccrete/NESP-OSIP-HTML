@@ -162,9 +162,9 @@
     },
     'DATA & INSIGHTS': {
       head: 'Data & Insights', items: [
-        { t: 'Investment & Capacity', d: 'Investment and capacity indicators by sector.', href: base + 'Data.html' },
-        { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: base + 'Data.html' },
-        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: base + 'Data.html' }
+        { t: 'National Intelligence', d: 'Indicators, maps and trends for the whole country.', href: base + 'Data.html#national-intelligence' },
+        { t: 'Geographic Hotspots', d: 'Where each sector is concentrated, state by state.', href: base + 'Data.html#hotspots' },
+        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: base + 'Data.html#downloads' }
       ]
     },
     'NEWS & EVENTS': {
