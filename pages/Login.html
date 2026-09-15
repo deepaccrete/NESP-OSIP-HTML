@@ -5,10 +5,11 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Login | OSIP - Nigerian Energy Investment Portal</title>
+    <title>Login | One-Stop Investment Platform (OSIP)</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Type: Inter only (14 Sep 2026). Manrope and Newsreader are no longer used on this page. -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -375,9 +376,452 @@
             --tw-ring-color: rgba(0, 52, 43, 0.18);
         }
     </style>
+    <style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - Login.html (11 Sep 2026)
+
+           The redesigned pages' language for sign in and registration: a deep
+           green brand panel with its headline set large and light in
+           Newsreader, a warm paper form panel, warm rounded fields and the deep
+           green pill. Every field, label, link and script is where it was.
+           Scoped under body.rd; the previous design is kept in
+           OSIP/Backups/Login/.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd ::selection {
+            background: #f7be26;
+            color: var(--rd-ink);
+        }
+
+        /* ---- Brand panel ---------------------------------------------------------- */
+        .rd .brand-panel {
+            background: var(--rd-deep) !important;
+        }
+
+        .rd .brand-panel img[data-alt] {
+            opacity: .62 !important;
+        }
+
+        .rd .brand-panel .h-10.w-10 {
+            border-radius: 999px !important;
+            box-shadow: none !important;
+        }
+
+        .rd .brand-panel p.text-\[22px\] {
+            font-family: var(--rd-serif) !important;
+            font-weight: 400 !important;
+            font-size: 27px !important;
+            letter-spacing: -0.01em !important;
+        }
+
+        .rd .brand-panel p.text-\[10px\],
+        .rd .brand-panel .text-\[10\.5px\] {
+            font-weight: 500 !important;
+            letter-spacing: .26em !important;
+        }
+
+        .rd .brand-panel h2 {
+            margin-bottom: 22px !important;
+            font-family: var(--rd-serif) !important;
+            font-weight: 300 !important;
+            font-size: clamp(36px, 3.4vw, 54px) !important;
+            line-height: 1.04 !important;
+            letter-spacing: -0.028em !important;
+        }
+
+        .rd .brand-panel h2 + p {
+            font-family: var(--rd-serif) !important;
+            font-size: 18px !important;
+            line-height: 1.62 !important;
+            color: rgba(243, 239, 230, .82) !important;
+        }
+
+        .rd .glass-chip {
+            border-radius: 18px !important;
+            background: rgba(243, 239, 230, .07) !important;
+            border-color: rgba(243, 239, 230, .14) !important;
+        }
+
+        .rd .glass-chip:hover {
+            transform: none !important;
+            background: rgba(243, 239, 230, .11) !important;
+            border-color: rgba(217, 165, 32, .45) !important;
+        }
+
+        .rd .glass-chip .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd .glass-chip p.text-\[12px\] {
+            font-family: var(--rd-serif) !important;
+            font-size: 17px !important;
+            font-weight: 400 !important;
+            letter-spacing: 0 !important;
+        }
+
+        .rd .glass-chip p.text-\[11px\] {
+            font-size: 11.5px !important;
+            color: rgba(243, 239, 230, .62) !important;
+        }
+
+        /* ---- Form panel ------------------------------------------------------------- */
+        .rd main > section:not(.brand-panel) {
+            background: var(--rd-paper) !important;
+        }
+
+        .rd .auth-tab-group {
+            background: var(--rd-paper-2) !important;
+            border-color: var(--rd-line) !important;
+        }
+
+        .rd .auth-tab {
+            font-family: var(--rd-sans) !important;
+            font-size: 13.5px !important;
+            font-weight: 500 !important;
+            color: var(--rd-ink-3) !important;
+            transition: color .3s ease, background-color .3s ease !important;
+        }
+
+        .rd .auth-tab:hover {
+            color: var(--rd-ink) !important;
+        }
+
+        .rd .auth-tab.active {
+            background: var(--rd-green) !important;
+            color: #ffffff !important;
+            box-shadow: none !important;
+        }
+
+        .rd #login-view h2,
+        .rd #register-view h2 {
+            font-family: var(--rd-serif) !important;
+            font-weight: 400 !important;
+            font-size: clamp(38px, 3.3vw, 48px) !important;
+            line-height: 1.04 !important;
+            letter-spacing: -0.026em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #login-view h2 + p,
+        .rd #register-view h2 + p {
+            margin-top: 10px !important;
+            font-family: var(--rd-serif) !important;
+            font-size: 17.5px !important;
+            line-height: 1.6 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd .form-label {
+            margin-bottom: 8px;
+            font-family: var(--rd-sans);
+            font-size: 10.5px;
+            font-weight: 500;
+            letter-spacing: .18em;
+            color: var(--rd-ink-3);
+        }
+
+        .rd .form-icon {
+            color: var(--rd-ink-3);
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 22;
+        }
+
+        .rd .form-input {
+            height: 50px;
+            border-radius: 14px !important;
+            border-color: var(--rd-line-2) !important;
+            background: var(--rd-card) !important;
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--rd-ink);
+            box-shadow: none !important;
+            transition: border-color .3s ease, box-shadow .3s ease, background-color .3s ease;
+        }
+
+        .rd .form-input::placeholder {
+            color: #a39d91;
+        }
+
+        .rd .form-input:hover {
+            border-color: #b9b2a4 !important;
+        }
+
+        .rd .form-input:focus {
+            border-color: var(--rd-green-2) !important;
+            background: #ffffff !important;
+            box-shadow: 0 0 0 4px rgba(11, 107, 69, .12) !important;
+        }
+
+        .rd .form-control:focus-within .form-icon {
+            color: var(--rd-green-2);
+        }
+
+        .rd .form-trailing:hover {
+            color: var(--rd-green);
+            background: rgba(0, 66, 37, .06);
+        }
+
+        .rd a.text-on-tertiary-fixed-variant {
+            font-weight: 600 !important;
+            color: var(--rd-green-2) !important;
+            text-decoration: underline;
+            text-decoration-color: rgba(217, 165, 32, .6);
+            text-underline-offset: 3px;
+        }
+
+        .rd a.text-on-tertiary-fixed-variant:hover {
+            text-decoration-color: currentColor;
+        }
+
+        .rd .captcha-tile {
+            background: var(--rd-paper-2) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 14px !important;
+        }
+
+        .rd .captcha-text {
+            color: var(--rd-green) !important;
+        }
+
+        .rd button[title="Refresh captcha"] {
+            border-radius: 14px !important;
+            border-color: var(--rd-line-2) !important;
+            background: var(--rd-card) !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd button[title="Refresh captcha"]:hover {
+            background: #ffffff !important;
+        }
+
+        /* the primary action: the redesigned pages' pill */
+        .rd .cta-primary {
+            height: 54px !important;
+            border-radius: 999px !important;
+            background: var(--rd-green) !important;
+            font-family: var(--rd-serif) !important;
+            font-size: 16px !important;
+            font-size-adjust: .52;
+            font-weight: 500 !important;
+            letter-spacing: 0 !important;
+            box-shadow: none !important;
+            transition: background-color .35s ease !important;
+        }
+
+        .rd .cta-primary:hover {
+            transform: none !important;
+            filter: none !important;
+            background: #062f1f !important;
+            box-shadow: none !important;
+        }
+
+        .rd .cta-primary::after {
+            display: none;
+        }
+
+        .rd .cta-primary .material-symbols-outlined {
+            font-size-adjust: none;
+            transition: transform .35s cubic-bezier(.16, 1, .3, 1) !important;
+        }
+
+        .rd .cta-primary:hover .material-symbols-outlined {
+            transform: translateX(4px) !important;
+        }
+
+        .rd .org-chip-face {
+            height: 46px;
+            border-radius: 14px;
+            border-color: var(--rd-line-2);
+            background: var(--rd-card);
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--rd-ink-2);
+            transition: border-color .3s ease, color .3s ease, background-color .3s ease;
+        }
+
+        .rd .org-chip-face .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .rd .org-chip:hover .org-chip-face {
+            border-color: var(--rd-green-2);
+            color: var(--rd-green);
+        }
+
+        .rd .peer:checked + .org-chip-face {
+            border-color: var(--rd-green);
+            background: var(--rd-green);
+            color: #ffffff;
+            box-shadow: none;
+        }
+
+        .rd button.bg-\[\#ffdf9e\] {
+            border-radius: 999px !important;
+            background: #efe3bf !important;
+            color: #5b4300 !important;
+            font-weight: 600 !important;
+            letter-spacing: .12em !important;
+        }
+
+        .rd #terms {
+            border-radius: 5px !important;
+            border-color: var(--rd-line-2) !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd label span.text-\[12\.5px\] {
+            font-family: var(--rd-serif);
+            font-size: 14.5px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #login-view form p.text-\[13\.5px\],
+        .rd #register-view form p.text-\[13\.5px\] {
+            font-family: var(--rd-serif) !important;
+            font-size: 16px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd p.text-\[10px\].text-outline {
+            font-weight: 500 !important;
+            letter-spacing: .26em !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* ---- Entrance: the panel's words rise in, then the form, a field at a time.
+           A view that is switched to replays it, and so does the company name
+           field when it appears. Off with reduced motion. ----------------------- */
+        @media (prefers-reduced-motion: no-preference) {
+            .rd .brand-panel > .relative.z-10 {
+                animation: lgRise 1.1s cubic-bezier(.16, 1, .3, 1) both;
+            }
+
+            .rd .brand-panel > .relative.z-10:nth-child(3) {
+                animation-delay: .12s;
+            }
+
+            .rd .brand-panel > .relative.z-10:nth-child(4) {
+                animation-delay: .24s;
+            }
+
+            /* backwards only: after the settle the brand image's own pointer parallax owns its transform */
+            .rd .brand-panel img[data-alt] {
+                animation: lgSettle 2.4s cubic-bezier(.16, 1, .3, 1) backwards;
+            }
+
+            .rd .auth-tab-group,
+            .rd #login-view > div:first-child,
+            .rd #register-view > div:first-child,
+            .rd #login-view form > *,
+            .rd #register-view form > * {
+                animation: lgRise .9s cubic-bezier(.16, 1, .3, 1) both;
+            }
+
+            .rd #login-view > div:first-child,
+            .rd #register-view > div:first-child { animation-delay: .06s; }
+
+            .rd #login-view form > :nth-child(1), .rd #register-view form > :nth-child(1) { animation-delay: .12s; }
+            .rd #login-view form > :nth-child(2), .rd #register-view form > :nth-child(2) { animation-delay: .17s; }
+            .rd #login-view form > :nth-child(3), .rd #register-view form > :nth-child(3) { animation-delay: .22s; }
+            .rd #login-view form > :nth-child(4), .rd #register-view form > :nth-child(4) { animation-delay: .27s; }
+            .rd #login-view form > :nth-child(5), .rd #register-view form > :nth-child(5) { animation-delay: .32s; }
+            .rd #login-view form > :nth-child(6), .rd #register-view form > :nth-child(6) { animation-delay: .37s; }
+            .rd #login-view form > :nth-child(7), .rd #register-view form > :nth-child(7) { animation-delay: .42s; }
+            .rd #login-view form > :nth-child(8), .rd #register-view form > :nth-child(8) { animation-delay: .47s; }
+            .rd #login-view form > :nth-child(9), .rd #register-view form > :nth-child(9) { animation-delay: .52s; }
+            .rd #login-view form > :nth-child(n+10), .rd #register-view form > :nth-child(n+10) { animation-delay: .57s; }
+
+            @keyframes lgRise {
+                from { opacity: 0; transform: translateY(16px); }
+                to { opacity: 1; transform: none; }
+            }
+
+            @keyframes lgSettle {
+                from { transform: scale(1.14); }
+                to { transform: scale(1); }
+            }
+        }
+    </style>
+    <style id="rd-type-inter">
+        /* =====================================================================
+           TYPE: INTER ONLY (14 Sep 2026)
+
+           As on the homepage, the sector pages and the shared header and footer.
+           The redesign layer above set headings and reading text in Newsreader,
+           the base styles and a few inline styles named Manrope, and the captcha
+           used Courier. All of it is Inter now:
+
+             - --rd-serif names Inter, so every redesign rule that asked for the
+               serif gets Inter, held to the serif's x-height (font-size-adjust
+               .515) so nothing grows or rewraps
+             - headings are one step heavier, as they read better in Inter
+             - one catch-all sets Inter on everything else on the page, leaving
+               only the icon font alone
+
+           The previous type is kept in OSIP/Backups/Login/.
+           ===================================================================== */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        body.rd *:not([class*="material-symbols"]):not([class*="material-icons"]) {
+            font-family: var(--rd-sans) !important;
+        }
+
+        .rd .brand-panel p.text-\[22px\],
+        .rd .brand-panel h2,
+        .rd .brand-panel h2 + p,
+        .rd .glass-chip p.text-\[12px\],
+        .rd #login-view h2,
+        .rd #register-view h2,
+        .rd #login-view h2 + p,
+        .rd #register-view h2 + p,
+        .rd label span.text-\[12\.5px\],
+        .rd #login-view form p.text-\[13\.5px\],
+        .rd #register-view form p.text-\[13\.5px\] {
+            font-size-adjust: .515 !important;
+        }
+
+        .rd .brand-panel h2 {
+            font-weight: 400 !important;
+        }
+
+        .rd .brand-panel p.text-\[22px\],
+        .rd #login-view h2,
+        .rd #register-view h2 {
+            font-weight: 500 !important;
+        }
+
+        /* the pill's label is Inter at its own size */
+        .rd .cta-primary {
+            font-size-adjust: none !important;
+        }
+    </style>
 </head>
 
-<body class="bg-surface text-on-surface h-screen overflow-hidden">
+<body class="bg-surface text-on-surface h-screen overflow-hidden rd">
     <main class="flex h-screen w-full flex-col md:flex-row">
         <!-- Left: Brand showcase -->
         <section class="brand-panel relative hidden md:flex md:flex-col justify-between md:basis-[44%] p-7 lg:p-9">
@@ -397,8 +841,7 @@
                 <div>
                     <p class="text-white text-[22px] leading-none font-extrabold tracking-tight"
                         style="font-family: Manrope, sans-serif;">OSIP</p>
-                    <p class="text-[#f7be26] text-[10px] font-bold uppercase tracking-[0.22em] mt-1">Nigeria Energy
-                        Portal</p>
+                    <p class="text-[#f7be26] text-[10px] font-bold uppercase tracking-[0.22em] mt-1">One-Stop Investment Platform</p>
                 </div>
             </div>
 
@@ -413,7 +856,7 @@
                     style="font-family: Manrope, sans-serif;">Power Nigeria's energy transition — one investment at a
                     time.</h2>
                 <p class="text-[#bdecde]/90 leading-relaxed text-sm lg:text-[15px]">
-                    Sign in to access live opportunities, regulatory guidance, and a vetted network across Renewable
+                    Sign in to follow published opportunities, regulatory guidance and partner agencies across Renewable
                     Energy and Energy Efficiency.
                 </p>
             </div>
@@ -424,13 +867,13 @@
                     <span class="material-symbols-outlined text-[#f7be26] text-[20px] mb-2 block"
                         style="font-variation-settings: 'FILL' 1;">search</span>
                     <p class="text-white text-[12px] font-bold tracking-wide">Discover</p>
-                    <p class="text-[#bdecde]/70 text-[11px] leading-snug mt-0.5">Live opportunities</p>
+                    <p class="text-[#bdecde]/70 text-[11px] leading-snug mt-0.5">Published opportunities</p>
                 </div>
                 <div class="glass-chip rounded-xl p-3.5">
                     <span class="material-symbols-outlined text-[#f7be26] text-[20px] mb-2 block"
                         style="font-variation-settings: 'FILL' 1;">handshake</span>
                     <p class="text-white text-[12px] font-bold tracking-wide">Connect</p>
-                    <p class="text-[#bdecde]/70 text-[11px] leading-snug mt-0.5">Vetted partners</p>
+                    <p class="text-[#bdecde]/70 text-[11px] leading-snug mt-0.5">Partner agencies</p>
                 </div>
                 <div class="glass-chip rounded-xl p-3.5">
                     <span class="material-symbols-outlined text-[#f7be26] text-[20px] mb-2 block"
@@ -712,7 +1155,7 @@
 
                 <div class="mt-6 text-center">
                     <p class="text-[10px] text-outline uppercase tracking-[0.28em] font-bold">
-                        One Stop Investment Portal · NESP
+                        One-Stop Investment Platform · NESP
                     </p>
                 </div>
             </div>

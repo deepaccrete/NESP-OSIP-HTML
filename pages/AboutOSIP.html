@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>About OSIP | Nigerian Energy Investment Portal</title>
+    <title>About OSIP | One-Stop Investment Platform (OSIP)</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap"
         rel="stylesheet" />
@@ -12,45 +12,189 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
+    <!-- Type: Inter (as on the homepage and the sector pages) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap"
+        rel="stylesheet" />
+    <style id="ab-style">
+        /* =====================================================================
+           ABOUT OSIP - redesign (15 Sep 2026)
+           The homepage / sector-page language: paper ground, Inter, numbered
+           editorial sections on hairlines, one card, a deep-green closing band,
+           and restrained motion (smooth scroll, headings rising, cards arriving).
+           Every word is the page's own. The earlier page is in OSIP/Backups/AboutOSIP/.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-serif: var(--rd-sans);
+            --ab-ease: cubic-bezier(.16, 1, .3, 1);
         }
 
-        .gold-bar {
-            display: inline-block;
-            width: 36px;
-            height: 3px;
-            background: #ffb955;
-            vertical-align: middle;
+        html.lenis, html.lenis body { height: auto; }
+        .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+        .lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2);
+            font-family: var(--rd-sans) !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .feature-card {
-            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        .rd ::selection { background: #f7be26; color: var(--rd-ink); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+
+        .ab-wrap { width: 100%; max-width: 80rem; margin: 0 auto; padding: 0 24px; }
+        @media (min-width: 1024px) { .ab-wrap { padding: 0 32px; } }
+
+        .ab-eyebrow {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
+            font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--rd-green-2);
+        }
+        .ab-eyebrow span { width: 28px; height: 1px; background: var(--rd-gold); }
+        .ab-eyebrow--light { color: #f7d27a; }
+
+        /* ---- Hero ---------------------------------------------------------------------- */
+        .ab-hero {
+            position: relative; overflow: hidden; display: flex; align-items: flex-end;
+            min-height: min(88vh, 820px); background: var(--rd-deep);
+        }
+        .ab-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.04); }
+        .ab-hero-scrim {
+            position: absolute; inset: 0;
+            background:
+                linear-gradient(90deg, rgba(8, 28, 20, .9) 0%, rgba(8, 28, 20, .66) 45%, rgba(8, 28, 20, .18) 100%),
+                linear-gradient(0deg, rgba(8, 28, 20, .7) 0%, rgba(8, 28, 20, 0) 55%);
+        }
+        .ab-hero-inner { position: relative; z-index: 1; padding-top: 140px; padding-bottom: clamp(56px, 8vw, 104px); }
+        .ab-hero-title {
+            margin: 0 0 30px; color: #ffffff;
+            font-size: clamp(48px, 7vw, 112px); font-weight: 500; line-height: .98; letter-spacing: -0.035em;
+        }
+        .ab-hero-lead {
+            position: relative; max-width: 56rem; margin: 0; padding-left: 26px;
+            font-size: clamp(17px, 1.5vw, 21px); line-height: 1.6; color: rgba(255, 255, 255, .86);
+        }
+        .ab-hero-lead::before { content: ""; position: absolute; left: 0; top: .35em; bottom: .35em; width: 2px; background: var(--rd-gold); }
+        .ab-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+
+        .ab-btn {
+            display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 26px;
+            border-radius: 999px; font-size: 14.5px; font-weight: 500; text-decoration: none;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease;
+        }
+        .ab-btn .material-symbols-outlined { font-size: 18px; transition: transform .5s var(--ab-ease); }
+        .ab-btn:hover .material-symbols-outlined { transform: translateX(4px); }
+        .ab-btn--light { background: #ffffff; color: var(--rd-green); }
+        .ab-btn--light:hover { background: #f7d27a; color: var(--rd-ink); }
+        .ab-btn--ghost { border: 1px solid rgba(255, 255, 255, .45); color: #ffffff; }
+        .ab-btn--ghost:hover { border-color: #ffffff; background: rgba(255, 255, 255, .08); }
+        .ab-btn:focus-visible { outline: 2px solid #f7d27a; outline-offset: 3px; }
+
+        /* ---- Numbered editorial sections ------------------------------------------------ */
+        .ab-sec { padding: clamp(72px, 9vw, 128px) 0; }
+        .ab-sec--tint { background: var(--rd-paper-2); }
+        .ab-row {
+            display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px;
+        }
+        .ab-row::before { content: ""; grid-column: 1 / -1; height: 1px; background: var(--rd-line-2); margin-bottom: 8px; transform-origin: left; transform: scaleX(var(--ab-draw, 1)); }
+        @media (min-width: 1024px) { .ab-row.ab-row--wide { grid-template-columns: minmax(0, 1fr); row-gap: 28px; } .ab-row.ab-row--wide .ab-head { position: static; } .ab-row--wide .ab-head h2 { max-width: none; } .ab-row--wide .ab-body { columns: 2; column-gap: clamp(40px, 5vw, 96px); } .ab-row--wide .ab-body p { break-inside: avoid; } }
+        @media (min-width: 1024px) {
+            .ab-row { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(40px, 5vw, 96px); row-gap: 36px; }
+            .ab-head { position: sticky; top: 110px; align-self: start; }
+        }
+        .ab-no { display: block; margin-bottom: 18px; font-size: 13px; font-weight: 500; letter-spacing: .08em; font-variant-numeric: tabular-nums; color: var(--rd-green-2); }
+        .ab-head h2 {
+            margin: 0; font-size: clamp(32px, 3.3vw, 48px); font-weight: 500; line-height: 1.08; letter-spacing: -0.025em; color: var(--rd-ink);
+        }
+        .ab-body p { margin: 0; font-size: clamp(17px, 1.3vw, 19px); line-height: 1.75; color: var(--rd-ink-2); }
+        .ab-body p + p { margin-top: 22px; }
+        .ab-body .ab-statement {
+            margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--rd-line);
+            font-size: clamp(22px, 2.1vw, 30px); font-weight: 500; line-height: 1.35; letter-spacing: -0.015em; color: var(--rd-green);
         }
 
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 24px 40px -22px rgba(6, 20, 16, 0.22);
-            border-color: #047857;
+        /* ---- Audience cards: the site's one card ------------------------------------------ */
+        .ab-cards-lead { margin: clamp(56px, 6vw, 88px) 0 24px; font-size: 18px; font-weight: 500; color: var(--rd-ink); }
+        .ab-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+        @media (min-width: 640px) { .ab-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (min-width: 1100px) { .ab-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+        .ab-card {
+            position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 28px;
+            background: var(--rd-card); border: 1px solid var(--rd-line); border-radius: 18px;
+            transition: border-color .4s ease, background-color .4s ease;
+        }
+        .ab-card::before {
+            content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: var(--rd-gold);
+            transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ab-ease);
+        }
+        .ab-card:hover { background: #ffffff; border-color: var(--rd-line-2); }
+        .ab-card:hover::before { transform: scaleX(1); }
+        .ab-card-mark {
+            display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-bottom: 22px;
+            border-radius: 12px; background: #ffffff; box-shadow: inset 0 0 0 1px var(--rd-line); color: var(--rd-green);
+        }
+        .ab-card-mark .material-symbols-outlined { font-size: 22px; }
+        .ab-card h3 { margin: 0 0 8px; font-size: 17px; font-weight: 600; line-height: 1.35; letter-spacing: -0.01em; color: var(--rd-ink); }
+        .ab-card p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--rd-ink-3); }
+
+        /* ---- Closing band ------------------------------------------------------------------ */
+        .ab-invite { position: relative; overflow: hidden; background: var(--rd-deep); padding: clamp(88px, 11vw, 160px) 0; }
+        .ab-invite::after {
+            content: ""; position: absolute; right: -12%; top: -40%; width: 60%; aspect-ratio: 1; border-radius: 50%;
+            background: radial-gradient(circle, rgba(247, 190, 38, .10), rgba(247, 190, 38, 0) 65%); pointer-events: none;
+        }
+        .ab-invite h2 {
+            margin: 0 0 36px; color: #ffffff; font-size: clamp(38px, 4.6vw, 68px); font-weight: 500; line-height: 1.04; letter-spacing: -0.03em;
+        }
+        .ab-invite-text { max-width: 62rem; margin: 0; font-size: clamp(20px, 2vw, 28px); font-weight: 400; line-height: 1.5; letter-spacing: -0.01em; color: rgba(255, 255, 255, .92); }
+        .ab-invite-close {
+            display: inline-block; margin: 40px 0 0; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .18);
+            font-size: 17px; font-weight: 500; color: #f7d27a;
         }
 
-        .pillar-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #ecf6f0;
-            color: #047857;
-        }
+        /* ---- Motion hooks (the script below adds them; without it everything shows) -------- */
+        .rd-word { opacity: .22; }
+        .ab-mask { display: block; overflow: hidden; padding: .12em .18em; margin: -.12em -.18em; }
+        html.ab-intro .ab-hero-inner > * { opacity: 0; }
 
-        .pillar-icon .material-symbols-outlined {
-            font-size: 28px;
+        /* the shared header and footer set Newsreader in their own stylesheets; here they follow the page */
+        .rd .nesp-header .nesp-menu-item .t, .rd .nesp-header .nesp-menu-item .d, .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link, .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead), .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head, .rd .nesp-header .nesp-res-foot-h, .rd .nesp-header .nesp-cta,
+        .rd .nesp-footer h3, .rd .nesp-footer .nesp-foot-brand p, .rd .nesp-footer a, .rd .nesp-footer .nesp-foot-contact li, .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+        .rd .nesp-footer h3 { font-weight: 500 !important; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ab-card, .ab-card::before, .ab-btn, .ab-btn .material-symbols-outlined { transition: none !important; }
+            .rd-word { opacity: 1 !important; }
         }
     </style>
+    <script>
+        /* hide the hero copy only for its entrance, and never for long */
+        (function () {
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var root = document.documentElement;
+            root.classList.add('ab-intro');
+            setTimeout(function () { root.classList.remove('ab-intro'); }, 3000);
+        })();
+    </script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -82,91 +226,60 @@
     </script>
 </head>
 
-<body class="bg-surface text-on-surface" style="font-family: Inter, sans-serif;">
+<body class="rd">
     <!-- TopNavBar -->
         <div id="site-nav"></div>
 
-    <main class="min-h-screen">
+    <main class="ab">
         <!-- Hero -->
-        <section
-            class="relative min-h-[500px] lg:min-h-[550px] w-full overflow-hidden bg-[#001d17] flex items-center">
-            <!--
-              The photograph is tone-normalised so every hero on the site sits at
-              the same luminance, and cropped to the band of the picture that
-              `bg-cover` actually keeps in a box this shape - bg-center here. Both
-              were measured rather than eyeballed.
-            -->
-            <div class="absolute inset-0 bg-cover bg-center"
-                data-alt="Transmission towers across the Nigerian landscape" style="background-image: url('hero-sector.jpg')">
-            </div>
-            <!--
-              Vignette / depth gradients, identical to the sector pages. The
-              left-to-right scrim is what makes the headline readable, so it
-              stays heavy across the copy and lifts over the right-hand third,
-              where nothing is written - that is the part of the photograph the
-              reader actually sees. The bottom-up wash seats the section against
-              whatever follows it.
-            -->
-            <div class="absolute inset-0 bg-gradient-to-r from-[#001d17]/95 via-[#001d17]/80 to-[#001d17]/10"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#001d17]/60 via-transparent to-transparent"></div>
-
-            <!-- Content Container -->
-            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
-                <div class="max-w-3xl">
-                    <div class="flex items-center gap-3 mb-5">
-                        <span class="gold-bar"></span>
-                        <span
-                            class="text-[#ffb955] text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase">OSIP</span>
-                        <span class="gold-bar"></span>
-
-                    </div>
-                    <h1 class="text-white text-3xl sm:text-4xl lg:text-[52px] leading-[1.18] tracking-tight font-extrabold mb-8 max-w-[920px]"
-                        style="font-family: Manrope, sans-serif;">One Stop Investment Platform</h1>
-                    <p class="text-white/90 text-base sm:text-lg leading-8 max-w-3xl">
-                        One Stop Investment Platform (OSIP) is the data/information gateway to investing in renewable energy
-                        and energy efficiency in Nigeria.
-                    </p>
-                    <div class="flex flex-wrap gap-3 mt-8">
-                        <a href="Opportunities.html"
-                            class="inline-flex items-center justify-center bg-[#ffb955] hover:bg-[#ffc878] text-[#001d17] px-6 py-3 text-sm font-semibold tracking-wide transition rounded-sm">Explore
-                            Opportunities</a>
-                        <a href="Regulation.html"
-                            class="inline-flex items-center justify-center border border-white/40 hover:border-white text-white px-6 py-3 text-sm font-semibold tracking-wide transition rounded-sm">Read
-                            the Regulations</a>
-                    </div>
+        <section class="ab-hero">
+            <img class="ab-hero-img" src="about-hero.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
+            <div class="ab-hero-scrim" aria-hidden="true"></div>
+            <div class="ab-wrap ab-hero-inner">
+                <div class="ab-eyebrow ab-eyebrow--light"><span></span>OSIP</div>
+                <h1 class="ab-hero-title">One-Stop Investment Platform</h1>
+                <p class="ab-hero-lead">One-Stop Investment Platform (OSIP) is the data/information gateway to investing in renewable energy
+                    and energy efficiency in Nigeria.</p>
+                <div class="ab-hero-cta">
+                    <a href="Opportunities.html" class="ab-btn ab-btn--light">Explore
+                        Opportunities <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+                    <a href="Regulation.html" class="ab-btn ab-btn--ghost">Read
+                        the Regulations</a>
                 </div>
             </div>
         </section>
 
-        <!-- What is OSIP -->
-        <section class="bg-white py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-[1200px] mx-auto">
-                <span class="gold-bar block mb-6"></span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] leading-tight mb-6"
-                    style="font-family: Manrope, sans-serif;">One Stop Investment Platform</h2>
-                <div class="text-[#404846] text-base sm:text-lg leading-8 space-y-5">
+        <!-- Why OSIP? (ABT-01) -->
+        <section class="ab-sec">
+            <div class="ab-wrap ab-row">
+                <div class="ab-head">
+                    <span class="ab-no">01</span>
+                    <h2>Why OSIP?</h2>
+                </div>
+                <div class="ab-body">
                     <p>Nigeria currently has an installed electricity capacity that is far below national demand,
                         renewable energy potential that is among the largest on the continent, and a policy environment
                         increasingly aligned with the energy transition.</p>
                     <p>The conditions for transformative clean energy investment exist. What has been missing is a
                         single, reliable entry point for investors who want to act and take advantage of the
                         opportunity.</p>
-                    <p>The One-Stop Investment Platform (OSIP) was built to fill that gap.</p>
+                    <p class="ab-statement">The One-Stop Investment Platform (OSIP) was built to fill that gap.</p>
                 </div>
             </div>
         </section>
 
         <!-- How OSIP Works -->
-        <section class="bg-[#f3f4f2] py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-[1200px] mx-auto">
-                <span class="gold-bar block mb-6"></span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] leading-tight mb-6"
-                    style="font-family: Manrope, sans-serif;">How OSIP Works</h2>
-                <div class="text-[#404846] text-base sm:text-lg leading-8 space-y-5">
+        <section class="ab-sec ab-sec--tint">
+            <div class="ab-wrap ab-row">
+                <div class="ab-head">
+                    <span class="ab-no">02</span>
+                    <h2>How OSIP Works</h2>
+                </div>
+                <div class="ab-body">
                     <p>OSIP is a structured investment facilitation platform covering Nigeria's clean energy and energy
                         efficiency sectors.</p>
                     <p>It is a decision-support tool, designed to give investors, developers, and financiers the
-                        verified, sector-specific information they need to assess opportunities, understand the
+                        sourced, sector-specific information they need to assess opportunities, understand the
                         regulatory environment, and move toward investment.</p>
                     <p>The platform covers ten clean energy technology sectors, including solar, bioenergy, wind, green
                         mobility, clean cooking, storage, small hydro, energy efficiency, green hydrogen, and
@@ -178,14 +291,15 @@
             </div>
         </section>
 
-        <!-- Who Built it and Why -->
-        <section class="bg-white py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-[1200px] mx-auto">
-                <span class="gold-bar block mb-6"></span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] leading-tight mb-6"
-                    style="font-family: Manrope, sans-serif;">Who Built it and Why</h2>
-                <div class="text-[#404846] text-base sm:text-lg leading-8 space-y-5">
-                    <p>OSIP is an initiative of the Nigeria Energy Support Programme Phase III (NESP III), implemented by
+        <!-- Who Built It and Why -->
+        <section class="ab-sec">
+            <div class="ab-wrap ab-row">
+                <div class="ab-head">
+                    <span class="ab-no">03</span>
+                    <h2>Who Built It and Why</h2>
+                </div>
+                <div class="ab-body">
+                    <p>OSIP is an initiative of the Nigerian Energy Support Programme Phase III (NESP III), implemented by
                         Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ) GmbH on behalf of the German
                         Federal Ministry for Economic Cooperation and Development (BMZ) and the European Union.</p>
                     <p>It was developed in close collaboration with key regulatory and industry stakeholders across the
@@ -197,18 +311,19 @@
         </section>
 
         <!-- Our Partner: NIPC -->
-        <section class="bg-[#f3f4f2] py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-[1200px] mx-auto">
-                <span class="gold-bar block mb-6"></span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] leading-tight mb-6"
-                    style="font-family: Manrope, sans-serif;">Our Partner: Nigerian Investment Promotion Council</h2>
-                <div class="text-[#404846] text-base sm:text-lg leading-8 space-y-5">
-                    <p>OSIP's primary institutional partner is the Nigerian Investment Promotion Council (NIPC), the
+        <section class="ab-sec ab-sec--tint">
+            <div class="ab-wrap ab-row ab-row--wide">
+                <div class="ab-head">
+                    <span class="ab-no">04</span>
+                    <h2>Our Partner: Nigerian Investment Promotion Commission</h2>
+                </div>
+                <div class="ab-body">
+                    <p>OSIP's primary institutional partner is the Nigerian Investment Promotion Commission (NIPC), the
                         country's apex investment promotion agency, established by the NIPC Act to encourage, promote, and
                         coordinate investments in the Nigerian economy.</p>
                     <p>The partnership is a natural one. NIPC's mandate is to make Nigeria a competitive destination for
                         both domestic and foreign investment. OSIP's mandate is to make Nigeria's clean energy sector
-                        accessible, and investable. Together, they form a coordinated entry point for investors
+                        accessible and investable. Together, they form a coordinated entry point for investors
                         navigating one of Africa's most dynamic energy markets.</p>
                     <p>Investors using OSIP are not operating in isolation; they are entering a system with an
                         established institutional pathway for registration, incentive access, and regulatory
@@ -217,37 +332,34 @@
                         consolidated channel through which to interface with multiple federal agencies at a single
                         point.</p>
                 </div>
-                <p class="text-[#001d17] text-base sm:text-lg font-semibold leading-8 mt-10 mb-6">OSIP serves a diverse
+            </div>
+            <div class="ab-wrap">
+                <p class="ab-cards-lead">OSIP serves a diverse
                     but focused investor community:</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    <div class="feature-card bg-white border border-[#e7e7e7] rounded-sm p-6">
-                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">public</span></div>
-                        <h3 class="text-[#001d17] text-lg font-bold mb-2" style="font-family: Manrope, sans-serif;">
-                            International Institutional Investors &amp; DFIs</h3>
-                        <p class="text-[#404846] text-sm leading-6">Seeking verified market intelligence and regulatory
+                <div class="ab-cards">
+                    <div class="ab-card">
+                        <span class="ab-card-mark"><span class="material-symbols-outlined">public</span></span>
+                        <h3>International Institutional Investors &amp; DFIs</h3>
+                        <p>Seeking sourced market intelligence and regulatory
                             clarity before committing capital to Nigeria's clean energy sector.</p>
                     </div>
-                    <div class="feature-card bg-white border border-[#e7e7e7] rounded-sm p-6">
-                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">trending_up</span></div>
-                        <h3 class="text-[#001d17] text-lg font-bold mb-2" style="font-family: Manrope, sans-serif;">
-                            Private Equity &amp; Impact Investors</h3>
-                        <p class="text-[#404846] text-sm leading-6">Evaluating sector-specific opportunities across
+                    <div class="ab-card">
+                        <span class="ab-card-mark"><span class="material-symbols-outlined">trending_up</span></span>
+                        <h3>Private Equity &amp; Impact Investors</h3>
+                        <p>Evaluating sector-specific opportunities across
                             technology types and geographies.</p>
                     </div>
-                    <div class="feature-card bg-white border border-[#e7e7e7] rounded-sm p-6">
-                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">factory</span></div>
-                        <h3 class="text-[#001d17] text-lg font-bold mb-2" style="font-family: Manrope, sans-serif;">
-                            Domestic Private Sector Actors</h3>
-                        <p class="text-[#404846] text-sm leading-6">Manufacturers, developers, and energy service
+                    <div class="ab-card">
+                        <span class="ab-card-mark"><span class="material-symbols-outlined">factory</span></span>
+                        <h3>Domestic Private Sector Actors</h3>
+                        <p>Manufacturers, developers, and energy service
                             companies looking to understand the competitive and regulatory landscape in which they
                             operate.</p>
                     </div>
-                    <div class="feature-card bg-white border border-[#e7e7e7] rounded-sm p-6">
-                        <div class="pillar-icon mb-5"><span class="material-symbols-outlined">account_balance</span>
-                        </div>
-                        <h3 class="text-[#001d17] text-lg font-bold mb-2" style="font-family: Manrope, sans-serif;">
-                            Government &amp; Development Partners</h3>
-                        <p class="text-[#404846] text-sm leading-6">Working to align policy, financing, and market
+                    <div class="ab-card">
+                        <span class="ab-card-mark"><span class="material-symbols-outlined">account_balance</span></span>
+                        <h3>Government &amp; Development Partners</h3>
+                        <p>Working to align policy, financing, and market
                             development across the energy transition.</p>
                     </div>
                 </div>
@@ -255,12 +367,13 @@
         </section>
 
         <!-- What Makes OSIP Different -->
-        <section class="bg-white py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-[1200px] mx-auto">
-                <span class="gold-bar block mb-6"></span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] leading-tight mb-6"
-                    style="font-family: Manrope, sans-serif;">What Makes OSIP Different</h2>
-                <div class="text-[#404846] text-base sm:text-lg leading-8 space-y-5">
+        <section class="ab-sec">
+            <div class="ab-wrap ab-row">
+                <div class="ab-head">
+                    <span class="ab-no">05</span>
+                    <h2>What Makes OSIP Different</h2>
+                </div>
+                <div class="ab-body">
                     <p>Nigeria's clean energy investment landscape has not lacked for reports, frameworks, or policy
                         documents. What it has lacked is a living platform that consolidates regulatory data, technology
                         intelligence, and market entry guidance in a format built for investor use.</p>
@@ -271,7 +384,20 @@
             </div>
         </section>
 
-        <!-- Who OSIP Serves -->
+        <!-- An Invitation to Invest -->
+        <section class="ab-invite">
+            <div class="ab-wrap">
+                <div class="ab-eyebrow ab-eyebrow--light"><span></span>06</div>
+                <h2>An Invitation to Invest</h2>
+                <p class="ab-invite-text">Nigeria's clean energy transition is an active market, shaped by policy reform, growing domestic
+                    demand, and increasing private sector participation. OSIP exists to make that market accessible
+                    to investors and developers who can accelerate it.</p>
+                <p class="ab-invite-close">You are welcome to explore the platform and find your sector
+                    to invest!</p>
+            </div>
+        </section>
+
+        <!-- Sections kept from the earlier page, still switched off -->
         <!-- <section class="bg-[#f3f4f2] py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
             <div class="max-w-[1200px] mx-auto">
                 <div class="flex items-center gap-3 mb-4"><span class="gold-bar"></span><span
@@ -313,7 +439,6 @@
             </div>
         </section> -->
 
-        <!-- What OSIP Provides -->
         <!-- <section class="bg-white py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
             <div class="max-w-[1200px] mx-auto">
                 <div class="flex items-center gap-3 mb-4"><span class="gold-bar"></span><span
@@ -343,7 +468,7 @@
                         <div class="pillar-icon mb-5"><span class="material-symbols-outlined">insights</span></div>
                         <h3 class="text-[#001d17] text-xl font-bold mb-3" style="font-family: Manrope, sans-serif;">
                             Market Information & Tools</h3>
-                        <p class="text-[#404846] text-sm sm:text-base leading-7">Live capacity and investment metrics,
+                        <p class="text-[#404846] text-sm sm:text-base leading-7">Capacity and investment metrics,
                             state-wise performance, opportunity listings, and decision-support tooling — built for
                             informed action, not just browsing.</p>
                     </div>
@@ -351,7 +476,6 @@
             </div>
         </section> -->
 
-        <!-- OSIP × SE4ALL -->
         <!-- <section class="bg-[#f3f4f2] py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
             <div class="max-w-[1200px] mx-auto">
                 <div class="flex items-center gap-3 mb-4"><span class="gold-bar"></span><span
@@ -364,7 +488,7 @@
                     <div class="bg-white border-l-4 border-[#047857] p-7 rounded-sm">
                         <div class="flex items-center gap-3 mb-3">
                             <span class="text-[#047857] text-[11px] font-bold uppercase tracking-widest">OSIP</span>
-                            <span class="text-[#9aa39e] text-[11px]">— this portal</span>
+                            <span class="text-[#9aa39e] text-[11px]">— this platform</span>
                         </div>
                         <h3 class="text-[#001d17] text-2xl font-bold mb-3" style="font-family: Manrope, sans-serif;">
                             Regulatory & Financial Guidance</h3>
@@ -381,14 +505,13 @@
                         <h3 class="text-[#001d17] text-2xl font-bold mb-3" style="font-family: Manrope, sans-serif;">
                             Techno-economic Opportunities</h3>
                         <p class="text-[#404846] text-base leading-7">Where OSIP guides on rules and finance, the
-                            Nigeria SE4ALL platform surfaces the techno-economic project pipeline — the bankable
+                            Nigeria SE4ALL platform surfaces the techno-economic project pipeline — the project
                             opportunities themselves.</p>
                     </div>
                 </div>
             </div>
         </section> -->
 
-        <!-- Design model -->
         <!-- <section class="bg-white py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
             <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                 <div>
@@ -409,7 +532,7 @@
                         <li class="flex gap-3"><span
                                 class="material-symbols-outlined text-[#ffb955]">check_circle</span>
                             <span class="text-sm sm:text-base leading-7">A landing page with topic-led entry points and
-                                a live news stream.</span>
+                                a news stream.</span>
                         </li>
                         <li class="flex gap-3"><span
                                 class="material-symbols-outlined text-[#ffb955]">check_circle</span>
@@ -431,23 +554,6 @@
             </div>
         </section> -->
 
-        <!-- An Invitation to Invest -->
-        <section class="bg-[#f3f4f2] py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-[1200px] mx-auto">
-                <span class="gold-bar block mb-6"></span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#001d17] leading-tight mb-6"
-                    style="font-family: Manrope, sans-serif;">An Invitation to Invest</h2>
-                <div class="text-[#404846] text-base sm:text-lg leading-8 space-y-5">
-                    <p>Nigeria's clean energy transition is an active market, shaped by policy reform, growing domestic
-                        demand, and increasing private sector participation. OSIP exists to make that market accessible
-                        to investors and developers who can accelerate it.</p>
-                    <p class="text-[#001d17] font-semibold">You are welcome to explore the platform and find your sector
-                        to invest!</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
         <!-- <section class="bg-[#0d2318] py-14 lg:py-20 px-4 sm:px-6 lg:px-8">
             <div
                 class="max-w-[1200px] mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
@@ -643,7 +749,7 @@
                 },
                 'DATA': {
                     head: 'Data & Insights', items: [
-                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'Investment & Capacity', d: 'Capacity and investment metrics across energy sectors.', href: 'Data.html' },
                         { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
                         { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
                     ]
@@ -678,6 +784,106 @@
     </script>
 
     <!-- Invest Now popup flow -->
+
+    <!-- Motion: Lenis smooth scroll, GSAP ScrollTrigger and SplitText (versions pinned, as on the homepage) -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script>
+        /* ABOUT OSIP motion. Fails open: if a library is missing or reduced motion is set,
+           the page simply shows everything. */
+        (function () {
+            var html = document.documentElement;
+            function release() { html.classList.remove('ab-intro'); document.querySelectorAll('.rd-word').forEach(function (w) { w.style.opacity = '1'; }); }
+            var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (still || !window.gsap || !window.ScrollTrigger) { release(); return; }
+
+            function start() {
+                try {
+                    gsap.registerPlugin(ScrollTrigger);
+                    if (window.SplitText) gsap.registerPlugin(SplitText);
+                    var EASE = 'expo.out';
+
+                    if (window.Lenis) {
+                        var lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+                        window.__rdLenis = lenis;
+                        lenis.on('scroll', ScrollTrigger.update);
+                        gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+                        gsap.ticker.lagSmoothing(0);
+                    }
+
+                    /* hero: the title rises letter by letter, then lead and buttons */
+                    var hero = document.querySelector('.ab-hero');
+                    var inner = hero.querySelector('.ab-hero-inner');
+                    var title = hero.querySelector('.ab-hero-title');
+                    var tl = gsap.timeline({ onStart: function () { html.classList.remove('ab-intro'); } });
+                    gsap.set(inner.children, { opacity: 1 });
+                    if (window.SplitText) {
+                        var split = SplitText.create(title, { type: 'words,chars', mask: 'chars', charsClass: 'ab-char', aria: 'auto' });
+                        tl.from(split.chars, { yPercent: 110, duration: 1.3, ease: EASE, stagger: 0.022,
+                            onComplete: function () { split.revert(); } }, 0);
+                    } else {
+                        tl.from(title, { y: 40, opacity: 0, duration: 1.1, ease: EASE }, 0);
+                    }
+                    tl.from([hero.querySelector('.ab-eyebrow'), hero.querySelector('.ab-hero-lead'), hero.querySelector('.ab-hero-cta')],
+                        { y: 24, opacity: 0, duration: 1.1, ease: EASE, stagger: 0.1 }, 0.35);
+                    gsap.fromTo(hero.querySelector('.ab-hero-img'), { scale: 1.12 }, { scale: 1.04, duration: 2.4, ease: 'power3.out' });
+                    gsap.to(hero.querySelector('.ab-hero-img'), { yPercent: 8, ease: 'none',
+                        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+
+                    /* sections: the hairline draws, the number and heading rise, paragraphs follow */
+                    document.querySelectorAll('.ab-row').forEach(function (row) {
+                        var t = gsap.timeline({ scrollTrigger: { trigger: row, start: 'top 82%', once: true } });
+                        t.fromTo(row, { '--ab-draw': 0 }, { '--ab-draw': 1, duration: 1.2, ease: EASE }, 0);
+                        var head = row.querySelector('.ab-head');
+                        var h2 = head.querySelector('h2');
+                        if (window.SplitText) {
+                            var sp = SplitText.create(h2, { type: 'lines', mask: 'lines', linesClass: 'ab-line', aria: 'auto' });
+                            t.from(sp.lines, { yPercent: 105, duration: 1.2, ease: EASE, stagger: 0.08,
+                                onComplete: function () { sp.revert(); } }, 0.05);
+                        } else {
+                            t.from(h2, { y: 30, opacity: 0, duration: 1, ease: EASE }, 0.05);
+                        }
+                        t.from(head.querySelector('.ab-no'), { y: 12, opacity: 0, duration: 0.9, ease: EASE }, 0);
+                        t.from(row.querySelectorAll('.ab-body > p'), { y: 26, opacity: 0, duration: 1.1, ease: EASE, stagger: 0.08 }, 0.15);
+                    });
+
+                    /* cards arrive in order */
+                    var cards = gsap.utils.toArray('.ab-card');
+                    if (cards.length) {
+                        gsap.set(cards, { opacity: 0, y: 36 });
+                        ScrollTrigger.batch(cards, { start: 'top 92%', once: true,
+                            onEnter: function (els) { gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09, clearProps: 'transform' }); } });
+                    }
+                    var lead = document.querySelector('.ab-cards-lead');
+                    if (lead) gsap.from(lead, { y: 20, opacity: 0, duration: 1, ease: EASE, scrollTrigger: { trigger: lead, start: 'top 90%', once: true } });
+
+                    /* closing band: heading rises, the text lights up word by word as it is read */
+                    var invite = document.querySelector('.ab-invite');
+                    if (invite) {
+                        gsap.from([invite.querySelector('.ab-eyebrow'), invite.querySelector('h2')], { y: 30, opacity: 0, duration: 1.2, ease: EASE, stagger: 0.1,
+                            scrollTrigger: { trigger: invite, start: 'top 75%', once: true } });
+                        var text = invite.querySelector('.ab-invite-text');
+                        if (window.SplitText && text) {
+                            var ws = SplitText.create(text, { type: 'words', wordsClass: 'rd-word', aria: 'none' });
+                            text.setAttribute('aria-label', text.textContent.replace(/\s+/g, ' ').trim());
+                            gsap.fromTo(ws.words, { opacity: 0.22 }, { opacity: 1, ease: 'none', stagger: 0.1,
+                                scrollTrigger: { trigger: text, start: 'top 80%', end: 'bottom 50%', scrub: 0.5 } });
+                        }
+                        gsap.from(invite.querySelector('.ab-invite-close'), { y: 16, opacity: 0, duration: 1, ease: EASE,
+                            scrollTrigger: { trigger: invite.querySelector('.ab-invite-close'), start: 'top 92%', once: true } });
+                    }
+
+                    window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+                } catch (e) {
+                    release();
+                    if (window.console) console.warn('About motion skipped:', e);
+                }
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+        })();
+    </script>
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
 <script src="nav.js"></script>

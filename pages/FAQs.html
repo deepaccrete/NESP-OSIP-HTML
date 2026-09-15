@@ -4,14 +4,15 @@
 <head>
 
     <meta charset="UTF-8">
+    <!-- Type: Inter only (14 Sep 2026), as on DetailedSector.html -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSIP - Frequently Asked Questions</title>
+    <title>Frequently Asked Questions | One-Stop Investment Platform (OSIP)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
@@ -185,9 +186,398 @@
             scroll-margin-top: 96px;
         }
     </style>
+    <style id="faq-rd">
+        /* =====================================================================
+           REDESIGN - FAQs.html (14 Sep 2026)
+
+           The redesigned pages' language (DetailedSector.html): warm paper,
+           deep green, gold hairlines, Inter throughout. Minimal by intent:
+
+             - a light editorial header instead of the dark photo hero
+             - each group is a two-column spread on wide screens: its label and
+               title hold still on the left while its questions run on the right
+             - questions are hairline rows, not boxes; the answer opens under its
+               question when the pointer rests on it (see the script at the foot
+               of the page), and a click keeps it open
+
+           No markup inside the groups was changed: every question, answer, link
+           and label is where it was, and the accordions are still <details>, so
+           they open with the keyboard, without JavaScript and from find-in-page.
+           The previous design is kept in OSIP/Backups/FAQs/.
+           ===================================================================== */
+        :root {
+            --fq-paper: #f5f3ee;
+            --fq-card: #fbfaf7;
+            --fq-line: #e2ded5;
+            --fq-line-2: #cfc9bd;
+            --fq-ink: #13201b;
+            --fq-ink-2: #3d4742;
+            --fq-ink-3: #6b716c;
+            --fq-green: #004225;
+            --fq-green-2: #0b6b45;
+            --fq-gold: #d9a520;
+            --fq-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --fq-ease: cubic-bezier(.22, 1, .36, 1);
+        }
+
+        body.faq-rd {
+            background: var(--fq-paper) !important;
+            color: var(--fq-ink-2);
+            font-family: var(--fq-sans);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .faq-rd main,
+        .faq-rd main h1,
+        .faq-rd main h2,
+        .faq-rd main h3,
+        .faq-rd main summary,
+        .faq-rd main p,
+        .faq-rd main a {
+            font-family: var(--fq-sans) !important;
+        }
+
+        .faq-rd ::selection {
+            background: #f7be26;
+            color: var(--fq-ink);
+        }
+
+        /* ---- Header ------------------------------------------------------------ */
+        .faq-rd main > section:first-of-type {
+            min-height: 0 !important;
+            background: var(--fq-paper) !important;
+            padding: clamp(64px, 9vw, 132px) 0 clamp(56px, 7vw, 96px);
+            border-bottom: 1px solid var(--fq-line);
+        }
+
+        /* the photograph and its two scrims */
+        .faq-rd main > section:first-of-type > .absolute {
+            display: none !important;
+        }
+
+        .faq-rd main > section:first-of-type > .relative {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            padding-left: clamp(20px, 5vw, 64px) !important;
+            padding-right: clamp(20px, 5vw, 64px) !important;
+            max-width: 1280px !important;
+        }
+
+        .faq-rd main > section:first-of-type .max-w-3xl {
+            max-width: 58rem !important;
+        }
+
+        .faq-rd main > section:first-of-type .mb-5 {
+            gap: 14px !important;
+            margin-bottom: 28px !important;
+        }
+
+        .faq-rd main > section:first-of-type .mb-5 > span:first-child {
+            width: 28px !important;
+            height: 1px !important;
+            background: var(--fq-gold) !important;
+        }
+
+        .faq-rd main > section:first-of-type .mb-5 > span:last-child {
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em !important;
+            color: var(--fq-green-2) !important;
+        }
+
+        .faq-rd main > section:first-of-type h1 {
+            margin-bottom: 30px !important;
+            font-size: clamp(42px, 6.2vw, 92px) !important;
+            font-weight: 500 !important;
+            line-height: 1 !important;
+            letter-spacing: -0.04em !important;
+            color: var(--fq-ink) !important;
+            text-wrap: balance;
+        }
+
+        .faq-rd main > section:first-of-type h1 + p {
+            position: relative;
+            max-width: 40rem !important;
+            margin-bottom: 44px !important;
+            padding-left: 22px;
+            font-size: 18px !important;
+            line-height: 1.7 !important;
+            color: var(--fq-ink-2) !important;
+        }
+
+        .faq-rd main > section:first-of-type h1 + p::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .4em;
+            bottom: .4em;
+            width: 1px;
+            background: #f7be26;
+        }
+
+        .faq-rd main > section:first-of-type .space-y-3 > span {
+            margin-bottom: 14px;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .26em !important;
+            color: var(--fq-ink-3) !important;
+        }
+
+        .faq-rd main > section:first-of-type a.rounded-full {
+            padding: 9px 18px !important;
+            font-size: 13px !important;
+            font-weight: 400 !important;
+            color: var(--fq-ink-2) !important;
+            background: transparent !important;
+            border-color: var(--fq-line-2) !important;
+            -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease !important;
+        }
+
+        .faq-rd main > section:first-of-type a.rounded-full:hover {
+            color: #ffffff !important;
+            background: var(--fq-green) !important;
+            border-color: var(--fq-green) !important;
+        }
+
+        /* ---- Groups ------------------------------------------------------------ */
+        .faq-rd .faq-group {
+            background: var(--fq-paper) !important;
+            border-top: 1px solid var(--fq-line);
+        }
+
+        .faq-rd main > section:first-of-type + .faq-group {
+            border-top: 0;
+        }
+
+        .faq-rd .faq-group > div {
+            max-width: 1280px !important;
+            padding: clamp(64px, 8vw, 116px) clamp(20px, 5vw, 64px) !important;
+        }
+
+        .faq-rd .faq-group .max-w-4xl {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            row-gap: 30px;
+            max-width: none !important;
+        }
+
+        /* group label and title */
+        .faq-rd .faq-group .max-w-4xl > div.flex:first-child {
+            display: block !important;
+            margin: 0 !important;
+        }
+
+        .faq-rd .faq-group div.w-1.h-10 {
+            display: none !important;
+        }
+
+        .faq-rd .faq-group .max-w-4xl > div.flex:first-child span.block {
+            display: flex !important;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em !important;
+            color: var(--fq-green-2) !important;
+        }
+
+        .faq-rd .faq-group .max-w-4xl > div.flex:first-child span.block::before {
+            content: "";
+            flex: 0 0 auto;
+            width: 28px;
+            height: 1px;
+            background: var(--fq-gold);
+        }
+
+        .faq-rd .faq-group h2 {
+            display: block !important;
+            margin: 0 !important;
+            font-size: clamp(30px, 2.9vw, 42px) !important;
+            font-weight: 500 !important;
+            line-height: 1.08 !important;
+            letter-spacing: -0.028em !important;
+            color: var(--fq-ink) !important;
+            text-wrap: balance;
+        }
+
+        /* the group icons: turned down to nothing, the title carries the group */
+        .faq-rd .faq-group h2 > .material-symbols-outlined {
+            display: none !important;
+        }
+
+        /* Heading above its questions at every width, held to a reading measure so
+           the rows do not stretch across a wide screen. */
+        .faq-rd .faq-group .max-w-4xl {
+            max-width: 60rem !important;
+        }
+
+        /* ---- Questions ------------------------------------------------------------ */
+        .faq-rd .faq-group .max-w-4xl > .space-y-4 {
+            border-top: 1px solid var(--fq-line-2);
+        }
+
+        .faq-rd .faq-group .space-y-4 > * {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .faq-rd main details {
+            padding: 0 !important;
+            background: transparent !important;
+            border: 0 !important;
+            border-bottom: 1px solid var(--fq-line) !important;
+            border-radius: 0 !important;
+        }
+
+        .faq-rd main details > summary {
+            gap: 24px;
+            padding: 26px 0;
+            font-size: 17.5px;
+            font-weight: 500 !important;
+            line-height: 1.4;
+            letter-spacing: -0.008em;
+            color: var(--fq-ink) !important;
+            transition: color .3s ease;
+        }
+
+        .faq-rd main details > summary:focus-visible {
+            outline: 2px solid var(--fq-green-2);
+            outline-offset: 4px;
+            border-radius: 6px;
+        }
+
+        .faq-rd main details:hover > summary,
+        .faq-rd main details[open] > summary {
+            color: var(--fq-green) !important;
+        }
+
+        .faq-rd main details > summary > .material-symbols-outlined {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--fq-line-2);
+            border-radius: 999px;
+            font-size: 18px !important;
+            color: var(--fq-green);
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+            transition: transform .45s var(--fq-ease), background-color .3s ease, color .3s ease, border-color .3s ease;
+        }
+
+        .faq-rd main details:hover > summary > .material-symbols-outlined,
+        .faq-rd main details[open] > summary > .material-symbols-outlined {
+            color: #ffffff;
+            background: var(--fq-green);
+            border-color: var(--fq-green);
+        }
+
+        /* "Draft answer" */
+        .faq-rd main summary span.rounded-full {
+            padding: 3px 9px !important;
+            font-size: 10px !important;
+            font-weight: 600 !important;
+            letter-spacing: .12em !important;
+            color: #5b4300 !important;
+            background: #f1e6c4 !important;
+        }
+
+        .faq-rd main details > p {
+            max-width: 64ch;
+            margin: 0 !important;
+            padding: 0 58px 28px 0 !important;
+            border: 0 !important;
+            font-size: 16.5px !important;
+            line-height: 1.7 !important;
+            color: var(--fq-ink-2) !important;
+        }
+
+        .faq-rd main details > p strong {
+            font-weight: 600;
+            color: var(--fq-ink);
+        }
+
+        .faq-rd main .faq-group a.text-secondary {
+            font-weight: 500 !important;
+            color: var(--fq-green-2) !important;
+            text-decoration: underline;
+            text-decoration-color: rgba(217, 165, 32, .6);
+            text-underline-offset: 3px;
+        }
+
+        .faq-rd main .faq-group a.text-secondary:hover {
+            text-decoration-color: currentColor;
+        }
+
+        /* ---- Pointers (Regulations, Help Desk) -------------------------------------- */
+        .faq-rd .faq-group .max-w-4xl > div.mt-8 {
+            margin-top: 12px !important;
+            padding: 22px 24px 22px 26px !important;
+            background: var(--fq-card) !important;
+            border-color: var(--fq-line) !important;
+            border-radius: 18px !important;
+        }
+
+        .faq-rd .faq-group .max-w-4xl > div.mt-8 > p {
+            font-size: 15px !important;
+            line-height: 1.6 !important;
+            color: var(--fq-ink-2) !important;
+        }
+
+        .faq-rd .faq-group .max-w-4xl > div.mt-8 > a {
+            padding: 11px 16px 11px 20px !important;
+            border: 1px solid var(--fq-line-2) !important;
+            border-radius: 999px !important;
+            font-size: 13.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: 0 !important;
+            text-transform: none !important;
+            color: var(--fq-green) !important;
+            background: transparent !important;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease !important;
+        }
+
+        .faq-rd .faq-group .max-w-4xl > div.mt-8 > a:hover {
+            color: #ffffff !important;
+            background: var(--fq-green) !important;
+            border-color: var(--fq-green) !important;
+        }
+
+        .faq-rd .faq-group .max-w-4xl > div.mt-8 > a .material-symbols-outlined {
+            font-size: 17px !important;
+            transition: transform .35s var(--fq-ease);
+        }
+
+        .faq-rd .faq-group .max-w-4xl > div.mt-8 > a:hover .material-symbols-outlined {
+            transform: translateX(3px);
+        }
+
+        /* ---- Small screens --------------------------------------------------------------- */
+        @media (max-width: 639px) {
+            .faq-rd main details > summary {
+                gap: 16px;
+                padding: 20px 0;
+                font-size: 16px;
+            }
+
+            .faq-rd main details > p {
+                padding-right: 0 !important;
+                font-size: 15.5px !important;
+            }
+
+            .faq-rd main > section:first-of-type h1 + p {
+                font-size: 16.5px !important;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-background text-on-surface min-h-screen">
+<body class="bg-background text-on-surface min-h-screen faq-rd">
 
     <!-- nav.js renders its own sticky header; no wrapper needed. -->
     <div id="site-nav"></div>
@@ -312,7 +702,7 @@
                         <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
                             <summary
                                 class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
-                                Do I need an account to use the portal?<span
+                                Do I need an account to use the platform?<span
                                     class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
                             </summary>
                             <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
@@ -325,7 +715,7 @@
                         <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
                             <summary
                                 class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
-                                Which sectors does the portal cover?<span
+                                Which sectors does the platform cover?<span
                                     class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
                             </summary>
                             <!-- The ten sectors are the SECTORS menu in nav.js, in its order. A
@@ -352,7 +742,7 @@
                                 for the licensing pathway and the agencies that own each step, then
                                 <a href="Data.html" class="text-secondary font-semibold hover:underline">Data &amp;
                                     Insights</a> for what has actually been deployed and where. When you are ready to be
-                                matched to live projects, <strong>Invest Now</strong> takes you through choosing
+                                matched to published projects, <strong>Invest Now</strong> takes you through choosing
                                 sectors, registering, and receiving a shortlist built from the profile you gave.
                             </p>
                         </details>
@@ -360,7 +750,7 @@
                         <details class="group bg-surface-container-low border border-outline-variant rounded-lg p-5">
                             <summary
                                 class="flex justify-between items-center font-bold text-primary cursor-pointer list-none">
-                                Who is the portal for?<span
+                                Who is the platform for?<span
                                     class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
                             </summary>
                             <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
@@ -435,7 +825,7 @@
                             </summary>
                             <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
                                 Two routes. <strong>Invest Now</strong> is the guided one: pick the sectors you are
-                                interested in, complete registration, and the portal returns a shortlist matched to your
+                                interested in, complete registration, and the platform returns a shortlist matched to your
                                 institutional profile &mdash; the sectors you chose are carried through, so
                                 <a href="Opportunities.html"
                                     class="text-secondary font-semibold hover:underline">Opportunities</a>
@@ -461,7 +851,7 @@
                         </details>
 
                         <!--
-                          PROVISIONAL. The disclaimer a portal of this kind normally carries,
+                          PROVISIONAL. The disclaimer a platform of this kind normally carries,
                           but nothing currently on the site states OSIP's own position in a
                           transaction, so it cannot be sourced the way the three regulatory
                           answers can. Marked in the UI rather than quietly asserted. Replace
@@ -612,7 +1002,7 @@
                             <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
                                 Fill in the registration form in one pass &mdash; your name, a username, your account
                                 role, organisation type, country, contact number and a password &mdash; and submit it.
-                                The portal emails a six-digit code to the address you gave. <strong>Your account is
+                                The platform emails a six-digit code to the address you gave. <strong>Your account is
                                     created when you enter that code, not when you submit the form.</strong> Until then
                                 nothing exists but a pending record. The code is valid for ten minutes.</p>
                         </details>
@@ -664,7 +1054,7 @@
                                     class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
                             </summary>
                             <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
-                                Yes. Google passes the portal your email address and display name and nothing else, so
+                                Yes. Google passes the platform your email address and display name and nothing else, so
                                 the first time you sign in that way you are asked to complete the same profile the email
                                 route collects up front &mdash; account role, organisation type, country and contact
                                 number. Once that is done the account behaves identically to any other.</p>
@@ -708,7 +1098,7 @@
                             <p class="mt-4 text-body-sm text-on-surface-variant border-t border-outline-variant pt-4">
                                 Both, from <a href="AboutMe.html"
                                     class="text-secondary font-semibold hover:underline">your profile</a>. A username is
-                                also a sign-in identifier, so it has to be unique across the portal &mdash; the form
+                                also a sign-in identifier, so it has to be unique across the platform &mdash; the form
                                 tells you as you type whether the one you want is free. Profile pictures may be JPEG,
                                 PNG, WebP or GIF, up to 2&nbsp;MB.</p>
                         </details>
@@ -894,6 +1284,100 @@
         })();
     </script>
 
+    <script>
+        /* Answers open on hover (14 Sep 2026).
+
+           Where there is a real pointer, resting on a question opens its answer and
+           moving away closes it again. Clicking keeps an answer open until it is
+           clicked again. On touch screens and from the keyboard the questions are
+           the plain <details> they always were: tap or Enter opens and closes.
+
+           The accordions stay <details> elements, so with no JavaScript they still
+           open, and find-in-page still reaches a closed answer. Short delays stop a
+           pointer that is only passing over the list from opening everything under
+           it; opening and closing ease the answer's height, unless reduced motion
+           is asked for. */
+        (function () {
+            var items = Array.prototype.slice.call(document.querySelectorAll('main details'));
+            if (!items.length) return;
+            var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var hover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+            var EASE = 'cubic-bezier(.22, 1, .36, 1)';
+
+            function answer(d) { return d.querySelector(':scope > p'); }
+
+            function openItem(d) {
+                var a = answer(d);
+                if (d._closing && d._anim) {                    // reopened mid-close: stay open
+                    d._anim.cancel();
+                    return;
+                }
+                if (d.open) return;
+                d.open = true;
+                if (!a || still || !a.animate) return;
+                var h = a.offsetHeight, pb = getComputedStyle(a).paddingBottom;
+                a.style.overflow = 'hidden';
+                d._anim = a.animate([
+                    { height: '0px', paddingBottom: '0px', opacity: 0 },
+                    { height: h + 'px', paddingBottom: pb, opacity: 1 }
+                ], { duration: 420, easing: EASE });
+                d._anim.onfinish = d._anim.oncancel = function () { a.style.overflow = ''; d._anim = null; };
+            }
+
+            function closeItem(d) {
+                var a = answer(d);
+                if (!d.open || d._closing) return;
+                if (!a || still || !a.animate) { d.open = false; return; }
+                if (d._anim) d._anim.cancel();
+                var h = a.offsetHeight, pb = getComputedStyle(a).paddingBottom;
+                a.style.overflow = 'hidden';
+                d._closing = true;
+                var anim = a.animate([
+                    { height: h + 'px', paddingBottom: pb, opacity: 1 },
+                    { height: '0px', paddingBottom: '0px', opacity: 0 }
+                ], { duration: 300, easing: EASE, fill: 'forwards' });
+                d._anim = anim;
+                anim.onfinish = function () { d.open = false; anim.cancel(); };
+                anim.oncancel = function () { a.style.overflow = ''; d._closing = false; d._anim = null; };
+            }
+
+            items.forEach(function (d) {
+                var summary = d.querySelector(':scope > summary');
+                if (!summary) return;
+
+                summary.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    clearTimeout(d._timer);
+                    var isOpen = d.open && !d._closing;
+                    if (isOpen && hover && !d._pinned) {          // opened by hover: a click keeps it
+                        d._pinned = true;
+                        return;
+                    }
+                    if (isOpen) {
+                        d._pinned = false;
+                        d._quiet = hover;                          // do not reopen under the pointer
+                        closeItem(d);
+                    } else {
+                        d._pinned = true;
+                        openItem(d);
+                    }
+                });
+
+                if (!hover) return;
+                d.addEventListener('mouseenter', function () {
+                    clearTimeout(d._timer);
+                    if (d._quiet) return;
+                    d._timer = setTimeout(function () { openItem(d); }, 120);
+                });
+                d.addEventListener('mouseleave', function () {
+                    clearTimeout(d._timer);
+                    d._quiet = false;
+                    if (d._pinned) return;
+                    d._timer = setTimeout(function () { closeItem(d); }, 160);
+                });
+            });
+        })();
+    </script>
     <script src="nav.js"></script>
     <script src="footer.js"></script>
 </body>

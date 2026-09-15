@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>AKK Gas Pipeline Project | OSIP - Nigerian Energy Investment Portal</title>
+    <title>AKK Gas Pipeline Project | One-Stop Investment Platform (OSIP)</title>
     <!-- Google Fonts: Manrope & Inter -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -142,9 +142,684 @@
             }
         }
     </style>
+    <!-- Redesign: Newsreader for headings and reading text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        /* Redesign: hold the page header back for its entrance. The motion layer
+           lifts this the moment its start states are applied, and it lifts itself
+           after 3.5s whatever happens, so a slow or blocked CDN can never leave the
+           header empty. Not set when reduced motion is asked for. */
+        (function () {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var root = document.documentElement;
+                root.classList.add('rd-intro');
+                setTimeout(function () { root.classList.remove('rd-intro'); }, 3500);
+            } catch (e) {}
+        })();
+    </script>
+    <style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - opportunity detail page (11 Sep 2026)
+
+           The DetailedSector.html redesign, carried to the opportunity detail
+           pages (detailedOppNew.html and OpportunitiesNew.html share this layer).
+           Same tokens: Newsreader for headings, figures and reading text; sans for
+           interface text (labels, chips, stage names, captions); warm paper
+           grounds; borders and icons turned down. No section markup was edited.
+           Scoped under body.rd; the older designs are kept in OSIP/Backups/.
+
+           Buttons keep their own fonts (handled separately); only their shape
+           and colour follow the redesign here.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-card-2: #f1eee8;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* ---- Lenis, from lenis@1.3.26/dist/lenis.css ---------------------------- */
+        html.lenis,
+        html.lenis body { height: auto; }
+        .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+        .lenis [data-lenis-prevent],
+        .lenis [data-lenis-prevent-wheel],
+        .lenis [data-lenis-prevent-touch],
+        .lenis [data-lenis-prevent-vertical],
+        .lenis [data-lenis-prevent-horizontal] { overscroll-behavior: contain; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        .lenis.lenis-autoToggle {
+            transition-property: overflow;
+            transition-duration: 1ms;
+            transition-behavior: allow-discrete;
+        }
+
+        /* ---- Page ---------------------------------------------------------------- */
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2) !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd ::selection { background: #f7be26; color: var(--rd-ink); }
+
+        .rd #page-wrapper > div.mx-auto {
+            padding-top: clamp(28px, 4vw, 56px) !important;
+            padding-bottom: clamp(72px, 8vw, 120px) !important;
+        }
+
+        @media (min-width: 1024px) {
+            .rd #page-wrapper > div.mx-auto {
+                padding-left: clamp(32px, 4vw, 64px) !important;
+                padding-right: clamp(32px, 4vw, 64px) !important;
+            }
+
+            .rd #page-wrapper .grid.lg\:grid-cols-3 {
+                gap: clamp(32px, 3.2vw, 52px) !important;
+            }
+
+            /* The contact card stays in reach down the long main column. */
+            .rd #page-wrapper .grid > aside {
+                position: sticky;
+                top: 96px;
+                align-self: start;
+            }
+        }
+
+        .rd #page-wrapper main.space-y-8 > :not([hidden]) ~ :not([hidden]) {
+            margin-top: clamp(24px, 2.6vw, 36px) !important;
+        }
+
+        /* ---- Breadcrumbs --------------------------------------------------------------- */
+        .rd nav[aria-label="Breadcrumb"] { margin-bottom: clamp(22px, 2.6vw, 34px) !important; }
+        .rd nav[aria-label="Breadcrumb"] ol { font-size: 13px !important; color: var(--rd-ink-3) !important; }
+        .rd nav[aria-label="Breadcrumb"] a:hover { color: var(--rd-green) !important; }
+        .rd nav[aria-label="Breadcrumb"] li:last-child { font-weight: 500 !important; color: var(--rd-ink) !important; }
+
+        /* ---- Section cards ----------------------------------------------------------- */
+        .rd #page-wrapper main > section.bg-white {
+            padding: clamp(26px, 3.2vw, 48px) !important;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 24px !important;
+            box-shadow: none !important;
+        }
+
+        /* ---- Headings ---------------------------------------------------------------- */
+        .rd #page-wrapper main h1,
+        .rd #page-wrapper main h2,
+        .rd #page-wrapper main h3,
+        .rd #page-wrapper .grid > aside h3 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-optical-sizing: auto;
+            letter-spacing: -0.016em !important;
+            color: var(--rd-ink) !important;
+            text-wrap: balance;
+        }
+
+        .rd #page-wrapper main h2 {
+            font-size: clamp(26px, 2.4vw, 34px) !important;
+            line-height: 1.12 !important;
+        }
+
+        .rd #page-wrapper main h2 .rd-line-mask { padding: 0.18em; margin: -0.18em; }
+
+        /* small uppercase labels inside the data room stay interface text, as eyebrows */
+        .rd #page-wrapper main h3.uppercase {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd #page-wrapper main h3.uppercase::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            flex: 0 0 auto;
+            background: var(--rd-gold);
+        }
+
+        /* ---- Hero: eyebrow, title with its drawn gold rule, stage tracker -------------------- */
+        .rd #page-wrapper main > section:first-of-type span.uppercase.tracking-widest {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd #page-wrapper main > section:first-of-type span.uppercase.tracking-widest::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            flex: 0 0 auto;
+            background: var(--rd-gold);
+            transform: scaleX(var(--rd-eyebrow, 1));
+            transform-origin: 0 50%;
+        }
+
+        .rd #page-wrapper main > section:first-of-type h1 {
+            margin-top: 18px !important;
+            font-size: clamp(38px, 4.2vw, 60px) !important;
+            line-height: 1.04 !important;
+            letter-spacing: -0.028em !important;
+            align-items: stretch !important;
+        }
+
+        .rd #page-wrapper main > section:first-of-type h1 > span {
+            flex: 0 0 auto;
+            width: 1px !important;
+            height: auto !important;
+            margin: .12em 22px .12em 0 !important;
+            border-radius: 0 !important;
+            background: #f7be26 !important;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+        }
+
+        .rd #page-wrapper main > section:first-of-type h1 + p {
+            margin-top: 14px !important;
+            font-size: 12.5px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #page-wrapper main > section:first-of-type h1 + p span { font-weight: 500 !important; color: var(--rd-ink-2) !important; }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) {
+            margin-top: clamp(28px, 3vw, 40px) !important;
+            background: var(--rd-card-2) !important;
+            background-image: none !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 18px !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) span.rounded-full.uppercase {
+            font-weight: 500 !important;
+            letter-spacing: .16em !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .text-right > span:first-child {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 34px !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .text-right > span:nth-child(2) {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 18px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .text-right > p,
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .flex-col > span:not(.osip-current-pill),
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) li .min-w-0 > span {
+            font-weight: 500 !important;
+            letter-spacing: .16em !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .flex-col > p,
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) li p {
+            font-size: 12px !important;
+            font-weight: 500 !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .bg-gray-200 { background: var(--rd-line) !important; }
+
+        /* ---- Overview: reading text with the scroll-drawn gold rule ----------------------------
+           As on the other redesigned pages: the 1px gold line beside the overview text
+           draws downwards over the same scroll range as its words light up. One custom
+           property, --rd-draw, scrubbed by the motion layer; without it, simply there. */
+        .rd #page-wrapper main span.w-1\.5.h-6.bg-brand-gold {
+            width: 1px !important;
+            height: 28px !important;
+            border-radius: 0 !important;
+            background: #f7be26 !important;
+        }
+
+        .rd #page-wrapper main > section > div.space-y-4 {
+            position: relative;
+            padding-left: 23px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18.5px !important;
+            line-height: 1.7 !important;
+            letter-spacing: -0.003em !important;
+            color: var(--rd-ink-2) !important;
+            text-wrap: pretty;
+        }
+
+        .rd #page-wrapper main > section > div.space-y-4::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .4em;
+            bottom: .4em;
+            width: 1px;
+            background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        .rd #page-wrapper main > section > div.space-y-4 .font-semibold { font-weight: 500 !important; color: var(--rd-ink) !important; }
+
+        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center {
+            padding: 22px 16px !important;
+            background: var(--rd-card-2) !important;
+            border: 1px solid var(--rd-line);
+            border-radius: 18px !important;
+        }
+
+        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center .material-symbols-outlined {
+            font-size: 24px !important;
+            color: #b98a12 !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p:first-of-type {
+            margin-top: 6px;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 28px !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p + p {
+            font-size: 12px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* ---- Project details grid -------------------------------------------------------------- */
+        .rd #page-wrapper [data-purpose="meta-item"] {
+            padding-left: 18px !important;
+            border-left: 1px solid rgba(217, 165, 32, .5) !important;
+        }
+
+        .rd #page-wrapper [data-purpose="meta-item"] h4 {
+            margin-bottom: 6px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .18em !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #page-wrapper [data-purpose="meta-item"] p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 20px !important;
+            line-height: 1.25 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #page-wrapper main p.text-2xl.text-gray-500 {
+            padding-top: 28px;
+            border-top: 1px solid var(--rd-line);
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: clamp(26px, 2.6vw, 36px) !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd #page-wrapper main p.text-2xl.text-gray-500 .text-brand-accent { color: var(--rd-green) !important; }
+
+        /* ---- Members only: teaser, data room, portal note -------------------------------------------- */
+        .rd #page-wrapper main h2 > span.w-9.h-9 {
+            border-radius: 999px !important;
+            background: transparent !important;
+            color: #b98a12 !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line-2);
+        }
+
+        .rd #page-wrapper main h2 > span.w-9.h-9.bg-brand-green {
+            background: var(--rd-green) !important;
+            color: #ffffff !important;
+            box-shadow: none;
+        }
+
+        .rd #page-wrapper main h2 > span.w-9.h-9 .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+            font-size: 20px !important;
+        }
+
+        .rd #page-wrapper main span.rounded-full.uppercase { font-weight: 500 !important; }
+
+        .rd #page-wrapper main .gated-content > .grid > div {
+            background: var(--rd-card-2) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 14px !important;
+        }
+
+        .rd #page-wrapper main .gated-content > .grid > div p + p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 24px !important;
+        }
+
+        .rd #page-wrapper .gated-overlay,
+        .rd #page-wrapper .grid > aside .p-6 > div.absolute.inset-0 {
+            background: rgba(251, 250, 247, .74) !important;
+        }
+
+        .rd #page-wrapper .gated-overlay p,
+        .rd #page-wrapper .grid > aside .p-6 > div.absolute.inset-0 p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-size: 17px !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #members-section header p,
+        .rd #members-section > div > p.leading-relaxed {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18px !important;
+            line-height: 1.7 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd #members-section header p { font-size: 16.5px !important; color: var(--rd-ink-3) !important; }
+
+        .rd #members-section button[data-lightbox-src] { border-radius: 14px !important; }
+
+        .rd #members-section .video-facade { border-radius: 18px !important; }
+
+        .rd #members-section .video-facade .bg-red-600.rounded-full {
+            background: rgba(251, 250, 247, .94) !important;
+            box-shadow: 0 24px 50px -24px rgba(0, 0, 0, .55) !important;
+        }
+
+        .rd #members-section .video-facade .bg-red-600.rounded-full .material-symbols-outlined { color: var(--rd-green) !important; }
+        .rd #members-section .video-facade span.bg-red-600:not(.rounded-full) { background: var(--rd-deep) !important; }
+
+        .rd #members-section a[download] {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 16px !important;
+            transition: border-color .35s ease, background-color .35s ease !important;
+        }
+
+        .rd #members-section a[download]:hover {
+            background: #ffffff !important;
+            border-color: var(--rd-green) !important;
+        }
+
+        .rd #members-section a[download] .material-symbols-outlined.text-red-600 {
+            color: #a3372e !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 40 !important;
+        }
+
+        .rd #members-section a[download] p.font-bold {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-size: 17px !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked {
+            position: relative;
+            background: var(--rd-card-2) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-left-color: transparent !important;
+            border-radius: 0 16px 16px 0 !important;
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked::before {
+            content: "";
+            position: absolute;
+            left: -1px;
+            top: -1px;
+            bottom: -1px;
+            width: 2px;
+            background: #f7be26;
+            pointer-events: none;
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked > p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            line-height: 1.5 !important;
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked > span {
+            border-radius: 999px !important;
+            background: transparent !important;
+            color: #b98a12 !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line-2);
+        }
+
+        /* Buttons: shape and colour only - their fonts are left as they are. */
+        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green,
+        .rd #connect-btn {
+            border-radius: 999px !important;
+            background: var(--rd-green) !important;
+            box-shadow: none !important;
+        }
+
+        .rd #page-wrapper main > section.border-t { border-top-color: var(--rd-line) !important; }
+
+        /* ---- Contact card --------------------------------------------------------------------------- */
+        .rd #page-wrapper .grid > aside > div {
+            overflow: hidden;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+        }
+
+        .rd #page-wrapper .grid > aside > div > div:first-child {
+            padding: 16px 22px !important;
+            background: var(--rd-paper-2) !important;
+            border-bottom-color: var(--rd-line) !important;
+        }
+
+        .rd #page-wrapper .grid > aside h3 { font-size: 19px !important; font-weight: 500 !important; }
+
+        .rd #page-wrapper .grid > aside .p-6 { background: var(--rd-card) !important; }
+
+        .rd #page-wrapper .grid > aside .p-6 p.text-xs {
+            font-size: 11.5px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #page-wrapper .grid > aside .p-6 .font-bold:not(.login-trigger) {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-size: 17.5px !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd .rd-sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        /* ---- Reading progress ------------------------------------------------------------------------ */
+        .rd-progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 80;
+            height: 2px;
+            background: #f7be26;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            pointer-events: none;
+        }
+
+        /* ---- Cursor: a gold highlighter over headings, a ring over cards (as on DetailedSector) ----- */
+        .rd-cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 9998;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .rd-cursor-dot {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 72px;
+            height: 72px;
+            margin: -36px 0 0 -36px;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            background: var(--rd-green);
+            transform: scale(0);
+            transition: transform .5s cubic-bezier(.22, 1, .36, 1), width .5s cubic-bezier(.22, 1, .36, 1),
+                height .5s cubic-bezier(.22, 1, .36, 1), margin .5s cubic-bezier(.22, 1, .36, 1),
+                background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd-cursor[data-mode="ring"] .rd-cursor-dot {
+            width: 40px;
+            height: 40px;
+            margin: -20px 0 0 -20px;
+            background: transparent;
+            border-color: rgba(0, 66, 37, .4);
+            transform: scale(1);
+        }
+
+        .rd-cursor[data-look="text"] { mix-blend-mode: multiply; }
+
+        .rd-cursor[data-look="text"] .rd-cursor-dot {
+            width: 96px;
+            height: 96px;
+            margin: -48px 0 0 -48px;
+            background: #f7be26;
+            transition-property: transform, width, height, margin;
+        }
+
+        .rd-cursor[data-mode="text"] .rd-cursor-dot { transform: scale(1); }
+
+        /* The header waits for its entrance; see the flag script in <head>. */
+        html.rd-intro nav[aria-label="Breadcrumb"],
+        html.rd-intro #page-wrapper main > section:first-of-type h1,
+        html.rd-intro #page-wrapper main > section:first-of-type h1 + p,
+        html.rd-intro #page-wrapper main > section:first-of-type span.uppercase.tracking-widest {
+            opacity: 0 !important;
+        }
+
+        /* ---- Small screens and reduced motion ----------------------------------------------------------- */
+        @media (max-width: 639px) {
+            .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .text-right { text-align: left !important; }
+            .rd #page-wrapper main > section > div.space-y-4 { font-size: 17px !important; }
+            .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p:first-of-type { font-size: 24px !important; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html.rd-intro nav[aria-label="Breadcrumb"],
+            html.rd-intro #page-wrapper main > section:first-of-type h1,
+            html.rd-intro #page-wrapper main > section:first-of-type h1 + p,
+            html.rd-intro #page-wrapper main > section:first-of-type span.uppercase.tracking-widest {
+                opacity: 1 !important;
+            }
+        }
+    
+        /* ---- Type: Inter throughout (14 Sep 2026) --------------------------------------
+           Inter replaces Newsreader on the opportunity detail pages, to match
+           Opportunities.html and the homepage; the theme, layout, colours and motion are
+           untouched. Every rule above that set the serif now sets Inter held to the
+           serif's x-height (font-size-adjust), so each heading and paragraph keeps the
+           visual size, line length and rhythm it had. Icons keep their own size. The
+           previous type is kept in OSIP/Backups/<page>/. */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-type-adjust: 0.515;
+        }
+
+        .rd [class*="material-symbols"],
+        .rd [class*="material-icons"] {
+            font-size-adjust: none !important;
+        }
+
+        /* the shared header and footer, as on Opportunities.html */
+        .rd .nesp-header .nesp-menu-item .t,
+        .rd .nesp-header .nesp-menu-item .d,
+        .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link,
+        .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead),
+        .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head,
+        .rd .nesp-header .nesp-res-foot-h,
+        .rd .nesp-footer h3,
+        .rd .nesp-footer .nesp-foot-brand p,
+        .rd .nesp-footer a,
+        .rd .nesp-footer .nesp-foot-contact li,
+        .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: var(--rd-type-adjust) !important;
+        }
+
+        .rd .nesp-header .nesp-cta {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+
+        /* the footer column headings still name Manrope in this page's own base styles */
+        .rd .nesp-footer h4 {
+            font-family: var(--rd-sans) !important;
+        }
+
+        /* ---- Heading weight (14 Sep 2026) ----------------------------------------------
+           In Inter the headings read better one step heavier than they sat in the serif,
+           as on Opportunities.html. */
+        .rd #page-wrapper main h1,
+        .rd #page-wrapper main h2,
+        .rd #page-wrapper main h3,
+        .rd #page-wrapper .grid > aside h3 {
+            font-weight: 500 !important;
+        }
+
+        .rd #page-wrapper main h4 {
+            font-weight: 600 !important;
+        }
+
+        .rd .nesp-footer h3 {
+            font-weight: 500 !important;
+        }
+    </style>
 </head>
 
-<body class="bg-brand-bg text-brand-green min-h-screen">
+<body class="bg-brand-bg text-brand-green min-h-screen rd">
     <div id="page-wrapper">
         <div id="site-nav"></div>
         <!-- BEGIN: MainContainer -->
@@ -700,7 +1375,7 @@
                 },
                 'DATA': {
                     head: 'Data & Insights', items: [
-                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'Investment & Capacity', d: 'Capacity and investment metrics across energy sectors.', href: 'Data.html' },
                         { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
                         { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
                     ]
@@ -738,6 +1413,260 @@
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
 <script src="nav.js"></script>
+    <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script>
+        /* =====================================================================
+           REDESIGN MOTION LAYER - opportunity detail page
+
+           The DetailedSector motion layer, fitted to the detail pages and built
+           to fail open in the same way: nothing is hidden until the libraries
+           are confirmed present, anything hidden is tracked so an error can put
+           it back, and with reduced motion asked for it does nothing.
+
+           Members-only content (.show-when-unlocked) is never touched: it is
+           display:none until sign-in, and anything pre-hidden inside it would
+           stay hidden once it appears. When the page unlocks, scroll positions
+           are re-measured. Selectors below use no escaped characters.
+           ===================================================================== */
+        (function () {
+            var html = document.documentElement;
+            var hidden = [];
+            var drawn = [];
+
+            function releaseIntro() { html.classList.remove('rd-intro'); }
+
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !window.gsap || !window.ScrollTrigger) { releaseIntro(); return; }
+
+            function start() {
+                try {
+                    run();
+                } catch (err) {
+                    if (window.console) console.warn('[rd] motion layer stopped:', err);
+                    releaseIntro();
+                    html.classList.remove('rd-motion');
+                    if (hidden.length) gsap.set(hidden, { clearProps: 'opacity,transform,visibility,clipPath' });
+                    drawn.forEach(function (el) { el.style.removeProperty('--rd-draw'); el.style.removeProperty('--rd-eyebrow'); });
+                }
+            }
+
+            var started = false;
+            function once() { if (!started) { started = true; start(); } }
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+            setTimeout(once, 900);
+
+            function run() {
+                gsap.registerPlugin(ScrollTrigger);
+                var hasSplit = !!window.SplitText;
+                if (hasSplit) gsap.registerPlugin(SplitText);
+
+                var wrap = document.getElementById('page-wrapper');
+                var main = wrap ? wrap.querySelector('main') : null;
+                if (!main) { releaseIntro(); return; }
+                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                var EASE = 'expo.out';
+                function all(root, sel) { return root ? Array.prototype.slice.call(root.querySelectorAll(sel)) : []; }
+                function open(el) { return el && !el.closest('.show-when-unlocked'); }
+                function keep(list) { return list.filter(function (el) { return !!el; }); }
+
+                html.classList.add('rd-motion');
+
+                /* ---- Smooth scroll ---------------------------------------------------- */
+                if (window.Lenis) {
+                    var lenis = new Lenis({ lerp: 0.09, smoothWheel: true, syncTouch: false });
+                    lenis.on('scroll', ScrollTrigger.update);
+                    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+                    gsap.ticker.lagSmoothing(0);
+                    window.__rdLenis = lenis;
+                    all(document, '#mobile-nav, .nesp-dropdown, #login-modal').forEach(function (el) {
+                        el.setAttribute('data-lenis-prevent', '');
+                    });
+                }
+
+                /* ---- Reading progress (on <body>, outside the wrapper the login modal blurs) */
+                var bar = document.createElement('div');
+                bar.className = 'rd-progress';
+                bar.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(bar);
+                gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.4 } });
+
+                /* ---- Header: crumbs, eyebrow rule, title and its gold rule, tracker ---- */
+                var hero = main.querySelector(':scope > section');
+                var crumbs = wrap.querySelector('nav[aria-label="Breadcrumb"]');
+                var eyebrow = hero ? hero.querySelector('span.uppercase.tracking-widest') : null;
+                var h1 = hero ? hero.querySelector('h1') : null;
+                var titleRule = h1 ? h1.querySelector(':scope > span') : null;
+                var updated = h1 ? h1.nextElementSibling : null;
+                var intro = gsap.timeline({ defaults: { ease: EASE } });
+
+                if (crumbs) intro.from(crumbs, { opacity: 0, y: 8, duration: 0.9, clearProps: 'transform' }, 0);
+                if (eyebrow) {
+                    drawn.push(eyebrow);
+                    intro.from(eyebrow, { opacity: 0, x: -8, duration: 0.9, clearProps: 'transform' }, 0.1);
+                    intro.fromTo(eyebrow, { '--rd-eyebrow': 0 }, { '--rd-eyebrow': 1, duration: 1.1 }, 0.1);
+                }
+                if (h1) intro.from(h1, { opacity: 0, y: 26, duration: 1.2, clearProps: 'transform' }, 0.18);
+                if (titleRule) {
+                    drawn.push(titleRule);
+                    intro.fromTo(titleRule, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.4, ease: 'expo.inOut' }, 0.3);
+                }
+                if (updated && updated.tagName === 'P') intro.from(updated, { opacity: 0, duration: 0.9 }, 0.45);
+
+                /* The tracker's fill bars carry Tailwind's translate, so they draw with
+                   clip-path rather than a scale that would undo it. */
+                if (hero) {
+                    all(hero, '.osip-progress-fill').forEach(function (fill) {
+                        hidden.push(fill);
+                        intro.fromTo(fill, { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'power2.inOut', clearProps: 'clipPath' }, 0.55);
+                    });
+                    all(hero, '.osip-progress-fill-v').forEach(function (fill) {
+                        hidden.push(fill);
+                        intro.fromTo(fill, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'power2.inOut', clearProps: 'clipPath' }, 0.55);
+                    });
+                    var nodes = all(hero, '.relative.z-10.flex-col, ol li');
+                    if (nodes.length) {
+                        hidden = hidden.concat(nodes);
+                        intro.from(nodes, { opacity: 0, y: 10, duration: 0.8, stagger: 0.08, clearProps: 'transform' }, 0.5);
+                    }
+                }
+                releaseIntro();
+
+                /* ---- Section headings: lines rise out of a mask ----------------------- */
+                all(main, ':scope > section h2').forEach(function (h) {
+                    if (!open(h) || (hero && hero.contains(h))) return;
+                    if (!hasSplit || h.children.length) {
+                        gsap.from(h, { opacity: 0, y: 22, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+                        hidden.push(h);
+                        return;
+                    }
+                    SplitText.create(h, {
+                        type: 'lines', mask: 'lines', linesClass: 'rd-line', autoSplit: true,
+                        onSplit: function (self) {
+                            return gsap.from(self.lines, {
+                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
+                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
+                            });
+                        }
+                    });
+                });
+
+                /* ---- Overview: words light up, the gold rule draws alongside ----------- */
+                all(main, ':scope > section > div.space-y-4').forEach(function (block) {
+                    if (!open(block)) return;
+                    drawn.push(block);
+                    gsap.fromTo(block, { '--rd-draw': 0 }, {
+                        '--rd-draw': 1, ease: 'none',
+                        scrollTrigger: { trigger: block, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                    if (!hasSplit) return;
+                    all(block, ':scope > p').forEach(function (p) {
+                        var words = SplitText.create(p, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
+                        hidden = hidden.concat(words);
+                        gsap.fromTo(words, { opacity: 0.2 }, {
+                            opacity: 1, ease: 'none', stagger: 0.1,
+                            scrollTrigger: { trigger: p, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                        });
+                    });
+                });
+
+                /* ---- Cards, figures and details arrive in the order they sit ----------- */
+                function batch(list, from, to) {
+                    list = list.filter(open);
+                    if (!list.length) return;
+                    gsap.set(list, from);
+                    hidden = hidden.concat(list);
+                    ScrollTrigger.batch(list, {
+                        start: 'top 94%', once: true,
+                        onEnter: function (els) { gsap.to(els, Object.assign({ overwrite: true, clearProps: 'transform' }, to)); }
+                    });
+                }
+                var sections = all(main, ':scope > section').filter(function (s) { return s !== hero; });
+                var sideCard = wrap.querySelector('.grid > aside > div');
+                batch(sections.concat(keep([sideCard])), { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.1 });
+                batch(all(main, 'div.rounded-lg.bg-brand-sidebar.text-center'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.07 });
+                batch(all(main, '[data-purpose="meta-item"]'), { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.9, ease: EASE, stagger: 0.06 });
+
+                /* ---- Figures count up to their value ------------------------------------ */
+                function countUp(el) {
+                    var final = el.textContent;
+                    var flat = final.replace(/\s+/g, ' ').trim();
+                    var parts = flat.split(/(\d[\d,]*(?:\.\d+)?)/);
+                    if (parts.length < 3) return;
+                    var sr = document.createElement('span');
+                    sr.className = 'rd-sr';
+                    sr.textContent = flat;
+                    var shown = document.createElement('span');
+                    shown.setAttribute('aria-hidden', 'true');
+                    el.textContent = '';
+                    el.appendChild(sr);
+                    el.appendChild(shown);
+                    var state = { p: 0 };
+                    gsap.to(state, {
+                        p: 1, duration: 1.4, ease: 'power3.out',
+                        onUpdate: function () {
+                            shown.textContent = parts.map(function (piece, i) {
+                                if (i % 2 === 0) return piece;
+                                var places = (piece.split('.')[1] || '').length;
+                                return (parseFloat(piece.replace(/,/g, '')) * state.p).toFixed(places);
+                            }).join('');
+                        },
+                        onComplete: function () { el.textContent = final; }
+                    });
+                }
+                var figures = all(main, 'div.rounded-lg.bg-brand-sidebar.text-center p:first-of-type')
+                    .concat(all(main, 'p.text-2xl.text-gray-500 .text-brand-accent'))
+                    .filter(open);
+                figures.forEach(function (el) {
+                    ScrollTrigger.create({ trigger: el, start: 'top 92%', once: true, onEnter: function () { countUp(el); } });
+                });
+
+                /* ---- Cursor: a gold highlighter over headings, a ring over cards --------- */
+                if (fine) {
+                    var cursor = document.createElement('div');
+                    cursor.className = 'rd-cursor';
+                    cursor.setAttribute('aria-hidden', 'true');
+                    var dot = document.createElement('div');
+                    dot.className = 'rd-cursor-dot';
+                    cursor.appendChild(dot);
+                    document.body.appendChild(cursor);
+                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
+                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
+                    var placed = false;
+                    window.addEventListener('pointermove', function (e) {
+                        if (e.pointerType && e.pointerType !== 'mouse') return;
+                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
+                        toX(e.clientX);
+                        toY(e.clientY);
+                    }, { passive: true });
+                    var off = function () { cursor.removeAttribute('data-mode'); };
+                    function target(el, mode) {
+                        el.addEventListener('pointerenter', function () {
+                            cursor.setAttribute('data-mode', mode);
+                            cursor.setAttribute('data-look', mode);
+                        });
+                        el.addEventListener('pointerleave', off);
+                    }
+                    keep([h1]).concat(all(main, 'h2')).forEach(function (h) { target(h, 'text'); });
+                    all(main, 'div.rounded-lg.bg-brand-sidebar.text-center, [data-purpose="meta-item"]').forEach(function (c) { target(c, 'ring'); });
+                    document.documentElement.addEventListener('mouseleave', off);
+                }
+
+                /* ---- Sign-in reveals the data room: re-measure the page below it -------- */
+                if (window.MutationObserver) {
+                    new MutationObserver(function () {
+                        if (document.body.classList.contains('is-authenticated')) setTimeout(function () { ScrollTrigger.refresh(); }, 450);
+                    }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+                }
+
+                window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+                ScrollTrigger.refresh();
+            }
+        })();
+    </script>
 </body>
 
 </html>

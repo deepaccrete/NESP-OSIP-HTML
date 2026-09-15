@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A static multi-page HTML prototype for **OSIP** (NESP — Nigeria's energy-sector investment portal). No build system, no package manager, no server — every page is a self-contained `.html` file linked by plain `href`s.
+A static multi-page HTML prototype for the **One-Stop Investment Platform (OSIP)**, built under NESP for Nigeria's clean energy sector. No build system, no package manager, no server — every page is a self-contained `.html` file linked by plain `href`s.
 
 There is **no test suite, no linter, no build step**. "Running" the project means loading the HTML in a browser:
 
@@ -13,6 +13,12 @@ python3 -m http.server 8000    # then open http://localhost:8000/homepage.html
 ```
 
 Serve rather than opening `file://` when touching anything script-driven — `nav.js`/`footer.js` resolve their own paths from `document.currentScript.src`, and iframe/`postMessage` behaviour is more faithful over HTTP.
+
+## Settled decisions — do not drift
+
+**Name.** The product is the **One-Stop Investment Platform (OSIP)**: hyphenated, "Platform" never "Portal", no "NEIP" or "Nigeria Energy Portal" (confirmed against the UX audit header; audit §8.1 / UX-COP-01). Page titles use one pattern, `[Page] | One-Stop Investment Platform (OSIP)`; `homepage.html` is the brand alone. The programme is the **Nigerian Energy Support Programme (NESP)**, and BMZ is the **German Federal Ministry for Economic Cooperation and Development**. "Portal" is still right for *other* organisations' sites, such as a state's investment portal.
+
+**Portal model (PORT-01).** Option 1: one central OSIP platform that links out to each state's own investment portal. OSIP hosts summary profiles (`States.html`, `Enugu.html`) and routes investors on; it does **not** host state logins or state-managed content, so don't build either. Links to a state's own site are marked external and say the state operates them (see `Enugu.html`'s agency section and the "How state information works" strip on `States.html`).
 
 ## Repo layout
 
@@ -64,10 +70,11 @@ Treat them as leftovers. Don't edit them expecting an effect, and don't copy the
 
 ## Other injected components (same pattern as nav/footer)
 
-Four more scripts follow the nav.js/footer.js playbook: a mount point plus a `<script src=...>`, a `window.__osip*` guard so a double-load is a no-op, and — because the pages here are **not all built the same way** — each **injects its own CSS** instead of trusting the host page's Tailwind. When extending them, keep styling self-contained; don't reach for host classes.
+Five more scripts follow the nav.js/footer.js playbook: a mount point plus a `<script src=...>`, a `window.__osip*` guard so a double-load is a no-op, and — because the pages here are **not all built the same way** — each **injects its own CSS** instead of trusting the host page's Tailwind. When extending them, keep styling self-contained; don't reach for host classes.
 
 - `glossary.js` — loaded on the 10 sector detail pages. Wraps the *first* mention of each known acronym (NERC, REA, REF, …) in an `<abbr class="osip-term">` with a hover/focus/tap definition; the term dictionary lives in the file. It only wraps — text is never replaced, reordered, or removed.
 - `videofacade.js` — same 10 sector pages. A lazy YouTube facade: renders a poster `<button>` and requests nothing from youtube.com until clicked. Mark up as `<div class="video-facade" data-video-id="…" data-video-title="…">` with a `.facade-cover` button inside.
+- `incentivenote.js` — the contextual half of CON-03, on the 10 sector pages and `Regulation.html`. Replaces each `<div class="osip-incentive-note">` mount with a short "incentives are not automatic" aside; `data-variant="finance"` swaps in the financing wording instead. Sector pages carry two: one before the *Key Message* card in Ease of Doing Business, one before *Investor Outlook* in Finance. The general information disclaimer is the other half and lives in `footer.js`, so it is on every page — keep the two saying different things rather than duplicating one. `Data.html` carries a static copy of the same `.osip-note` rules for its source register — the gold-on-cream note is the house style for anything that qualifies content rather than being content, so keep the two in step.
 - `pathwayfinder.js` + `pathwaydata.js` — the regulatory pathway finder (REG-03), mounted at `<div id="osip-pathway">` on **`Regulation.html` only**. Load `pathwaydata.js` first (it sets `window.OSIP_PATHWAYS`), then `pathwayfinder.js`. Flow: sector → business model → project size → connection type → jurisdiction → result. `pathwaydata.js` is **generated** from the sector pages' own Workflow / Regulatory Requirements / Key Agencies cards (regen with `scratchpad/gen_pathway_data.py` + `emit_pathwaydata.js`), so the finder can only ever surface what a sector page already states. Edit the sector page and regenerate — never hand-edit `pathwaydata.js`, or the two drift apart.
 
 ## The Invest Now paths (read before touching anything so labelled)

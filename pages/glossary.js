@@ -33,7 +33,7 @@
     'TCN': 'Transmission Company of Nigeria. Operates the national high-voltage transmission grid.',
     'EIA': 'Environmental Impact Assessment. A study of a project’s environmental effects, approved before construction can start.',
     'IPP': 'Independent Power Producer. A privately owned company that generates electricity for sale rather than for its own use.',
-    'PPAs': 'Power Purchase Agreements. Long-term contracts to buy the electricity a project generates, which is what makes it bankable.',
+    'PPAs': 'Power Purchase Agreements. Long-term contracts to buy the electricity a project generates, which is what lenders look for before financing one.',
     'BOO': 'Build-Own-Operate. The developer builds the asset, keeps ownership of it, and runs it for the life of the concession.',
     'SHS': 'Solar Home Systems. A small standalone solar kit sized for one home or shop, with no grid connection.',
     'DRE': 'Distributed Renewable Energy. Generation sited at or near where the power is used, rather than on the national grid.',

@@ -7,11 +7,29 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet">
+    <!-- Redesign: Newsreader for headings and reading text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        /* Redesign: hold the hero copy back for its entrance. The motion layer
+           lifts this the moment its start states are applied, and it lifts
+           itself after 3.5s whatever happens, so a slow or blocked CDN can never
+           leave the hero empty. Not set at all when reduced motion is asked for. */
+        (function () {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var root = document.documentElement;
+                root.classList.add('rd-intro');
+                setTimeout(function () { root.classList.remove('rd-intro'); }, 3500);
+            } catch (e) {}
+        })();
+    </script>
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSIP - Announcements</title>
+    <title>Announcements | One-Stop Investment Platform (OSIP)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -208,9 +226,553 @@
             }
         }
     </style>
+    <style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - Announcements.html (11 Sep 2026)
+
+           The DetailedSector.html redesign carried to the announcements listing:
+           the same tokens and the same direction. Titles, summaries and the
+           pinned deadline move to Newsreader; dates, categories and the issuing
+           line stay in the sans as quiet labels; grounds go to warm paper; cards
+           turn flat with a 1px line. No content was edited. Scoped under body.rd.
+           The earlier design is kept in OSIP/Backups/Announcements/.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-card-2: #f1eee8;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* ---- Lenis, from lenis@1.3.26/dist/lenis.css --------------------------- */
+        html.lenis,
+        html.lenis body { height: auto; }
+        .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+        .lenis [data-lenis-prevent],
+        .lenis [data-lenis-prevent-wheel],
+        .lenis [data-lenis-prevent-touch],
+        .lenis [data-lenis-prevent-vertical],
+        .lenis [data-lenis-prevent-horizontal] { overscroll-behavior: contain; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        .lenis.lenis-autoToggle {
+            transition-property: overflow;
+            transition-duration: 1ms;
+            transition-behavior: allow-discrete;
+        }
+        /* the page's CSS smooth scroll would fight Lenis while it runs */
+        html.lenis { scroll-behavior: auto !important; }
+
+        /* ---- Page ---------------------------------------------------------------- */
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd main,
+        .rd main section[style*="font-family"] { font-family: var(--rd-sans) !important; }
+
+        .rd ::selection { background: #f7be26; color: var(--rd-ink); }
+
+        /* ---- Section grounds ------------------------------------------------------
+           Paper-2 for the pinned band, paper for the list. The bands' own side
+           padding is replaced by the hero's container gutter, so the eyebrows and
+           cards line up with the hero copy instead of sitting 28px left of it. */
+        .rd main > section:nth-of-type(2) {
+            background: var(--rd-paper-2) !important;
+            padding-top: clamp(64px, 8vw, 120px) !important;
+            padding-bottom: clamp(64px, 8vw, 120px) !important;
+        }
+
+        .rd main > section:nth-of-type(3) {
+            background: var(--rd-paper) !important;
+            padding-top: clamp(64px, 8vw, 120px) !important;
+            padding-bottom: clamp(76px, 10vw, 148px) !important;
+        }
+
+        .rd main > section:not(:first-of-type) { padding-left: 0 !important; padding-right: 0 !important; }
+        .rd main > section:not(:first-of-type) > .max-w-7xl { padding-left: 24px; padding-right: 24px; }
+        @media (min-width: 640px) {
+            .rd main > section:not(:first-of-type) > .max-w-7xl { padding-left: 32px; padding-right: 32px; }
+        }
+
+        /* ---- Headings ------------------------------------------------------------ */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-optical-sizing: auto;
+            text-wrap: balance;
+        }
+
+        .rd main h1 .rd-char-mask,
+        .rd main h2 .rd-line-mask,
+        .rd main h3 .rd-line-mask { padding: .18em; margin: -.18em; }
+
+        /* ---- Hero: the dark photograph band ---------------------------------------- */
+        .rd main > section:first-of-type { min-height: min(80vh, 720px) !important; }
+        .rd main > section:first-of-type .max-w-3xl { max-width: 52rem !important; }
+
+        .rd main > section:first-of-type .max-w-3xl > div:first-child { gap: 14px !important; margin-bottom: 28px !important; }
+
+        .rd main > section:first-of-type .max-w-3xl > div:first-child > span:first-child {
+            width: 28px !important; height: 1px !important;
+            background: #f7be26 !important; transform-origin: 0 50%;
+        }
+
+        .rd main > section:first-of-type .max-w-3xl > div:first-child > span:last-child {
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important; font-weight: 500 !important;
+            letter-spacing: .26em !important; color: #f7be26 !important;
+        }
+
+        .rd main > section:first-of-type h1 {
+            color: #ffffff !important;
+            font-weight: 300 !important;
+            font-size: clamp(46px, 6vw, 92px) !important;
+            line-height: .98 !important;
+            letter-spacing: -0.035em !important;
+            margin-bottom: 36px !important;
+        }
+
+        .rd main > section:first-of-type h1 ~ p {
+            position: relative;
+            max-width: 36rem !important;
+            padding-left: 23px !important;
+            border-left-width: 0 !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 20px !important;
+            font-weight: 400 !important;
+            line-height: 1.6 !important;
+            color: rgba(255, 255, 255, .86) !important;
+        }
+
+        /* The hero copy waits for its entrance; see the flag script in <head>. */
+        html.rd-intro main > section:first-of-type .max-w-3xl > * { opacity: 0; }
+
+        .rd-scrollcue {
+            position: absolute; left: 50%; bottom: 28px; z-index: 11;
+            width: 1px; height: 56px; overflow: hidden;
+            background: rgba(255, 255, 255, .18);
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .rd-scrollcue span {
+            position: absolute; left: 0; top: -40%;
+            width: 1px; height: 40%;
+            background: #f7be26;
+            animation: rdCue 2.2s cubic-bezier(.65, 0, .35, 1) infinite;
+        }
+
+        @keyframes rdCue { from { top: -40%; } to { top: 100%; } }
+
+        /* ---- Section eyebrows: a 28x1 gold dash and a tracked green label ---------- */
+        .rd main > section:not(:first-of-type) .max-w-7xl > div.mb-8:first-child {
+            gap: 14px !important;
+            margin-bottom: clamp(28px, 3vw, 40px) !important;
+        }
+
+        .rd main > section:not(:first-of-type) .max-w-7xl > div.mb-8:first-child > span:first-child {
+            width: 28px !important; height: 1px !important;
+            background: var(--rd-gold) !important; transform-origin: 0 50%;
+        }
+
+        .rd main > section:not(:first-of-type) .max-w-7xl > div.mb-8:first-child > span:last-child {
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important; font-weight: 500 !important;
+            letter-spacing: .24em !important; color: var(--rd-green-2) !important;
+        }
+
+        /* ---- Pinned notice ------------------------------------------------------------ */
+        .rd main .osip-reveal {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        /* Motion hand-off: while the motion layer runs it brings the card in (CFG.cards),
+           so the page's .osip-reveal hidden state stands down. That reveal waits on an
+           IntersectionObserver, and with the taller hero the card starts below the fold,
+           where a check that renders no frames never sees it arrive. Deliberately not
+           !important: GSAP's inline start state has to win. Without the motion layer
+           (reduced motion, a blocked CDN, an error) the page's own reveal is back. */
+        html.rd-motion body.rd main .osip-reveal { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: no-preference) {
+            html:not(.rd-motion) body.rd main .osip-reveal {
+                transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform .9s cubic-bezier(.2, .7, .2, 1),
+                    border-color .45s ease, background-color .45s ease !important;
+            }
+        }
+
+        .rd main .osip-reveal:hover { border-color: var(--rd-line-2) !important; background: #ffffff !important; }
+
+        /* The date panel: the same photograph, a deeper and calmer green over it */
+        .rd main .osip-featured-panel::before {
+            opacity: 1 !important;
+            background: linear-gradient(160deg, rgba(11, 42, 31, .55) 0%, rgba(11, 42, 31, .28) 55%, rgba(11, 42, 31, .6) 100%) !important;
+        }
+
+        .rd main .osip-featured-panel .relative > span:nth-child(1) {
+            margin-bottom: 18px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important; font-weight: 500 !important;
+            letter-spacing: .26em !important; color: rgba(255, 255, 255, .64) !important;
+        }
+
+        .rd main .osip-featured-panel .relative > span:nth-child(2) {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-optical-sizing: auto;
+            font-weight: 300 !important;
+            font-size: clamp(80px, 7.2vw, 108px) !important;
+            line-height: .9 !important;
+            letter-spacing: -0.04em !important;
+            color: #ffffff !important;
+        }
+
+        .rd main .osip-featured-panel .relative > span:nth-child(3) {
+            margin-top: 10px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 23px !important;
+            letter-spacing: -0.012em !important;
+            color: rgba(255, 255, 255, .9) !important;
+        }
+
+        .rd main .osip-featured-panel .relative > span:nth-child(4) {
+            width: 40px !important; height: 1px !important;
+            margin: 22px auto !important;
+            background: #f7be26 !important;
+        }
+
+        .rd main .osip-featured-panel .relative > span:nth-child(5) {
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important; font-weight: 500 !important;
+            letter-spacing: .22em !important; color: rgba(255, 255, 255, .68) !important;
+        }
+
+        .rd main .osip-reveal .lg\:col-span-2 { padding: clamp(28px, 3.6vw, 52px) !important; }
+
+        /* category: a quiet outlined pill, its green kept as a soft tint */
+        .rd main .osip-reveal span.self-start.rounded-full {
+            margin-bottom: 20px !important;
+            padding: 5px 12px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important; font-weight: 500 !important;
+            letter-spacing: .18em !important;
+            color: var(--rd-green-2) !important;
+            background: #eef3ef !important;
+            border: 1px solid #cfdcd3;
+            border-radius: 999px !important;
+        }
+
+        .rd main .osip-reveal h2 {
+            font-weight: 400 !important;
+            font-size: clamp(28px, 2.6vw, 38px) !important;
+            line-height: 1.12 !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-ink) !important;
+            margin-bottom: 16px !important;
+        }
+
+        .rd main .osip-reveal .lg\:col-span-2 > p {
+            max-width: 40rem !important;
+            margin-bottom: 28px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 17.5px !important;
+            line-height: 1.62 !important;
+            color: var(--rd-ink-2) !important;
+            text-wrap: pretty;
+        }
+
+        .rd main .osip-reveal .border-t { border-color: var(--rd-line) !important; padding-top: 20px !important; }
+
+        .rd main .osip-reveal .border-t p {
+            align-items: center !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 13.5px !important; font-weight: 400 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd main .osip-reveal .border-t .material-symbols-outlined {
+            margin-top: 0 !important;
+            color: var(--rd-green-2) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        /* the call to action: the primary pill */
+        .rd main a.osip-shine {
+            min-height: 50px;
+            gap: 10px !important;
+            padding: 0 26px 0 22px !important;
+            border-radius: 999px !important;
+            font-size: 14px !important; font-weight: 500 !important;
+            letter-spacing: .005em !important; text-transform: none !important;
+            color: #ffffff !important;
+            background: var(--rd-green) !important;
+            box-shadow: none !important;
+            transition: background-color .35s ease !important;
+        }
+
+        .rd main a.osip-shine:hover { background: #062f1f !important; }
+
+        /* ---- All announcements: flat cards, serif titles, tracked dates ------------ */
+        .rd main .grid.gap-gutter { gap: 28px !important; }
+
+        .rd main .grid > article {
+            overflow: hidden;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 18px !important;
+            box-shadow: none !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd main .grid > article:hover {
+            background: #ffffff !important;
+            border-color: var(--rd-line-2) !important;
+            box-shadow: none !important;
+        }
+
+        .rd main .grid > article img { transition: transform 1.2s cubic-bezier(.22, 1, .36, 1) !important; }
+        .rd main .grid > article:hover img { transform: scale(1.04) !important; }
+
+        .rd main .grid > article .p-6 { padding: 24px 26px 22px !important; }
+        .rd main .grid > article .p-6 > div:first-child { gap: 8px !important; margin-bottom: 12px !important; }
+
+        .rd main .grid > article time {
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important; font-weight: 500 !important;
+            line-height: 16px !important;
+            letter-spacing: .2em !important; text-transform: uppercase;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd main .grid > article .p-6 > div:first-child .material-symbols-outlined {
+            font-size: 15px !important;
+            color: var(--rd-ink-3) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20 !important;
+        }
+
+        .rd main .grid > article h3 {
+            font-weight: 400 !important;
+            font-size: clamp(21px, 1.7vw, 23px) !important;
+            line-height: 1.24 !important;
+            letter-spacing: -0.012em !important;
+            color: var(--rd-ink) !important;
+            transition: color .35s ease !important;
+        }
+
+        .rd main .grid > article:hover h3 { color: var(--rd-green) !important; }
+
+        /* the read link: sans, green, its arrow leans on hover */
+        .rd main .grid > article a {
+            gap: 6px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 13.5px !important; font-weight: 500 !important;
+            letter-spacing: .005em !important;
+            color: var(--rd-green-2) !important;
+            transition: color .35s ease !important;
+        }
+
+        .rd main .grid > article a:hover { color: var(--rd-green) !important; }
+        .rd main .grid > article a .material-symbols-outlined { transition: transform .35s cubic-bezier(.22, 1, .36, 1); }
+        .rd main .grid > article:hover a .material-symbols-outlined { transform: translateX(3px); }
+
+        /* ---- Gold rule beside the hero lede: drawn, not just shown ------------------ */
+        .rd main > section:first-of-type h1 ~ p::before {
+            content: "";
+            position: absolute; left: 0; top: .35em; bottom: .35em;
+            width: 1px; background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1)); transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        /* ---- Reading progress ---------------------------------------------------------- */
+        .rd-progress {
+            position: fixed; left: 0; top: 0; right: 0; z-index: 80;
+            height: 2px; background: #f7be26;
+            transform: scaleX(0); transform-origin: 0 50%;
+            pointer-events: none;
+        }
+
+        .rd .rd-sr {
+            position: absolute; width: 1px; height: 1px; margin: -1px;
+            overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+        }
+
+        /* ---- Cursor: only over the things worth pointing at ------------------------- */
+        .rd-cursor { position: fixed; left: 0; top: 0; z-index: 9998; width: 0; height: 0; pointer-events: none; }
+
+        .rd-cursor-dot {
+            position: absolute; left: 0; top: 0;
+            width: 72px; height: 72px; margin: -36px 0 0 -36px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid transparent; border-radius: 50%;
+            background: var(--rd-green); color: #ffffff;
+            font: 500 12px/1 var(--rd-sans); letter-spacing: .06em;
+            transform: scale(0);
+            transition: transform .5s cubic-bezier(.22, 1, .36, 1), width .5s cubic-bezier(.22, 1, .36, 1),
+                height .5s cubic-bezier(.22, 1, .36, 1), margin .5s cubic-bezier(.22, 1, .36, 1),
+                background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd-cursor-label { opacity: 0; transition: opacity .25s ease; }
+        .rd-cursor[data-mode="label"] .rd-cursor-dot { transform: scale(1); }
+        .rd-cursor[data-mode="label"] .rd-cursor-label { opacity: 1; transition-delay: .12s; }
+
+        .rd-cursor[data-mode="ring"] .rd-cursor-dot {
+            width: 44px; height: 44px; margin: -22px 0 0 -22px;
+            background: transparent; border-color: rgba(0, 66, 37, .45);
+            transform: scale(1);
+        }
+
+        .rd-cursor[data-look="text"] { mix-blend-mode: multiply; }
+
+        .rd-cursor[data-look="text"] .rd-cursor-dot {
+            width: 96px; height: 96px; margin: -48px 0 0 -48px;
+            background: #f7be26;
+            transition-property: transform, width, height, margin;
+        }
+
+        .rd-cursor[data-mode="text"] .rd-cursor-dot { transform: scale(1); }
+
+        html.rd-cursor-on [data-rd-cursor="label"],
+        html.rd-cursor-on [data-rd-cursor="label"] * { cursor: none !important; }
+
+        /* ---- Small screens ---------------------------------------------------------- */
+        @media (max-width: 639px) {
+            .rd main > section:first-of-type { min-height: 72vh !important; }
+            .rd-scrollcue { display: none; }
+            .rd main > section:first-of-type h1 ~ p { font-size: 18px !important; }
+            .rd main .osip-featured-panel { padding-top: 40px !important; padding-bottom: 40px !important; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rd-scrollcue span { top: 30%; animation: none; }
+            html.rd-intro main > section:first-of-type .max-w-3xl > * { opacity: 1 !important; }
+        }
+
+        /* ---- Buttons in Newsreader ----------------------------------------------------
+           Button labels follow the headings into the serif. font-size-adjust holds each
+           label to the visual size it had in the sans (Newsreader runs small at the same
+           px), so no button grows or rewraps; the header menu stays as it is, and icons
+           inside a button keep their own font and size. Keep this block LAST. */
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main a.osip-shine {
+          font-family: var(--rd-serif) !important;
+          font-size-adjust: 0.52;
+          letter-spacing: 0 !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main a.osip-shine *:not([class*="material-symbols"]):not([class*="material-icons"]) {
+          font-family: inherit !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main a.osip-shine [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main a.osip-shine [class*="material-icons"] {
+          font-size-adjust: none !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta { font-weight: 500 !important; }
+        /* ---- Type: Inter throughout (14 Sep 2026) --------------------------------------
+           Inter replaces Newsreader on this page, as on DetailedSector and the homepage; the
+           theme, layout, colours and motion are untouched. Every rule above that set the
+           serif now sets Inter held to the serif's x-height (font-size-adjust), so each
+           heading and paragraph keeps the visual size, line length and rhythm it had.
+           Icons keep their own size. The previous type is kept in OSIP/Backups/Announcements/. */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-type-adjust: 0.515;
+        }
+
+        .rd [class*="material-symbols"],
+        .rd [class*="material-icons"],
+        .rd .osip-term::after {
+            font-size-adjust: none !important;
+        }
+
+        /* the shared header and footer set Newsreader in their own stylesheets; on this
+           page they follow the page */
+        .rd .nesp-header .nesp-menu-item .t,
+        .rd .nesp-header .nesp-menu-item .d,
+        .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link,
+        .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead),
+        .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head,
+        .rd .nesp-header .nesp-res-foot-h,
+        .rd .nesp-footer h3,
+        .rd .nesp-footer .nesp-foot-brand p,
+        .rd .nesp-footer a,
+        .rd .nesp-footer .nesp-foot-contact li,
+        .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: var(--rd-type-adjust) !important;
+        }
+
+        .rd .nesp-header .nesp-cta {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+
+        .rd .nesp-footer h4 {
+            font-family: var(--rd-sans) !important;
+        }
+
+        /* ---- Heading weight (14 Sep 2026) ----------------------------------------------
+           In Inter the headings read better one step heavier than they sat in the serif. */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3,
+        .rd main > section:first-of-type h1,
+        .rd main .osip-reveal h2,
+        .rd main .grid > article h3 {
+            font-weight: 500 !important;
+        }
+
+        .rd main h4 {
+            font-weight: 600 !important;
+        }
+
+        .rd .nesp-footer h3 {
+            font-weight: 500 !important;
+        }
+
+        /* buttons: Inter at its own size, as on the homepage (the 0.52 hold above was set
+           for the serif) */
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main a.osip-shine {
+            font-size-adjust: none !important;
+        }
+
+    </style>
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen rd">
 
     <!-- nav.js renders its own sticky header; no wrapper needed. -->
     <div id="site-nav"></div>
@@ -378,7 +940,7 @@
                         </div>
                         <h3
                             class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
-                            OSIP investor portal moves to verified sign-in on 1 October 2026</h3>
+                            OSIP investor accounts move to verified sign-in on 1 October 2026</h3>
                         <div class="mt-auto pt-6 flex justify-between items-center">
                             <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
                                 href="IndividualAnnouncement.html">
@@ -580,6 +1142,355 @@
 
     <script src="nav.js"></script>
     <script src="footer.js"></script>
+    <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script>
+        /* =====================================================================
+           REDESIGN MOTION LAYER - Announcements.html, matched to DetailedSector.html
+
+           Smooth scroll (Lenis) and scroll-driven motion (GSAP, ScrollTrigger,
+           SplitText). Built to fail open: nothing is hidden until the libraries
+           are confirmed present, everything hidden is tracked so an error can put
+           it back, and with reduced motion asked for the script does nothing.
+           The pinned notice arrives here too (see the hand-off rule in rd-style).
+           ===================================================================== */
+        (function () {
+            /* ---- Page map: the only part that differs from page to page ----------
+               Every selector may be null. Selectors are matched inside CFG.root, and
+               anything inside the hero is left to the hero's own entrance. */
+            var CFG = {
+                root: 'main',
+                hero: null,
+                heroBg: '.bg-cover',
+                heroCopy: '.max-w-3xl',
+                heroEyebrow: '.max-w-3xl > div:first-child',
+                heroLede: 'h1 ~ p',
+                heroExtras: null,
+                heroParallax: true,
+                scrollCue: true,
+                eyebrowDashes: '.max-w-7xl > div.mb-8 > span:first-child',
+                headings: 'h2, h3',
+                headingSkip: 'article, .osip-reveal',
+                read: null,
+                rules: null,
+                cards: [
+                    { sel: '.osip-reveal', y: 36 },
+                    { sel: '.grid > article', y: 36, stagger: 0.09, cursor: 'ring' }
+                ],
+                counts: null,
+                cursorLabel: [],
+                magnetic: 'main a.osip-shine',
+                lenisPrevent: null
+            };
+
+            var html = document.documentElement;
+            var hidden = [];
+            var drawn = [];
+
+            function releaseIntro() { html.classList.remove('rd-intro'); }
+
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !window.gsap || !window.ScrollTrigger) { releaseIntro(); return; }
+
+            function start() {
+                try {
+                    run();
+                } catch (err) {
+                    if (window.console) console.warn('[rd] motion layer stopped:', err);
+                    releaseIntro();
+                    html.classList.remove('rd-motion');
+                    if (hidden.length) gsap.set(hidden, { clearProps: 'opacity,transform,visibility' });
+                    drawn.forEach(function (el) { el.style.removeProperty('--rd-draw'); });
+                }
+            }
+
+            /* After the page's own DOMContentLoaded work, then the webfonts, which the
+               line splits depend on - but never hold the hero back more than 900ms. */
+            var started = false;
+            function once() { if (!started) { started = true; start(); } }
+            function afterParse() {
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+                setTimeout(once, 900);
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', afterParse);
+            else afterParse();
+
+            function run() {
+                gsap.registerPlugin(ScrollTrigger);
+                var hasSplit = !!window.SplitText;
+                if (hasSplit) gsap.registerPlugin(SplitText);
+
+                var root = document.querySelector(CFG.root || 'main');
+                if (!root) { releaseIntro(); return; }
+                html.classList.add('rd-motion');
+
+                var hero = CFG.hero === false ? null
+                    : CFG.hero ? document.querySelector(CFG.hero)
+                    : (Array.prototype.filter.call(root.children, function (el) { return el.tagName === 'SECTION'; })[0] || null);
+                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                var EASE = 'expo.out';
+                function all(scope, sel) { return sel ? Array.prototype.slice.call(scope.querySelectorAll(sel)) : []; }
+                function inRest(sel) { return all(root, sel).filter(function (el) { return !(hero && hero.contains(el)); }); }
+                function inHero(sel) { return hero && sel ? hero.querySelector(sel) : null; }
+
+                /* ---- Smooth scroll ---------------------------------------------------- */
+                var lenis = null;
+                if (window.Lenis) {
+                    lenis = new Lenis({ lerp: 0.09, smoothWheel: true, syncTouch: false });
+                    lenis.on('scroll', ScrollTrigger.update);
+                    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+                    gsap.ticker.lagSmoothing(0);
+                    window.__rdLenis = lenis;
+
+                    all(document, '#mobile-nav, .nesp-dropdown' + (CFG.lenisPrevent ? ', ' + CFG.lenisPrevent : ''))
+                        .forEach(function (el) { el.setAttribute('data-lenis-prevent', ''); });
+
+                    /* In-page jumps glide and park clear of the sticky header, using the
+                       offset nav.js measures. */
+                    document.addEventListener('click', function (e) {
+                        var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+                        if (!a || e.defaultPrevented) return;
+                        var hash = a.getAttribute('href');
+                        var target = hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+                        if (!target) return;
+                        e.preventDefault();
+                        var offset = parseInt(getComputedStyle(html).getPropertyValue('--osip-nav-offset'), 10) || 100;
+                        var y = target.getBoundingClientRect().top + window.scrollY - offset;
+                        lenis.scrollTo(Math.max(0, y), { duration: 1.5, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
+                        if (history.replaceState) history.replaceState(null, '', hash);
+                    });
+                }
+
+                /* ---- Reading progress ------------------------------------------------- */
+                var bar = document.createElement('div');
+                bar.className = 'rd-progress';
+                bar.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(bar);
+                gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.4 } });
+
+                /* ---- Hero: the photograph settles, the title's letters rise ----------- */
+                if (hero) {
+                    var bg = inHero(CFG.heroBg);
+                    var copy = inHero(CFG.heroCopy);
+                    var eyebrow = inHero(CFG.heroEyebrow);
+                    var h1 = hero.querySelector('h1');
+                    var lede = inHero(CFG.heroLede);
+                    var extras = CFG.heroExtras ? all(hero, CFG.heroExtras) : [];
+                    var intro = gsap.timeline({ defaults: { ease: EASE } });
+
+                    if (bg) intro.fromTo(bg, { scale: 1.16 }, { scale: 1.04, duration: 2.6, ease: 'power3.out' }, 0);
+                    if (eyebrow) intro.from(eyebrow, { opacity: 0, y: 12, duration: 1 }, 0.05);
+                    if (h1) {
+                        if (hasSplit) {
+                            /* Words as well as letters, so a word never breaks across lines
+                               mid-entrance. The split is undone once the letters land. */
+                            var title = SplitText.create(h1, { type: 'words,chars', mask: 'chars', charsClass: 'rd-char' });
+                            var each = Math.min(0.035, 1.1 / Math.max(1, title.chars.length));
+                            intro.from(title.chars, { yPercent: 150, duration: 1.3, stagger: each, onComplete: function () { title.revert(); } }, 0.15);
+                        } else {
+                            intro.from(h1, { opacity: 0, y: 30, duration: 1.2 }, 0.15);
+                        }
+                    }
+                    if (lede) {
+                        intro.from(lede, { opacity: 0, y: 22, duration: 1.2 }, 0.55);
+                        drawn.push(lede);
+                        intro.fromTo(lede, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.6, ease: 'expo.inOut' }, 0.6);
+                    }
+                    if (extras.length) intro.from(extras, { opacity: 0, y: 16, duration: 1, stagger: 0.05, clearProps: 'transform' }, 0.8);
+                    /* The start states above are already applied, so lifting the
+                       pre-hide now cannot flash the finished hero first. */
+                    releaseIntro();
+
+                    if (CFG.heroParallax) {
+                        if (bg) gsap.to(bg, { yPercent: 14, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+                        if (copy) gsap.to(copy, { yPercent: -18, opacity: 0.25, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+                    }
+
+                    if (CFG.scrollCue) {
+                        var cue = document.createElement('div');
+                        cue.className = 'rd-scrollcue';
+                        cue.setAttribute('aria-hidden', 'true');
+                        cue.appendChild(document.createElement('span'));
+                        hero.appendChild(cue);
+                    }
+                } else {
+                    releaseIntro();
+                }
+
+                /* ---- Eyebrows: the gold dash draws, then the label ------------------- */
+                inRest(CFG.eyebrowDashes).forEach(function (dash) {
+                    var label = dash.nextElementSibling;
+                    var tl = gsap.timeline({ scrollTrigger: { trigger: dash, start: 'top 90%', once: true } });
+                    tl.from(dash, { scaleX: 0, duration: 1.1, ease: EASE });
+                    if (label) tl.from(label, { opacity: 0, x: -8, duration: 0.9, ease: EASE, clearProps: 'transform' }, 0.15);
+                    hidden.push(dash);
+                    if (label) hidden.push(label);
+                });
+
+                /* ---- Headings: lines rise out of a mask ------------------------------- */
+                inRest(CFG.headings).forEach(function (h) {
+                    if (CFG.headingSkip && h.closest(CFG.headingSkip)) return;
+                    if (!h.getClientRects().length) return; // not rendered (hidden panel)
+                    if (!hasSplit) {
+                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+                        hidden.push(h);
+                        return;
+                    }
+                    SplitText.create(h, {
+                        type: 'lines', mask: 'lines', linesClass: 'rd-line', autoSplit: true,
+                        onSplit: function (self) {
+                            return gsap.from(self.lines, {
+                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
+                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
+                            });
+                        }
+                    });
+                });
+
+                /* ---- Reading text: the words light up in reading order ----------------
+                   Words wait faint rather than invisible; words only, no aria rewriting. */
+                inRest(CFG.read).forEach(function (t) {
+                    if (!hasSplit) {
+                        gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
+                        hidden.push(t);
+                        return;
+                    }
+                    var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
+                    hidden = hidden.concat(words);
+                    gsap.fromTo(words, { opacity: 0.2 }, {
+                        opacity: 1, ease: 'none', stagger: 0.1,
+                        scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Gold rules draw down as the text beside them is read ------------ */
+                inRest(CFG.rules).forEach(function (el) {
+                    drawn.push(el);
+                    gsap.fromTo(el, { '--rd-draw': 0 }, {
+                        '--rd-draw': 1, ease: 'none',
+                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Cards arrive in the order they sit -------------------------------- */
+                function batch(list, y, stagger) {
+                    list = list.filter(function (el) { return el.getClientRects().length; });
+                    if (!list.length) return;
+                    gsap.set(list, { opacity: 0, y: y });
+                    hidden = hidden.concat(list);
+                    ScrollTrigger.batch(list, {
+                        start: 'top 94%', once: true,
+                        onEnter: function (els) {
+                            gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: stagger, overwrite: true, clearProps: 'transform' });
+                        }
+                    });
+                }
+                var cardEls = [];
+                (CFG.cards || []).forEach(function (c) {
+                    var list = inRest(c.sel);
+                    batch(list, c.y == null ? 36 : c.y, c.stagger == null ? 0.09 : c.stagger);
+                    list.forEach(function (el) { cardEls.push({ el: el, cursor: c.cursor, label: c.label }); });
+                });
+
+                /* ---- Figures count up to their value ----------------------------------
+                   The real figure stays in a screen-reader copy while the digits run,
+                   and the element is put back to its exact original text at the end. */
+                function countUp(el) {
+                    var final = el.textContent;
+                    var flat = final.replace(/\s+/g, ' ').trim();
+                    var parts = flat.split(/(\d[\d,]*(?:\.\d+)?)/);
+                    if (parts.length < 3 || el.children.length) return;
+                    var sr = document.createElement('span');
+                    sr.className = 'rd-sr';
+                    sr.textContent = flat;
+                    var shown = document.createElement('span');
+                    shown.setAttribute('aria-hidden', 'true');
+                    el.textContent = '';
+                    el.appendChild(sr);
+                    el.appendChild(shown);
+                    var state = { p: 0 };
+                    gsap.to(state, {
+                        p: 1, duration: 1.4, ease: 'power3.out',
+                        onUpdate: function () {
+                            shown.textContent = parts.map(function (piece, i) {
+                                if (i % 2 === 0) return piece;
+                                var places = (piece.split('.')[1] || '').length;
+                                var n = parseFloat(piece.replace(/,/g, '')) * state.p;
+                                return piece.indexOf(',') !== -1
+                                    ? n.toLocaleString('en-US', { minimumFractionDigits: places, maximumFractionDigits: places })
+                                    : n.toFixed(places);
+                            }).join('');
+                        },
+                        onComplete: function () { el.textContent = final; }
+                    });
+                }
+                inRest(CFG.counts).forEach(function (el) {
+                    ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: function () { countUp(el); } });
+                });
+
+                /* ---- Cursor ----------------------------------------------------------- */
+                if (fine) {
+                    var cursor = document.createElement('div');
+                    cursor.className = 'rd-cursor';
+                    cursor.setAttribute('aria-hidden', 'true');
+                    var dot = document.createElement('div');
+                    dot.className = 'rd-cursor-dot';
+                    var label = document.createElement('span');
+                    label.className = 'rd-cursor-label';
+                    dot.appendChild(label);
+                    cursor.appendChild(dot);
+                    document.body.appendChild(cursor);
+                    html.classList.add('rd-cursor-on');
+
+                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
+                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
+                    var placed = false;
+                    window.addEventListener('pointermove', function (e) {
+                        if (e.pointerType && e.pointerType !== 'mouse') return;
+                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
+                        toX(e.clientX);
+                        toY(e.clientY);
+                    }, { passive: true });
+
+                    var off = function () { cursor.removeAttribute('data-mode'); };
+                    function target(el, mode, text) {
+                        el.setAttribute('data-rd-cursor', mode);
+                        el.addEventListener('pointerenter', function () {
+                            cursor.setAttribute('data-mode', mode);
+                            cursor.setAttribute('data-look', mode);
+                            label.textContent = text || '';
+                        });
+                        el.addEventListener('pointerleave', off);
+                    }
+                    (CFG.cursorLabel || []).forEach(function (c) { inRest(c.sel).forEach(function (el) { target(el, 'label', c.text); }); });
+                    inRest('h2').forEach(function (h) { target(h, 'text'); });
+                    cardEls.forEach(function (c) { if (c.cursor) target(c.el, c.cursor, c.label); });
+                    document.documentElement.addEventListener('mouseleave', off);
+                }
+
+                /* ---- Magnetic buttons ------------------------------------------------- */
+                if (fine && CFG.magnetic) {
+                    all(document, CFG.magnetic).forEach(function (el) {
+                        if (el.closest('.nesp-header')) return;
+                        var mx = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3' });
+                        var my = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3' });
+                        el.addEventListener('pointermove', function (e) {
+                            var r = el.getBoundingClientRect();
+                            mx((e.clientX - r.left - r.width / 2) * 0.28);
+                            my((e.clientY - r.top - r.height / 2) * 0.35);
+                        });
+                        el.addEventListener('pointerleave', function () { mx(0); my(0); });
+                    });
+                }
+
+                window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+                ScrollTrigger.refresh();
+            }
+        })();
+    </script>
 </body>
 
 </html>

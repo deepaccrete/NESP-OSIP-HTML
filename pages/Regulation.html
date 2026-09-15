@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Regulations & Processes | OSIP - Nigerian Energy Investment Portal</title>
+    <title>Regulations &amp; Processes | One-Stop Investment Platform (OSIP)</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -13,6 +13,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <!-- Redesign: Newsreader for headings and reading text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        /* Redesign: hold the hero copy back for its entrance. The motion layer
+           lifts this the moment its start states are applied, and it lifts
+           itself after 3.5s whatever happens, so a slow or blocked CDN can never
+           leave the hero empty. Not set at all when reduced motion is asked for. */
+        (function () {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var root = document.documentElement;
+                root.classList.add('rd-intro');
+                setTimeout(function () { root.classList.remove('rd-intro'); }, 3500);
+            } catch (e) {}
+        })();
+    </script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -134,10 +152,962 @@
             border-radius: 10px;
         }
     </style>
+    <style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - Regulation.html (11 Sep 2026)
+
+           The DetailedSector.html redesign carried to this page: the same tokens
+           and the same direction. Headings and reading text move to Newsreader,
+           a light editorial serif; interface text (labels, chips, captions,
+           form fields) stays sans; buttons take the serif at their old visual
+           size; grounds go to warm paper; borders and shadows are turned down.
+           The page has no photo hero, so it opens on a large serif header, and
+           its sections become alternating full-width bands. The pathway finder
+           and the incentive note are injected by their own scripts and are only
+           restyled here. No content was edited. Scoped under body.rd. The
+           earlier design is kept in OSIP/Backups/Regulation/.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-card-2: #f1eee8;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-line-3: #b3ab9c;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* ---- Lenis, from lenis@1.3.26/dist/lenis.css --------------------------- */
+        html.lenis,
+        html.lenis body { height: auto; }
+        .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+        .lenis [data-lenis-prevent],
+        .lenis [data-lenis-prevent-wheel],
+        .lenis [data-lenis-prevent-touch],
+        .lenis [data-lenis-prevent-vertical],
+        .lenis [data-lenis-prevent-horizontal] { overscroll-behavior: contain; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        .lenis.lenis-autoToggle {
+            transition-property: overflow;
+            transition-duration: 1ms;
+            transition-behavior: allow-discrete;
+        }
+
+        /* ---- Page ---------------------------------------------------------------- */
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd main { font-family: var(--rd-sans) !important; padding-bottom: 0 !important; }
+        .rd ::selection { background: #f7be26; color: var(--rd-ink); }
+        .rd main .text-on-surface-variant { color: var(--rd-ink-2) !important; }
+
+        /* ---- Section grounds: alternating full-width bands ---------------------------
+           main is a centred column, so a band paints past its sides with a
+           border-image outset. That is ink overflow: it adds no scroll width and
+           clips nothing, so the finder's dropdowns can still hang over a band edge. */
+        .rd main > section {
+            margin-top: 0 !important;
+            padding-top: clamp(64px, 8vw, 120px) !important;
+            padding-bottom: clamp(64px, 8vw, 120px) !important;
+        }
+
+        .rd main > section:nth-of-type(even) {
+            border-image: linear-gradient(var(--rd-paper-2), var(--rd-paper-2)) fill 0 / 0 / 0 100vmax;
+        }
+
+        /* the journey was a boxed panel; as a band it loses the box */
+        .rd main > section#process {
+            background: transparent !important;
+            border-width: 0 !important;
+            border-radius: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        /* ---- Headings ------------------------------------------------------------ */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3,
+        .rd main h4,
+        .rd main h5 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-optical-sizing: auto;
+            text-wrap: balance;
+        }
+
+        .rd main h3 {
+            font-weight: 400 !important;
+            letter-spacing: -0.014em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main h4 {
+            font-weight: 500 !important;
+            letter-spacing: -0.006em !important;
+            text-transform: none !important;
+        }
+
+        /* A masked line is clipped to its own box; the pad gives capitals,
+           descenders and overhangs room without moving the text. */
+        .rd main h1 .rd-line-mask,
+        .rd main h3 .rd-line-mask { padding: .18em; margin: -.18em; }
+
+        /* ---- Page header: no photo hero here, so a large serif title on paper ---- */
+        .rd main > div:first-child {
+            padding-top: clamp(16px, 4vw, 60px);
+            margin-bottom: clamp(30px, 3.4vw, 46px) !important;
+            gap: 30px !important;
+        }
+
+        @media (min-width: 768px) {
+            .rd main > div:first-child { align-items: flex-end !important; }
+        }
+
+        .rd main > div:first-child > .flex {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 30px !important;
+        }
+
+        .rd main > div:first-child > .flex > .w-1 {
+            width: 48px !important;
+            height: 1px !important;
+            background: #f7be26 !important;
+        }
+
+        .rd main h1 {
+            font-weight: 300 !important;
+            font-size: clamp(52px, 6.4vw, 96px) !important;
+            line-height: .96 !important;
+            letter-spacing: -0.035em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main #reg-count {
+            margin-top: 20px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+            letter-spacing: .22em !important;
+            text-transform: uppercase;
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* Search: the sector index's pill field */
+        .rd main > div:first-child > .relative { max-width: 420px; }
+
+        .rd main #reg-search {
+            height: 52px;
+            padding: 0 54px 0 24px !important;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line-2) !important;
+            border-radius: 999px !important;
+            box-shadow: none !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 15px !important;
+            color: var(--rd-ink) !important;
+            transition: border-color .35s ease, box-shadow .35s ease, background-color .35s ease;
+        }
+
+        .rd main #reg-search::placeholder { color: var(--rd-ink-3); opacity: 1; }
+        .rd main #reg-search:hover { border-color: var(--rd-line-3) !important; }
+
+        .rd main #reg-search:focus {
+            outline: none;
+            background: #ffffff !important;
+            border-color: var(--rd-green-2) !important;
+            box-shadow: 0 0 0 4px rgba(11, 107, 69, .12) !important;
+        }
+
+        .rd main #reg-search + .material-symbols-outlined {
+            top: 50% !important;
+            right: 20px !important;
+            transform: translateY(-50%);
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* Lede and section introductions */
+        .rd main > p.rd-read { max-width: 50rem; margin-bottom: clamp(36px, 4vw, 52px) !important; }
+        .rd main > section > p.rd-read { max-width: 48rem; margin-bottom: clamp(36px, 4vw, 52px) !important; }
+
+        /* ---- Reading text: in the serif ------------------------------------------ */
+        .rd main .rd-read {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 17px !important;
+            line-height: 1.7 !important;
+            letter-spacing: -0.003em !important;
+            color: var(--rd-ink-2) !important;
+            text-wrap: pretty;
+        }
+
+        @media (min-width: 640px) { .rd main .rd-read { font-size: 18.5px !important; } }
+
+        .rd main .rd-read strong { font-weight: 500 !important; color: var(--rd-ink) !important; }
+
+        /* ---- On this page: the jump strip as pills ---------------------------------- */
+        .rd main > nav { gap: 10px !important; margin-bottom: 0 !important; }
+
+        .rd main > nav a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 38px;
+            padding: 0 17px !important;
+            border: 1px solid var(--rd-line-2) !important;
+            border-radius: 999px !important;
+            background: transparent !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            line-height: 1 !important;
+            text-transform: none !important;
+            color: var(--rd-ink-2) !important;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd main > nav a:hover {
+            background: #ffffff !important;
+            border-color: var(--rd-line-3) !important;
+            color: var(--rd-green) !important;
+        }
+
+        /* ---- Section headers: gold dash and tracked label, the title below ---------- */
+        .rd main > section > .flex.items-center.gap-4 {
+            position: relative;
+            display: block !important;
+            margin-bottom: clamp(30px, 3.4vw, 48px) !important;
+        }
+
+        .rd main > section > .flex.items-center.gap-4 > .w-1 {
+            position: absolute;
+            left: 0;
+            top: 7px;
+            width: 28px !important;
+            height: 1px !important;
+            background: var(--rd-gold) !important;
+            transform-origin: 0 50%;
+        }
+
+        .rd main > section > .flex.items-center.gap-4 > div > span {
+            display: block;
+            padding-left: 42px;
+            margin-bottom: 22px;
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            line-height: 15px !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        /* the FAQ header has no label: its dash sits above the title */
+        .rd main #faq > .flex > .w-1 { position: static; display: block; margin-bottom: 26px; }
+
+        .rd main > section > .flex.items-center.gap-4 h3,
+        .rd main #process > h3 {
+            font-size: clamp(34px, 3.4vw, 48px) !important;
+            line-height: 1.06 !important;
+            letter-spacing: -0.022em !important;
+        }
+
+        .rd main #process > h3 { margin-bottom: clamp(44px, 5vw, 72px) !important; }
+
+        /* ---- Cards: warmer, flatter, and they answer the pointer without jumping - */
+        .rd main .reg-card,
+        .rd main > section > .grid > div {
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 18px !important;
+            box-shadow: none !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd main .reg-card:hover,
+        .rd main > section > .grid > div:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            border-color: var(--rd-line-2) !important;
+            background: #ffffff !important;
+        }
+
+        .rd main .reg-card > .p-6,
+        .rd main > section > .grid > div.p-6 { padding: 28px !important; }
+
+        .rd main .reg-card span.w-11,
+        .rd main > section > .grid > div > .w-12 {
+            background: #ffffff !important;
+            border-radius: 12px !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line);
+        }
+
+        .rd main .reg-card span.w-11 .material-symbols-outlined,
+        .rd main > section > .grid > div > .w-12 .material-symbols-outlined {
+            color: var(--rd-green-2) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 250, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd main .reg-card .justify-between > span.text-label-md {
+            font-family: var(--rd-sans) !important;
+            font-size: 12px !important;
+            font-weight: 500 !important;
+            letter-spacing: .06em !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd main .reg-card span.uppercase {
+            margin-bottom: 10px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+            letter-spacing: .2em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd main .reg-card h3 {
+            font-size: clamp(22px, 1.8vw, 25px) !important;
+            line-height: 1.2 !important;
+            margin-bottom: 10px !important;
+            transition: color .45s ease !important;
+        }
+
+        .rd main .reg-card:hover h3 { color: var(--rd-green) !important; }
+
+        .rd main > section > .grid > div > h4 {
+            font-size: 20px !important;
+            line-height: 1.3 !important;
+            color: var(--rd-ink) !important;
+            margin-bottom: 8px !important;
+        }
+
+        /* Card copy: serif, a size up from the sans it replaces */
+        .rd main .reg-card p,
+        .rd main > section > .grid > div > p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            line-height: 1.55 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd main .reg-card .border-t { border-color: var(--rd-line) !important; }
+
+        .rd main .reg-card .border-t > .material-symbols-outlined {
+            color: var(--rd-ink-3) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .rd main .reg-card:hover .border-t > .material-symbols-outlined { color: var(--rd-green) !important; }
+
+        /* Text links: sans, lighter, green */
+        .rd main a.text-primary.font-bold {
+            font-family: var(--rd-sans) !important;
+            font-size: 13.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .005em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd main a.text-primary.font-bold:hover { color: var(--rd-green) !important; }
+
+        /* Empty search result */
+        .rd main #reg-no-results .material-symbols-outlined { color: var(--rd-line-2) !important; }
+        .rd main #reg-no-results h3 { font-size: 24px !important; line-height: 1.2 !important; margin-bottom: 6px !important; }
+
+        .rd main #reg-no-results p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* ---- Pathway finder -----------------------------------------------------------
+           Injected by pathwayfinder.js with its own CSS, which loads after this block,
+           so these rules carry !important. The questions sit on one card; the result
+           opens below a hairline inside it rather than as a card within a card. */
+        .rd #osip-pathway {
+            --pf-ink: #13201b;
+            --pf-line: #cfc9bd;
+            --pf-deep: #004225;
+            --pf-mute: #6b716c;
+            background: var(--rd-card);
+            border: 1px solid var(--rd-line);
+            border-radius: 22px;
+            padding: clamp(22px, 3.2vw, 44px);
+        }
+
+        .rd #osip-pathway .pf-grid { gap: 26px 22px !important; }
+
+        /* the questions: serif headings */
+        .rd #osip-pathway .pf-label {
+            margin-bottom: 10px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18px !important;
+            font-weight: 500 !important;
+            line-height: 1.3 !important;
+            letter-spacing: -0.006em !important;
+            text-transform: none !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #osip-pathway .pf-icon {
+            left: 18px !important;
+            color: var(--rd-ink-3) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .rd #osip-pathway .pf-chevron { right: 16px !important; color: var(--rd-ink-3) !important; }
+
+        /* the answers: pill buttons */
+        .rd #osip-pathway .pf-input {
+            height: 52px !important;
+            padding: 0 44px 0 50px !important;
+            border: 1px solid var(--rd-line-2) !important;
+            border-radius: 999px !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            font-size: 15.5px !important;
+            font-weight: 500 !important;
+            color: var(--rd-ink) !important;
+            transition: border-color .35s ease, box-shadow .35s ease !important;
+        }
+
+        .rd #osip-pathway .pf-input.is-placeholder { font-weight: 400 !important; color: var(--rd-ink-3) !important; }
+        .rd #osip-pathway .pf-input:hover:not(:disabled) { border-color: var(--rd-line-3) !important; }
+
+        .rd #osip-pathway .pf-input:focus {
+            outline: none !important;
+            border-color: var(--rd-green-2) !important;
+            box-shadow: 0 0 0 4px rgba(11, 107, 69, .12) !important;
+        }
+
+        .rd #osip-pathway .pf-input:disabled {
+            background: var(--rd-paper) !important;
+            border-color: var(--rd-line) !important;
+            color: #a3a7a1 !important;
+        }
+
+        /* an answered question: the green selected state */
+        .rd #osip-pathway .pf-input:not(.is-placeholder):not(:disabled) {
+            background: #eef3ef !important;
+            border-color: #9dbfae !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #osip-pathway .pf-control:has(.pf-input:not(.is-placeholder):not(:disabled)) .pf-icon,
+        .rd #osip-pathway .pf-control:focus-within .pf-icon,
+        .rd #osip-pathway .pf-control:has(.pf-input:not(.is-placeholder):not(:disabled)) .pf-chevron { color: var(--rd-green-2) !important; }
+
+        .rd #osip-pathway .pf-listbox {
+            top: calc(100% + 8px) !important;
+            padding: 8px !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 18px !important;
+            background: #ffffff !important;
+            box-shadow: 0 26px 50px -30px rgba(19, 32, 27, .35) !important;
+        }
+
+        .rd #osip-pathway .pf-option {
+            padding: 9px 14px !important;
+            border-radius: 12px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            font-weight: 400 !important;
+            line-height: 1.35 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #osip-pathway .pf-option.is-active { background: var(--rd-paper) !important; }
+        .rd #osip-pathway .pf-option.is-selected { font-weight: 500 !important; color: var(--rd-green) !important; }
+
+        .rd #osip-pathway .pf-actions { gap: 20px !important; margin-top: 30px !important; }
+
+        .rd #osip-pathway .pf-reset {
+            height: 46px !important;
+            padding: 0 24px !important;
+            border: 1px solid var(--rd-line-2) !important;
+            border-radius: 999px !important;
+            background: transparent !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            color: var(--rd-green) !important;
+            transition: background-color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd #osip-pathway .pf-reset:hover { background: #ffffff !important; border-color: var(--rd-line-3) !important; }
+
+        .rd #osip-pathway .pf-status {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        /* result */
+        .rd #osip-pathway .pf-result {
+            margin-top: clamp(30px, 3.6vw, 48px) !important;
+            padding: clamp(30px, 3.6vw, 48px) 0 0 !important;
+            border: 0 !important;
+            border-top: 1px solid var(--rd-line) !important;
+            border-radius: 0 !important;
+            background: transparent !important;
+        }
+
+        .rd #osip-pathway .pf-result h4 {
+            margin: 0 0 10px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: clamp(28px, 2.6vw, 38px) !important;
+            font-weight: 400 !important;
+            line-height: 1.1 !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #osip-pathway .pf-answer {
+            margin: 0 0 36px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 13px !important;
+            font-weight: 400 !important;
+            line-height: 1.6 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #osip-pathway .pf-sub {
+            margin: 42px 0 18px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd #osip-pathway .pf-answer + .pf-sub { margin-top: 0 !important; }
+
+        /* steps: the workflow drawing, in the layer's line and type */
+        .rd #osip-pathway .wf-badge {
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-green) !important;
+            box-shadow: none !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #osip-pathway .wf-num {
+            background: var(--rd-card) !important;
+            font-size: 11.5px !important;
+            font-weight: 500 !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd #osip-pathway .wf-item .wf-num { background: none !important; }
+        .rd #osip-pathway .wf-path { stroke: var(--rd-gold) !important; stroke-width: 1.5 !important; }
+        .rd #osip-pathway .wf-dot { fill: var(--rd-gold) !important; }
+
+        .rd #osip-pathway .wf-label,
+        .rd #osip-pathway .wf-item-label {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            font-weight: 400 !important;
+            line-height: 1.35 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #osip-pathway .wf-connector {
+            background-image: linear-gradient(var(--rd-gold) 55%, rgba(255, 255, 255, 0) 0%) !important;
+        }
+
+        /* requirements and agencies */
+        .rd #osip-pathway .pf-list li {
+            padding: 14px 18px !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 14px !important;
+            background: var(--rd-paper) !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            line-height: 1.55 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd #osip-pathway .pf-ag a {
+            padding: 16px 18px !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 14px !important;
+            background: #ffffff !important;
+            transition: border-color .45s ease !important;
+        }
+
+        .rd #osip-pathway .pf-ag a[href]:hover { border-color: var(--rd-line-3) !important; }
+
+        .rd #osip-pathway .pf-ag .n {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18px !important;
+            font-weight: 500 !important;
+            letter-spacing: -0.006em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #osip-pathway .pf-ag .r {
+            margin-top: 4px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 15px !important;
+            line-height: 1.45 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #osip-pathway .pf-empty {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        /* the finder's disclaimer qualifies its result: the gold-on-cream note */
+        .rd #osip-pathway .pf-note {
+            position: relative;
+            margin-top: 40px !important;
+            padding: 16px 22px 16px calc(1.25rem + 2px) !important;
+            border: 1px solid #efdca4 !important;
+            border-radius: 0 .75rem .75rem 0 !important;
+            background: #faf4e2 !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 15.5px !important;
+            line-height: 1.6 !important;
+            color: #4a4636 !important;
+        }
+
+        .rd #osip-pathway .pf-note::before {
+            content: "";
+            position: absolute;
+            left: -1px; top: -1px; bottom: -1px;
+            width: 3px;
+            background: #f7be26;
+            pointer-events: none;
+        }
+
+        .rd #osip-pathway .pf-note strong { font-weight: 600 !important; color: #5c4a0f !important; }
+
+        .rd #osip-pathway .pf-note a {
+            font-weight: 500 !important;
+            color: #6b5310 !important;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        /* ---- Notes: the gold-on-cream house style, as Data.html sets it -------------
+           incentivenote.js injects this aside with its own CSS after this block. */
+        .rd .osip-note {
+            position: relative;
+            display: flex !important;
+            gap: .75rem !important;
+            align-items: flex-start !important;
+            margin-top: clamp(28px, 3vw, 40px) !important;
+            padding: .95rem 1.25rem .95rem calc(1rem + 2px) !important;
+            background: #faf4e2 !important;
+            border: 1px solid #efdca4 !important;
+            border-radius: 0 .75rem .75rem 0 !important;
+        }
+
+        .rd .osip-note::before {
+            content: "";
+            position: absolute;
+            left: -1px; top: -1px; bottom: -1px;
+            width: 3px;
+            background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        .rd .osip-note .osip-note-icon { font-size: 17px !important; line-height: 1.6 !important; color: #8a6d15 !important; }
+
+        .rd .osip-note b {
+            display: inline !important;
+            margin: 0 .4rem 0 0 !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            font-weight: 600 !important;
+            letter-spacing: 0 !important;
+            text-transform: none !important;
+            color: #5c4a0f !important;
+        }
+
+        .rd .osip-note b::after { content: "\2014"; margin-left: .4rem; font-weight: 400; color: #a08a4a; }
+
+        .rd .osip-note p {
+            display: inline !important;
+            margin: 0 !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            line-height: 1.6 !important;
+            color: #4a4636 !important;
+        }
+
+        .rd .osip-note p strong { font-weight: 600 !important; color: #3a3626 !important; }
+
+        /* ---- Investment journey ------------------------------------------------------ */
+        .rd main #process .absolute.top-10 {
+            top: 32px !important;
+            height: 0 !important;
+            background: none !important;
+            border-top: 1px dashed var(--rd-gold) !important;
+        }
+
+        .rd main #process .w-16 {
+            background: var(--rd-green) !important;
+            border-color: var(--rd-paper-2) !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .rd main #process .w-16.bg-secondary { background: var(--rd-green-2) !important; }
+
+        .rd main #process .w-16 .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .rd main #process h5 {
+            margin-bottom: 8px !important;
+            font-size: 20px !important;
+            font-weight: 500 !important;
+            line-height: 1.25 !important;
+            letter-spacing: -0.006em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main #process h5 + p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        /* ---- FAQ ------------------------------------------------------------------- */
+        .rd main #faq details {
+            padding: 0 !important;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 18px !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd main #faq details:hover,
+        .rd main #faq details[open] { background: #ffffff !important; border-color: var(--rd-line-2) !important; }
+
+        .rd main #faq summary {
+            gap: 20px;
+            padding: 22px 26px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 19.5px !important;
+            font-weight: 400 !important;
+            line-height: 1.35 !important;
+            letter-spacing: -0.006em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main #faq summary .material-symbols-outlined {
+            color: var(--rd-ink-3) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .rd main #faq details p {
+            margin: 0 26px !important;
+            padding: 18px 0 24px !important;
+            border-color: var(--rd-line) !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            line-height: 1.65 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        /* ---- Gold rules: drawn, not just shown -------------------------------------
+           One custom property, --rd-draw, which the motion layer tweens; without the
+           motion layer it stays at 1 and every line is there. */
+        .rd main .rd-rule::before {
+            content: "";
+            position: absolute; left: 0; top: .35em; bottom: .35em;
+            width: 1px; background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1)); transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        .rd main .rd-rule { position: relative; padding-left: 23px !important; border-left-width: 0 !important; }
+
+        /* ---- Reading progress ---------------------------------------------------------- */
+        .rd-progress {
+            position: fixed; left: 0; top: 0; right: 0; z-index: 80;
+            height: 2px; background: #f7be26;
+            transform: scaleX(0); transform-origin: 0 50%;
+            pointer-events: none;
+        }
+
+        .rd .rd-sr {
+            position: absolute; width: 1px; height: 1px; margin: -1px;
+            overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+        }
+
+        /* ---- Cursor: only over the things worth pointing at ------------------------- */
+        .rd-cursor { position: fixed; left: 0; top: 0; z-index: 9998; width: 0; height: 0; pointer-events: none; }
+
+        .rd-cursor-dot {
+            position: absolute; left: 0; top: 0;
+            width: 72px; height: 72px; margin: -36px 0 0 -36px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid transparent; border-radius: 50%;
+            background: var(--rd-green); color: #ffffff;
+            font: 500 12px/1 var(--rd-sans); letter-spacing: .06em;
+            transform: scale(0);
+            transition: transform .5s cubic-bezier(.22, 1, .36, 1), width .5s cubic-bezier(.22, 1, .36, 1),
+                height .5s cubic-bezier(.22, 1, .36, 1), margin .5s cubic-bezier(.22, 1, .36, 1),
+                background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd-cursor-label { opacity: 0; transition: opacity .25s ease; }
+        .rd-cursor[data-mode="label"] .rd-cursor-dot { transform: scale(1); }
+        .rd-cursor[data-mode="label"] .rd-cursor-label { opacity: 1; transition-delay: .12s; }
+
+        .rd-cursor[data-mode="ring"] .rd-cursor-dot {
+            width: 44px; height: 44px; margin: -22px 0 0 -22px;
+            background: transparent; border-color: rgba(0, 66, 37, .45);
+            transform: scale(1);
+        }
+
+        .rd-cursor[data-look="text"] { mix-blend-mode: multiply; }
+
+        .rd-cursor[data-look="text"] .rd-cursor-dot {
+            width: 96px; height: 96px; margin: -48px 0 0 -48px;
+            background: #f7be26;
+            transition-property: transform, width, height, margin;
+        }
+
+        .rd-cursor[data-mode="text"] .rd-cursor-dot { transform: scale(1); }
+
+        html.rd-cursor-on [data-rd-cursor="label"],
+        html.rd-cursor-on [data-rd-cursor="label"] * { cursor: none !important; }
+
+        /* ---- Small screens ---------------------------------------------------------- */
+        @media (max-width: 639px) {
+            .rd main .reg-card > .p-6,
+            .rd main > section > .grid > div.p-6 { padding: 22px !important; }
+            .rd #osip-pathway .pf-label { font-size: 17px !important; }
+            .rd main #faq summary { padding: 18px 20px !important; font-size: 18px !important; }
+            .rd main #faq details p { margin: 0 20px !important; }
+        }
+
+        /* ---- Buttons in Newsreader ----------------------------------------------------
+           Button labels follow the headings into the serif. font-size-adjust holds each
+           label to the visual size it had in the sans (Newsreader runs small at the same
+           px), so no button grows or rewraps; the header menu stays as it is, and icons
+           inside a button keep their own font and size. The jump strip's pill links
+           count as buttons. Keep this block LAST. */
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main > nav a {
+          font-family: var(--rd-serif) !important;
+          font-size-adjust: 0.52;
+          letter-spacing: 0 !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main > nav a *:not([class*="material-symbols"]):not([class*="material-icons"]) {
+          font-family: inherit !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main > nav a [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main > nav a [class*="material-icons"] {
+          font-size-adjust: none !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta { font-weight: 500 !important; }
+        /* ---- Type: Inter throughout (14 Sep 2026) --------------------------------------
+           Inter replaces Newsreader on this page, as on DetailedSector and the homepage; the
+           theme, layout, colours and motion are untouched. Every rule above that set the
+           serif now sets Inter held to the serif's x-height (font-size-adjust), so each
+           heading and paragraph keeps the visual size, line length and rhythm it had.
+           Icons keep their own size. The previous type is kept in OSIP/Backups/Regulation/. */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-type-adjust: 0.515;
+        }
+
+        .rd [class*="material-symbols"],
+        .rd [class*="material-icons"],
+        .rd .osip-term::after {
+            font-size-adjust: none !important;
+        }
+
+        /* the shared header and footer set Newsreader in their own stylesheets; on this
+           page they follow the page */
+        .rd .nesp-header .nesp-menu-item .t,
+        .rd .nesp-header .nesp-menu-item .d,
+        .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link,
+        .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead),
+        .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head,
+        .rd .nesp-header .nesp-res-foot-h,
+        .rd .nesp-footer h3,
+        .rd .nesp-footer .nesp-foot-brand p,
+        .rd .nesp-footer a,
+        .rd .nesp-footer .nesp-foot-contact li,
+        .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: var(--rd-type-adjust) !important;
+        }
+
+        .rd .nesp-header .nesp-cta {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+
+        .rd .nesp-footer h4 {
+            font-family: var(--rd-sans) !important;
+        }
+
+        /* ---- Heading weight (14 Sep 2026) ----------------------------------------------
+           In Inter the headings read better one step heavier than they sat in the serif. */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3 {
+            font-weight: 500 !important;
+        }
+
+        .rd main h4,
+        .rd #osip-pathway .pf-result h4 {
+            font-weight: 600 !important;
+        }
+
+        .rd .nesp-footer h3 {
+            font-weight: 500 !important;
+        }
+
+        /* buttons and the jump links: Inter at its own size, as on the homepage (the 0.52
+           hold above was set for the serif) */
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main > nav a {
+            font-size-adjust: none !important;
+        }
+
+    </style>
 </head>
 
 <body
-    class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed font-body-md overflow-x-hidden">
+    class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed font-body-md overflow-x-hidden rd">
     <!-- TopNavBar -->
     <div id="site-nav"></div>
     <div class="min-h-screen">
@@ -161,7 +1131,7 @@
                 </div>
             </div>
             <!-- Intro -->
-            <p class="font-body-md text-on-surface-variant leading-relaxed mb-10">
+            <p class="font-body-md text-on-surface-variant leading-relaxed mb-10 rd-read rd-rule">
                 Nigeria's energy sector is undergoing a major transformation under the <strong>Petroleum Industry Act
                     (PIA)</strong> and the <strong>Electricity Act 2023</strong>. Browse the core legal frameworks,
                 technical guidelines, and fiscal policies that govern investment across the value chain.
@@ -408,7 +1378,7 @@
                         <h3 class="font-h3 text-h3 text-primary">Find Your Regulatory Pathway</h3>
                     </div>
                 </div>
-                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">Answer five
+                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8 rd-read">Answer five
                     questions and this assembles the licensing steps and requirements the OSIP sector pages
                     publish for that kind of project, and names the page each one came from. It is a starting
                     point for the conversation with the agency, not a determination of what your project needs.</p>
@@ -425,7 +1395,7 @@
                         <h3 class="font-h3 text-h3 text-primary">Business Registration</h3>
                     </div>
                 </div>
-                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">Setting up to invest in Nigerian energy runs through three doors, and none of them are closed to foreign investors. Incorporation goes through the Corporate Affairs Commission, registration with the Nigerian Investment Promotion Commission opens the incentive and facilitation channel, and the sector licence follows from whichever regulator covers the business model you have chosen.</p>
+                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8 rd-read">Setting up to invest in Nigerian energy runs through three doors, and none of them are closed to foreign investors. Incorporation goes through the Corporate Affairs Commission, registration with the Nigerian Investment Promotion Commission opens the incentive and facilitation channel, and the sector licence follows from whichever regulator covers the business model you have chosen.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
                     <div
                         class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
@@ -475,7 +1445,7 @@
                         <h3 class="font-h3 text-h3 text-primary">Tax and Fiscal Policy</h3>
                     </div>
                 </div>
-                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">The headline rates are 30% companies income tax and 7.5% VAT, assessed by the Federal Inland Revenue Service. Sitting on top of them is an incentive stack aimed squarely at renewable energy, most of it administered through the NIPC.</p>
+                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8 rd-read">The headline rates are 30% companies income tax and 7.5% VAT, assessed by the Federal Inland Revenue Service. Sitting on top of them is an incentive stack aimed squarely at renewable energy, most of it administered through the NIPC.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
                     <div
                         class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
@@ -493,7 +1463,7 @@
                                 style="font-variation-settings: 'FILL' 1;">savings</span>
                         </div>
                         <h4 class="font-h4 text-h4 text-primary mb-2">Pioneer Status Incentive</h4>
-                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Eligible projects can claim a companies income tax holiday of three to five years, extendable subject to performance conditions. Applications are made through the NIPC.</p>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Eligible projects may claim a companies income tax holiday of three to five years, extendable subject to performance conditions. Applications are made through the NIPC.</p>
                         <a class="text-primary font-bold text-body-sm hover:underline flex items-center gap-1 mt-4 w-fit"
                             href="https://www.nipc.gov.ng" target="_blank" rel="noopener">nipc.gov.ng <span
                                 class="material-symbols-outlined text-sm">open_in_new</span></a>
@@ -505,9 +1475,11 @@
                                 style="font-variation-settings: 'FILL' 1;">local_shipping</span>
                         </div>
                         <h4 class="font-h4 text-h4 text-primary mb-2">Equipment reliefs</h4>
-                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Eligible renewable energy equipment attracts 0% import duty and VAT exemption under the ECOWAS Common External Tariff and the 2026 NTA exemptions, which matters on capital intensive projects.</p>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Eligible renewable energy equipment may attract 0% import duty and VAT exemption under the ECOWAS Common External Tariff and the 2026 NTA exemptions, which matters on capital intensive projects.</p>
                     </div>
                 </div>
+                <!-- CON-03 eligibility note (incentivenote.js) -->
+                <div class="osip-incentive-note"></div>
             </section>
             <!-- REG-01: import and export. The row calls this out as missing, and it
                  was. The duty, SONCAP and MANCAP wording matches the sector pages. -->
@@ -519,7 +1491,7 @@
                         <h3 class="font-h3 text-h3 text-primary">Import and Export</h3>
                     </div>
                 </div>
-                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">Most energy plant is imported, so customs treatment and product conformity belong in the project plan rather than at the end of it. Clearance is handled by the Nigeria Customs Service and conformity by the Standards Organisation of Nigeria.</p>
+                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8 rd-read">Most energy plant is imported, so customs treatment and product conformity belong in the project plan rather than at the end of it. Clearance is handled by the Nigeria Customs Service and conformity by the Standards Organisation of Nigeria.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
                     <div
                         class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
@@ -528,7 +1500,7 @@
                                 style="font-variation-settings: 'FILL' 1;">payments</span>
                         </div>
                         <h4 class="font-h4 text-h4 text-primary mb-2">Duty and VAT treatment</h4>
-                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Eligible renewable energy equipment attracts 0% import duty and VAT exemption under the ECOWAS Common External Tariff and the 2026 NTA exemptions. Confirm the tariff line for your specific equipment before you ship.</p>
+                        <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Eligible renewable energy equipment may attract 0% import duty and VAT exemption under the ECOWAS Common External Tariff and the 2026 NTA exemptions. Confirm the tariff line for your specific equipment before you ship.</p>
                     </div>
                     <div
                         class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
@@ -567,7 +1539,7 @@
                         <h3 class="font-h3 text-h3 text-primary">Investment Treaties and Immigration</h3>
                     </div>
                 </div>
-                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">Two questions come up in every cross-border conversation: what protects the capital, and how do you get your people into the country. Both are answered before a project reaches financial close, not after.</p>
+                <p class="font-body-md text-on-surface-variant leading-relaxed mb-8 rd-read">Two questions come up in every cross-border conversation: what protects the capital, and how do you get your people into the country. Both are answered before a project reaches financial close, not after.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
                     <div
                         class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col">
@@ -948,7 +1920,7 @@
                 },
                 'DATA': {
                     head: 'Data & Insights', items: [
-                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'Investment & Capacity', d: 'Capacity and investment metrics across energy sectors.', href: 'Data.html' },
                         { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
                         { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
                     ]
@@ -986,7 +1958,358 @@
     <script src="investflow.js"></script>
 <script src="nav.js"></script>
     <script src="pathwaydata.js"></script>
+    <script src="incentivenote.js"></script>
     <script src="pathwayfinder.js"></script>
+    <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script>
+        /* =====================================================================
+           REDESIGN MOTION LAYER - Regulation.html, matched to DetailedSector.html
+
+           Smooth scroll (Lenis) and scroll-driven motion (GSAP, ScrollTrigger,
+           SplitText). Built to fail open: nothing is hidden until the libraries
+           are confirmed present, everything hidden is tracked so an error can put
+           it back, and with reduced motion asked for the script does nothing.
+           The page's own scripts are left alone.
+           ===================================================================== */
+        (function () {
+            /* ---- Page map: the only part that differs from page to page ----------
+               Every selector may be null. Selectors are matched inside CFG.root, and
+               anything inside the hero is left to the hero's own entrance. */
+            var CFG = {
+                root: 'main',            // content container (a wrapper when the page has no <main>)
+                hero: false,             // no photo hero: the page opens on a serif header on paper
+                heroBg: null,
+                heroCopy: null,
+                heroEyebrow: null,
+                heroLede: null,
+                heroExtras: null,
+                heroParallax: false,
+                scrollCue: false,
+                eyebrowDashes: 'main > section > .flex.items-center.gap-4 > .w-1', // section header dashes (the label block after each fades in)
+                headings: 'h1, h3',      // the page title, and this page's section titles, which are h3s
+                headingSkip: '#reg-grid, #reg-no-results, #osip-pathway', // search-filtered cards, the empty state, the injected finder
+                read: '.rd-read',        // paragraphs whose words light up in reading order
+                rules: '.rd-rule, .osip-note', // elements carrying a drawn gold rule (--rd-draw)
+                cards: [                 // static cards only: the #reg-grid cards are filtered by the search script
+                    { sel: 'main > section > .grid > div', y: 36, stagger: 0.09, cursor: 'ring' },
+                    { sel: '#process .relative.z-10', y: 28, stagger: 0.08 },
+                    { sel: '#faq details', y: 24, stagger: 0.07 }
+                ],
+                counts: null,
+                cursorLabel: [{ sel: '#reg-grid a[target=_blank]', text: 'Open' }],
+                magnetic: null,
+                lenisPrevent: '#osip-pathway .pf-control' // the finder builds each dropdown list inside these when it opens
+            };
+
+            var html = document.documentElement;
+            var hidden = [];
+            var drawn = [];
+
+            function releaseIntro() { html.classList.remove('rd-intro'); }
+
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !window.gsap || !window.ScrollTrigger) { releaseIntro(); return; }
+
+            function start() {
+                try {
+                    run();
+                } catch (err) {
+                    if (window.console) console.warn('[rd] motion layer stopped:', err);
+                    releaseIntro();
+                    html.classList.remove('rd-motion');
+                    if (hidden.length) gsap.set(hidden, { clearProps: 'opacity,transform,visibility' });
+                    drawn.forEach(function (el) { el.style.removeProperty('--rd-draw'); });
+                }
+            }
+
+            /* After the page's own DOMContentLoaded work, then the webfonts, which the
+               line splits depend on - but never hold the hero back more than 900ms. */
+            var started = false;
+            function once() { if (!started) { started = true; start(); } }
+            function afterParse() {
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+                setTimeout(once, 900);
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', afterParse);
+            else afterParse();
+
+            function run() {
+                gsap.registerPlugin(ScrollTrigger);
+                var hasSplit = !!window.SplitText;
+                if (hasSplit) gsap.registerPlugin(SplitText);
+
+                var root = document.querySelector(CFG.root || 'main');
+                if (!root) { releaseIntro(); return; }
+                html.classList.add('rd-motion');
+
+                var hero = CFG.hero === false ? null
+                    : CFG.hero ? document.querySelector(CFG.hero)
+                    : (Array.prototype.filter.call(root.children, function (el) { return el.tagName === 'SECTION'; })[0] || null);
+                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                var EASE = 'expo.out';
+                function all(scope, sel) { return sel ? Array.prototype.slice.call(scope.querySelectorAll(sel)) : []; }
+                function inRest(sel) { return all(root, sel).filter(function (el) { return !(hero && hero.contains(el)); }); }
+                function inHero(sel) { return hero && sel ? hero.querySelector(sel) : null; }
+
+                /* ---- Smooth scroll ---------------------------------------------------- */
+                var lenis = null;
+                if (window.Lenis) {
+                    lenis = new Lenis({ lerp: 0.09, smoothWheel: true, syncTouch: false });
+                    lenis.on('scroll', ScrollTrigger.update);
+                    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+                    gsap.ticker.lagSmoothing(0);
+                    window.__rdLenis = lenis;
+
+                    all(document, '#mobile-nav, .nesp-dropdown' + (CFG.lenisPrevent ? ', ' + CFG.lenisPrevent : ''))
+                        .forEach(function (el) { el.setAttribute('data-lenis-prevent', ''); });
+
+                    /* In-page jumps glide and park clear of the sticky header, using the
+                       offset nav.js measures. */
+                    document.addEventListener('click', function (e) {
+                        var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+                        if (!a || e.defaultPrevented) return;
+                        var hash = a.getAttribute('href');
+                        var target = hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+                        if (!target) return;
+                        e.preventDefault();
+                        var offset = parseInt(getComputedStyle(html).getPropertyValue('--osip-nav-offset'), 10) || 100;
+                        var y = target.getBoundingClientRect().top + window.scrollY - offset;
+                        lenis.scrollTo(Math.max(0, y), { duration: 1.5, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
+                        if (history.replaceState) history.replaceState(null, '', hash);
+                    });
+                }
+
+                /* ---- Reading progress ------------------------------------------------- */
+                var bar = document.createElement('div');
+                bar.className = 'rd-progress';
+                bar.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(bar);
+                gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.4 } });
+
+                /* ---- Hero: the photograph settles, the title's letters rise ----------- */
+                if (hero) {
+                    var bg = inHero(CFG.heroBg);
+                    var copy = inHero(CFG.heroCopy);
+                    var eyebrow = inHero(CFG.heroEyebrow);
+                    var h1 = hero.querySelector('h1');
+                    var lede = inHero(CFG.heroLede);
+                    var extras = CFG.heroExtras ? all(hero, CFG.heroExtras) : [];
+                    var intro = gsap.timeline({ defaults: { ease: EASE } });
+
+                    if (bg) intro.fromTo(bg, { scale: 1.16 }, { scale: 1.04, duration: 2.6, ease: 'power3.out' }, 0);
+                    if (eyebrow) intro.from(eyebrow, { opacity: 0, y: 12, duration: 1 }, 0.05);
+                    if (h1) {
+                        if (hasSplit) {
+                            /* Words as well as letters, so a word never breaks across lines
+                               mid-entrance. The split is undone once the letters land. */
+                            var title = SplitText.create(h1, { type: 'words,chars', mask: 'chars', charsClass: 'rd-char' });
+                            var each = Math.min(0.035, 1.1 / Math.max(1, title.chars.length));
+                            intro.from(title.chars, { yPercent: 150, duration: 1.3, stagger: each, onComplete: function () { title.revert(); } }, 0.15);
+                        } else {
+                            intro.from(h1, { opacity: 0, y: 30, duration: 1.2 }, 0.15);
+                        }
+                    }
+                    if (lede) {
+                        intro.from(lede, { opacity: 0, y: 22, duration: 1.2 }, 0.55);
+                        drawn.push(lede);
+                        intro.fromTo(lede, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.6, ease: 'expo.inOut' }, 0.6);
+                    }
+                    if (extras.length) intro.from(extras, { opacity: 0, y: 16, duration: 1, stagger: 0.05, clearProps: 'transform' }, 0.8);
+                    /* The start states above are already applied, so lifting the
+                       pre-hide now cannot flash the finished hero first. */
+                    releaseIntro();
+
+                    if (CFG.heroParallax) {
+                        if (bg) gsap.to(bg, { yPercent: 14, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+                        if (copy) gsap.to(copy, { yPercent: -18, opacity: 0.25, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+                    }
+
+                    if (CFG.scrollCue) {
+                        var cue = document.createElement('div');
+                        cue.className = 'rd-scrollcue';
+                        cue.setAttribute('aria-hidden', 'true');
+                        cue.appendChild(document.createElement('span'));
+                        hero.appendChild(cue);
+                    }
+                } else {
+                    releaseIntro();
+                }
+
+                /* ---- Eyebrows: the gold dash draws, then the label ------------------- */
+                inRest(CFG.eyebrowDashes).forEach(function (dash) {
+                    var label = dash.nextElementSibling;
+                    var tl = gsap.timeline({ scrollTrigger: { trigger: dash, start: 'top 90%', once: true } });
+                    tl.from(dash, { scaleX: 0, duration: 1.1, ease: EASE });
+                    if (label) tl.from(label, { opacity: 0, x: -8, duration: 0.9, ease: EASE, clearProps: 'transform' }, 0.15);
+                    hidden.push(dash);
+                    if (label) hidden.push(label);
+                });
+
+                /* ---- Headings: lines rise out of a mask ------------------------------- */
+                inRest(CFG.headings).forEach(function (h) {
+                    if (CFG.headingSkip && h.closest(CFG.headingSkip)) return;
+                    if (!h.getClientRects().length) return; // not rendered (hidden panel)
+                    if (!hasSplit) {
+                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+                        hidden.push(h);
+                        return;
+                    }
+                    SplitText.create(h, {
+                        type: 'lines', mask: 'lines', linesClass: 'rd-line', autoSplit: true,
+                        onSplit: function (self) {
+                            return gsap.from(self.lines, {
+                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
+                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
+                            });
+                        }
+                    });
+                });
+
+                /* ---- Reading text: the words light up in reading order ----------------
+                   Words wait faint rather than invisible; words only, no aria rewriting. */
+                inRest(CFG.read).forEach(function (t) {
+                    if (!hasSplit) {
+                        gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
+                        hidden.push(t);
+                        return;
+                    }
+                    var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
+                    hidden = hidden.concat(words);
+                    gsap.fromTo(words, { opacity: 0.2 }, {
+                        opacity: 1, ease: 'none', stagger: 0.1,
+                        scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Gold rules draw down as the text beside them is read ------------ */
+                inRest(CFG.rules).forEach(function (el) {
+                    drawn.push(el);
+                    gsap.fromTo(el, { '--rd-draw': 0 }, {
+                        '--rd-draw': 1, ease: 'none',
+                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Cards arrive in the order they sit -------------------------------- */
+                function batch(list, y, stagger) {
+                    list = list.filter(function (el) { return el.getClientRects().length; });
+                    if (!list.length) return;
+                    gsap.set(list, { opacity: 0, y: y });
+                    hidden = hidden.concat(list);
+                    ScrollTrigger.batch(list, {
+                        start: 'top 94%', once: true,
+                        onEnter: function (els) {
+                            gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: stagger, overwrite: true, clearProps: 'transform' });
+                        }
+                    });
+                }
+                var cardEls = [];
+                (CFG.cards || []).forEach(function (c) {
+                    var list = inRest(c.sel);
+                    batch(list, c.y == null ? 36 : c.y, c.stagger == null ? 0.09 : c.stagger);
+                    list.forEach(function (el) { cardEls.push({ el: el, cursor: c.cursor, label: c.label }); });
+                });
+
+                /* ---- Figures count up to their value ----------------------------------
+                   The real figure stays in a screen-reader copy while the digits run,
+                   and the element is put back to its exact original text at the end. */
+                function countUp(el) {
+                    var final = el.textContent;
+                    var flat = final.replace(/\s+/g, ' ').trim();
+                    var parts = flat.split(/(\d[\d,]*(?:\.\d+)?)/);
+                    if (parts.length < 3 || el.children.length) return;
+                    var sr = document.createElement('span');
+                    sr.className = 'rd-sr';
+                    sr.textContent = flat;
+                    var shown = document.createElement('span');
+                    shown.setAttribute('aria-hidden', 'true');
+                    el.textContent = '';
+                    el.appendChild(sr);
+                    el.appendChild(shown);
+                    var state = { p: 0 };
+                    gsap.to(state, {
+                        p: 1, duration: 1.4, ease: 'power3.out',
+                        onUpdate: function () {
+                            shown.textContent = parts.map(function (piece, i) {
+                                if (i % 2 === 0) return piece;
+                                var places = (piece.split('.')[1] || '').length;
+                                var n = parseFloat(piece.replace(/,/g, '')) * state.p;
+                                return piece.indexOf(',') !== -1
+                                    ? n.toLocaleString('en-US', { minimumFractionDigits: places, maximumFractionDigits: places })
+                                    : n.toFixed(places);
+                            }).join('');
+                        },
+                        onComplete: function () { el.textContent = final; }
+                    });
+                }
+                inRest(CFG.counts).forEach(function (el) {
+                    ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: function () { countUp(el); } });
+                });
+
+                /* ---- Cursor ----------------------------------------------------------- */
+                if (fine) {
+                    var cursor = document.createElement('div');
+                    cursor.className = 'rd-cursor';
+                    cursor.setAttribute('aria-hidden', 'true');
+                    var dot = document.createElement('div');
+                    dot.className = 'rd-cursor-dot';
+                    var label = document.createElement('span');
+                    label.className = 'rd-cursor-label';
+                    dot.appendChild(label);
+                    cursor.appendChild(dot);
+                    document.body.appendChild(cursor);
+                    html.classList.add('rd-cursor-on');
+
+                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
+                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
+                    var placed = false;
+                    window.addEventListener('pointermove', function (e) {
+                        if (e.pointerType && e.pointerType !== 'mouse') return;
+                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
+                        toX(e.clientX);
+                        toY(e.clientY);
+                    }, { passive: true });
+
+                    var off = function () { cursor.removeAttribute('data-mode'); };
+                    function target(el, mode, text) {
+                        el.setAttribute('data-rd-cursor', mode);
+                        el.addEventListener('pointerenter', function () {
+                            cursor.setAttribute('data-mode', mode);
+                            cursor.setAttribute('data-look', mode);
+                            label.textContent = text || '';
+                        });
+                        el.addEventListener('pointerleave', off);
+                    }
+                    (CFG.cursorLabel || []).forEach(function (c) { inRest(c.sel).forEach(function (el) { target(el, 'label', c.text); }); });
+                    inRest('h2').forEach(function (h) { target(h, 'text'); });
+                    cardEls.forEach(function (c) { if (c.cursor) target(c.el, c.cursor, c.label); });
+                    document.documentElement.addEventListener('mouseleave', off);
+                }
+
+                /* ---- Magnetic buttons ------------------------------------------------- */
+                if (fine && CFG.magnetic) {
+                    all(document, CFG.magnetic).forEach(function (el) {
+                        if (el.closest('.nesp-header')) return;
+                        var mx = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3' });
+                        var my = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3' });
+                        el.addEventListener('pointermove', function (e) {
+                            var r = el.getBoundingClientRect();
+                            mx((e.clientX - r.left - r.width / 2) * 0.28);
+                            my((e.clientY - r.top - r.height / 2) * 0.35);
+                        });
+                        el.addEventListener('pointerleave', function () { mx(0); my(0); });
+                    });
+                }
+
+                window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+                ScrollTrigger.refresh();
+            }
+        })();
+    </script>
 </body>
 
 </html>

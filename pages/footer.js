@@ -25,7 +25,7 @@
             <h3 class="text-white font-bold text-2xl sm:text-3xl mb-4">One-Stop Investment Platform (OSIP)</h3>
             <p class="text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">Supporting transparent, informed, and
               sustainable investment in Nigeria's clean energy future. The Nigerian Energy Support Programme (NESP) is a
-              technical assistance programme co-funded by the European Union and the German Federal Ministry of Economic
+              technical assistance programme co-funded by the European Union and the German Federal Ministry for Economic
               Cooperation and Development (BMZ) and implemented by Deutsche Gesellschaft für Internationale
               Zusammenarbeit (GIZ) GmbH in collaboration with the Federal Ministry of Power. It aims to foster
               investments in the domestic renewable energy and energy efficiency sector.</p>
@@ -105,6 +105,17 @@
             </div>
           </div>
         </div>
+        <div class="nesp-foot-disclaimer max-w-[1440px] mx-auto">
+          <p class="nesp-foot-disclaimer-title"><span class="material-symbols-outlined">info</span>General information
+            disclaimer</p>
+          <p>The content on this platform is published for general information only. It does not constitute legal, tax,
+            financial or investment advice, and it is not an offer, solicitation or commitment of any kind. Figures,
+            timelines and regulatory references are indicative and may change. Incentives, tariffs, licences and
+            financing mechanisms described here are administered by the responsible agencies and institutions named
+            alongside them &mdash; a project may be eligible only where it meets that body's own published criteria, and
+            eligibility is determined by that body, not by OSIP. Confirm the current position with the relevant agency,
+            and take independent professional advice, before making an investment decision.</p>
+        </div>
         <div
           class="nesp-foot-bottom max-w-[1440px] mx-auto border-t border-white/10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <span class="text-xs sm:text-sm">© 2026 OSIP Nigeria. All rights reserved.</span><span
@@ -126,50 +137,70 @@
   // So the footer no longer relies on the host page's build. Everything it needs
   // is stated here, scoped to .nesp-footer. The Tailwind classes stay in the
   // markup only so the file still reads like the rest of the site.
+  // ---- Redesign (11 Sep 2026) -----------------------------------------------
+  // The footer follows the redesigned pages: the deep green ground with a gold
+  // hairline along its top. 14 Sep 2026: Inter throughout, as on the homepage.
+  // The title, brand line, links and contact lines that were set in Newsreader
+  // are Inter held to the serif's x-height (font-size-adjust .515), so nothing
+  // grows or rewraps; the title is one step heavier. Stated here for every
+  // page, and Inter is loaded here when the host page has not loaded it. The
+  // previous footer is kept in OSIP/Backups/footer/.
+  if (!document.getElementById('osip-rd-fonts') && !document.querySelector('link[href*="family=Inter"]')) {
+    var faces = document.createElement('link');
+    faces.id = 'osip-rd-fonts';
+    faces.rel = 'stylesheet';
+    faces.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap';
+    (document.head || document.documentElement).appendChild(faces);
+  }
   if (!document.getElementById('nesp-foot-style')) {
     var st = document.createElement('style');
     st.id = 'nesp-foot-style';
     st.textContent = `
-      .nesp-footer{background:#022c22;color:#9ca3af;font-family:Inter,sans-serif;padding:3rem 1rem}
+      .nesp-footer{position:relative;overflow:hidden;background:#0b2a1f;color:rgba(243,239,230,.72);font-family:Inter,system-ui,sans-serif;padding:4.5rem 1.25rem 2rem}
+      .nesp-footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,rgba(217,165,32,0),rgba(217,165,32,.75) 18%,rgba(217,165,32,.75) 82%,rgba(217,165,32,0))}
+      .nesp-footer::after{content:"";position:absolute;right:-12%;top:-45%;width:60%;height:130%;background:radial-gradient(closest-side,rgba(247,190,38,.08),rgba(247,190,38,0));pointer-events:none}
+      .nesp-footer>*{position:relative;z-index:1}
       .nesp-footer *{box-sizing:border-box}
-      .nesp-footer .nesp-foot-top{max-width:1440px;margin:0 auto 2.5rem;display:grid;grid-template-columns:minmax(0,1fr);gap:2.5rem}
-      .nesp-footer h3{color:#fff;font-weight:700;font-size:1.5rem;line-height:1.25;margin:0 0 1rem}
-      .nesp-footer .nesp-foot-brand p{font-size:.875rem;line-height:1.625;margin:0 0 1.5rem;max-width:42rem}
-      .nesp-footer h4,.nesp-footer .nesp-foot-social-title{color:#fff;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:0 0 1.25rem}
+      .nesp-footer .nesp-foot-top{max-width:1440px;margin:0 auto 3rem;display:grid;grid-template-columns:minmax(0,1fr);gap:2.75rem}
+      .nesp-footer h3{font-family:Inter,system-ui,sans-serif;font-size-adjust:.515;color:#f3efe6;font-weight:500;font-size:2.25rem;line-height:1.06;letter-spacing:-.022em;margin:0 0 1.25rem;max-width:16ch}
+      .nesp-footer .nesp-foot-brand p{font-family:Inter,system-ui,sans-serif;font-size-adjust:.515;font-size:1.0625rem;line-height:1.72;color:rgba(243,239,230,.66);margin:0;max-width:40rem}
+      .nesp-footer h4,.nesp-footer .nesp-foot-social-title{font-family:Inter,system-ui,sans-serif;color:#d9a520;font-size:.6875rem;font-weight:500;text-transform:uppercase;letter-spacing:.24em;margin:0 0 1.375rem}
       .nesp-footer ul{list-style:none;margin:0;padding:0}
-      .nesp-footer .nesp-foot-links{display:grid;grid-template-columns:minmax(0,1fr);row-gap:.75rem;column-gap:1.5rem}
-      .nesp-footer .nesp-foot-contact{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem}
-      .nesp-footer .nesp-foot-contact li{display:flex;align-items:flex-start;gap:.75rem}
-      .nesp-footer .nesp-foot-contact .material-symbols-outlined{font-size:20px;color:rgba(255,255,255,.7);flex:0 0 auto}
-      .nesp-footer a{color:inherit;text-decoration:none;font-size:.875rem;line-height:1.5;transition:color .2s ease,border-color .2s ease}
-      .nesp-footer a:hover{color:#fff}
+      .nesp-footer .nesp-foot-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));row-gap:.75rem;column-gap:1.5rem}
+      /* Links carry an underline that draws in from the left on hover. */
+      .nesp-footer a{color:rgba(243,239,230,.82);text-decoration:none;font-family:Inter,system-ui,sans-serif;font-size-adjust:.515;font-size:1.0625rem;line-height:1.4;background-image:linear-gradient(currentColor,currentColor);background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:color .3s ease,background-size .5s cubic-bezier(.16,1,.3,1)}
+      .nesp-footer a:hover{color:#ffffff;background-size:100% 1px}
       .nesp-footer a[href^="mailto:"]{word-break:break-all}
-      .nesp-footer .nesp-foot-socials{display:flex;flex-wrap:wrap;gap:.75rem}
-      .nesp-footer .nesp-foot-socials > *{width:2.25rem;height:2.25rem;border:1px solid rgba(255,255,255,.2);border-radius:2px;display:inline-flex;align-items:center;justify-content:center;color:#7d8f88}
-      .nesp-footer .nesp-foot-socials a:hover{border-color:rgba(255,255,255,.5);color:#fff}
-      .nesp-footer .nesp-foot-socials svg{width:1rem;height:1rem}
-      .nesp-footer .nesp-foot-social-title em{font-style:normal;font-size:9.5px;line-height:1.7;letter-spacing:.08em;border:1px dashed rgba(255,255,255,.22);border-radius:999px;padding:0 7px;color:#8ea79d;margin-left:6px;white-space:nowrap}
-      .nesp-footer .nesp-foot-bottom{max-width:1440px;margin:0 auto;border-top:1px solid rgba(255,255,255,.1);padding-top:1.25rem;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:.75rem;text-align:center}
-      .nesp-footer .nesp-foot-bottom span{font-size:.75rem}
-      /* Policy pages that do not exist yet are labels, not links: pointing them at
-         the Coming Soon placeholder is the dead link HP-08 rules out. The badge sits
-         on its own line because these columns are only ~140px wide. */
-      .nesp-foot-soon{display:block;font-size:.875rem;line-height:1.4;color:#7d8f88}
-      .nesp-foot-soon em{display:inline-block;margin-top:3px;font-style:normal;font-size:9.5px;line-height:1.7;letter-spacing:.08em;text-transform:uppercase;border:1px dashed rgba(255,255,255,.22);border-radius:999px;padding:0 7px;color:#8ea79d;white-space:nowrap}
+      .nesp-footer .nesp-foot-contact{display:flex;flex-direction:column;gap:1rem;margin-bottom:2.25rem}
+      .nesp-footer .nesp-foot-contact li{display:flex;align-items:flex-start;gap:.75rem;font-family:Inter,system-ui,sans-serif;font-size-adjust:.515;font-size:1.0625rem;line-height:1.45;color:rgba(243,239,230,.82)}
+      .nesp-footer .nesp-foot-contact .material-symbols-outlined{font-size-adjust:none;font-size:19px;color:#d9a520;flex:0 0 auto;margin-top:2px;font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 20}
+      .nesp-footer .nesp-foot-socials{display:flex;flex-wrap:wrap;gap:.625rem}
+      .nesp-footer .nesp-foot-socials>*{width:2.5rem;height:2.5rem;border:1px solid rgba(243,239,230,.18);border-radius:999px;display:inline-flex;align-items:center;justify-content:center;color:rgba(243,239,230,.55);transition:border-color .3s ease,color .3s ease}
+      .nesp-footer .nesp-foot-socials>*:hover{border-color:rgba(217,165,32,.65);color:#f3efe6}
+      .nesp-footer .nesp-foot-socials svg{width:.9375rem;height:.9375rem}
+      .nesp-footer .nesp-foot-social-title em,.nesp-foot-soon em{font-style:normal;font-family:Inter,system-ui,sans-serif;font-size:9px;line-height:1.8;letter-spacing:.12em;text-transform:uppercase;border:1px dashed rgba(243,239,230,.24);border-radius:999px;padding:0 7px;color:rgba(243,239,230,.55);margin-left:6px;white-space:nowrap;vertical-align:middle}
+      /* CON-03 - general information disclaimer, site-wide via the shared footer. */
+      .nesp-footer .nesp-foot-disclaimer{max-width:1440px;margin:0 auto 1.75rem;border-top:1px solid rgba(243,239,230,.1);padding-top:1.75rem}
+      .nesp-footer .nesp-foot-disclaimer p{font-family:Inter,system-ui,sans-serif;font-size:.75rem;line-height:1.75;color:rgba(243,239,230,.5);margin:0;max-width:none}
+      .nesp-footer .nesp-foot-disclaimer-title{display:flex;align-items:center;gap:.5rem;color:rgba(243,239,230,.74)!important;font-weight:500;text-transform:uppercase;letter-spacing:.2em;font-size:.625rem!important;margin:0 0 .625rem!important}
+      .nesp-footer .nesp-foot-disclaimer-title .material-symbols-outlined{font-size:14px;color:#d9a520}
+      .nesp-footer .nesp-foot-bottom{max-width:1440px;margin:0 auto;border-top:1px solid rgba(243,239,230,.1);padding-top:1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:.75rem;text-align:center}
+      .nesp-footer .nesp-foot-bottom span{font-family:Inter,system-ui,sans-serif;font-size:.8125rem;color:rgba(243,239,230,.5)}
+      /* Policy pages that do not exist yet are labels, not links (HP-08). */
+      .nesp-foot-soon{display:block;font-family:Inter,system-ui,sans-serif;font-size-adjust:.515;font-size:1.0625rem;line-height:1.4;color:rgba(243,239,230,.45)}
+      .nesp-foot-soon em{display:inline-block;margin-left:0;margin-top:4px}
       @media (width >=40rem){
-        .nesp-footer{padding:3.5rem 1.5rem}
+        .nesp-footer{padding:5.5rem 2rem 2.25rem}
         .nesp-footer .nesp-foot-top{grid-template-columns:repeat(2,minmax(0,1fr))}
-        .nesp-footer h3{font-size:1.875rem}
-        .nesp-footer .nesp-foot-brand p,.nesp-footer a,.nesp-foot-soon{font-size:1rem}
-        .nesp-footer .nesp-foot-links{grid-template-columns:repeat(2,minmax(0,1fr))}
-        .nesp-footer .nesp-foot-bottom{flex-direction:row;padding-top:1.5rem;text-align:left}
-        .nesp-footer .nesp-foot-bottom span{font-size:.875rem}
+        .nesp-footer .nesp-foot-brand{grid-column:span 2}
+        .nesp-footer h3{font-size:2.875rem}
+        .nesp-footer .nesp-foot-bottom{flex-direction:row;text-align:left}
       }
       @media (width >=64rem){
-        .nesp-footer{padding:4rem 2rem}
-        .nesp-footer .nesp-foot-top{grid-template-columns:repeat(4,minmax(0,1fr));gap:3rem;margin-bottom:3rem}
-        .nesp-footer .nesp-foot-brand{grid-column:span 2}
-        .nesp-footer .nesp-foot-links{grid-template-columns:minmax(0,1fr)}
+        .nesp-footer{padding:7rem 2.5rem 2.5rem}
+        .nesp-footer .nesp-foot-top{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr) minmax(0,.85fr);gap:4.5rem;margin-bottom:4.5rem}
+        .nesp-footer .nesp-foot-brand{grid-column:auto}
+        .nesp-footer h3{font-size:3.375rem}
       }`;
     document.head.appendChild(st);
   }

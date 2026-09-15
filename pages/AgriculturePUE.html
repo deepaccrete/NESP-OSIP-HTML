@@ -4,11 +4,35 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Agriculture PUE | OSIP - Nigerian Energy Investment Portal</title>
+    <title>Agriculture PUE | One-Stop Investment Platform (OSIP)</title>
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet">
+    <!-- Redesign: Newsreader for headings and reading text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Type (14 Sep 2026): Inter replaces Newsreader on this page, as on Solar. The Newsreader
+         stylesheet above is kept only so the shared header does not inject its own copy; with
+         nothing set in Newsreader any more, its font files are never fetched. -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        /* Redesign: hold the hero copy back for its entrance. The motion layer
+           lifts this the moment its start states are applied, and it lifts
+           itself after 3.5s whatever happens, so a slow or blocked CDN can never
+           leave the hero empty. Not set at all when reduced motion is asked for. */
+        (function () {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var root = document.documentElement;
+                root.classList.add('rd-intro');
+                setTimeout(function () { root.classList.remove('rd-intro'); }, 3500);
+            } catch (e) {}
+        })();
+    </script>
     <!-- Material Symbols -->
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -345,10 +369,2357 @@
             max-width: 120px;
             line-height: 1.3;
         }
+
+        /* ============================================================
+           SECTOR OVERVIEW
+
+           The words stay exactly as written. What changes is how they are
+           set, so a long overview reads as a sequence rather than a wall:
+
+             - the first paragraph is the lede: larger, darker ink, and the
+               gold rule the hero uses, so the reader knows where to start
+             - every paragraph after it is set at full body size on a ~62
+               character measure; the second paragraph used to drop to 14px
+               and read like a footnote
+             - on a desktop the photograph sticks while the copy scrolls, so
+               an overview that runs to five or six paragraphs keeps its
+               picture beside the words instead of leaving a tall empty
+               column. With short copy the photograph is the taller of the
+               two and nothing moves
+             - one button component, .osip-btn, at a fixed 48px, so every
+               call to action on the page can share one size
+           ============================================================ */
+        .ovw-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 56px;
+        }
+
+        @media (min-width: 1024px) {
+            .ovw-grid {
+                grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+                gap: 72px;
+            }
+        }
+
+        .ovw-copy {
+            align-self: center;
+            min-width: 0;
+            max-width: 640px;
+        }
+
+        .ovw-media {
+            position: relative;
+            align-self: stretch;
+            min-width: 0;
+        }
+
+        .ovw-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #004225;
+        }
+
+        .ovw-eyebrow > span {
+            flex: 0 0 auto;
+            width: 32px;
+            height: 2px;
+            background: #f7be26;
+        }
+
+        .ovw-title {
+            margin: 0 0 26px;
+            font-family: Manrope, Inter, sans-serif;
+            font-size: clamp(30px, 3.1vw, 42px);
+            font-weight: 700;
+            line-height: 1.14;
+            letter-spacing: -.02em;
+            color: #00342b;
+            text-wrap: balance;
+        }
+
+        .ovw-body p {
+            max-width: 62ch;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4a5550;
+        }
+
+        .ovw-body p + p {
+            margin-top: 18px;
+        }
+
+        .ovw-body .ovw-lede {
+            position: relative;
+            padding-left: 22px;
+            font-size: 18.5px;
+            line-height: 1.75;
+            color: #26322d;
+        }
+
+        .ovw-body .ovw-lede + p {
+            margin-top: 22px;
+        }
+
+        .ovw-body .ovw-lede::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .35em;
+            bottom: .35em;
+            width: 3px;
+            border-radius: 3px;
+            background: linear-gradient(180deg, #f7be26, #dfa800);
+            transform-origin: 50% 0;
+        }
+
+        .ovw-actions {
+            margin-top: 34px;
+        }
+
+        /* ---- Button -----------------------------------------------------
+           One size for every call to action: 48px tall, 10px corners, the
+           header's CTA green (#047857, 5.5:1 with white), and an arrow that
+           moves on hover while the button itself stays put. */
+        .osip-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            height: 48px;
+            padding: 0 20px 0 24px;
+            border-radius: 10px;
+            font-size: 14.5px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: .01em;
+            white-space: nowrap;
+            text-decoration: none;
+            transition: background-color .2s ease, box-shadow .2s ease;
+        }
+
+        .osip-btn .material-symbols-outlined {
+            font-size: 19px;
+            transition: transform .28s cubic-bezier(.22, .61, .36, 1);
+        }
+
+        .osip-btn-primary {
+            background: #047857;
+            color: #ffffff;
+            box-shadow: 0 1px 2px rgba(4, 70, 52, .2);
+        }
+
+        .osip-btn-primary:hover {
+            background: #04563e;
+            box-shadow: 0 10px 22px -12px rgba(4, 70, 52, .55);
+        }
+
+        .osip-btn:hover .material-symbols-outlined {
+            transform: translateX(4px);
+        }
+
+        .osip-btn:focus-visible {
+            outline: 2px solid #047857;
+            outline-offset: 3px;
+        }
+
+        /* ---- Photograph ---------------------------------------------------- */
+        .ovw-sticky {
+            position: relative;
+        }
+
+        @media (min-width: 1024px) {
+            .ovw-sticky {
+                position: sticky;
+                top: 104px;
+            }
+        }
+
+        .ovw-photo {
+            position: relative;
+            margin: 0;
+            overflow: hidden;
+            border-radius: 18px;
+            background: #0c2b21;
+            box-shadow: 0 34px 60px -34px rgba(4, 52, 40, .5);
+        }
+
+        .ovw-photo img {
+            display: block;
+            width: 100%;
+            height: 288px;
+            object-fit: cover;
+            transform: scale(1.02);
+            transition: transform 1.2s cubic-bezier(.22, .61, .36, 1);
+        }
+
+        @media (min-width: 640px) {
+            .ovw-photo img {
+                height: 384px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .ovw-photo img {
+                height: 480px;
+            }
+        }
+
+        /* Only the picture answers the pointer; its frame does not move. */
+        .ovw-photo:hover img {
+            transform: scale(1.07);
+        }
+
+        /* A gold corner bracket behind the photograph's top-right corner. */
+        .ovw-sticky::before {
+            content: "";
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            width: 38%;
+            height: 42%;
+            border-top: 3px solid #f7be26;
+            border-right: 3px solid #f7be26;
+            border-top-right-radius: 26px;
+            pointer-events: none;
+        }
+
+        .ovw-stat {
+            position: absolute;
+            left: 22px;
+            bottom: -26px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 22px 12px 12px;
+            background: #ffffff;
+            border: 1px solid #e2e8e5;
+            border-top: 3px solid #dfa800;
+            border-radius: 14px;
+            box-shadow: 0 20px 38px -20px rgba(4, 52, 40, .4);
+        }
+
+        .ovw-stat-icon {
+            flex: 0 0 auto;
+            width: 46px;
+            height: 46px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #004225;
+            color: #ffffff;
+            font-size: 24px;
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .ovw-stat-value {
+            font-family: Manrope, Inter, sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -.02em;
+            color: #004225;
+        }
+
+        .ovw-stat-label {
+            margin-top: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #5f6368;
+        }
+
+        @media (max-width: 1023px) {
+            .ovw-media {
+                margin-bottom: 26px;
+            }
+        }
+
+        @media (max-width: 639px) {
+            .ovw-body .ovw-lede {
+                font-size: 17px;
+            }
+
+            .ovw-body p {
+                font-size: 15.5px;
+            }
+
+            .ovw-sticky::before {
+                top: -9px;
+                right: -9px;
+            }
+
+            .ovw-stat {
+                left: 14px;
+            }
+        }
+
+        /* ---- Reveal (opt-in; the script sets .ovw-armed) ------------------- */
+        .ovw-armed:not(.is-in) .ovw-rise { opacity: 0; transform: translateY(16px); }
+        .ovw-armed.is-in .ovw-rise { animation: ovwRise .7s cubic-bezier(.22, .61, .36, 1) calc(var(--o, 0) * 90ms) backwards; }
+        .ovw-armed:not(.is-in) .ovw-lede::before { transform: scaleY(0); }
+        .ovw-armed.is-in .ovw-lede::before { animation: ovwDraw .8s cubic-bezier(.22, .61, .36, 1) .45s backwards; }
+        /* the photograph wipes in right to left, the direction the hero moves */
+        .ovw-armed:not(.is-in) .ovw-photo { clip-path: inset(0 0 0 100% round 18px); }
+        .ovw-armed.is-in .ovw-photo { animation: ovwWipe 1.1s cubic-bezier(.65, 0, .35, 1) .1s backwards; }
+        .ovw-armed.is-in .ovw-photo img { animation: ovwSettle 1.6s cubic-bezier(.22, .61, .36, 1) .1s backwards; }
+        .ovw-armed:not(.is-in) .ovw-stat,
+        .ovw-armed:not(.is-in) .ovw-sticky::before { opacity: 0; }
+        .ovw-armed.is-in .ovw-stat { animation: ovwRise .6s cubic-bezier(.22, .61, .36, 1) .9s backwards; }
+        .ovw-armed.is-in .ovw-sticky::before { animation: ovwFade .6s ease 1.05s backwards; }
+
+        @keyframes ovwRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        @keyframes ovwDraw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+        @keyframes ovwWipe { from { clip-path: inset(0 0 0 100% round 18px); } to { clip-path: inset(0 0 0 0 round 18px); } }
+        @keyframes ovwSettle { from { transform: scale(1.14); } to { transform: scale(1.02); } }
+        @keyframes ovwFade { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .ovw-photo img,
+            .ovw-photo:hover img,
+            .osip-btn .material-symbols-outlined,
+            .osip-btn:hover .material-symbols-outlined {
+                transition: none;
+                transform: none;
+            }
+        }
+    </style>
+    <style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - AgriculturePUE.html (11 Sep 2026)
+
+           Ported from DetailedSector.html (Solar) so every sector page shares
+           one design. Sits on top of the existing page: the only markup
+           rebuilt is the Sector Overview, into Solar's .ovw structure with its
+           words, link, image and stat unchanged; every other word, link and
+           image is where it was. Scoped under body.rd, and the older design is
+           kept in OSIP/Backups/AgriculturePUE/.
+
+           Direction: give the page room to breathe. Headings and reading text
+           move to Newsreader, a light editorial serif, instead of heavy bold
+           sans; interface text (labels, chips, buttons, captions) stays sans;
+           sections get far more vertical space; card borders, icons and chips
+           are turned down, not up. The greens and golds are the site's own.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-card-2: #f1eee8;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* ---- Lenis, from lenis@1.3.26/dist/lenis.css ---------------------------
+           One deliberate change: the stock file blocks pointer events on every
+           iframe for as long as smooth scrolling is on, which would freeze the
+           YouTube player once a video is playing. Here that only happens while
+           the page is actually moving. */
+        html.lenis,
+        html.lenis body {
+            height: auto;
+        }
+
+        .lenis:not(.lenis-autoToggle).lenis-stopped {
+            overflow: clip;
+        }
+
+        .lenis [data-lenis-prevent],
+        .lenis [data-lenis-prevent-wheel],
+        .lenis [data-lenis-prevent-touch],
+        .lenis [data-lenis-prevent-vertical],
+        .lenis [data-lenis-prevent-horizontal] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        .lenis.lenis-autoToggle {
+            transition-property: overflow;
+            transition-duration: 1ms;
+            transition-behavior: allow-discrete;
+        }
+
+        /* ---- Page ---------------------------------------------------------------- */
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd main,
+        .rd main section[style*="font-family"] {
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+        }
+
+        .rd ::selection {
+            background: #f7be26;
+            color: var(--rd-ink);
+        }
+
+        .rd main > section.bg-white,
+        .rd main > section.ovw {
+            background: var(--rd-paper) !important;
+        }
+
+        .rd main > section.bg-\[\#f3f4f2\] {
+            background: var(--rd-paper-2) !important;
+        }
+
+        .rd main > section.py-12,
+        .rd main > section.ovw {
+            padding-top: clamp(76px, 10vw, 148px) !important;
+            padding-bottom: clamp(76px, 10vw, 148px) !important;
+        }
+
+        .rd main > section.border-b {
+            border-bottom-color: var(--rd-line) !important;
+        }
+
+        /* ---- Section eyebrows: a finer gold rule and a quieter label --------------- */
+        .rd main div.flex.items-center.gap-3.mb-3 {
+            gap: 14px !important;
+            margin-bottom: 22px !important;
+        }
+
+        .rd main span.w-8.h-\[2px\] {
+            width: 28px !important;
+            height: 1px !important;
+            background: var(--rd-gold) !important;
+            transform-origin: 0 50%;
+        }
+
+        .rd main span.text-\[11px\].font-bold.uppercase,
+        .rd .wf-eyebrow,
+        .rd .ovw-eyebrow {
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd .ovw-eyebrow > span {
+            width: 28px !important;
+            height: 1px !important;
+            background: var(--rd-gold) !important;
+        }
+
+        /* ---- Headings ------------------------------------------------------------ */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3,
+        .rd .wf-title {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-optical-sizing: auto;
+            text-wrap: balance;
+        }
+
+        .rd main h2,
+        .rd main h3,
+        .rd .wf-title {
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main h2 {
+            font-size: clamp(34px, 3.4vw, 48px) !important;
+            line-height: 1.06 !important;
+            letter-spacing: -0.022em !important;
+            margin-bottom: clamp(24px, 2.8vw, 38px) !important;
+        }
+
+        .rd main h3,
+        .rd .wf-title {
+            font-size: clamp(24px, 2vw, 30px) !important;
+            line-height: 1.18 !important;
+            letter-spacing: -0.014em !important;
+        }
+
+        .rd main h3.text-\[20px\] {
+            font-size: 24px !important;
+        }
+
+        .rd main h3.mt-12 {
+            margin-top: clamp(64px, 8vw, 112px) !important;
+        }
+
+        .rd main h3.mb-4,
+        .rd main h3.mb-6 {
+            margin-bottom: 18px !important;
+        }
+
+        .rd .wf-title {
+            margin-bottom: 44px !important;
+        }
+
+        .rd main h4 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-size: 19.5px !important;
+            line-height: 1.3 !important;
+            letter-spacing: -0.008em;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main h4.mt-3 {
+            margin-top: 18px !important;
+            margin-bottom: 6px !important;
+        }
+
+        /* A masked line or letter is clipped to its own box, and at these tight
+           line-heights capitals, ascenders, descenders and the serif's overhangs
+           all reach past it. The pad gives every side room without moving the
+           text: padding out, the same margin back in. */
+        .rd main h1 .rd-char-mask,
+        .rd main h2 .rd-line-mask,
+        .rd main h3 .rd-line-mask {
+            padding: 0.18em;
+            margin: -0.18em;
+        }
+
+        /* ---- Hero ---------------------------------------------------------------- */
+        .rd main > section:first-of-type {
+            min-height: min(88vh, 820px) !important;
+        }
+
+        .rd main > section:first-of-type h1 {
+            color: #ffffff !important;
+            font-weight: 300 !important;
+            font-size: clamp(64px, 9vw, 132px) !important;
+            line-height: .92 !important;
+            letter-spacing: -0.04em !important;
+            margin-bottom: 34px !important;
+        }
+
+        .rd main > section:first-of-type h1 ~ p {
+            max-width: 34rem !important;
+            margin-bottom: 44px !important;
+            position: relative;
+            padding-left: 23px !important;
+            border-left-width: 0 !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 20px !important;
+            font-weight: 400 !important;
+            line-height: 1.6 !important;
+            color: rgba(255, 255, 255, .88) !important;
+        }
+
+        .rd main > section:first-of-type .text-xs.uppercase {
+            margin-bottom: 14px;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .26em !important;
+            color: rgba(255, 255, 255, .5) !important;
+        }
+
+        .rd main > section:first-of-type a.rounded-full {
+            padding: 9px 18px !important;
+            font-size: 13px !important;
+            font-weight: 400 !important;
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, .06) !important;
+            border-color: rgba(255, 255, 255, .18) !important;
+            transition: background-color .4s ease, color .4s ease, border-color .4s ease !important;
+        }
+
+        .rd main > section:first-of-type a.rounded-full:hover {
+            background: #ffffff !important;
+            border-color: #ffffff !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd-scrollcue {
+            position: absolute;
+            left: 50%;
+            bottom: 28px;
+            z-index: 11;
+            width: 1px;
+            height: 56px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, .18);
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .rd-scrollcue span {
+            position: absolute;
+            left: 0;
+            top: -40%;
+            width: 1px;
+            height: 40%;
+            background: #f7be26;
+            animation: rdCue 2.2s cubic-bezier(.65, 0, .35, 1) infinite;
+        }
+
+        @keyframes rdCue {
+            from { top: -40%; }
+            to { top: 100%; }
+        }
+
+        /* The hero copy waits for its entrance; see the flag script in <head>. */
+        html.rd-intro main > section:first-of-type .max-w-3xl > * {
+            opacity: 0;
+        }
+
+        /* ---- Body copy: in the serif, as wide as its column ------------------------
+           Reading text follows the headings into Newsreader. There is no measure
+           cap: a paragraph with its column to itself runs the width of it, and
+           one sharing a row with a photo, video or sidebar is still held by its
+           grid column. */
+        .rd main .leading-8 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 17px !important;
+            line-height: 1.7 !important;
+            letter-spacing: -0.003em !important;
+            color: var(--rd-ink-2) !important;
+            text-wrap: pretty;
+        }
+
+        @media (min-width: 640px) {
+            .rd main .leading-8 {
+                font-size: 18.5px !important;
+            }
+        }
+
+        .rd main p.leading-8.mt-4,
+        .rd main p.leading-8.mt-5,
+        .rd main p.leading-8.mt-6 {
+            margin-top: 18px !important;
+        }
+
+        .rd main .text-\[\#111827\] {
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main .text-\[\#404846\] {
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd main .text-\[\#5f6368\] {
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* Card copy moves to the serif too, a size up so it reads at the same
+           weight as the sans it replaces. Labels, chips, buttons, source notes
+           and the chart and workflow captions stay in the sans: they are
+           interface, not reading. */
+        .rd main .text-\[13px\].leading-6,
+        .rd main .text-\[14px\].leading-6,
+        .rd main .osip-role {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            line-height: 1.55 !important;
+        }
+
+        .rd main .text-\[15px\].leading-7,
+        .rd main .text-\[15px\].leading-6 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 17px !important;
+            line-height: 1.6 !important;
+        }
+
+        .rd main p.text-\[\#111827\].font-semibold,
+        .rd main span.block.text-\[\#111827\].text-\[14px\],
+        .rd main .text-\[14px\].font-semibold.leading-6 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            letter-spacing: -0.006em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main p.text-\[\#111827\].font-semibold {
+            font-size: 19.5px !important;
+            line-height: 1.3 !important;
+        }
+
+        .rd main span.block.text-\[\#111827\].text-\[14px\] {
+            font-size: 17.5px !important;
+            line-height: 1.35 !important;
+        }
+
+        .rd main .text-\[14px\].font-semibold.leading-6 {
+            font-size: 17px !important;
+            line-height: 1.45 !important;
+        }
+
+        .rd main span.font-semibold.text-\[\#111827\] {
+            font-weight: 600 !important;
+        }
+
+        .rd .osip-note p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            line-height: 1.6 !important;
+        }
+
+        .rd main .text-\[11px\].text-\[\#9aa39e\] {
+            font-size: 11.5px !important;
+            color: #8f948f !important;
+        }
+
+        .rd .rd-sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        /* ---- Cards: warmer, flatter, and they answer the pointer without jumping - */
+        .rd main .border-\[\#e5e7eb\],
+        .rd main .border-\[\#dfe4e1\],
+        .rd main .border-\[\#eef0ef\] {
+            border-color: var(--rd-line) !important;
+        }
+
+        .rd main div.bg-white.rounded-xl,
+        .rd main a.bg-white.rounded-xl,
+        .rd main a.bg-white.rounded-lg {
+            background: var(--rd-card) !important;
+        }
+
+        .rd main div.bg-\[\#f3f4f2\].rounded-xl,
+        .rd main div.bg-\[\#f3f4f2\].rounded-2xl {
+            background: var(--rd-card-2) !important;
+        }
+
+        .rd main .rounded-xl.border,
+        .rd main .rounded-lg.border {
+            border-radius: 18px !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd main .rounded-xl.p-5,
+        .rd main .rounded-xl.p-6 {
+            padding: 26px !important;
+        }
+
+        .rd main section:not(:first-of-type) .rounded-xl.border:hover,
+        .rd main section:not(:first-of-type) .rounded-lg.border:hover {
+            border-color: var(--rd-line-2) !important;
+            background: #ffffff !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .rd main .rounded-2xl.border.p-7 {
+            border-radius: 22px !important;
+            padding: 34px !important;
+        }
+
+        .rd main .rounded-xl > .material-symbols-outlined {
+            color: var(--rd-green-2) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 250, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd main .rounded-xl > .material-symbols-outlined.text-\[32px\] {
+            font-size: 26px !important;
+        }
+
+        .rd main .rounded-xl > .material-symbols-outlined.text-\[24px\] {
+            margin-top: 2px;
+            font-size: 21px !important;
+        }
+
+        .rd main .rounded-xl > .material-symbols-outlined.text-\[22px\] {
+            font-size: 20px !important;
+        }
+
+        .rd main li > .material-symbols-outlined.text-\[20px\] {
+            font-size: 18px !important;
+            color: var(--rd-green-2) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20 !important;
+        }
+
+        /* the a / b / c markers become italic serif letters in a hairline ring */
+        .rd main span.w-8.h-8.rounded-full.bg-\[\#004225\] {
+            background: transparent !important;
+            color: var(--rd-green) !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line-2);
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-style: italic;
+            font-weight: 400 !important;
+            font-size: 18px !important;
+        }
+
+        .rd main span.w-10.h-10.rounded-lg.bg-\[\#004225\] {
+            background: transparent !important;
+            color: var(--rd-green) !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line-2);
+        }
+
+        .rd main span.w-10.h-10.rounded-\[10px\] {
+            background: #ffffff !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line);
+        }
+
+        /* ---- Chips --------------------------------------------------------------- */
+        .rd main section:not(:first-of-type) span.rounded-full.border {
+            padding: 7px 15px !important;
+            font-size: 13px !important;
+            font-weight: 400 !important;
+            color: var(--rd-ink-2) !important;
+            background: transparent !important;
+            border-color: var(--rd-line-2) !important;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease;
+        }
+
+        .rd main section:not(:first-of-type) span.rounded-full.border:hover {
+            color: #ffffff !important;
+            background: var(--rd-green) !important;
+            border-color: var(--rd-green) !important;
+        }
+
+        .rd main .flex.flex-wrap.gap-2 {
+            gap: 8px !important;
+        }
+
+        /* ---- Buttons: one pill for every call to action ---------------------------- */
+        .rd main a.bg-primary-container,
+        .rd .osip-btn {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 10px;
+            height: 50px;
+            padding: 0 22px 0 26px !important;
+            border-radius: 999px !important;
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            letter-spacing: .005em !important;
+            text-transform: none !important;
+            color: #ffffff !important;
+            background: var(--rd-green) !important;
+            box-shadow: none !important;
+            transition: background-color .35s ease !important;
+        }
+
+        .rd main a.bg-primary-container:hover,
+        .rd .osip-btn:hover {
+            background: #062f1f !important;
+        }
+
+        .rd main a.bg-primary-container.mt-6 {
+            margin-top: 30px !important;
+        }
+
+        .rd main a.bg-primary-container .material-symbols-outlined {
+            font-size: 18px !important;
+            transition: transform .35s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .rd main a.bg-primary-container:hover .material-symbols-outlined {
+            transform: translate(3px, -3px);
+        }
+
+        /* ---- Statements (Key Message, Investor Outlook) --------------------------- */
+        .rd main div.bg-\[\#004225\].rounded-2xl {
+            position: relative;
+            overflow: hidden;
+            margin-top: clamp(56px, 7vw, 104px) !important;
+            padding: clamp(40px, 6vw, 96px) clamp(26px, 6.5vw, 104px) !important;
+            gap: clamp(18px, 2.4vw, 34px) !important;
+            border-radius: 28px !important;
+            background: var(--rd-deep) !important;
+        }
+
+        .rd main div.bg-\[\#004225\].rounded-2xl::after {
+            content: "";
+            position: absolute;
+            right: -12%;
+            top: -40%;
+            width: 58%;
+            height: 180%;
+            background: radial-gradient(closest-side, rgba(247, 190, 38, .13), rgba(247, 190, 38, 0));
+            pointer-events: none;
+        }
+
+        .rd main div.bg-\[\#004225\].rounded-2xl > .material-symbols-outlined {
+            position: relative;
+            z-index: 1;
+            margin-top: 12px;
+            font-size: 22px !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd main div.bg-\[\#004225\].rounded-2xl > p {
+            position: relative;
+            z-index: 1;
+            max-width: 44ch !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 300 !important;
+            font-size: clamp(22px, 2.3vw, 34px) !important;
+            line-height: 1.34 !important;
+            letter-spacing: -0.012em !important;
+            color: #f3efe6 !important;
+        }
+
+        .rd main div.bg-\[\#004225\].rounded-2xl > p > .font-bold:first-child {
+            display: block;
+            margin-bottom: 20px;
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+            color: #f7be26 !important;
+        }
+
+        /* ---- Key Facts: same charts, the figures set in the serif ----------------- */
+        .rd #facts .kf-card {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top-color: #dfa800 !important;
+            border-radius: 22px !important;
+        }
+
+        .rd #facts .kf-value {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: clamp(38px, 4.3vw, 60px) !important;
+            letter-spacing: -0.03em !important;
+        }
+
+        .rd #facts .grid.gap-6 {
+            gap: 20px !important;
+        }
+
+        .rd #facts .kf-card.is-wide {
+            margin-top: 20px !important;
+        }
+
+        /* Nothing sits beside the wide card's description, so it takes the width. */
+        .rd #facts .kf-card.is-wide .max-w-xl {
+            max-width: none !important;
+        }
+
+        /* The 2060 stop carried its "30 GW+" pill in the flow. That made it taller
+           than the other stops, and centring the row then dropped its dot and
+           year below theirs. The pill now hangs above the dot, out of the flow;
+           every stop lines up from the top, and the segments sit on the dots'
+           centre line. The bigger 2060 dot is pulled up by the difference. */
+        .rd #facts .kf-tl {
+            align-items: flex-start !important;
+            padding-top: 38px;
+        }
+
+        .rd #facts .kf-tl-seg {
+            margin-top: 5px !important;
+            margin-bottom: 0 !important;
+        }
+
+        .rd #facts .kf-tl-stop.is-key {
+            position: relative;
+        }
+
+        .rd #facts .kf-tl-pill {
+            position: absolute;
+            left: 50%;
+            bottom: 100%;
+            margin-bottom: 12px !important;
+            translate: -50% 0;
+        }
+
+        .rd #facts .kf-tl-dot.is-key {
+            margin-top: -4px;
+        }
+
+        .rd #facts .kf-tl-dot.is-key + span {
+            margin-top: 4px !important;
+        }
+
+        .rd main p.text-\[28px\].font-extrabold,
+        .rd main p.font-h4.font-extrabold {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.02em !important;
+        }
+
+        .rd main p.text-\[28px\].font-extrabold {
+            font-size: clamp(34px, 3vw, 44px) !important;
+        }
+
+        .rd main p.font-h4.font-extrabold {
+            font-size: 28px !important;
+        }
+
+        /* ---- Sector Overview ------------------------------------------------------ */
+        .rd .ovw-body p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18.5px !important;
+            line-height: 1.7 !important;
+            letter-spacing: -0.003em;
+            color: var(--rd-ink-2) !important;
+            text-wrap: pretty;
+        }
+
+        .rd .ovw-body .ovw-lede {
+            font-size: 21px !important;
+            line-height: 1.6 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd .ovw-body .ovw-lede::before {
+            width: 1px !important;
+            background: #f7be26 !important;
+            animation: none !important;
+            transform: scaleY(var(--rd-draw, 1)) !important;
+        }
+
+        .rd .ovw-photo {
+            border-radius: 24px !important;
+            box-shadow: none !important;
+        }
+
+        .rd .ovw-stat {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top-color: #dfa800 !important;
+            border-radius: 16px !important;
+            box-shadow: 0 24px 50px -30px rgba(19, 32, 27, .35) !important;
+        }
+
+        .rd .ovw-stat-value {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 34px !important;
+        }
+
+        /* ---- Gold rules: drawn, not just shown ------------------------------------
+           The vertical gold lines beside the hero lede, the overview lede, the
+           Technical & Safety and Featured Investment Areas introductions and the
+           incentive notes draw downwards: the hero's with its entrance, the rest
+           as they are read. The draw is one custom property, --rd-draw, which
+           the motion layer tweens; without the motion layer it stays at 1 and
+           every line is simply there. */
+        .rd main > section:first-of-type h1 ~ p::before,
+        .rd #technical h2 + p::before,
+        .rd #opportunities h2 + p::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .35em;
+            bottom: .35em;
+            width: 1px;
+            background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        .rd #technical h2 + p,
+        .rd #opportunities h2 + p {
+            position: relative;
+            padding-left: 23px !important;
+        }
+
+        /* The notes' 3px gold edge becomes the drawn rule. Their left corners go
+           square so a straight rule can sit exactly on that edge. */
+        .rd .osip-note {
+            position: relative;
+            padding-left: calc(1.25rem + 2px) !important;
+            border-left: 1px solid #efdca4 !important;
+            border-radius: 0 .75rem .75rem 0 !important;
+        }
+
+        .rd .osip-note::before {
+            content: "";
+            position: absolute;
+            left: -1px;
+            top: -1px;
+            bottom: -1px;
+            width: 3px;
+            background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        /* ---- Photographs and video ------------------------------------------------ */
+        .rd main .overflow-hidden.rounded-2xl.shadow-xl,
+        .rd main .video-facade {
+            border-radius: 24px !important;
+            box-shadow: none !important;
+        }
+
+        .rd main .video-facade {
+            overflow: hidden;
+        }
+
+        .rd main .video-facade .bg-red-600 {
+            border-radius: 999px !important;
+            background: rgba(251, 250, 247, .94) !important;
+            box-shadow: 0 24px 50px -24px rgba(0, 0, 0, .55) !important;
+        }
+
+        .rd main .video-facade .bg-red-600 .material-symbols-outlined {
+            color: var(--rd-green) !important;
+        }
+
+        /* ---- Workflow diagrams ---------------------------------------------------- */
+        .rd .wf-scope {
+            margin-top: clamp(48px, 6vw, 88px);
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+        }
+
+        .rd .wf-section {
+            border: 1px solid var(--rd-line);
+            border-radius: 28px !important;
+        }
+
+        .rd .wf-section::before {
+            background: var(--rd-card) !important;
+        }
+
+        .rd .wf-section::after {
+            display: none !important;
+        }
+
+        .rd .wf-badge {
+            border-width: 1px !important;
+            box-shadow: none !important;
+            background: var(--rd-card) !important;
+        }
+
+        .rd .wf-num {
+            background: var(--rd-card) !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-style: italic;
+            font-weight: 400 !important;
+            font-size: 14px !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd .wf-item .wf-num {
+            background: none !important;
+        }
+
+        .rd .wf-label,
+        .rd .wf-item-label {
+            font-weight: 500 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd .wf-path {
+            stroke: #b9b3a7 !important;
+            stroke-width: 1.5 !important;
+        }
+
+        .rd .wf-dot {
+            fill: #b9b3a7 !important;
+        }
+
+        /* ---- Reading progress ------------------------------------------------------ */
+        .rd-progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 80;
+            height: 2px;
+            background: #f7be26;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            pointer-events: none;
+        }
+
+        /* ---- Cursor: only over the things worth pointing at ------------------------
+           The system cursor stays in charge everywhere else. The disc takes over
+           only where it says something: "Open" on external links, "Play" on the
+           videos. Over headings it becomes a gold highlighter, and over plain
+           cards a light ring. */
+        .rd-cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 9998;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .rd-cursor-dot {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 72px;
+            height: 72px;
+            margin: -36px 0 0 -36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            background: var(--rd-green);
+            color: #ffffff;
+            font: 500 12px/1 var(--rd-sans);
+            letter-spacing: .06em;
+            transform: scale(0);
+            transition: transform .5s cubic-bezier(.22, 1, .36, 1), width .5s cubic-bezier(.22, 1, .36, 1),
+                height .5s cubic-bezier(.22, 1, .36, 1), margin .5s cubic-bezier(.22, 1, .36, 1),
+                background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd-cursor-label {
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
+
+        .rd-cursor[data-mode="label"] .rd-cursor-dot {
+            transform: scale(1);
+        }
+
+        .rd-cursor[data-mode="label"] .rd-cursor-label,
+        .rd-cursor[data-mode="play"] .rd-cursor-label {
+            opacity: 1;
+            transition-delay: .12s;
+        }
+
+        .rd-cursor[data-mode="play"] .rd-cursor-dot {
+            width: 104px;
+            height: 104px;
+            margin: -52px 0 0 -52px;
+            background: #f7be26;
+            color: var(--rd-green);
+            transform: scale(1);
+        }
+
+        .rd-cursor[data-mode="ring"] .rd-cursor-dot {
+            width: 40px;
+            height: 40px;
+            margin: -20px 0 0 -20px;
+            background: transparent;
+            border-color: rgba(0, 66, 37, .4);
+            transform: scale(1);
+        }
+
+        /* Over headings: a gold highlighter. Multiply keeps the letters dark where
+           the disc passes under them. The blend has to be on the fixed element
+           itself; set on the child it would only blend inside the cursor's own
+           stacking context. The look hangs on data-look, which outlives
+           data-mode, so the disc stays gold while it shrinks away instead of
+           turning green on the way out; and its colour is not transitioned on
+           the way in, so it never grows out of a green blot. */
+        .rd-cursor[data-look="text"] {
+            mix-blend-mode: multiply;
+        }
+
+        .rd-cursor[data-look="text"] .rd-cursor-dot {
+            width: 96px;
+            height: 96px;
+            margin: -48px 0 0 -48px;
+            background: #f7be26;
+            transition-property: transform, width, height, margin;
+        }
+
+        .rd-cursor[data-mode="text"] .rd-cursor-dot {
+            transform: scale(1);
+        }
+
+        html.rd-cursor-on [data-rd-cursor="label"],
+        html.rd-cursor-on [data-rd-cursor="label"] *,
+        html.rd-cursor-on [data-rd-cursor="play"],
+        html.rd-cursor-on [data-rd-cursor="play"] * {
+            cursor: none !important;
+        }
+
+        /* ---- Key Facts: Solar's card and figure finish ---------------------------
+           This page's charts are its own, so they do not carry Solar's .kf-card
+           and .kf-value hooks. The same finish is applied through the classes
+           every fact card here already shares; no markup was changed for it. */
+        .rd #facts .grid > div.rounded-2xl.border {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top: 3px solid #dfa800 !important;
+            border-radius: 22px !important;
+        }
+
+        .rd #facts p.font-extrabold.leading-none:not(.kf-visual p) {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: clamp(38px, 4.3vw, 60px) !important;
+            letter-spacing: -0.03em !important;
+        }
+
+        /* the longer figures were already set a size down; keep them a size down */
+        .rd #facts p.font-extrabold.leading-none.text-\[32px\]:not(.kf-visual p),
+        .rd #facts p.font-extrabold.leading-none.text-\[30px\]:not(.kf-visual p) {
+            font-size: clamp(32px, 3.4vw, 46px) !important;
+        }
+
+        /* ---- Small screens ---------------------------------------------------------- */
+        @media (max-width: 639px) {
+            .rd main > section:first-of-type {
+                min-height: 78vh !important;
+            }
+
+            .rd-scrollcue {
+                display: none;
+            }
+
+            .rd main .rounded-xl.p-5,
+            .rd main .rounded-xl.p-6 {
+                padding: 22px !important;
+            }
+
+            .rd .ovw-body p {
+                font-size: 17px !important;
+            }
+
+            .rd .ovw-body .ovw-lede {
+                font-size: 19px !important;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rd-scrollcue span {
+                top: 30%;
+                animation: none;
+            }
+
+            html.rd-intro main > section:first-of-type .max-w-3xl > * {
+                opacity: 1 !important;
+            }
+        }
+
+        /* ---- Type: Inter throughout (14 Sep 2026) --------------------------------------
+           Inter replaces Newsreader on this page; the theme, layout, colours and motion are
+           untouched. Every rule above that set the serif now sets Inter held to the serif's
+           x-height (font-size-adjust), so each heading and paragraph keeps the visual size,
+           line length and rhythm it had. Icons and glossary tooltips keep their own size.
+           The previous type is kept in OSIP/Backups/AgriculturePUE/. */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-type-adjust: 0.515;
+        }
+
+        .rd [class*="material-symbols"],
+        .rd [class*="material-icons"],
+        .rd .osip-term::after {
+            font-size-adjust: none !important;
+        }
+
+        /* the shared header and footer set Newsreader in their own stylesheets; on this
+           page they follow the page */
+        .rd .nesp-header .nesp-menu-item .t,
+        .rd .nesp-header .nesp-menu-item .d,
+        .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link,
+        .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead),
+        .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head,
+        .rd .nesp-header .nesp-res-foot-h,
+        .rd .nesp-footer h3,
+        .rd .nesp-footer .nesp-foot-brand p,
+        .rd .nesp-footer a,
+        .rd .nesp-footer .nesp-foot-contact li,
+        .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: var(--rd-type-adjust) !important;
+        }
+
+        .rd .nesp-header .nesp-cta {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+
+        /* ---- Heading weight (14 Sep 2026) ----------------------------------------------
+           In Inter the headings read better one step heavier than they sat in the serif. */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3,
+        .rd .wf-title,
+        .rd #facts .kf-value,
+        .rd main p.font-h4.font-extrabold,
+        .rd .ovw-stat-value {
+            font-weight: 500 !important;
+        }
+
+        .rd main > section:first-of-type h1 {
+            font-weight: 500 !important;
+        }
+
+        .rd main h4 {
+            font-weight: 600 !important;
+        }
+
+        .rd .nesp-footer h3 {
+            font-weight: 500 !important;
+        }
+
+        /* ---- Investor Advantages, minimal (14 Sep 2026) ---------------------------------
+           No panel, no badge, no ticks: a short gold rule, the title, and the points as a
+           numbered list on hairlines. On wide screens it stays beside the reading text. */
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl {
+            background: transparent !important;
+            border: 0 !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            counter-reset: rd-adv;
+        }
+
+        @media (min-width: 1024px) {
+            .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl {
+                position: sticky;
+                top: 112px;
+                padding-top: 6px !important;
+            }
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl > div:first-child {
+            display: block !important;
+            margin-bottom: 26px !important;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl > div:first-child > span.w-10 {
+            display: none !important;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl h3 {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 22px !important;
+            letter-spacing: -0.012em !important;
+            margin: 0 !important;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl h3::before {
+            content: "";
+            flex: none;
+            width: 28px;
+            height: 1px;
+            background: var(--rd-gold);
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl ul {
+            border-top: 1px solid var(--rd-line-2);
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li {
+            counter-increment: rd-adv;
+            display: grid !important;
+            grid-template-columns: 42px 1fr;
+            align-items: baseline;
+            gap: 0 !important;
+            margin: 0 !important;
+            padding: 17px 0 !important;
+            border-bottom: 1px solid var(--rd-line);
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li::before {
+            content: counter(rd-adv, decimal-leading-zero);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: .06em;
+            font-variant-numeric: tabular-nums;
+            color: var(--rd-ink-3);
+            transition: color .35s ease;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li > .material-symbols-outlined {
+            display: none !important;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li > span:not(.material-symbols-outlined) {
+            font-size: 15.5px !important;
+            line-height: 1.55 !important;
+            color: var(--rd-ink-2) !important;
+            transition: color .35s ease;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li:hover::before {
+            color: var(--rd-gold);
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li:hover > span {
+            color: var(--rd-ink) !important;
+        }
+
+        /* ---- Card system (14 Sep 2026) ------------------------------------------------
+           Every card on the page is the same card: a marker tile (icon, letter or logo), a
+           title and one short text, three to a row, all the same height. Lists of plain
+           labels are a numbered list (as Investor Advantages); programme figures a figure row. */
+        .rd main .rd-cards {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 16px;
+        }
+
+        @media (min-width: 640px) {
+            .rd main .rd-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (min-width: 1024px) {
+            .rd main .rd-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+
+        .rd main .rd-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 28px;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 18px !important;
+            overflow: hidden;
+            color: inherit;
+            text-decoration: none;
+            transition: border-color .4s ease, background-color .4s ease;
+        }
+
+        @media (min-width: 640px) {
+            .rd main .rd-card { min-height: 252px; }
+        }
+
+        .rd main .rd-card::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 2px;
+            background: var(--rd-gold);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform .6s cubic-bezier(.22, .61, .36, 1);
+            pointer-events: none;
+        }
+
+        .rd main .rd-card:hover {
+            border-color: var(--rd-line-2) !important;
+            background: #ffffff !important;
+        }
+
+        .rd main .rd-card:hover::before { transform: scaleX(1); }
+
+        .rd main .rd-card .rd-card-mark {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+            width: 44px;
+            height: 44px;
+            margin-bottom: 22px;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: inset 0 0 0 1px var(--rd-line);
+            color: var(--rd-green);
+            overflow: hidden;
+        }
+
+        .rd main .rd-card .rd-card-mark .material-symbols-outlined {
+            font-size: 22px !important;
+            color: var(--rd-green) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd main .rd-card .rd-card-mark img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .rd main .rd-card .rd-card-mark.is-letter {
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .rd main .rd-card .rd-card-title {
+            display: block;
+            margin: 0 0 8px !important;
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+            font-size: 17px !important;
+            font-weight: 600 !important;
+            line-height: 1.35 !important;
+            letter-spacing: -0.01em !important;
+            color: var(--rd-ink) !important;
+            text-wrap: balance;
+        }
+
+        .rd main .rd-card .rd-card-text {
+            display: block;
+            margin: 0 !important;
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+            font-size: 14.5px !important;
+            line-height: 1.6 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        @media (max-width: 639px) {
+            .rd main .rd-card { padding: 24px; }
+        }
+
+        /* plain labels: the numbered list on hairlines */
+        .rd main .rd-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            counter-reset: rd-list;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            column-gap: 48px;
+            border-top: 1px solid var(--rd-line-2);
+        }
+
+        @media (min-width: 768px) {
+            .rd main .rd-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        .rd main .rd-list > li {
+            counter-increment: rd-list;
+            display: grid;
+            grid-template-columns: 42px 1fr;
+            align-items: baseline;
+            padding: 17px 0;
+            border-bottom: 1px solid var(--rd-line);
+            font-size: 15.5px;
+            line-height: 1.55;
+            color: var(--rd-ink-2);
+            transition: color .35s ease;
+        }
+
+        .rd main .rd-list > li::before {
+            content: counter(rd-list, decimal-leading-zero);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: .06em;
+            font-variant-numeric: tabular-nums;
+            color: var(--rd-ink-3);
+            transition: color .35s ease;
+        }
+
+        .rd main .rd-list > li:hover { color: var(--rd-ink); }
+        .rd main .rd-list > li:hover::before { color: var(--rd-gold); }
+
+        /* link rows: name, then the address, the whole row clickable */
+        .rd main .rd-links > li > a {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            min-width: 0;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .rd main .rd-links .rd-link-name {
+            color: var(--rd-ink);
+            font-weight: 500;
+            transition: color .35s ease;
+        }
+
+        .rd main .rd-links .rd-link-url {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13.5px;
+            color: var(--rd-ink-3);
+        }
+
+        .rd main .rd-links > li:hover .rd-link-name { color: var(--rd-green); }
+
+        /* programme figures: a row of figures on hairlines */
+        .rd main .rd-stats {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 0 32px;
+        }
+
+        @media (min-width: 640px) {
+            .rd main .rd-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+
+        .rd main .rd-stat {
+            padding: 22px 0 18px;
+            border-top: 1px solid var(--rd-line-2);
+        }
+
+        .rd main .rd-stat .rd-stat-v {
+            margin: 0;
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+            font-size: clamp(34px, 3.2vw, 44px);
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--rd-green);
+        }
+
+        .rd main .rd-stat .rd-stat-l {
+            margin: 12px 0 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: var(--rd-ink-3);
+        }
+
+        /* ---- Numbered subsections (14 Sep 2026) -----------------------------------------
+           In sections with several sub-headings each subsection starts on a hairline
+           with its number, so the reader always knows which part of the section they are in. */
+        .rd main .rd-sub {
+            position: relative;
+            margin-top: clamp(72px, 8vw, 112px);
+            padding-top: 26px;
+            border-top: 1px solid var(--rd-line-2);
+        }
+
+
+        .rd main h2 + .rd-sub { margin-top: 0; }
+        .rd main .rd-sub:first-of-type { margin-top: clamp(40px, 4.5vw, 56px); }
+        .rd main h2 + .rd-sub:first-of-type { margin-top: 0; }
+
+        .rd main .rd-sub > .rd-sub-no {
+            margin-bottom: 18px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: .08em;
+            font-variant-numeric: tabular-nums;
+            color: var(--rd-green-2);
+        }
+
+        .rd main .rd-sub > .rd-sub-no + *,
+        .rd main .rd-sub > .rd-sub-no + h3,
+        .rd main .rd-sub > h3:first-of-type { margin-top: 0 !important; }
+
+        .rd main .rd-sub > h3 + .wf-scope { margin-top: 0 !important; }
+
+        /* inside a numbered subsection the workflow cards no longer repeat its label */
+        .rd main .rd-sub .wf-section .wf-inner > .flex.items-center:has(> .wf-eyebrow) { display: none !important; }
+
+        /* the floating figure over the video keeps its place, in the same card language */
+        .rd main div.absolute.bg-white.border.rounded-xl {
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 18px !important;
+            padding: 14px 22px 14px 14px !important;
+            box-shadow: 0 18px 40px -24px rgba(11, 42, 31, .35) !important;
+        }
+
+        .rd main div.absolute.bg-white.border.rounded-xl > span.w-10.h-10 {
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 12px !important;
+            background: #ffffff !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line) !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd main div.absolute.bg-white.border.rounded-xl > span.w-10.h-10 .material-symbols-outlined {
+            font-size: 22px !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd main div.absolute.bg-white.border.rounded-xl p.font-h4 {
+            font-size: 22px !important;
+            font-weight: 500 !important;
+            color: var(--rd-green) !important;
+        }
+
+        /* ---- Carried to the other sector pages (14 Sep 2026) ---------------------------
+           A card whose requirement has no lead phrase is its line alone, set as the title
+           weight; a small label introduces a list inside a subsection. */
+        .rd main .rd-card .rd-card-text.is-lead {
+            font-size: 16px !important;
+            line-height: 1.55 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd main .rd-sub-label {
+            margin: 36px 0 14px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--rd-green-2);
+        }
+
+
+        /* ---- Resource logos (14 Sep 2026) ------------------------------------------------
+           Each resource row leads with its organisation's logo in a small white tile, in
+           place of the row number. */
+        .rd main .rd-links > li { grid-template-columns: minmax(0, 1fr); padding: 14px 0 !important; }
+        .rd main .rd-links > li::before { content: none; display: none; }
+        .rd main .rd-links > li > a { align-items: center; gap: 14px; }
+        .rd main .rd-links .rd-link-logo {
+            display: flex;
+            flex: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: inset 0 0 0 1px var(--rd-line);
+            color: var(--rd-green);
+        }
+        .rd main .rd-links .rd-link-logo img { width: 28px; height: 28px; object-fit: contain; }
+        .rd main .rd-links .rd-link-logo .material-symbols-outlined { font-size: 20px !important; color: var(--rd-green) !important; }
+        .rd main .rd-links .rd-link-name { flex: 1 1 auto; min-width: 0; }
+        .rd main .rd-links .rd-link-url { flex: none; max-width: 45%; }
+
+        /* ---- Headings run the full width (14 Sep 2026) -----------------------------------
+           Headings are no longer balanced into even short lines or held to a narrow column:
+           a title stays on one line while there is room for it, and only breaks where the
+           space actually ends. The hero title may use the full content width; its lead
+           paragraph keeps its own measure. */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3,
+        .rd main h4,
+        .rd .wf-title {
+            text-wrap: wrap !important;
+        }
+
+        .rd main > section:first-of-type .max-w-3xl,
+        .rd .sec-hero-copy {
+            max-width: none !important;
+        }
+
+        .rd main > section:first-of-type h1 {
+            max-width: none !important;
+        }
+    </style>
+    <style id="kf-motion-style">
+        /* =====================================================================
+           KEY FACTS - TYPE AND MOTION (11 Sep 2026)
+
+           Solar's Key Facts finish, rebuilt for the chart components this page
+           uses. Identical on the nine sector pages that share these components.
+
+           Type: figures and names inside the charts move to the serif, as
+           Solar's figures did; tick labels, years, chips and captions that are
+           interface rather than reading stay in the sans.
+
+           Motion is opt-in exactly as on Solar. The script sets .kf-armed
+           before anything is hidden, marks a card .is-revealing only while its
+           draw-in runs, and only then .kf-live, which is what the hover replays
+           key on. Wherever the markup already positions an element with
+           transform (pins, tags, labels, badges, rotors), the motion uses the
+           individual scale / translate / rotate properties, which compose with
+           that transform instead of replacing it, so nothing leaves its place.
+           At rest every chart is exactly what the markup draws.
+           ===================================================================== */
+        :root {
+            --kf-ease: cubic-bezier(.22, .61, .36, 1);
+        }
+
+        /* ---- Cards: every fact card, the full-width ones included ------------- */
+        .rd #facts div.rounded-2xl.border {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top: 3px solid #dfa800 !important;
+            border-radius: 22px !important;
+        }
+
+        .rd #facts .max-w-7xl > div.rounded-2xl.border {
+            margin-top: 20px !important;
+        }
+
+        /* Nothing sits beside a full-width card's description, so it takes the width. */
+        .rd #facts .max-w-7xl > div.rounded-2xl.border .max-w-xl {
+            max-width: none !important;
+        }
+
+        .rd #facts .kf-tile {
+            background: rgba(255, 255, 255, .55);
+            border-color: var(--rd-line);
+            border-radius: 16px;
+        }
+
+        /* ---- Type inside the charts -------------------------------------------- */
+        .rd #facts .kf-bold-stat-figure {
+            font-family: var(--rd-serif);
+            font-weight: 400;
+            font-size: clamp(52px, 5vw, 68px);
+            letter-spacing: -0.035em;
+        }
+
+        .rd #facts .kf-bold-stat-subtitle,
+        .rd #facts .kf-tile-caption {
+            font-family: var(--rd-serif);
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.32;
+            letter-spacing: -0.006em;
+            color: var(--rd-ink);
+        }
+
+        .rd #facts .kf-bold-stat-subtitle {
+            max-width: 300px;
+        }
+
+        .rd #facts .kf-bold-stat-note,
+        .rd #facts .kf-growth-caption,
+        .rd #facts .kf-map-note {
+            font-family: var(--rd-serif);
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+        .rd #facts .kf-growth-caption {
+            font-weight: 500;
+        }
+
+        .rd #facts .kf-tile-note {
+            font-size: 11px;
+            color: var(--rd-ink-3);
+        }
+
+        .rd #facts .kf-note {
+            font-family: var(--rd-serif);
+            font-style: italic;
+            font-size: 13.5px;
+            color: var(--rd-ink-3);
+        }
+
+        .rd #facts .kf-compare-value {
+            font-family: var(--rd-serif);
+            font-weight: 500;
+            font-size: 21px;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .rd #facts .kf-range-value {
+            top: -34px;
+            font-family: var(--rd-serif);
+            font-weight: 500;
+            font-size: 19px;
+            letter-spacing: -0.02em;
+        }
+
+        /* An end tag pinned at left:100% has no room to its right, so as an
+           absolutely positioned box it shrank to its longest word and stacked
+           down over the track. It now sizes to its text, up to a cap, and
+           aligns to the end it belongs to; the start tag no longer hangs half
+           off the card. */
+        .rd #facts .kf-range-tag {
+            width: max-content;
+            /* each tag keeps to its own half of the track, so on a phone the
+               two wrap instead of running into each other */
+            max-width: min(180px, 46%);
+        }
+
+        /* both spellings: the motion script adds a custom property to the style
+           attribute, and the browser rewrites "left:0%" as "left: 0%" when it does */
+        .rd #facts .kf-range-tag:is([style*="left:0%"], [style*="left: 0%"]) {
+            transform: none !important;
+            text-align: left;
+        }
+
+        .rd #facts .kf-range-tag:is([style*="left:100%"], [style*="left: 100%"]) {
+            text-align: right;
+        }
+
+        .rd #facts .kf-scale-pin span {
+            top: -30px;
+            font-family: var(--rd-serif);
+            font-weight: 500;
+            font-size: 14.5px;
+            letter-spacing: -0.01em;
+            color: var(--rd-ink);
+        }
+
+        .rd #facts .kf-legend-item {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--rd-ink-3);
+        }
+
+        .rd #facts .kf-legend-item b,
+        .rd #facts .kf-donut + ul .font-bold {
+            margin-right: 2px;
+            font-family: var(--rd-serif);
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: -0.01em;
+            color: var(--rd-ink);
+        }
+
+        .rd #facts .kf-sector-name {
+            font-family: var(--rd-serif);
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--rd-ink);
+        }
+
+        .rd #facts .kf-map-scale-labels span {
+            font-family: var(--rd-serif);
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--rd-ink-2);
+        }
+
+        .rd #facts .kf-badge {
+            font-family: var(--rd-sans);
+            font-weight: 600;
+            letter-spacing: .01em;
+            padding: 5px 13px;
+        }
+
+        .rd #facts .kf-timeline-year,
+        .rd #facts .kf-timeline-tag,
+        .rd #facts .kf-wedge-label {
+            font-weight: 600;
+        }
+
+        .rd #facts .kf-node-label {
+            font-family: var(--rd-serif);
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .rd #facts .kf-node-label.is-hub {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .rd #facts .kf-growth text,
+        .rd #facts .kf-route text {
+            font-family: var(--rd-serif);
+            font-weight: 600;
+        }
+
+        /* ---- Motion: what each moving part turns around --------------------------- */
+        #facts .kf-scale-fill,
+        #facts .kf-range-bracket,
+        #facts .kf-timeline-band {
+            transform-origin: 0 50%;
+        }
+
+        #facts .kf-compare-bar,
+        #facts .kf-compare-fill,
+        #facts .kf-sector-bar {
+            transform-origin: 50% 100%;
+            transition: opacity .25s ease, filter .25s ease;
+        }
+
+        #facts .kf-shape,
+        #facts .kf-dot,
+        #facts .kf-heat,
+        #facts .kf-site-pin,
+        #facts .kf-node,
+        #facts .kf-hub,
+        #facts .kf-g-start,
+        #facts .kf-g-end,
+        #facts .kf-origin,
+        #facts .kf-market {
+            transform-box: fill-box;
+            transform-origin: 50% 50%;
+        }
+
+        #facts .kf-wash {
+            transform-box: fill-box;
+            transform-origin: 50% 0;
+        }
+
+        #facts .kf-wash-line,
+        #facts .kf-g-base {
+            transform-box: fill-box;
+            transform-origin: 0 50%;
+        }
+
+        #facts .kf-rotor {
+            transform-box: view-box;
+        }
+
+        #facts .kf-map-scale {
+            transform-origin: 50% 0;
+        }
+
+        #facts .kf-link {
+            stroke-dasharray: var(--len) var(--len);
+        }
+
+        /* The timeline's rule is drawn as a background image the same colour as
+           before, so it can draw across without scaling the stops sitting on it. */
+        #facts .kf-timeline-track {
+            background: linear-gradient(#e0e3e1, #e0e3e1) no-repeat 0 0 / 100% 100%;
+        }
+
+        /* hover only: a green pass along the rule, and a spark along the scale */
+        #facts .kf-timeline-track::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: #004225;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #facts .kf-scale-fill::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            margin-top: -4px;
+            border-radius: 50%;
+            background: #f7be26;
+            box-shadow: 0 0 0 3px rgba(247, 190, 38, .3);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #facts .kf-timeline-point.is-end::after {
+            content: "";
+            position: absolute;
+            inset: -5px;
+            border: 2px solid #f7be26;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Donut slices answer the pointer on their stroke only, and pair with
+           their legend row: pointing at either steps the others back. */
+        #facts .kf-donut circle[stroke-dasharray] {
+            pointer-events: visibleStroke;
+            transition: opacity .3s ease, stroke-width .3s ease;
+        }
+
+        #facts .kf-donut.is-focus circle[stroke-dasharray]:not(.is-hot) {
+            opacity: .28;
+        }
+
+        #facts .kf-donut circle.is-hot {
+            stroke-width: 7.4px;
+        }
+
+        #facts .kf-donut + * > * {
+            transition: opacity .3s ease;
+        }
+
+        #facts .kf-donut + .is-focus > :not(.is-hot) {
+            opacity: .4;
+        }
+
+        #facts :is(.kf-compare, .kf-compare-row):has(.kf-compare-col:hover) .kf-compare-col:not(:hover) :is(.kf-compare-bar, .kf-compare-fill),
+        #facts .kf-sectors:has(.kf-sector-col:hover) .kf-sector-col:not(:hover) .kf-sector-bar {
+            opacity: .45;
+        }
+
+        #facts .kf-compare-col:hover :is(.kf-compare-bar, .kf-compare-fill),
+        #facts .kf-sector-col:hover .kf-sector-bar {
+            filter: brightness(1.15);
+        }
+
+        .kf-sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        /* ---- Start states: only once the script has armed the section -------------- */
+        .kf-armed .kf-card:not(.is-in) :is(.kf-scale-fill, .kf-range-bracket, .kf-timeline-band, .kf-wash-line, .kf-g-base) {
+            transform: scaleX(0);
+        }
+
+        .kf-armed .kf-card:not(.is-in) :is(.kf-compare-bar, .kf-compare-fill, .kf-sector-bar, .kf-wash, .kf-map-scale) {
+            transform: scaleY(0);
+        }
+
+        .kf-armed .kf-card:not(.is-in) .kf-timeline-track {
+            background-size: 0% 100%;
+        }
+
+        .kf-armed .kf-card:not(.is-in) .kf-link {
+            stroke-dashoffset: var(--len);
+        }
+
+        .kf-armed .kf-card:not(.is-in) .kf-route svg {
+            clip-path: inset(0 100% 0 0);
+        }
+
+        .kf-armed .kf-card:not(.is-in) :is(.kf-scale-pin, .kf-scale-label, .kf-note, .kf-timeline-point,
+            .kf-timeline-year, .kf-timeline-tag, .kf-timeline-milestone, .kf-wedge-label, .kf-compare-arrow,
+            .kf-compare-label, .kf-compare-value, .kf-sector-name, .kf-donut, .kf-donut + * > *, .kf-tile,
+            .kf-badge, .kf-tile-caption, .kf-tile-note, .kf-shape, .kf-dot, .kf-map-state, .kf-heat,
+            .kf-site-pin, .kf-node, .kf-hub, .kf-g-start, .kf-g-end, .kf-g-text, .kf-growth-caption,
+            .kf-map-band, .kf-map-scale-labels span, .kf-map-note, .kf-origin, .kf-market, .kf-ship,
+            .kf-route text, .kf-route-legend-item, .kf-bold-stat > *, .kf-range-point, .kf-range-value,
+            .kf-range-tag) {
+            opacity: 0;
+        }
+
+        /* ---- Draw-in ---------------------------------------------------------------- */
+        /* scale and range: the span grows from its left edge, the stops arrive in order */
+        .kf-card.is-revealing :is(.kf-scale-fill, .kf-range-bracket) { animation: kfGrowX 1.1s var(--kf-ease) .15s backwards; }
+        .kf-card.is-revealing :is(.kf-scale-pin, .kf-range-point, .kf-timeline-point) { animation: kfPop .5s var(--kf-ease) var(--d, .3s) backwards; }
+        .kf-card.is-revealing :is(.kf-scale-label, .kf-timeline-year, .kf-timeline-milestone, .kf-range-tag) { animation: kfLift .5s var(--kf-ease) calc(var(--d, .3s) + .1s) backwards; }
+        .kf-card.is-revealing .kf-range-value { animation: kfDrop .5s var(--kf-ease) calc(var(--d, .3s) + .1s) backwards; }
+        .kf-card.is-revealing .kf-note { animation: kfFade .6s ease 1.25s backwards; }
+
+        /* timeline: the rule draws, each stop lands as the rule reaches it */
+        .kf-card.is-revealing .kf-timeline-track { animation: kfLine 1.2s var(--kf-ease) .15s backwards; }
+        .kf-card.is-revealing .kf-timeline-band { animation: kfGrowX .9s var(--kf-ease) calc(var(--d, .3s) + .05s) backwards; }
+        .kf-card.is-revealing :is(.kf-timeline-tag, .kf-wedge-label) { animation: kfDrop .55s var(--kf-ease) calc(var(--d, .3s) + .3s) backwards; }
+        .kf-card.is-revealing .kf-timeline-point.is-end::after { animation: kfHalo 1.1s ease-out calc(var(--d, .3s) + .45s); }
+
+        /* before / after: the first column grows, the arrow, then the second */
+        .kf-card.is-revealing .kf-compare-col:first-child :is(.kf-compare-bar, .kf-compare-fill) { animation: kfGrowY .9s var(--kf-ease) .15s backwards; }
+        .kf-card.is-revealing .kf-compare-col:first-child :is(.kf-compare-label, .kf-compare-value) { animation: kfLift .5s var(--kf-ease) .35s backwards; }
+        .kf-card.is-revealing .kf-compare-arrow { animation: kfFade .35s ease .55s backwards; }
+        .kf-card.is-revealing .kf-compare-col:last-child :is(.kf-compare-bar, .kf-compare-fill) { animation: kfGrowY .9s var(--kf-ease) .65s backwards; }
+        .kf-card.is-revealing .kf-compare-col:last-child :is(.kf-compare-label, .kf-compare-value) { animation: kfLift .5s var(--kf-ease) .85s backwards; }
+        .kf-card.is-revealing .kf-sector-bar { animation: kfGrowY .9s var(--kf-ease) calc(.15s + var(--i, 0) * .14s) backwards; }
+        .kf-card.is-revealing .kf-sector-name { animation: kfLift .5s var(--kf-ease) calc(.35s + var(--i, 0) * .14s) backwards; }
+
+        /* donut: the ring settles in while the script sweeps the slices; the legend follows */
+        .kf-card.is-revealing .kf-donut { animation: kfZoom .7s var(--kf-ease) .05s backwards; }
+        .kf-card.is-revealing .kf-donut + * > * { animation: kfSlide .5s var(--kf-ease) calc(.35s + var(--i, 0) * .1s) backwards; }
+
+        /* tiles: the tile rises, its graphic assembles, the badge pops onto its edge */
+        .kf-card.is-revealing .kf-tile { animation: kfRise .7s var(--kf-ease) calc(.1s + var(--i, 0) * .12s) backwards; }
+        .kf-card.is-revealing .kf-shape { animation: kfZoomFade .7s var(--kf-ease) calc(.45s + var(--i, 0) * .16s) backwards; }
+        .kf-card.is-revealing .kf-heat { animation: kfBloom 1s var(--kf-ease) calc(.35s + var(--i, 0) * .12s) backwards; }
+        .kf-card.is-revealing .kf-dot { animation: kfPop .45s var(--kf-ease) calc(.9s + var(--i, 0) * .12s) backwards; }
+        .kf-card.is-revealing .kf-site-pin { animation: kfDrop .5s var(--kf-ease) calc(.7s + var(--i, 0) * .07s) backwards; }
+        .kf-card.is-revealing .kf-map-state { animation: kfFade .5s ease 1.2s backwards; }
+        .kf-card.is-revealing .kf-rotor { animation: kfSpinIn 1.8s cubic-bezier(.16, .7, .3, 1) calc(.2s + var(--i, 0) * .12s) backwards; }
+        .kf-card.is-revealing .kf-badge { animation: kfPop .5s var(--kf-ease) calc(.9s + var(--i, 0) * .12s) backwards; }
+        .kf-card.is-revealing .kf-tile-caption { animation: kfLift .5s var(--kf-ease) calc(.7s + var(--i, 0) * .12s) backwards; }
+        .kf-card.is-revealing .kf-tile-note { animation: kfLift .5s var(--kf-ease) calc(.8s + var(--i, 0) * .12s) backwards; }
+
+        /* network: the hub first, the links draw out to the nodes, the nodes arrive */
+        .kf-card.is-revealing .kf-hub { animation: kfPop .6s var(--kf-ease) .15s backwards; }
+        .kf-card.is-revealing .kf-link { animation: kfDash .8s cubic-bezier(.65, 0, .35, 1) calc(.45s + var(--i, 0) * .1s) backwards; }
+        .kf-card.is-revealing .kf-node { animation: kfPop .55s var(--kf-ease) calc(.95s + var(--i, 0) * .12s) backwards; }
+
+        /* growth curve: the script draws the line; the ends and labels land around it */
+        .kf-card.is-revealing .kf-g-base { animation: kfGrowX .8s var(--kf-ease) .05s backwards; }
+        .kf-card.is-revealing .kf-g-start { animation: kfPop .45s var(--kf-ease) .2s backwards; }
+        .kf-card.is-revealing .kf-g-text { animation: kfFade .5s ease calc(.35s + var(--i, 0) * 1.2s) backwards; }
+        .kf-card.is-revealing .kf-g-end { animation: kfPop .5s var(--kf-ease) 1.5s backwards; }
+        .kf-card.is-revealing .kf-growth-caption { animation: kfLift .6s var(--kf-ease) 1.7s backwards; }
+
+        /* irradiation map: the shading pours in north to south, the legend with it */
+        .kf-card.is-revealing .kf-wash { animation: kfGrowY 1.3s cubic-bezier(.65, 0, .35, 1) .15s backwards; }
+        .kf-card.is-revealing .kf-wash-line { animation: kfGrowX .8s var(--kf-ease) calc(1s + var(--i, 0) * .15s) backwards; }
+        .kf-card.is-revealing .kf-map-band { animation: kfFade .5s ease calc(1.2s + var(--i, 0) * .15s) backwards; }
+        .kf-card.is-revealing .kf-map-scale { animation: kfGrowY 1.3s cubic-bezier(.65, 0, .35, 1) .35s backwards; }
+        .kf-card.is-revealing .kf-map-scale-labels span { animation: kfSlide .5s var(--kf-ease) calc(.5s + var(--i, 0) * .35s) backwards; }
+        .kf-card.is-revealing .kf-map-note { animation: kfLift .6s var(--kf-ease) 1.5s backwards; }
+
+        /* shipping routes: the lanes open out from Nigeria, then the markets */
+        .kf-card.is-revealing .kf-route svg { animation: kfWipe 1.8s cubic-bezier(.65, 0, .35, 1) .1s backwards; }
+        .kf-card.is-revealing .kf-origin { animation: kfPop .5s var(--kf-ease) .15s backwards; }
+        .kf-card.is-revealing .kf-ship { animation: kfFade .5s ease calc(.9s + var(--i, 0) * .3s) backwards; }
+        .kf-card.is-revealing .kf-market { animation: kfPop .5s var(--kf-ease) calc(1.2s + var(--i, 0) * .35s) backwards; }
+        .kf-card.is-revealing .kf-route text { animation: kfFade .5s ease calc(.3s + var(--i, 0) * .5s) backwards; }
+        .kf-card.is-revealing .kf-route-legend-item { animation: kfLift .5s var(--kf-ease) calc(1.6s + var(--i, 0) * .12s) backwards; }
+
+        /* bold stat */
+        .kf-card.is-revealing .kf-bold-stat > * { animation: kfRise .7s var(--kf-ease) calc(.15s + var(--i, 0) * .18s) backwards; }
+
+        /* ---- Hover: the chart moves, the card does not -------------------------------
+           Replays that never blank anything out: spans regrow from a third, bars
+           settle from the height they are compared against, stops bump in the
+           order they sit. */
+        .kf-card.kf-live:hover :is(.kf-scale-fill, .kf-range-bracket, .kf-timeline-band) { animation: kfRegrowX .8s var(--kf-ease) backwards; }
+        .kf-card.kf-live:hover .kf-scale-fill::after { animation: kfSpark 1.6s cubic-bezier(.45, 0, .55, 1) .5s infinite; }
+        .kf-card.kf-live:hover :is(.kf-scale-pin, .kf-range-point, .kf-timeline-point) { animation: kfBump .45s ease calc(var(--d, .3s) * .7); }
+        .kf-card.kf-live:hover .kf-timeline-track::before { animation: kfSweep 1.4s var(--kf-ease) forwards; }
+        .kf-card.kf-live:hover .kf-timeline-tag { animation: kfTap .45s ease calc(var(--d, .3s) * .7 + .2s); }
+        .kf-card.kf-live:hover .kf-timeline-point.is-end::after { animation: kfHalo 1s ease-out calc(var(--d, .3s) * .7 + .15s); }
+
+        .kf-card.kf-live:hover .kf-compare-col:first-child :is(.kf-compare-bar, .kf-compare-fill) { animation: kfRegrowY .7s var(--kf-ease) backwards; }
+        .kf-card.kf-live:hover .kf-compare-col:last-child :is(.kf-compare-bar, .kf-compare-fill) { animation: kfSettle 1s var(--kf-ease) .25s backwards; }
+        .kf-card.kf-live:hover .kf-compare-arrow { animation: kfNudge .9s ease .1s; }
+        .kf-card.kf-live:hover .kf-sector-bar { animation: kfRegrowY .7s var(--kf-ease) calc(var(--i, 0) * .1s) backwards; }
+
+        .kf-card.kf-live:hover .kf-rotor { animation: kfSpin 2.2s linear infinite; }
+        .kf-card.kf-live:hover .kf-badge { animation: kfTap .5s ease calc(.15s + var(--i, 0) * .12s); }
+        .kf-card.kf-live:hover :is(.kf-dot, .kf-site-pin) { animation: kfBump .5s ease calc(var(--i, 0) * .08s); }
+        .kf-card.kf-live:hover .kf-heat { animation: kfBreathe 1.6s ease-in-out calc(var(--i, 0) * .15s) infinite; }
+
+        .kf-card.kf-live:hover .kf-link { stroke: #80a192; stroke-dasharray: 3 5; animation: kfMarch 1.1s linear infinite; }
+        .kf-card.kf-live:hover circle.kf-hub { animation: kfGlow 1.6s ease infinite; }
+        .kf-card.kf-live:hover .kf-node { animation: kfTap .5s ease calc(.1s + var(--i, 0) * .12s); }
+
+        .kf-card.kf-live:hover .kf-g-end { animation: kfGlow 1.6s ease .6s infinite; }
+
+        .kf-card.kf-live:hover :is(.kf-wash, .kf-map-scale) { animation: kfRegrowY .9s var(--kf-ease) backwards; }
+
+        .kf-card.kf-live:hover .kf-lane { animation: kfMarch .9s linear infinite; }
+        .kf-card.kf-live:hover .kf-market { animation: kfGlow 1.6s ease calc(var(--i, 0) * .4s) infinite; }
+        .kf-card.kf-live:hover .kf-ship { animation: kfBob 1.8s ease-in-out calc(var(--i, 0) * .3s) infinite; }
+
+        .kf-card.kf-live:hover .kf-bold-stat-figure { animation: kfTap .6s ease; }
+
+        @keyframes kfGrowX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        @keyframes kfGrowY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+        @keyframes kfRegrowX { from { transform: scaleX(.3); } to { transform: scaleX(1); } }
+        @keyframes kfRegrowY { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
+        @keyframes kfSettle { from { transform: scaleY(var(--kf-from, 1.4)); } to { transform: scaleY(1); } }
+        @keyframes kfLine { from { background-size: 0% 100%; } to { background-size: 100% 100%; } }
+        @keyframes kfDash { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+        @keyframes kfWipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+        @keyframes kfFade { from { opacity: 0; } }
+        @keyframes kfPop { from { opacity: 0; scale: .5; } }
+        @keyframes kfZoom { from { opacity: 0; scale: .88; } }
+        @keyframes kfZoomFade { from { opacity: 0; scale: .8; } }
+        @keyframes kfBloom { from { opacity: 0; scale: .2; } }
+        @keyframes kfLift { from { opacity: 0; translate: 0 8px; } }
+        @keyframes kfDrop { from { opacity: 0; translate: 0 -10px; } }
+        @keyframes kfRise { from { opacity: 0; translate: 0 16px; } }
+        @keyframes kfSlide { from { opacity: 0; translate: -10px 0; } }
+        @keyframes kfSpinIn { from { rotate: -300deg; } to { rotate: 0deg; } }
+        @keyframes kfSpin { from { rotate: 0deg; } to { rotate: 360deg; } }
+        @keyframes kfBump { 0%, 100% { scale: 1; } 45% { scale: 1.45; } }
+        @keyframes kfTap { 0%, 100% { scale: 1; } 50% { scale: 1.1; } }
+        @keyframes kfBreathe { 0%, 100% { scale: 1; } 50% { scale: 1.15; } }
+        @keyframes kfNudge { 0%, 100% { translate: 0 0; } 50% { translate: 4px 0; } }
+        @keyframes kfBob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -2px; } }
+        @keyframes kfHalo { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(2.4); } }
+        @keyframes kfSpark { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 80% { opacity: 1; } 100% { left: calc(100% - 8px); opacity: 0; } }
+        @keyframes kfSweep { 0% { transform: scaleX(0); opacity: 1; } 70% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+        @keyframes kfMarch { to { stroke-dashoffset: -16; } }
+        @keyframes kfGlow { 0%, 100% { filter: drop-shadow(0 0 0 rgba(247, 190, 38, 0)); } 50% { filter: drop-shadow(0 0 5px rgba(247, 190, 38, .9)); } }
     </style>
 </head>
 
-<body class="font-body-md overflow-x-hidden">
+<body class="font-body-md overflow-x-hidden rd">
+<!-- DAT-03: every headline figure carries source, what it measures, and an
+     "as at" date. The dates are PLACEHOLDERS for the design: each is set to the
+     reference period of the source cited beside it, and all of them are replaced
+     with confirmed dates once the client supplies them. -->
+
     <!-- TopNavBar -->
     <div id="site-nav"></div>
     <main>
@@ -363,7 +2734,7 @@
               rather than eyeballed; see the note on the gradients below.
             -->
             <div class="absolute inset-0 bg-cover bg-bottom"
-                data-alt="Nigerian agriculture PUE landscape" style="background-image: url('sector-AgriculturePUE-hero.jpg')">
+                data-alt="Nigerian agriculture PUE landscape" style="background-image: url('sector-AgriculturePUE-hero-ng.jpg')">
             </div>
             <!--
               Vignette / depth gradients. The left-to-right scrim is what makes
@@ -440,23 +2811,21 @@
         </section>
 
         <!-- Sector Overview: text left / image right -->
-        <section class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16" id="overview">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <section class="ovw max-w-7xl mx-auto px-6 lg:px-8 py-14 lg:py-20" id="overview">
+            <div class="ovw-grid">
                 <!-- Text -->
-                <div>
-                    <span
-                        class="inline-flex items-center gap-3 text-secondary font-bold text-label-md uppercase tracking-[0.18em] mb-5">
-                        <span class="w-8 h-[2px] bg-tertiary-fixed-dim"></span> Sector Overview
-                    </span>
-                    <h2 class="font-h2 text-h2 text-primary leading-tight mb-6">From Pilots to Scale: Agriculture PUE in
+                <div class="ovw-copy">
+                    <span class="ovw-eyebrow ovw-rise" style="--o:0"><span aria-hidden="true"></span>Sector Overview</span>
+                    <h2 class="ovw-title ovw-rise" style="--o:1">From Pilots to Scale: Agriculture PUE in
                         Nigeria</h2>
-                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">
+                    <div class="ovw-body">
+                        <p class="ovw-lede ovw-rise" style="--o:2">
                         Nigeria's agriculture PUE market is one of the most tangible investment opportunities in the
                         country's clean energy space. Farmers are already deploying solar irrigation pumps, electric
                         crop dryers, cold storage units, and agro-processing equipment to cut costs, reduce post-harvest
                         losses, and raise incomes.
                     </p>
-                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-5">
+                        <p class="ovw-rise" style="--o:3">
                         In November 2025, the Rural Electrification Agency, in partnership with the Global Environment
                         Facility and UNDP, commissioned a 50kWp solar mini grid in Namu, Plateau State, under the Africa
                         Mini Grids Programme, designed specifically to power agricultural value chains, including rice
@@ -465,7 +2834,7 @@
                         mini-grids as a core, replicable pillar of Nigeria's rural electrification strategy rather than
                         a pilot exercise.
                     </p>
-                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">
+                        <p class="ovw-rise" style="--o:4">
                         Demand is structurally strong and geographically broad. The highest concentration of opportunity
                         sits in the North-Central crop belt, North-West and North-East high off-grid agricultural zones,
                         South-West agribusiness markets, and South-East and South-South processing corridors. Under the
@@ -475,28 +2844,27 @@
                         assets themselves: solar irrigation systems, cold chain infrastructure, agro-processing
                         equipment, and crop-drying assets.
                     </p>
-                    <a href="Opportunities.html"
-                        class="inline-flex items-center gap-2 bg-primary-container text-white px-7 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
-                        Explore Opportunities <span class="material-symbols-outlined text-lg">arrow_forward</span>
-                    </a>
+                    </div>
+                    <div class="ovw-actions ovw-rise" style="--o:5">
+                        <a href="Opportunities.html" class="osip-btn osip-btn-primary">
+                            <span>Explore Opportunities</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
                 </div>
                 <!-- Image -->
-                <div class="relative">
-                    <div class="overflow-hidden rounded-2xl shadow-xl">
-                        <img alt="Agriculture PUE deployment in Nigeria"
-                            class="w-full h-72 sm:h-96 lg:h-[480px] object-cover" src="sector-AgriculturePUE-2.jpg" />
-                    </div>
-                    <!-- Floating stat card -->
-                    <div
-                        class="absolute -bottom-6 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 sm:px-6 py-4 flex items-center gap-4">
-                        <span
-                            class="w-12 h-12 bg-primary-container text-white rounded-lg flex items-center justify-center"><span
-                                class="material-symbols-outlined"
-                                style="font-variation-settings: 'FILL' 1;">agriculture</span></span>
-                        <div>
-                            <p class="font-h3 text-h3 text-primary leading-none">$750M</p>
-                            <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">World Bank
+                <div class="ovw-media">
+                    <div class="ovw-sticky">
+                        <figure class="ovw-photo">
+                            <img alt="Agriculture PUE deployment in Nigeria" decoding="async" src="sector-AgriculturePUE-2.jpg" />
+                        </figure>
+                        <!-- Floating stat card -->
+                        <div class="ovw-stat">
+                            <span class="material-symbols-outlined ovw-stat-icon" aria-hidden="true">agriculture</span>
+                            <div>
+                                <p class="ovw-stat-value">$750M</p>
+                                <p class="ovw-stat-label">World Bank
                                 DARES Programme</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -532,7 +2900,7 @@
                             </div>
                         </div>
                         <p class="text-[#9aa39e] text-[11px] mt-auto pt-4 border-t border-[#eef0ef]">Source: World Bank,
-                            2023.</p>
+                            2023. Data as at: June 2023.</p>
                     </div>
 
                     <!-- 82% -->
@@ -570,7 +2938,7 @@
                         </div>
                         <!-- <p class="kf-note">82% energy cost reduction from productive use equipment</p> -->
                         <p class="text-[#9aa39e] text-[11px] mt-auto pt-4 border-t border-[#eef0ef]">Source: RMI,
-                            "Harvesting Sunshine", September 2024.</p>
+                            "Harvesting Sunshine", September 2024. Data as at: September 2024.</p>
                     </div>
 
                 </div>
@@ -601,7 +2969,7 @@
                         </div>
                     </div>
                     <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: RMI, "Harvesting
-                        Sunshine", September 2024.</p>
+                        Sunshine", September 2024. Data as at: September 2024.</p>
                 </div>
             </div>
         </section>
@@ -628,8 +2996,8 @@
                             seven days with no minimum share capital requirement and full foreign ownership rights.</p>
                         <p>The tax baseline is consistent with the rest of the RE sector: 30% CIT, 7.5% VAT, TCC
                             requirements, and Pioneer Status eligibility for a three-to-five-year CIT holiday via NIPC.
-                            Import duty exemptions at 0% cover eligible RE equipment including pumps, generators, and
-                            processing machinery under ECOWAS CET and 2026 NTA provisions.</p>
+                            RE equipment including pumps, generators, and processing machinery may be eligible for 0% import
+                            duty under ECOWAS CET and 2026 NTA provisions.</p>
                         <p>What distinguishes Agriculture PUE at the entry stage is the direct link between PUE
                             appliances - solar irrigation systems, agro-processing equipment, cold chain assets and the
                             Rural Electrification Fund (REF) subsidy eligibility, as well as the productive load
@@ -684,6 +3052,9 @@
                     </div>
                 </div>
 
+                <!-- CON-03 eligibility note (incentivenote.js) -->
+                <div class="osip-incentive-note"></div>
+
                 <!-- Key Message -->
                 <div class="mt-8 lg:mt-10 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
                     <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
@@ -711,30 +3082,21 @@
                     style="font-family: Manrope, sans-serif;">How Investors Can Participate</h2>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Regulatory treatment for agriculture
                     PUE splits along two lines: whether electricity generation is involved, and project scale.</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">agriculture</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Non-electric Assets</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Irrigation pumps, dryers, agro-processing
-                            equipment: the lightest regulatory pathway. No NERC license required unless electricity
-                            generation is part of the project.</p>
+                <div class="rd-cards grid">
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">agriculture</span></span>
+                        <h4 class="rd-card-title">Non-electric Assets</h4>
+                        <p class="rd-card-text">Irrigation pumps, dryers, agro-processing equipment: the lightest regulatory pathway. No NERC license required unless electricity generation is part of the project.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">hub</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Mini-Grid &amp; Off-Grid Electricity</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Governed by NERC Mini-Grid Regulations. Single
-                            permit for generation, distribution, and retail supply. Capacity up to 5 MW for isolated
-                            systems (10 MW interconnected). Projects below 100 kW benefit from simplified registration.
-                            Approvals typically within ~30 days.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">hub</span></span>
+                        <h4 class="rd-card-title">Mini-Grid &amp; Off-Grid Electricity</h4>
+                        <p class="rd-card-text">Governed by NERC Mini-Grid Regulations. Single permit for generation, distribution, and retail supply. Capacity up to 5 MW for isolated systems (10 MW interconnected). Projects below 100 kW benefit from simplified registration. Approvals typically within ~30 days.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">solar_power</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Solar Hybrid Mini-Grids (Agri-Anchor)</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Operate under NERC Mini-Grid Regulation
-                            framework. Eligible asset categories: irrigation, cold storage, and agro-processing.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">solar_power</span></span>
+                        <h4 class="rd-card-title">Solar Hybrid Mini-Grids (Agri-Anchor)</h4>
+                        <p class="rd-card-text">Operate under NERC Mini-Grid Regulation framework. Eligible asset categories: irrigation, cold storage, and agro-processing.</p>
                     </div>
                 </div>
             </div>
@@ -751,6 +3113,8 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
                     style="font-family: Manrope, sans-serif;">Regulations</h2>
 
+                <div class="rd-sub" id="regulations-1">
+                    <div class="rd-sub-no" aria-hidden="true">01</div>
                 <!-- Applicable Laws & Policies -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
                     style="font-family: Manrope, sans-serif;">Applicable Laws &amp; Policies</h3>
@@ -786,146 +3150,96 @@
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">ECOWAS
                         CET &amp; 2026 NTA</span>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="regulations-2">
+                    <div class="rd-sub-no" aria-hidden="true">02</div>
                 <!-- Regulatory Requirements -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
                     style="font-family: Manrope, sans-serif;">Regulatory Requirements</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">business</span>
-                        <p class="text-[#404846] text-[15px] leading-7">CAC incorporation 1&#8211;7 days; 100% foreign
-                            ownership.</p>
+                <div class="rd-cards grid">
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">business</span></span>
+                        <p class="rd-card-text is-lead">CAC incorporation 1&#8211;7 days; 100% foreign ownership.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">verified</span>
-                        <p class="text-[#404846] text-[15px] leading-7">NIPC registration via OSIC for Pioneer Status
-                            (3&#8211;5 year CIT holiday).</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">verified</span></span>
+                        <p class="rd-card-text is-lead">NIPC registration via OSIC for Pioneer Status (3&#8211;5 year CIT holiday).</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">forest</span>
-                        <p class="text-[#404846] text-[15px] leading-7">FMEnv EIA mandatory only for large-scale
-                            projects; smaller PUE deployments carry minimal compliance footprint.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">forest</span></span>
+                        <p class="rd-card-text is-lead">FMEnv EIA mandatory only for large-scale projects; smaller PUE deployments carry minimal compliance footprint.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">eco</span>
-                        <p class="text-[#404846] text-[15px] leading-7">NESREA governs pollution, waste control, and
-                            import clearance.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">eco</span></span>
+                        <p class="rd-card-text is-lead">NESREA governs pollution, waste control, and import clearance.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">terrain</span>
-                        <p class="text-[#404846] text-[15px] leading-7">Land acquisition under Land Use Act; state
-                            governors grant certificates of occupancy; growing encouragement to co-locate renewables on
-                            agricultural or degraded lands.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">terrain</span></span>
+                        <p class="rd-card-text is-lead">Land acquisition under Land Use Act; state governors grant certificates of occupancy; growing encouragement to co-locate renewables on agricultural or degraded lands.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">security</span>
-                        <p class="text-[#404846] text-[15px] leading-7">Environmental safeguards jointly administered
-                            through REA and state environmental bodies.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">security</span></span>
+                        <p class="rd-card-text is-lead">Environmental safeguards jointly administered through REA and state environmental bodies.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">payments</span>
-                        <p class="text-[#404846] text-[15px] leading-7">30% CIT; solar irrigation and agro-processing
-                            equipment benefit from 0% import duty &amp; VAT zero-rating under ECOWAS CET and 2026 NTA.
-                        </p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">payments</span></span>
+                        <p class="rd-card-text is-lead">30% CIT; solar irrigation and agro-processing equipment benefit from 0% import duty &amp; VAT zero-rating under ECOWAS CET and 2026 NTA.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span
-                            class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">account_balance</span>
-                        <p class="text-[#404846] text-[15px] leading-7">Agriculture PUE assets (irrigation, cold
-                            storage, agro-processing) qualify for REF subsidies under REA.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <p class="rd-card-text is-lead">Agriculture PUE assets (irrigation, cold storage, agro-processing) may be eligible for REF subsidies under REA.</p>
                     </div>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="regulations-3">
+                    <div class="rd-sub-no" aria-hidden="true">03</div>
                 <!-- Key Regulatory Agencies -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
                     style="font-family: Manrope, sans-serif;">Key Regulatory Agencies</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" data-no-glossary>
-                    <a href="https://www.rea.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Rural Electrification Agency (REA)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Runs off-grid, mini-grid and rural electrification programmes.</span>
-                        </span>
+                <div class="rd-cards grid" data-no-glossary>
+                    <a href="https://www.rea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="REA-logo.png" alt="REA logo" /></span>
+                        <span class="rd-card-title">Rural Electrification Agency (REA)</span>
+                        <span class="rd-card-text">Runs off-grid, mini-grid and rural electrification programmes.</span>
                     </a>
-                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
-                                class="w-8 h-8 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Nigerian Electricity Regulatory Commission
-                            (NERC)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Licenses generation, distribution, embedded generation and mini-grids, and sets tariffs.</span>
-                        </span>
+                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo" /></span>
+                        <span class="rd-card-title">Nigerian Electricity Regulatory Commission (NERC)</span>
+                        <span class="rd-card-text">Licenses generation, distribution, embedded generation and mini-grids, and sets tariffs.</span>
                     </a>
-                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Nigerian Electricity Management Services
-                            Agency (NEMSA)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Inspects and certifies electrical installations and equipment for safety.</span>
-                        </span>
+                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="NEMSA.png" alt="NEMSA logo" /></span>
+                        <span class="rd-card-title">Nigerian Electricity Management Services Agency (NEMSA)</span>
+                        <span class="rd-card-text">Inspects and certifies electrical installations and equipment for safety.</span>
                     </a>
-                    <a href="https://www.son.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Standards Organization of Nigeria
-                            (SON)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Sets product standards, with SONCAP for imports and MANCAP for local manufacture.</span>
-                        </span>
+                    <a href="https://www.son.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="son_png.png" alt="SON logo" /></span>
+                        <span class="rd-card-title">Standards Organization of Nigeria (SON)</span>
+                        <span class="rd-card-text">Sets product standards, with SONCAP for imports and MANCAP for local manufacture.</span>
                     </a>
-                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Nigerian Investment Promotion Commission
-                            (NIPC)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Registers investors and administers incentives such as Pioneer Status.</span>
-                        </span>
+                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="nipc-logo.png" alt="NIPC logo" /></span>
+                        <span class="rd-card-title">Nigerian Investment Promotion Commission (NIPC)</span>
+                        <span class="rd-card-text">Registers investors and administers incentives such as Pioneer Status.</span>
                     </a>
-                    <a href="https://www.environment.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="FMEnew.png" alt="Federal Ministry of Environment logo"
-                                class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Federal Ministry of Environment
-                            (FMEnv)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Sets environmental policy and approves Environmental Impact Assessments.</span>
-                        </span>
+                    <a href="https://www.environment.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="FMEnew.png" alt="Federal Ministry of Environment logo" /></span>
+                        <span class="rd-card-title">Federal Ministry of Environment (FMEnv)</span>
+                        <span class="rd-card-text">Sets environmental policy and approves Environmental Impact Assessments.</span>
                     </a>
-                    <a href="#"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 text-[#004225]">
-                            <span class="material-symbols-outlined">account_balance</span>
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">State Ministries of Environment</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Handle state-level environmental approvals and monitoring.</span>
-                        </span>
+                    <a href="#" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">State Ministries of Environment</span>
+                        <span class="rd-card-text">Handle state-level environmental approvals and monitoring.</span>
                     </a>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="regulations-4">
+                    <div class="rd-sub-no" aria-hidden="true">04</div>
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-6" style="font-family: Manrope, sans-serif;">Workflow Process</h3>
                 <!-- WORKFLOW PROCESS -->
                 <div class="wf-scope">
                     <style>
@@ -1563,6 +3877,8 @@
                             if (document.fonts && document.fonts.ready) { document.fonts.ready.then(drawAll); }
                         })();
                 </script>
+                </div>
+
             </div>
         </section>
 
@@ -1632,6 +3948,8 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
                     style="font-family: Manrope, sans-serif;">Finance</h2>
 
+                <div class="rd-sub" id="finance-1">
+                    <div class="rd-sub-no" aria-hidden="true">01</div>
                 <!-- Public Finance -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
                     style="font-family: Manrope, sans-serif;">Public Finance</h3>
@@ -1640,7 +3958,10 @@
                     NSIA-backed Fund are also available for mini-grid linked PUE projects. The NEP, DARES, and Solar
                     Naija programmes provide additional public financing pathways specifically designed for agriculture
                     PUE deployment.</p>
+                </div>
 
+                <div class="rd-sub" id="finance-2">
+                    <div class="rd-sub-no" aria-hidden="true">02</div>
                 <!-- Commercial Finance -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Commercial Finance</h3>
@@ -1667,20 +3988,30 @@
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Africa
                         Finance Corporation</span>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="finance-3">
+                    <div class="rd-sub-no" aria-hidden="true">03</div>
                 <!-- Guarantees & Risk Instruments -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Guarantees &amp; Risk Instruments</h3>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8">World Bank and AfDB Partial Risk Guarantees
                     (PRGs), MIGA political risk insurance, NSIA credit enhancements, and REA performance guarantees are
                     available for mini-grid linked projects.</p>
+                </div>
 
+                <div class="rd-sub" id="finance-4">
+                    <div class="rd-sub-no" aria-hidden="true">04</div>
                 <!-- Blended Finance -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Blended Finance</h3>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8">DARES blended structures &#8212; combining
                     World Bank grants, private debt, and donor co-funding &#8212; are the most active deal format.
                     Seasonal cash flows add complexity but are manageable with the right structuring.</p>
+                </div>
+
+                <!-- CON-03 eligibility note (incentivenote.js) -->
+                <div class="osip-incentive-note" data-variant="finance"></div>
 
                 <!-- Investor Outlook -->
                 <div class="mt-12 lg:mt-16 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
@@ -1689,7 +4020,7 @@
                     <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Investor
                             Outlook:</span> Agriculture PUE is commercially validated, and demand is proven. Investors
                         who can bundle asset financing with mini-grid infrastructure and leverage DARES, NEP, and Solar
-                        Naija de-risking will find the strongest path to bankable returns.</p>
+                        Naija de-risking are in the strongest commercial position in this market.</p>
                 </div>
             </div>
         </section>
@@ -1705,185 +4036,16 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
                     style="font-family: Manrope, sans-serif;">Featured Investment Areas</h2>
 
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's agriculture PUE market is
-                    commercially validated and moving rapidly from pilots to scale. Farmers across every geopolitical
-                    zone are already using energy assets to cut costs and grow incomes, and the DARES, NEP, and Solar
-                    Naija programmes are actively funding the infrastructure that makes larger deployment possible.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Nigeria offers strong opportunities in
-                    agricultural productive use of energy through solar irrigation systems for smallholder and
-                    commercial farms, cold storage and refrigeration infrastructure, agro-processing and milling
-                    equipment, and crop-drying assets. These are supported by solar hybrid mini-grids serving
-                    agricultural anchor loads under the NERC Mini-Grid Regulation, as well as productive mini-grids with
-                    agriculture as the anchor load under initiatives such as the National Energy Policy (NEP), DARES,
-                    and Solar Naija. Financing models further enhance viability, including results-based financing
-                    structures tied to energy savings and standalone PUE asset financing and operating models.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">As demand deepens across every
-                    geopolitical zone and public programmes continue to de-risk capital deployment, the window for
-                    early-mover positioning in Nigeria's agriculture PUE market is open now. Investors who can solve
-                    asset financing, distribution, and aggregation at scale will find some of the clearest and most
-                    immediate returns in the country's clean energy sector.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Investors can access a
-                    growing pipeline of opportunities through national programmes and market intelligence platforms
-                    such as
-                    <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
-                        class="text-[#004225] font-semibold underline decoration-[#f7be26] decoration-2 underline-offset-2 hover:text-[#00301f]">Nigeria
-                        SE4ALL</a>, which provide information on electrification gaps, renewable energy demand centres,
-                    project pipelines, and priority investment locations. Detailed datasets, maps, and planning
-                    resources are available through the platform's Data &amp; Resources section.
-                </p>
-                <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
-                    class="inline-flex items-center gap-2 mt-6 bg-primary-container text-white px-6 py-3 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
-                    Visit Nigeria SE4ALL <span class="material-symbols-outlined text-lg">open_in_new</span>
-                </a>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's agriculture PUE market is commercially validated and moving rapidly from pilots to scale. Farmers across every geopolitical zone are already using energy assets to cut costs and grow incomes, and the DARES, NEP, and Solar Naija programmes are actively funding the infrastructure that makes larger deployment possible.</p>
 
-                <!-- Solar Irrigation & Agriculture Mini-Grids -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-12 lg:mt-16">
                     <div>
-                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                            style="font-family: Manrope, sans-serif;">Solar Irrigation &amp; Agriculture Mini-Grids</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">One of the most immediate
-                            deployment opportunities is agriculture-anchored solar mini-grids under the DARES programme,
-                            supported by a US$750 million World Bank facility. In November 2025, REA commissioned a
-                            50kWp solar mini-grid in Namu, Plateau State, under the Africa Mini Grids Programme,
-                            designed to power rice milling, cassava grating, and other agricultural value chains for
-                            over 1,555 beneficiaries. REA has confirmed plans to scale this model to 23 solar mini-grids
-                            nationally.</p>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria offers strong opportunities in agricultural productive use of energy through solar irrigation systems for smallholder and commercial farms, cold storage and refrigeration infrastructure, agro-processing and milling equipment, and crop-drying assets. These are supported by solar hybrid mini-grids serving agricultural anchor loads under the NERC Mini-Grid Regulation, as well as productive mini-grids with agriculture as the anchor load under initiatives such as the National Energy Policy (NEP), DARES, and Solar Naija. Financing models further enhance viability, including results-based financing structures tied to energy savings and standalone PUE asset financing and operating models.</p>
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">As demand deepens across every geopolitical zone and public programmes continue to de-risk capital deployment, the window for early-mover positioning in Nigeria's agriculture PUE market is open now. Investors who can solve asset financing, distribution, and aggregation at scale will find some of the clearest and most immediate returns in the country's clean energy sector.</p>
                     </div>
-
                     <div class="relative">
                         <div class="overflow-hidden rounded-2xl shadow-xl">
-                            <img alt="Solar irrigation system serving Nigerian smallholder farmers"
-                                class="w-full h-72 sm:h-80 object-cover" src="sector-AgriculturePUE.jpg" />
-                        </div>
-                        <!-- Floating Badge -->
-                        <div
-                            class="absolute -bottom-5 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 py-3 flex items-center gap-4 z-10">
-                            <span
-                                class="w-10 h-10 bg-primary-container text-white rounded-lg flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined"
-                                    style="font-variation-settings: 'FILL' 1;">agriculture</span>
-                            </span>
-                            <div>
-                                <p class="font-h4 text-[20px] font-extrabold text-primary leading-none">23</p>
-                                <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">
-                                    Mini-grids: REA Scale-up Plan</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14 lg:mt-16">
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">$750M</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">World Bank facility backing DARES
-                            agriculture mini-grids.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">82%</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Energy cost reduction for PUE equipment in
-                            Nigerian mini-grids.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">1,555+</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Direct beneficiaries from REA's Namu pilot
-                            mini-grid.</p>
-                    </div>
-                </div>
-
-                <!-- Cold Storage, Agro-Processing & Crop Drying -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
-                    <div class="relative lg:order-2">
-                        <div class="overflow-hidden rounded-2xl shadow-xl">
-                            <img alt="Cold storage and agro-processing facility in Nigeria"
-                                class="w-full h-72 sm:h-80 object-cover" src="sector-AgriculturePUE-2.jpg" />
-                        </div>
-                    </div>
-                    <div class="lg:order-1">
-                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                            style="font-family: Manrope, sans-serif;">Cold Storage, Agro-Processing &amp; Crop Drying
-                        </h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Cold storage and refrigeration
-                            infrastructure, agro-processing and milling equipment, and crop-drying assets represent
-                            proven investment opportunities. Energy costs for these applications can be reduced by up to
-                            82% through productive use equipment in Nigerian mini-grids. These assets qualify directly
-                            for REF subsidies and are explicitly listed as eligible productive loads under the DARES
-                            programme.</p>
-                        <div class="flex flex-wrap gap-2 mt-5">
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Solar
-                                Irrigation</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Cold
-                                Storage</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Agro-Processing</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Crop
-                                Drying</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Rice
-                                Milling</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Cassava
-                                Grating</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Asset Financing & Operating Models -->
-                <div class="mt-16 lg:mt-20">
-                    <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                        style="font-family: Manrope, sans-serif;">Asset Financing &amp; Operating Models</h3>
-                    <p class="text-[#404846] text-base sm:text-[17px] leading-8">The strongest plays in Nigeria's
-                        agriculture PUE market are not in power supply alone, but in financing and operating the assets
-                        themselves. Results-based financing tied to energy savings, standalone PUE asset financing, and
-                        operating models that bundle asset deployment with mini-grid infrastructure are the most
-                        bankable deal formats currently available.</p>
-                </div>
-
-                <!-- Geographic Hotspots -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
-                    <div class="relative lg:order-2">
-                        <div class="overflow-hidden rounded-2xl shadow-xl">
-                            <img alt="Geographic hotspots for agriculture PUE in Nigeria"
-                                class="w-full h-72 sm:h-80 object-cover" src="GeographicHotspots.jfif" />
-                        </div>
-                    </div>
-                    <div class="lg:order-1">
-                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                            style="font-family: Manrope, sans-serif;">Geographic Hotspots</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">The highest concentration of
-                            opportunity sits in the North-Central crop belt, North-West and North-East high off-grid
-                            agricultural zones, South-West agribusiness markets, and South-East and South-South
-                            processing corridors.</p>
-                        <div class="flex flex-wrap gap-2 mt-5">
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>North-Central Crop
-                                Belt</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>North-West
-                                Agricultural Zones</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>North-East Off-Grid
-                                Zones</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>South-West
-                                Agribusiness Markets</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>South-East
-                                Processing Corridors</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>South-South
-                                Processing Corridors</span>
+                            <img alt="Farmer tending crops" class="w-full h-72 sm:h-80 lg:h-[26rem] object-cover" src="sector-AgriculturePUE-ng.jpg" loading="lazy" decoding="async" />
                         </div>
                     </div>
                 </div>
@@ -1901,79 +4063,13 @@
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
                     style="font-family: Manrope, sans-serif;">Useful Resources and Data</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    <a href="https://www.rea.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Rural
-                                    Electrification Agency</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.rea.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
-                                    class="w-8 h-8 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Nigerian
-                                    Electricity Regulatory Commission</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nerc.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Nigerian
-                                    Electricity Management Services Agency</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nemsa.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.son.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Standards
-                                    Organization of Nigeria</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.son.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Nigerian
-                                    Investment Promotion Commission</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nipc.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                </div>
+                <ul class="rd-list rd-links">
+                    <li><a href="https://www.rea.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="REA-logo.png" alt="" /></span><span class="rd-link-name">Rural Electrification Agency</span><span class="rd-link-url">www.rea.gov.ng</span></a></li>
+                    <li><a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="Nigerian Electricity Regulatory Commission logo.png" alt="" /></span><span class="rd-link-name">Nigerian Electricity Regulatory Commission</span><span class="rd-link-url">www.nerc.gov.ng</span></a></li>
+                    <li><a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="NEMSA.png" alt="" /></span><span class="rd-link-name">Nigerian Electricity Management Services Agency</span><span class="rd-link-url">www.nemsa.gov.ng</span></a></li>
+                    <li><a href="https://www.son.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="son_png.png" alt="" /></span><span class="rd-link-name">Standards Organization of Nigeria</span><span class="rd-link-url">www.son.gov.ng</span></a></li>
+                    <li><a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="nipc-logo.png" alt="" /></span><span class="rd-link-name">Nigerian Investment Promotion Commission</span><span class="rd-link-url">www.nipc.gov.ng</span></a></li>
+                </ul>
             </div>
         </section>
 
@@ -2160,7 +4256,7 @@
                 },
                 'DATA': {
                     head: 'Data & Insights', items: [
-                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'Investment & Capacity', d: 'Capacity and investment metrics across energy sectors.', href: 'Data.html' },
                         { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
                         { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
                     ]
@@ -2206,11 +4302,699 @@
         })();
     </script>
     <!-- Invest Now popup flow -->
+    <script>
+        /* =====================================================================
+           KEY FACTS - MOTION
+
+           Solar's Key Facts behaviour for the chart components on this page:
+           each card draws its chart in as it arrives and its figures count up
+           (the real figure stays in a screen-reader-only copy meanwhile); once
+           that is over the card is .kf-live and hovering it replays the chart.
+           The stylesheet does most of it; this names the moving parts, sets
+           their order, and drives the three things CSS cannot: donut slices
+           sweeping round, the growth curve drawing itself, and count-ups.
+
+           Built to fail open, like Solar's: nothing is hidden until .kf-armed
+           is set, with reduced motion asked for the script stops before that,
+           and every SVG change it makes for a draw is undone when the draw ends.
+           ===================================================================== */
+        (function () {
+            var section = document.getElementById('facts');
+            if (!section) return;
+            function all(root, sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
+            function each(list, fn) { Array.prototype.forEach.call(list, fn); }
+            function mark(list, cls, indexed) {
+                each(list, function (el, i) { el.classList.add(cls); if (indexed) el.style.setProperty('--i', i); });
+            }
+
+            var cards = all(section, 'div.rounded-2xl.border').filter(function (c) {
+                return c.querySelector('p.font-extrabold.leading-none');
+            });
+            mark(cards, 'kf-card');
+
+            var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (still) return;                                   // drawn, and still
+            var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+            /* ---- Name the moving parts and set their order ------------------------ */
+            /* a stop's place along its track is the moment it arrives */
+            all(section, '.kf-timeline-track > [style*="left"], .kf-scale-track > [style*="left"], .kf-range-track > [style*="left"]').forEach(function (el) {
+                el.style.setProperty('--d', (0.3 + (parseFloat(el.style.left) || 0) / 100 * 0.9).toFixed(2) + 's');
+            });
+            ['.kf-sectors', '.kf-legend', '.kf-visual[data-count]', '.kf-map-scale-labels', '.kf-route-legend', '.kf-bold-stat'].forEach(function (sel) {
+                all(section, sel).forEach(function (list) { each(list.children, function (el, i) { el.style.setProperty('--i', i); }); });
+            });
+
+            /* the second bar settles from the height of the one it is compared with */
+            all(section, '.kf-compare, .kf-compare-row').forEach(function (cmp) {
+                var bars = all(cmp, '.kf-compare-bar, .kf-compare-fill');
+                if (bars.length !== 2) return;
+                var from = (parseFloat(bars[0].style.height) || 100) / (parseFloat(bars[1].style.height) || 100);
+                bars[1].style.setProperty('--kf-from', from.toFixed(4));
+            });
+
+            all(section, '.kf-tile svg').forEach(function (svg) {
+                mark(all(svg, 'path[fill="#004225"]'), 'kf-shape', true);
+                mark(all(svg, 'circle[fill="#ffffff"]'), 'kf-dot', true);
+                mark(all(svg, 'circle[fill^="url("]'), 'kf-heat', true);
+                each(all(svg, '.kf-site-pin'), function (el, i) { el.style.setProperty('--i', i); });
+                /* a turbine rotor turns about its own hub, which its translate names */
+                all(svg, 'g[transform^="translate"]').forEach(function (g) {
+                    var m = /translate\(\s*([-\d.]+)[\s,]+([-\d.]+)/.exec(g.getAttribute('transform'));
+                    if (!m || all(g, ':scope > path[transform^="rotate"]').length < 3) return;
+                    g.classList.add('kf-rotor');
+                    g.style.transformOrigin = m[1] + 'px ' + m[2] + 'px';
+                });
+            });
+
+            all(section, '.kf-map-row svg').forEach(function (svg) {
+                mark(all(svg, 'g[clip-path] rect'), 'kf-wash');
+                mark(all(svg, 'g[clip-path] line'), 'kf-wash-line', true);
+                each(all(svg, '.kf-map-band'), function (el, i) { el.style.setProperty('--i', i); });
+            });
+
+            all(section, '.kf-network svg').forEach(function (svg) {
+                all(svg, ':scope > line').forEach(function (l, i) {
+                    var dx = l.x2.baseVal.value - l.x1.baseVal.value, dy = l.y2.baseVal.value - l.y1.baseVal.value;
+                    l.classList.add('kf-link');
+                    l.style.setProperty('--len', (Math.ceil(Math.sqrt(dx * dx + dy * dy)) + 1) + 'px');
+                    l.style.setProperty('--i', i);
+                });
+                mark(all(svg, ':scope > g'), 'kf-node', true);
+                mark(all(svg, ':scope > circle, :scope > text'), 'kf-hub');
+            });
+
+            all(section, '.kf-route svg').forEach(function (svg) {
+                mark(all(svg, 'circle[fill="#004225"]'), 'kf-origin');
+                mark(all(svg, 'circle[fill="#c98a00"]'), 'kf-market', true);
+                mark(all(svg, ':scope > g'), 'kf-ship', true);
+                mark(all(svg, 'path[stroke-dasharray]'), 'kf-lane');
+                each(all(svg, 'text'), function (el, i) { el.style.setProperty('--i', i); });
+            });
+
+            var growths = all(section, '.kf-growth svg').map(function (svg) {
+                var path = svg.querySelector('path[marker-end]');
+                if (!path || !path.getTotalLength || !path.animate) return null;
+                mark(all(svg, ':scope > line'), 'kf-g-base');
+                var dots = all(svg, ':scope > circle');
+                if (dots.length) { dots[0].classList.add('kf-g-start'); dots[dots.length - 1].classList.add('kf-g-end'); }
+                mark(all(svg, ':scope > text'), 'kf-g-text', true);
+                return { svg: svg, path: path, len: Math.ceil(path.getTotalLength()) + 2, marker: path.getAttribute('marker-end'), busy: false };
+            }).filter(Boolean);
+
+            /* donuts, each paired with the legend that follows it, slice by colour */
+            var probe = document.createElement('span');
+            function colour(c) { probe.style.color = ''; probe.style.color = c || ''; return probe.style.color; }
+            var donuts = all(section, 'svg').filter(function (svg) {
+                return svg.querySelector('circle[stroke-dasharray]') && svg.animate;
+            }).map(function (svg) {
+                svg.classList.add('kf-donut');
+                var legend = svg.nextElementSibling;
+                var items = legend ? Array.prototype.slice.call(legend.children) : [];
+                items.forEach(function (el, i) { el.style.setProperty('--i', i); });
+                var segs = all(svg, 'circle[stroke-dasharray]').map(function (el) {
+                    var c = colour(el.getAttribute('stroke'));
+                    var item = items.filter(function (it) {
+                        var dot = it.querySelector('[style*="background"]');
+                        return dot && colour(dot.style.backgroundColor) === c;
+                    })[0] || null;
+                    return { el: el, dash: el.getAttribute('stroke-dasharray'), share: parseFloat(el.getAttribute('stroke-dasharray')) || 0, item: item };
+                });
+                return { svg: svg, legend: legend, segs: segs };
+            });
+
+            donuts.forEach(function (d) {
+                d.segs.forEach(function (s) {
+                    function on() {
+                        d.svg.classList.add('is-focus'); s.el.classList.add('is-hot');
+                        if (d.legend) d.legend.classList.add('is-focus');
+                        if (s.item) s.item.classList.add('is-hot');
+                    }
+                    function off() {
+                        d.svg.classList.remove('is-focus'); s.el.classList.remove('is-hot');
+                        if (d.legend) d.legend.classList.remove('is-focus');
+                        if (s.item) s.item.classList.remove('is-hot');
+                    }
+                    [s.el, s.item].forEach(function (el) {
+                        if (!el) return;
+                        el.addEventListener('pointerenter', on);
+                        el.addEventListener('pointerleave', off);
+                    });
+                });
+            });
+
+            /* ---- Draws ---------------------------------------------------------------- */
+            /* the slices sweep round in order, each starting as the one before ends */
+            function drawDonut(d, pace) {
+                var t = 120 * pace;
+                d.segs.forEach(function (s) {
+                    var dur = Math.max(260, s.share * 16) * pace;
+                    s.el.animate([{ strokeDasharray: '0 100' }, { strokeDasharray: s.dash }],
+                        { duration: dur, delay: t, easing: 'cubic-bezier(.45, 0, .25, 1)', fill: 'backwards' });
+                    t += dur * 0.85;
+                });
+            }
+
+            /* the curve draws from its start; its arrowhead is put back when it arrives */
+            function drawGrowth(g, from, dur, delay, spark) {
+                g.busy = true;
+                g.path.removeAttribute('marker-end');
+                var dash = g.len + 'px ' + g.len + 'px';
+                var a = g.path.animate([
+                    { strokeDasharray: dash, strokeDashoffset: (g.len * from) + 'px' },
+                    { strokeDasharray: dash, strokeDashoffset: '0px' }
+                ], { duration: dur, delay: delay, easing: 'cubic-bezier(.65, 0, .35, 1)', fill: 'backwards' });
+                a.onfinish = a.oncancel = function () {
+                    if (g.marker) g.path.setAttribute('marker-end', g.marker);
+                    g.busy = false;
+                };
+                if (spark) runSpark(g, from, dur, delay);
+            }
+
+            /* a gold spark rides the tip of the curve while it redraws */
+            function runSpark(g, from, dur, delay) {
+                var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                dot.setAttribute('r', '4');
+                dot.setAttribute('fill', '#f7be26');
+                dot.setAttribute('aria-hidden', 'true');
+                dot.style.pointerEvents = 'none';
+                dot.style.opacity = '0';
+                g.svg.appendChild(dot);
+                var L = g.path.getTotalLength(), t0 = null;
+                window.setTimeout(function () {
+                    requestAnimationFrame(function step(now) {
+                        if (t0 === null) t0 = now;
+                        var p = Math.min(1, (now - t0) / dur);
+                        var e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+                        var pt = g.path.getPointAtLength(L * ((1 - from) + from * e));
+                        dot.setAttribute('cx', pt.x);
+                        dot.setAttribute('cy', pt.y);
+                        dot.style.opacity = String(p < .12 ? p / .12 : p > .85 ? (1 - p) / .15 : 1);
+                        if (p < 1) requestAnimationFrame(step); else dot.remove();
+                    });
+                }, delay);
+            }
+
+            function countUp(el) {
+                var final = el.textContent;
+                var flat = final.replace(/\s+/g, ' ').trim();
+                var parts = flat.split(/(\d[\d,]*(?:\.\d+)?)/);
+                if (parts.length < 3 || /^\d{4}$/.test(flat)) return;   // no figure, or a year
+                var sr = document.createElement('span');
+                sr.className = 'kf-sr';
+                sr.textContent = flat;
+                var shown = document.createElement('span');
+                shown.setAttribute('aria-hidden', 'true');
+                el.textContent = '';
+                el.appendChild(sr);
+                el.appendChild(shown);
+                var t0 = null, DURATION = 1100;
+                function frame(now) {
+                    if (t0 === null) t0 = now;
+                    var p = Math.min(1, (now - t0) / DURATION);
+                    var eased = 1 - Math.pow(1 - p, 3);
+                    shown.textContent = parts.map(function (piece, i) {
+                        if (i % 2 === 0) return piece;
+                        var places = (piece.split('.')[1] || '').length;
+                        var n = parseFloat(piece.replace(/,/g, '')) * eased;
+                        return piece.indexOf(',') !== -1
+                            ? n.toLocaleString('en-US', { minimumFractionDigits: places, maximumFractionDigits: places })
+                            : n.toFixed(places);
+                    }).join('');
+                    if (p < 1) { requestAnimationFrame(frame); return; }
+                    el.textContent = final;                      // the original string, exactly
+                }
+                requestAnimationFrame(frame);
+            }
+            var FIGURES = 'p.font-extrabold.leading-none, .kf-bold-stat-figure, .kf-compare-value, .kf-range-value, .kf-legend-item b, .kf-donut + ul .font-bold';
+            function inCard(list, card) { return list.filter(function (x) { return card.contains(x.svg); }); }
+
+            if (!('IntersectionObserver' in window)) {           // no draw-in, but hover still plays
+                mark(cards, 'kf-live');
+                return;
+            }
+
+            /* ---- Only now do the charts start undrawn -------------------------------- */
+            section.classList.add('kf-armed');
+            donuts.forEach(function (d) { d.segs.forEach(function (s) { s.el.style.strokeDasharray = '0 100'; }); });
+            growths.forEach(function (g) {
+                g.path.style.strokeDasharray = g.len + 'px ' + g.len + 'px';
+                g.path.style.strokeDashoffset = g.len + 'px';
+                g.path.removeAttribute('marker-end');
+            });
+
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    io.unobserve(entry.target);
+                    var card = entry.target;
+                    requestAnimationFrame(function () {
+                        card.classList.add('is-in', 'is-revealing');
+                        inCard(donuts, card).forEach(function (d) {
+                            d.segs.forEach(function (s) { s.el.style.removeProperty('stroke-dasharray'); });
+                            drawDonut(d, 1);
+                        });
+                        inCard(growths, card).forEach(function (g) {
+                            g.path.style.removeProperty('stroke-dasharray');
+                            g.path.style.removeProperty('stroke-dashoffset');
+                            drawGrowth(g, 1, 1300, 250, false);
+                        });
+                        all(card, FIGURES).forEach(function (el) { if (!el.children.length) countUp(el); });
+                        /* the longest draw-in (a timeline's end halo) is over by 2.8s */
+                        window.setTimeout(function () {
+                            card.classList.remove('is-revealing');
+                            card.classList.add('kf-live');
+                        }, 2900);
+                    });
+                });
+            }, { threshold: 0.2 });
+            cards.forEach(function (c) { io.observe(c); });
+
+            /* ---- Hover replays for the script-driven draws ----------------------------- */
+            if (fine) cards.forEach(function (card) {
+                card.addEventListener('pointerenter', function (e) {
+                    if (e.pointerType !== 'mouse' || !card.classList.contains('kf-live')) return;
+                    inCard(donuts, card).forEach(function (d) { drawDonut(d, 0.45); });
+                    inCard(growths, card).forEach(function (g) { if (!g.busy) drawGrowth(g, 0.55, 900, 0, true); });
+                });
+            });
+        })();
+    </script>
+    <script>
+        /* Sector Overview: the copy rises in, the photograph wipes in from the
+           right and the stat card follows. Nothing is hidden until the script
+           knows it can run the reveal, so without JavaScript, without
+           IntersectionObserver or with reduced motion asked for, the section
+           is simply there. */
+        (function () {
+            var sec = document.getElementById('overview');
+            if (!sec || !sec.querySelector('.ovw-grid')) return;
+            var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (still || !('IntersectionObserver' in window)) return;
+            sec.classList.add('ovw-armed');
+            var io = new IntersectionObserver(function (entries) {
+                if (!entries.some(function (e) { return e.isIntersecting; })) return;
+                io.disconnect();
+                requestAnimationFrame(function () { sec.classList.add('is-in'); });
+            }, { threshold: 0.15 });
+            io.observe(sec);
+        })();
+    </script>
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
     <script src="nav.js"></script>
     <script src="glossary.js"></script>
+    <script src="incentivenote.js"></script>
     <script src="videofacade.js"></script>
+    <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script>
+        /* =====================================================================
+           REDESIGN MOTION LAYER - AgriculturePUE.html
+
+           Smooth scroll (Lenis) and scroll-driven motion (GSAP, ScrollTrigger,
+           SplitText). Built to fail open: nothing is hidden until the libraries
+           are confirmed present, everything this script hides is tracked so an
+           error can put it back, and with reduced motion asked for the script
+           does nothing at all. The Key Facts charts and the Sector Overview keep
+           their own reveal scripts and are left alone here.
+           ===================================================================== */
+        (function () {
+            var html = document.documentElement;
+            var hidden = [];
+            var drawn = [];
+
+            function releaseIntro() { html.classList.remove('rd-intro'); }
+
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !window.gsap || !window.ScrollTrigger) { releaseIntro(); return; }
+
+            function start() {
+                try {
+                    run();
+                } catch (err) {
+                    if (window.console) console.warn('[rd] motion layer stopped:', err);
+                    releaseIntro();
+                    if (hidden.length) gsap.set(hidden, { clearProps: 'opacity,transform,visibility' });
+                    drawn.forEach(function (el) { el.style.removeProperty('--rd-draw'); });
+                }
+            }
+
+            /* Wait for the parsed page first: glossary.js and incentivenote.js do
+               their work on DOMContentLoaded, and the word splits and the notes'
+               gold rules have to come after them. Then wait for the webfonts, which
+               the line splits depend on - but never hold the hero back more than
+               900ms. */
+            var started = false;
+            function once() { if (!started) { started = true; start(); } }
+            function afterParse() {
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+                setTimeout(once, 900);
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', afterParse);
+            else afterParse();
+
+            function run() {
+                gsap.registerPlugin(ScrollTrigger);
+                var hasSplit = !!window.SplitText;
+                if (hasSplit) gsap.registerPlugin(SplitText);
+
+                var main = document.querySelector('main');
+                if (!main) { releaseIntro(); return; }
+                var sections = Array.prototype.filter.call(main.children, function (el) { return el.tagName === 'SECTION'; });
+                var hero = sections[0];
+                var rest = sections.slice(1);
+                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                var EASE = 'expo.out';
+                function all(root, sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
+                function inRest(sel) { return rest.reduce(function (out, s) { return out.concat(all(s, sel)); }, []); }
+
+                /* ---- Smooth scroll ---------------------------------------------------- */
+                var lenis = null;
+                if (window.Lenis) {
+                    /* The header's dropdown panels and the mobile menu scroll on their
+                       own: nav.js caps their height and sets overscroll-behavior:
+                       contain. Lenis takes every wheel event on the page unless told
+                       otherwise, so a wheel over an open panel moved the page behind it
+                       instead of the list. prevent hands those panels back to the
+                       browser, and allowNestedScroll does the same for any other box
+                       on the page that scrolls by itself. */
+                    lenis = new Lenis({
+                        lerp: 0.09, smoothWheel: true, syncTouch: false,
+                        allowNestedScroll: true,
+                        prevent: function (node) {
+                            return !!(node.classList && (node.classList.contains('nesp-dropdown') || node.classList.contains('nesp-mnav')));
+                        }
+                    });
+                    lenis.on('scroll', ScrollTrigger.update);
+                    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+                    gsap.ticker.lagSmoothing(0);
+                    window.__rdLenis = lenis;
+
+                    var mnav = document.getElementById('mobile-nav');
+                    if (mnav) mnav.setAttribute('data-lenis-prevent', '');
+
+                    /* In-page jumps glide, and park the target clear of the sticky
+                       header using the offset nav.js already measures. The target
+                       is passed as a pixel position, not as the element: given an
+                       element, Lenis also subtracts the scroll-margin-top nav.js
+                       sets on every [id], and the header offset landed twice. */
+                    document.addEventListener('click', function (e) {
+                        var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+                        if (!a) return;
+                        var hash = a.getAttribute('href');
+                        var target = hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+                        if (!target) return;
+                        e.preventDefault();
+                        var offset = parseInt(getComputedStyle(html).getPropertyValue('--osip-nav-offset'), 10) || 100;
+                        var y = target.getBoundingClientRect().top + window.scrollY - offset;
+                        lenis.scrollTo(Math.max(0, y), { duration: 1.5, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
+                        if (history.replaceState) history.replaceState(null, '', hash);
+                    });
+                }
+
+                /* ---- Reading progress ------------------------------------------------- */
+                var bar = document.createElement('div');
+                bar.className = 'rd-progress';
+                bar.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(bar);
+                gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.4 } });
+
+                /* ---- Hero: the photograph settles, the title's letters rise ----------- */
+                if (hero) {
+                    var bg = hero.querySelector('.bg-cover');
+                    var copy = hero.querySelector('.max-w-3xl');
+                    var h1 = hero.querySelector('h1');
+                    var lede = hero.querySelector('h1 ~ p');
+                    var jump = copy ? copy.querySelector('.space-y-3') : null;
+                    var intro = gsap.timeline({ defaults: { ease: EASE } });
+
+                    if (bg) intro.fromTo(bg, { scale: 1.16 }, { scale: 1.04, duration: 2.6, ease: 'power3.out' }, 0);
+                    if (h1) {
+                        if (hasSplit) {
+                            var title = SplitText.create(h1, { type: 'chars', mask: 'chars', charsClass: 'rd-char' });
+                            /* Once the letters have landed the split is undone, so the
+                               title at rest is plain text with nothing left to clip it. */
+                            intro.from(title.chars, { yPercent: 150, duration: 1.3, stagger: 0.055, onComplete: function () { title.revert(); } }, 0.15);
+                        } else {
+                            intro.from(h1, { opacity: 0, y: 30, duration: 1.2 }, 0.15);
+                        }
+                    }
+                    if (lede) intro.from(lede, { opacity: 0, y: 22, duration: 1.2 }, 0.55);
+                    if (lede) { drawn.push(lede); intro.fromTo(lede, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.6, ease: 'expo.inOut' }, 0.6); }
+                    if (jump) {
+                        if (jump.children[0]) intro.from(jump.children[0], { opacity: 0, y: 12, duration: 1 }, 0.75);
+                        intro.from(jump.querySelectorAll('a'), { opacity: 0, y: 16, duration: 1, stagger: 0.05, clearProps: 'transform' }, 0.8);
+                    }
+                    /* The start states above are already applied, so lifting the
+                       pre-hide now cannot flash the finished hero first. */
+                    releaseIntro();
+
+                    if (bg) gsap.to(bg, { yPercent: 14, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+                    if (copy) gsap.to(copy, { yPercent: -18, opacity: 0.25, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+
+                    var cue = document.createElement('div');
+                    cue.className = 'rd-scrollcue';
+                    cue.setAttribute('aria-hidden', 'true');
+                    cue.appendChild(document.createElement('span'));
+                    hero.appendChild(cue);
+                } else {
+                    releaseIntro();
+                }
+
+                /* ---- Eyebrows: the gold rule draws, then the label ------------------- */
+                inRest('span.w-8.h-\\[2px\\]').forEach(function (dash) {
+                    var label = dash.nextElementSibling;
+                    var tl = gsap.timeline({ scrollTrigger: { trigger: dash, start: 'top 90%', once: true } });
+                    tl.from(dash, { scaleX: 0, duration: 1.1, ease: EASE });
+                    if (label) tl.from(label, { opacity: 0, x: -8, duration: 0.9, ease: EASE, clearProps: 'transform' }, 0.15);
+                    hidden.push(dash);
+                    if (label) hidden.push(label);
+                });
+
+                /* ---- Headings: lines rise out of a mask ------------------------------- */
+                inRest('h2, h3').forEach(function (h) {
+                    if (h.closest('.ovw')) return;
+                    if (!hasSplit || h.querySelector('abbr, .osip-term')) {
+                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+                        hidden.push(h);
+                        return;
+                    }
+                    SplitText.create(h, {
+                        type: 'lines',
+                        mask: 'lines',
+                        linesClass: 'rd-line',
+                        autoSplit: true,
+                        onSplit: function (self) {
+                            return gsap.from(self.lines, {
+                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
+                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
+                            });
+                        }
+                    });
+                });
+
+                /* ---- Reading text: the words light up in reading order ---------------
+                   The statements' effect, turned down for running text. Words wait
+                   faint rather than near-invisible, and every line is fully lit by
+                   the time it is a third of the way up the screen, so nobody is left
+                   reading dim text. Words only, never masks: a glossary tooltip must
+                   not be cropped. And no aria rewriting: the words, links and
+                   focusable glossary terms stay as they were for screen readers. */
+                inRest('.leading-8, .ovw-body p').forEach(function (el) {
+                    if (el.closest('#facts, .bg-\\[\\#004225\\]')) return;
+                    if (el.parentElement && el.parentElement.closest('.leading-8')) return;
+                    var targets = el.tagName === 'P' ? [el] : all(el, ':scope > p');
+                    if (!targets.length) targets = [el];
+                    targets.forEach(function (t) {
+                        if (!hasSplit) {
+                            gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
+                            hidden.push(t);
+                            return;
+                        }
+                        var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
+                        hidden = hidden.concat(words);
+                        gsap.fromTo(words, { opacity: 0.2 }, {
+                            opacity: 1, ease: 'none', stagger: 0.1,
+                            scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                        });
+                    });
+                });
+
+                /* ---- Gold rules draw down as the text beside them is read ------------
+                   The same scroll range as the words, so rule and text arrive together. */
+                inRest('.ovw-lede, #technical h2 + p, #opportunities h2 + p, .osip-note').forEach(function (el) {
+                    drawn.push(el);
+                    gsap.fromTo(el, { '--rd-draw': 0 }, {
+                        '--rd-draw': 1, ease: 'none',
+                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Statements: the words light up as you read down to them -------- */
+                inRest('div.bg-\\[\\#004225\\].rounded-2xl').forEach(function (box) {
+                    gsap.fromTo(box, { clipPath: 'inset(10% 5% 10% 5% round 28px)' }, {
+                        clipPath: 'inset(0% 0% 0% 0% round 28px)', duration: 1.5, ease: EASE, clearProps: 'clipPath',
+                        scrollTrigger: { trigger: box, start: 'top 88%', once: true }
+                    });
+                    var p = box.querySelector('p');
+                    if (!p || !hasSplit) return;
+                    var words = SplitText.create(p, { type: 'words', wordsClass: 'rd-word', aria: 'none' }).words;
+                    gsap.fromTo(words, { opacity: 0.14 }, {
+                        opacity: 1, ease: 'none', stagger: 0.08,
+                        scrollTrigger: { trigger: box, start: 'top 78%', end: 'bottom 60%', scrub: 0.6 }
+                    });
+                });
+
+                /* ---- Cards, chips and list rows arrive in the order they sit ---------
+                   The transform is cleared once each has landed: a transformed card
+                   is its own stacking context, and a glossary tooltip opening over
+                   the next card would otherwise slide underneath it. */
+                var cards = inRest('.grid > .rounded-xl, .grid > .rounded-lg, .grid > .rounded-2xl').filter(function (c) {
+                    return !c.closest('.ovw') && !c.classList.contains('kf-card');
+                });
+                function batch(list, from, to) {
+                    if (!list.length) return;
+                    gsap.set(list, from);
+                    hidden = hidden.concat(list);
+                    ScrollTrigger.batch(list, {
+                        start: 'top 94%', once: true,
+                        onEnter: function (els) { gsap.to(els, Object.assign({ overwrite: true, clearProps: 'transform' }, to)); }
+                    });
+                }
+                batch(cards, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09 });
+                batch(inRest('span.rounded-full.border'), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: EASE, stagger: 0.04 });
+                batch(inRest('ul.space-y-4 > li'), { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.9, ease: EASE, stagger: 0.07 });
+
+                /* ---- Photographs open out of an inset, then drift against the scroll - */
+                inRest('.overflow-hidden.rounded-2xl, .video-facade').forEach(function (frame) {
+                    var img = frame.querySelector('img');
+                    if (!img || frame.closest('.ovw')) return;
+                    gsap.fromTo(frame, { clipPath: 'inset(12% 8% 12% 8% round 24px)' }, {
+                        clipPath: 'inset(0% 0% 0% 0% round 24px)', duration: 1.6, ease: EASE, clearProps: 'clipPath',
+                        scrollTrigger: { trigger: frame, start: 'top 88%', once: true }
+                    });
+                    gsap.fromTo(img, { yPercent: -7, scale: 1.16 }, {
+                        yPercent: 7, scale: 1.16, ease: 'none',
+                        scrollTrigger: { trigger: frame, start: 'top bottom', end: 'bottom top', scrub: true }
+                    });
+                });
+
+                /* ---- Workflow diagrams: the route draws left to right and the steps
+                   fade in on it. Opacity only on the steps - the dashed route is
+                   measured from where the steps sit, so they must not move. -------- */
+                inRest('[data-wf-track]').forEach(function (track) {
+                    var svg = track.querySelector('[data-wf-svg]');
+                    var nodes = all(track, '[data-wf-node]');
+                    var tl = gsap.timeline({ scrollTrigger: { trigger: track, start: 'top 82%', once: true } });
+                    if (svg) tl.fromTo(svg, { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 2, ease: 'power2.inOut', clearProps: 'clipPath' }, 0);
+                    if (nodes.length) tl.from(nodes, { opacity: 0, duration: 0.7, stagger: 0.14, ease: 'power1.out' }, 0.15);
+                    hidden = hidden.concat(nodes);
+                });
+                batch(inRest('.wf-list > *'), { opacity: 0 }, { opacity: 1, duration: 0.7, stagger: 0.06, ease: 'power1.out' });
+
+                /* ---- Figures count up to their value ---------------------------------- */
+                function countUp(el) {
+                    var final = el.textContent;
+                    var flat = final.replace(/\s+/g, ' ').trim();
+                    var parts = flat.split(/(\d[\d,]*(?:\.\d+)?)/);
+                    if (parts.length < 3) return;
+                    var sr = document.createElement('span');
+                    sr.className = 'rd-sr';
+                    sr.textContent = flat;
+                    var shown = document.createElement('span');
+                    shown.setAttribute('aria-hidden', 'true');
+                    el.textContent = '';
+                    el.appendChild(sr);
+                    el.appendChild(shown);
+                    var state = { p: 0 };
+                    gsap.to(state, {
+                        p: 1, duration: 1.4, ease: 'power3.out',
+                        onUpdate: function () {
+                            shown.textContent = parts.map(function (piece, i) {
+                                if (i % 2 === 0) return piece;
+                                var places = (piece.split('.')[1] || '').length;
+                                var n = parseFloat(piece.replace(/,/g, '')) * state.p;
+                                return piece.indexOf(',') !== -1
+                                    ? n.toLocaleString('en-US', { minimumFractionDigits: places, maximumFractionDigits: places })
+                                    : n.toFixed(places);
+                            }).join('');
+                        },
+                        onComplete: function () { el.textContent = final; }
+                    });
+                }
+                inRest('p.text-\\[28px\\].font-extrabold, p.font-h4.font-extrabold').forEach(function (el) {
+                    ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: function () { countUp(el); } });
+                });
+
+                /* ---- Cursor ----------------------------------------------------------- */
+                if (fine) {
+                    var cursor = document.createElement('div');
+                    cursor.className = 'rd-cursor';
+                    cursor.setAttribute('aria-hidden', 'true');
+                    var dot = document.createElement('div');
+                    dot.className = 'rd-cursor-dot';
+                    var label = document.createElement('span');
+                    label.className = 'rd-cursor-label';
+                    dot.appendChild(label);
+                    cursor.appendChild(dot);
+                    document.body.appendChild(cursor);
+                    html.classList.add('rd-cursor-on');
+
+                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
+                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
+                    var placed = false;
+                    window.addEventListener('pointermove', function (e) {
+                        if (e.pointerType && e.pointerType !== 'mouse') return;
+                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
+                        toX(e.clientX);
+                        toY(e.clientY);
+                    }, { passive: true });
+
+                    var off = function () { cursor.removeAttribute('data-mode'); };
+                    function target(el, mode, text) {
+                        el.setAttribute('data-rd-cursor', mode);
+                        el.addEventListener('pointerenter', function () {
+                            cursor.setAttribute('data-mode', mode);
+                            cursor.setAttribute('data-look', mode);
+                            label.textContent = text || '';
+                        });
+                        el.addEventListener('pointerleave', off);
+                    }
+                    inRest('a[target="_blank"].rounded-xl, a[target="_blank"].rounded-lg').forEach(function (a) { target(a, 'label', 'Open'); });
+                    inRest('.video-facade').forEach(function (v) {
+                        target(v, 'play', 'Play');
+                        v.addEventListener('click', off);
+                    });
+                    inRest('h2').forEach(function (h) { target(h, 'text'); });
+                    all(main, '.ovw-title').forEach(function (h) { target(h, 'text'); });
+                    cards.forEach(function (c) { if (c.tagName !== 'A') target(c, 'ring'); });
+                    document.documentElement.addEventListener('mouseleave', off);
+                }
+
+                /* ---- Magnetic buttons ------------------------------------------------- */
+                if (fine) {
+                    var magnets = all(main, '.osip-btn, a.bg-primary-container').concat(hero ? all(hero, 'a.rounded-full') : []);
+                    magnets.forEach(function (el) {
+                        var mx = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3' });
+                        var my = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3' });
+                        el.addEventListener('pointermove', function (e) {
+                            var r = el.getBoundingClientRect();
+                            mx((e.clientX - r.left - r.width / 2) * 0.28);
+                            my((e.clientY - r.top - r.height / 2) * 0.35);
+                        });
+                        el.addEventListener('pointerleave', function () { mx(0); my(0); });
+                    });
+                }
+
+                window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+                ScrollTrigger.refresh();
+            }
+        })();
+    </script>
 </body>
 
 </html>

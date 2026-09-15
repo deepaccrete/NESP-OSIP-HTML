@@ -7,11 +7,15 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet">
+    <!-- Redesign: Newsreader for headings and reading text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&amp;display=swap"
+        rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSIP - Find your investment fit</title>
+    <title>Find Your Investment Fit | One-Stop Investment Platform (OSIP)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -256,6 +260,73 @@
             outline-offset: 2px;
         }
 
+        /*
+          THE STATE PICKER, used by the "Where in Nigeria" question only.
+
+          Thirty-seven answers cannot be a flat wall of cards without burying
+          the buttons under the question, so the list opens in two stages: six
+          states to start, then every state grouped by geopolitical zone inside
+          a panel that scrolls on its own. The page keeps its height either way.
+        */
+        .quiz-scroll-wrap {
+            position: relative;
+        }
+
+        .quiz-scroll {
+            max-height: 300px;
+            overflow-y: auto;
+            /* `auto`, the browser default, and set here on purpose: a wheel or a
+               swipe that reaches either end of this panel carries on scrolling
+               the page instead of stopping dead. `contain` was the wrong call -
+               it trapped the reader at the top and the bottom of the list. */
+            overscroll-behavior: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #cfd8d2 transparent;
+        }
+
+        @media (min-width: 768px) {
+            .quiz-scroll {
+                max-height: 420px;
+            }
+        }
+
+        .quiz-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .quiz-scroll::-webkit-scrollbar-thumb {
+            background: #cfd8d2;
+            border-radius: 999px;
+        }
+
+        .quiz-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* The last row fades out instead of being cut mid-card, which is what
+           tells the reader there is more below without a second instruction. */
+        .quiz-scroll-wrap::after {
+            content: "";
+            position: absolute;
+            left: 1px;
+            right: 10px;
+            bottom: 1px;
+            height: 40px;
+            background: linear-gradient(to top, #f4f6f5, rgba(244, 246, 245, 0));
+            border-radius: 0 0 0.5rem 0.5rem;
+            pointer-events: none;
+        }
+
+        /* The zone name stays put while its states scroll under it, so the
+           reader always knows which part of the country they are reading. */
+        .quiz-zone {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #f4f6f5;
+            padding: 6px 0 6px;
+        }
+
         @media (prefers-reduced-motion: no-preference) {
             html {
                 scroll-behavior: smooth;
@@ -417,10 +488,1201 @@
         .readiness-tag[data-readiness="tender"] .readiness-dot { background: #3b7dd8; }
         .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
         .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
+
+        /* Each readiness state carries its own pale wash rather than one grey
+           pill for all six, exactly as on Opportunities.html. */
+        .readiness-tag[data-readiness="concept"] {
+            background: #f2f5f8;
+            border-color: #dde5ec;
+            color: #4a5a68;
+        }
+
+        .readiness-tag[data-readiness="preparation"] {
+            background: #fdf6e8;
+            border-color: #f0e0bb;
+            color: #85631a;
+        }
+
+        .readiness-tag[data-readiness="interest"] {
+            background: #eaf7f0;
+            border-color: #c3e7d4;
+            color: #1a7047;
+        }
+
+        .readiness-tag[data-readiness="tender"] {
+            background: #eef4fd;
+            border-color: #cde0f7;
+            color: #2b5da3;
+        }
+
+        .readiness-tag[data-readiness="financing"] {
+            background: #f4f1fd;
+            border-color: #ded5f6;
+            color: #5a46a3;
+        }
+
+        .readiness-tag[data-readiness="validation"] {
+            background: #fdf2ed;
+            border-color: #f6dacd;
+            color: #a3532f;
+        }
+
+        /* ---- The rest of the card, also verbatim from Opportunities.html ----
+           The gold rule that lights up on hover, the sector watermark behind the
+           text, the depth on hover, and the two-rank actions with their sliding
+           arrows. Without these the card was the listing card's skeleton but not
+           the same object. */
+        .opportunity-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, #ffffff 0%, #fcfdfc 100%) !important;
+            transition: box-shadow .3s ease, transform .3s ease, border-color .3s ease;
+        }
+
+        .opportunity-card::before {
+            content: "";
+            position: absolute;
+            top: -4px;
+            left: -1px;
+            right: -1px;
+            height: 4px;
+            background: linear-gradient(90deg, #f7be26, #ffd873, #f7be26);
+            opacity: 0;
+            transition: opacity .3s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .opportunity-card:hover::before {
+            opacity: 1;
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-4px);
+            border-color: #8fc9b1;
+            box-shadow: 0 18px 38px -20px rgba(4, 70, 52, .34), 0 0 0 3px rgba(4, 120, 87, .07);
+        }
+
+        /* The name is the thing you are scanning for, so it is the thing that
+           answers when the pointer arrives. */
+        .opportunity-card h3 {
+            transition: color .22s ease;
+        }
+
+        .opportunity-card:hover h3 {
+            color: #04563e;
+        }
+
+        .opportunity-card .inv-box {
+            transition: background .3s ease, border-color .3s ease;
+        }
+
+        .opportunity-card:hover .inv-box {
+            background: linear-gradient(135deg, rgba(4, 120, 87, 0.09), rgba(148, 211, 193, 0.20));
+            border-color: rgba(4, 120, 87, 0.22);
+        }
+
+        /* The watermark sits behind the content at low contrast: it gives the
+           card a background without adding anything to read. */
+        .card-watermark {
+            position: absolute;
+            right: -26px;
+            top: -18px;
+            z-index: 0;
+            font-size: 106px;
+            line-height: 1;
+            color: #00342b;
+            opacity: .04;
+            pointer-events: none;
+            user-select: none;
+            transition: transform .5s cubic-bezier(.22, .61, .36, 1), opacity .5s ease;
+        }
+
+        .opportunity-card:hover .card-watermark {
+            transform: translate(-5px, 3px) rotate(-5deg);
+            opacity: .07;
+        }
+
+        .opportunity-card>*:not(.card-watermark) {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Two ranks, an outline and a fill. They are <a>s here and <button>s on
+           the listing page, so both are named; everything else is identical. */
+        .opportunity-card .flex.gap-2>a,
+        .opportunity-card .flex.gap-2 button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 700;
+            transition: background-color .22s ease, border-color .22s ease, color .22s ease;
+        }
+
+        .opportunity-card .flex.gap-2>a:first-child,
+        .opportunity-card .flex.gap-2 button:first-child {
+            border: 1px solid #cfdad4;
+            background: #ffffff;
+            color: #00342b;
+        }
+
+        .opportunity-card .flex.gap-2>a:first-child:hover,
+        .opportunity-card .flex.gap-2 button:first-child:hover {
+            background: #047857;
+            border-color: #047857;
+            color: #ffffff;
+        }
+
+        .opportunity-card .flex.gap-2>a:last-child,
+        .opportunity-card .flex.gap-2 button:last-child {
+            border: 1px solid #047857;
+            background: #047857;
+            color: #ffffff;
+            opacity: 1;
+        }
+
+        .opportunity-card .flex.gap-2>a:last-child:hover,
+        .opportunity-card .flex.gap-2 button:last-child:hover {
+            background: #04563e;
+            border-color: #04563e;
+            opacity: 1;
+        }
+
+        .opportunity-card .opp-btn-arrow {
+            font-size: 15px;
+            transition: transform .28s cubic-bezier(.22, .61, .36, 1);
+        }
+
+        .opportunity-card a:hover .opp-btn-arrow,
+        .opportunity-card button:hover .opp-btn-arrow {
+            transform: translateX(3px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .opportunity-card,
+            .opportunity-card:hover,
+            .opportunity-card::before,
+            .opportunity-card:hover::before,
+            .opportunity-card .inv-box,
+            .opportunity-card:hover .inv-box,
+            .card-watermark,
+            .opportunity-card:hover .card-watermark {
+                transform: none;
+                transition: none;
+            }
+        }
+    </style>
+    <style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - InvestorMatch.html (11 Sep 2026)
+
+           The homepage and DetailedSector redesign carried to the investor
+           match: warm paper grounds; questions, answers and headings in
+           Newsreader, interface text in Inter; option cards turned down to
+           warm hairline cards; pill buttons in the deep green. The result uses
+           the redesigned cards: the stripe sector card from Sector.html and the
+           homepage's opportunity card. Every question, option, answer, link and
+           script behaves as it did. Scoped under body.rd; the previous design is
+           kept in OSIP/Backups/InvestorMatch/.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-card-2: #f1eee8;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd ::selection {
+            background: #f7be26;
+            color: var(--rd-ink);
+        }
+
+        .rd main > section.bg-background {
+            background: var(--rd-paper) !important;
+        }
+
+        /* ---- Progress rail: a hairline, the gold running along it ---------------- */
+        .rd div.h-\[3px\].bg-surface-container-high {
+            height: 2px !important;
+            background: var(--rd-line) !important;
+        }
+
+        .rd #quiz-bar {
+            background: #d9a520 !important;
+        }
+
+        /* ---- Type ---------------------------------------------------------------- */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-optical-sizing: auto;
+            text-wrap: balance;
+        }
+
+        /* the eyebrows: a gold hairline and a quiet letterspaced label */
+        .rd #quiz-count,
+        .rd #quiz-result p.font-label-md.text-tertiary-fixed-dim {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+            margin-bottom: 22px !important;
+        }
+
+        .rd #quiz-count::before,
+        .rd #quiz-result p.font-label-md.text-tertiary-fixed-dim::before {
+            content: "";
+            flex: 0 0 auto;
+            width: 28px;
+            height: 1px;
+            background: var(--rd-gold);
+        }
+
+        .rd #climate-finance p.font-label-md.text-tertiary-fixed-dim {
+            margin-bottom: 10px !important;
+        }
+
+        /* ---- The question ------------------------------------------------------------ */
+        .rd #quiz-step > div {
+            padding-top: clamp(40px, 6vw, 88px) !important;
+            padding-bottom: clamp(56px, 7vw, 104px) !important;
+        }
+
+        .rd #quiz-question {
+            max-width: 22ch !important;
+            margin-bottom: 40px !important;
+            font-weight: 300 !important;
+            font-size: clamp(34px, 4.2vw, 58px) !important;
+            line-height: 1.04 !important;
+            letter-spacing: -0.03em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        /* ---- Options: warm hairline cards, the answer in Newsreader ---------------- */
+        .rd #quiz-options.grid {
+            gap: 14px !important;
+        }
+
+        .rd .quiz-option {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 18px !important;
+            box-shadow: none !important;
+            transition: border-color .35s ease, background-color .35s ease !important;
+        }
+
+        .rd .quiz-option.gap-4 {
+            gap: 18px !important;
+            padding: 22px 24px !important;
+        }
+
+        .rd .quiz-option.gap-2 {
+            border-radius: 14px !important;
+            padding: 12px 16px !important;
+        }
+
+        .rd .quiz-option:hover {
+            background: #ffffff !important;
+            border-color: var(--rd-line-2) !important;
+        }
+
+        .rd .quiz-option:has(input:checked) {
+            background: #eef3ee !important;
+            border-color: var(--rd-green-2) !important;
+        }
+
+        .rd .quiz-option:has(input:focus-visible) {
+            outline: 2px solid var(--rd-green-2) !important;
+            outline-offset: 3px !important;
+        }
+
+        .rd .quiz-option .font-body-md {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 19.5px !important;
+            font-weight: 400 !important;
+            line-height: 1.28 !important;
+            letter-spacing: -0.005em;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd .quiz-option.gap-2 .font-body-md {
+            font-size: 16.5px !important;
+        }
+
+        .rd .quiz-option .font-body-sm {
+            margin-top: 3px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 15px !important;
+            line-height: 1.45 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd .quiz-dot,
+        .rd .quiz-box {
+            border-width: 1.5px !important;
+            border-color: var(--rd-line-2) !important;
+        }
+
+        .rd .quiz-option:hover .quiz-dot,
+        .rd .quiz-option:hover .quiz-box {
+            border-color: var(--rd-green-2) !important;
+        }
+
+        .rd .quiz-option input:checked ~ .quiz-dot {
+            border-color: var(--rd-green) !important;
+            background-color: var(--rd-green) !important;
+            box-shadow: inset 0 0 0 3.5px #eef3ee !important;
+        }
+
+        .rd .quiz-option input:checked ~ .quiz-box {
+            border-color: var(--rd-green) !important;
+            background-color: var(--rd-green) !important;
+        }
+
+        /* the state picker */
+        .rd #quiz-options > p.font-label-md {
+            margin-bottom: 14px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .22em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd .quiz-scroll-wrap {
+            background: var(--rd-paper-2) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 20px !important;
+        }
+
+        .rd .quiz-scroll-wrap::after {
+            background: linear-gradient(to top, var(--rd-paper-2), rgba(237, 234, 227, 0)) !important;
+            border-radius: 0 0 20px 20px !important;
+        }
+
+        .rd .quiz-zone {
+            padding: 12px 0 8px !important;
+            background: var(--rd-paper-2) !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10px !important;
+            font-weight: 500 !important;
+            letter-spacing: .2em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd #quiz-states-toggle {
+            height: 48px;
+            border-radius: 999px !important;
+            border-color: var(--rd-line-2) !important;
+            background: transparent !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #quiz-states-toggle:hover {
+            border-style: solid !important;
+            border-color: var(--rd-green) !important;
+        }
+
+        /* ---- The controls ---------------------------------------------------------------- */
+        .rd #quiz-step .border-t.border-\[\#e8ebe9\] {
+            margin-top: 48px !important;
+            padding-top: 28px !important;
+            border-color: var(--rd-line) !important;
+        }
+
+        .rd #quiz-back {
+            height: 46px;
+            padding: 0 20px 0 14px !important;
+            background: transparent !important;
+            border-color: var(--rd-line-2) !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            color: var(--rd-ink-2) !important;
+            transition: border-color .3s ease, color .3s ease !important;
+        }
+
+        .rd #quiz-back:hover {
+            border-color: var(--rd-green) !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #quiz-skip {
+            font-family: var(--rd-sans) !important;
+            font-size: 14px !important;
+            color: var(--rd-ink-3) !important;
+            text-decoration-color: var(--rd-line-2) !important;
+        }
+
+        .rd #quiz-skip:hover {
+            color: var(--rd-green) !important;
+            text-decoration-color: currentColor !important;
+        }
+
+        .rd #quiz-next {
+            height: 52px;
+            padding: 0 26px 0 30px !important;
+            border-radius: 999px !important;
+            background: var(--rd-green) !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            font-size-adjust: .52;
+            font-weight: 500 !important;
+            letter-spacing: 0 !important;
+            text-transform: none !important;
+            transition: background-color .35s ease, opacity .35s ease !important;
+        }
+
+        .rd #quiz-next:hover:not(:disabled) {
+            background: #062f1f !important;
+        }
+
+        .rd #quiz-next:disabled {
+            opacity: .35 !important;
+        }
+
+        .rd #quiz-next .material-symbols-outlined {
+            font-size-adjust: none;
+            transition: transform .35s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .rd #quiz-next:hover:not(:disabled) .material-symbols-outlined {
+            transform: translateX(4px);
+        }
+
+        .rd #quiz-step > div > p.font-body-sm {
+            margin-top: 32px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* ---- The result ------------------------------------------------------------------ */
+        .rd #quiz-result > div {
+            padding-top: clamp(48px, 7vw, 104px) !important;
+            padding-bottom: clamp(64px, 8vw, 120px) !important;
+        }
+
+        .rd #quiz-result h1 {
+            margin-bottom: 26px !important;
+            font-weight: 300 !important;
+            font-size: clamp(38px, 4.8vw, 66px) !important;
+            line-height: 1.02 !important;
+            letter-spacing: -0.032em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #quiz-summary {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 20px !important;
+            line-height: 1.62 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd #quiz-result a.text-secondary {
+            font-weight: 500 !important;
+            color: var(--rd-green) !important;
+            text-decoration: underline;
+            text-decoration-color: rgba(217, 165, 32, .65);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+        }
+
+        .rd #quiz-result a.text-secondary:hover {
+            text-decoration-color: currentColor;
+        }
+
+        .rd #quiz-result .mt-12 {
+            margin-top: clamp(64px, 7vw, 104px) !important;
+        }
+
+        .rd #quiz-result .mt-12 > .flex.items-center {
+            gap: 18px !important;
+            margin-bottom: 30px !important;
+        }
+
+        .rd #quiz-result .w-1.h-10 {
+            width: 1px !important;
+            height: 46px !important;
+            background: var(--rd-gold) !important;
+        }
+
+        .rd #quiz-result h2 {
+            font-weight: 400 !important;
+            font-size: clamp(28px, 2.9vw, 42px) !important;
+            line-height: 1.08 !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        /* your answers */
+        .rd #quiz-chips {
+            margin-top: 48px !important;
+        }
+
+        .rd #quiz-chips > p {
+            margin-bottom: 18px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .22em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd #quiz-chips .grid {
+            gap: 14px !important;
+        }
+
+        .rd #quiz-chips .grid > div {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 18px !important;
+            padding: 18px 20px !important;
+        }
+
+        .rd #quiz-chips .grid > div > span:first-child {
+            font-family: var(--rd-sans) !important;
+            font-size: 10px !important;
+            font-weight: 500 !important;
+            letter-spacing: .2em !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #quiz-chips .grid > div > span.text-\[14px\] {
+            margin-top: 6px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 17.5px !important;
+            font-weight: 400 !important;
+            line-height: 1.35 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #quiz-chips .grid > div > span.text-\[13px\] {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 15px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* ---- Sector cards: Sector.html's stripe card ------------------------------------- */
+        .rd #quiz-sectors {
+            column-gap: 32px !important;
+            row-gap: 48px !important;
+        }
+
+        .rd #quiz-sectors .sector-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            color: inherit;
+            text-decoration: none;
+            outline: none;
+        }
+
+        .rd #quiz-sectors .sec-media {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 336 / 244;
+            overflow: hidden;
+            border-radius: 18px 18px 0 0;
+            background: #0c2b21;
+        }
+
+        .rd #quiz-sectors .sec-media img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* the one thing the quiz knows that the sectors page does not */
+        .rd #quiz-sectors .sec-media > span {
+            padding: 6px 12px !important;
+            border-radius: 999px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10px !important;
+            font-weight: 500 !important;
+            letter-spacing: .18em !important;
+        }
+
+        .rd #quiz-sectors .sec-media > span.bg-\[\#1f5940\] {
+            background: var(--rd-green) !important;
+        }
+
+        .rd #quiz-sectors .sec-media > span.bg-white\/95 {
+            background: rgba(251, 250, 247, .94) !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #quiz-sectors .sec-stripe {
+            display: block;
+            height: 12px;
+            background: #d6e2da;
+            transition: background-color .5s ease;
+        }
+
+        .rd #quiz-sectors .sector-card:hover .sec-stripe,
+        .rd #quiz-sectors .sector-card:focus-visible .sec-stripe {
+            background: var(--accent, #f7be26);
+        }
+
+        .rd #quiz-sectors .sec-body {
+            padding: 20px 2px 0;
+        }
+
+        .rd #quiz-sectors .sector-card h3 {
+            margin: 0 0 10px;
+            font-weight: 400 !important;
+            font-size: clamp(24px, 2.1vw, 29px) !important;
+            line-height: 1.15 !important;
+            letter-spacing: -0.016em !important;
+            color: var(--rd-ink) !important;
+            transition: color .3s ease;
+        }
+
+        .rd #quiz-sectors .sector-card:hover h3,
+        .rd #quiz-sectors .sector-card:focus-visible h3 {
+            color: var(--rd-green) !important;
+        }
+
+        .rd #quiz-sectors .sec-lede {
+            margin: 0;
+            font-family: var(--rd-serif); font-size-adjust: var(--rd-type-adjust, none);
+            font-size: 17px;
+            line-height: 1.62;
+            color: var(--rd-ink-3);
+            text-wrap: pretty;
+        }
+
+        .rd #quiz-sectors .sec-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 18px;
+            font-family: var(--rd-sans);
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--rd-green-2);
+        }
+
+        .rd #quiz-sectors .sec-more .material-symbols-outlined {
+            font-size: 17px;
+            transition: transform .45s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .rd #quiz-sectors .sector-card:hover .sec-more .material-symbols-outlined {
+            transform: translateX(4px);
+        }
+
+        .rd #quiz-sectors .sector-card:focus-visible .sec-media {
+            outline: 3px solid #047857;
+            outline-offset: 3px;
+        }
+
+        @media (hover: none), (pointer: coarse) {
+            .rd #quiz-sectors .sector-card .sec-stripe {
+                background: var(--accent, #f7be26);
+            }
+        }
+
+        /* ---- Opportunity cards: the homepage's ---------------------------------------------- */
+        .rd #quiz-opps .opportunity-card {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top: 2px solid #dfa800 !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+            transition: background-color .45s ease, border-color .45s ease !important;
+        }
+
+        .rd #quiz-opps .opportunity-card::before {
+            display: none !important;
+        }
+
+        .rd #quiz-opps .opportunity-card:hover {
+            transform: none !important;
+            background: #ffffff !important;
+            border-color: var(--rd-line-2) !important;
+            border-top-color: #dfa800 !important;
+            box-shadow: none !important;
+        }
+
+        .rd #quiz-opps .opportunity-card h3 {
+            font-weight: 400 !important;
+            font-size: 21px !important;
+            line-height: 1.22 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #quiz-opps .opportunity-card:hover h3 {
+            color: var(--rd-green) !important;
+        }
+
+        .rd #quiz-opps .inv-box,
+        .rd #quiz-opps .opportunity-card:hover .inv-box {
+            background: var(--rd-card-2) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 14px !important;
+        }
+
+        .rd #quiz-opps .text-headline-lg-mobile {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 32px !important;
+            line-height: 1.1 !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #quiz-opps .border-y.border-outline-variant {
+            border-color: var(--rd-line) !important;
+        }
+
+        .rd #quiz-opps .sector-badge,
+        .rd #quiz-opps .readiness-tag {
+            font-weight: 500 !important;
+        }
+
+        .rd #quiz-opps .opportunity-card .flex.gap-2 > a {
+            gap: 4px;
+            padding: 9px 8px !important;
+            border-radius: 999px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 14px !important;
+            font-size-adjust: .52;
+            font-weight: 500 !important;
+            letter-spacing: 0 !important;
+            white-space: nowrap;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd #quiz-opps .opportunity-card .flex.gap-2 > a .material-symbols-outlined {
+            font-size-adjust: none;
+        }
+
+        .rd #quiz-opps .opportunity-card .flex.gap-2 > a:first-child {
+            background: transparent !important;
+            border-color: var(--rd-line-2) !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #quiz-opps .opportunity-card .flex.gap-2 > a:first-child:hover,
+        .rd #quiz-opps .opportunity-card .flex.gap-2 > a:last-child {
+            background: var(--rd-green) !important;
+            border-color: var(--rd-green) !important;
+            color: #ffffff !important;
+        }
+
+        .rd #quiz-opps .opportunity-card .flex.gap-2 > a:last-child:hover {
+            background: #062f1f !important;
+            border-color: #062f1f !important;
+        }
+
+        /* ---- The published detail: business models, guidance, agencies, climate finance --- */
+        .rd #quiz-detail .bg-white,
+        .rd #climate-finance .bg-white {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 18px !important;
+            box-shadow: none !important;
+            transform: none !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd #quiz-detail a.bg-white:hover,
+        .rd #climate-finance a.bg-white:hover {
+            background: #ffffff !important;
+            border-color: var(--rd-line-2) !important;
+        }
+
+        .rd #quiz-detail .text-\[15px\].leading-7 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 17px !important;
+            line-height: 1.6 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd #quiz-detail .font-body-md.font-semibold {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 20px !important;
+            font-weight: 500 !important;
+            line-height: 1.25 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #quiz-detail .font-body-sm,
+        .rd #climate-finance .font-body-sm,
+        .rd #quiz-contact .font-body-sm {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 15.5px !important;
+            line-height: 1.6 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #quiz-detail p.font-body-md,
+        .rd #climate-finance > p.font-body-md,
+        .rd #quiz-contact p.font-body-md {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18.5px !important;
+            line-height: 1.65 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd #quiz-result .text-\[14px\].font-medium {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 17.5px !important;
+            font-weight: 500 !important;
+            line-height: 1.3 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #quiz-result .osip-role {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 15px !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #quiz-result .text-\[11px\].uppercase {
+            font-family: var(--rd-sans) !important;
+            font-size: 10px !important;
+            letter-spacing: .16em !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #quiz-result .material-symbols-outlined.text-\[\#004225\] {
+            color: var(--rd-green-2) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 250, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd #quiz-result span.w-10.h-10.rounded-\[10px\] {
+            background: #ffffff !important;
+            border-radius: 12px !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line);
+        }
+
+        .rd #climate-finance strong {
+            font-weight: 600;
+            color: var(--rd-ink) !important;
+        }
+
+        /* ---- The account prompt: a deep green statement ------------------------------------ */
+        .rd #quiz-result > div > div.mt-12.bg-white {
+            position: relative;
+            overflow: hidden;
+            gap: 28px !important;
+            padding: clamp(32px, 5vw, 64px) !important;
+            border: 0 !important;
+            border-radius: 28px !important;
+            background: var(--rd-deep) !important;
+        }
+
+        .rd #quiz-result > div > div.mt-12.bg-white::after {
+            content: "";
+            position: absolute;
+            right: -12%;
+            top: -40%;
+            width: 58%;
+            height: 180%;
+            background: radial-gradient(closest-side, rgba(247, 190, 38, .13), rgba(247, 190, 38, 0));
+            pointer-events: none;
+        }
+
+        .rd #quiz-result > div > div.mt-12.bg-white > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .rd #quiz-result > div > div.mt-12.bg-white > p {
+            max-width: 34ch;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 300 !important;
+            font-size: clamp(21px, 2.1vw, 28px) !important;
+            line-height: 1.4 !important;
+            color: #f3efe6 !important;
+        }
+
+        .rd #quiz-result > div > div.mt-12.bg-white a,
+        .rd #quiz-result > div > div.mt-12.bg-white button {
+            height: 50px;
+            padding: 0 24px !important;
+            border-radius: 999px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 15.5px !important;
+            font-size-adjust: .52;
+            font-weight: 500 !important;
+            letter-spacing: 0 !important;
+            text-transform: none !important;
+            transition: background-color .35s ease, border-color .35s ease, color .35s ease !important;
+        }
+
+        .rd #quiz-result > div > div.mt-12.bg-white .material-symbols-outlined {
+            font-size-adjust: none;
+        }
+
+        .rd #quiz-result > div > div.mt-12.bg-white a {
+            background: #f3efe6 !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #quiz-result > div > div.mt-12.bg-white a:hover {
+            background: #ffffff !important;
+        }
+
+        .rd #quiz-result > div > div.mt-12.bg-white button {
+            background: transparent !important;
+            border-color: rgba(243, 239, 230, .35) !important;
+            color: #f3efe6 !important;
+        }
+
+        .rd #quiz-result > div > div.mt-12.bg-white button:hover {
+            background: rgba(243, 239, 230, .08) !important;
+            border-color: #f3efe6 !important;
+        }
+
+        /* ---- The result arrives as you scroll to it (see the script at the foot) --------- */
+        @media (prefers-reduced-motion: no-preference) {
+            .rd .im-reveal {
+                opacity: 0;
+                transform: translateY(24px);
+                transition: opacity .8s ease var(--im-d, 0ms), transform 1s cubic-bezier(.16, 1, .3, 1) var(--im-d, 0ms);
+            }
+
+            .rd .im-reveal.im-in {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ---- Small screens -------------------------------------------------------------- */
+        @media (max-width: 639px) {
+            .rd #quiz-question {
+                font-size: 34px !important;
+            }
+
+            .rd .quiz-option.gap-4 {
+                padding: 18px 18px !important;
+            }
+
+            .rd .quiz-option .font-body-md {
+                font-size: 18px !important;
+            }
+
+            .rd #quiz-result > div > div.mt-12.bg-white {
+                border-radius: 22px !important;
+            }
+        }
+        /* ---- Type: Inter throughout (14 Sep 2026) --------------------------------------
+           Inter replaces Newsreader on this page - the quiz and its result screen - as on
+           DetailedSector and the homepage; the theme, layout, colours and motion are
+           untouched. Every rule above that set the serif now sets Inter held to the serif's
+           x-height (font-size-adjust), so each heading and paragraph keeps the visual size,
+           line length and rhythm it had. Icons keep their own size. The previous type is
+           kept in OSIP/Backups/InvestorMatch/. */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-type-adjust: 0.515;
+        }
+
+        .rd [class*="material-symbols"],
+        .rd [class*="material-icons"],
+        .rd .osip-term::after {
+            font-size-adjust: none !important;
+        }
+
+        /* the shared header and footer set Newsreader in their own stylesheets; on this
+           page they follow the page */
+        .rd .nesp-header .nesp-menu-item .t,
+        .rd .nesp-header .nesp-menu-item .d,
+        .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link,
+        .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead),
+        .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head,
+        .rd .nesp-header .nesp-res-foot-h,
+        .rd .nesp-footer h3,
+        .rd .nesp-footer .nesp-foot-brand p,
+        .rd .nesp-footer a,
+        .rd .nesp-footer .nesp-foot-contact li,
+        .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: var(--rd-type-adjust) !important;
+        }
+
+        .rd .nesp-header .nesp-cta {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+
+        .rd .nesp-footer h4 {
+            font-family: var(--rd-sans) !important;
+        }
+
+        /* ---- Heading weight (14 Sep 2026) ----------------------------------------------
+           In Inter the headings read better one step heavier than they sat in the serif. */
+        .rd h1,
+        .rd h2,
+        .rd h3,
+        .rd #quiz-result h1,
+        .rd #quiz-result h2,
+        .rd #quiz-sectors .sector-card h3,
+        .rd #quiz-opps .opportunity-card h3 {
+            font-weight: 500 !important;
+        }
+
+        .rd h4 {
+            font-weight: 600 !important;
+        }
+
+        .rd .nesp-footer h3 {
+            font-weight: 500 !important;
+        }
+
+        /* ---- Quiz UX (14 Sep 2026): minimal, full width --------------------------------- */
+        /* the question runs the width of the column instead of breaking at 22 characters */
+        .rd #quiz-question {
+            max-width: none !important;
+            font-size: clamp(32px, 3.6vw, 50px) !important;
+            text-wrap: pretty;
+        }
+
+        /* the question column uses the page width, as the result does */
+        .rd #quiz-step > div {
+            max-width: 80rem !important;
+            padding-left: clamp(24px, 4vw, 48px) !important;
+            padding-right: clamp(24px, 4vw, 48px) !important;
+        }
+
+        /* the state picker: zones on hairlines, states as pills */
+        .rd .quiz-zones { border-top: 1px solid var(--rd-line); }
+
+        .rd .quiz-zone-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 10px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--rd-line);
+        }
+
+        @media (min-width: 768px) {
+            .rd .quiz-zone-row { grid-template-columns: 150px minmax(0, 1fr); align-items: baseline; gap: 24px; }
+        }
+
+        .rd .quiz-zone-name {
+            margin: 0;
+            padding-top: 9px;
+            font-family: var(--rd-sans);
+            font-size: 10.5px;
+            font-weight: 500;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--rd-ink-3);
+        }
+
+        .rd .quiz-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .rd .quiz-chip {
+            display: inline-flex;
+            align-items: center;
+            height: 36px;
+            padding: 0 15px;
+            border: 1px solid var(--rd-line-2);
+            border-radius: 999px;
+            background: transparent;
+            font-family: var(--rd-sans);
+            font-size: 14px;
+            color: var(--rd-ink-2);
+            cursor: pointer;
+            user-select: none;
+            transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+        }
+
+        .rd .quiz-chip:hover { border-color: var(--rd-green-2); color: var(--rd-green); }
+        .rd .quiz-chip:has(input:checked) { background: var(--rd-green); border-color: var(--rd-green); color: #ffffff; }
+        .rd .quiz-chip:has(input:focus-visible) { outline: 2px solid var(--rd-green-2); outline-offset: 2px; }
+
+        /* the result: the full page width, as on the sector pages, with plain sections */
+        .rd #quiz-result > div {
+            max-width: 80rem !important;
+            padding-left: clamp(24px, 4vw, 48px) !important;
+            padding-right: clamp(24px, 4vw, 48px) !important;
+        }
+
+        .rd #quiz-result > div > .max-w-3xl { max-width: 56rem !important; }
+
+        .rd #quiz-result .w-1.h-10 { display: none !important; }
+
+        .rd #quiz-result > div > .mt-12:not(.bg-white),
+        .rd #quiz-detail > .mt-12,
+        .rd #quiz-contact > .mt-12 {
+            padding-top: clamp(40px, 5vw, 64px);
+            border-top: 1px solid var(--rd-line);
+        }
+
+        /* your answers: a quiet list on hairlines instead of ten boxes */
+        .rd #quiz-chips .grid { column-gap: 40px !important; row-gap: 0 !important; }
+
+        .rd #quiz-chips .grid > div {
+            background: transparent !important;
+            border: 0 !important;
+            border-top: 1px solid var(--rd-line) !important;
+            border-radius: 0 !important;
+            padding: 16px 0 18px !important;
+        }
+
+        /* a single sector reads as one wide card rather than a narrow one and a gap */
+        @media (min-width: 768px) {
+            .rd #quiz-sectors > .sector-card:only-child {
+                grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+                align-items: center;
+                column-gap: clamp(32px, 4vw, 64px);
+            }
+
+            .rd #quiz-sectors > .sector-card:only-child .sec-media { border-radius: 18px; }
+            .rd #quiz-sectors > .sector-card:only-child .sec-stripe { display: none; }
+            .rd #quiz-sectors > .sector-card:only-child .sec-body { padding: 0; }
+        }
+
+        .rd #quiz-opps.opp-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        .rd #quiz-opps .opportunity-card { max-width: none; }
     </style>
 </head>
 
-<body class="bg-background text-on-surface min-h-screen">
+<body class="bg-background text-on-surface min-h-screen rd">
 
     <!-- nav.js renders its own sticky header; no wrapper needed. -->
     <div id="site-nav"></div>
@@ -488,7 +1750,7 @@
 
                 <p class="font-body-sm text-body-sm text-on-surface-variant mt-7">
                     Nothing here is stored or sent anywhere. It runs in your browser to point you at the
-                    right part of the portal.
+                    right part of the platform.
                 </p>
             </div>
         </section>
@@ -526,7 +1788,7 @@
                 <div class="mt-12">
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-1 h-10 bg-tertiary-fixed-dim shrink-0" aria-hidden="true"></div>
-                        <h2 class="font-h3 text-h3 text-primary">Live opportunities worth a look</h2>
+                        <h2 class="font-h3 text-h3 text-primary">Published opportunities worth a look</h2>
                     </div>
                     <!-- opportunity.opportunityId / title / sector / TotalProjectCost / state / publishedAt -->
                     <!-- Opportunities.html's grid: 1 / 2 / 3 columns, gap-gutter. -->
@@ -663,7 +1925,7 @@
               THE QUESTIONS.
 
               Adapted from the reference flow, but every option here comes from
-              something this portal actually holds: the ten sectors in the
+              something this platform actually holds: the ten sectors in the
               Sector collection, the projectStage enumeration on
               opportunity.statusInfo, the currency/unit enums on
               investmentDetails, and the organisation types the register form
@@ -673,6 +1935,99 @@
               `key` is what the scoring below reads; `chip` is the short form
               shown back to them on the results screen.
             */
+            /*
+              THE THIRTY-SIX STATES AND THE FEDERAL CAPITAL TERRITORY, in the
+              six geopolitical zones the National Bureau of Statistics and every
+              federal programme use. The zone is kept because the reader thinks
+              in states, but the platform's own data, and most policy, is
+              published by zone.
+            */
+            var NG_ZONES = [
+                {
+                    zone: 'North Central',
+                    states: [
+                        { key: 'benue', label: 'Benue' },
+                        { key: 'fct', label: 'FCT &ndash; Abuja' },
+                        { key: 'kogi', label: 'Kogi' },
+                        { key: 'kwara', label: 'Kwara' },
+                        { key: 'nasarawa', label: 'Nasarawa' },
+                        { key: 'niger', label: 'Niger' },
+                        { key: 'plateau', label: 'Plateau' }
+                    ]
+                },
+                {
+                    zone: 'North East',
+                    states: [
+                        { key: 'adamawa', label: 'Adamawa' },
+                        { key: 'bauchi', label: 'Bauchi' },
+                        { key: 'borno', label: 'Borno' },
+                        { key: 'gombe', label: 'Gombe' },
+                        { key: 'taraba', label: 'Taraba' },
+                        { key: 'yobe', label: 'Yobe' }
+                    ]
+                },
+                {
+                    zone: 'North West',
+                    states: [
+                        { key: 'jigawa', label: 'Jigawa' },
+                        { key: 'kaduna', label: 'Kaduna' },
+                        { key: 'kano', label: 'Kano' },
+                        { key: 'katsina', label: 'Katsina' },
+                        { key: 'kebbi', label: 'Kebbi' },
+                        { key: 'sokoto', label: 'Sokoto' },
+                        { key: 'zamfara', label: 'Zamfara' }
+                    ]
+                },
+                {
+                    zone: 'South East',
+                    states: [
+                        { key: 'abia', label: 'Abia' },
+                        { key: 'anambra', label: 'Anambra' },
+                        { key: 'ebonyi', label: 'Ebonyi' },
+                        { key: 'enugu', label: 'Enugu' },
+                        { key: 'imo', label: 'Imo' }
+                    ]
+                },
+                {
+                    zone: 'South South',
+                    states: [
+                        { key: 'akwa-ibom', label: 'Akwa Ibom' },
+                        { key: 'bayelsa', label: 'Bayelsa' },
+                        { key: 'cross-river', label: 'Cross River' },
+                        { key: 'delta', label: 'Delta' },
+                        { key: 'edo', label: 'Edo' },
+                        { key: 'rivers', label: 'Rivers' }
+                    ]
+                },
+                {
+                    zone: 'South West',
+                    states: [
+                        { key: 'ekiti', label: 'Ekiti' },
+                        { key: 'lagos', label: 'Lagos' },
+                        { key: 'ogun', label: 'Ogun' },
+                        { key: 'ondo', label: 'Ondo' },
+                        { key: 'osun', label: 'Osun' },
+                        { key: 'oyo', label: 'Oyo' }
+                    ]
+                }
+            ];
+
+            /* The region question's option list is the nationwide answer followed
+               by every state, flattened out of the zones above so the two can
+               never disagree. Everything downstream - the answer chips, the
+               summary - reads options, so a state has to be in here to have a
+               name. A function declaration, so QUESTIONS below can call it. */
+            function stateOptions() {
+                var list = [{ key: 'any', label: 'No preference, nationwide', hint: 'Show me the whole country' }];
+                for (var i = 0; i < NG_ZONES.length; i++) {
+                    for (var j = 0; j < NG_ZONES[i].states.length; j++) {
+                        var state = NG_ZONES[i].states[j];
+                        list.push({ key: state.key, label: state.label, zone: NG_ZONES[i].zone });
+                    }
+                }
+                return list;
+            }
+
             var QUESTIONS = [
                 {
                     id: 'investor',
@@ -758,15 +2113,16 @@
                     id: 'region',
                     q: 'Where in Nigeria are you looking?',
                     multi: true,
-                    options: [
-                        { key: 'nw', label: 'North West', hint: 'Kano, Kaduna, Sokoto and neighbours' },
-                        { key: 'ne', label: 'North East', hint: 'Bauchi, Gombe, Adamawa' },
-                        { key: 'nc', label: 'North Central', hint: 'Niger, Plateau, Nasarawa, FCT' },
-                        { key: 'sw', label: 'South West', hint: 'Lagos, Ogun and neighbours' },
-                        { key: 'se', label: 'South East', hint: 'Abia, Ebonyi, Enugu' },
-                        { key: 'ss', label: 'South South', hint: 'Delta, Cross River, Rivers' },
-                        { key: 'any', label: 'No preference, nationwide' }
-                    ]
+                    /* Read by renderOptions(): this one question is drawn as the
+                       state picker rather than the plain two-column grid, because
+                       thirty-seven cards laid out flat would push the buttons off
+                       the screen. `featured` is what shows before the reader asks
+                       for the rest: the six states carrying most of the published
+                       pipeline. */
+                    layout: 'states',
+                    pinned: 'any',
+                    featured: ['lagos', 'fct', 'kano', 'rivers', 'kaduna', 'ogun'],
+                    options: stateOptions()
                 },
                 {
                     id: 'presence',
@@ -823,25 +2179,35 @@
                 'green-mobility': { name: 'Green Mobility', href: 'GreenMobility.html', img: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1200&q=80', blurb: 'Nigeria&#39;s green mobility market is in its early stages but moving fast, with growth led by electric two- and three-wheelers in major cities.' }
             };
 
+            /* Each sector's stripe colour on the redesigned sector card: the same set
+               Sector.html and the homepage use. */
+            var ACCENT = {
+                'solar': '#f7be26', 'wind': '#7cc6ec', 'storage': '#a78bfa', 'small-hydro': '#38b2ac',
+                'green-mobility': '#34c38f', 'energy-efficiency': '#b8d335', 'clean-cooking': '#ff7f50',
+                'bio-energy': '#d4a53c', 'agriculture-pue': '#f4a259', 'green-hydrogen': '#5cd6e8'
+            };
+
             /*
-              LIVE OPPORTUNITIES - the nine cards published on Opportunities.html,
-              with their real IDs, costs, states and dates. `slugs` maps each one
-              onto this quiz's sector vocabulary: Opportunities.html files every
-              project under three coarse sectors, the quiz asks about ten, so the
-              filter below matches on `slugs` rather than on that label. Cards are
+              LIVE OPPORTUNITIES - the nine cards published under "Active
+              Opportunities" on Opportunities.html, with their real IDs, costs,
+              states, dates, readiness values and watermark icons. One card per
+              OSIP sector, so `slugs` is now simply that sector's own key; it
+              stays a list because a project may later sit in more than one, and
+              `bio-energy` is spelled with the hyphen this quiz uses. Cards are
               filtered against the recommended sectors, and fall back to showing
-              everything rather than an empty section.
+              everything rather than an empty section. Agriculture PUE has no
+              named project yet, by design on the listing page.
             */
             var OPPORTUNITIES = [
-                { id: '2024-ENE-03', title: 'AKK Gas Pipeline Project', sectorLabel: 'Grid Infrastructure', amount: 'USD 2.80', unit: 'bn', state: 'Ajaokuta - Kaduna - Kano', published: '10 Nov 2024', readiness: 'interest', slugs: ['storage'] },
-                { id: '2024-002', title: 'Sokoto-Badagry Superhighway', sectorLabel: 'Grid Infrastructure', amount: 'USD 8.40', unit: 'bn', state: 'North-South Corridor', published: '22 Jan 2025', readiness: 'tender', slugs: ['green-mobility'] },
-                { id: '2024-003', title: 'Lagos Fourth Mainland Bridge', sectorLabel: 'Grid Infrastructure', amount: 'USD 2.50', unit: 'bn', state: 'Lagos State', published: '08 Apr 2024', readiness: 'tender', slugs: ['green-mobility'] },
-                { id: '2024-001', title: 'Lagos-Calabar Coastal Highway', sectorLabel: 'Grid Infrastructure', amount: 'USD 11.06', unit: 'bn', state: 'Lagos - Cross River', published: '15 Mar 2024', readiness: 'interest', slugs: ['green-mobility'] },
-                { id: '2025-ENE-09', title: 'Solar Power Naija - Phase II', sectorLabel: 'Renewable Generation', amount: 'USD 0.24', unit: 'bn', state: 'Multi-State Off-grid', published: '05 Jan 2026', readiness: 'preparation', slugs: ['solar', 'agriculture-pue'] },
-                { id: '2025-ENE-12', title: 'Delta Gas-to-Power Plant', sectorLabel: 'Grid Infrastructure', amount: 'USD 1.20', unit: 'bn', state: 'Delta State', published: '28 Mar 2025', readiness: 'interest', slugs: ['storage', 'energy-efficiency'] },
-                { id: '2024-MIN-15', title: 'Nasarawa Lithium Processing Hub', sectorLabel: 'Energy Storage', amount: 'USD 0.15', unit: 'bn', state: 'Nasarawa State', published: '12 Aug 2024', readiness: 'interest', slugs: ['storage'] },
-                { id: '2025-H2-01', title: 'Green Hydrogen Niger Delta Pilot', sectorLabel: 'Renewable Generation', amount: 'USD 0.40', unit: 'bn', state: 'Rivers State', published: '18 Feb 2025', readiness: 'tender', slugs: ['green-hydrogen', 'solar'] },
-                { id: '2025-MIN-22', title: 'Kano Solid Minerals Processing Hub', sectorLabel: 'Energy Storage', amount: 'USD 0.30', unit: 'bn', state: 'Kano State', published: '14 Jan 2026', readiness: 'preparation', slugs: ['storage'] }
+                { id: '2024-SOL-11', title: 'Solar Power Naija - Phase II', sectorLabel: 'Solar', icon: 'solar_power', amount: 'USD 420', unit: 'm', state: 'Multi-State', published: '18 Feb 2026', readiness: 'preparation', slugs: ['solar'] },
+                { id: '2025-WND-02', title: 'Katsina Wind Farm Phase I', sectorLabel: 'Wind', icon: 'wind_power', amount: 'USD 210', unit: 'm', state: 'Katsina State', published: '05 May 2026', readiness: 'tender', slugs: ['wind'] },
+                { id: '2024-STG-07', title: 'Nasarawa Lithium Processing Hub', sectorLabel: 'Storage', icon: 'battery_charging_full', amount: 'USD 350', unit: 'm', state: 'Nasarawa State', published: '14 Jan 2026', readiness: 'interest', slugs: ['storage'] },
+                { id: '2025-HYD-01', title: 'Cross River Small Hydro Cluster', sectorLabel: 'Small Hydro', icon: 'water', amount: 'USD 140', unit: 'm', state: 'Cross River State', published: '22 Jun 2026', readiness: 'concept', slugs: ['small-hydro'] },
+                { id: '2025-MOB-04', title: 'Lagos EV Charging Network', sectorLabel: 'Green Mobility', icon: 'electric_car', amount: 'USD 90', unit: 'm', state: 'Lagos State', published: '09 Apr 2026', readiness: 'interest', slugs: ['green-mobility'] },
+                { id: '2025-EEF-03', title: 'Ogun Industrial Efficiency Programme', sectorLabel: 'Energy Efficiency', icon: 'energy_savings_leaf', amount: 'USD 60', unit: 'm', state: 'Ogun State', published: '30 Jul 2026', readiness: 'financing', slugs: ['energy-efficiency'] },
+                { id: '2025-CLC-02', title: 'Kano Clean Cooking Rollout', sectorLabel: 'Clean Cooking', icon: 'local_fire_department', amount: 'USD 120', unit: 'm', state: 'Kano State', published: '11 Mar 2026', readiness: 'validation', slugs: ['clean-cooking'] },
+                { id: '2025-BIO-05', title: 'Benue Biomass-to-Power Plant', sectorLabel: 'Bioenergy', icon: 'compost', amount: 'USD 80', unit: 'm', state: 'Benue State', published: '26 Aug 2026', readiness: 'preparation', slugs: ['bio-energy'] },
+                { id: '2025-HYG-01', title: 'Green Hydrogen Niger Delta Pilot', sectorLabel: 'Green Hydrogen', icon: 'science', amount: 'USD 260', unit: 'm', state: 'Rivers State', published: '07 Jul 2026', readiness: 'tender', slugs: ['green-hydrogen'] }
             ];
 
             /* OPP-02 readiness taxonomy. Same six values and the same wording as the
@@ -918,27 +2284,13 @@
 
             function render() {
                 var item = QUESTIONS[step];
-                var chosen = selected(item.id);
 
                 els.count.textContent = 'Question ' + (step + 1) + ' of ' + QUESTIONS.length;
                 els.question.innerHTML = item.q;
                 els.legend.textContent = item.q;
                 progress((step + 1) / (QUESTIONS.length + 1));
 
-                els.options.innerHTML = item.options.map(function (option, index) {
-                    var id = item.id + '-' + option.key;
-                    return '' +
-                        '<label class="quiz-option quiz-option-in flex items-center gap-4 bg-white border border-[#e5e7eb] rounded-xl px-5 py-4 cursor-pointer"' +
-                        ' for="' + id + '" style="animation-delay:' + (index * 30) + 'ms">' +
-                        '<input class="sr-only" type="' + (item.multi ? 'checkbox' : 'radio') + '" name="' + item.id + '" id="' + id + '" value="' + option.key + '"' +
-                        (chosen.indexOf(option.key) > -1 ? ' checked' : '') + '>' +
-                        '<span class="flex-1 min-w-0">' +
-                        '<span class="block font-body-md text-body-md text-[#111827] font-medium">' + option.label + '</span>' +
-                        (option.hint ? '<span class="block font-body-sm text-body-sm text-on-surface-variant mt-0.5">' + option.hint + '</span>' : '') +
-                        '</span>' +
-                        '<span class="' + (item.multi ? 'quiz-box' : 'quiz-dot') + '" aria-hidden="true"></span>' +
-                        '</label>';
-                }).join('');
+                renderOptions(item);
 
                 els.stepSection.classList.add('quiz-enter');
                 /* Restart the entry animation on every question: without
@@ -956,6 +2308,148 @@
                 els.nextLabel.textContent = step === QUESTIONS.length - 1 ? 'See my result' : 'Next';
                 syncNext();
             }
+
+            /*
+              ONE OPTION CARD. Every question draws the same card. `compact` is
+              the state picker's version of it: no hint line and less padding,
+              because a state is a name and nothing else, and thirty-seven of the
+              full-size card would be a page of scrolling on its own.
+              The stagger is capped at ten cards, so a long list still finishes
+              in a third of a second rather than crawling in for over a second.
+            */
+            function optionCard(item, option, index, compact, animate) {
+                var id = item.id + '-' + option.key;
+                var chosen = selected(item.id).indexOf(option.key) > -1;
+                return '' +
+                    '<label class="quiz-option' + (animate ? ' quiz-option-in' : '') +
+                    ' flex items-center bg-white border border-[#e5e7eb] rounded-xl cursor-pointer ' +
+                    (compact ? 'gap-2 px-3 py-3 sm:px-4' : 'gap-4 px-5 py-4') + '"' +
+                    ' for="' + id + '"' +
+                    (animate ? ' style="animation-delay:' + (Math.min(index, 9) * 30) + 'ms"' : '') + '>' +
+                    '<input class="sr-only" type="' + (item.multi ? 'checkbox' : 'radio') + '" name="' + item.id + '" id="' + id + '" value="' + option.key + '"' +
+                    (chosen ? ' checked' : '') + '>' +
+                    '<span class="flex-1 min-w-0">' +
+                    '<span class="block font-body-md ' + (compact ? 'text-[14px] leading-5 sm:text-[15px]' : 'text-body-md') + ' text-[#111827] font-medium">' + option.label + '</span>' +
+                    (option.hint ? '<span class="block font-body-sm text-body-sm text-on-surface-variant mt-0.5">' + option.hint + '</span>' : '') +
+                    '</span>' +
+                    '<span class="' + (item.multi ? 'quiz-box' : 'quiz-dot') + '" aria-hidden="true"></span>' +
+                    '</label>';
+            }
+
+            /* Two layouts, one question at a time: the plain grid every question
+               uses, and the state picker the region question asks for. */
+            function renderOptions(item) {
+                if (item.layout === 'states') {
+                    renderStates(item, true);
+                    return;
+                }
+                els.options.className = 'grid gap-3 sm:grid-cols-2';
+                els.options.innerHTML = item.options.map(function (option, index) {
+                    return optionCard(item, option, index, false, true);
+                }).join('');
+            }
+
+            /* Whether the full state list is open. It lives outside render() so a
+               reader who opens it, goes on and steps back finds it as they left it. */
+            var statesOpen = false;
+
+            function optionByKey(item, key) {
+                for (var i = 0; i < item.options.length; i++) {
+                    if (item.options[i].key === key) return item.options[i];
+                }
+                return null;
+            }
+
+            /*
+              THE STATE PICKER.
+
+              Closed: the nationwide answer on its own row, then six states, then
+              the button. Open: the same nationwide row above every state grouped
+              under its geopolitical zone, inside a panel that scrolls by itself so
+              the question, the Back button and Next never move down the page.
+
+              Only one of the two lists is ever in the DOM, so no state is drawn
+              twice and no id is used twice. What is ticked is read from `answers`
+              on every draw, which is why the panel can be rebuilt freely.
+            */
+            function renderStates(item, animate) {
+                var chosen = selected(item.id);
+                var html = '';
+
+                /* Nationwide sits apart, full width: it answers the question a
+                   different way from a list of states, and it is the way past
+                   thirty-seven cards for a reader who has no region in mind. */
+                html += '<div class="mb-5">' + optionCard(item, optionByKey(item, item.pinned), 0, false, animate) + '</div>';
+
+                html += '<p class="font-label-md text-label-md uppercase text-on-surface-variant font-bold mb-3">' +
+                    'Or pick the states you are interested in' + '</p>';
+
+                /* Every state as a one-click pill, grouped by zone on hairlines: no
+                   list to open, no panel to scroll, nothing hidden. */
+                html += '<div class="quiz-zones">' + NG_ZONES.map(function (zone) {
+                    return '<div class="quiz-zone-row">' +
+                        '<p class="quiz-zone-name">' + zone.zone + '</p>' +
+                        '<div class="quiz-chips">' + zone.states.map(function (state) {
+                            var id = item.id + '-' + state.key;
+                            var on = chosen.indexOf(state.key) > -1;
+                            return '<label class="quiz-chip" for="' + id + '">' +
+                                '<input class="sr-only" type="checkbox" name="' + item.id + '" id="' + id + '" value="' +
+                                state.key + '"' + (on ? ' checked' : '') + '>' + state.label + '</label>';
+                        }).join('') + '</div></div>';
+                }).join('') + '</div>';
+
+                els.options.className = '';
+                els.options.innerHTML = html;
+            }
+
+            /* Redraw the picker in place: the panel keeps where it was scrolled to
+               and the control the reader was on keeps the focus, which a plain
+               rebuild would throw away. */
+            function refreshStates(item) {
+                var panel = els.options.querySelector('.quiz-scroll');
+                var top = panel ? panel.scrollTop : 0;
+                var active = document.activeElement ? document.activeElement.id : '';
+                renderStates(item, false);
+                panel = els.options.querySelector('.quiz-scroll');
+                if (panel) panel.scrollTop = top;
+                if (active) {
+                    var back = document.getElementById(active);
+                    /* preventScroll, or handing the focus back drags the page to
+                       wherever that control now sits. */
+                    if (back) back.focus({ preventScroll: true });
+                }
+            }
+
+            /* The list opens and closes on its own, without re-rendering the
+               question above it, so nothing else animates in again.
+
+               The page must not move under the reader while it does. Two things
+               would move it: the button is rebuilt, so focus has to be put back
+               on the new one, and focus() scrolls its target into view unless
+               told not to; and opening the panel changes the height of what sits
+               above the button, which the browser resolves by shifting the
+               document. So the window scroll is read before the redraw and put
+               back after it, and the focus is restored with preventScroll. */
+            els.options.addEventListener('click', function (event) {
+                if (!event.target.closest || !event.target.closest('#quiz-states-toggle')) return;
+                var pageTop = window.pageYOffset;
+                statesOpen = !statesOpen;
+                renderStates(QUESTIONS[step], true);
+                var toggle = document.getElementById('quiz-states-toggle');
+                if (toggle) toggle.focus({ preventScroll: true });
+                if (window.pageYOffset !== pageTop) {
+                    /* html carries scroll-behavior: smooth, which would turn
+                       putting the page back into a visible slide. Off for the
+                       one line that does it. */
+                    var root = document.documentElement;
+                    var behaviour = root.style.scrollBehavior;
+                    root.style.scrollBehavior = 'auto';
+                    window.scrollTo(0, pageTop);
+                    root.style.scrollBehavior = behaviour;
+                }
+            });
+
+            var autoNext = null;
 
             /* Nothing to narrow with means nothing to press. */
             function syncNext() {
@@ -991,7 +2485,33 @@
                     }
                     answers[id] = list;
                 }
+
+                /* "Nationwide" and a list of states are the same question answered
+                   two different ways, so ticking one clears the other rather than
+                   sending both through to the result. */
+                var item = QUESTIONS[step];
+                if (item.layout === 'states' && input.checked) {
+                    var kept = input.value === item.pinned
+                        ? [item.pinned]
+                        : selected(id).filter(function (key) { return key !== item.pinned; });
+                    if (kept.length !== selected(id).length) {
+                        answers[id] = kept;
+                        refreshStates(item);
+                    }
+                }
+
                 syncNext();
+
+                /* One answer only: the pick is the decision, so move on once the
+                   reader has seen it register. The timer is tied to this step, so a
+                   quick second click or Back in the meantime cannot skip twice. */
+                if (input.type === 'radio') {
+                    var from = step;
+                    clearTimeout(autoNext);
+                    autoNext = setTimeout(function () {
+                        if (step === from && selected(QUESTIONS[step].id).length) go();
+                    }, 320);
+                }
             });
 
             els.next.addEventListener('click', function () {
@@ -1019,6 +2539,7 @@
             els.restart.addEventListener('click', function () {
                 answers = {};
                 step = 0;
+                statesOpen = false;
                 els.resultSection.classList.add('hidden');
                 els.stepSection.classList.remove('hidden');
                 render();
@@ -1313,10 +2834,18 @@
                             (ANSWER_LABELS[item.id] || item.id) +
                             (values.length > 1 ? ' <span class="text-[#b3bdb8]">(' + values.length + ')</span>' : '') +
                             '</span>' +
-                            labelsFor(item.id, values).map(function (text) {
+                            /* Six answers is as much as a summary card can carry
+                               and still be read at a glance. Someone who ticked
+                               twenty states gets six and a count, not a column
+                               taller than the card beside it. */
+                            labelsFor(item.id, values.slice(0, 6)).map(function (text) {
                                 return '<span class="block text-[#111827] text-[14px] font-medium leading-5 mt-1.5">' +
                                     text + '</span>';
                             }).join('') +
+                            (values.length > 6
+                                ? '<span class="block text-[#8a9490] text-[13px] leading-5 mt-1.5">and ' +
+                                (values.length - 6) + ' more</span>'
+                                : '') +
                             '</div>';
                     }).join('') +
                     '</div>';
@@ -1339,16 +2868,16 @@
                             ? '<span class="absolute top-3 left-3 bg-[#1f5940] text-white text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Best fit</span>'
                             : '<span class="absolute top-3 left-3 bg-white/95 text-[#1f5940] text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">Also worth a look</span>';
                     return '' +
-                        '<a href="' + sector.href + '" class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">' +
-                        '<div class="h-[4px] w-full bg-[#1f5940]"></div>' +
-                        '<div class="p-5">' +
-                        '<div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden relative">' +
-                        '<img alt="' + sector.name + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="' + sector.img + '">' +
+                        '<a href="' + sector.href + '" class="sector-card im-sector" style="--accent: ' + (ACCENT[slug] || '#f7be26') + '">' +
+                        '<div class="sec-media">' +
+                        '<img alt="' + sector.name + '" loading="lazy" decoding="async" src="' + sector.img + '">' +
                         pill +
                         '</div>' +
-                        '<h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4" style="font-family: Manrope, sans-serif;">' + sector.name + '</h3>' +
-                        '<p class="text-[#5f6368] text-[15px] leading-7 mb-6">' + sector.blurb + '</p>' +
-                        '<span class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW IN DETAIL<span>&rarr;</span></span>' +
+                        '<span class="sec-stripe" aria-hidden="true"></span>' +
+                        '<div class="sec-body">' +
+                        '<h3>' + sector.name + '</h3>' +
+                        '<p class="sec-lede">' + sector.blurb + '</p>' +
+                        '<span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>' +
                         '</div>' +
                         '</a>';
                 }).join('');
@@ -1366,12 +2895,15 @@
 
                 els.opps.innerHTML = shown.map(function (opportunity) {
                     /*
-                      Opportunities.html's card, unchanged: gold top rule (from
-                      .opportunity-card), ID line, clamped title, gold sector
-                      chip, the gradient investment box, the State/Published
-                      rows, and the two actions pinned to the bottom edge by
-                      mt-auto. Its two <button>s are <a>s here because this page
-                      carries none of Opportunities.html's click wiring.
+                      Opportunities.html's card, unchanged: the sector
+                      watermark, gold top rule (from .opportunity-card), ID line,
+                      clamped title, gold sector chip, readiness pill, the
+                      gradient investment box, the State/Published rows, and the
+                      two actions pinned to the bottom edge by mt-auto, each with
+                      its sliding arrow. Its two <button>s are <a>s here because
+                      this page carries none of Opportunities.html's click
+                      wiring; the inline transform is that page's, and is what
+                      keeps hover reading the same on both.
 
                       text-label-md is spelled out as arbitrary values: both
                       pages define that token, but to different sizes (14px
@@ -1379,7 +2911,8 @@
                     */
                     var labelMd = 'text-[14px] leading-5 tracking-[0.01em]';
                     return '' +
-                        '<div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300">' +
+                        '<div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300" style="transform: scale(1);">' +
+                        '<span class="material-symbols-outlined card-watermark" aria-hidden="true">' + opportunity.icon + '</span>' +
                         '<div class="mb-6">' +
                         '<p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID: ' + opportunity.id + '</p>' +
                         '<h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">' + opportunity.title + '</h3>' +
@@ -1399,8 +2932,8 @@
                         '<span class="text-on-surface-variant">Published:</span><span class="font-semibold">' + opportunity.published + '</span></div>' +
                         '</div>' +
                         '<div class="flex gap-2 mt-auto pt-2">' +
-                        '<a href="detailedOppNew.html" class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold ' + labelMd + ' hover:bg-surface-container-high transition-all rounded">View in Detail</a>' +
-                        '<a href="Login.html" class="flex-1 text-center py-2 border border-transparent bg-primary-container text-white font-semibold ' + labelMd + ' hover:opacity-90 transition-all rounded shadow-sm">Invest Now</a>' +
+                        '<a href="detailedOppNew.html?id=' + encodeURIComponent(opportunity.id) + '" class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold ' + labelMd + ' hover:bg-surface-container-high transition-all rounded">View in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></a>' +
+                        '<a href="Login.html" class="flex-1 text-center py-2 border border-transparent bg-primary-container text-white font-semibold ' + labelMd + ' hover:opacity-90 transition-all rounded shadow-sm">Invest Now <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></a>' +
                         '</div>' +
                         '</div>';
                 }).join('');
@@ -1416,6 +2949,59 @@
             }
 
             render();
+        })();
+    </script>
+
+    <script>
+        /* Redesign: the result arrives as you scroll to it.
+           The result is drawn by the quiz script when the last question is
+           answered, so this waits for the result section to be shown, then marks
+           its cards and headings and lets each rise in as it reaches the screen.
+           Nothing is hidden before the result exists, nothing at all with reduced
+           motion asked for, and a card only waits while it is below the fold. */
+        (function () {
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !('IntersectionObserver' in window) || !('MutationObserver' in window)) return;
+            var result = document.getElementById('quiz-result');
+            if (!result) return;
+
+            var SEL = [
+                '#quiz-result .max-w-3xl',
+                '#quiz-chips > p',
+                '#quiz-chips .grid > *',
+                '#quiz-result .mt-12 > .flex.items-center',
+                '#quiz-sectors > *',
+                '#quiz-opps > *',
+                '#quiz-detail .grid > *',
+                '#quiz-detail .mt-12 > p',
+                '#climate-finance > p',
+                '#climate-finance .grid > *',
+                '#quiz-contact .mt-12 > p',
+                '#quiz-result > div > div.mt-12.bg-white'
+            ].join(', ');
+
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('im-in');
+                    io.unobserve(entry.target);
+                });
+            }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+
+            function arm() {
+                if (result.classList.contains('hidden')) return;
+                io.disconnect();
+                Array.prototype.forEach.call(result.querySelectorAll(SEL), function (el) {
+                    var at = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+                    el.style.setProperty('--im-d', Math.min(at, 5) * 70 + 'ms');
+                    el.classList.remove('im-in');
+                    el.classList.add('im-reveal');
+                    io.observe(el);
+                });
+            }
+
+            new MutationObserver(function () { window.requestAnimationFrame(arm); })
+                .observe(result, { attributes: true, attributeFilter: ['class'] });
         })();
     </script>
 

@@ -54,19 +54,27 @@
   // the active-tab map still key off the UPPERCASE form, so nothing downstream
   // had to change.
   //
-  // FINANCING still has no page in this build. Rather than send people to the
-  // Coming Soon placeholder (HP-08/HP-09 rule that out) it renders blurred and
-  // unclickable, so the full menu the client asked for is visible while it stays
-  // obvious which part is not built yet. Give an item an href here and it
-  // becomes a normal link with no other change.
+  // 14 Sep 2026: eight tabs made the bar too wide and too busy. Regulations,
+  // Financing and Data & Insights are all places an investor looks things up,
+  // so they now sit under one tab, Resources, whose panel keeps each of them as
+  // its own titled section (see MENU.RESOURCES). Nothing was removed: every
+  // destination the three tabs had is in that panel.
+  //
+  // `menuOnly: true` is a tab with no page of its own. It renders as a button
+  // that opens its panel (hover, focus or click) and, on mobile, an accordion.
+  //
+  // An item with `href: null` still renders blurred and unclickable, which is
+  // how Financing was shown while it has no page (HP-08/HP-09 rule out the
+  // Coming Soon placeholder). Inside Resources, Financing keeps that state as a
+  // `soon` section.
   var TOP = [
     { label: 'Invest', href: url.opportunities },
     { label: 'Sectors', href: url.sectors },
     { label: 'States', href: url.states },
-    { label: 'Regulations', href: url.regulations },
-    { label: 'Financing', href: null },
-    { label: 'Data & Insights', href: url.data },
-    { label: 'News & Events', href: url.news },
+    { label: 'Resources', menuOnly: true },
+    // News, Events and Announcements are three separate pages; one tab now
+    // holds all three, the same way Resources holds its sections.
+    { label: 'Newsroom', menuOnly: true },
     { label: 'Support', href: url.contact }
   ];
 
@@ -147,35 +155,56 @@
         { t: 'OSIP Help Desk', d: 'Investor support services.', href: base + 'Contact.html' }
       ]
     },
-    // UX-NAV-04: all four entries used to open Regulation.html itself, so the
-    // menu promised detail and delivered a general page. Each entry now opens
-    // the section it names, which REG-01 gave the page.
-    'REGULATIONS': {
-      head: 'Regulations & Compliance', items: [
-        { t: 'Core Laws & Policies', d: 'Electricity Act, PIA, NIEP & the core energy laws.', href: base + 'Regulation.html#core-laws' },
-        { t: 'Business Registration', d: 'CAC incorporation, NIPC registration & licensing.', href: base + 'Regulation.html#registration' },
-        { t: 'Tax & Fiscal Policy', d: 'Rates, Pioneer Status & equipment reliefs.', href: base + 'Regulation.html#tax' },
-        { t: 'Import & Export', d: 'Duty treatment, SONCAP conformity & free zones.', href: base + 'Regulation.html#trade' },
-        { t: 'Treaties & Immigration', d: 'Investment guarantees, CERPAC & expatriate quota.', href: base + 'Regulation.html#treaties' },
-        { t: 'Regulatory Bodies', d: 'NERC, REA & NIPC.', href: base + 'Regulation.html#bodies' }
+    // Resources: the former Regulations, Data & Insights and Financing tabs as
+    // the sections of one panel. `sections` renders a titled column per
+    // section on desktop and subheaded groups on mobile; each section title
+    // links to its page. `wide: true` lays a section's entries out in two
+    // columns. A `soon: true` section has no page yet and shows as coming soon.
+    'RESOURCES': {
+      head: 'Investment Resources', sections: [
+        // UX-NAV-04: all four entries used to open Regulation.html itself, so the
+        // menu promised detail and delivered a general page. Each entry now opens
+        // the section it names, which REG-01 gave the page.
+        {
+          head: 'Regulations & Compliance', href: url.regulations, wide: true, items: [
+            { t: 'Core Laws & Policies', d: 'Electricity Act, PIA, NIEP & the core energy laws.', href: base + 'Regulation.html#core-laws' },
+            { t: 'Business Registration', d: 'CAC incorporation, NIPC registration & licensing.', href: base + 'Regulation.html#registration' },
+            { t: 'Tax & Fiscal Policy', d: 'Rates, Pioneer Status & equipment reliefs.', href: base + 'Regulation.html#tax' },
+            { t: 'Import & Export', d: 'Duty treatment, SONCAP conformity & free zones.', href: base + 'Regulation.html#trade' },
+            { t: 'Treaties & Immigration', d: 'Investment guarantees, CERPAC & expatriate quota.', href: base + 'Regulation.html#treaties' },
+            { t: 'Regulatory Bodies', d: 'NERC, REA & NIPC.', href: base + 'Regulation.html#bodies' }
+          ]
+        },
+        {
+          head: 'Data & Insights', href: url.data, items: [
+            { t: 'National Intelligence', d: 'Indicators, maps and trends for the whole country.', href: base + 'Data.html#national-intelligence' },
+            { t: 'Geographic Hotspots', d: 'Where each sector is concentrated, state by state.', href: base + 'Data.html#hotspots' },
+            { t: 'Open Data Downloads', d: 'Planned datasets, and where to get data today.', href: base + 'Data.html#downloads' }
+          ]
+        },
+        { head: 'Financing', soon: true }
       ]
     },
-    'DATA & INSIGHTS': {
-      head: 'Data & Insights', items: [
-        { t: 'National Intelligence', d: 'Indicators, maps and trends for the whole country.', href: base + 'Data.html#national-intelligence' },
-        { t: 'Geographic Hotspots', d: 'Where each sector is concentrated, state by state.', href: base + 'Data.html#hotspots' },
-        { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: base + 'Data.html#downloads' }
-      ]
-    },
-    'NEWS & EVENTS': {
-      head: 'News and Events', items: [
-        { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: base + 'News.html' },
-        { t: 'Power & Energy', d: 'Generation, supply & market news.', href: base + 'News.html' },
-        { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: base + 'News.html' },
-        { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: base + 'News.html' },
-        { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: base + 'News.html' },
-        { t: 'Announcements', d: 'Calls, deadlines & official notices.', href: base + 'Announcements.html' },
-        { t: 'Events', d: 'Forums, workshops & roadshows.', href: base + 'Event.html' }
+    // Newsroom: the News page's categories as one section, and the Events and
+    // Announcements pages side by side in the other. A section without an href
+    // shows its title as a plain heading.
+    'NEWSROOM': {
+      head: 'News, Events & Announcements', sections: [
+        {
+          head: 'News', href: url.news, wide: true, items: [
+            { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: base + 'News.html' },
+            { t: 'Power & Energy', d: 'Generation, supply & market news.', href: base + 'News.html' },
+            { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: base + 'News.html' },
+            { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: base + 'News.html' },
+            { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: base + 'News.html' }
+          ]
+        },
+        {
+          head: 'Events & Announcements', items: [
+            { t: 'Events', d: 'Forums, workshops & roadshows.', href: url.events },
+            { t: 'Announcements', d: 'Calls, deadlines & official notices.', href: url.announcements }
+          ]
+        }
       ]
     }
   };
@@ -186,10 +215,10 @@
     'wind.html': 'SECTORS', 'storage.html': 'SECTORS', 'smallhydro.html': 'SECTORS',
     'greenmobility.html': 'SECTORS', 'energyefficiency.html': 'SECTORS', 'cleancooking.html': 'SECTORS',
     'bioenergy.html': 'SECTORS', 'agriculturepue.html': 'SECTORS', 'greenhydrogen.html': 'SECTORS',
-    'regulation.html': 'REGULATIONS', 'data.html': 'DATA & INSIGHTS',
-    'news.html': 'NEWS & EVENTS', 'newsindetail.html': 'NEWS & EVENTS',
-    'announcements.html': 'NEWS & EVENTS', 'individualannouncement.html': 'NEWS & EVENTS',
-    'event.html': 'NEWS & EVENTS', 'individualevent.html': 'NEWS & EVENTS',
+    'regulation.html': 'RESOURCES', 'data.html': 'RESOURCES',
+    'news.html': 'NEWSROOM', 'newsindetail.html': 'NEWSROOM',
+    'announcements.html': 'NEWSROOM', 'individualannouncement.html': 'NEWSROOM',
+    'event.html': 'NEWSROOM', 'individualevent.html': 'NEWSROOM',
     'opportunities.html': 'INVEST', 'opportunitiesnew.html': 'INVEST',
     'detailedoppnew.html': 'INVEST', 'investormatch.html': 'INVEST',
     'states.html': 'STATES', 'enugu.html': 'STATES',
@@ -205,6 +234,10 @@
   // their own `nav.bg-white` scroll-shadow script against it.
   function topItem(item) {
     var hasMenu = !!MENU[item.label.toUpperCase()];
+    if (item.menuOnly) {
+      return '<li><button type="button" class="nesp-top" aria-haspopup="true" aria-expanded="false">' +
+        '<span class="nesp-top-t">' + item.label + '</span><span class="nesp-caret" aria-hidden="true"></span></button></li>';
+    }
     if (!item.href) {
       return '<li><span class="nesp-top nesp-nav-soon" aria-disabled="true" title="' +
         item.label + ' is not published yet"><span class="nesp-top-t">' + item.label + '</span></span></li>';
@@ -219,16 +252,30 @@
   // before.
   function mobileItem(item) {
     var menu = MENU[item.label.toUpperCase()];
-    if (!item.href) {
+    if (!item.href && !item.menuOnly) {
       return '<li class="nesp-m-item"><div class="nesp-m-row">' +
         '<span class="nesp-m-link nesp-nav-soon">' + item.label + '<em>Coming soon</em></span></div></li>';
     }
-    var row = '<div class="nesp-m-row"><a class="nesp-m-link" href="' + item.href + '">' + item.label + '</a>' +
-      (menu ? '<button type="button" class="nesp-m-exp" aria-expanded="false" aria-label="Show ' +
-        item.label + ' sections"><span aria-hidden="true"></span></button>' : '') + '</div>';
+    var exp = menu ? '<button type="button" class="nesp-m-exp" aria-expanded="false" aria-label="Show ' +
+      item.label + ' sections"><span aria-hidden="true"></span></button>' : '';
+    // A tab with no page of its own: the label opens the accordion too.
+    var row = item.menuOnly
+      ? '<div class="nesp-m-row"><button type="button" class="nesp-m-link nesp-m-toggle" aria-expanded="false">' + item.label + '</button>' + exp + '</div>'
+      : '<div class="nesp-m-row"><a class="nesp-m-link" href="' + item.href + '">' + item.label + '</a>' + exp + '</div>';
     if (!menu) return '<li class="nesp-m-item">' + row + '</li>';
     var subs = '';
-    if (menu.groups) {
+    if (menu.sections) {
+      menu.sections.forEach(function (sec) {
+        if (sec.soon) {
+          subs += '<span class="nesp-m-subhead">' + sec.head + '</span><span class="nesp-m-soon">Coming soon</span>';
+          return;
+        }
+        subs += sec.href
+          ? '<a class="nesp-m-subhead" href="' + sec.href + '">' + sec.head + '</a>'
+          : '<span class="nesp-m-subhead">' + sec.head + '</span>';
+        sec.items.forEach(function (it) { subs += '<a href="' + it.href + '">' + it.t + '</a>'; });
+      });
+    } else if (menu.groups) {
       // The zones survive on mobile too. 37 flat names would be a wall.
       menu.groups.forEach(function (g) {
         subs += '<a class="nesp-m-subhead" href="' + g.href + '">' + g.head + '</a>';
@@ -253,7 +300,7 @@
     '<div class="nesp-nav-marks">' +
     '<img alt="Partner" src="' + base + 'logoNESP.png">' +
     '<span class="nesp-nav-rule" aria-hidden="true"></span>' +
-    '<a class="nesp-nav-home" href="' + HOME + '" aria-label="OSIP home"><img alt="Logo" src="' + base + 'Text.png"></a>' +
+    '<a class="nesp-nav-home" href="' + HOME + '" aria-label="One-Stop Investment Platform (OSIP), home"><img alt="Logo" src="' + base + 'Text.png"></a>' +
     '</div></div>' +
     '<ul class="nesp-nav-top">' + TOP.map(topItem).join('') + '</ul>' +
     '<div class="nesp-nav-actions">' +
@@ -279,199 +326,175 @@
   // stylesheet in <head> loses every specificity tie to those, so the redesign
   // would have rendered on some pages and not others. Descendant rules are also
   // scoped under .nesp-header for the same reason.
-  var FONT = "Manrope,Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
-  var GREEN = '#047857';
+  // ---- Redesign tokens (11 Sep 2026) ---------------------------------------
+  // The header now speaks the redesigned pages' language: warm paper instead of
+  // white, the deep green, a gold hairline for "you are here", Inter for the
+  // interface and Newsreader for the words inside the menus. Every page gets it,
+  // redesigned or not, so the two faces are loaded here whenever the host page
+  // has not loaded them already. The previous header is kept in OSIP/Backups/nav/.
+  var SANS = "Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+  // 14 Sep 2026: the header is Inter throughout, desktop and mobile, as on the
+  // homepage. What used to be set in Newsreader (menu entries, descriptions,
+  // state names, the mobile index, panel titles) is Inter held to the serif's
+  // x-height by font-size-adjust, so nothing grows or rewraps.
+  var ADJUST = '.515';
+  var FONT = SANS;
+  var GREEN = '#004225';
+  var GREEN2 = '#0b6b45';
+  var INK = '#13201b';
+  var INK2 = '#3d4742';
+  var INK3 = '#6b716c';
+  var CARD = '#fbfaf7';
+  var TINT = '#f1eee8';
+  var LINE = '#e2ded5';
+  var LINE2 = '#cfc9bd';
+  var GOLD = '#d9a520';
+  if (!document.getElementById('osip-rd-fonts') && !document.querySelector('link[href*="family=Inter"]')) {
+    var faces = document.createElement('link');
+    faces.id = 'osip-rd-fonts';
+    faces.rel = 'stylesheet';
+    faces.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap';
+    (document.head || document.documentElement).appendChild(faces);
+  }
   if (!document.getElementById('nesp-nav-style')) {
     var st = document.createElement('style');
     st.id = 'nesp-nav-style';
     st.textContent = [
       // ---- shell ---------------------------------------------------------
-      // The header itself paints nothing. Its surface is a separate layer
-      // underneath the content (::before), and that layer is what contracts into
-      // the floating card. The old version animated the nav's padding and the
-      // row's height, which meant the browser re-laid-out the whole document on
-      // every frame of the transition and the logos and links visibly resized
-      // while it ran. Now the content never moves and the document is never
-      // re-laid-out: an absolutely positioned layer changing its own insets
-      // costs one repaint. That is the whole difference in how it reads.
-      //
-      // `background:transparent` here also has to beat the `bg-white` utility
-      // still on the element (two pages script against `nav.bg-white`, so the
-      // class stays). This stylesheet is appended at the end of <body>, so it
-      // wins the tie. Without it a white slab would sit behind the card.
-      '.nesp-header{position:sticky;top:0;z-index:50;background:transparent;font-family:' + FONT + '}',
+      // Same mechanics as before: the surface is a layer (::before) under the
+      // content, and only that layer contracts into the floating card, so the
+      // document never re-lays-out while the header changes state.
+      '.nesp-header{position:sticky;top:0;z-index:50;background:transparent;font-family:' + SANS + '}',
       '.nesp-header>*{position:relative;z-index:1}',
-      // A 3px brand rule along the very top of the page. It is what the at-rest
-      // bar was missing: a plain white slab with a grey line under it reads as
-      // unfinished, and this is the convention official portals use to frame the
-      // page. It belongs to the page edge, not to the card, so it fades out as
-      // the header detaches and comes back when you return to the top.
-      '.nesp-header::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;z-index:2;background:' + GREEN + ';transition:opacity .32s ease}',
+      // A 2px deep green rule along the very top of the page at rest.
+      '.nesp-header::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;z-index:2;background:' + GREEN + ';transition:opacity .32s ease}',
       'nav.nesp-header.is-stuck::after,nav.nesp-header.osip-scrolled::after{opacity:0}',
-      // The 1px border is present in BOTH states, transparent on three sides at
-      // rest, so the card's outline fades in instead of stepping the surface.
-      // At rest the edge is a soft shadow plus a very light hairline, not the
-      // flat grey rule it was. A hard line reads as a cheap seam where the bar
-      // meets a dark hero; this separates the bar from whatever is under it
-      // without drawing a border across the page.
-      '.nesp-header::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;z-index:0;background:#fff;border:1px solid transparent;border-bottom-color:rgba(9,40,30,.07);border-radius:0;box-shadow:0 1px 3px rgba(6,20,16,.035);transition:top .16s cubic-bezier(.4,0,.2,1),right .16s cubic-bezier(.4,0,.2,1),bottom .16s cubic-bezier(.4,0,.2,1),left .16s cubic-bezier(.4,0,.2,1),border-radius .16s cubic-bezier(.4,0,.2,1),background-color .16s ease,border-color .16s ease,box-shadow .16s ease}',
+      '.nesp-header::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;z-index:0;background:rgba(251,250,247,.96);border:1px solid transparent;border-bottom-color:' + LINE + ';border-radius:0;box-shadow:none;transition:top .16s cubic-bezier(.4,0,.2,1),right .16s cubic-bezier(.4,0,.2,1),bottom .16s cubic-bezier(.4,0,.2,1),left .16s cubic-bezier(.4,0,.2,1),border-radius .16s cubic-bezier(.4,0,.2,1),background-color .16s ease,border-color .16s ease,box-shadow .16s ease}',
       '.nesp-header *,.nesp-header *::before,.nesp-header *::after{box-sizing:border-box}',
-      // Legacy reset. Around twenty pages carry a dead inline copy of the OLD
-      // nav CSS, which drew the caret and the dropdown arrow notch as ::after
-      // pseudo-elements. This build draws its own caret as a real element and
-      // has no notch, so without these two the old pages rendered two carets
-      // and an arrow nothing points with. Both selectors outrank the inline
-      // ones on specificity, so no !important is needed.
+      // Legacy reset for the dead inline copies of the old nav CSS on older pages.
       '.nesp-header .nesp-has-menu>a::after{content:none}',
-      // Scrolled: the surface contracts by 8px vertically and 16px horizontally
-      // and rounds off, so the page runs past a floating card instead of butting
-      // against a full-width slab. The content row is untouched at 76px; the
-      // card is 60px of that, and the tallest thing in the row (the 40px pill)
-      // clears it comfortably. Nothing in the document moves, at any point.
-      //
-      // Two pages toggle `osip-scrolled` from their own scroll scripts. Both
-      // classes drive the same rules, and the legacy full-width background and
-      // shadow those pages declare are reset here.
       'nav.nesp-header.is-stuck,nav.nesp-header.osip-scrolled{background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}',
-      'nav.nesp-header.is-stuck::before,nav.nesp-header.osip-scrolled::before{transition-duration:.32s;top:7px;right:16px;bottom:7px;left:16px;border-radius:16px;background:rgba(255,255,255,.86);-webkit-backdrop-filter:saturate(180%) blur(16px);backdrop-filter:saturate(180%) blur(16px);border-color:rgba(9,40,30,.07);box-shadow:0 1px 2px rgba(6,20,16,.04),0 10px 24px -12px rgba(6,20,16,.2),0 30px 60px -30px rgba(2,44,34,.55)}',
-      // The panel hangs off the bottom of the row, which is 8px below the card
-      // once it contracts. Trimming its own offset by the same 8px keeps the
-      // gap under the arrow visually identical in both states.
-      // A page whose header overlays its content has no band to reveal, so it
-      // keeps the same unhurried timing in both directions. Pages that reserve a
-      // slot expand fast (the .16s base above) so the gaps are shut before the
-      // band's edge can travel through them on the way back up.
+      // Scrolled: a frosted paper card floating over the page.
+      'nav.nesp-header.is-stuck::before,nav.nesp-header.osip-scrolled::before{transition-duration:.32s;top:7px;right:16px;bottom:7px;left:16px;border-radius:20px;background:rgba(251,250,247,.84);-webkit-backdrop-filter:saturate(170%) blur(18px);backdrop-filter:saturate(170%) blur(18px);border-color:rgba(19,32,27,.08);box-shadow:0 1px 2px rgba(19,32,27,.04),0 18px 44px -24px rgba(19,32,27,.36)}',
       '.nesp-header.nesp-overlays::before{transition-duration:.32s}',
+      // Mobile sheet open: the surface goes solid. Frosted, the page showed
+      // through the tall open sheet, so wherever the page behind it changed from
+      // a dark hero to the light body there was a pale patch across the menu.
+      'nav.nesp-header.nesp-sheet-open::before{background:' + CARD + '!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}',
       'nav.nesp-header.is-stuck .nesp-dropdown,nav.nesp-header.osip-scrolled .nesp-dropdown{margin-top:2px}',
       '.nesp-nav-wrap{max-width:1440px;margin:0 auto;padding:0 2rem}',
-      '.nesp-nav-row{display:flex;align-items:stretch;gap:1.25rem;height:68px}',
+      '.nesp-nav-row{display:flex;align-items:stretch;gap:1.25rem;height:64px}',
 
       // ---- brand ---------------------------------------------------------
       '.nesp-header .nesp-nav-brand{display:flex;align-items:center;flex:0 0 auto}',
       '.nesp-header .nesp-nav-marks{display:flex;align-items:center;gap:1rem}',
       '.nesp-header .nesp-nav-marks img{display:block;width:auto;object-fit:contain}',
-      // Both marks come up a step. At 32px the crest was detail with nowhere to
-      // go, and the lockup sat light against the actions on the other side.
       '.nesp-header .nesp-nav-marks img[alt="Partner"]{height:2.125rem}',
       '.nesp-header .nesp-nav-marks img[alt="Logo"]{height:1.375rem}',
-      // Hairline fades at both ends rather than stopping dead.
-      '.nesp-header .nesp-nav-rule{width:1px;height:1.5rem;background:linear-gradient(180deg,transparent,#e3eae6 25%,#e3eae6 75%,transparent)}',
-      '.nesp-header .nesp-nav-home{display:inline-flex;align-items:center;transition:opacity .2s ease}',
+      '.nesp-header .nesp-nav-rule{width:1px;height:1.5rem;background:linear-gradient(180deg,transparent,' + LINE2 + ' 25%,' + LINE2 + ' 75%,transparent)}',
+      '.nesp-header .nesp-nav-home{display:inline-flex;align-items:center;transition:opacity .3s ease}',
       '.nesp-header .nesp-nav-home:hover{opacity:.7}',
 
       // ---- desktop top level ---------------------------------------------
-      // Idle labels are ink, not green. Eight green items read as eight
-      // highlighted links with nothing to choose between them; green now means
-      // "you are here" or "you are hovering this", which is the only job it has.
+      // Quiet ink labels in Inter; a warm pill on hover; the page you are on in
+      // deep green with a gold hairline under the word itself.
       '.nesp-header .nesp-nav-top{display:none;flex:1 1 auto;min-width:0;align-items:stretch;justify-content:center;gap:2px;list-style:none;margin:0;padding:0}',
       '.nesp-header .nesp-nav-top>li{position:relative;display:flex}',
-      '.nesp-header .nesp-top{position:relative;display:inline-flex;align-items:center;gap:.35rem;padding:0 .6875rem;font-family:' + FONT + ';font-size:13px;font-weight:600;line-height:1;letter-spacing:.005em;color:#38463f;text-decoration:none;white-space:nowrap;transition:color .2s ease}',
-      // Hover pill, inset from the full-height hit area so the bar keeps a
-      // generous click target without a full-height block of colour.
-      '.nesp-header .nesp-top::before{content:"";position:absolute;left:.1875rem;right:.1875rem;top:.9375rem;bottom:.9375rem;border-radius:9px;background:transparent;transition:background-color .2s ease}',
+      '.nesp-header .nesp-top{position:relative;display:inline-flex;align-items:center;gap:.35rem;padding:0 .6875rem;font-family:' + SANS + ';font-size:13px;font-weight:500;line-height:1;letter-spacing:0;color:' + INK2 + ';text-decoration:none;white-space:nowrap;transition:color .3s ease}',
+      '.nesp-header .nesp-top::before{content:"";position:absolute;left:.1875rem;right:.1875rem;top:1rem;bottom:1rem;border-radius:999px;background:transparent;transition:background-color .3s ease}',
       '.nesp-header .nesp-top>*{position:relative}',
-      '.nesp-header a.nesp-top:hover,.nesp-header .nesp-has-menu:hover>.nesp-top{color:' + GREEN + '}',
-      '.nesp-header a.nesp-top:hover::before,.nesp-header .nesp-has-menu:hover>.nesp-top::before{background:#f1f8f4}',
-      '.nesp-header .nesp-top:focus-visible{outline:2px solid ' + GREEN + ';outline-offset:-8px;border-radius:12px}',
-      // Active tab: the gold accent sits 5px under the label itself, not down on
-      // the header's bottom border. It lives INSIDE the label span, so it is
-      // exactly as wide as the word it underlines and needs no per-breakpoint
-      // offsets when the item padding changes.
-      '.nesp-header .nesp-top.is-active{color:' + GREEN + ';font-weight:700}',
-      '.nesp-header .nesp-top-bar{position:absolute;left:0;right:0;top:calc(100% + 5px);height:2.5px;border-radius:999px;background:#FFB955}',
-      '.nesp-header .nesp-caret{width:6px;height:6px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg);opacity:.4;transition:transform .24s ease,opacity .24s ease}',
+      // A tab with no page of its own is a button; it looks exactly like the links.
+      '.nesp-header button.nesp-top{-webkit-appearance:none;appearance:none;margin:0;border:0;background:transparent;cursor:pointer}',
+      '.nesp-header a.nesp-top:hover,.nesp-header button.nesp-top:hover,.nesp-header .nesp-has-menu:hover>.nesp-top,.nesp-header .nesp-has-menu.is-open>.nesp-top{color:' + INK + '}',
+      '.nesp-header a.nesp-top:hover::before,.nesp-header button.nesp-top:hover::before,.nesp-header .nesp-has-menu:hover>.nesp-top::before,.nesp-header .nesp-has-menu.is-open>.nesp-top::before{background:' + TINT + '}',
+      '.nesp-header .nesp-top:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:-8px;border-radius:999px}',
+      '.nesp-header .nesp-top.is-active{color:' + GREEN + ';font-weight:600}',
+      '.nesp-header .nesp-top-bar{position:absolute;left:0;right:0;top:calc(100% + 6px);height:1.5px;border-radius:999px;background:' + GOLD + '}',
+      '.nesp-header .nesp-caret{width:6px;height:6px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:translateY(-2px) rotate(45deg);opacity:.45;transition:transform .3s ease,opacity .3s ease}',
       '.nesp-header .nesp-has-menu:hover .nesp-caret{transform:translateY(1px) rotate(225deg);opacity:.85}',
-      // NAV-01: entries with no page yet. Blurred and unclickable rather than
-      // linked to the Coming Soon placeholder.
+      // NAV-01: entries with no page yet stay blurred and unclickable.
       '.nesp-header .nesp-nav-soon{opacity:.4;filter:blur(.5px);cursor:default;user-select:none}',
       '.nesp-header .nesp-nav-soon:hover{opacity:.55;filter:blur(.25px)}',
 
       // ---- actions -------------------------------------------------------
-      // Pill and circle share one radius language, where the old square button
-      // sat next to a round icon and neither looked deliberate.
+      // The primary action is the redesigned pages' pill: deep green, its label
+      // in Newsreader held to the sans' visual size, and the light sweep on hover.
       '.nesp-header .nesp-nav-actions{display:none;align-items:center;gap:.75rem;flex:0 0 auto;margin-left:auto}',
-      // The CTA now uses the same shine sweep as the homepage's primary buttons
-      // (.osip-shine there) instead of lifting off the bar. The lift was the
-      // loudest thing in the header and it read as a web-button rather than as
-      // part of an institutional bar; a light sweep says the same "this is the
-      // primary action" without moving anything. Homepage's own script skips the
-      // nav when it applies .osip-shine, so this has to carry its own copy: the
-      // header ships with every page, most of which never load that CSS.
-      '.nesp-header .nesp-cta{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;padding:.5625rem 1.25rem;border-radius:999px;background:' + GREEN + ';color:#fff;font-family:' + FONT + ';font-size:13px;font-weight:600;letter-spacing:.01em;text-decoration:none;white-space:nowrap;box-shadow:0 1px 2px rgba(4,120,87,.18);transition:background-color .2s ease,box-shadow .2s ease}',
-      '.nesp-header .nesp-cta::before{content:"";position:absolute;top:0;bottom:0;left:-120%;width:55%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-22deg);transition:left .9s ease;z-index:1;pointer-events:none}',
+      '.nesp-header .nesp-cta{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;height:42px;padding:0 1.375rem;border-radius:999px;background:' + GREEN + ';color:#fff;font-family:' + SANS + ';font-size-adjust:none;font-size:14px;font-weight:500;letter-spacing:0;text-decoration:none;white-space:nowrap;box-shadow:none;transition:background-color .35s ease}',
+      '.nesp-header .nesp-cta::before{content:"";position:absolute;top:0;bottom:0;left:-120%;width:55%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.26),transparent);transform:skewX(-22deg);transition:left .9s ease;z-index:1;pointer-events:none}',
       '.nesp-header .nesp-cta:hover::before{left:130%}',
-      '.nesp-header .nesp-cta:hover{background:#036a4d;box-shadow:0 1px 2px rgba(4,120,87,.24)}',
-      // Account: the outlined person glyph read as an empty placeholder, which
-      // is what it was. Initials say a specific person is signed in, and they
-      // are the same person AboutMe.html shows.
-      '.nesp-header .nesp-avatar{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:0 0 auto;border-radius:999px;background:#eaf5f0;border:1px solid rgba(4,120,87,.14);color:' + GREEN + ';text-decoration:none;font-family:' + FONT + ';font-size:11.5px;font-weight:800;letter-spacing:.03em;line-height:1;transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease}',
-      '.nesp-header a.nesp-avatar:hover{background:' + GREEN + ';border-color:' + GREEN + ';color:#fff;box-shadow:0 10px 18px -12px rgba(4,120,87,1)}',
-      '.nesp-header .nesp-avatar--sm{width:34px;height:34px;font-size:11px}',
+      '.nesp-header .nesp-cta:hover{background:#062f1f}',
+      '.nesp-header .nesp-avatar{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 auto;border-radius:999px;background:' + CARD + ';border:1px solid ' + LINE2 + ';color:' + GREEN + ';text-decoration:none;font-family:' + SANS + ';font-size:11.5px;font-weight:600;letter-spacing:.06em;line-height:1;transition:background-color .3s ease,color .3s ease,border-color .3s ease}',
+      '.nesp-header a.nesp-avatar:hover{background:' + GREEN + ';border-color:' + GREEN + ';color:#fff}',
+      '.nesp-header .nesp-avatar--sm{width:36px;height:36px;font-size:11px}',
 
       // ---- dropdown ------------------------------------------------------
+      // A warm card; entry names in Newsreader, their one-liners under them.
       '.nesp-header .nesp-has-menu{position:relative}',
-      '.nesp-header .nesp-dropdown{position:absolute;top:100%;left:50%;margin-top:10px;min-width:320px;max-width:390px;background:#fff;border:1px solid rgba(9,40,30,.07);border-radius:16px;box-shadow:0 1px 2px rgba(6,20,16,.04),0 12px 26px -10px rgba(6,20,16,.16),0 30px 60px -24px rgba(6,20,16,.28);padding:.5rem;opacity:0;visibility:hidden;transform:translateX(calc(-50% + var(--nesp-dx,0px))) translateY(10px) scale(.985);transform-origin:top center;transition:opacity .22s ease,transform .26s cubic-bezier(.2,.8,.3,1),visibility .26s ease;z-index:60}',
-      '.nesp-header .nesp-has-menu:hover .nesp-dropdown,.nesp-header .nesp-dropdown:hover,.nesp-header .nesp-has-menu:focus-within .nesp-dropdown{opacity:1;visibility:visible;transform:translateX(calc(-50% + var(--nesp-dx,0px))) translateY(0) scale(1)}',
-      // Invisible bridge so the pointer can cross the gap without the panel
-      // closing under it. It has to cover the full 10px offset plus the arrow.
+      '.nesp-header .nesp-dropdown{position:absolute;top:100%;left:50%;margin-top:10px;min-width:320px;max-width:390px;background:' + CARD + ';border:1px solid ' + LINE + ';border-radius:20px;box-shadow:0 1px 2px rgba(19,32,27,.04),0 24px 50px -26px rgba(19,32,27,.32);padding:.5rem;opacity:0;visibility:hidden;transform:translateX(calc(-50% + var(--nesp-dx,0px))) translateY(10px) scale(.985);transform-origin:top center;transition:opacity .26s ease,transform .36s cubic-bezier(.16,1,.3,1),visibility .36s ease;z-index:60}',
+      '.nesp-header .nesp-has-menu:hover .nesp-dropdown,.nesp-header .nesp-dropdown:hover,.nesp-header .nesp-has-menu:focus-within .nesp-dropdown,.nesp-header .nesp-has-menu.is-open .nesp-dropdown{opacity:1;visibility:visible;transform:translateX(calc(-50% + var(--nesp-dx,0px))) translateY(0) scale(1)}',
+      '.nesp-header .nesp-has-menu.is-open .nesp-caret{transform:translateY(1px) rotate(225deg);opacity:.85}',
+      // Invisible bridge so the pointer can cross the gap without the panel closing.
       '.nesp-header .nesp-dropdown::before{content:"";position:absolute;top:-16px;left:0;right:0;height:18px}',
-      // The arrow tying the panel to the item it belongs to: a square rotated
-      // 45deg, carrying the panel's own background and two of its borders, so it
-      // reads as the panel's corner rather than as a separate triangle.
-      //
-      // It is offset by MINUS the panel's own clamp (--nesp-dx), so when a panel
-      // near the viewport edge slides sideways to stay on screen, the arrow
-      // stays put over the nav item it points at instead of travelling with it.
-      '.nesp-header .nesp-dropdown::after{content:"";position:absolute;top:-7px;left:calc(50% - var(--nesp-dx,0px));width:13px;height:13px;background:#fff;border-top:1px solid rgba(9,40,30,.07);border-left:1px solid rgba(9,40,30,.07);border-radius:4px 0 0 0;transform:translateX(-50%) rotate(45deg)}',
-      '.nesp-header .nesp-menu-head{font-family:' + FONT + ';font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9aa8a1;padding:.625rem .875rem .5rem}',
-      '.nesp-header .nesp-menu-item{position:relative;display:block;padding:.625rem 1.75rem .625rem .875rem;border-radius:10px;text-decoration:none;transition:background-color .16s ease}',
-      '.nesp-header .nesp-menu-item:hover{background:#f4faf7}',
-      '.nesp-header .nesp-menu-item .t{display:block;font-family:' + FONT + ';font-size:13.5px;font-weight:700;color:#15241d;transition:color .16s ease}',
+      '.nesp-header .nesp-dropdown::after{content:"";position:absolute;top:-7px;left:calc(50% - var(--nesp-dx,0px));width:13px;height:13px;background:' + CARD + ';border-top:1px solid ' + LINE + ';border-left:1px solid ' + LINE + ';border-radius:4px 0 0 0;transform:translateX(-50%) rotate(45deg)}',
+      '.nesp-header .nesp-menu-head{font-family:' + SANS + ';font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:' + GREEN2 + ';padding:.75rem .875rem .5rem}',
+      '.nesp-header .nesp-menu-item{position:relative;display:block;padding:.625rem 1.75rem .625rem .875rem;border-radius:12px;text-decoration:none;transition:background-color .25s ease}',
+      '.nesp-header .nesp-menu-item:hover{background:' + TINT + '}',
+      '.nesp-header .nesp-menu-item .t{display:block;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:17px;font-weight:500;line-height:1.25;letter-spacing:-.006em;color:' + INK + ';transition:color .25s ease}',
       '.nesp-header .nesp-menu-item:hover .t{color:' + GREEN + '}',
-      '.nesp-header .nesp-menu-item .d{display:block;font-size:11.5px;line-height:1.45;color:#6b746f;margin-top:2px}',
-      // Chevron that slides in on hover: says "this goes somewhere" without
-      // printing an arrow beside every row at rest.
-      '.nesp-header .nesp-menu-item::after{content:"";position:absolute;right:.875rem;top:50%;width:5px;height:5px;border-right:1.7px solid ' + GREEN + ';border-top:1.7px solid ' + GREEN + ';transform:translate(-5px,-50%) rotate(45deg);opacity:0;transition:transform .2s ease,opacity .2s ease}',
-      '.nesp-header .nesp-menu-item:hover::after{transform:translate(0,-50%) rotate(45deg);opacity:.75}',
+      '.nesp-header .nesp-menu-item .d{display:block;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:14px;line-height:1.45;color:' + INK3 + ';margin-top:2px}',
+      '.nesp-header .nesp-menu-item::after{content:"";position:absolute;right:.875rem;top:50%;width:5px;height:5px;border-right:1.5px solid ' + GREEN2 + ';border-top:1.5px solid ' + GREEN2 + ';transform:translate(-5px,-50%) rotate(45deg);opacity:0;transition:transform .3s ease,opacity .3s ease}',
+      '.nesp-header .nesp-menu-item:hover::after{transform:translate(0,-50%) rotate(45deg);opacity:.8}',
       '.nesp-header .nesp-menu-list{display:grid;grid-template-columns:1fr}',
       '.nesp-header .nesp-dropdown--compact .nesp-menu-item{padding-top:.5rem;padding-bottom:.5rem}',
-      // Height-capped and scrollable, applied to EVERY dropdown. The scrollbar is
-      // deliberately visible: the list is cut off mid-item with no other cue.
-      '.nesp-header .nesp-dropdown--scroll .nesp-menu-list{max-height:340px;overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin;scrollbar-color:#cbd8d2 transparent}',
+      '.nesp-header .nesp-dropdown--scroll .nesp-menu-list{max-height:340px;overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin;scrollbar-color:' + LINE2 + ' transparent}',
       '.nesp-header .nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar{width:6px}',
       '.nesp-header .nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-track{background:transparent;margin:6px 0}',
-      '.nesp-header .nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-thumb{background:#d3ded9;border-radius:999px}',
-      '.nesp-header .nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-thumb:hover{background:' + GREEN + '}',
+      '.nesp-header .nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-thumb{background:' + LINE2 + ';border-radius:999px}',
+      '.nesp-header .nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-thumb:hover{background:' + GREEN2 + '}',
 
       // ---- wide panel (STATES) -------------------------------------------
-      // 37 territories will not read as one scrolling column, so this panel
-      // keeps them in their six zones across three columns. It is capped and
-      // scrolls like every other panel; at these row heights the six groups fit
-      // inside the cap, so in practice it never does.
       '.nesp-header .nesp-dropdown--mega{min-width:min(700px,calc(100vw - 2rem));max-width:min(700px,calc(100vw - 2rem));padding:.625rem}',
-      '.nesp-header .nesp-menu-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 1rem;max-height:min(480px,calc(100vh - 140px));overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin;scrollbar-color:#cbd8d2 transparent}',
+      '.nesp-header .nesp-menu-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 1rem;max-height:min(480px,calc(100vh - 140px));overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin;scrollbar-color:' + LINE2 + ' transparent}',
       '.nesp-header .nesp-menu-groups::-webkit-scrollbar{width:6px}',
       '.nesp-header .nesp-menu-groups::-webkit-scrollbar-track{background:transparent;margin:6px 0}',
-      '.nesp-header .nesp-menu-groups::-webkit-scrollbar-thumb{background:#d3ded9;border-radius:999px}',
-      '.nesp-header .nesp-menu-groups::-webkit-scrollbar-thumb:hover{background:' + GREEN + '}',
+      '.nesp-header .nesp-menu-groups::-webkit-scrollbar-thumb{background:' + LINE2 + ';border-radius:999px}',
+      '.nesp-header .nesp-menu-groups::-webkit-scrollbar-thumb:hover{background:' + GREEN2 + '}',
       '.nesp-header .nesp-menu-group{padding-bottom:.5rem}',
-      // The zone heading is itself a link: States.html already carries an anchor
-      // per zone in its directory below the map.
-      '.nesp-header .nesp-group-head{display:block;font-family:' + FONT + ';font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#9aa8a1;padding:.5rem .625rem .3125rem;text-decoration:none;transition:color .16s ease}',
+      '.nesp-header .nesp-group-head{display:block;font-family:' + SANS + ';font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:' + GREEN2 + ';padding:.625rem .625rem .375rem;text-decoration:none;transition:color .25s ease}',
       '.nesp-header .nesp-group-head:hover{color:' + GREEN + '}',
-      '.nesp-header .nesp-state{display:flex;align-items:center;gap:.375rem;padding:.3125rem .625rem;border-radius:8px;font-family:' + FONT + ';font-size:12.5px;font-weight:600;color:#33413b;text-decoration:none;transition:background-color .16s ease,color .16s ease}',
-      '.nesp-header .nesp-state:hover{background:#f4faf7;color:' + GREEN + '}',
-      // One published profile among 37 is worth marking. The rest need no badge:
-      // the absence of one is the message.
-      '.nesp-header .nesp-state-live{margin-left:auto;font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:' + GREEN + ';background:#e7f5ee;border-radius:999px;padding:1px 6px}',
+      '.nesp-header .nesp-state{display:flex;align-items:center;gap:.375rem;padding:.3125rem .625rem;border-radius:10px;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:15px;font-weight:400;color:' + INK2 + ';text-decoration:none;transition:background-color .25s ease,color .25s ease}',
+      '.nesp-header .nesp-state:hover{background:' + TINT + ';color:' + GREEN + '}',
+      '.nesp-header .nesp-state-live{margin-left:auto;font-family:' + SANS + ';font-size:8.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:' + GREEN + ';background:#e6efe8;border-radius:999px;padding:1px 7px}',
+
+      // ---- sectioned panel (RESOURCES) ------------------------------------
+      // A serif title, then one titled column per section with a hairline
+      // between them; the section title is the link to its page. A section
+      // with no page yet sits along the bottom as a quiet coming-soon strip.
+      '.nesp-header .nesp-dropdown--resources{min-width:min(840px,calc(100vw - 2rem));max-width:min(840px,calc(100vw - 2rem));padding:.625rem}',
+      '.nesp-header .nesp-dropdown--resources .nesp-menu-head{font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:21px;font-weight:400;letter-spacing:-.012em;text-transform:none;color:' + INK + ';padding:.625rem .875rem .75rem;margin:0 .25rem .25rem;border-bottom:1px solid ' + LINE + '}',
+      '.nesp-header .nesp-res{max-height:min(560px,calc(100vh - 130px));overflow-y:auto;overscroll-behavior:contain;padding-right:4px;scrollbar-width:thin;scrollbar-color:' + LINE2 + ' transparent}',
+      '.nesp-header .nesp-res-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:0}',
+      '.nesp-header .nesp-res-sec{min-width:0;padding:.25rem .25rem .375rem}',
+      '.nesp-header .nesp-res-sec+.nesp-res-sec{border-left:1px solid ' + LINE + ';padding-left:.5rem}',
+      '.nesp-header .nesp-res-head{display:flex;align-items:center;gap:.5rem;padding:.625rem .875rem .375rem;font-family:' + SANS + ';font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:' + GREEN2 + ';text-decoration:none;transition:color .25s ease}',
+      '.nesp-header a.nesp-res-head:hover{color:' + GREEN + '}',
+      '.nesp-header .nesp-res-go{width:5px;height:5px;border-right:1.5px solid currentColor;border-top:1.5px solid currentColor;transform:translateX(-3px) rotate(45deg);opacity:0;transition:transform .3s ease,opacity .3s ease}',
+      '.nesp-header .nesp-res-head:hover .nesp-res-go{transform:translateX(0) rotate(45deg);opacity:.9}',
+      '.nesp-header .nesp-res-items{display:grid;grid-template-columns:minmax(0,1fr);gap:0 .25rem}',
+      '.nesp-header .nesp-res-sec--wide .nesp-res-items{grid-template-columns:repeat(2,minmax(0,1fr))}',
+      '.nesp-header .nesp-dropdown--resources .nesp-menu-item .t{font-size:16px}',
+      '.nesp-header .nesp-dropdown--resources .nesp-menu-item .d{font-size:13.5px;line-height:1.4}',
+      '.nesp-header .nesp-res-foot{display:flex;align-items:center;gap:.75rem;margin:.375rem .25rem .125rem;padding:.75rem .875rem;border-radius:14px;background:' + TINT + ';cursor:default;user-select:none}',
+      '.nesp-header .nesp-res-foot-h{font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:16px;font-weight:500;color:' + INK3 + '}',
+      '.nesp-header .nesp-res-soon{font-family:' + SANS + ';font-size:9.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:' + INK3 + ';border:1px dashed ' + LINE2 + ';border-radius:999px;padding:2px .5rem}',
+      '@media (max-width:60rem){.nesp-header .nesp-res-grid{grid-template-columns:minmax(0,1fr)}.nesp-header .nesp-res-sec+.nesp-res-sec{border-left:0;padding-left:.25rem;border-top:1px solid ' + LINE + '}}',
 
       // ---- hamburger -----------------------------------------------------
-      // Three real bars that fold into a cross, instead of the old text glyph
-      // swap. Same 44px target.
-      '.nesp-header .nesp-nav-toggle{display:inline-flex;align-items:center;justify-content:center;align-self:center;width:44px;height:44px;margin-left:auto;margin-right:-.5rem;padding:0;border:0;background:transparent;border-radius:12px;color:' + GREEN + ';cursor:pointer;transition:background-color .2s ease}',
-      '.nesp-header .nesp-nav-toggle:hover{background:#f1f8f4}',
+      '.nesp-header .nesp-nav-toggle{display:inline-flex;align-items:center;justify-content:center;align-self:center;width:44px;height:44px;margin-left:auto;margin-right:-.5rem;padding:0;border:0;background:transparent;border-radius:999px;color:' + GREEN + ';cursor:pointer;transition:background-color .3s ease}',
+      '.nesp-header .nesp-nav-toggle:hover{background:' + TINT + '}',
       '.nesp-header .nesp-burger{position:relative;display:block;width:20px;height:14px}',
-      '.nesp-header .nesp-burger i{position:absolute;left:0;height:2px;width:100%;border-radius:2px;background:currentColor;transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .2s ease,width .3s ease}',
+      '.nesp-header .nesp-burger i{position:absolute;left:0;height:1.5px;width:100%;border-radius:2px;background:currentColor;transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .2s ease,width .3s ease}',
       '.nesp-header .nesp-burger i:nth-child(1){top:0}',
       '.nesp-header .nesp-burger i:nth-child(2){top:6px;width:70%}',
       '.nesp-header .nesp-burger i:nth-child(3){top:12px}',
@@ -480,52 +503,55 @@
       '.nesp-header .nesp-nav-toggle.is-open .nesp-burger i:nth-child(3){transform:translateY(-6px) rotate(-45deg);width:100%}',
 
       // ---- mobile sheet --------------------------------------------------
-      '.nesp-header .nesp-mnav{display:none;border-top:1px solid #eef1f0;padding:.5rem 0 1rem;max-height:calc(100svh - 68px);overflow-y:auto;overscroll-behavior:contain}',
-      '.nesp-header .nesp-mnav.is-open{display:block;animation:nespSheetIn .26s cubic-bezier(.2,.8,.3,1)}',
+      // The sections read as a large serif index, the way the redesigned pages
+      // set their headings.
+      '.nesp-header .nesp-mnav{display:none;border-top:1px solid ' + LINE + ';padding:.5rem 0 1.25rem;max-height:calc(100svh - 64px);overflow-y:auto;overscroll-behavior:contain}',
+      '.nesp-header button.nesp-m-link{-webkit-appearance:none;appearance:none;margin:0;border:0;background:transparent;text-align:left;cursor:pointer}',
+      '.nesp-header .nesp-m-sublist span.nesp-m-subhead{display:block;font-family:' + SANS + ';font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:' + INK3 + ';padding:.75rem .625rem .25rem}',
+      '.nesp-header .nesp-m-soon{display:inline-block;margin:.25rem .625rem .5rem;font-family:' + SANS + ';font-size:9.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:' + INK3 + ';border:1px dashed ' + LINE2 + ';border-radius:999px;padding:1px .5rem}',
+      '.nesp-header .nesp-mnav.is-open{display:block;animation:nespSheetIn .36s cubic-bezier(.16,1,.3,1)}',
       '@keyframes nespSheetIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}',
       '.nesp-header .nesp-mnav ul{list-style:none;margin:0;padding:0}',
-      '.nesp-header .nesp-m-row{display:flex;align-items:center;border-radius:12px;transition:background-color .18s ease}',
-      '.nesp-header .nesp-m-row:hover{background:#f6faf8}',
-      '.nesp-header .nesp-m-link{flex:1 1 auto;display:flex;align-items:center;gap:.5rem;padding:.8125rem .75rem;font-family:' + FONT + ';font-size:14.5px;font-weight:600;letter-spacing:.005em;color:#1c2b24;text-decoration:none}',
-      '.nesp-header .nesp-m-link.is-active{color:' + GREEN + ';font-weight:700}',
-      '.nesp-header .nesp-m-item.is-current>.nesp-m-row{background:#f1f8f4}',
-      '.nesp-header .nesp-m-exp{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;background:transparent;border-radius:12px;color:#8b978f;cursor:pointer}',
+      '.nesp-header .nesp-m-row{display:flex;align-items:center;border-radius:14px;transition:background-color .25s ease}',
+      // Hover tints only where there is a real pointer: on a phone a tap leaves
+      // :hover stuck on the row you touched, which read as a second open section.
+      '@media (hover:hover){.nesp-header .nesp-m-row:hover{background:' + TINT + '}}',
+      '.nesp-header .nesp-m-link{flex:1 1 auto;display:flex;align-items:center;gap:.5rem;padding:.625rem .75rem;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:22px;font-weight:400;line-height:1.2;letter-spacing:-.012em;color:' + INK + ';text-decoration:none}',
+      '.nesp-header .nesp-m-link.is-active{color:' + GREEN + '}',
+      '.nesp-header .nesp-m-item.is-current>.nesp-m-row{background:' + TINT + '}',
+      '.nesp-header .nesp-m-exp{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;background:transparent;border-radius:999px;color:' + INK3 + ';cursor:pointer}',
       '.nesp-header .nesp-m-exp:hover{color:' + GREEN + '}',
-      '.nesp-header .nesp-m-exp>span{width:7px;height:7px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .26s ease}',
-      '.nesp-header .nesp-m-item.is-open>.nesp-m-row{background:#f1f8f4}',
+      '.nesp-header .nesp-m-exp>span{width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .3s ease}',
+      '.nesp-header .nesp-m-item.is-open>.nesp-m-row{background:' + TINT + '}',
       '.nesp-header .nesp-m-item.is-open .nesp-m-exp{color:' + GREEN + '}',
       '.nesp-header .nesp-m-item.is-open .nesp-m-exp>span{transform:translateY(1px) rotate(225deg)}',
-      // grid-template-rows 0fr -> 1fr animates to the content's real height, so
-      // the accordion never needs a hardcoded max-height per menu.
-      '.nesp-header .nesp-m-sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s cubic-bezier(.2,.8,.3,1)}',
+      '.nesp-header .nesp-m-sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1)}',
       '.nesp-header .nesp-m-item.is-open .nesp-m-sub{grid-template-rows:1fr}',
       '.nesp-header .nesp-m-sub>div{overflow:hidden}',
-      '.nesp-header .nesp-m-sublist{margin:.125rem 0 .5rem 1rem;padding-left:.875rem;border-left:1px solid #e6ece9}',
-      '.nesp-header .nesp-m-sublist a{display:block;padding:.5rem .625rem;border-radius:8px;font-size:13px;font-weight:500;color:#5c6b64;text-decoration:none;transition:background-color .16s ease,color .16s ease}',
-      '.nesp-header .nesp-m-sublist a:hover{background:#f6faf8;color:' + GREEN + '}',
-      '.nesp-header .nesp-m-sublist a.nesp-m-subhead{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#9aa8a1;padding:.625rem .625rem .25rem}',
+      '.nesp-header .nesp-m-sublist{margin:.25rem 0 .625rem 1rem;padding-left:.875rem;border-left:1px solid ' + LINE + '}',
+      '.nesp-header .nesp-m-sublist a{display:block;padding:.5rem .625rem;border-radius:10px;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:16.5px;font-weight:400;color:' + INK2 + ';text-decoration:none;transition:background-color .25s ease,color .25s ease}',
+      '.nesp-header .nesp-m-sublist a:hover{background:' + TINT + ';color:' + GREEN + '}',
+      '.nesp-header .nesp-m-sublist a.nesp-m-subhead{font-family:' + SANS + ';font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:' + GREEN2 + ';padding:.75rem .625rem .25rem}',
       '.nesp-header .nesp-m-sublist a.nesp-m-subhead:hover{background:transparent;color:' + GREEN + '}',
-      '.nesp-header .nesp-m-foot{margin-top:.75rem;padding-top:.875rem;border-top:1px solid #eef1f0;display:flex;flex-direction:column;gap:.5rem}',
-      '.nesp-header .nesp-m-foot .nesp-cta{padding:.8125rem 1.25rem;font-size:14px}',
-      '.nesp-header .nesp-m-profile{display:flex;align-items:center;gap:.75rem;padding:.625rem .75rem;border-radius:12px;text-decoration:none;transition:background-color .18s ease}',
-      '.nesp-header .nesp-m-profile:hover{background:#f6faf8}',
-      '.nesp-header .nesp-m-profile-t b{display:block;font-family:' + FONT + ';font-size:14px;font-weight:700;color:#1c2b24;line-height:1.2}',
-      '.nesp-header .nesp-m-profile-t em{display:block;font-style:normal;font-size:11.5px;font-weight:600;color:#8b978f;margin-top:2px}',
+      '.nesp-header .nesp-m-foot{margin-top:.75rem;padding-top:1rem;border-top:1px solid ' + LINE + ';display:flex;flex-direction:column;gap:.625rem}',
+      '.nesp-header .nesp-m-foot .nesp-cta{height:50px;font-size:15px}',
+      '.nesp-header .nesp-m-profile{display:flex;align-items:center;gap:.75rem;padding:.625rem .75rem;border-radius:14px;text-decoration:none;transition:background-color .25s ease}',
+      '.nesp-header .nesp-m-profile:hover{background:' + TINT + '}',
+      '.nesp-header .nesp-m-profile-t b{display:block;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:18px;font-weight:500;color:' + INK + ';line-height:1.2}',
+      '.nesp-header .nesp-m-profile-t em{display:block;font-style:normal;font-family:' + SANS + ';font-size:11.5px;font-weight:500;color:' + INK3 + ';margin-top:2px}',
       '.nesp-header .nesp-m-profile:hover .nesp-m-profile-t b{color:' + GREEN + '}',
-      '.nesp-header .nesp-mnav .nesp-nav-soon em{font-style:normal;font-size:9.5px;letter-spacing:.08em;border:1px dashed #cfd8d4;border-radius:999px;padding:0 .5rem;color:#6b746f;filter:blur(0)}',
+      '.nesp-header .nesp-mnav .nesp-nav-soon em{font-style:normal;font-family:' + SANS + ';font-size:9.5px;letter-spacing:.1em;border:1px dashed ' + LINE2 + ';border-radius:999px;padding:0 .5rem;color:' + INK3 + ';filter:blur(0)}',
 
       // ---- breakpoints ---------------------------------------------------
-      // The desktop/mobile switch is stated HERE, not left to Tailwind's xl:*,
-      // which homepage.html's frozen build does not contain.
-      '@media (min-width:78rem){',
+      // Six tabs fit a narrower bar than eight did, so the desktop bar takes
+      // over at 1152px rather than 1248px.
+      '@media (min-width:72rem){',
       '.nesp-header .nesp-nav-top{display:flex}',
       '.nesp-header .nesp-nav-actions{display:flex}',
       '.nesp-header .nesp-nav-toggle{display:none}',
       '.nesp-header .nesp-mnav{display:none!important}',
       '}',
-      // Eight items only get room to breathe on a genuinely wide screen, so the
-      // padding grows with the viewport instead of being one cramped constant.
-      '@media (min-width:85rem){.nesp-header .nesp-top{padding:0 .875rem;font-size:13.5px}}',
+      '@media (min-width:85rem){.nesp-header .nesp-top{padding:0 .875rem;font-size:14px}}',
       '@media (min-width:95rem){.nesp-header .nesp-top{padding:0 1.0625rem}}',
       '@media (max-width:47.9375rem){.nesp-nav-wrap{padding:0 1.5rem}}',
       '@media (max-width:39.9375rem){',
@@ -536,17 +562,11 @@
       '.nesp-header .nesp-nav-marks img[alt="Logo"]{height:1rem}',
       '.nesp-header .nesp-nav-rule{height:1.375rem}',
       '.nesp-header .nesp-mnav{max-height:calc(100svh - 58px)}',
-      '.nesp-header .nesp-m-link{font-size:15px}',
-      // Tighter card inset on a phone, where 16px of side gutter is a lot of the
-      // screen.
-      'nav.nesp-header.is-stuck::before,nav.nesp-header.osip-scrolled::before{top:5px;right:10px;bottom:5px;left:10px;border-radius:13px}',
+      'nav.nesp-header.is-stuck::before,nav.nesp-header.osip-scrolled::before{top:5px;right:10px;bottom:5px;left:10px;border-radius:16px}',
       '}',
-      // Very narrow: drop the partner mark rather than let the row wrap.
       '@media (max-width:22.5rem){.nesp-header .nesp-nav-marks img[alt="Partner"],.nesp-header .nesp-nav-rule{display:none}}',
       '@media (prefers-reduced-motion:reduce){.nesp-header *,.nesp-header *::before,.nesp-header *::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}',
-      // The header is sticky, so an in-page jump used to park the target under
-      // it. Every anchor target keeps the header height clear; measureNav()
-      // fills the variable in from the real rendered height.
+      // The header is sticky, so every anchor target keeps its height clear.
       '[id]{scroll-margin-top:var(--osip-nav-offset,7.5rem)}'
     ].join('');
     (document.body || document.head || document.documentElement).appendChild(st);
@@ -658,12 +678,33 @@
     }
 
     var menu = MENU[label];
-    if (!menu || a.tagName !== 'A') return;
+    if (!menu || (a.tagName !== 'A' && a.tagName !== 'BUTTON')) return;
     var li = a.closest('li'); if (!li) return;
     li.classList.add('nesp-has-menu');
     var panel = document.createElement('div');
     var body;
-    if (menu.groups) {
+    if (menu.sections) {
+      var cols = '', foot = '';
+      menu.sections.forEach(function (sec) {
+        if (sec.soon) {
+          foot += '<div class="nesp-res-foot" aria-disabled="true" title="' + sec.head + ' is not published yet">' +
+            '<span class="nesp-res-foot-h">' + sec.head + '</span><span class="nesp-res-soon">Coming soon</span></div>';
+          return;
+        }
+        var rows = '';
+        sec.items.forEach(function (it) {
+          rows += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+            (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
+        });
+        cols += '<div class="nesp-res-sec' + (sec.wide ? ' nesp-res-sec--wide' : '') + '">' +
+          (sec.href
+            ? '<a class="nesp-res-head" href="' + sec.href + '"><span>' + sec.head + '</span><span class="nesp-res-go" aria-hidden="true"></span></a>'
+            : '<div class="nesp-res-head"><span>' + sec.head + '</span></div>') +
+          '<div class="nesp-res-items">' + rows + '</div></div>';
+      });
+      panel.className = 'nesp-dropdown nesp-dropdown--resources';
+      body = '<div class="nesp-res"><div class="nesp-res-grid">' + cols + '</div>' + foot + '</div>';
+    } else if (menu.groups) {
       var cols = '';
       menu.groups.forEach(function (g) {
         var rows = '';
@@ -687,6 +728,26 @@
     }
     panel.innerHTML = '<div class="nesp-menu-head">' + menu.head + '</div>' + body;
     li.appendChild(panel);
+
+    // A button tab has no page to go to, so a click (or tap on a touch laptop)
+    // opens and closes its panel. Hover and keyboard focus still open it too;
+    // leaving, clicking elsewhere and Esc close it.
+    if (a.tagName === 'BUTTON') {
+      var setMenu = function (open) {
+        li.classList.toggle('is-open', open);
+        a.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      a.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setMenu(!li.classList.contains('is-open'));
+      });
+      li.addEventListener('mouseenter', function () { a.setAttribute('aria-expanded', 'true'); });
+      li.addEventListener('mouseleave', function () { setMenu(false); });
+      document.addEventListener('click', function (e) { if (!li.contains(e.target)) setMenu(false); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' || e.key === 'Esc') { setMenu(false); }
+      });
+    }
   });
 
   // ---- Keep the panels inside the viewport -------------------------------
@@ -728,13 +789,15 @@
         if (li) { li.classList.add('is-current'); li.classList.add('is-open'); } // open the section you are in
       }
     });
-    mobile.querySelectorAll('.nesp-m-item.is-open .nesp-m-exp').forEach(function (b) {
+    mobile.querySelectorAll('.nesp-m-item.is-open .nesp-m-exp, .nesp-m-item.is-open .nesp-m-toggle').forEach(function (b) {
       b.setAttribute('aria-expanded', 'true');
     });
 
-    // One section open at a time: the sheet is already long on a phone.
+    // One section open at a time: the sheet is already long on a phone. The
+    // chevron opens a section; so does the label of a tab with no page.
+    var OPENERS = '.nesp-m-exp, .nesp-m-toggle';
     mobile.addEventListener('click', function (e) {
-      var btn = e.target.closest('.nesp-m-exp');
+      var btn = e.target.closest(OPENERS);
       if (!btn) return;
       e.preventDefault();
       var li = btn.closest('.nesp-m-item');
@@ -742,11 +805,10 @@
       mobile.querySelectorAll('.nesp-m-item.is-open').forEach(function (other) {
         if (other === li) return;
         other.classList.remove('is-open');
-        var ob = other.querySelector('.nesp-m-exp');
-        if (ob) ob.setAttribute('aria-expanded', 'false');
+        other.querySelectorAll(OPENERS).forEach(function (ob) { ob.setAttribute('aria-expanded', 'false'); });
       });
       li.classList.toggle('is-open', willOpen);
-      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      li.querySelectorAll(OPENERS).forEach(function (b) { b.setAttribute('aria-expanded', willOpen ? 'true' : 'false'); });
     });
   }
 
@@ -757,6 +819,7 @@
     var setOpen = function (open) {
       mobile.classList.toggle('is-open', open);
       toggle.classList.toggle('is-open', open);
+      nav.classList.toggle('nesp-sheet-open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     };
@@ -785,7 +848,7 @@
 
     // Crossing into desktop must reset the button too, not just hide the panel.
     window.addEventListener('resize', function () {
-      if (window.matchMedia('(min-width: 1248px)').matches) setOpen(false);
+      if (window.matchMedia('(min-width: 1152px)').matches) setOpen(false);
     });
   }
 })();

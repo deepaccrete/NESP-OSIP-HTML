@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Contact Us | OSIP - Nigerian Energy Investment Portal</title>
+    <title>Contact Us | One-Stop Investment Platform (OSIP)</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
@@ -13,6 +13,24 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
+    <!-- Redesign: Newsreader for headings and reading text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        /* Redesign: hold the hero copy back for its entrance. The motion layer
+           lifts this the moment its start states are applied, and it lifts
+           itself after 3.5s whatever happens, so a slow or blocked CDN can never
+           leave the hero empty. Not set at all when reduced motion is asked for. */
+        (function () {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var root = document.documentElement;
+                root.classList.add('rd-intro');
+                setTimeout(function () { root.classList.remove('rd-intro'); }, 3500);
+            } catch (e) {}
+        })();
+    </script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -90,10 +108,861 @@
             border-width: 1px;
             box-shadow: 0 0 0 2px rgba(0, 52, 43, 0.1);
         }
+
+    </style>
+    <style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - Contact.html (11 Sep 2026)
+
+           The DetailedSector.html redesign carried to this page: the same tokens
+           and the same direction. Headings and reading text move to Newsreader,
+           a light editorial serif; interface text (labels, form fields, chips,
+           captions) stays sans; buttons take the serif at their old visual size;
+           grounds go to warm paper; borders and shadows are turned down. The
+           page has no photo hero, so it opens on a large serif header over the
+           form. No content was edited, and the form's fields, names and
+           behaviour are untouched. Scoped under body.rd. The earlier design is
+           kept in OSIP/Backups/Contact/.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-card-2: #f1eee8;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-line-3: #b3ab9c;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* ---- Lenis, from lenis@1.3.26/dist/lenis.css --------------------------- */
+        html.lenis,
+        html.lenis body { height: auto; }
+        .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+        .lenis [data-lenis-prevent],
+        .lenis [data-lenis-prevent-wheel],
+        .lenis [data-lenis-prevent-touch],
+        .lenis [data-lenis-prevent-vertical],
+        .lenis [data-lenis-prevent-horizontal] { overscroll-behavior: contain; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        .lenis.lenis-autoToggle {
+            transition-property: overflow;
+            transition-duration: 1ms;
+            transition-behavior: allow-discrete;
+        }
+
+        /* ---- Page ---------------------------------------------------------------- */
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd main {
+            font-family: var(--rd-sans) !important;
+            padding-top: clamp(48px, 7vw, 112px) !important;
+            padding-bottom: clamp(64px, 8vw, 120px) !important;
+        }
+
+        .rd ::selection { background: #f7be26; color: var(--rd-ink); }
+        .rd main .text-on-surface-variant { color: var(--rd-ink-2) !important; }
+
+        /* ---- Headings ------------------------------------------------------------ */
+        .rd main h1,
+        .rd main h2 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-optical-sizing: auto;
+            text-wrap: balance;
+        }
+
+        .rd main h1 .rd-line-mask,
+        .rd main h2 .rd-line-mask { padding: .18em; margin: -.18em; }
+
+        /* ---- Page header: no photo hero here, so a large serif title on paper ---- */
+        .rd main header { margin-bottom: clamp(40px, 4.6vw, 64px) !important; }
+
+        .rd main header h1 {
+            margin-bottom: 30px !important;
+            font-weight: 300 !important;
+            font-size: clamp(48px, 5.4vw, 80px) !important;
+            line-height: .98 !important;
+            letter-spacing: -0.035em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        /* ---- Reading text: in the serif ------------------------------------------ */
+        .rd main .rd-read {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 17px !important;
+            line-height: 1.7 !important;
+            letter-spacing: -0.003em !important;
+            color: var(--rd-ink-2) !important;
+            text-wrap: pretty;
+        }
+
+        @media (min-width: 640px) { .rd main .rd-read { font-size: 18.5px !important; } }
+
+        /* ---- Form fields ------------------------------------------------------------ */
+        .rd main #contactForm label.font-label-md {
+            margin-bottom: 10px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 12.5px !important;
+            font-weight: 500 !important;
+            line-height: 1.35 !important;
+            letter-spacing: .12em !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd main #contactForm .items-baseline > label.font-label-md { margin-bottom: 0 !important; }
+        .rd main #contactForm label .text-error { color: #b3261e !important; }
+
+        .rd main #contactForm input:not([type=checkbox]):not([type=radio]):not([type=file]),
+        .rd main #contactForm select,
+        .rd main #contactForm textarea {
+            min-height: 52px;
+            padding: 13px 18px !important;
+            background-color: #ffffff !important;
+            border: 1px solid var(--rd-line-2) !important;
+            border-radius: 12px !important;
+            box-shadow: none !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 15px !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink) !important;
+            transition: border-color .3s ease, box-shadow .3s ease !important;
+        }
+
+        /* select keeps the forms plugin's chevron (a background image), so only the colour is set above */
+        .rd main #contactForm select { padding-right: 46px !important; background-position: right 14px center !important; }
+        .rd main #contactForm select:has(> option[value=""]:checked) { color: var(--rd-ink-3) !important; }
+        .rd main #contactForm select option { color: var(--rd-ink); }
+        .rd main #contactForm textarea { resize: vertical; }
+        .rd main #contactForm ::placeholder { color: #8f948f !important; opacity: 1; }
+
+        .rd main #contactForm input:not([type=checkbox]):not([type=radio]):not([type=file]):hover,
+        .rd main #contactForm select:hover,
+        .rd main #contactForm textarea:hover { border-color: var(--rd-line-3) !important; }
+
+        .rd main #contactForm input:not([type=checkbox]):not([type=radio]):not([type=file]):focus,
+        .rd main #contactForm select:focus,
+        .rd main #contactForm textarea:focus {
+            outline: none !important;
+            border-color: var(--rd-green-2) !important;
+            box-shadow: 0 0 0 4px rgba(11, 107, 69, .12) !important;
+        }
+
+
+        .rd main #contactForm .items-baseline > p,
+        .rd main #enquiryHint {
+            font-size: 14.5px !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd main #enquiryHint { margin-top: 10px !important; }
+
+        .rd main #enquiryRouting {
+            margin-top: 16px !important;
+            gap: 10px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd main #enquiryRouting .material-symbols-outlined { margin-top: 2px; color: var(--rd-ink-3) !important; }
+
+        .rd main #enquiryRouting a {
+            font-weight: 500 !important;
+            color: var(--rd-green-2) !important;
+            text-decoration-color: rgba(11, 107, 69, .35) !important;
+            text-underline-offset: 4px !important;
+        }
+
+        .rd main #enquiryRouting a:hover { text-decoration-color: currentColor !important; }
+        .rd main #enquiryRouting strong { font-weight: 600 !important; color: var(--rd-ink) !important; }
+
+        /* ---- Attachments ------------------------------------------------------------ */
+        .rd main #contactForm .border-dashed {
+            padding: 16px 18px !important;
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line-2) !important;
+            border-radius: 14px !important;
+            transition: background-color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd main #contactForm .border-dashed:hover { background: #ffffff !important; border-color: var(--rd-line-3) !important; }
+
+        .rd main #contactForm .border-dashed span.font-body-sm {
+            font-family: var(--rd-sans) !important;
+            font-size: 14px !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd main #contactForm .border-dashed .material-symbols-outlined {
+            color: var(--rd-ink-3) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .rd main #contactForm label[for="fileUpload"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 0 20px !important;
+            border: 1px solid var(--rd-line-2) !important;
+            border-radius: 999px !important;
+            background: transparent !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            line-height: 1 !important;
+            color: var(--rd-green) !important;
+            transition: background-color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd main #contactForm label[for="fileUpload"]:hover { background: #ffffff !important; border-color: var(--rd-line-3) !important; }
+
+        .rd main #contactForm p.italic {
+            font-family: var(--rd-sans) !important;
+            font-style: normal !important;
+            font-size: 12.5px !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* ---- Buttons: one pill for every call to action ------------------------------ */
+        .rd main #contactForm button[type="submit"] {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 0 34px !important;
+            border: 1px solid var(--rd-green) !important;
+            border-radius: 999px !important;
+            background: var(--rd-green) !important;
+            box-shadow: none !important;
+            font-size: 15.5px !important;
+            font-weight: 500 !important;
+            line-height: 1 !important;
+            color: #ffffff !important;
+            transition: background-color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd main #contactForm button[type="submit"]:hover { background: #062f1f !important; border-color: #062f1f !important; }
+
+        .rd main #contactForm button[type="reset"] {
+            min-height: 52px;
+            padding: 0 28px !important;
+            border: 1px solid var(--rd-line-2) !important;
+            border-radius: 999px !important;
+            background: transparent !important;
+            font-size: 15.5px !important;
+            font-weight: 500 !important;
+            line-height: 1 !important;
+            text-transform: none !important;
+            color: var(--rd-green) !important;
+            transition: background-color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd main #contactForm button[type="reset"]:hover { background: #ffffff !important; border-color: var(--rd-line-3) !important; }
+
+        .rd main #contactForm button:focus-visible { outline: 2px solid var(--rd-green-2); outline-offset: 3px; }
+
+        /* ---- The platform panel: the one dark surface, deep green ---------------------- */
+        .rd main .lg\:col-span-5 { gap: 24px !important; }
+
+        .rd main .lg\:col-span-5 > div:first-child {
+            padding: clamp(28px, 3.2vw, 44px) !important;
+            background: var(--rd-deep) !important;
+            border: 0 !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+        }
+
+        .rd main .lg\:col-span-5 > div:first-child .w-14 { border-radius: 14px; box-shadow: none !important; }
+
+        .rd main .lg\:col-span-5 > div:first-child p.font-h3 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 46px !important;
+            font-weight: 300 !important;
+            line-height: 1 !important;
+            letter-spacing: -0.03em !important;
+            color: #ffffff !important;
+        }
+
+        .rd main .lg\:col-span-5 > div:first-child p.font-label-md {
+            margin-top: 10px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            line-height: 1.5 !important;
+            letter-spacing: .26em !important;
+            color: #f7be26 !important;
+        }
+
+        .rd main .lg\:col-span-5 > div:first-child p.rd-rule {
+            margin-bottom: 36px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18px !important;
+            font-weight: 400 !important;
+            line-height: 1.6 !important;
+            color: rgba(255, 255, 255, .8) !important;
+        }
+
+        .rd main .lg\:col-span-5 .grid-cols-3 > div {
+            padding: 18px 8px 16px !important;
+            background: rgba(255, 255, 255, .04) !important;
+            border-color: rgba(255, 255, 255, .12) !important;
+            border-radius: 14px;
+        }
+
+        .rd main .lg\:col-span-5 .grid-cols-3 > div > p:first-child {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: clamp(22px, 1.85vw, 28px) !important;
+            font-weight: 400 !important;
+            white-space: nowrap;
+            line-height: 1 !important;
+            letter-spacing: -0.02em !important;
+            color: #ffffff !important;
+        }
+
+        .rd main .lg\:col-span-5 .grid-cols-3 > div > p + p {
+            margin-top: 10px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10px !important;
+            font-weight: 500 !important;
+            letter-spacing: .2em !important;
+            color: rgba(255, 255, 255, .55) !important;
+        }
+
+        .rd main .lg\:col-span-5 > div:first-child .space-y-4 span.font-body-sm {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 17px !important;
+            line-height: 1.4 !important;
+            color: rgba(255, 255, 255, .9) !important;
+        }
+
+        .rd main .lg\:col-span-5 > div:first-child .space-y-4 .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* ---- Email card --------------------------------------------------------------- */
+        .rd main .lg\:col-span-5 > div:last-child {
+            padding: clamp(26px, 3vw, 40px) !important;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+        }
+
+        .rd main .lg\:col-span-5 > div:last-child > .flex > .material-symbols-outlined {
+            color: var(--rd-green-2) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .rd main .lg\:col-span-5 h2 {
+            margin-bottom: 8px !important;
+            font-size: 30px !important;
+            font-weight: 400 !important;
+            line-height: 1.1 !important;
+            letter-spacing: -0.018em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main .lg\:col-span-5 > div:last-child > .flex p.font-body-sm {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            line-height: 1.55 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd main #directEmailLink {
+            padding: 16px 20px !important;
+            background: var(--rd-paper) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 14px !important;
+            transition: background-color .45s ease, border-color .45s ease !important;
+        }
+
+        .rd main #directEmailLink:hover { background: #ffffff !important; border-color: var(--rd-line-2) !important; }
+
+        .rd main #directEmailLink span.font-label-md,
+        .rd main .lg\:col-span-5 > div:last-child > p.font-label-md {
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            line-height: 1.5 !important;
+            letter-spacing: .22em !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd main #directEmailLink span.font-label-md { margin-bottom: 6px !important; }
+
+        .rd main #directEmailLink span.font-semibold {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 20px !important;
+            font-weight: 500 !important;
+            line-height: 1.25 !important;
+            letter-spacing: -0.006em !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd main #directEmailSubject {
+            margin-top: 4px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 13px !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd main #directEmailLink > .material-symbols-outlined {
+            color: var(--rd-ink-3) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .rd main #directEmailLink:hover > .material-symbols-outlined { color: var(--rd-green) !important; }
+
+        .rd main #emailCategoryChips { gap: 8px !important; }
+
+        .rd main #emailCategoryChips a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 0 14px !important;
+            border: 1px solid var(--rd-line-2) !important;
+            border-radius: 999px !important;
+            background: transparent !important;
+            font-size: 13.5px !important;
+            font-weight: 500 !important;
+            line-height: 1 !important;
+            color: var(--rd-ink-2) !important;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd main #emailCategoryChips a:hover { background: #ffffff !important; border-color: var(--rd-line-3) !important; color: var(--rd-green) !important; }
+
+        .rd main .lg\:col-span-5 > div:last-child > p.border-t {
+            border-color: var(--rd-line) !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 15.5px !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd main .lg\:col-span-5 > div:last-child > p.border-t .material-symbols-outlined { margin-top: 1px; color: var(--rd-ink-3) !important; }
+
+        /* ---- Gold rules: drawn, not just shown -------------------------------------
+           One custom property, --rd-draw, which the motion layer tweens; without the
+           motion layer it stays at 1 and every line is there. */
+        .rd main .rd-rule::before {
+            content: "";
+            position: absolute; left: 0; top: .35em; bottom: .35em;
+            width: 1px; background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1)); transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        .rd main .rd-rule { position: relative; padding-left: 23px !important; border-left-width: 0 !important; }
+
+        /* ---- Reading progress ---------------------------------------------------------- */
+        .rd-progress {
+            position: fixed; left: 0; top: 0; right: 0; z-index: 80;
+            height: 2px; background: #f7be26;
+            transform: scaleX(0); transform-origin: 0 50%;
+            pointer-events: none;
+        }
+
+        .rd .rd-sr {
+            position: absolute; width: 1px; height: 1px; margin: -1px;
+            overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+        }
+
+        /* ---- Cursor: only over the things worth pointing at ------------------------- */
+        .rd-cursor { position: fixed; left: 0; top: 0; z-index: 9998; width: 0; height: 0; pointer-events: none; }
+
+        .rd-cursor-dot {
+            position: absolute; left: 0; top: 0;
+            width: 72px; height: 72px; margin: -36px 0 0 -36px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid transparent; border-radius: 50%;
+            background: var(--rd-green); color: #ffffff;
+            font: 500 12px/1 var(--rd-sans); letter-spacing: .06em;
+            transform: scale(0);
+            transition: transform .5s cubic-bezier(.22, 1, .36, 1), width .5s cubic-bezier(.22, 1, .36, 1),
+                height .5s cubic-bezier(.22, 1, .36, 1), margin .5s cubic-bezier(.22, 1, .36, 1),
+                background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd-cursor-label { opacity: 0; transition: opacity .25s ease; }
+        .rd-cursor[data-mode="label"] .rd-cursor-dot { transform: scale(1); }
+        .rd-cursor[data-mode="label"] .rd-cursor-label { opacity: 1; transition-delay: .12s; }
+
+        .rd-cursor[data-look="text"] { mix-blend-mode: multiply; }
+
+        .rd-cursor[data-look="text"] .rd-cursor-dot {
+            width: 96px; height: 96px; margin: -48px 0 0 -48px;
+            background: #f7be26;
+            transition-property: transform, width, height, margin;
+        }
+
+        .rd-cursor[data-mode="text"] .rd-cursor-dot { transform: scale(1); }
+
+        html.rd-cursor-on [data-rd-cursor="label"],
+        html.rd-cursor-on [data-rd-cursor="label"] * { cursor: none !important; }
+
+        /* ---- Small screens ---------------------------------------------------------- */
+        @media (max-width: 639px) {
+            .rd main .lg\:col-span-5 > div:first-child p.font-h3 { font-size: 40px !important; }
+            .rd main .lg\:col-span-5 .grid-cols-3 > div > p + p { letter-spacing: .14em !important; }
+        }
+
+        /* ---- Buttons in Newsreader ----------------------------------------------------
+           Button labels follow the headings into the serif. font-size-adjust holds each
+           label to the visual size it had in the sans (Newsreader runs small at the same
+           px), so no button grows or rewraps; the header menu stays as it is, and icons
+           inside a button keep their own font and size. The category chips and the
+           Choose File label are buttons in all but tag. Keep this block LAST. */
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main #emailCategoryChips a,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main label[for="fileUpload"] {
+          font-family: var(--rd-serif) !important;
+          font-size-adjust: 0.52;
+          letter-spacing: 0 !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta *:not([class*="material-symbols"]):not([class*="material-icons"]) {
+          font-family: inherit !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-icons"] {
+          font-size-adjust: none !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta { font-weight: 500 !important; }
+        /* ---- Type: Inter throughout (14 Sep 2026) --------------------------------------
+           Inter replaces Newsreader on this page, as on DetailedSector and the homepage; the
+           theme, layout, colours and motion are untouched. Every rule above that set the
+           serif now sets Inter held to the serif's x-height (font-size-adjust), so each
+           heading and paragraph keeps the visual size, line length and rhythm it had.
+           Icons keep their own size. The previous type is kept in OSIP/Backups/Contact/. */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-type-adjust: 0.515;
+        }
+
+        .rd [class*="material-symbols"],
+        .rd [class*="material-icons"],
+        .rd .osip-term::after {
+            font-size-adjust: none !important;
+        }
+
+        /* the shared header and footer set Newsreader in their own stylesheets; on this
+           page they follow the page */
+        .rd .nesp-header .nesp-menu-item .t,
+        .rd .nesp-header .nesp-menu-item .d,
+        .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link,
+        .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead),
+        .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head,
+        .rd .nesp-header .nesp-res-foot-h,
+        .rd .nesp-footer h3,
+        .rd .nesp-footer .nesp-foot-brand p,
+        .rd .nesp-footer a,
+        .rd .nesp-footer .nesp-foot-contact li,
+        .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: var(--rd-type-adjust) !important;
+        }
+
+        .rd .nesp-header .nesp-cta {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+
+        .rd .nesp-footer h4 {
+            font-family: var(--rd-sans) !important;
+        }
+
+        /* ---- Heading weight (14 Sep 2026) ----------------------------------------------
+           In Inter the headings read better one step heavier than they sat in the serif. */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3,
+        .rd main header h1,
+        .rd main .lg\:col-span-5 h2,
+        .rd main .lg\:col-span-5 > div:first-child p.font-h3 {
+            font-weight: 500 !important;
+        }
+
+        .rd main h4 {
+            font-weight: 600 !important;
+        }
+
+        .rd .nesp-footer h3 {
+            font-weight: 500 !important;
+        }
+
+        /* buttons: Inter at its own size, as on the homepage (the 0.52 hold above was set
+           for the serif) */
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main #emailCategoryChips a,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main label[for="fileUpload"] {
+            font-size-adjust: none !important;
+        }
+
+        /* ---- UX-FRM-01: submission confirmation (15 Sep 2026) ---------------------------
+           Front-end only. Submitting no longer reloads the page and empties the form: the
+           form is swapped for this confirmation, carrying a reference number and a summary
+           of what was entered. Nothing is sent; there is no mail or server connection in
+           this prototype. */
+        .rd main #contactSuccess[hidden] { display: none !important; }
+
+        .rd main #contactSuccess {
+            padding: clamp(28px, 4vw, 48px);
+            background: var(--rd-card);
+            border: 1px solid var(--rd-line);
+            border-radius: 22px;
+            animation: cfIn .6s cubic-bezier(.22, 1, .36, 1) both;
+        }
+
+        @keyframes cfIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+        .rd main #contactSuccess .cf-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            margin-bottom: 26px;
+            border-radius: 999px;
+            background: var(--rd-green);
+            color: #ffffff;
+        }
+
+        .rd main #contactSuccess .cf-mark .material-symbols-outlined {
+            font-size: 30px;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .rd main #contactSuccess .cf-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 0 0 14px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+            color: var(--rd-green-2);
+        }
+
+        .rd main #contactSuccess .cf-eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            background: var(--rd-gold);
+        }
+
+        .rd main #contactSuccess h2 {
+            margin: 0 0 14px;
+            font-family: var(--rd-sans) !important;
+            font-size: clamp(30px, 3vw, 40px);
+            font-weight: 500 !important;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            color: var(--rd-ink);
+            outline: none;
+        }
+
+        .rd main #contactSuccess .cf-lede {
+            max-width: 38rem;
+            margin: 0 0 30px;
+            font-size: 16.5px;
+            line-height: 1.7;
+            color: var(--rd-ink-2);
+        }
+
+        .rd main #contactSuccess .cf-ref {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px 20px;
+            margin-bottom: 28px;
+            padding: 18px 22px;
+            background: var(--rd-paper);
+            border: 1px solid var(--rd-line);
+            border-radius: 14px;
+        }
+
+        .rd main #contactSuccess .cf-label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 10.5px;
+            font-weight: 500;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--rd-ink-3);
+        }
+
+        .rd main #contactSuccess .cf-ref-value {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: .02em;
+            color: var(--rd-green);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .rd main #contactSuccess .cf-copy {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 38px;
+            padding: 0 16px;
+            border: 1px solid var(--rd-line-2);
+            border-radius: 999px;
+            background: transparent;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--rd-green);
+            cursor: pointer;
+            transition: background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd main #contactSuccess .cf-copy:hover { background: #ffffff; border-color: var(--rd-line-3); }
+        .rd main #contactSuccess .cf-copy .material-symbols-outlined { font-size: 17px; }
+
+        .rd main #contactSuccess dl {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            margin: 0 0 30px;
+            border-top: 1px solid var(--rd-line);
+        }
+
+        .rd main #contactSuccess dl > div {
+            display: grid;
+            grid-template-columns: minmax(120px, 11rem) minmax(0, 1fr);
+            gap: 16px;
+            padding: 13px 0;
+            border-bottom: 1px solid var(--rd-line);
+        }
+
+        .rd main #contactSuccess dt {
+            font-size: 12.5px;
+            font-weight: 500;
+            letter-spacing: .06em;
+            color: var(--rd-ink-3);
+        }
+
+        .rd main #contactSuccess dd {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.55;
+            color: var(--rd-ink);
+            overflow-wrap: anywhere;
+        }
+
+        .rd main #contactSuccess dd.cf-message { color: var(--rd-ink-2); white-space: pre-line; }
+
+        .rd main #contactSuccess .cf-next {
+            margin: 0 0 32px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .rd main #contactSuccess .cf-next li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 6px 0;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--rd-ink-2);
+        }
+
+        .rd main #contactSuccess .cf-next .material-symbols-outlined {
+            flex: 0 0 auto;
+            margin-top: 2px;
+            font-size: 19px;
+            color: var(--rd-green-2);
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .rd main #contactSuccess .cf-next a { color: var(--rd-green-2); font-weight: 500; text-decoration: underline; text-decoration-color: rgba(217, 165, 32, .6); text-underline-offset: 3px; }
+
+        .rd main #contactSuccess .cf-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+
+        .rd main #contactSuccess .cf-primary,
+        .rd main #contactSuccess .cf-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 50px;
+            padding: 0 26px;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd main #contactSuccess .cf-primary { border: 1px solid var(--rd-green); background: var(--rd-green); color: #ffffff; }
+        .rd main #contactSuccess .cf-primary:hover { background: #062f1f; border-color: #062f1f; }
+        .rd main #contactSuccess .cf-secondary { border: 1px solid var(--rd-line-2); background: transparent; color: var(--rd-green); }
+        .rd main #contactSuccess .cf-secondary:hover { background: #ffffff; border-color: var(--rd-line-3); }
+
+        .rd main #contactSuccess button:focus-visible,
+        .rd main #contactSuccess a:focus-visible { outline: 2px solid var(--rd-green-2); outline-offset: 3px; }
+
+        .rd main #contactSuccess .cf-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 26px 0 0;
+            padding-top: 18px;
+            border-top: 1px solid var(--rd-line);
+            font-size: 12.5px;
+            line-height: 1.55;
+            color: var(--rd-ink-3);
+        }
+
+        .rd main #contactSuccess .cf-note .material-symbols-outlined { font-size: 16px; margin-top: 1px; }
+
+        /* while the confirmation shows, the form's page header steps back */
+        .rd main.cf-sent header { display: none; }
+
+        @media (max-width: 639px) {
+            .rd main #contactSuccess dl > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rd main #contactSuccess { animation: none; }
+        }
+
     </style>
 </head>
 
-<body class="bg-surface font-body-md text-on-surface antialiased">
+<body class="bg-surface font-body-md text-on-surface antialiased rd">
     <!-- TopNavBar from COMPONENTS_5 -->
     <div id="site-nav"></div>
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-margin-desktop py-10 sm:py-14 lg:py-20 min-h-screen">
@@ -102,8 +971,8 @@
             <div class="lg:col-span-7">
                 <header class="mb-8 lg:mb-12">
                     <h1 class="font-h2 text-h3 sm:text-h2 text-primary mb-4">Contact Our Team</h1>
-                    <p class="font-body-lg text-on-surface-variant max-w-xl">Reach out for inquiries regarding energy
-                        investments, regulatory guidelines, or technical portal assistance.</p>
+                    <p class="font-body-lg text-on-surface-variant max-w-xl rd-read rd-rule">Reach out for inquiries regarding energy
+                        investments, regulatory guidelines, or technical platform assistance.</p>
                 </header>
                 <form class="space-y-8" id="contactForm">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
@@ -167,19 +1036,35 @@
                                 <option value="hydro">Hydroelectric</option>
                             </select>
                         </div>
-                        <!-- Query Type -->
+                        <!-- Enquiry Category (CON-01) -->
                         <div class="md:col-span-2">
-                            <label
-                                class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Inquiry
-                                Subject <span class="text-error">*</span></label>
-                            <select
+                            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-3">
+                                <label for="enquiryCategory"
+                                    class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">What
+                                    is your enquiry about? <span class="text-error">*</span></label>
+                                <p class="font-body-sm text-on-surface-variant">Choose one — it decides which desk
+                                    receives your message.</p>
+                            </div>
+                            <select id="enquiryCategory" name="enquiryCategory" required
+                                aria-describedby="enquiryHint enquiryRouting"
                                 class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
-                                <option disabled="" selected="" value="">Select nature of inquiry</option>
-                                <option value="investment">Investment Opportunity</option>
-                                <option value="regulatory">Regulatory Inquiry</option>
-                                <option value="technical">Technical Support</option>
-                                <option value="other">General Inquiry</option>
+                                <option disabled="" selected="" value="">Select a category</option>
+                                <option value="sector" data-label="Sector information" data-desc="Technology, project types or market structure in one of the 10 sectors.">Sector information</option>
+                                <option value="regulation" data-label="Regulation &amp; licensing" data-desc="Permits, approvals, agencies or the steps in a regulatory pathway.">Regulation &amp; licensing</option>
+                                <option value="opportunity" data-label="Investment opportunity" data-desc="A listed opportunity, project pipeline or how to submit one.">Investment opportunity</option>
+                                <option value="data" data-label="Data &amp; maps" data-desc="Figures, datasets, the resource map or a data correction.">Data &amp; maps</option>
+                                <option value="state" data-label="State-level enquiry" data-desc="Investing in a specific state, or a state profile in preparation.">State-level enquiry</option>
+                                <option value="partnership" data-label="Partnership" data-desc="Institutional, development-partner or co-financing collaboration.">Partnership</option>
+                                <option value="technical" data-label="Technical issue" data-desc="A page, download, form or account that is not working.">Technical issue</option>
                             </select>
+                            <p class="mt-2 font-body-sm text-on-surface-variant" id="enquiryHint" hidden></p>
+                            <p class="flex items-start gap-2 mt-3 font-body-sm text-on-surface-variant"
+                                id="enquiryRouting">
+                                <span class="material-symbols-outlined text-[18px] text-outline shrink-0">outgoing_mail</span>
+                                <span id="enquiryRoutingText">Your message goes to the OSIP support desk at <a
+                                        class="text-primary-container font-semibold underline underline-offset-2"
+                                        href="mailto:info@osip.gov.ng">info@osip.gov.ng</a>.</span>
+                            </p>
                         </div>
                         <!-- Message -->
                         <div class="md:col-span-2">
@@ -227,8 +1112,50 @@
                         </button>
                     </div>
                 </form>
+
+                <!-- UX-FRM-01: shown in place of the form once it is submitted. Front-end
+                     only: filled in by the script at the foot of the page; nothing is sent. -->
+                <section id="contactSuccess" hidden aria-live="polite">
+                    <span class="cf-mark" aria-hidden="true"><span class="material-symbols-outlined">check</span></span>
+                    <p class="cf-eyebrow">Enquiry received</p>
+                    <h2 id="contactSuccessTitle" tabindex="-1">Thank you<span id="cfName"></span>, your enquiry is with us.</h2>
+                    <p class="cf-lede">It has been routed to the OSIP support desk under <strong id="cfCategory">General enquiry</strong>.
+                        Keep the reference below; quote it if you follow up by email.</p>
+
+                    <div class="cf-ref">
+                        <div>
+                            <span class="cf-label">Reference number</span>
+                            <span class="cf-ref-value" id="cfRef">OSIP-000000-0000</span>
+                        </div>
+                        <button class="cf-copy" id="cfCopy" type="button">
+                            <span class="material-symbols-outlined" aria-hidden="true">content_copy</span><span>Copy</span>
+                        </button>
+                    </div>
+
+                    <dl id="cfSummary" aria-label="Summary of your enquiry"></dl>
+
+                    <ul class="cf-next">
+                        <li><span class="material-symbols-outlined" aria-hidden="true">mark_email_read</span>
+                            <span>A confirmation will go to <strong id="cfEmail">your email address</strong>.</span></li>
+                        <li><span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                            <span>The desk is monitored Monday to Friday, 09:00&ndash;17:00 WAT, and answers enquiries in the order received.</span></li>
+                        <li><span class="material-symbols-outlined" aria-hidden="true">alternate_email</span>
+                            <span>Need to add something? Write to <a href="mailto:info@osip.gov.ng" id="cfMailto">info@osip.gov.ng</a> with your reference in the subject.</span></li>
+                    </ul>
+
+                    <div class="cf-actions">
+                        <a class="cf-primary" href="Opportunities.html">Explore opportunities
+                            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+                        <button class="cf-secondary" id="cfAnother" type="button">Send another enquiry</button>
+                    </div>
+
+                    <p class="cf-note" data-prototype-note>
+                        <span class="material-symbols-outlined" aria-hidden="true">info</span>
+                        <span>Prototype preview: this screen shows the confirmation design. No message was sent and no email will arrive.</span>
+                    </p>
+                </section>
             </div>
-            <!-- Right Side: Branded Portal Banner -->
+            <!-- Right Side: Branded Platform Banner -->
             <div class="lg:col-span-5 flex flex-col gap-8">
                 <div
                     class="relative overflow-hidden bg-primary-container text-on-primary p-6 sm:p-8 lg:p-10 rounded shadow-sm border-t-4 border-tertiary-fixed-dim">
@@ -253,13 +1180,12 @@
                         </div>
                         <div>
                             <p class="font-h3 text-h3 text-white leading-none">OSIP</p>
-                            <p class="font-label-md uppercase tracking-[0.18em] text-tertiary-fixed-dim mt-1.5">One Stop
-                                Investment Portal</p>
+                            <p class="font-label-md uppercase tracking-[0.18em] text-tertiary-fixed-dim mt-1.5">One-Stop Investment Platform</p>
                         </div>
                     </div>
-                    <p class="relative font-body-md text-on-primary-container leading-relaxed mb-8">
-                        Nigeria's official gateway for energy investment — connecting global capital with verified,
-                        bankable projects under one sovereign-backed platform.
+                    <p class="relative font-body-md text-on-primary-container leading-relaxed mb-8 rd-rule">
+                        Nigeria's federal gateway for energy investment — bringing published opportunities,
+                        regulatory pathways and financing routes together in one place.
                     </p>
 
                     <!-- Key stats -->
@@ -284,7 +1210,7 @@
                         <div class="flex items-center gap-3">
                             <span
                                 class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">verified</span>
-                            <span class="font-body-sm text-white">Verified, bankable investment opportunities</span>
+                            <span class="font-body-sm text-white">Published opportunities with stated sources</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <span
@@ -294,44 +1220,48 @@
                         <div class="flex items-center gap-3">
                             <span
                                 class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">support_agent</span>
-                            <span class="font-body-sm text-white">Dedicated, sovereign-backed investor support</span>
+                            <span class="font-body-sm text-white">Dedicated investor support desk</span>
                         </div>
                     </div>
 
-                    <!-- Contact essentials -->
-                    <!-- <div class="relative border-t border-white/10 pt-6 space-y-5">
-                        <div class="flex items-start gap-4">
-                            <span
-                                class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">location_on</span>
-                            <div>
-                                <p class="font-label-md text-on-primary-container uppercase tracking-widest mb-1">
-                                    Headquarters</p>
-                                <p class="font-body-sm text-white leading-relaxed">Ministry of Energy Annexe, Central
-                                    Business District, Abuja, Nigeria</p>
-                            </div>
+                </div>
+
+                <!-- Direct email route (CON-01) -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded p-6 sm:p-8">
+                    <div class="flex items-start gap-4">
+                        <span
+                            class="material-symbols-outlined text-primary-container text-[26px] shrink-0">alternate_email</span>
+                        <div class="min-w-0">
+                            <h2 class="font-h4 text-h4 text-primary mb-1">Prefer to email?</h2>
+                            <p class="font-body-sm text-on-surface-variant">Write to the platform address directly. Put
+                                your enquiry category in the subject line so it reaches the right desk.</p>
                         </div>
-                        <div class="flex items-start gap-4">
+                    </div>
+
+                    <a class="mt-6 flex items-center justify-between gap-4 border border-outline-variant rounded px-4 py-3.5 bg-surface-container-low hover:border-primary-container hover:bg-surface-container transition-colors group"
+                        href="mailto:info@osip.gov.ng" id="directEmailLink">
+                        <span class="min-w-0">
                             <span
-                                class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">call</span>
-                            <div>
-                                <p class="font-label-md text-on-primary-container uppercase tracking-widest mb-1">Investor
-                                    Helpline</p>
-                                <a class="font-body-md text-white font-semibold hover:text-tertiary-fixed-dim transition-colors"
-                                    href="tel:1800114556">1800 114 556</a>
-                                <span class="text-on-primary-container text-body-sm"> · Mon–Fri, 09:00–17:00 WAT</span>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
+                                class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">OSIP
+                                platform email</span>
                             <span
-                                class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">mail</span>
-                            <div>
-                                <p class="font-label-md text-on-primary-container uppercase tracking-widest mb-1">Email
-                                </p>
-                                <a class="font-body-md text-white font-semibold hover:text-tertiary-fixed-dim transition-colors"
-                                    href="mailto:contact@osip.gov.ng">contact@osip.gov.ng</a>
-                            </div>
-                        </div>
-                    </div> -->
+                                class="block font-body-md font-semibold text-primary break-all">info@osip.gov.ng</span>
+                            <span class="block font-body-sm text-on-surface-variant mt-1" id="directEmailSubject">Subject:
+                                General enquiry</span>
+                        </span>
+                        <span
+                            class="material-symbols-outlined text-outline group-hover:text-primary-container transition-colors shrink-0">mail</span>
+                    </a>
+
+                    <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mt-6 mb-3">Or
+                        start from a category</p>
+                    <div class="flex flex-wrap gap-2" id="emailCategoryChips"></div>
+
+                    <p class="flex items-start gap-2 mt-6 pt-5 border-t border-outline-variant font-body-sm text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[18px] text-outline shrink-0">schedule</span>
+                        <span>Monitored Monday to Friday, 09:00&ndash;17:00 WAT. Enquiries are answered in the order
+                            received.</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -346,6 +1276,169 @@
             alert('Your inquiry has been successfully transmitted to the OSIP secretariat. A tracking number will be sent to your email address shortly.');
         });
     </script> -->
+
+    <!-- UX-FRM-01: submission confirmation (front-end only, no connection) -->
+    <script>
+        (function () {
+            var form = document.getElementById('contactForm');
+            var panel = document.getElementById('contactSuccess');
+            if (!form || !panel) return;
+            var main = form.closest('main');
+
+            function pad(n, w) { n = String(n); while (n.length < w) n = '0' + n; return n; }
+            function reference() {
+                var d = new Date();
+                var stamp = String(d.getFullYear()).slice(2) + pad(d.getMonth() + 1, 2) + pad(d.getDate(), 2);
+                var rand = '';
+                var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                for (var i = 0; i < 4; i++) rand += chars.charAt(Math.floor(Math.random() * chars.length));
+                return 'OSIP-' + stamp + '-' + rand;
+            }
+            function labelText(el) {
+                var wrap = el.closest('div');
+                var lab = wrap ? wrap.querySelector('label') : null;
+                return lab ? lab.textContent.replace('*', '').replace(/\s+/g, ' ').trim() : '';
+            }
+            function valueText(el) {
+                if (el.tagName === 'SELECT') return el.value ? el.options[el.selectedIndex].text : '';
+                if (el.type === 'file') return el.files && el.files.length ? Array.prototype.map.call(el.files, function (f) { return f.name; }).join(', ') : '';
+                return (el.value || '').trim();
+            }
+            function scrollToPanel() {
+                var offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--osip-nav-offset'), 10) || 100;
+                var y = Math.max(0, main.getBoundingClientRect().top + window.scrollY - offset);
+                if (window.__rdLenis) window.__rdLenis.scrollTo(y, { immediate: true, force: true });
+                else window.scrollTo(0, y);
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();                                 // no page reload, nothing sent
+
+                var catSelect = document.getElementById('enquiryCategory');
+                var category = catSelect && catSelect.value ? catSelect.options[catSelect.selectedIndex] : null;
+                var fields = Array.prototype.filter.call(form.querySelectorAll('select, input:not([type=radio]), textarea'), function (el) { return el.type !== 'hidden' && el.name !== 'enquiryCategory'; });
+                var name = '', email = '', rows = [];
+
+                if (category) rows.push(['Enquiry about', category.getAttribute('data-label')]);
+                fields.forEach(function (el) {
+                    var v = valueText(el);
+                    if (!v) return;
+                    var label = labelText(el) || (el.type === 'file' ? 'Attachments' : '');
+                    if (el.type === 'email') email = v;
+                    if (el.type === 'text' && /name/i.test(label)) name = v;
+                    rows.push([label.replace(/\s*\(Optional\)/i, ''), v]);
+                });
+
+                var ref = reference();
+                document.getElementById('cfRef').textContent = ref;
+                document.getElementById('cfName').textContent = name ? ', ' + name.split(/\s+/)[0] : '';
+                document.getElementById('cfCategory').textContent = category ? category.getAttribute('data-label') : 'General enquiry';
+                document.getElementById('cfEmail').textContent = email || 'the address you gave';
+                document.getElementById('cfMailto').href = 'mailto:info@osip.gov.ng?subject=' + encodeURIComponent('OSIP enquiry ' + ref);
+
+                var dl = document.getElementById('cfSummary');
+                dl.textContent = '';                                // textContent only: user input is never parsed as HTML
+                rows.forEach(function (r) {
+                    var row = document.createElement('div');
+                    var dt = document.createElement('dt'); dt.textContent = r[0];
+                    var dd = document.createElement('dd'); dd.textContent = r[1];
+                    if (/message/i.test(r[0])) dd.className = 'cf-message';
+                    row.appendChild(dt); row.appendChild(dd); dl.appendChild(row);
+                });
+
+                form.hidden = true;
+                panel.hidden = false;
+                main.classList.add('cf-sent');
+                scrollToPanel();
+                document.getElementById('contactSuccessTitle').focus({ preventScroll: true });
+                if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+            });
+
+            document.getElementById('cfAnother').addEventListener('click', function () {
+                form.reset();
+                panel.hidden = true;
+                form.hidden = false;
+                main.classList.remove('cf-sent');
+                scrollToPanel();
+                var first = form.querySelector('select, input, textarea');
+                if (first) first.focus({ preventScroll: true });
+                if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+            });
+
+            document.getElementById('cfCopy').addEventListener('click', function () {
+                var btn = this, text = document.getElementById('cfRef').textContent;
+                var done = function () {
+                    btn.lastChild.textContent = 'Copied';
+                    setTimeout(function () { btn.lastChild.textContent = 'Copy'; }, 1800);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, done);
+                else done();
+            });
+        })();
+    </script>
+
+    <!-- CON-01: enquiry categories -> routing hint + prefilled platform email -->
+    <script>
+        (function () {
+            var EMAIL = 'info@osip.gov.ng';
+            var chipWrap = document.getElementById('emailCategoryChips');
+            var link = document.getElementById('directEmailLink');
+            var subjectLine = document.getElementById('directEmailSubject');
+            var routingText = document.getElementById('enquiryRoutingText');
+            var select = document.getElementById('enquiryCategory');
+            var hint = document.getElementById('enquiryHint');
+            if (!select) return;
+            var options = Array.prototype.filter.call(select.options, function (o) { return o.value; });
+
+            function subjectFor(label) {
+                return 'OSIP enquiry - ' + label;
+            }
+            function mailtoFor(label) {
+                return 'mailto:' + EMAIL + (label ? '?subject=' + encodeURIComponent(subjectFor(label)) : '');
+            }
+
+            // Chips are built from the dropdown's options so the two lists can never drift apart.
+            if (chipWrap) {
+                options.forEach(function (o) {
+                    var label = o.getAttribute('data-label');
+                    var a = document.createElement('a');
+                    a.href = mailtoFor(label);
+                    a.className = 'font-body-sm text-on-surface-variant border border-outline-variant rounded px-3 py-1.5 hover:border-primary-container hover:text-primary transition-colors';
+                    a.textContent = label;
+                    chipWrap.appendChild(a);
+                });
+            }
+
+            var defaultRouting = routingText ? routingText.innerHTML : '';
+            var defaultSubject = subjectLine ? subjectLine.textContent : '';
+
+            function update() {
+                var o = select.options[select.selectedIndex];
+                var label = o && o.value ? o.getAttribute('data-label') : '';
+                if (hint) {
+                    hint.textContent = label ? o.getAttribute('data-desc') : '';
+                    hint.hidden = !label;
+                }
+                if (!label) {                                        // back to the resting state
+                    if (link) link.href = mailtoFor('');
+                    if (subjectLine) subjectLine.textContent = defaultSubject;
+                    if (routingText) routingText.innerHTML = defaultRouting;
+                    return;
+                }
+                if (link) link.href = mailtoFor(label);
+                if (subjectLine) subjectLine.textContent = 'Subject: ' + subjectFor(label);
+                if (routingText) {
+                    // The hint above already names and describes the category, so this
+                    // line only says where it goes (it read "State-level enquiry enquiries").
+                    routingText.innerHTML = 'This goes to the OSIP support desk at <a class="text-primary-container font-semibold underline underline-offset-2" href="' +
+                        mailtoFor(label) + '">' + EMAIL + '</a>.';
+                }
+            }
+            select.addEventListener('change', update);
+            var form = select.form;
+            if (form) form.addEventListener('reset', function () { setTimeout(update, 0); });
+        })();
+    </script>
 
     <!-- Shared nav: mobile toggle + active-page wiring -->
     <script>
@@ -517,7 +1610,7 @@
                 },
                 'DATA': {
                     head: 'Data & Insights', items: [
-                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'Investment & Capacity', d: 'Capacity and investment metrics across energy sectors.', href: 'Data.html' },
                         { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
                         { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
                     ]
@@ -554,6 +1647,354 @@
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
 <script src="nav.js"></script>
+    <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script>
+        /* =====================================================================
+           REDESIGN MOTION LAYER - Contact.html, matched to DetailedSector.html
+
+           Smooth scroll (Lenis) and scroll-driven motion (GSAP, ScrollTrigger,
+           SplitText). Built to fail open: nothing is hidden until the libraries
+           are confirmed present, everything hidden is tracked so an error can put
+           it back, and with reduced motion asked for the script does nothing.
+           The page's own scripts are left alone.
+           ===================================================================== */
+        (function () {
+            /* ---- Page map: the only part that differs from page to page ----------
+               Every selector may be null. Selectors are matched inside CFG.root, and
+               anything inside the hero is left to the hero's own entrance. */
+            var CFG = {
+                root: 'main',            // content container (a wrapper when the page has no <main>)
+                hero: false,             // no photo hero: the page opens on a serif header over the form
+                heroBg: null,
+                heroCopy: null,
+                heroEyebrow: null,
+                heroLede: null,
+                heroExtras: null,
+                heroParallax: false,
+                scrollCue: false,
+                eyebrowDashes: null,
+                headings: 'h1, h2',      // headings whose lines rise out of a mask
+                headingSkip: '.lg\\:col-span-5', // the email card's heading arrives with its card
+                read: '.rd-read',        // paragraphs whose words light up in reading order
+                rules: '.rd-rule, .osip-note', // elements carrying a drawn gold rule (--rd-draw)
+                cards: [
+                    { sel: '.lg\\:col-span-5 > div', y: 36, stagger: 0.12 } // the platform panel and the email card
+                ],
+                counts: '.grid-cols-3 > div > p:first-child', // the panel's three figures
+                cursorLabel: [],
+                magnetic: '#contactForm button[type="submit"]',
+                lenisPrevent: null
+            };
+
+            var html = document.documentElement;
+            var hidden = [];
+            var drawn = [];
+
+            function releaseIntro() { html.classList.remove('rd-intro'); }
+
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !window.gsap || !window.ScrollTrigger) { releaseIntro(); return; }
+
+            function start() {
+                try {
+                    run();
+                } catch (err) {
+                    if (window.console) console.warn('[rd] motion layer stopped:', err);
+                    releaseIntro();
+                    html.classList.remove('rd-motion');
+                    if (hidden.length) gsap.set(hidden, { clearProps: 'opacity,transform,visibility' });
+                    drawn.forEach(function (el) { el.style.removeProperty('--rd-draw'); });
+                }
+            }
+
+            /* After the page's own DOMContentLoaded work, then the webfonts, which the
+               line splits depend on - but never hold the hero back more than 900ms. */
+            var started = false;
+            function once() { if (!started) { started = true; start(); } }
+            function afterParse() {
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+                setTimeout(once, 900);
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', afterParse);
+            else afterParse();
+
+            function run() {
+                gsap.registerPlugin(ScrollTrigger);
+                var hasSplit = !!window.SplitText;
+                if (hasSplit) gsap.registerPlugin(SplitText);
+
+                var root = document.querySelector(CFG.root || 'main');
+                if (!root) { releaseIntro(); return; }
+                html.classList.add('rd-motion');
+
+                var hero = CFG.hero === false ? null
+                    : CFG.hero ? document.querySelector(CFG.hero)
+                    : (Array.prototype.filter.call(root.children, function (el) { return el.tagName === 'SECTION'; })[0] || null);
+                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                var EASE = 'expo.out';
+                function all(scope, sel) { return sel ? Array.prototype.slice.call(scope.querySelectorAll(sel)) : []; }
+                function inRest(sel) { return all(root, sel).filter(function (el) { return !(hero && hero.contains(el)); }); }
+                function inHero(sel) { return hero && sel ? hero.querySelector(sel) : null; }
+
+                /* ---- Smooth scroll ---------------------------------------------------- */
+                var lenis = null;
+                if (window.Lenis) {
+                    lenis = new Lenis({ lerp: 0.09, smoothWheel: true, syncTouch: false });
+                    lenis.on('scroll', ScrollTrigger.update);
+                    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+                    gsap.ticker.lagSmoothing(0);
+                    window.__rdLenis = lenis;
+
+                    all(document, '#mobile-nav, .nesp-dropdown' + (CFG.lenisPrevent ? ', ' + CFG.lenisPrevent : ''))
+                        .forEach(function (el) { el.setAttribute('data-lenis-prevent', ''); });
+
+                    /* In-page jumps glide and park clear of the sticky header, using the
+                       offset nav.js measures. */
+                    document.addEventListener('click', function (e) {
+                        var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+                        if (!a || e.defaultPrevented) return;
+                        var hash = a.getAttribute('href');
+                        var target = hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+                        if (!target) return;
+                        e.preventDefault();
+                        var offset = parseInt(getComputedStyle(html).getPropertyValue('--osip-nav-offset'), 10) || 100;
+                        var y = target.getBoundingClientRect().top + window.scrollY - offset;
+                        lenis.scrollTo(Math.max(0, y), { duration: 1.5, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
+                        if (history.replaceState) history.replaceState(null, '', hash);
+                    });
+                }
+
+                /* ---- Reading progress ------------------------------------------------- */
+                var bar = document.createElement('div');
+                bar.className = 'rd-progress';
+                bar.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(bar);
+                gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.4 } });
+
+                /* ---- Hero: the photograph settles, the title's letters rise ----------- */
+                if (hero) {
+                    var bg = inHero(CFG.heroBg);
+                    var copy = inHero(CFG.heroCopy);
+                    var eyebrow = inHero(CFG.heroEyebrow);
+                    var h1 = hero.querySelector('h1');
+                    var lede = inHero(CFG.heroLede);
+                    var extras = CFG.heroExtras ? all(hero, CFG.heroExtras) : [];
+                    var intro = gsap.timeline({ defaults: { ease: EASE } });
+
+                    if (bg) intro.fromTo(bg, { scale: 1.16 }, { scale: 1.04, duration: 2.6, ease: 'power3.out' }, 0);
+                    if (eyebrow) intro.from(eyebrow, { opacity: 0, y: 12, duration: 1 }, 0.05);
+                    if (h1) {
+                        if (hasSplit) {
+                            /* Words as well as letters, so a word never breaks across lines
+                               mid-entrance. The split is undone once the letters land. */
+                            var title = SplitText.create(h1, { type: 'words,chars', mask: 'chars', charsClass: 'rd-char' });
+                            var each = Math.min(0.035, 1.1 / Math.max(1, title.chars.length));
+                            intro.from(title.chars, { yPercent: 150, duration: 1.3, stagger: each, onComplete: function () { title.revert(); } }, 0.15);
+                        } else {
+                            intro.from(h1, { opacity: 0, y: 30, duration: 1.2 }, 0.15);
+                        }
+                    }
+                    if (lede) {
+                        intro.from(lede, { opacity: 0, y: 22, duration: 1.2 }, 0.55);
+                        drawn.push(lede);
+                        intro.fromTo(lede, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.6, ease: 'expo.inOut' }, 0.6);
+                    }
+                    if (extras.length) intro.from(extras, { opacity: 0, y: 16, duration: 1, stagger: 0.05, clearProps: 'transform' }, 0.8);
+                    /* The start states above are already applied, so lifting the
+                       pre-hide now cannot flash the finished hero first. */
+                    releaseIntro();
+
+                    if (CFG.heroParallax) {
+                        if (bg) gsap.to(bg, { yPercent: 14, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+                        if (copy) gsap.to(copy, { yPercent: -18, opacity: 0.25, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+                    }
+
+                    if (CFG.scrollCue) {
+                        var cue = document.createElement('div');
+                        cue.className = 'rd-scrollcue';
+                        cue.setAttribute('aria-hidden', 'true');
+                        cue.appendChild(document.createElement('span'));
+                        hero.appendChild(cue);
+                    }
+                } else {
+                    releaseIntro();
+                }
+
+                /* ---- Eyebrows: the gold dash draws, then the label ------------------- */
+                inRest(CFG.eyebrowDashes).forEach(function (dash) {
+                    var label = dash.nextElementSibling;
+                    var tl = gsap.timeline({ scrollTrigger: { trigger: dash, start: 'top 90%', once: true } });
+                    tl.from(dash, { scaleX: 0, duration: 1.1, ease: EASE });
+                    if (label) tl.from(label, { opacity: 0, x: -8, duration: 0.9, ease: EASE, clearProps: 'transform' }, 0.15);
+                    hidden.push(dash);
+                    if (label) hidden.push(label);
+                });
+
+                /* ---- Headings: lines rise out of a mask ------------------------------- */
+                inRest(CFG.headings).forEach(function (h) {
+                    if (CFG.headingSkip && h.closest(CFG.headingSkip)) return;
+                    if (!h.getClientRects().length) return; // not rendered (hidden panel)
+                    if (!hasSplit) {
+                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+                        hidden.push(h);
+                        return;
+                    }
+                    SplitText.create(h, {
+                        type: 'lines', mask: 'lines', linesClass: 'rd-line', autoSplit: true,
+                        onSplit: function (self) {
+                            return gsap.from(self.lines, {
+                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
+                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
+                            });
+                        }
+                    });
+                });
+
+                /* ---- Reading text: the words light up in reading order ----------------
+                   Words wait faint rather than invisible; words only, no aria rewriting. */
+                inRest(CFG.read).forEach(function (t) {
+                    if (!hasSplit) {
+                        gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
+                        hidden.push(t);
+                        return;
+                    }
+                    var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
+                    hidden = hidden.concat(words);
+                    gsap.fromTo(words, { opacity: 0.2 }, {
+                        opacity: 1, ease: 'none', stagger: 0.1,
+                        scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Gold rules draw down as the text beside them is read ------------ */
+                inRest(CFG.rules).forEach(function (el) {
+                    drawn.push(el);
+                    gsap.fromTo(el, { '--rd-draw': 0 }, {
+                        '--rd-draw': 1, ease: 'none',
+                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Cards arrive in the order they sit -------------------------------- */
+                function batch(list, y, stagger) {
+                    list = list.filter(function (el) { return el.getClientRects().length; });
+                    if (!list.length) return;
+                    gsap.set(list, { opacity: 0, y: y });
+                    hidden = hidden.concat(list);
+                    ScrollTrigger.batch(list, {
+                        start: 'top 94%', once: true,
+                        onEnter: function (els) {
+                            gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: stagger, overwrite: true, clearProps: 'transform' });
+                        }
+                    });
+                }
+                var cardEls = [];
+                (CFG.cards || []).forEach(function (c) {
+                    var list = inRest(c.sel);
+                    batch(list, c.y == null ? 36 : c.y, c.stagger == null ? 0.09 : c.stagger);
+                    list.forEach(function (el) { cardEls.push({ el: el, cursor: c.cursor, label: c.label }); });
+                });
+
+                /* ---- Figures count up to their value ----------------------------------
+                   The real figure stays in a screen-reader copy while the digits run,
+                   and the element is put back to its exact original text at the end. */
+                function countUp(el) {
+                    var final = el.textContent;
+                    var flat = final.replace(/\s+/g, ' ').trim();
+                    var parts = flat.split(/(\d[\d,]*(?:\.\d+)?)/);
+                    if (parts.length < 3 || el.children.length) return;
+                    var sr = document.createElement('span');
+                    sr.className = 'rd-sr';
+                    sr.textContent = flat;
+                    var shown = document.createElement('span');
+                    shown.setAttribute('aria-hidden', 'true');
+                    el.textContent = '';
+                    el.appendChild(sr);
+                    el.appendChild(shown);
+                    var state = { p: 0 };
+                    gsap.to(state, {
+                        p: 1, duration: 1.4, ease: 'power3.out',
+                        onUpdate: function () {
+                            shown.textContent = parts.map(function (piece, i) {
+                                if (i % 2 === 0) return piece;
+                                var places = (piece.split('.')[1] || '').length;
+                                var n = parseFloat(piece.replace(/,/g, '')) * state.p;
+                                return piece.indexOf(',') !== -1
+                                    ? n.toLocaleString('en-US', { minimumFractionDigits: places, maximumFractionDigits: places })
+                                    : n.toFixed(places);
+                            }).join('');
+                        },
+                        onComplete: function () { el.textContent = final; }
+                    });
+                }
+                inRest(CFG.counts).forEach(function (el) {
+                    ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: function () { countUp(el); } });
+                });
+
+                /* ---- Cursor ----------------------------------------------------------- */
+                if (fine) {
+                    var cursor = document.createElement('div');
+                    cursor.className = 'rd-cursor';
+                    cursor.setAttribute('aria-hidden', 'true');
+                    var dot = document.createElement('div');
+                    dot.className = 'rd-cursor-dot';
+                    var label = document.createElement('span');
+                    label.className = 'rd-cursor-label';
+                    dot.appendChild(label);
+                    cursor.appendChild(dot);
+                    document.body.appendChild(cursor);
+                    html.classList.add('rd-cursor-on');
+
+                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
+                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
+                    var placed = false;
+                    window.addEventListener('pointermove', function (e) {
+                        if (e.pointerType && e.pointerType !== 'mouse') return;
+                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
+                        toX(e.clientX);
+                        toY(e.clientY);
+                    }, { passive: true });
+
+                    var off = function () { cursor.removeAttribute('data-mode'); };
+                    function target(el, mode, text) {
+                        el.setAttribute('data-rd-cursor', mode);
+                        el.addEventListener('pointerenter', function () {
+                            cursor.setAttribute('data-mode', mode);
+                            cursor.setAttribute('data-look', mode);
+                            label.textContent = text || '';
+                        });
+                        el.addEventListener('pointerleave', off);
+                    }
+                    (CFG.cursorLabel || []).forEach(function (c) { inRest(c.sel).forEach(function (el) { target(el, 'label', c.text); }); });
+                    inRest('h2').forEach(function (h) { target(h, 'text'); });
+                    cardEls.forEach(function (c) { if (c.cursor) target(c.el, c.cursor, c.label); });
+                    document.documentElement.addEventListener('mouseleave', off);
+                }
+
+                /* ---- Magnetic buttons ------------------------------------------------- */
+                if (fine && CFG.magnetic) {
+                    all(document, CFG.magnetic).forEach(function (el) {
+                        if (el.closest('.nesp-header')) return;
+                        var mx = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3' });
+                        var my = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3' });
+                        el.addEventListener('pointermove', function (e) {
+                            var r = el.getBoundingClientRect();
+                            mx((e.clientX - r.left - r.width / 2) * 0.28);
+                            my((e.clientY - r.top - r.height / 2) * 0.35);
+                        });
+                        el.addEventListener('pointerleave', function () { mx(0); my(0); });
+                    });
+                }
+
+                window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+                ScrollTrigger.refresh();
+            }
+        })();
+    </script>
 </body>
 
 </html>

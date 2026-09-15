@@ -4,11 +4,35 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Renewable Generation | OSIP - Nigerian Energy Investment Portal</title>
+    <title>Solar | One-Stop Investment Platform (OSIP)</title>
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet">
+    <!-- Redesign: Newsreader for headings and reading text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Type (14 Sep 2026): Inter replaces Newsreader on this page. The Newsreader
+         stylesheet above is kept only so the shared header does not inject its own
+         copy; with nothing set in Newsreader any more, its font files are never fetched. -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        /* Redesign: hold the hero copy back for its entrance. The motion layer
+           lifts this the moment its start states are applied, and it lifts
+           itself after 3.5s whatever happens, so a slow or blocked CDN can never
+           leave the hero empty. Not set at all when reduced motion is asked for. */
+        (function () {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var root = document.documentElement;
+                root.classList.add('rd-intro');
+                setTimeout(function () { root.classList.remove('rd-intro'); }, 3500);
+            } catch (e) {}
+        })();
+    </script>
     <!-- Material Symbols -->
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -358,10 +382,2054 @@
             align-items: center;
             color: #9aa39e;
         }
+
+        /* ============================================================
+           KEY FACTS - MOTION AND FINISH
+
+           The charts above are exactly the originals. Everything below is
+           added on top of them through extra class names, and none of it
+           changes how a chart looks at rest:
+
+             - a gold top edge on each card, and an info mark on each source
+             - a draw-in as each card scrolls into view
+             - on hover, the chart animates; the card itself does not move,
+               change colour or cast a shadow
+             - a tooltip on the marks whose figure is printed on the card
+
+           Motion is opt-in. The script sets .kf-armed before it hides
+           anything, marks a card .is-revealing only while its draw-in runs,
+           and only then marks it .kf-live, which is what the hover motion
+           keys on. So the draw-in and the hover never fight over the same
+           animation, and with reduced motion asked for, or no JavaScript,
+           the charts are simply drawn and stay still.
+           ============================================================ */
+        #facts .kf-card {
+            border-top: 3px solid #dfa800;
+        }
+
+        #facts .kf-source {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        #facts .kf-source .material-symbols-outlined {
+            flex: 0 0 auto;
+            font-size: 14px;
+            line-height: 1.3;
+            color: #b3bab6;
+        }
+
+        .kf-bar,
+        .kf-compare-bar {
+            transform-origin: 50% 100%;
+            transition: opacity .25s ease, filter .25s ease;
+        }
+
+        .kf-flow-line,
+        .kf-tl-seg {
+            transform-origin: 0 50%;
+        }
+
+        .kf-flow-line {
+            position: relative;
+        }
+
+        /* The spark that runs down the market-to-pipeline line on hover. */
+        .kf-flow-spark {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 7px;
+            height: 7px;
+            margin-top: -3.5px;
+            border-radius: 50%;
+            background: #f7be26;
+            box-shadow: 0 0 0 3px rgba(247, 190, 38, .28);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* A ring rather than box-shadow for the 2060 halo: the dot's resting
+           ring is Tailwind's ring-4, which is itself a box-shadow. */
+        .kf-tl-dot.is-key {
+            position: relative;
+        }
+
+        .kf-tl-dot.is-key::after {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border: 2px solid #f7be26;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Pointing at one column steps the other back. */
+        .kf-bars:has(.kf-bar-col:hover) .kf-bar-col:not(:hover) .kf-bar,
+        .kf-compare:has(.kf-compare-col:hover) .kf-compare-col:not(:hover) .kf-compare-bar {
+            opacity: .45;
+        }
+
+        .kf-bar-col:hover .kf-bar,
+        .kf-compare-col:hover .kf-compare-bar {
+            filter: brightness(1.15);
+        }
+
+        /* ---- Draw-in ---------------------------------------------------- */
+        .kf-armed .kf-card:not(.is-in) .kf-bar,
+        .kf-armed .kf-card:not(.is-in) .kf-compare-bar { transform: scaleY(0); }
+        .kf-armed .kf-card:not(.is-in) .kf-flow-line,
+        .kf-armed .kf-card:not(.is-in) .kf-tl-seg { transform: scaleX(0); }
+        .kf-armed .kf-card:not(.is-in) .kf-person,
+        .kf-armed .kf-card:not(.is-in) .kf-compare-arrow,
+        .kf-armed .kf-card:not(.is-in) .kf-flow-head,
+        .kf-armed .kf-card:not(.is-in) .kf-flow-node.is-key,
+        .kf-armed .kf-card:not(.is-in) .kf-tl-stop { opacity: 0; }
+
+        .kf-card.is-revealing .kf-bar { animation: kfGrowY .9s cubic-bezier(.22, .61, .36, 1) backwards; }
+        .kf-card.is-revealing .kf-bar.is-latest { animation-delay: .2s; }
+        .kf-card.is-revealing .kf-compare-bar.is-before { animation: kfGrowY .9s cubic-bezier(.22, .61, .36, 1) backwards; }
+        .kf-card.is-revealing .kf-compare-arrow { animation: kfFade .35s ease .45s backwards; }
+        .kf-card.is-revealing .kf-compare-bar.is-after { animation: kfGrowY .9s cubic-bezier(.22, .61, .36, 1) .55s backwards; }
+        .kf-card.is-revealing .kf-person { animation: kfRise .45s cubic-bezier(.22, .61, .36, 1) calc(var(--i) * 70ms) backwards; }
+        .kf-card.is-revealing .kf-flow-line { animation: kfGrowX 1s cubic-bezier(.22, .61, .36, 1) .1s backwards; }
+        .kf-card.is-revealing .kf-flow-head { animation: kfFade .3s ease 1s backwards; }
+        .kf-card.is-revealing .kf-flow-node.is-key { animation: kfPop .45s cubic-bezier(.22, .61, .36, 1) 1.05s backwards; }
+        .kf-card.is-revealing .kf-tl-stop { animation: kfPop .45s cubic-bezier(.22, .61, .36, 1) var(--d) backwards; }
+        .kf-card.is-revealing .kf-tl-seg { animation: kfGrowX .4s ease-out var(--d) backwards; }
+        .kf-card.is-revealing .kf-tl-dot.is-key::after { animation: kfHalo 1s ease-out 1.5s; }
+
+        /* ---- Hover: the chart moves, the card does not ------------------
+           Replays that never blank anything out: columns regrow from a third
+           of their height rather than from nothing, so sweeping the pointer
+           across the section does not make charts flash empty. */
+        .kf-card.kf-live:hover .kf-bar { animation: kfRegrowY .7s cubic-bezier(.22, .61, .36, 1) backwards; }
+        .kf-card.kf-live:hover .kf-bar.is-latest { animation-delay: .12s; }
+        .kf-card.kf-live:hover .kf-compare-bar.is-before { animation: kfRegrowY .7s cubic-bezier(.22, .61, .36, 1) backwards; }
+        /* the solar-hybrid column starts at diesel's height and settles to its
+           own, so the saving is what moves */
+        .kf-card.kf-live:hover .kf-compare-bar.is-after { animation: kfSettle 1s cubic-bezier(.22, .61, .36, 1) .25s backwards; }
+        .kf-card.kf-live:hover .kf-compare-arrow { animation: kfNudge .9s ease .1s; }
+        .kf-card.kf-live:hover .kf-person { animation: kfWave .6s ease calc(var(--i) * 55ms); }
+        .kf-card.kf-live:hover .kf-flow-spark { animation: kfSpark 1.5s cubic-bezier(.45, 0, .55, 1) infinite; }
+        .kf-card.kf-live:hover .kf-flow-head { animation: kfNudge 1.5s ease infinite; }
+        .kf-card.kf-live:hover .kf-flow-node.is-key { animation: kfGlow 1.5s ease infinite; }
+        .kf-card.kf-live:hover .kf-tl-seg { animation: kfGrowX .4s ease-out var(--d) backwards; }
+        .kf-card.kf-live:hover .kf-tl-dot { animation: kfBump .45s ease var(--d); }
+        .kf-card.kf-live:hover .kf-tl-pill { animation: kfTap .4s ease 1.05s; }
+        .kf-card.kf-live:hover .kf-tl-dot.is-key::after { animation: kfHalo 1s ease-out 1.25s; }
+
+        @keyframes kfGrowY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+        @keyframes kfRegrowY { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
+        @keyframes kfGrowX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        @keyframes kfSettle { from { transform: scaleY(1.3889); } to { transform: scaleY(1); } }
+        @keyframes kfRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        @keyframes kfWave { 0%, 100% { transform: none; } 40% { transform: translateY(-5px); } }
+        @keyframes kfFade { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes kfPop { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
+        @keyframes kfBump { 0%, 100% { transform: none; } 45% { transform: scale(1.45); } }
+        @keyframes kfTap { 0%, 100% { transform: none; } 50% { transform: scale(1.12); } }
+        @keyframes kfNudge { 0%, 100% { transform: none; } 50% { transform: translateX(4px); } }
+        @keyframes kfSpark { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 80% { opacity: 1; } 100% { left: calc(100% - 7px); opacity: 0; } }
+        @keyframes kfGlow {
+            0%, 70% { box-shadow: 0 0 0 0 rgba(247, 190, 38, 0); }
+            82% { box-shadow: 0 0 0 4px rgba(247, 190, 38, .5); }
+            100% { box-shadow: 0 0 0 9px rgba(247, 190, 38, 0); }
+        }
+        @keyframes kfHalo { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(2.2); } }
+
+        /* ---- Tooltip ---------------------------------------------------- */
+        .kf-tip {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            max-width: 240px;
+            padding: 8px 11px;
+            border-radius: 8px;
+            background: #0f2a21;
+            box-shadow: 0 12px 26px -12px rgba(0, 0, 0, .45);
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .15s ease, visibility .15s;
+        }
+
+        .kf-tip.is-on {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .kf-tip strong {
+            font-family: Manrope, Inter, sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #ffffff;
+        }
+
+        .kf-tip span {
+            font-size: 11.5px;
+            line-height: 1.35;
+            color: #b9d3c7;
+        }
+
+        [data-kf-value] {
+            cursor: default;
+        }
+
+        .kf-sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        /* ============================================================
+           SECTOR OVERVIEW
+
+           The words stay exactly as written. What changes is how they are
+           set, so a long overview reads as a sequence rather than a wall:
+
+             - the first paragraph is the lede: larger, darker ink, and the
+               gold rule the hero uses, so the reader knows where to start
+             - every paragraph after it is set at full body size on a ~62
+               character measure; the second paragraph used to drop to 14px
+               and read like a footnote
+             - on a desktop the photograph sticks while the copy scrolls, so
+               an overview that runs to five or six paragraphs keeps its
+               picture beside the words instead of leaving a tall empty
+               column. With short copy the photograph is the taller of the
+               two and nothing moves
+             - one button component, .osip-btn, at a fixed 48px, so every
+               call to action on the page can share one size
+           ============================================================ */
+        .ovw-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 56px;
+        }
+
+        @media (min-width: 1024px) {
+            .ovw-grid {
+                grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+                gap: 72px;
+            }
+        }
+
+        .ovw-copy {
+            align-self: center;
+            min-width: 0;
+            max-width: 640px;
+        }
+
+        .ovw-media {
+            position: relative;
+            align-self: stretch;
+            min-width: 0;
+        }
+
+        .ovw-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #004225;
+        }
+
+        .ovw-eyebrow > span {
+            flex: 0 0 auto;
+            width: 32px;
+            height: 2px;
+            background: #f7be26;
+        }
+
+        .ovw-title {
+            margin: 0 0 26px;
+            font-family: Manrope, Inter, sans-serif;
+            font-size: clamp(30px, 3.1vw, 42px);
+            font-weight: 700;
+            line-height: 1.14;
+            letter-spacing: -.02em;
+            color: #00342b;
+            text-wrap: balance;
+        }
+
+        .ovw-body p {
+            max-width: 62ch;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4a5550;
+        }
+
+        .ovw-body p + p {
+            margin-top: 18px;
+        }
+
+        .ovw-body .ovw-lede {
+            position: relative;
+            padding-left: 22px;
+            font-size: 18.5px;
+            line-height: 1.75;
+            color: #26322d;
+        }
+
+        .ovw-body .ovw-lede + p {
+            margin-top: 22px;
+        }
+
+        .ovw-body .ovw-lede::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .35em;
+            bottom: .35em;
+            width: 3px;
+            border-radius: 3px;
+            background: linear-gradient(180deg, #f7be26, #dfa800);
+            transform-origin: 50% 0;
+        }
+
+        .ovw-actions {
+            margin-top: 34px;
+        }
+
+        /* ---- Button -----------------------------------------------------
+           One size for every call to action: 48px tall, 10px corners, the
+           header's CTA green (#047857, 5.5:1 with white), and an arrow that
+           moves on hover while the button itself stays put. */
+        .osip-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            height: 48px;
+            padding: 0 20px 0 24px;
+            border-radius: 10px;
+            font-size: 14.5px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: .01em;
+            white-space: nowrap;
+            text-decoration: none;
+            transition: background-color .2s ease, box-shadow .2s ease;
+        }
+
+        .osip-btn .material-symbols-outlined {
+            font-size: 19px;
+            transition: transform .28s cubic-bezier(.22, .61, .36, 1);
+        }
+
+        .osip-btn-primary {
+            background: #047857;
+            color: #ffffff;
+            box-shadow: 0 1px 2px rgba(4, 70, 52, .2);
+        }
+
+        .osip-btn-primary:hover {
+            background: #04563e;
+            box-shadow: 0 10px 22px -12px rgba(4, 70, 52, .55);
+        }
+
+        .osip-btn:hover .material-symbols-outlined {
+            transform: translateX(4px);
+        }
+
+        .osip-btn:focus-visible {
+            outline: 2px solid #047857;
+            outline-offset: 3px;
+        }
+
+        /* ---- Photograph ---------------------------------------------------- */
+        .ovw-sticky {
+            position: relative;
+        }
+
+        @media (min-width: 1024px) {
+            .ovw-sticky {
+                position: sticky;
+                top: 104px;
+            }
+        }
+
+        .ovw-photo {
+            position: relative;
+            margin: 0;
+            overflow: hidden;
+            border-radius: 18px;
+            background: #0c2b21;
+            box-shadow: 0 34px 60px -34px rgba(4, 52, 40, .5);
+        }
+
+        .ovw-photo img {
+            display: block;
+            width: 100%;
+            height: 288px;
+            object-fit: cover;
+            transform: scale(1.02);
+            transition: transform 1.2s cubic-bezier(.22, .61, .36, 1);
+        }
+
+        @media (min-width: 640px) {
+            .ovw-photo img {
+                height: 384px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .ovw-photo img {
+                height: 480px;
+            }
+        }
+
+        /* Only the picture answers the pointer; its frame does not move. */
+        .ovw-photo:hover img {
+            transform: scale(1.07);
+        }
+
+        /* A gold corner bracket behind the photograph's top-right corner. */
+        .ovw-sticky::before {
+            content: "";
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            width: 38%;
+            height: 42%;
+            border-top: 3px solid #f7be26;
+            border-right: 3px solid #f7be26;
+            border-top-right-radius: 26px;
+            pointer-events: none;
+        }
+
+        .ovw-stat {
+            position: absolute;
+            left: 22px;
+            bottom: -26px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 22px 12px 12px;
+            background: #ffffff;
+            border: 1px solid #e2e8e5;
+            border-top: 3px solid #dfa800;
+            border-radius: 14px;
+            box-shadow: 0 20px 38px -20px rgba(4, 52, 40, .4);
+        }
+
+        .ovw-stat-icon {
+            flex: 0 0 auto;
+            width: 46px;
+            height: 46px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #004225;
+            color: #ffffff;
+            font-size: 24px;
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .ovw-stat-value {
+            font-family: Manrope, Inter, sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -.02em;
+            color: #004225;
+        }
+
+        .ovw-stat-label {
+            margin-top: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #5f6368;
+        }
+
+        @media (max-width: 1023px) {
+            .ovw-media {
+                margin-bottom: 26px;
+            }
+        }
+
+        @media (max-width: 639px) {
+            .ovw-body .ovw-lede {
+                font-size: 17px;
+            }
+
+            .ovw-body p {
+                font-size: 15.5px;
+            }
+
+            .ovw-sticky::before {
+                top: -9px;
+                right: -9px;
+            }
+
+            .ovw-stat {
+                left: 14px;
+            }
+        }
+
+        /* ---- Reveal (opt-in; the script sets .ovw-armed) ------------------- */
+        .ovw-armed:not(.is-in) .ovw-rise { opacity: 0; transform: translateY(16px); }
+        .ovw-armed.is-in .ovw-rise { animation: ovwRise .7s cubic-bezier(.22, .61, .36, 1) calc(var(--o, 0) * 90ms) backwards; }
+        .ovw-armed:not(.is-in) .ovw-lede::before { transform: scaleY(0); }
+        .ovw-armed.is-in .ovw-lede::before { animation: ovwDraw .8s cubic-bezier(.22, .61, .36, 1) .45s backwards; }
+        /* the photograph wipes in right to left, the direction the hero moves */
+        .ovw-armed:not(.is-in) .ovw-photo { clip-path: inset(0 0 0 100% round 18px); }
+        .ovw-armed.is-in .ovw-photo { animation: ovwWipe 1.1s cubic-bezier(.65, 0, .35, 1) .1s backwards; }
+        .ovw-armed.is-in .ovw-photo img { animation: ovwSettle 1.6s cubic-bezier(.22, .61, .36, 1) .1s backwards; }
+        .ovw-armed:not(.is-in) .ovw-stat,
+        .ovw-armed:not(.is-in) .ovw-sticky::before { opacity: 0; }
+        .ovw-armed.is-in .ovw-stat { animation: ovwRise .6s cubic-bezier(.22, .61, .36, 1) .9s backwards; }
+        .ovw-armed.is-in .ovw-sticky::before { animation: ovwFade .6s ease 1.05s backwards; }
+
+        @keyframes ovwRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        @keyframes ovwDraw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+        @keyframes ovwWipe { from { clip-path: inset(0 0 0 100% round 18px); } to { clip-path: inset(0 0 0 0 round 18px); } }
+        @keyframes ovwSettle { from { transform: scale(1.14); } to { transform: scale(1.02); } }
+        @keyframes ovwFade { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .ovw-photo img,
+            .ovw-photo:hover img,
+            .osip-btn .material-symbols-outlined,
+            .osip-btn:hover .material-symbols-outlined {
+                transition: none;
+                transform: none;
+            }
+        }
+    </style>
+    <style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - DetailedSector.html (11 Sep 2026)
+
+           Sits on top of the existing page. No section markup was edited, so
+           every word, link and image is where it was; this layer changes how
+           the page is set and how it moves. Scoped under body.rd, and the older
+           design is kept in OSIP/Backups/DetailedSector/.
+
+           Direction: give the page room to breathe. Headings and reading text
+           move to Newsreader, a light editorial serif, instead of heavy bold
+           sans; interface text (labels, chips, buttons, captions) stays sans;
+           sections get far more vertical space; card borders, icons and chips
+           are turned down, not up. The greens and golds are the site's own.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-card-2: #f1eee8;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* ---- Lenis, from lenis@1.3.26/dist/lenis.css ---------------------------
+           One deliberate change: the stock file blocks pointer events on every
+           iframe for as long as smooth scrolling is on, which would freeze the
+           YouTube player once a video is playing. Here that only happens while
+           the page is actually moving. */
+        html.lenis,
+        html.lenis body {
+            height: auto;
+        }
+
+        .lenis:not(.lenis-autoToggle).lenis-stopped {
+            overflow: clip;
+        }
+
+        .lenis [data-lenis-prevent],
+        .lenis [data-lenis-prevent-wheel],
+        .lenis [data-lenis-prevent-touch],
+        .lenis [data-lenis-prevent-vertical],
+        .lenis [data-lenis-prevent-horizontal] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        .lenis.lenis-autoToggle {
+            transition-property: overflow;
+            transition-duration: 1ms;
+            transition-behavior: allow-discrete;
+        }
+
+        /* ---- Page ---------------------------------------------------------------- */
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd main,
+        .rd main section[style*="font-family"] {
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+        }
+
+        .rd ::selection {
+            background: #f7be26;
+            color: var(--rd-ink);
+        }
+
+        .rd main > section.bg-white,
+        .rd main > section.ovw {
+            background: var(--rd-paper) !important;
+        }
+
+        .rd main > section.bg-\[\#f3f4f2\] {
+            background: var(--rd-paper-2) !important;
+        }
+
+        .rd main > section.py-12,
+        .rd main > section.ovw {
+            padding-top: clamp(76px, 10vw, 148px) !important;
+            padding-bottom: clamp(76px, 10vw, 148px) !important;
+        }
+
+        .rd main > section.border-b {
+            border-bottom-color: var(--rd-line) !important;
+        }
+
+        /* ---- Section eyebrows: a finer gold rule and a quieter label --------------- */
+        .rd main div.flex.items-center.gap-3.mb-3 {
+            gap: 14px !important;
+            margin-bottom: 22px !important;
+        }
+
+        .rd main span.w-8.h-\[2px\] {
+            width: 28px !important;
+            height: 1px !important;
+            background: var(--rd-gold) !important;
+            transform-origin: 0 50%;
+        }
+
+        .rd main span.text-\[11px\].font-bold.uppercase,
+        .rd .wf-eyebrow,
+        .rd .ovw-eyebrow {
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd .ovw-eyebrow > span {
+            width: 28px !important;
+            height: 1px !important;
+            background: var(--rd-gold) !important;
+        }
+
+        /* ---- Headings ------------------------------------------------------------ */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3,
+        .rd .wf-title {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-optical-sizing: auto;
+            text-wrap: balance;
+        }
+
+        .rd main h2,
+        .rd main h3,
+        .rd .wf-title {
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main h2 {
+            font-size: clamp(34px, 3.4vw, 48px) !important;
+            line-height: 1.06 !important;
+            letter-spacing: -0.022em !important;
+            margin-bottom: clamp(24px, 2.8vw, 38px) !important;
+        }
+
+        .rd main h3,
+        .rd .wf-title {
+            font-size: clamp(24px, 2vw, 30px) !important;
+            line-height: 1.18 !important;
+            letter-spacing: -0.014em !important;
+        }
+
+        .rd main h3.text-\[20px\] {
+            font-size: 24px !important;
+        }
+
+        .rd main h3.mt-12 {
+            margin-top: clamp(64px, 8vw, 112px) !important;
+        }
+
+        .rd main h3.mb-4,
+        .rd main h3.mb-6 {
+            margin-bottom: 18px !important;
+        }
+
+        .rd .wf-title {
+            margin-bottom: 44px !important;
+        }
+
+        .rd main h4 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-size: 19.5px !important;
+            line-height: 1.3 !important;
+            letter-spacing: -0.008em;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main h4.mt-3 {
+            margin-top: 18px !important;
+            margin-bottom: 6px !important;
+        }
+
+        /* A masked line or letter is clipped to its own box, and at these tight
+           line-heights capitals, ascenders, descenders and the serif's overhangs
+           all reach past it. The pad gives every side room without moving the
+           text: padding out, the same margin back in. */
+        .rd main h1 .rd-char-mask,
+        .rd main h2 .rd-line-mask,
+        .rd main h3 .rd-line-mask {
+            padding: 0.18em;
+            margin: -0.18em;
+        }
+
+        /* ---- Hero ---------------------------------------------------------------- */
+        .rd main > section:first-of-type {
+            min-height: min(88vh, 820px) !important;
+        }
+
+        .rd main > section:first-of-type h1 {
+            color: #ffffff !important;
+            font-weight: 300 !important;
+            font-size: clamp(64px, 9vw, 132px) !important;
+            line-height: .92 !important;
+            letter-spacing: -0.04em !important;
+            margin-bottom: 34px !important;
+        }
+
+        .rd main > section:first-of-type h1 ~ p {
+            max-width: 34rem !important;
+            margin-bottom: 44px !important;
+            position: relative;
+            padding-left: 23px !important;
+            border-left-width: 0 !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 20px !important;
+            font-weight: 400 !important;
+            line-height: 1.6 !important;
+            color: rgba(255, 255, 255, .88) !important;
+        }
+
+        .rd main > section:first-of-type .text-xs.uppercase {
+            margin-bottom: 14px;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .26em !important;
+            color: rgba(255, 255, 255, .5) !important;
+        }
+
+        .rd main > section:first-of-type a.rounded-full {
+            padding: 9px 18px !important;
+            font-size: 13px !important;
+            font-weight: 400 !important;
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, .06) !important;
+            border-color: rgba(255, 255, 255, .18) !important;
+            transition: background-color .4s ease, color .4s ease, border-color .4s ease !important;
+        }
+
+        .rd main > section:first-of-type a.rounded-full:hover {
+            background: #ffffff !important;
+            border-color: #ffffff !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd-scrollcue {
+            position: absolute;
+            left: 50%;
+            bottom: 28px;
+            z-index: 11;
+            width: 1px;
+            height: 56px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, .18);
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .rd-scrollcue span {
+            position: absolute;
+            left: 0;
+            top: -40%;
+            width: 1px;
+            height: 40%;
+            background: #f7be26;
+            animation: rdCue 2.2s cubic-bezier(.65, 0, .35, 1) infinite;
+        }
+
+        @keyframes rdCue {
+            from { top: -40%; }
+            to { top: 100%; }
+        }
+
+        /* The hero copy waits for its entrance; see the flag script in <head>. */
+        html.rd-intro main > section:first-of-type .max-w-3xl > * {
+            opacity: 0;
+        }
+
+        /* ---- Body copy: in the serif, as wide as its column ------------------------
+           Reading text follows the headings into Newsreader. There is no measure
+           cap: a paragraph with its column to itself runs the width of it, and
+           one sharing a row with a photo, video or sidebar is still held by its
+           grid column. */
+        .rd main .leading-8 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 17px !important;
+            line-height: 1.7 !important;
+            letter-spacing: -0.003em !important;
+            color: var(--rd-ink-2) !important;
+            text-wrap: pretty;
+        }
+
+        @media (min-width: 640px) {
+            .rd main .leading-8 {
+                font-size: 18.5px !important;
+            }
+        }
+
+        .rd main p.leading-8.mt-4,
+        .rd main p.leading-8.mt-5,
+        .rd main p.leading-8.mt-6 {
+            margin-top: 18px !important;
+        }
+
+        .rd main .text-\[\#111827\] {
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main .text-\[\#404846\] {
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd main .text-\[\#5f6368\] {
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* Card copy moves to the serif too, a size up so it reads at the same
+           weight as the sans it replaces. Labels, chips, buttons, source notes
+           and the chart and workflow captions stay in the sans: they are
+           interface, not reading. */
+        .rd main .text-\[13px\].leading-6,
+        .rd main .text-\[14px\].leading-6,
+        .rd main .osip-role {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            line-height: 1.55 !important;
+        }
+
+        .rd main .text-\[15px\].leading-7,
+        .rd main .text-\[15px\].leading-6 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 17px !important;
+            line-height: 1.6 !important;
+        }
+
+        .rd main p.text-\[\#111827\].font-semibold,
+        .rd main span.block.text-\[\#111827\].text-\[14px\],
+        .rd main .text-\[14px\].font-semibold.leading-6 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            letter-spacing: -0.006em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd main p.text-\[\#111827\].font-semibold {
+            font-size: 19.5px !important;
+            line-height: 1.3 !important;
+        }
+
+        .rd main span.block.text-\[\#111827\].text-\[14px\] {
+            font-size: 17.5px !important;
+            line-height: 1.35 !important;
+        }
+
+        .rd main .text-\[14px\].font-semibold.leading-6 {
+            font-size: 17px !important;
+            line-height: 1.45 !important;
+        }
+
+        .rd main span.font-semibold.text-\[\#111827\] {
+            font-weight: 600 !important;
+        }
+
+        .rd .osip-note p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            line-height: 1.6 !important;
+        }
+
+        .rd main .text-\[11px\].text-\[\#9aa39e\] {
+            font-size: 11.5px !important;
+            color: #8f948f !important;
+        }
+
+        .rd .rd-sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        /* ---- Cards: warmer, flatter, and they answer the pointer without jumping - */
+        .rd main .border-\[\#e5e7eb\],
+        .rd main .border-\[\#dfe4e1\],
+        .rd main .border-\[\#eef0ef\] {
+            border-color: var(--rd-line) !important;
+        }
+
+        .rd main div.bg-white.rounded-xl,
+        .rd main a.bg-white.rounded-xl,
+        .rd main a.bg-white.rounded-lg {
+            background: var(--rd-card) !important;
+        }
+
+        .rd main div.bg-\[\#f3f4f2\].rounded-xl,
+        .rd main div.bg-\[\#f3f4f2\].rounded-2xl {
+            background: var(--rd-card-2) !important;
+        }
+
+        .rd main .rounded-xl.border,
+        .rd main .rounded-lg.border {
+            border-radius: 18px !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd main .rounded-xl.p-5,
+        .rd main .rounded-xl.p-6 {
+            padding: 26px !important;
+        }
+
+        .rd main section:not(:first-of-type) .rounded-xl.border:hover,
+        .rd main section:not(:first-of-type) .rounded-lg.border:hover {
+            border-color: var(--rd-line-2) !important;
+            background: #ffffff !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .rd main .rounded-2xl.border.p-7 {
+            border-radius: 22px !important;
+            padding: 34px !important;
+        }
+
+        .rd main .rounded-xl > .material-symbols-outlined {
+            color: var(--rd-green-2) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 250, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd main .rounded-xl > .material-symbols-outlined.text-\[32px\] {
+            font-size: 26px !important;
+        }
+
+        .rd main .rounded-xl > .material-symbols-outlined.text-\[24px\] {
+            margin-top: 2px;
+            font-size: 21px !important;
+        }
+
+        .rd main .rounded-xl > .material-symbols-outlined.text-\[22px\] {
+            font-size: 20px !important;
+        }
+
+        .rd main li > .material-symbols-outlined.text-\[20px\] {
+            font-size: 18px !important;
+            color: var(--rd-green-2) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20 !important;
+        }
+
+        /* the a / b / c markers become italic serif letters in a hairline ring */
+        .rd main span.w-8.h-8.rounded-full.bg-\[\#004225\] {
+            background: transparent !important;
+            color: var(--rd-green) !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line-2);
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-style: italic;
+            font-weight: 400 !important;
+            font-size: 18px !important;
+        }
+
+        .rd main span.w-10.h-10.rounded-lg.bg-\[\#004225\] {
+            background: transparent !important;
+            color: var(--rd-green) !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line-2);
+        }
+
+        .rd main span.w-10.h-10.rounded-\[10px\] {
+            background: #ffffff !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line);
+        }
+
+        /* ---- Chips --------------------------------------------------------------- */
+        .rd main section:not(:first-of-type) span.rounded-full.border {
+            padding: 7px 15px !important;
+            font-size: 13px !important;
+            font-weight: 400 !important;
+            color: var(--rd-ink-2) !important;
+            background: transparent !important;
+            border-color: var(--rd-line-2) !important;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease;
+        }
+
+        .rd main section:not(:first-of-type) span.rounded-full.border:hover {
+            color: #ffffff !important;
+            background: var(--rd-green) !important;
+            border-color: var(--rd-green) !important;
+        }
+
+        .rd main .flex.flex-wrap.gap-2 {
+            gap: 8px !important;
+        }
+
+        /* ---- Buttons: one pill for every call to action ---------------------------- */
+        .rd main a.bg-primary-container,
+        .rd .osip-btn {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 10px;
+            height: 50px;
+            padding: 0 22px 0 26px !important;
+            border-radius: 999px !important;
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            letter-spacing: .005em !important;
+            text-transform: none !important;
+            color: #ffffff !important;
+            background: var(--rd-green) !important;
+            box-shadow: none !important;
+            transition: background-color .35s ease !important;
+        }
+
+        .rd main a.bg-primary-container:hover,
+        .rd .osip-btn:hover {
+            background: #062f1f !important;
+        }
+
+        .rd main a.bg-primary-container.mt-6 {
+            margin-top: 30px !important;
+        }
+
+        .rd main a.bg-primary-container .material-symbols-outlined {
+            font-size: 18px !important;
+            transition: transform .35s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .rd main a.bg-primary-container:hover .material-symbols-outlined {
+            transform: translate(3px, -3px);
+        }
+
+        /* ---- Statements (Key Message, Investor Outlook) --------------------------- */
+        .rd main div.bg-\[\#004225\].rounded-2xl {
+            position: relative;
+            overflow: hidden;
+            margin-top: clamp(56px, 7vw, 104px) !important;
+            padding: clamp(40px, 6vw, 96px) clamp(26px, 6.5vw, 104px) !important;
+            gap: clamp(18px, 2.4vw, 34px) !important;
+            border-radius: 28px !important;
+            background: var(--rd-deep) !important;
+        }
+
+        .rd main div.bg-\[\#004225\].rounded-2xl::after {
+            content: "";
+            position: absolute;
+            right: -12%;
+            top: -40%;
+            width: 58%;
+            height: 180%;
+            background: radial-gradient(closest-side, rgba(247, 190, 38, .13), rgba(247, 190, 38, 0));
+            pointer-events: none;
+        }
+
+        .rd main div.bg-\[\#004225\].rounded-2xl > .material-symbols-outlined {
+            position: relative;
+            z-index: 1;
+            margin-top: 12px;
+            font-size: 22px !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd main div.bg-\[\#004225\].rounded-2xl > p {
+            position: relative;
+            z-index: 1;
+            max-width: 44ch !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 300 !important;
+            font-size: clamp(22px, 2.3vw, 34px) !important;
+            line-height: 1.34 !important;
+            letter-spacing: -0.012em !important;
+            color: #f3efe6 !important;
+        }
+
+        .rd main div.bg-\[\#004225\].rounded-2xl > p > .font-bold:first-child {
+            display: block;
+            margin-bottom: 20px;
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+            color: #f7be26 !important;
+        }
+
+        /* ---- Key Facts: same charts, the figures set in the serif ----------------- */
+        .rd #facts .kf-card {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top-color: #dfa800 !important;
+            border-radius: 22px !important;
+        }
+
+        .rd #facts .kf-value {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: clamp(38px, 4.3vw, 60px) !important;
+            letter-spacing: -0.03em !important;
+        }
+
+        .rd #facts .grid.gap-6 {
+            gap: 20px !important;
+        }
+
+        .rd #facts .kf-card.is-wide {
+            margin-top: 20px !important;
+        }
+
+        /* Nothing sits beside the wide card's description, so it takes the width. */
+        .rd #facts .kf-card.is-wide .max-w-xl {
+            max-width: none !important;
+        }
+
+        /* The 2060 stop carried its "30 GW+" pill in the flow. That made it taller
+           than the other stops, and centring the row then dropped its dot and
+           year below theirs. The pill now hangs above the dot, out of the flow;
+           every stop lines up from the top, and the segments sit on the dots'
+           centre line. The bigger 2060 dot is pulled up by the difference. */
+        .rd #facts .kf-tl {
+            align-items: flex-start !important;
+            padding-top: 38px;
+        }
+
+        .rd #facts .kf-tl-seg {
+            margin-top: 5px !important;
+            margin-bottom: 0 !important;
+        }
+
+        .rd #facts .kf-tl-stop.is-key {
+            position: relative;
+        }
+
+        .rd #facts .kf-tl-pill {
+            position: absolute;
+            left: 50%;
+            bottom: 100%;
+            margin-bottom: 12px !important;
+            translate: -50% 0;
+        }
+
+        .rd #facts .kf-tl-dot.is-key {
+            margin-top: -4px;
+        }
+
+        .rd #facts .kf-tl-dot.is-key + span {
+            margin-top: 4px !important;
+        }
+
+        .rd main p.text-\[28px\].font-extrabold,
+        .rd main p.font-h4.font-extrabold {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.02em !important;
+        }
+
+        .rd main p.text-\[28px\].font-extrabold {
+            font-size: clamp(34px, 3vw, 44px) !important;
+        }
+
+        .rd main p.font-h4.font-extrabold {
+            font-size: 28px !important;
+        }
+
+        /* ---- Sector Overview ------------------------------------------------------ */
+        .rd .ovw-body p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18.5px !important;
+            line-height: 1.7 !important;
+            letter-spacing: -0.003em;
+            color: var(--rd-ink-2) !important;
+            text-wrap: pretty;
+        }
+
+        .rd .ovw-body .ovw-lede {
+            font-size: 21px !important;
+            line-height: 1.6 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd .ovw-body .ovw-lede::before {
+            width: 1px !important;
+            background: #f7be26 !important;
+            animation: none !important;
+            transform: scaleY(var(--rd-draw, 1)) !important;
+        }
+
+        .rd .ovw-photo {
+            border-radius: 24px !important;
+            box-shadow: none !important;
+        }
+
+        .rd .ovw-stat {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top-color: #dfa800 !important;
+            border-radius: 16px !important;
+            box-shadow: 0 24px 50px -30px rgba(19, 32, 27, .35) !important;
+        }
+
+        .rd .ovw-stat-value {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 34px !important;
+        }
+
+        /* ---- Gold rules: drawn, not just shown ------------------------------------
+           The vertical gold lines beside the hero lede, the overview lede, the
+           Technical & Safety and Featured Investment Areas introductions and the
+           incentive notes draw downwards: the hero's with its entrance, the rest
+           as they are read. The draw is one custom property, --rd-draw, which
+           the motion layer tweens; without the motion layer it stays at 1 and
+           every line is simply there. */
+        .rd main > section:first-of-type h1 ~ p::before,
+        .rd #technical h2 + p::before,
+        .rd #opportunities h2 + p::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .35em;
+            bottom: .35em;
+            width: 1px;
+            background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        .rd #technical h2 + p,
+        .rd #opportunities h2 + p {
+            position: relative;
+            padding-left: 23px !important;
+        }
+
+        /* The notes' 3px gold edge becomes the drawn rule. Their left corners go
+           square so a straight rule can sit exactly on that edge. */
+        .rd .osip-note {
+            position: relative;
+            padding-left: calc(1.25rem + 2px) !important;
+            border-left: 1px solid #efdca4 !important;
+            border-radius: 0 .75rem .75rem 0 !important;
+        }
+
+        .rd .osip-note::before {
+            content: "";
+            position: absolute;
+            left: -1px;
+            top: -1px;
+            bottom: -1px;
+            width: 3px;
+            background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        /* ---- Photographs and video ------------------------------------------------ */
+        .rd main .overflow-hidden.rounded-2xl.shadow-xl,
+        .rd main .video-facade {
+            border-radius: 24px !important;
+            box-shadow: none !important;
+        }
+
+        .rd main .video-facade {
+            overflow: hidden;
+        }
+
+        .rd main .video-facade .bg-red-600 {
+            border-radius: 999px !important;
+            background: rgba(251, 250, 247, .94) !important;
+            box-shadow: 0 24px 50px -24px rgba(0, 0, 0, .55) !important;
+        }
+
+        .rd main .video-facade .bg-red-600 .material-symbols-outlined {
+            color: var(--rd-green) !important;
+        }
+
+        /* ---- Workflow diagrams ---------------------------------------------------- */
+        .rd .wf-scope {
+            margin-top: clamp(48px, 6vw, 88px);
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+        }
+
+        .rd .wf-section {
+            border: 1px solid var(--rd-line);
+            border-radius: 28px !important;
+        }
+
+        .rd .wf-section::before {
+            background: var(--rd-card) !important;
+        }
+
+        .rd .wf-section::after {
+            display: none !important;
+        }
+
+        .rd .wf-badge {
+            border-width: 1px !important;
+            box-shadow: none !important;
+            background: var(--rd-card) !important;
+        }
+
+        .rd .wf-num {
+            background: var(--rd-card) !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-style: italic;
+            font-weight: 400 !important;
+            font-size: 14px !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd .wf-item .wf-num {
+            background: none !important;
+        }
+
+        .rd .wf-label,
+        .rd .wf-item-label {
+            font-weight: 500 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd .wf-path {
+            stroke: #b9b3a7 !important;
+            stroke-width: 1.5 !important;
+        }
+
+        .rd .wf-dot {
+            fill: #b9b3a7 !important;
+        }
+
+        /* ---- Reading progress ------------------------------------------------------ */
+        .rd-progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 80;
+            height: 2px;
+            background: #f7be26;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            pointer-events: none;
+        }
+
+        /* ---- Cursor: only over the things worth pointing at ------------------------
+           The system cursor stays in charge everywhere else. The disc takes over
+           only where it says something: "Open" on external links, "Play" on the
+           videos. Over headings it becomes a gold highlighter, and over plain
+           cards a light ring. */
+        .rd-cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 9998;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .rd-cursor-dot {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 72px;
+            height: 72px;
+            margin: -36px 0 0 -36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            background: var(--rd-green);
+            color: #ffffff;
+            font: 500 12px/1 var(--rd-sans);
+            letter-spacing: .06em;
+            transform: scale(0);
+            transition: transform .5s cubic-bezier(.22, 1, .36, 1), width .5s cubic-bezier(.22, 1, .36, 1),
+                height .5s cubic-bezier(.22, 1, .36, 1), margin .5s cubic-bezier(.22, 1, .36, 1),
+                background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd-cursor-label {
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
+
+        .rd-cursor[data-mode="label"] .rd-cursor-dot {
+            transform: scale(1);
+        }
+
+        .rd-cursor[data-mode="label"] .rd-cursor-label,
+        .rd-cursor[data-mode="play"] .rd-cursor-label {
+            opacity: 1;
+            transition-delay: .12s;
+        }
+
+        .rd-cursor[data-mode="play"] .rd-cursor-dot {
+            width: 104px;
+            height: 104px;
+            margin: -52px 0 0 -52px;
+            background: #f7be26;
+            color: var(--rd-green);
+            transform: scale(1);
+        }
+
+        .rd-cursor[data-mode="ring"] .rd-cursor-dot {
+            width: 40px;
+            height: 40px;
+            margin: -20px 0 0 -20px;
+            background: transparent;
+            border-color: rgba(0, 66, 37, .4);
+            transform: scale(1);
+        }
+
+        /* Over headings: a gold highlighter. Multiply keeps the letters dark where
+           the disc passes under them. The blend has to be on the fixed element
+           itself; set on the child it would only blend inside the cursor's own
+           stacking context. The look hangs on data-look, which outlives
+           data-mode, so the disc stays gold while it shrinks away instead of
+           turning green on the way out; and its colour is not transitioned on
+           the way in, so it never grows out of a green blot. */
+        .rd-cursor[data-look="text"] {
+            mix-blend-mode: multiply;
+        }
+
+        .rd-cursor[data-look="text"] .rd-cursor-dot {
+            width: 96px;
+            height: 96px;
+            margin: -48px 0 0 -48px;
+            background: #f7be26;
+            transition-property: transform, width, height, margin;
+        }
+
+        .rd-cursor[data-mode="text"] .rd-cursor-dot {
+            transform: scale(1);
+        }
+
+        html.rd-cursor-on [data-rd-cursor="label"],
+        html.rd-cursor-on [data-rd-cursor="label"] *,
+        html.rd-cursor-on [data-rd-cursor="play"],
+        html.rd-cursor-on [data-rd-cursor="play"] * {
+            cursor: none !important;
+        }
+
+        /* ---- Small screens ---------------------------------------------------------- */
+        @media (max-width: 639px) {
+            .rd main > section:first-of-type {
+                min-height: 78vh !important;
+            }
+
+            .rd-scrollcue {
+                display: none;
+            }
+
+            .rd main .rounded-xl.p-5,
+            .rd main .rounded-xl.p-6 {
+                padding: 22px !important;
+            }
+
+            .rd .ovw-body p {
+                font-size: 17px !important;
+            }
+
+            .rd .ovw-body .ovw-lede {
+                font-size: 19px !important;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rd-scrollcue span {
+                top: 30%;
+                animation: none;
+            }
+
+            html.rd-intro main > section:first-of-type .max-w-3xl > * {
+                opacity: 1 !important;
+            }
+        }
+
+        /* ---- Buttons in Newsreader ----------------------------------------------------
+           Button labels follow the headings into the serif. font-size-adjust holds each
+           label to the visual size it had in the sans (Newsreader runs small at the same
+           px), so no button grows or rewraps; the header menu stays as it is, and icons
+           inside a button keep their own font and size. */
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .osip-btn,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main a.bg-primary-container,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main > section:first-of-type a.rounded-full {
+          font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+          font-size-adjust: none !important;
+          letter-spacing: 0 !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .osip-btn *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main a.bg-primary-container *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main > section:first-of-type a.rounded-full *:not([class*="material-symbols"]):not([class*="material-icons"]) {
+          font-family: inherit !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .osip-btn [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .osip-btn [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main a.bg-primary-container [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main a.bg-primary-container [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main > section:first-of-type a.rounded-full [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) main > section:first-of-type a.rounded-full [class*="material-icons"] {
+          font-size-adjust: none !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta { font-weight: 500 !important; }
+    
+        /* ---- Type: Inter throughout (14 Sep 2026) --------------------------------------
+           Inter replaces Newsreader on this page; the theme, layout, colours and motion are
+           untouched. Every rule above that set the serif now sets Inter held to the serif's
+           x-height (font-size-adjust), so each heading and paragraph keeps the visual size,
+           line length and rhythm it had. Icons and glossary tooltips keep their own size.
+           The previous type is kept in OSIP/Backups/DetailedSector/. */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-type-adjust: 0.515;
+        }
+
+        .rd [class*="material-symbols"],
+        .rd [class*="material-icons"],
+        .rd .osip-term::after {
+            font-size-adjust: none !important;
+        }
+
+        /* the shared header and footer set Newsreader in their own stylesheets; on this
+           page they follow the page */
+        .rd .nesp-header .nesp-menu-item .t,
+        .rd .nesp-header .nesp-menu-item .d,
+        .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link,
+        .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead),
+        .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head,
+        .rd .nesp-header .nesp-res-foot-h,
+        .rd .nesp-footer h3,
+        .rd .nesp-footer .nesp-foot-brand p,
+        .rd .nesp-footer a,
+        .rd .nesp-footer .nesp-foot-contact li,
+        .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: var(--rd-type-adjust) !important;
+        }
+
+        .rd .nesp-header .nesp-cta {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+
+        /* ---- Heading weight (14 Sep 2026) ----------------------------------------------
+           In Inter the headings read better one step heavier than they sat in the serif. */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3,
+        .rd .wf-title,
+        .rd #facts .kf-value,
+        .rd main p.font-h4.font-extrabold,
+        .rd .ovw-stat-value {
+            font-weight: 500 !important;
+        }
+
+        .rd main > section:first-of-type h1 {
+            font-weight: 500 !important;
+        }
+
+        .rd main h4 {
+            font-weight: 600 !important;
+        }
+
+        .rd .nesp-footer h3 {
+            font-weight: 500 !important;
+        }
+
+        /* ---- Investor Advantages, minimal (14 Sep 2026) ---------------------------------
+           No panel, no badge, no ticks: a short gold rule, the title, and the points as a
+           numbered list on hairlines. On wide screens it stays beside the reading text. */
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl {
+            background: transparent !important;
+            border: 0 !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            counter-reset: rd-adv;
+        }
+
+        @media (min-width: 1024px) {
+            .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl {
+                position: sticky;
+                top: 112px;
+                padding-top: 6px !important;
+            }
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl > div:first-child {
+            display: block !important;
+            margin-bottom: 26px !important;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl > div:first-child > span.w-10 {
+            display: none !important;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl h3 {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 22px !important;
+            letter-spacing: -0.012em !important;
+            margin: 0 !important;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl h3::before {
+            content: "";
+            flex: none;
+            width: 28px;
+            height: 1px;
+            background: var(--rd-gold);
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl ul {
+            border-top: 1px solid var(--rd-line-2);
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li {
+            counter-increment: rd-adv;
+            display: grid !important;
+            grid-template-columns: 42px 1fr;
+            align-items: baseline;
+            gap: 0 !important;
+            margin: 0 !important;
+            padding: 17px 0 !important;
+            border-bottom: 1px solid var(--rd-line);
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li::before {
+            content: counter(rd-adv, decimal-leading-zero);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: .06em;
+            font-variant-numeric: tabular-nums;
+            color: var(--rd-ink-3);
+            transition: color .35s ease;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li > .material-symbols-outlined {
+            display: none !important;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li > span:not(.material-symbols-outlined) {
+            font-size: 15.5px !important;
+            line-height: 1.55 !important;
+            color: var(--rd-ink-2) !important;
+            transition: color .35s ease;
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li:hover::before {
+            color: var(--rd-gold);
+        }
+
+        .rd main .lg\:col-span-5 > div.bg-\[\#f3f4f2\].border.rounded-2xl li:hover > span {
+            color: var(--rd-ink) !important;
+        }
+
+        /* ---- Card system (14 Sep 2026) ------------------------------------------------
+           Every card on the page is the same card: a marker tile (icon, letter or logo), a
+           title and one short text, three to a row, all the same height. Lists of plain
+           labels are a numbered list (as Investor Advantages); programme figures a figure row. */
+        .rd main .rd-cards {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 16px;
+        }
+
+        @media (min-width: 640px) {
+            .rd main .rd-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (min-width: 1024px) {
+            .rd main .rd-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+
+        .rd main .rd-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 28px;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 18px !important;
+            overflow: hidden;
+            color: inherit;
+            text-decoration: none;
+            transition: border-color .4s ease, background-color .4s ease;
+        }
+
+        @media (min-width: 640px) {
+            .rd main .rd-card { min-height: 252px; }
+        }
+
+        .rd main .rd-card::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 2px;
+            background: var(--rd-gold);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform .6s cubic-bezier(.22, .61, .36, 1);
+            pointer-events: none;
+        }
+
+        .rd main .rd-card:hover {
+            border-color: var(--rd-line-2) !important;
+            background: #ffffff !important;
+        }
+
+        .rd main .rd-card:hover::before { transform: scaleX(1); }
+
+        .rd main .rd-card .rd-card-mark {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+            width: 44px;
+            height: 44px;
+            margin-bottom: 22px;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: inset 0 0 0 1px var(--rd-line);
+            color: var(--rd-green);
+            overflow: hidden;
+        }
+
+        .rd main .rd-card .rd-card-mark .material-symbols-outlined {
+            font-size: 22px !important;
+            color: var(--rd-green) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd main .rd-card .rd-card-mark img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .rd main .rd-card .rd-card-mark.is-letter {
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .rd main .rd-card .rd-card-title {
+            display: block;
+            margin: 0 0 8px !important;
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+            font-size: 17px !important;
+            font-weight: 600 !important;
+            line-height: 1.35 !important;
+            letter-spacing: -0.01em !important;
+            color: var(--rd-ink) !important;
+            text-wrap: balance;
+        }
+
+        .rd main .rd-card .rd-card-text {
+            display: block;
+            margin: 0 !important;
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+            font-size: 14.5px !important;
+            line-height: 1.6 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        @media (max-width: 639px) {
+            .rd main .rd-card { padding: 24px; }
+        }
+
+        /* plain labels: the numbered list on hairlines */
+        .rd main .rd-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            counter-reset: rd-list;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            column-gap: 48px;
+            border-top: 1px solid var(--rd-line-2);
+        }
+
+        @media (min-width: 768px) {
+            .rd main .rd-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        .rd main .rd-list > li {
+            counter-increment: rd-list;
+            display: grid;
+            grid-template-columns: 42px 1fr;
+            align-items: baseline;
+            padding: 17px 0;
+            border-bottom: 1px solid var(--rd-line);
+            font-size: 15.5px;
+            line-height: 1.55;
+            color: var(--rd-ink-2);
+            transition: color .35s ease;
+        }
+
+        .rd main .rd-list > li::before {
+            content: counter(rd-list, decimal-leading-zero);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: .06em;
+            font-variant-numeric: tabular-nums;
+            color: var(--rd-ink-3);
+            transition: color .35s ease;
+        }
+
+        .rd main .rd-list > li:hover { color: var(--rd-ink); }
+        .rd main .rd-list > li:hover::before { color: var(--rd-gold); }
+
+        /* link rows: name, then the address, the whole row clickable */
+        .rd main .rd-links > li > a {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            min-width: 0;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .rd main .rd-links .rd-link-name {
+            color: var(--rd-ink);
+            font-weight: 500;
+            transition: color .35s ease;
+        }
+
+        .rd main .rd-links .rd-link-url {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13.5px;
+            color: var(--rd-ink-3);
+        }
+
+        .rd main .rd-links > li:hover .rd-link-name { color: var(--rd-green); }
+
+        /* programme figures: a row of figures on hairlines */
+        .rd main .rd-stats {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 0 32px;
+        }
+
+        @media (min-width: 640px) {
+            .rd main .rd-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+
+        .rd main .rd-stat {
+            padding: 22px 0 18px;
+            border-top: 1px solid var(--rd-line-2);
+        }
+
+        .rd main .rd-stat .rd-stat-v {
+            margin: 0;
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+            font-size: clamp(34px, 3.2vw, 44px);
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--rd-green);
+        }
+
+        .rd main .rd-stat .rd-stat-l {
+            margin: 12px 0 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: var(--rd-ink-3);
+        }
+
+        /* ---- Numbered subsections (14 Sep 2026) -----------------------------------------
+           In sections with several sub-headings each subsection starts on a hairline
+           with its number, so the reader always knows which part of the section they are in. */
+        .rd main .rd-sub {
+            position: relative;
+            margin-top: clamp(72px, 8vw, 112px);
+            padding-top: 26px;
+            border-top: 1px solid var(--rd-line-2);
+        }
+
+
+        .rd main h2 + .rd-sub { margin-top: 0; }
+        .rd main .rd-sub:first-of-type { margin-top: clamp(40px, 4.5vw, 56px); }
+        .rd main h2 + .rd-sub:first-of-type { margin-top: 0; }
+
+        .rd main .rd-sub > .rd-sub-no {
+            margin-bottom: 18px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: .08em;
+            font-variant-numeric: tabular-nums;
+            color: var(--rd-green-2);
+        }
+
+        .rd main .rd-sub > .rd-sub-no + *,
+        .rd main .rd-sub > .rd-sub-no + h3,
+        .rd main .rd-sub > h3:first-of-type { margin-top: 0 !important; }
+
+        .rd main .rd-sub > h3 + .wf-scope { margin-top: 0 !important; }
+
+        /* inside a numbered subsection the workflow cards no longer repeat its label */
+        .rd main .rd-sub .wf-section .wf-inner > .flex.items-center:has(> .wf-eyebrow) { display: none !important; }
+
+        /* the floating figure over the video keeps its place, in the same card language */
+        .rd main div.absolute.bg-white.border.rounded-xl {
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 18px !important;
+            padding: 14px 22px 14px 14px !important;
+            box-shadow: 0 18px 40px -24px rgba(11, 42, 31, .35) !important;
+        }
+
+        .rd main div.absolute.bg-white.border.rounded-xl > span.w-10.h-10 {
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 12px !important;
+            background: #ffffff !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line) !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd main div.absolute.bg-white.border.rounded-xl > span.w-10.h-10 .material-symbols-outlined {
+            font-size: 22px !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd main div.absolute.bg-white.border.rounded-xl p.font-h4 {
+            font-size: 22px !important;
+            font-weight: 500 !important;
+            color: var(--rd-green) !important;
+        }
+
+        /* ---- Resource logos (14 Sep 2026) ------------------------------------------------
+           Each resource row leads with its organisation's logo in a small white tile, in
+           place of the row number. */
+        .rd main .rd-links > li { grid-template-columns: minmax(0, 1fr); padding: 14px 0 !important; }
+        .rd main .rd-links > li::before { content: none; display: none; }
+        .rd main .rd-links > li > a { align-items: center; gap: 14px; }
+        .rd main .rd-links .rd-link-logo {
+            display: flex;
+            flex: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: inset 0 0 0 1px var(--rd-line);
+            color: var(--rd-green);
+        }
+        .rd main .rd-links .rd-link-logo img { width: 28px; height: 28px; object-fit: contain; }
+        .rd main .rd-links .rd-link-logo .material-symbols-outlined { font-size: 20px !important; color: var(--rd-green) !important; }
+        .rd main .rd-links .rd-link-name { flex: 1 1 auto; min-width: 0; }
+        .rd main .rd-links .rd-link-url { flex: none; max-width: 45%; }
+
+        /* ---- Headings run the full width (14 Sep 2026) -----------------------------------
+           Headings are no longer balanced into even short lines or held to a narrow column:
+           a title stays on one line while there is room for it, and only breaks where the
+           space actually ends. The hero title may use the full content width; its lead
+           paragraph keeps its own measure. */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3,
+        .rd main h4,
+        .rd .wf-title {
+            text-wrap: wrap !important;
+        }
+
+        .rd main > section:first-of-type .max-w-3xl,
+        .rd .sec-hero-copy {
+            max-width: none !important;
+        }
+
+        .rd main > section:first-of-type h1 {
+            max-width: none !important;
+        }
     </style>
 </head>
 
-<body class="font-body-md overflow-x-hidden">
+<body class="font-body-md overflow-x-hidden rd">
+<!-- DAT-03: every headline figure carries source, what it measures, and an
+     "as at" date. The dates are PLACEHOLDERS for the design: each is set to the
+     reference period of the source cited beside it, and all of them are replaced
+     with confirmed dates once the client supplies them. -->
+
     <!-- TopNavBar -->
     <div id="site-nav"></div>
     <main>
@@ -544,27 +2612,26 @@
         </section> -->
 
         <!-- Sector Overview: text left / image right -->
-        <section class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16" id="overview">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <section class="ovw max-w-7xl mx-auto px-6 lg:px-8 py-14 lg:py-20" id="overview">
+            <div class="ovw-grid">
                 <!-- Text -->
-                <div>
-                    <span
-                        class="inline-flex items-center gap-3 text-secondary font-bold text-label-md uppercase tracking-[0.18em] mb-5">
-                        <span class="w-8 h-[2px] bg-tertiary-fixed-dim"></span> Sector Overview
-                    </span>
-                    <h2 class="font-h2 text-h2 text-primary leading-tight mb-6">Powering Nigeria's Renewable Future</h2>
-                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-5">
-                        Nigeria has one of Africa’s strongest solar energy potentials due to its high solar radiation
+                <div class="ovw-copy">
+                    <span class="ovw-eyebrow ovw-rise" style="--o:0"><span aria-hidden="true"></span>Sector Overview</span>
+                    <h2 class="ovw-title ovw-rise" style="--o:1">Powering Nigeria's Renewable Future</h2>
+                    <div class="ovw-body">
+                        <p class="ovw-lede ovw-rise" style="--o:2">
+                            Nigeria has one of Africa’s strongest solar energy potentials due to its high solar radiation
                         levels and growing demand for reliable electricity. Nigeria's solar market is the country's
                         largest clean energy opportunity, driven by abundant sunlight and strong demand for reliable
                         off-grid and embedded power solutions. The rising energy costs are accelerating the adoption of
                         solar technologies across residential, commercial, industrial, and public-sector applications.
-                    </p>
-                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-8">
-                        Solar projects in Nigeria span utility-scale generation, mini-grids, solar home systems, and
+                        </p>
+                        <p class="ovw-rise" style="--o:3">
+                            Solar projects in Nigeria span utility-scale generation, mini-grids, solar home systems, and
                         commercial and industrial installations. The sector continues to attract local and international
                         investors as the country expands access to clean and reliable energy.
-                    </p>
+                        </p>
+                    </div>
                     <!-- <ul class="space-y-4 mb-10">
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-secondary"
@@ -585,29 +2652,25 @@
                                 mini-grids.</span>
                         </li>
                     </ul> -->
-                    <a href="Opportunities.html"
-                        class="inline-flex items-center gap-2 bg-primary-container text-white px-7 py-3.5 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
-                        Explore Opportunities <span class="material-symbols-outlined text-lg">arrow_forward</span>
-                    </a>
+                    <div class="ovw-actions ovw-rise" style="--o:4">
+                        <a href="Opportunities.html" class="osip-btn osip-btn-primary">
+                            <span>Explore Opportunities</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
                 </div>
                 <!-- Image -->
-                <div class="relative">
-                    <div class="overflow-hidden rounded-2xl shadow-xl">
-                        <img alt="Utility-scale solar farm in Nigeria"
-                            class="w-full h-72 sm:h-96 lg:h-[480px] object-cover"
-                            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&amp;w=1740&amp;auto=format&amp;fit=crop" />
-                    </div>
-                    <!-- Floating stat card -->
-                    <div
-                        class="absolute -bottom-6 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 sm:px-6 py-4 flex items-center gap-4">
-                        <span
-                            class="w-12 h-12 bg-primary-container text-white rounded-lg flex items-center justify-center"><span
-                                class="material-symbols-outlined"
-                                style="font-variation-settings: 'FILL' 1;">bolt</span></span>
-                        <div>
-                            <p class="font-h3 text-h3 text-primary leading-none">30 GW</p>
-                            <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">Target by
-                                2030</p>
+                <div class="ovw-media">
+                    <div class="ovw-sticky">
+                        <figure class="ovw-photo">
+                            <img alt="Utility-scale solar farm in Nigeria" decoding="async" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&amp;w=1740&amp;auto=format&amp;fit=crop" />
+                        </figure>
+                        <!-- Floating stat card -->
+                        <div class="ovw-stat">
+                            <span class="material-symbols-outlined ovw-stat-icon" aria-hidden="true">bolt</span>
+                            <div>
+                                <p class="ovw-stat-value">30 GW</p>
+                                <p class="ovw-stat-label">Target by 2030</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -628,10 +2691,10 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                     <!-- 803 MW — vertical bar chart 2024 vs 2025 -->
-                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                    <div class="kf-card bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
                         <div class="flex items-start justify-between gap-6">
                             <div class="flex-1">
-                                <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
+                                <p class="kf-value text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
                                     style="font-family: Manrope, sans-serif;">803 MW</p>
                                 <p class="text-[#111827] font-semibold mt-3">New solar capacity installed in 2025</p>
                                 <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Making Nigeria Africa's
@@ -644,7 +2707,7 @@
                                     </div>
                                     <span class="text-[11px] text-[#5f6368] mt-2 font-medium">2024</span>
                                 </div>
-                                <div class="kf-bar-col">
+                                <div class="kf-bar-col is-key" data-kf-value="803 MW" data-kf-label="2025">
                                     <div class="kf-bar-track">
                                         <span class="kf-bar is-latest" style="height:100%"></span>
                                     </div>
@@ -652,46 +2715,48 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Global Solar
-                            Council — Africa Market Outlook 2026–2029.</p>
+                        <p class="kf-source text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]"><span class="material-symbols-outlined" aria-hidden="true">info</span><span>Source: Global Solar
+                            Council — Africa Market Outlook 2026–2029. Data as at: March 2026.</span></p>
                     </div>
 
                     <!-- 140 Million+ — population icon graphic -->
-                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
-                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
+                    <div class="kf-card bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="kf-value text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
                             style="font-family: Manrope, sans-serif;">140 Million+</p>
                         <p class="text-[#111827] font-semibold mt-3">People with unreliable or inadequate electricity
                             access</p>
                         <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Creating strong demand for alternative
                             energy solutions.</p>
-                        <div class="flex flex-wrap gap-x-1 gap-y-1 mt-auto pt-6 text-[#004225]">
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px] text-[#b9c6c0]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px] text-[#b9c6c0]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
-                            <span class="material-symbols-outlined text-[26px] text-[#b9c6c0]"
-                                style="font-variation-settings:'FILL' 1;">person</span>
+                        <div class="kf-people flex flex-wrap gap-x-1 gap-y-1 mt-auto pt-6 text-[#004225]" data-kf-value="140 Million+" data-kf-label="People with unreliable or inadequate electricity access">
+                            <span class="material-symbols-outlined kf-person text-[26px]"
+                                style="--i:0;font-variation-settings:'FILL' 1;">person</span>
+                            <span class="material-symbols-outlined kf-person text-[26px]"
+                                style="--i:1;font-variation-settings:'FILL' 1;">person</span>
+                            <span class="material-symbols-outlined kf-person text-[26px]"
+                                style="--i:2;font-variation-settings:'FILL' 1;">person</span>
+                            <span class="material-symbols-outlined kf-person text-[26px]"
+                                style="--i:3;font-variation-settings:'FILL' 1;">person</span>
+                            <span class="material-symbols-outlined kf-person text-[26px]"
+                                style="--i:4;font-variation-settings:'FILL' 1;">person</span>
+                            <span class="material-symbols-outlined kf-person text-[26px]"
+                                style="--i:5;font-variation-settings:'FILL' 1;">person</span>
+                            <span class="material-symbols-outlined kf-person text-[26px]"
+                                style="--i:6;font-variation-settings:'FILL' 1;">person</span>
+                            <span class="material-symbols-outlined kf-person text-[26px] text-[#b9c6c0]"
+                                style="--i:7;font-variation-settings:'FILL' 1;">person</span>
+                            <span class="material-symbols-outlined kf-person text-[26px] text-[#b9c6c0]"
+                                style="--i:8;font-variation-settings:'FILL' 1;">person</span>
+                            <span class="material-symbols-outlined kf-person text-[26px] text-[#b9c6c0]"
+                                style="--i:9;font-variation-settings:'FILL' 1;">person</span>
                         </div>
+                        <p class="kf-source text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]"><span class="material-symbols-outlined" aria-hidden="true">info</span><span>Source: pending
+                            validation with FMP and GIZ. Data as at: June 2026.</span></p>
                     </div>
 
                     <!-- 20–30% — before vs after cost comparison -->
-                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                    <div class="kf-card bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
                         <div class="flex items-center gap-3 flex-wrap">
-                            <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
+                            <p class="kf-value text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
                                 style="font-family: Manrope, sans-serif;">20–30%</p>
                             <span
                                 class="inline-flex items-center gap-1 text-[#1b6d24] text-[12px] font-bold bg-[#e7f6ea] px-2.5 py-1 rounded-full"><span
@@ -709,84 +2774,85 @@
                             </div>
                             <span class="kf-compare-arrow"><span
                                     class="material-symbols-outlined">east</span></span>
-                            <div class="kf-compare-col">
+                            <div class="kf-compare-col is-key" data-kf-value="20–30%" data-kf-label="Cost savings">
                                 <span class="kf-compare-label is-accent">Solar hybrid</span>
                                 <div class="kf-compare-track">
                                     <span class="kf-compare-bar is-after" style="height:72%"></span>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Industry
-                            project data; BusinessDay Energy Reports (2026).</p>
+                        <p class="kf-source text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]"><span class="material-symbols-outlined" aria-hidden="true">info</span><span>Source: Industry
+                            project data; BusinessDay Energy Reports (2026). Data as at: February 2026.</span></p>
                     </div>
 
                     <!-- 5–8 GW — growth arrow / pipeline -->
-                    <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
-                        <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
+                    <div class="kf-card bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 flex flex-col">
+                        <p class="kf-value text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
                             style="font-family: Manrope, sans-serif;">5–8 GW</p>
                         <p class="text-[#111827] font-semibold mt-3">Medium-term pipeline opportunity</p>
                         <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Across utility-scale solar, distributed
                             solar, mini-grids, and battery storage.</p>
-                        <div class="flex items-center gap-3 mt-auto pt-6">
+                        <div class="kf-flow flex items-center gap-3 mt-auto pt-6">
                             <span
-                                class="px-4 py-3 rounded-lg bg-[#f3f4f2] text-[#5f6368] text-[12px] font-semibold text-center leading-tight">Current<br>market</span>
+                                class="kf-flow-node px-4 py-3 rounded-lg bg-[#f3f4f2] text-[#5f6368] text-[12px] font-semibold text-center leading-tight">Current<br>market</span>
                             <div class="flex-1 flex items-center">
-                                <div class="flex-1 h-[3px] rounded-full bg-gradient-to-r from-[#c9ceca] to-[#004225]">
+                                <div class="kf-flow-line flex-1 h-[3px] rounded-full bg-gradient-to-r from-[#c9ceca] to-[#004225]">
+                                    <span class="kf-flow-spark"></span>
                                 </div>
-                                <span class="material-symbols-outlined text-[#004225] -ml-1">arrow_right</span>
+                                <span class="material-symbols-outlined kf-flow-head text-[#004225] -ml-1">arrow_right</span>
                             </div>
-                            <span
-                                class="px-4 py-3 rounded-lg bg-[#004225] text-white text-[12px] font-bold text-center leading-tight">5–8
+                            <span data-kf-value="5–8 GW" data-kf-label="Medium-term pipeline opportunity"
+                                class="kf-flow-node is-key px-4 py-3 rounded-lg bg-[#004225] text-white text-[12px] font-bold text-center leading-tight">5–8
                                 GW<br>pipeline</span>
                         </div>
-                        <p class="text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]">Source: Energy
-                            Transition Plan, REA programmes, industry forecasts.</p>
+                        <p class="kf-source text-[#9aa39e] text-[11px] mt-6 pt-4 border-t border-[#eef0ef]"><span class="material-symbols-outlined" aria-hidden="true">info</span><span>Source: Energy
+                            Transition Plan, REA programmes, industry forecasts. Data as at: December 2024.</span></p>
                     </div>
                 </div>
 
                 <!-- 30 GW+ by 2060 — timeline (full width) -->
-                <div class="bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 mt-6">
+                <div class="kf-card is-wide bg-white border border-[#e5e7eb] rounded-2xl p-7 lg:p-8 mt-6">
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-10">
                         <div class="max-w-xl">
-                            <p class="text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
+                            <p class="kf-value text-[40px] lg:text-[46px] font-extrabold text-[#004225] leading-none"
                                 style="font-family: Manrope, sans-serif;">30 GW+</p>
                             <p class="text-[#111827] font-semibold mt-3">Indicative solar capacity by 2060</p>
                             <p class="text-[#5f6368] text-[14px] leading-6 mt-2">Solar deployment target under Nigeria's
                                 Energy Transition Plan pathway toward net-zero emissions by 2060.</p>
                         </div>
                     </div>
-                    <div class="flex items-center">
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="w-3 h-3 rounded-full bg-[#c9ceca]"></div>
+                    <div class="kf-tl flex items-center">
+                        <div class="kf-tl-stop flex flex-col items-center flex-shrink-0" style="--d:0s">
+                            <div class="kf-tl-dot w-3 h-3 rounded-full bg-[#c9ceca]"></div>
                             <span class="text-[12px] text-[#5f6368] mt-2 font-medium">2025</span>
                         </div>
-                        <div class="flex-1 h-[2px] bg-[#e0e3e1] mx-1 mb-6"></div>
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="w-3 h-3 rounded-full bg-[#c9ceca]"></div>
+                        <div class="kf-tl-seg flex-1 h-[2px] bg-[#e0e3e1] mx-1 mb-6" style="--d:.1s"></div>
+                        <div class="kf-tl-stop flex flex-col items-center flex-shrink-0" style="--d:.25s">
+                            <div class="kf-tl-dot w-3 h-3 rounded-full bg-[#c9ceca]"></div>
                             <span class="text-[12px] text-[#5f6368] mt-2 font-medium">2030</span>
                         </div>
-                        <div class="flex-1 h-[2px] bg-[#e0e3e1] mx-1 mb-6"></div>
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="w-3 h-3 rounded-full bg-[#c9ceca]"></div>
+                        <div class="kf-tl-seg flex-1 h-[2px] bg-[#e0e3e1] mx-1 mb-6" style="--d:.35s"></div>
+                        <div class="kf-tl-stop flex flex-col items-center flex-shrink-0" style="--d:.5s">
+                            <div class="kf-tl-dot w-3 h-3 rounded-full bg-[#c9ceca]"></div>
                             <span class="text-[12px] text-[#5f6368] mt-2 font-medium">2040</span>
                         </div>
-                        <div class="flex-1 h-[2px] bg-[#e0e3e1] mx-1 mb-6"></div>
-                        <div class="flex flex-col items-center flex-shrink-0">
-                            <div class="w-3 h-3 rounded-full bg-[#c9ceca]"></div>
+                        <div class="kf-tl-seg flex-1 h-[2px] bg-[#e0e3e1] mx-1 mb-6" style="--d:.6s"></div>
+                        <div class="kf-tl-stop flex flex-col items-center flex-shrink-0" style="--d:.75s">
+                            <div class="kf-tl-dot w-3 h-3 rounded-full bg-[#c9ceca]"></div>
                             <span class="text-[12px] text-[#5f6368] mt-2 font-medium">2050</span>
                         </div>
-                        <div class="flex-1 h-[2px] mx-1 mb-6" style="background:linear-gradient(90deg,#e0e3e1,#004225)">
+                        <div class="kf-tl-seg is-last flex-1 h-[2px] mx-1 mb-6" style="--d:.85s;background:linear-gradient(90deg,#e0e3e1,#004225)">
                         </div>
-                        <div class="flex flex-col items-center flex-shrink-0">
+                        <div class="kf-tl-stop is-key flex flex-col items-center flex-shrink-0" style="--d:1s" data-kf-value="30 GW+" data-kf-label="2060">
                             <span
-                                class="text-[11px] font-bold text-white bg-[#004225] px-2.5 py-1 rounded-full mb-2 whitespace-nowrap">30
+                                class="kf-tl-pill text-[11px] font-bold text-white bg-[#004225] px-2.5 py-1 rounded-full mb-2 whitespace-nowrap">30
                                 GW+</span>
-                            <div class="w-5 h-5 rounded-full bg-[#004225] ring-4 ring-[#e7f0ec]"></div>
+                            <div class="kf-tl-dot is-key w-5 h-5 rounded-full bg-[#004225] ring-4 ring-[#e7f0ec]"></div>
                             <span class="text-[13px] text-[#004225] mt-2 font-bold">2060</span>
                         </div>
                     </div>
-                    <p class="text-[#9aa39e] text-[11px] mt-8 pt-4 border-t border-[#eef0ef]">Source: Nigeria Energy
-                        Transition Plan (ETP).</p>
+                    <p class="kf-source text-[#9aa39e] text-[11px] mt-8 pt-4 border-t border-[#eef0ef]"><span class="material-symbols-outlined" aria-hidden="true">info</span><span>Source: Nigeria Energy
+                        Transition Plan (ETP). Data as at: December 2024.</span></p>
                 </div>
             </div>
         </section>
@@ -805,48 +2871,36 @@
                     style="font-family: Manrope, sans-serif;">How Investors Can Participate</h2>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's solar market supports
                     multiple investment pathways:</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">solar_power</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Utility-Scale Solar</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Grid-connected projects supplying electricity to
-                            the national grid or eligible customers.</p>
+                <div class="rd-cards grid">
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">solar_power</span></span>
+                        <h4 class="rd-card-title">Utility-Scale Solar</h4>
+                        <p class="rd-card-text">Grid-connected projects supplying electricity to the national grid or eligible customers.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">factory</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Commercial &amp; Industrial (C&amp;I) Solar</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Captive and embedded generation for commercial
-                            and industrial energy users.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">factory</span></span>
+                        <h4 class="rd-card-title">Commercial &amp; Industrial (C&amp;I) Solar</h4>
+                        <p class="rd-card-text">Captive and embedded generation for commercial and industrial energy users.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">hub</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Mini-Grids</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Isolated and interconnected systems serving
-                            communities, businesses, and productive-use customers.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">hub</span></span>
+                        <h4 class="rd-card-title">Mini-Grids</h4>
+                        <p class="rd-card-text">Isolated and interconnected systems serving communities, businesses, and productive-use customers.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">home</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Solar Home Systems (SHS)</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Standalone systems for residential and
-                            small-business users.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">home</span></span>
+                        <h4 class="rd-card-title">Solar Home Systems (SHS)</h4>
+                        <p class="rd-card-text">Standalone systems for residential and small-business users.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">battery_charging_full</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Solar-Plus-Storage</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Hybrid projects combining solar generation with
-                            battery energy storage.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">battery_charging_full</span></span>
+                        <h4 class="rd-card-title">Solar-Plus-Storage</h4>
+                        <p class="rd-card-text">Hybrid projects combining solar generation with battery energy storage.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">precision_manufacturing</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Manufacturing &amp; Local Assembly</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Module assembly, inverters, mounting structures
-                            and battery systems built in country.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">precision_manufacturing</span></span>
+                        <h4 class="rd-card-title">Manufacturing &amp; Local Assembly</h4>
+                        <p class="rd-card-text">Module assembly, inverters, mounting structures and battery systems built in country.</p>
                     </div>
                 </div>
             </div>
@@ -913,8 +2967,8 @@
                                         permitted</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Access to Pioneer Status and other
-                                        investment incentives</span></li>
+                                        class="text-[#404846] text-[15px] leading-6">May be eligible for Pioneer Status and
+                                        other investment incentives</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
                                         class="text-[#404846] text-[15px] leading-6">Multiple market entry models
@@ -936,6 +2990,9 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- CON-03 eligibility note (incentivenote.js) -->
+                <div class="osip-incentive-note"></div>
 
                 <!-- Key Message -->
                 <div class="mt-8 lg:mt-10 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
@@ -959,6 +3016,8 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
                     style="font-family: Manrope, sans-serif;">Regulations</h2>
 
+                <div class="rd-sub" id="regulations-1">
+                    <div class="rd-sub-no" aria-hidden="true">01</div>
                 <!-- Applicable Laws & Policies -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
                     style="font-family: Manrope, sans-serif;">Applicable Laws &amp; Policies</h3>
@@ -967,7 +3026,7 @@
                     2025, National Renewable Energy and Energy Efficiency Policy (NREEEP) 2015, Renewable Energy Master
                     Plan (REMP), Energy Transition Plan (ETP) 2022, and Nigeria's updated Nationally Determined
                     Contributions (NDCs). These policies support private-sector participation, renewable energy
-                    deployment, and long-term decarbonization objectives.</p>
+                    deployment, and long-term decarbonization objectives. Land acquisition and site development are governed by the Land Use Act 1978 and applicable state-level land administration procedures.</p>
                 <div class="flex flex-wrap gap-2 mt-5">
                     <span
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electricity
@@ -988,155 +3047,89 @@
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Updated
                         NDCs</span>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="regulations-2">
+                    <div class="rd-sub-no" aria-hidden="true">02</div>
                 <!-- Regulatory Requirements -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
                     style="font-family: Manrope, sans-serif;">Regulatory Requirements</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">bolt</span>
-                        <p class="text-[#404846] text-[15px] leading-7"><span
-                                class="font-semibold text-[#111827]">Grid-connected
-                                projects above 1 MW</span> generally require a NERC Generation Licence and must comply
-                            with applicable grid connection requirements.</p>
+                <div class="rd-cards grid">
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">bolt</span></span>
+                        <h4 class="rd-card-title">Grid-connected projects above 1 MW</h4>
+                        <p class="rd-card-text">Generally require a NERC Generation Licence and must comply with applicable grid connection requirements.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">hub</span>
-                        <p class="text-[#404846] text-[15px] leading-7"><span
-                                class="font-semibold text-[#111827]">Mini-grid
-                                projects</span> are regulated under the NERC Mini-Grid Regulations 2023 and applicable
-                            provisions of the Electricity Act 2023.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">hub</span></span>
+                        <h4 class="rd-card-title">Mini-grid projects</h4>
+                        <p class="rd-card-text">Are regulated under the NERC Mini-Grid Regulations 2023 and applicable provisions of the Electricity Act 2023.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">forest</span>
-                        <p class="text-[#404846] text-[15px] leading-7"><span
-                                class="font-semibold text-[#111827]">Large-scale
-                                projects</span> may require Environmental Impact Assessment (EIA) approval from the
-                            Federal Ministry of Environment, depending on project size, location, and environmental
-                            sensitivity.</p>
-                    </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">
-                        <span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">terrain</span>
-                        <p class="text-[#404846] text-[15px] leading-7"><span class="font-semibold text-[#111827]">Land
-                                acquisition and site development</span> are governed by the Land Use Act 1978 and
-                            applicable state-level land administration procedures.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">forest</span></span>
+                        <h4 class="rd-card-title">Large-scale projects</h4>
+                        <p class="rd-card-text">May require Environmental Impact Assessment (EIA) approval from the Federal Ministry of Environment.</p>
                     </div>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="regulations-3">
+                    <div class="rd-sub-no" aria-hidden="true">03</div>
                 <!-- Key Regulatory Agencies -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-6"
                     style="font-family: Manrope, sans-serif;">Key Regulatory Agencies</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" data-no-glossary>
-                    <a href="https://www.power.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="logoNESP.png" alt="Federal Ministry of Power logo"
-                                class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Federal Ministry of Power</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Sets electricity sector policy, including the National Integrated Electricity Policy.</span>
-                        </span>
+                <div class="rd-cards grid" data-no-glossary>
+                    <a href="https://www.power.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="logoNESP.png" alt="Federal Ministry of Power logo" /></span>
+                        <span class="rd-card-title">Federal Ministry of Power</span>
+                        <span class="rd-card-text">Sets electricity sector policy, including the National Integrated Electricity Policy.</span>
                     </a>
-                    <a href="https://nerc.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
-                                class="w-8 h-8 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Nigerian Electricity Regulatory Commission
-                            (NERC)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Licenses generation, distribution, embedded generation and mini-grids, and sets tariffs.</span>
-                        </span>
+                    <a href="https://nerc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo" /></span>
+                        <span class="rd-card-title">Nigerian Electricity Regulatory Commission (NERC)</span>
+                        <span class="rd-card-text">Licenses generation, distribution, embedded generation and mini-grids, and sets tariffs.</span>
                     </a>
-                    <a href="https://rea.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Rural Electrification Agency (REA)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Runs off-grid, mini-grid and rural electrification programmes.</span>
-                        </span>
+                    <a href="https://rea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="REA-logo.png" alt="REA logo" /></span>
+                        <span class="rd-card-title">Rural Electrification Agency (REA)</span>
+                        <span class="rd-card-text">Runs off-grid, mini-grid and rural electrification programmes.</span>
                     </a>
-                    <a href="https://nipc.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Nigerian Investment Promotion Commission
-                            (NIPC)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Registers investors and administers incentives such as Pioneer Status.</span>
-                        </span>
+                    <a href="https://nipc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="nipc-logo.png" alt="NIPC logo" /></span>
+                        <span class="rd-card-title">Nigerian Investment Promotion Commission (NIPC)</span>
+                        <span class="rd-card-text">Registers investors and administers incentives such as Pioneer Status.</span>
                     </a>
-                    <a href="https://environment.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="FMEnew.png" alt="Federal Ministry of Environment logo"
-                                class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Federal Ministry of Environment</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Sets environmental policy and approves Environmental Impact Assessments.</span>
-                        </span>
+                    <a href="https://environment.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="FMEnew.png" alt="Federal Ministry of Environment logo" /></span>
+                        <span class="rd-card-title">Federal Ministry of Environment</span>
+                        <span class="rd-card-text">Sets environmental policy and approves Environmental Impact Assessments.</span>
                     </a>
-                    <a href="https://nesrea.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="nesrea.jpeg" alt="NESREA logo" class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">National Environmental Standards and
-                            Regulations Enforcement Agency (NESREA)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Enforces environmental standards and monitors compliance.</span>
-                        </span>
+                    <a href="https://nesrea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="nesrea.jpeg" alt="NESREA logo" /></span>
+                        <span class="rd-card-title">National Environmental Standards and Regulations Enforcement Agency (NESREA)</span>
+                        <span class="rd-card-text">Enforces environmental standards and monitors compliance.</span>
                     </a>
-                    <a href="https://son.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Standards Organization of Nigeria
-                            (SON)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Sets product standards, with SONCAP for imports and MANCAP for local manufacture.</span>
-                        </span>
+                    <a href="https://son.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="son_png.png" alt="SON logo" /></span>
+                        <span class="rd-card-title">Standards Organization of Nigeria (SON)</span>
+                        <span class="rd-card-text">Sets product standards, with SONCAP for imports and MANCAP for local manufacture.</span>
                     </a>
-                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Nigerian Electricity Management Services
-                            Agency (NEMSA)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Inspects and certifies electrical installations and equipment for safety.</span>
-                        </span>
+                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="NEMSA.png" alt="NEMSA logo" /></span>
+                        <span class="rd-card-title">Nigerian Electricity Management Services Agency (NEMSA)</span>
+                        <span class="rd-card-text">Inspects and certifies electrical installations and equipment for safety.</span>
                     </a>
-                    <a href="https://www.tcn.org.ng" target="_blank" rel="noopener"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span
-                            class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img src="TCN.png" alt="TCN logo" class="w-7 h-7 object-contain" />
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Transmission Company of Nigeria
-                            (TCN)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Operates the transmission grid and handles interconnection and grid-impact studies.</span>
-                        </span>
+                    <a href="https://www.tcn.org.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><img src="TCN.png" alt="TCN logo" /></span>
+                        <span class="rd-card-title">Transmission Company of Nigeria (TCN)</span>
+                        <span class="rd-card-text">Operates the transmission grid and handles interconnection and grid-impact studies.</span>
                     </a>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="regulations-4">
+                    <div class="rd-sub-no" aria-hidden="true">04</div>
+                <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-6" style="font-family: Manrope, sans-serif;">Workflow Process</h3>
                 <!-- ============================================================
      WORKFLOW PROCESS — zigzag / connector-path style
      Theme: brand green (#004225), light mint bg (#f3f4f2), Manrope
@@ -1812,6 +3805,8 @@
                             if (document.fonts && document.fonts.ready) { document.fonts.ready.then(drawAll); }
                         })();
                 </script>
+                </div>
+
             </div>
         </section>
 
@@ -1882,51 +3877,36 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
                     style="font-family: Manrope, sans-serif;">Finance</h2>
 
+                <div class="rd-sub" id="finance-1">
+                    <div class="rd-sub-no" aria-hidden="true">01</div>
                 <!-- Public Finance -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
                     style="font-family: Manrope, sans-serif;">Public Finance</h3>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's solar sector benefits
-                    from growing public and development-finance support. The Rural Electrification Agency (REA),
-                    through the Rural Electrification Fund (REF), provides grants, subsidies, and performance-based
-                    incentives for mini-grid and solar access projects. The US$750 million DARES Programme supports
+                    from growing public and development-finance support. The US$750 million DARES Programme supports
                     isolated and interconnected mini-grids, Solar for Business initiatives, and productive-use energy
                     projects.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">The Bank of Industry (BOI)
-                    provides concessional financing for renewable energy manufacturing, deployment, and productive-use
-                    applications, while the NSIA-anchored US$500 million Distributed Renewable Energy (DRE) Nigeria
-                    Fund supports mini-grids, solar home systems, commercial and industrial (C&amp;I) solar, and battery
-                    storage projects.</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">account_balance</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">REA / Rural Electrification Fund</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Grants, subsidies, and performance-based
-                            incentives for mini-grid and solar access projects.</p>
+                <div class="rd-cards grid mt-8">
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <h4 class="rd-card-title">REA / Rural Electrification Fund</h4>
+                        <p class="rd-card-text">Grants, subsidies, and performance-based incentives for mini-grid and solar access projects.</p>
                     </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">payments</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">DARES Programme</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">US$750 million supporting mini-grids, Solar for
-                            Business, and productive-use energy projects.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">factory</span></span>
+                        <h4 class="rd-card-title">Bank of Industry (BOI)</h4>
+                        <p class="rd-card-text">Concessional financing for renewable energy manufacturing, deployment, and productive-use applications.</p>
                     </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">factory</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">Bank of Industry (BOI)</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">Concessional financing for renewable energy
-                            manufacturing, deployment, and productive-use applications.</p>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5">
-                        <span class="material-symbols-outlined text-[#004225] text-[32px]">battery_charging_full</span>
-                        <h4 class="text-[15px] font-bold text-[#111827] mt-3 mb-1"
-                            style="font-family: Manrope, sans-serif;">DRE Nigeria Fund</h4>
-                        <p class="text-[#5f6368] text-[13px] leading-6">NSIA-anchored US$500 million fund for
-                            mini-grids, solar home systems, C&amp;I solar, and battery storage.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">battery_charging_full</span></span>
+                        <h4 class="rd-card-title">DRE Nigeria Fund</h4>
+                        <p class="rd-card-text">NSIA-anchored US$500 million fund for mini-grids, solar home systems, C&amp;I solar, and battery storage.</p>
                     </div>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="finance-2">
+                    <div class="rd-sub-no" aria-hidden="true">02</div>
                 <!-- Commercial Finance -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Commercial Finance</h3>
@@ -1959,7 +3939,10 @@
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">International financiers
                     including IFC, AfDB, Africa Finance Corporation (AFC), Africa50, and infrastructure-focused
                     investors are also increasing debt and equity participation across the Nigerian solar market.</p>
+                </div>
 
+                <div class="rd-sub" id="finance-3">
+                    <div class="rd-sub-no" aria-hidden="true">03</div>
                 <!-- Guarantees & Risk Instruments -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Guarantees &amp; Risk Instruments</h3>
@@ -1969,7 +3952,10 @@
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Additional support is
                     available through institutions such as MIGA, IFC, AfDB, and the World Bank Group, particularly for
                     large-scale infrastructure, mini-grid, and distributed renewable energy investments.</p>
+                </div>
 
+                <div class="rd-sub" id="finance-4">
+                    <div class="rd-sub-no" aria-hidden="true">04</div>
                 <!-- Blended Finance -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Blended Finance</h3>
@@ -1981,7 +3967,10 @@
                     the Renewable Energy Blended Finance Facility (REBF) are also expected to expand access to
                     long-term capital for mini-grids, productive-use energy, agricultural electrification, and storage
                     projects.</p>
+                </div>
 
+                <div class="rd-sub" id="finance-5">
+                    <div class="rd-sub-no" aria-hidden="true">05</div>
                 <!-- Infrastructure Concession Arrangements -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Infrastructure Concession Arrangements</h3>
@@ -2005,90 +3994,50 @@
                     leveraging government-backed risk mitigation mechanisms. Nigeria has an active portfolio of
                     concession-backed solar projects across three main segments:</p>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6">
-                        <span
-                            class="w-8 h-8 rounded-full bg-[#004225] text-white text-[14px] font-bold flex items-center justify-center flex-shrink-0 mb-3">a</span>
-                        <h4 class="text-[16px] font-bold text-[#111827] mb-2" style="font-family: Manrope, sans-serif;">
-                            Decentralized Mini-Grid Concessions</h4>
-                        <p class="text-[#5f6368] text-[14px] leading-6">Over 125 solar mini-grids already deployed under
-                            the Nigeria Electrification Project, alongside ongoing expansion under programmes such as
-                            DARES and AMP, involving multiple private developers across states. These operate under
-                            exclusive service-area concessions, generating revenue from end-user tariffs and
-                            performance-based subsidies.</p>
+                <div class="rd-cards grid mt-8">
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark is-letter" aria-hidden="true">a</span>
+                        <h4 class="rd-card-title">Decentralized Mini-Grid Concessions</h4>
+                        <p class="rd-card-text">Over 125 solar mini-grids already deployed under the Nigeria Electrification Project, operating under exclusive service-area concessions.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6">
-                        <span
-                            class="w-8 h-8 rounded-full bg-[#004225] text-white text-[14px] font-bold flex items-center justify-center flex-shrink-0 mb-3">b</span>
-                        <h4 class="text-[16px] font-bold text-[#111827] mb-2" style="font-family: Manrope, sans-serif;">
-                            Utility-Scale Solar PPPs (IPP Model)</h4>
-                        <p class="text-[#5f6368] text-[14px] leading-6">Projects structured around long-term Power
-                            Purchase Agreements (PPAs), government or quasi-sovereign offtakers, and project finance
-                            structures compatible with international lenders.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark is-letter" aria-hidden="true">b</span>
+                        <h4 class="rd-card-title">Utility-Scale Solar PPPs (IPP Model)</h4>
+                        <p class="rd-card-text">Projects structured around long-term Power Purchase Agreements (PPAs), government or quasi-sovereign offtakers, and project finance structures.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-6">
-                        <span
-                            class="w-8 h-8 rounded-full bg-[#004225] text-white text-[14px] font-bold flex items-center justify-center flex-shrink-0 mb-3">c</span>
-                        <h4 class="text-[16px] font-bold text-[#111827] mb-2" style="font-family: Manrope, sans-serif;">
-                            Distributed Solar and Franchise Models</h4>
-                        <p class="text-[#5f6368] text-[14px] leading-6">Programmes such as Solar Power Naija aim to
-                            deploy millions of solar connections nationwide via private operators, offering rapid market
-                            penetration, retail-scale recurring revenue streams, and lower reliance on grid
-                            infrastructure.</p>
+                    <div class="rd-card rounded-xl">
+                        <span class="rd-card-mark is-letter" aria-hidden="true">c</span>
+                        <h4 class="rd-card-title">Distributed Solar and Franchise Models</h4>
+                        <p class="rd-card-text">Programmes such as Solar Power Naija aim to deploy millions of solar connections nationwide via private operators.</p>
                     </div>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="finance-6">
+                    <div class="rd-sub-no" aria-hidden="true">06</div>
                 <!-- Infrastructure & Revenue Opportunities -->
                 <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mt-12 lg:mt-16 mb-4"
                     style="font-family: Manrope, sans-serif;">Infrastructure &amp; Revenue Opportunities</h3>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Financing is increasingly
                     available for projects linked to established demand centres and predictable revenue streams. These
                     include:</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">factory</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Commercial and industrial solar
-                            projects</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">bolt</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Embedded generation and captive
-                            power systems</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span
-                            class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">cell_tower</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Telecom tower
-                            electrification</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span
-                            class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">agriculture</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Productive-use agriculture and
-                            agro-processing</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span
-                            class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">apartment</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Universities, hospitals,
-                            estates, and public facilities</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">hub</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Mini-grids supported through
-                            DARES and REA programmes</span>
-                    </div>
-                    <div class="bg-[#f3f4f2] border border-[#e5e7eb] rounded-xl p-5 flex items-start gap-3">
-                        <span
-                            class="material-symbols-outlined text-[#004225] text-[22px] flex-shrink-0">battery_charging_full</span>
-                        <span class="text-[#111827] text-[14px] font-semibold leading-6">Solar-plus-storage
-                            solutions</span>
-                    </div>
-                </div>
+                <ul class="rd-list">
+                    <li>Commercial and industrial solar projects</li>
+                    <li>Embedded generation and captive power systems</li>
+                    <li>Telecom tower electrification</li>
+                    <li>Productive-use agriculture and agro-processing</li>
+                    <li>Universities, hospitals, estates, and public facilities</li>
+                    <li>Mini-grids supported through DARES and REA programmes</li>
+                    <li>Solar-plus-storage solutions</li>
+                </ul>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-6">The introduction of the
                     Electricity Act 2023, state electricity markets, embedded generation frameworks, and emerging net
                     billing/net metering mechanisms is expected to further improve the commercial viability of
                     distributed solar investments.</p>
+                </div>
+
+                <!-- CON-03 eligibility note (incentivenote.js) -->
+                <div class="osip-incentive-note" data-variant="finance"></div>
 
                 <!-- Investor Outlook -->
                 <div class="mt-12 lg:mt-16 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
@@ -2132,6 +4081,8 @@
                     Visit Nigeria SE4ALL <span class="material-symbols-outlined text-lg">open_in_new</span>
                 </a>
 
+                <div class="rd-sub" id="opportunities-1">
+                    <div class="rd-sub-no" aria-hidden="true">01</div>
                 <!-- Mini-Grid Development -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
                     <div>
@@ -2214,27 +4165,25 @@
                     })();
                 </script>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14 lg:mt-16">
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">$750M</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">World Bank facility backing the DARES
-                            programme.</p>
+                <div class="rd-stats mt-14 lg:mt-16">
+                    <div class="rd-stat">
+                        <p class="rd-stat-v">$750M</p>
+                        <p class="rd-stat-l">World Bank facility backing the DARES programme.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">465 MW</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">New generation capacity targeted under
-                            DARES.</p>
+                    <div class="rd-stat">
+                        <p class="rd-stat-v">465 MW</p>
+                        <p class="rd-stat-l">New generation capacity targeted under DARES.</p>
                     </div>
-                    <div class="bg-white border border-[#e5e7eb] rounded-xl p-5">
-                        <p class="text-[28px] font-extrabold text-[#004225] leading-none"
-                            style="font-family: Manrope, sans-serif;">17.5M</p>
-                        <p class="text-[#5f6368] text-[13px] leading-6 mt-2">Beneficiaries targeted for electricity
-                            access.</p>
+                    <div class="rd-stat">
+                        <p class="rd-stat-v">17.5M</p>
+                        <p class="rd-stat-l">Beneficiaries targeted for electricity access.</p>
                     </div>
                 </div>
+                <p class="text-[#9aa39e] text-[11px] leading-5 mt-4">Source: Distributed Access through Renewable Energy Scale-up (DARES) programme &mdash; US$750 million World Bank facility, implemented by the Rural Electrification Agency (REA). Programme targets, not figures achieved to date. Data as at: January 2026.</p>
+                </div>
 
+                <div class="rd-sub" id="opportunities-2">
+                    <div class="rd-sub-no" aria-hidden="true">02</div>
                 <!-- Commercial & Industrial Solar -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
                     <div class="relative lg:order-2">
@@ -2269,7 +4218,10 @@
                         </div>
                     </div>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="opportunities-3">
+                    <div class="rd-sub-no" aria-hidden="true">03</div>
                 <!-- Manufacturing & Local Assembly -->
                 <div class="mt-16 lg:mt-20">
                     <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
@@ -2280,7 +4232,10 @@
                         content development are creating opportunities for investors interested in module assembly,
                         battery systems, mounting structures, inverters, and related clean-energy technologies.</p>
                 </div>
+                </div>
 
+                <div class="rd-sub" id="opportunities-4">
+                    <div class="rd-sub-no" aria-hidden="true">04</div>
                 <!-- Geographic Hotspots -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
                     <div class="relative lg:order-2">
@@ -2317,6 +4272,8 @@
                         </div>
                     </div>
                 </div>
+                </div>
+
             </div>
         </section>
 
@@ -2331,94 +4288,14 @@
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
                     style="font-family: Manrope, sans-serif;">Useful Resources and Data</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    <a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo"
-                                    class="w-8 h-8 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NERC</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nerc.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.rea.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="REA-logo.png" alt="REA logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">REA</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.rea.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="nipc-logo.png" alt="NIPC logo" class="w-8 h-8 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NIPC</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nipc.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.son.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="son_png.png" alt="SON logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">SON</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.son.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="NEMSA.png" alt="NEMSA logo" class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span
-                                    class="block text-[#111827] text-[14px] font-semibold">NEMSA</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.nemsa.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                    <a href="https://www.environment.gov.ng" target="_blank" rel="noopener"
-                        class="group bg-white border border-[#e5e7eb] rounded-lg px-4 py-3.5 flex items-center justify-between gap-3 hover:border-[#004225] transition-colors">
-                        <span class="flex items-center gap-3 min-w-0">
-                            <span
-                                class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                <img src="FMEnew.png" alt="Federal Ministry of Environment logo"
-                                    class="w-7 h-7 object-contain" />
-                            </span>
-                            <span class="min-w-0"><span class="block text-[#111827] text-[14px] font-semibold">Federal
-                                    Ministry of Environment</span><span
-                                    class="block text-[#5f6368] text-[13px] truncate">www.environment.gov.ng</span></span>
-                        </span>
-                        <span
-                            class="material-symbols-outlined text-[#9aa39e] group-hover:text-[#004225] text-[20px] flex-shrink-0">open_in_new</span>
-                    </a>
-                </div>
+                <ul class="rd-list rd-links">
+                    <li><a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="Nigerian Electricity Regulatory Commission logo.png" alt="" /></span><span class="rd-link-name">NERC</span><span class="rd-link-url">www.nerc.gov.ng</span></a></li>
+                    <li><a href="https://www.rea.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="REA-logo.png" alt="" /></span><span class="rd-link-name">REA</span><span class="rd-link-url">www.rea.gov.ng</span></a></li>
+                    <li><a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="nipc-logo.png" alt="" /></span><span class="rd-link-name">NIPC</span><span class="rd-link-url">www.nipc.gov.ng</span></a></li>
+                    <li><a href="https://www.son.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="son_png.png" alt="" /></span><span class="rd-link-name">SON</span><span class="rd-link-url">www.son.gov.ng</span></a></li>
+                    <li><a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="NEMSA.png" alt="" /></span><span class="rd-link-name">NEMSA</span><span class="rd-link-url">www.nemsa.gov.ng</span></a></li>
+                    <li><a href="https://www.environment.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo" aria-hidden="true"><img src="FMEnew.png" alt="" /></span><span class="rd-link-name">Federal Ministry of Environment</span><span class="rd-link-url">www.environment.gov.ng</span></a></li>
+                </ul>
             </div>
         </section>
 
@@ -2735,7 +4612,7 @@
                 },
                 'DATA': {
                     head: 'Data & Insights', items: [
-                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'Investment & Capacity', d: 'Capacity and investment metrics across energy sectors.', href: 'Data.html' },
                         { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
                         { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
                     ]
@@ -2781,11 +4658,547 @@
         })();
     </script>
     <!-- Invest Now popup flow -->
+    <script>
+        /* Key Facts behaviour: a draw-in as each card arrives (and the figure
+           counting up), hover motion once the draw-in is over, and a tooltip
+           for the marks that carry a figure. The count-up keeps the real
+           figure in a screen-reader-only copy while the visible digits run. */
+        (function () {
+            var section = document.getElementById('facts');
+            if (!section) return;
+            var cards = Array.prototype.slice.call(section.querySelectorAll('.kf-card'));
+
+            /* ---- Tooltip ---- */
+            var tip = document.createElement('div');
+            tip.className = 'kf-tip';
+            tip.setAttribute('role', 'tooltip');
+            var tipValue = document.createElement('strong');
+            var tipLabel = document.createElement('span');
+            tip.appendChild(tipValue);
+            tip.appendChild(tipLabel);
+            document.body.appendChild(tip);
+
+            var current = null, lastPointer = 'mouse';
+
+            function place(el) {
+                var r = el.getBoundingClientRect();
+                var w = tip.offsetWidth, h = tip.offsetHeight;
+                var x = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - 8));
+                var y = r.top - h - 10;
+                if (y < 8) y = r.bottom + 10;
+                tip.style.transform = 'translate(' + Math.round(x) + 'px,' + Math.round(y) + 'px)';
+            }
+
+            function show(el) {
+                current = el;
+                tipValue.textContent = el.getAttribute('data-kf-value');       // textContent, never innerHTML
+                tipLabel.textContent = el.getAttribute('data-kf-label') || '';
+                tipLabel.style.display = tipLabel.textContent ? '' : 'none';
+                place(el);
+                tip.classList.add('is-on');
+            }
+
+            function hide() {
+                current = null;
+                tip.classList.remove('is-on');
+            }
+
+            Array.prototype.forEach.call(section.querySelectorAll('[data-kf-value]'), function (el) {
+                el.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') show(el); });
+                el.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(); });
+                /* Touch has no hover: a tap opens it, a tap anywhere else closes it. */
+                el.addEventListener('click', function () {
+                    if (lastPointer === 'mouse') return;
+                    if (current === el) hide(); else show(el);
+                });
+            });
+
+            document.addEventListener('pointerdown', function (e) {
+                lastPointer = e.pointerType || 'mouse';
+                if (current && !current.contains(e.target)) hide();
+            }, true);
+            window.addEventListener('scroll', function () { if (current) place(current); }, { passive: true });
+            window.addEventListener('resize', hide);
+
+            /* ---- Motion ---- */
+            var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (still) return;                                   // drawn, and still
+
+            if (!('IntersectionObserver' in window)) {           // no draw-in, but hover still plays
+                cards.forEach(function (c) { c.classList.add('kf-live'); });
+                return;
+            }
+
+            function countUp(el) {
+                var final = el.textContent;
+                var flat = final.replace(/\s+/g, ' ').trim();
+                var parts = flat.split(/(\d+(?:\.\d+)?)/);
+                if (parts.length < 3) return;
+
+                var sr = document.createElement('span');
+                sr.className = 'kf-sr';
+                sr.textContent = flat;
+                var shown = document.createElement('span');
+                shown.setAttribute('aria-hidden', 'true');
+                el.textContent = '';
+                el.appendChild(sr);
+                el.appendChild(shown);
+
+                var t0 = null, DURATION = 1100;
+                function frame(now) {
+                    if (t0 === null) t0 = now;
+                    var p = Math.min(1, (now - t0) / DURATION);
+                    var eased = 1 - Math.pow(1 - p, 3);
+                    shown.textContent = parts.map(function (piece, i) {
+                        if (i % 2 === 0) return piece;
+                        var places = (piece.split('.')[1] || '').length;
+                        return (parseFloat(piece) * eased).toFixed(places);
+                    }).join('');
+                    if (p < 1) { requestAnimationFrame(frame); return; }
+                    el.textContent = final;                      // the original string, exactly
+                }
+                requestAnimationFrame(frame);
+            }
+
+            /* Only now do the charts start undrawn. */
+            section.classList.add('kf-armed');
+
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    io.unobserve(entry.target);
+                    var card = entry.target;
+                    requestAnimationFrame(function () {
+                        card.classList.add('is-in', 'is-revealing');
+                        var v = card.querySelector('.kf-value');
+                        if (v) countUp(v);
+                        /* The longest draw-in (the timeline's halo) ends at 2.5s. */
+                        window.setTimeout(function () {
+                            card.classList.remove('is-revealing');
+                            card.classList.add('kf-live');
+                        }, 2600);
+                    });
+                });
+            }, { threshold: 0.2 });
+
+            cards.forEach(function (c) { io.observe(c); });
+        })();
+    </script>
+    <script>
+        /* Sector Overview: the copy rises in, the photograph wipes in from the
+           right and the stat card follows. Nothing is hidden until the script
+           knows it can run the reveal, so without JavaScript, without
+           IntersectionObserver or with reduced motion asked for, the section
+           is simply there. */
+        (function () {
+            var sec = document.getElementById('overview');
+            if (!sec || !sec.querySelector('.ovw-grid')) return;
+            var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (still || !('IntersectionObserver' in window)) return;
+            sec.classList.add('ovw-armed');
+            var io = new IntersectionObserver(function (entries) {
+                if (!entries.some(function (e) { return e.isIntersecting; })) return;
+                io.disconnect();
+                requestAnimationFrame(function () { sec.classList.add('is-in'); });
+            }, { threshold: 0.15 });
+            io.observe(sec);
+        })();
+    </script>
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
     <script src="nav.js"></script>
     <script src="glossary.js"></script>
+    <script src="incentivenote.js"></script>
     <script src="videofacade.js"></script>
+    <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script>
+        /* =====================================================================
+           REDESIGN MOTION LAYER - DetailedSector.html
+
+           Smooth scroll (Lenis) and scroll-driven motion (GSAP, ScrollTrigger,
+           SplitText). Built to fail open: nothing is hidden until the libraries
+           are confirmed present, everything this script hides is tracked so an
+           error can put it back, and with reduced motion asked for the script
+           does nothing at all. The Key Facts charts and the Sector Overview keep
+           their own reveal scripts and are left alone here.
+           ===================================================================== */
+        (function () {
+            var html = document.documentElement;
+            var hidden = [];
+            var drawn = [];
+
+            function releaseIntro() { html.classList.remove('rd-intro'); }
+
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !window.gsap || !window.ScrollTrigger) { releaseIntro(); return; }
+
+            function start() {
+                try {
+                    run();
+                } catch (err) {
+                    if (window.console) console.warn('[rd] motion layer stopped:', err);
+                    releaseIntro();
+                    if (hidden.length) gsap.set(hidden, { clearProps: 'opacity,transform,visibility' });
+                    drawn.forEach(function (el) { el.style.removeProperty('--rd-draw'); });
+                }
+            }
+
+            /* Wait for the parsed page first: glossary.js and incentivenote.js do
+               their work on DOMContentLoaded, and the word splits and the notes'
+               gold rules have to come after them. Then wait for the webfonts, which
+               the line splits depend on - but never hold the hero back more than
+               900ms. */
+            var started = false;
+            function once() { if (!started) { started = true; start(); } }
+            function afterParse() {
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+                setTimeout(once, 900);
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', afterParse);
+            else afterParse();
+
+            function run() {
+                gsap.registerPlugin(ScrollTrigger);
+                var hasSplit = !!window.SplitText;
+                if (hasSplit) gsap.registerPlugin(SplitText);
+
+                var main = document.querySelector('main');
+                if (!main) { releaseIntro(); return; }
+                var sections = Array.prototype.filter.call(main.children, function (el) { return el.tagName === 'SECTION'; });
+                var hero = sections[0];
+                var rest = sections.slice(1);
+                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                var EASE = 'expo.out';
+                function all(root, sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
+                function inRest(sel) { return rest.reduce(function (out, s) { return out.concat(all(s, sel)); }, []); }
+
+                /* ---- Smooth scroll ---------------------------------------------------- */
+                var lenis = null;
+                if (window.Lenis) {
+                    /* The header's dropdown panels and the mobile menu scroll on their
+                       own: nav.js caps their height and sets overscroll-behavior:
+                       contain. Lenis takes every wheel event on the page unless told
+                       otherwise, so a wheel over an open panel moved the page behind it
+                       instead of the list. prevent hands those panels back to the
+                       browser, and allowNestedScroll does the same for any other box
+                       on the page that scrolls by itself. */
+                    lenis = new Lenis({
+                        lerp: 0.09, smoothWheel: true, syncTouch: false,
+                        allowNestedScroll: true,
+                        prevent: function (node) {
+                            return !!(node.classList && (node.classList.contains('nesp-dropdown') || node.classList.contains('nesp-mnav')));
+                        }
+                    });
+                    lenis.on('scroll', ScrollTrigger.update);
+                    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+                    gsap.ticker.lagSmoothing(0);
+                    window.__rdLenis = lenis;
+
+                    var mnav = document.getElementById('mobile-nav');
+                    if (mnav) mnav.setAttribute('data-lenis-prevent', '');
+
+                    /* In-page jumps glide, and park the target clear of the sticky
+                       header using the offset nav.js already measures. The target
+                       is passed as a pixel position, not as the element: given an
+                       element, Lenis also subtracts the scroll-margin-top nav.js
+                       sets on every [id], and the header offset landed twice. */
+                    document.addEventListener('click', function (e) {
+                        var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+                        if (!a) return;
+                        var hash = a.getAttribute('href');
+                        var target = hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+                        if (!target) return;
+                        e.preventDefault();
+                        var offset = parseInt(getComputedStyle(html).getPropertyValue('--osip-nav-offset'), 10) || 100;
+                        var y = target.getBoundingClientRect().top + window.scrollY - offset;
+                        lenis.scrollTo(Math.max(0, y), { duration: 1.5, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
+                        if (history.replaceState) history.replaceState(null, '', hash);
+                    });
+                }
+
+                /* ---- Reading progress ------------------------------------------------- */
+                var bar = document.createElement('div');
+                bar.className = 'rd-progress';
+                bar.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(bar);
+                gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.4 } });
+
+                /* ---- Hero: the photograph settles, the title's letters rise ----------- */
+                if (hero) {
+                    var bg = hero.querySelector('.bg-cover');
+                    var copy = hero.querySelector('.max-w-3xl');
+                    var h1 = hero.querySelector('h1');
+                    var lede = hero.querySelector('h1 ~ p');
+                    var jump = copy ? copy.querySelector('.space-y-3') : null;
+                    var intro = gsap.timeline({ defaults: { ease: EASE } });
+
+                    if (bg) intro.fromTo(bg, { scale: 1.16 }, { scale: 1.04, duration: 2.6, ease: 'power3.out' }, 0);
+                    if (h1) {
+                        if (hasSplit) {
+                            var title = SplitText.create(h1, { type: 'chars', mask: 'chars', charsClass: 'rd-char' });
+                            /* Once the letters have landed the split is undone, so the
+                               title at rest is plain text with nothing left to clip it. */
+                            intro.from(title.chars, { yPercent: 150, duration: 1.3, stagger: 0.055, onComplete: function () { title.revert(); } }, 0.15);
+                        } else {
+                            intro.from(h1, { opacity: 0, y: 30, duration: 1.2 }, 0.15);
+                        }
+                    }
+                    if (lede) intro.from(lede, { opacity: 0, y: 22, duration: 1.2 }, 0.55);
+                    if (lede) { drawn.push(lede); intro.fromTo(lede, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.6, ease: 'expo.inOut' }, 0.6); }
+                    if (jump) {
+                        if (jump.children[0]) intro.from(jump.children[0], { opacity: 0, y: 12, duration: 1 }, 0.75);
+                        intro.from(jump.querySelectorAll('a'), { opacity: 0, y: 16, duration: 1, stagger: 0.05, clearProps: 'transform' }, 0.8);
+                    }
+                    /* The start states above are already applied, so lifting the
+                       pre-hide now cannot flash the finished hero first. */
+                    releaseIntro();
+
+                    if (bg) gsap.to(bg, { yPercent: 14, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+                    if (copy) gsap.to(copy, { yPercent: -18, opacity: 0.25, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+
+                    var cue = document.createElement('div');
+                    cue.className = 'rd-scrollcue';
+                    cue.setAttribute('aria-hidden', 'true');
+                    cue.appendChild(document.createElement('span'));
+                    hero.appendChild(cue);
+                } else {
+                    releaseIntro();
+                }
+
+                /* ---- Eyebrows: the gold rule draws, then the label ------------------- */
+                inRest('span.w-8.h-\\[2px\\]').forEach(function (dash) {
+                    var label = dash.nextElementSibling;
+                    var tl = gsap.timeline({ scrollTrigger: { trigger: dash, start: 'top 90%', once: true } });
+                    tl.from(dash, { scaleX: 0, duration: 1.1, ease: EASE });
+                    if (label) tl.from(label, { opacity: 0, x: -8, duration: 0.9, ease: EASE, clearProps: 'transform' }, 0.15);
+                    hidden.push(dash);
+                    if (label) hidden.push(label);
+                });
+
+                /* ---- Headings: lines rise out of a mask ------------------------------- */
+                inRest('h2, h3').forEach(function (h) {
+                    if (h.closest('.ovw')) return;
+                    if (!hasSplit || h.querySelector('abbr, .osip-term')) {
+                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+                        hidden.push(h);
+                        return;
+                    }
+                    SplitText.create(h, {
+                        type: 'lines',
+                        mask: 'lines',
+                        linesClass: 'rd-line',
+                        autoSplit: true,
+                        onSplit: function (self) {
+                            return gsap.from(self.lines, {
+                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
+                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
+                            });
+                        }
+                    });
+                });
+
+                /* ---- Reading text: the words light up in reading order ---------------
+                   The statements' effect, turned down for running text. Words wait
+                   faint rather than near-invisible, and every line is fully lit by
+                   the time it is a third of the way up the screen, so nobody is left
+                   reading dim text. Words only, never masks: a glossary tooltip must
+                   not be cropped. And no aria rewriting: the words, links and
+                   focusable glossary terms stay as they were for screen readers. */
+                inRest('.leading-8, .ovw-body p').forEach(function (el) {
+                    if (el.closest('#facts, .bg-\\[\\#004225\\]')) return;
+                    if (el.parentElement && el.parentElement.closest('.leading-8')) return;
+                    var targets = el.tagName === 'P' ? [el] : all(el, ':scope > p');
+                    if (!targets.length) targets = [el];
+                    targets.forEach(function (t) {
+                        if (!hasSplit) {
+                            gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
+                            hidden.push(t);
+                            return;
+                        }
+                        var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
+                        hidden = hidden.concat(words);
+                        gsap.fromTo(words, { opacity: 0.2 }, {
+                            opacity: 1, ease: 'none', stagger: 0.1,
+                            scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                        });
+                    });
+                });
+
+                /* ---- Gold rules draw down as the text beside them is read ------------
+                   The same scroll range as the words, so rule and text arrive together. */
+                inRest('.ovw-lede, #technical h2 + p, #opportunities h2 + p, .osip-note').forEach(function (el) {
+                    drawn.push(el);
+                    gsap.fromTo(el, { '--rd-draw': 0 }, {
+                        '--rd-draw': 1, ease: 'none',
+                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Statements: the words light up as you read down to them -------- */
+                inRest('div.bg-\\[\\#004225\\].rounded-2xl').forEach(function (box) {
+                    gsap.fromTo(box, { clipPath: 'inset(10% 5% 10% 5% round 28px)' }, {
+                        clipPath: 'inset(0% 0% 0% 0% round 28px)', duration: 1.5, ease: EASE, clearProps: 'clipPath',
+                        scrollTrigger: { trigger: box, start: 'top 88%', once: true }
+                    });
+                    var p = box.querySelector('p');
+                    if (!p || !hasSplit) return;
+                    var words = SplitText.create(p, { type: 'words', wordsClass: 'rd-word', aria: 'none' }).words;
+                    gsap.fromTo(words, { opacity: 0.14 }, {
+                        opacity: 1, ease: 'none', stagger: 0.08,
+                        scrollTrigger: { trigger: box, start: 'top 78%', end: 'bottom 60%', scrub: 0.6 }
+                    });
+                });
+
+                /* ---- Cards, chips and list rows arrive in the order they sit ---------
+                   The transform is cleared once each has landed: a transformed card
+                   is its own stacking context, and a glossary tooltip opening over
+                   the next card would otherwise slide underneath it. */
+                var cards = inRest('.grid > .rounded-xl, .grid > .rounded-lg, .grid > .rounded-2xl').filter(function (c) {
+                    return !c.closest('#facts, .ovw');
+                });
+                function batch(list, from, to) {
+                    if (!list.length) return;
+                    gsap.set(list, from);
+                    hidden = hidden.concat(list);
+                    ScrollTrigger.batch(list, {
+                        start: 'top 94%', once: true,
+                        onEnter: function (els) { gsap.to(els, Object.assign({ overwrite: true, clearProps: 'transform' }, to)); }
+                    });
+                }
+                batch(cards, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09 });
+                batch(inRest('span.rounded-full.border'), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: EASE, stagger: 0.04 });
+                batch(inRest('ul.space-y-4 > li'), { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.9, ease: EASE, stagger: 0.07 });
+
+                /* ---- Photographs open out of an inset, then drift against the scroll - */
+                inRest('.overflow-hidden.rounded-2xl, .video-facade').forEach(function (frame) {
+                    var img = frame.querySelector('img');
+                    if (!img || frame.closest('.ovw')) return;
+                    gsap.fromTo(frame, { clipPath: 'inset(12% 8% 12% 8% round 24px)' }, {
+                        clipPath: 'inset(0% 0% 0% 0% round 24px)', duration: 1.6, ease: EASE, clearProps: 'clipPath',
+                        scrollTrigger: { trigger: frame, start: 'top 88%', once: true }
+                    });
+                    gsap.fromTo(img, { yPercent: -7, scale: 1.16 }, {
+                        yPercent: 7, scale: 1.16, ease: 'none',
+                        scrollTrigger: { trigger: frame, start: 'top bottom', end: 'bottom top', scrub: true }
+                    });
+                });
+
+                /* ---- Workflow diagrams: the route draws left to right and the steps
+                   fade in on it. Opacity only on the steps - the dashed route is
+                   measured from where the steps sit, so they must not move. -------- */
+                inRest('[data-wf-track]').forEach(function (track) {
+                    var svg = track.querySelector('[data-wf-svg]');
+                    var nodes = all(track, '[data-wf-node]');
+                    var tl = gsap.timeline({ scrollTrigger: { trigger: track, start: 'top 82%', once: true } });
+                    if (svg) tl.fromTo(svg, { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 2, ease: 'power2.inOut', clearProps: 'clipPath' }, 0);
+                    if (nodes.length) tl.from(nodes, { opacity: 0, duration: 0.7, stagger: 0.14, ease: 'power1.out' }, 0.15);
+                    hidden = hidden.concat(nodes);
+                });
+                batch(inRest('.wf-list > *'), { opacity: 0 }, { opacity: 1, duration: 0.7, stagger: 0.06, ease: 'power1.out' });
+
+                /* ---- Figures count up to their value ---------------------------------- */
+                function countUp(el) {
+                    var final = el.textContent;
+                    var flat = final.replace(/\s+/g, ' ').trim();
+                    var parts = flat.split(/(\d[\d,]*(?:\.\d+)?)/);
+                    if (parts.length < 3) return;
+                    var sr = document.createElement('span');
+                    sr.className = 'rd-sr';
+                    sr.textContent = flat;
+                    var shown = document.createElement('span');
+                    shown.setAttribute('aria-hidden', 'true');
+                    el.textContent = '';
+                    el.appendChild(sr);
+                    el.appendChild(shown);
+                    var state = { p: 0 };
+                    gsap.to(state, {
+                        p: 1, duration: 1.4, ease: 'power3.out',
+                        onUpdate: function () {
+                            shown.textContent = parts.map(function (piece, i) {
+                                if (i % 2 === 0) return piece;
+                                var places = (piece.split('.')[1] || '').length;
+                                var n = parseFloat(piece.replace(/,/g, '')) * state.p;
+                                return piece.indexOf(',') !== -1
+                                    ? n.toLocaleString('en-US', { minimumFractionDigits: places, maximumFractionDigits: places })
+                                    : n.toFixed(places);
+                            }).join('');
+                        },
+                        onComplete: function () { el.textContent = final; }
+                    });
+                }
+                inRest('p.text-\\[28px\\].font-extrabold, p.font-h4.font-extrabold').forEach(function (el) {
+                    ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: function () { countUp(el); } });
+                });
+
+                /* ---- Cursor ----------------------------------------------------------- */
+                if (fine) {
+                    var cursor = document.createElement('div');
+                    cursor.className = 'rd-cursor';
+                    cursor.setAttribute('aria-hidden', 'true');
+                    var dot = document.createElement('div');
+                    dot.className = 'rd-cursor-dot';
+                    var label = document.createElement('span');
+                    label.className = 'rd-cursor-label';
+                    dot.appendChild(label);
+                    cursor.appendChild(dot);
+                    document.body.appendChild(cursor);
+                    html.classList.add('rd-cursor-on');
+
+                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
+                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
+                    var placed = false;
+                    window.addEventListener('pointermove', function (e) {
+                        if (e.pointerType && e.pointerType !== 'mouse') return;
+                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
+                        toX(e.clientX);
+                        toY(e.clientY);
+                    }, { passive: true });
+
+                    var off = function () { cursor.removeAttribute('data-mode'); };
+                    function target(el, mode, text) {
+                        el.setAttribute('data-rd-cursor', mode);
+                        el.addEventListener('pointerenter', function () {
+                            cursor.setAttribute('data-mode', mode);
+                            cursor.setAttribute('data-look', mode);
+                            label.textContent = text || '';
+                        });
+                        el.addEventListener('pointerleave', off);
+                    }
+                    inRest('a[target="_blank"].rounded-xl, a[target="_blank"].rounded-lg').forEach(function (a) { target(a, 'label', 'Open'); });
+                    inRest('.video-facade').forEach(function (v) {
+                        target(v, 'play', 'Play');
+                        v.addEventListener('click', off);
+                    });
+                    inRest('h2').forEach(function (h) { target(h, 'text'); });
+                    all(main, '.ovw-title').forEach(function (h) { target(h, 'text'); });
+                    cards.forEach(function (c) { if (c.tagName !== 'A') target(c, 'ring'); });
+                    document.documentElement.addEventListener('mouseleave', off);
+                }
+
+                /* ---- Magnetic buttons ------------------------------------------------- */
+                if (fine) {
+                    var magnets = all(main, '.osip-btn, a.bg-primary-container').concat(hero ? all(hero, 'a.rounded-full') : []);
+                    magnets.forEach(function (el) {
+                        var mx = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3' });
+                        var my = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3' });
+                        el.addEventListener('pointermove', function (e) {
+                            var r = el.getBoundingClientRect();
+                            mx((e.clientX - r.left - r.width / 2) * 0.28);
+                            my((e.clientY - r.top - r.height / 2) * 0.35);
+                        });
+                        el.addEventListener('pointerleave', function () { mx(0); my(0); });
+                    });
+                }
+
+                window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+                ScrollTrigger.refresh();
+            }
+        })();
+    </script>
 </body>
 
 </html>

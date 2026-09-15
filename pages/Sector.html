@@ -5,11 +5,35 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Investment Sectors | Nigerian Energy Investment Portal (NEIP)</title>
+    <title>Investment Sectors | One-Stop Investment Platform (OSIP)</title>
     <!-- Fonts & Icons -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Manrope:wght@600;700;800&amp;display=swap"
         rel="stylesheet" />
+    <!-- Redesign: Newsreader for headings and reading text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Type (14 Sep 2026): Inter replaces Newsreader on this page, as on the sector pages. The
+         Newsreader stylesheet above is kept only so the shared header does not inject its own copy;
+         with nothing set in Newsreader any more, its font files are never fetched. -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        /* Redesign: hold the hero copy back for its entrance. The motion layer
+           lifts this the moment its start states are applied, and it lifts
+           itself after 3.5s whatever happens, so a slow or blocked CDN can never
+           leave the hero empty. Not set at all when reduced motion is asked for. */
+        (function () {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var root = document.documentElement;
+                root.classList.add('rd-intro');
+                setTimeout(function () { root.classList.remove('rd-intro'); }, 3500);
+            } catch (e) {}
+        })();
+    </script>
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
@@ -43,6 +67,548 @@
           pixels behind the copy: the weakest white-on-photo contrast is 9.3:1,
           clear of the 4.5:1 AA floor.
         */
+
+        /* ==================================================================
+           SECTOR INDEX — visual system
+           Lifted from pages/Opportunities.html so the two pages read as one
+           product: the same greens (#00342b ground, #047857 action, #8fc9b1
+           hover edge), the same gold (#f7be26 / #dfa800), the same 12px card
+           radius, the same 314px column, and the same lift-and-glow on hover.
+           A reader who has seen that page already knows how this one behaves.
+           ================================================================== */
+
+        /* ---- Section furniture ------------------------------------------
+           The gold dash plus a letterspaced label is the site's section mark.
+           It replaces headings that floated with nothing above them. */
+        .sec-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .sec-eyebrow span:first-child {
+            width: 32px;
+            height: 2px;
+            background: #f7be26;
+            flex: 0 0 auto;
+        }
+
+        .sec-eyebrow span:last-child {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #004225;
+        }
+
+        .sec-eyebrow-light span:last-child {
+            color: #f7be26;
+        }
+
+        /* ---- Hero --------------------------------------------------------
+           The photograph and its scrim are unchanged; what changes is the way
+           the copy sits on them. The block gets a measured column rather than
+           running the full width of a 1440px screen, and the headline is given
+           a tighter optical size so it reads as a title rather than as a
+           paragraph in bold. */
+        .sec-hero-copy {
+            max-width: 46rem;
+        }
+
+        .sec-hero-copy h1 {
+            letter-spacing: -0.02em;
+            line-height: 1.08;
+        }
+
+        /* A hairline of gold under the lede, the same mark the eyebrow uses,
+           so the hero closes rather than just stopping. */
+        .sec-hero-rule {
+            width: 64px;
+            height: 3px;
+            background: linear-gradient(90deg, #f7be26, rgba(247, 190, 38, 0));
+            margin-top: 28px;
+        }
+
+        /* A hairline of gold along the bottom edge, not a fade. A pale wash
+           was tried first and read as a smudge across the photograph; a rule
+           closes the section without touching the picture. */
+        .sec-hero-fade {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f7be26 0%, #dfa800 34%, rgba(223, 168, 0, 0) 100%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+
+        /* ---- Hero slideshow ------------------------------------------------
+           `isolation: isolate` matters: the slides raise their own z-index as
+           they take turns on top, and without a stacking context of their own
+           they would climb over the scrims and the headline would lose its
+           contrast. */
+        .hero-slides {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+            isolation: isolate;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Pictures DISSOLVE, they do not slide past each other. A sliding
+           picture carries a hard vertical edge across the hero - the join
+           between the two photographs - and on imagery that edge is the only
+           thing the eye follows. Only the incoming slide is animated, from
+           transparent to opaque on top of the one it replaces; the outgoing
+           picture stays fully opaque underneath until it is completely covered,
+           so there is no half-lit moment where both show through and the hero
+           dips in brightness. */
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1.4s ease-in-out;
+        }
+
+        .hero-slide.is-in {
+            opacity: 1;
+        }
+
+        /* Clearing a spent slide must not fade it back out over a second and a
+           half. It is covered at the time, so the cut is unseen. */
+        .hero-slide.no-anim {
+            transition: none;
+        }
+
+        /* The pan lives on an inner layer so it runs on its own clock,
+           independent of the dissolve above it - one element cannot hold two
+           transforms on two timelines. It runs for the whole time a picture is
+           up, and keeps running while the next one dissolves over it, so the
+           hero is never a still frame. Linear, not eased: this is a camera
+           moving at a steady rate, and an ease would make it look like it was
+           repeatedly starting and stopping.
+
+           The scale is what keeps the pan inside the frame, and it now grows
+           as the shot travels, so the camera closes in on the subject rather
+           than tracking past it flat. The tightest moment is the first frame:
+           at 1.08 there is 4% of picture beyond each edge and the pan is asking
+           for 2.5%, so even at the start no edge is exposed - and every frame
+           after that has more room, not less. */
+        .hero-shot {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transform: translateX(2.5%) scale(1.08);
+        }
+
+        .hero-slide.is-in .hero-shot {
+            animation: heroPan 6.6s linear forwards;
+        }
+
+        /* Right to left, closing in. */
+        @keyframes heroPan {
+            from {
+                transform: translateX(2.5%) scale(1.08);
+            }
+
+            to {
+                transform: translateX(-2.5%) scale(1.20);
+            }
+        }
+
+        /* ---- Position / jump control -------------------------------------- */
+        .hero-dots {
+            position: absolute;
+            right: 24px;
+            bottom: 22px;
+            z-index: 12;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-dot {
+            width: 22px;
+            height: 4px;
+            padding: 0;
+            border: 0;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .34);
+            cursor: pointer;
+            transition: background-color .3s ease, width .3s ease;
+        }
+
+        .hero-dot:hover {
+            background: rgba(255, 255, 255, .6);
+        }
+
+        .hero-dot.is-on {
+            width: 34px;
+            background: #f7be26;
+        }
+
+        .hero-dot:focus-visible {
+            outline: 2px solid #ffffff;
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 640px) {
+            .hero-dots {
+                right: 16px;
+                bottom: 16px;
+                gap: 6px;
+            }
+
+            .hero-dot {
+                width: 16px;
+            }
+
+            .hero-dot.is-on {
+                width: 26px;
+            }
+        }
+
+        /* Reduced motion: the pictures still change, they just cut rather than
+           travel, and the drift is off. */
+        @media (prefers-reduced-motion: reduce) {
+
+            .hero-slide,
+            .hero-slide.is-in {
+                transition: none;
+            }
+
+            .hero-slide.is-in .hero-shot {
+                animation: none;
+                transform: scale(1.02);
+            }
+        }
+
+        /* ---- The statement quote -----------------------------------------
+           It was centred italic body text with nothing marking it as a quote.
+           Same words, set as a pull-quote: a gold rule down the left, a large
+           quote mark that sits behind the first line, and a measure short
+           enough to read in one pass. */
+        .sec-statement {
+            position: relative;
+            border-left: 3px solid #f7be26;
+            padding: 2px 0 2px 28px;
+            max-width: 46rem;
+            margin: 0;
+        }
+
+        /* No decorative quote glyph here: the sentence already carries its own
+           quotation marks, and a second pair set behind them reads as a typo. */
+        .sec-statement p {
+            position: relative;
+            font-style: italic;
+            font-size: 17px;
+            line-height: 1.72;
+            color: #3f4945;
+            margin: 0;
+        }
+
+        @media (min-width: 640px) {
+            .sec-statement p {
+                font-size: 19px;
+            }
+        }
+
+        /* ---- Grid toolbar -------------------------------------------------
+           The page had no controls at all: ten cards and nothing to do with
+           them. A filter and a live count are the smallest thing that makes it
+           a tool rather than a poster. */
+        /* Field and count read as one control, so they sit together at the
+           start of the row. Pushed to opposite ends of a 1440px column the
+           count looked like it belonged to something else. */
+        .sec-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .sec-search {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 380px;
+            background: #ffffff;
+            border: 1px solid #bfc9c4;
+            border-radius: 10px;
+            transition: border-color .22s ease, box-shadow .22s ease;
+        }
+
+        .sec-search:focus-within {
+            border-color: #047857;
+            box-shadow: 0 0 0 3px rgba(4, 120, 87, .13);
+        }
+
+        .sec-search input {
+            flex: 1 1 auto;
+            min-width: 0;
+            padding: 10px 4px 10px 40px;
+            border: 0;
+            background: transparent;
+            font-size: 14px;
+            color: #161d1b;
+        }
+
+        .sec-search input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        /* type="search" draws the browser's own cross, which sat beside ours
+           and gave the field two. Ours stays: themed, keyboard reachable, and
+           carrying a real accessible name. */
+        .sec-search input[type="search"]::-webkit-search-cancel-button,
+        .sec-search input[type="search"]::-webkit-search-decoration {
+            -webkit-appearance: none;
+            appearance: none;
+            display: none;
+        }
+
+        .sec-search .sec-search-icon {
+            position: absolute;
+            left: 12px;
+            font-size: 19px;
+            color: #707975;
+            pointer-events: none;
+            transition: color .22s ease;
+        }
+
+        .sec-search:focus-within .sec-search-icon {
+            color: #047857;
+        }
+
+        .sec-search-clear {
+            flex: 0 0 auto;
+            width: 30px;
+            height: 30px;
+            margin-right: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 50%;
+            background: transparent;
+            color: #707975;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(.8);
+            pointer-events: none;
+            transition: opacity .18s ease, transform .18s ease, background-color .18s ease;
+        }
+
+        .sec-search.has-value .sec-search-clear {
+            opacity: 1;
+            transform: none;
+            pointer-events: auto;
+        }
+
+        .sec-search-clear:hover {
+            background: #e3eae7;
+            color: #00342b;
+        }
+
+        .sec-search-clear .material-symbols-outlined {
+            font-size: 17px;
+        }
+
+        .sec-count {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: #5f6368;
+            white-space: nowrap;
+        }
+
+        .sec-count b {
+            color: #00342b;
+        }
+
+        /* Takes the slack so the pair stays left-aligned as the row wraps. */
+        .sec-toolbar-spacer {
+            flex: 1 1 auto;
+        }
+
+        /* ---- The sector grid ---------------------------------------------------
+           The rail's cards - photograph, stripe, name, description - laid out all
+           at once: three to a row on a desktop, two on a tablet, one on a phone.
+           Nothing grows on hover; the stripe takes the sector's colour and the
+           arrow nudges, and that is all. The whole description and the link are
+           always shown. A short last row sits in the middle rather than hanging
+           off the left edge. */
+        .sec-grid {
+            --gap-x: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            column-gap: var(--gap-x);
+            row-gap: 56px;
+        }
+
+        .sector-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 calc((100% - 2 * var(--gap-x)) / 3);
+            min-width: 0;
+            color: inherit;
+            text-decoration: none;
+            outline: none;
+        }
+
+        .sector-card[hidden] {
+            display: none;
+        }
+
+        .sec-media {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 336 / 244;
+            overflow: hidden;
+            border-radius: 14px 14px 0 0;
+            background: #0c2b21;
+        }
+
+        .sec-media img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sec-stripe {
+            display: block;
+            height: 12px;
+            background: #d3e4da;
+            transition: background-color .5s ease;
+        }
+
+        .sector-card:hover .sec-stripe,
+        .sector-card:focus-visible .sec-stripe {
+            background: var(--accent, #f7be26);
+        }
+
+        .sec-body {
+            padding: 20px 2px 0;
+        }
+
+        .sector-card h3 {
+            margin: 0 0 8px;
+            font-family: Manrope, Inter, sans-serif;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.015em;
+            color: #111827;
+            transition: color .3s ease;
+        }
+
+        .sector-card:hover h3,
+        .sector-card:focus-visible h3 {
+            color: #04563e;
+        }
+
+        .sec-lede {
+            margin: 0;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #5f6368;
+        }
+
+        .sec-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #047857;
+        }
+
+        .sec-more .material-symbols-outlined {
+            font-size: 17px;
+            transition: transform .45s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .sector-card:hover .sec-more .material-symbols-outlined,
+        .sector-card:focus-visible .sec-more .material-symbols-outlined {
+            transform: translateX(4px);
+        }
+
+        .sector-card:focus-visible .sec-media {
+            outline: 3px solid #047857;
+            outline-offset: 3px;
+        }
+
+        /* Touch screens cannot point, so each stripe simply shows its colour. */
+        @media (hover: none), (pointer: coarse) {
+            .sec-grid .sector-card .sec-stripe {
+                background: var(--accent, #f7be26);
+            }
+        }
+
+        /* ---- Empty state --------------------------------------------------- */
+        .sec-empty {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 56px 20px;
+            color: #5f6368;
+        }
+
+        .sec-empty.is-on {
+            display: flex;
+        }
+
+        .sec-empty .material-symbols-outlined {
+            font-size: 44px;
+            color: #bfc9c4;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 1023px) {
+            .sector-card {
+                flex-basis: calc((100% - var(--gap-x)) / 2);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .sec-grid {
+                --gap-x: 0px;
+                row-gap: 44px;
+            }
+
+            .sector-card {
+                flex-basis: 100%;
+            }
+
+            .sec-search {
+                max-width: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .sec-stripe,
+            .sector-card h3,
+            .sec-more .material-symbols-outlined {
+                transition: none;
+            }
+        }
     </style>
     <!-- Tailwind Config -->
     <script id="tailwind-config">
@@ -140,24 +706,601 @@
             }
         }
     </script>
+    <style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - Sector.html (11 Sep 2026)
+
+           The DetailedSector.html redesign carried to the sector index: the same
+           tokens and the same direction. Headings and reading text move to
+           Newsreader, a light editorial serif; interface text (labels, the
+           filter, captions) stays sans; grounds go to warm paper; the hero's
+           title is set large and light. Scoped under body.rd. The earlier
+           designs are kept in OSIP/Backups/Sector/.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-card-2: #f1eee8;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* ---- Lenis, from lenis@1.3.26/dist/lenis.css --------------------------- */
+        html.lenis,
+        html.lenis body {
+            height: auto;
+        }
+
+        .lenis:not(.lenis-autoToggle).lenis-stopped {
+            overflow: clip;
+        }
+
+        .lenis [data-lenis-prevent],
+        .lenis [data-lenis-prevent-wheel],
+        .lenis [data-lenis-prevent-touch],
+        .lenis [data-lenis-prevent-vertical],
+        .lenis [data-lenis-prevent-horizontal] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        .lenis.lenis-autoToggle {
+            transition-property: overflow;
+            transition-duration: 1ms;
+            transition-behavior: allow-discrete;
+        }
+
+        /* ---- Page ---------------------------------------------------------------- */
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd main,
+        .rd main section[style*="font-family"] {
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+        }
+
+        .rd ::selection {
+            background: #f7be26;
+            color: var(--rd-ink);
+        }
+
+        .rd main > section.bg-surface-container-lowest {
+            background: var(--rd-paper) !important;
+            padding-top: clamp(76px, 10vw, 148px) !important;
+            padding-bottom: clamp(76px, 10vw, 148px) !important;
+        }
+
+        .rd main > section.sec-stage {
+            background: var(--rd-paper-2) !important;
+            padding-top: clamp(64px, 8vw, 120px) !important;
+            padding-bottom: clamp(76px, 10vw, 148px) !important;
+        }
+
+        /* ---- Headings ------------------------------------------------------------ */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-optical-sizing: auto;
+            text-wrap: balance;
+        }
+
+        .rd main h2 {
+            font-weight: 400 !important;
+            font-size: clamp(34px, 3.6vw, 52px) !important;
+            line-height: 1.06 !important;
+            letter-spacing: -0.022em !important;
+            color: var(--rd-ink) !important;
+            margin-bottom: 28px !important;
+        }
+
+        /* A masked line or letter is clipped to its own box; the pad gives capitals,
+           descenders and overhangs room without moving the text. */
+        .rd main h1 .rd-char-mask,
+        .rd main h2 .rd-line-mask,
+        .rd main h3 .rd-line-mask {
+            padding: .18em;
+            margin: -.18em;
+        }
+
+        /* ---- Hero ---------------------------------------------------------------- */
+        .rd main > section:first-of-type {
+            min-height: min(86vh, 800px) !important;
+        }
+
+        .rd .sec-hero-copy {
+            max-width: 52rem;
+        }
+
+        .rd .sec-eyebrow {
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .rd .sec-eyebrow span:first-child {
+            width: 28px;
+            height: 1px;
+            transform-origin: 0 50%;
+        }
+
+        .rd .sec-eyebrow span:last-child {
+            font-family: var(--rd-sans); font-size-adjust: none;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .26em;
+        }
+
+        .rd main > section:first-of-type h1 {
+            color: #ffffff !important;
+            font-weight: 300 !important;
+            font-size: clamp(46px, 6vw, 92px) !important;
+            line-height: .98 !important;
+            letter-spacing: -0.035em !important;
+            margin-bottom: 36px !important;
+        }
+
+        .rd main > section:first-of-type h1 ~ p {
+            position: relative;
+            max-width: 36rem !important;
+            padding-left: 23px !important;
+            border-left-width: 0 !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 20px !important;
+            font-weight: 400 !important;
+            line-height: 1.6 !important;
+            color: rgba(255, 255, 255, .86) !important;
+        }
+
+        /* ---- Gold rules: drawn, not just shown --------------------------------------
+           The hero lede's and the statement's. The draw is one custom property,
+           --rd-draw, that the motion layer tweens; without it the lines are
+           simply there. */
+        .rd main > section:first-of-type h1 ~ p::before,
+        .rd .sec-statement::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .35em;
+            bottom: .35em;
+            width: 1px;
+            background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        .rd-scrollcue {
+            position: absolute;
+            left: 50%;
+            bottom: 28px;
+            z-index: 11;
+            width: 1px;
+            height: 56px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, .18);
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .rd-scrollcue span {
+            position: absolute;
+            left: 0;
+            top: -40%;
+            width: 1px;
+            height: 40%;
+            background: #f7be26;
+            animation: rdCue 2.2s cubic-bezier(.65, 0, .35, 1) infinite;
+        }
+
+        @keyframes rdCue {
+            from { top: -40%; }
+            to { top: 100%; }
+        }
+
+        /* The hero copy waits for its entrance; see the flag script in <head>. */
+        html.rd-intro main > section:first-of-type .sec-hero-copy > * {
+            opacity: 0;
+        }
+
+        /* ---- Statement ----------------------------------------------------------- */
+        .rd .sec-hero-rule {
+            width: 48px !important;
+            height: 1px !important;
+            background: var(--rd-gold) !important;
+            transform-origin: 0 50%;
+        }
+
+        .rd .sec-statement {
+            border-left: 0 !important;
+            padding: 4px 0 4px 30px !important;
+            max-width: 44rem;
+        }
+
+        .rd .sec-statement p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-style: italic;
+            font-weight: 300 !important;
+            font-size: clamp(22px, 2.3vw, 32px) !important;
+            line-height: 1.42 !important;
+            letter-spacing: -0.01em;
+            color: var(--rd-ink) !important;
+        }
+
+        /* ---- Filter -------------------------------------------------------------- */
+        .rd .sec-toolbar {
+            gap: 20px !important;
+            margin-bottom: clamp(40px, 5vw, 64px) !important;
+        }
+
+        .rd .sec-search {
+            max-width: 420px !important;
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line-2) !important;
+            border-radius: 999px !important;
+        }
+
+        .rd .sec-search:focus-within {
+            border-color: var(--rd-green-2) !important;
+            box-shadow: 0 0 0 4px rgba(11, 107, 69, .12) !important;
+        }
+
+        .rd .sec-search input {
+            padding: 13px 10px 13px 48px !important;
+            font-size: 15px !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd .sec-search .sec-search-icon {
+            left: 18px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd .sec-count {
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .22em !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd .sec-count b {
+            color: var(--rd-green) !important;
+            font-weight: 600 !important;
+        }
+
+        /* ---- Sector cards: the rail's cards, set in the layer's type ----------------- */
+        .rd .sec-media {
+            border-radius: 18px 18px 0 0;
+        }
+
+        .rd .sec-stripe {
+            background: #d6e2da;
+        }
+
+        .rd .sector-card h3 {
+            font-weight: 400 !important;
+            font-size: clamp(24px, 2.1vw, 29px) !important;
+            line-height: 1.15 !important;
+            letter-spacing: -0.016em !important;
+            color: var(--rd-ink) !important;
+            margin-bottom: 10px !important;
+        }
+
+        .rd .sector-card:hover h3,
+        .rd .sector-card:focus-visible h3 {
+            color: var(--rd-green) !important;
+        }
+
+        .rd .sec-lede {
+            font-family: var(--rd-serif); font-size-adjust: var(--rd-type-adjust, none);
+            font-size: 17px;
+            line-height: 1.62;
+            color: var(--rd-ink-3);
+            text-wrap: pretty;
+        }
+
+        .rd .sec-more {
+            margin-top: 18px;
+            font-family: var(--rd-sans); font-size-adjust: none;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--rd-green-2);
+        }
+
+        .rd .sec-empty p {
+            font-family: var(--rd-serif); font-size-adjust: var(--rd-type-adjust, none);
+            font-size: 19px;
+            color: var(--rd-ink-3);
+        }
+
+        /* ---- Reading progress ------------------------------------------------------ */
+        .rd-progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 80;
+            height: 2px;
+            background: #f7be26;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            pointer-events: none;
+        }
+
+        /* ---- Cursor: only over the things worth pointing at (as on DetailedSector) --- */
+        .rd-cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 9998;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .rd-cursor-dot {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 72px;
+            height: 72px;
+            margin: -36px 0 0 -36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            background: var(--rd-green);
+            color: #ffffff;
+            font: 500 12px/1 var(--rd-sans);
+            letter-spacing: .06em;
+            transform: scale(0);
+            transition: transform .5s cubic-bezier(.22, 1, .36, 1), width .5s cubic-bezier(.22, 1, .36, 1),
+                height .5s cubic-bezier(.22, 1, .36, 1), margin .5s cubic-bezier(.22, 1, .36, 1),
+                background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd-cursor-label {
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
+
+        .rd-cursor[data-mode="label"] .rd-cursor-dot {
+            transform: scale(1);
+        }
+
+        .rd-cursor[data-mode="label"] .rd-cursor-label {
+            opacity: 1;
+            transition-delay: .12s;
+        }
+
+        .rd-cursor[data-look="text"] {
+            mix-blend-mode: multiply;
+        }
+
+        .rd-cursor[data-look="text"] .rd-cursor-dot {
+            width: 96px;
+            height: 96px;
+            margin: -48px 0 0 -48px;
+            background: #f7be26;
+            transition-property: transform, width, height, margin;
+        }
+
+        .rd-cursor[data-mode="text"] .rd-cursor-dot {
+            transform: scale(1);
+        }
+
+        html.rd-cursor-on [data-rd-cursor="label"],
+        html.rd-cursor-on [data-rd-cursor="label"] * {
+            cursor: none !important;
+        }
+
+        /* ---- Small screens ---------------------------------------------------------- */
+        @media (max-width: 639px) {
+            .rd main > section:first-of-type {
+                min-height: 78vh !important;
+            }
+
+            .rd-scrollcue {
+                display: none;
+            }
+
+            .rd main > section:first-of-type h1 ~ p {
+                font-size: 18px !important;
+            }
+
+            .rd .sec-statement {
+                padding-left: 22px !important;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rd-scrollcue span {
+                top: 30%;
+                animation: none;
+            }
+
+            html.rd-intro main > section:first-of-type .sec-hero-copy > * {
+                opacity: 1 !important;
+            }
+        }
+
+        /* ---- Buttons in Newsreader ----------------------------------------------------
+           Button labels follow the headings into the serif. font-size-adjust holds each
+           label to the visual size it had in the sans (Newsreader runs small at the same
+           px), so no button grows or rewraps; the header menu stays as it is, and icons
+           inside a button keep their own font and size. */
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta {
+          font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+          font-size-adjust: none !important;
+          letter-spacing: 0 !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta *:not([class*="material-symbols"]):not([class*="material-icons"]) {
+          font-family: inherit !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-icons"] {
+          font-size-adjust: none !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta { font-weight: 500 !important; }
+
+        /* ---- Type: Inter throughout (14 Sep 2026) --------------------------------------
+           Inter replaces Newsreader, as on the sector pages. Every rule above that set the
+           serif now sets Inter held to the serif's x-height, so headings, cards and reading
+           text keep their size and measure; headings are one step heavier, as they read
+           better in Inter. The previous type is kept in OSIP/Backups/Sector/. */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-type-adjust: 0.515;
+        }
+
+        .rd [class*="material-symbols"],
+        .rd [class*="material-icons"],
+        .rd .osip-term::after { font-size-adjust: none !important; }
+
+        .rd main h1,
+        .rd main h2,
+        .rd main h3 { font-weight: 500 !important; }
+
+        .rd main > section:first-of-type h1 { font-weight: 500 !important; }
+
+        .rd .sec-statement p { font-weight: 400 !important; }
+
+        /* the shared header and footer set Newsreader in their own stylesheets */
+        .rd .nesp-header .nesp-menu-item .t,
+        .rd .nesp-header .nesp-menu-item .d,
+        .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link,
+        .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead),
+        .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head,
+        .rd .nesp-header .nesp-res-foot-h,
+        .rd .nesp-footer h3,
+        .rd .nesp-footer .nesp-foot-brand p,
+        .rd .nesp-footer a,
+        .rd .nesp-footer .nesp-foot-contact li,
+        .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: var(--rd-type-adjust) !important;
+        }
+
+        .rd .nesp-footer h3 { font-weight: 500 !important; }
+
+        .rd .nesp-header .nesp-cta {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+
+        /* ---- Headings run the full width (14 Sep 2026) -----------------------------------
+           Headings are no longer balanced into even short lines or held to a narrow column:
+           a title stays on one line while there is room for it, and only breaks where the
+           space actually ends. The hero title may use the full content width; its lead
+           paragraph keeps its own measure. */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3,
+        .rd main h4,
+        .rd .wf-title {
+            text-wrap: wrap !important;
+        }
+
+        .rd main > section:first-of-type .max-w-3xl,
+        .rd .sec-hero-copy {
+            max-width: none !important;
+        }
+
+        .rd main > section:first-of-type h1 {
+            max-width: none !important;
+        }
+
+        .rd main > section:first-of-type h1 ~ p { max-width: none !important; }
+
+        /* the last row of sector cards starts at the left edge, in line with the rows above */
+        .rd .sec-grid { justify-content: flex-start !important; }
+    </style>
 </head>
 
-<body class="bg-surface text-on-surface font-body-md">
+<body class="bg-surface text-on-surface font-body-md rd">
     <!-- TopNavBar -->
         <div id="site-nav"></div>
     <!-- Main Content Canvas -->
     <main class="min-h-screen">
         <!-- Hero Section -->
         <section
-            class="relative min-h-[500px] lg:min-h-[550px] w-full overflow-hidden bg-primary flex items-center">
+            class="relative min-h-[500px] lg:min-h-[560px] w-full overflow-hidden bg-primary flex items-center">
             <!--
-              The photograph is tone-normalised so every hero on the site sits at
-              the same luminance, and cropped to the band of the picture that
-              `bg-cover` actually keeps in a box this shape - bg-center here. Both
-              were measured rather than eyeballed.
+              THE SLIDESHOW.
+              Slide one is the tone-normalised hero still this section used to
+              carry on its own; behind it, the same photograph is set as the
+              section's CSS background, so with no JavaScript the hero is exactly
+              what it was before. The ten that follow are the sector cards' own
+              photographs, in the order the grid lists them.
+
+              Each slide arrives from the left and covers the one before it -
+              nothing is pushed off the right-hand edge, because a push moves two
+              layers at once and on a photograph that reads as a judder. The
+              outgoing slide is reset to its parked position only while it is
+              fully covered, so the reset is never visible.
+
+              Only the current and the next photograph are fetched. Eleven
+              background images declared up front would all be requested on load,
+              which is most of a megabyte before the reader has scrolled.
             -->
-            <div class="absolute inset-0 bg-cover bg-center"
-                data-alt="Transmission towers across the Nigerian landscape" style="background-image: url('hero-sector.jpg')">
+            <div class="hero-slides" data-alt="Solar panels across a Nigerian landscape"
+                style="background-image: url('sector-Solar-hero.jpg')" aria-hidden="true">
+                <div class="hero-slide is-in" data-bg="sector-Solar-hero.jpg">
+                    <div class="hero-shot"></div>
+                </div>
+                <div class="hero-slide" data-bg="sector-Wind-hero-ng.jpg">
+                    <div class="hero-shot"></div>
+                </div>
+                <div class="hero-slide" data-bg="sector-Storage-hero-ng.jpg">
+                    <div class="hero-shot"></div>
+                </div>
+                <div class="hero-slide" data-bg="sector-SmallHydro-hero-ng.jpg">
+                    <div class="hero-shot"></div>
+                </div>
+                <div class="hero-slide" data-bg="sector-GreenMobility-hero.jpg">
+                    <div class="hero-shot"></div>
+                </div>
+                <div class="hero-slide" data-bg="sector-EnergyEfficiency-hero-ng.jpg">
+                    <div class="hero-shot"></div>
+                </div>
+                <div class="hero-slide" data-bg="sector-CleanCooking-hero-ng.jpg">
+                    <div class="hero-shot"></div>
+                </div>
+                <div class="hero-slide" data-bg="sector-Bioenergy-hero.jpg">
+                    <div class="hero-shot"></div>
+                </div>
+                <div class="hero-slide" data-bg="sector-AgriculturePUE-hero-ng.jpg">
+                    <div class="hero-shot"></div>
+                </div>
+                <div class="hero-slide" data-bg="sector-GreenHydrogen-hero.jpg">
+                    <div class="hero-shot"></div>
+                </div>
             </div>
             <!--
               Vignette / depth gradients, identical to the sector pages. The
@@ -171,247 +1314,199 @@
             <div class="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
 
             <!-- Content Container -->
-            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-12 lg:py-16">
-                <div class="max-w-3xl">
-                    <span class="text-tertiary-fixed-dim font-label-md tracking-widest uppercase mb-4 block">Strategic
-                        Focus Areas</span>
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-14 lg:py-20">
+                <div class="sec-hero-copy">
+                    <div class="sec-eyebrow sec-eyebrow-light"><span></span><span>Strategic Focus Areas</span></div>
                     <h1 class="font-h1 text-h1 md:text-h1 text-white mb-6">Nigeria's Energy Investment Landscape</h1>
-                    <p class="font-body-lg text-body-lg text-primary-fixed leading-relaxed">
+                    <p
+                        class="font-body-lg text-body-lg text-primary-fixed leading-relaxed max-w-2xl border-l-4 border-amber-400 pl-6">
                         Nigeria's energy landscape is undergoing a historic transformation. Driven by the Electricity
                         Act of 2023, the nation is opening massive opportunities for private capital across generation,
                         transmission, and storage solutions to power the continent's largest economy.
                     </p>
                 </div>
             </div>
+            <!-- Where you are in the run, and a way to jump. Bottom right, over the
+                 lightest part of the scrim, where no copy sits. -->
+            <div class="hero-dots" role="group" aria-label="Hero images">
+                <button type="button" class="hero-dot is-on" data-go="0"
+                    aria-label="Show image 1 of 10"></button>
+                <button type="button" class="hero-dot" data-go="1"
+                    aria-label="Show image 2 of 10"></button>
+                <button type="button" class="hero-dot" data-go="2"
+                    aria-label="Show image 3 of 10"></button>
+                <button type="button" class="hero-dot" data-go="3"
+                    aria-label="Show image 4 of 10"></button>
+                <button type="button" class="hero-dot" data-go="4"
+                    aria-label="Show image 5 of 10"></button>
+                <button type="button" class="hero-dot" data-go="5"
+                    aria-label="Show image 6 of 10"></button>
+                <button type="button" class="hero-dot" data-go="6"
+                    aria-label="Show image 7 of 10"></button>
+                <button type="button" class="hero-dot" data-go="7"
+                    aria-label="Show image 8 of 10"></button>
+                <button type="button" class="hero-dot" data-go="8"
+                    aria-label="Show image 9 of 10"></button>
+                <button type="button" class="hero-dot" data-go="9"
+                    aria-label="Show image 10 of 10"></button>
+            </div>
+            <div class="sec-hero-fade" aria-hidden="true"></div>
         </section>
         <!-- Intro Text Block -->
-        <section class="py-16 bg-surface-container-lowest">
-            <div class="max-w-4xl mx-auto px-margin-mobile text-center">
-                <h2 class="font-h2 text-h2 text-primary mb-6">Leading the Nigeria Transition</h2>
-                <p class="font-body-md text-on-surface-variant leading-relaxed italic">
-                    "Our goal is to create a market-driven energy sector that is reliable, sustainable, and accessible
-                    to every Nigerian business and household. We invite global partners to join us in this defining
-                    chapter of our industrial growth."
-                </p>
+        <section class="bg-surface-container-lowest py-16 lg:py-20">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 lg:items-start">
+                <div class="lg:col-span-5">
+                    <h2 class="font-h2 text-h2 text-primary mb-2">Leading the Nigeria Transition</h2>
+                    <div class="sec-hero-rule" style="margin-top:0" aria-hidden="true"></div>
+                </div>
+                <blockquote class="sec-statement lg:col-span-7">
+                    <p>
+                        &ldquo;Our goal is to create a market-driven energy sector that is reliable, sustainable, and
+                        accessible to every Nigerian business and household. We invite global partners to join us in
+                        this defining chapter of our industrial growth.&rdquo;
+                    </p>
+                </blockquote>
             </div>
         </section>
         <!-- Sectors Grid -->
-        <section class="bg-[#f4f3f8] py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+        <section class="sec-stage bg-[#f5f8f6] py-16 lg:py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
             <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                    <!-- Card 1: Solar -->
-                    <a href="DetailedSector.html"
-                        class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
-                        <div class="h-[4px] w-full bg-[#1f5940]"></div>
-                        <div class="p-5">
-                            <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
-                                <img alt="Solar"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1200&q=80">
-                            </div>
-                            <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
-                                style="font-family: Manrope, sans-serif;">Solar</h3>
-                            <p class="text-[#5f6368] text-[15px] leading-7 mb-6">Nigeria's largest clean energy
-                                opportunity, driven by abundant sunlight and strong demand for reliable off-grid and
-                                embedded power solutions.</p>
-                            <span
-                                class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW
-                                IN DETAIL<span>→</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 2: Wind -->
-                    <a href="Wind.html"
-                        class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
-                        <div class="h-[4px] w-full bg-[#1f5940]"></div>
-                        <div class="p-5">
-                            <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
-                                <img alt="Wind"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1200&q=80">
-                            </div>
-                            <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
-                                style="font-family: Manrope, sans-serif;">Wind</h3>
-                            <p class="text-[#5f6368] text-[15px] leading-7 mb-6">Nigeria's wind energy market is early
-                                stage but gaining policy momentum, with megawatts of untapped potential concentrated in
-                                the northern states.</p>
-                            <span
-                                class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW
-                                IN DETAIL<span>→</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 3: Storage -->
-                    <a href="Storage.html"
-                        class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
-                        <div class="h-[4px] w-full bg-[#1f5940]"></div>
-                        <div class="p-5">
-                            <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
-                                <img alt="Storage"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    src="https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&w=1200&q=80">
-                            </div>
-                            <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
-                                style="font-family: Manrope, sans-serif;">Storage</h3>
-                            <p class="text-[#5f6368] text-[15px] leading-7 mb-6">Critical enabler for grid stability and
-                                renewable integration, unlocking reliable power supply through batteries and hybrid
-                                systems.</p>
-                            <span
-                                class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW
-                                IN DETAIL<span>→</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 4: Small Hydro -->
-                    <a href="SmallHydro.html"
-                        class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
-                        <div class="h-[4px] w-full bg-[#1f5940]"></div>
-                        <div class="p-5">
-                            <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
-                                <img alt="Small Hydro"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80">
-                            </div>
-                            <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
-                                style="font-family: Manrope, sans-serif;">Small Hydro</h3>
-                            <p class="text-[#5f6368] text-[15px] leading-7 mb-6">A stable, site-specific renewable energy
-                                source delivering reliable baseload power from rivers and small water systems across
-                                Nigeria.</p>
-                            <span
-                                class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW
-                                IN DETAIL<span>→</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 5: Green Mobility -->
-                    <a href="GreenMobility.html"
-                        class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
-                        <div class="h-[4px] w-full bg-[#1f5940]"></div>
-                        <div class="p-5">
-                            <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
-                                <img alt="Green Mobility"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1200&q=80">
-                            </div>
-                            <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
-                                style="font-family: Manrope, sans-serif;">Green Mobility</h3>
-                            <p class="text-[#5f6368] text-[15px] leading-7 mb-6">Nigeria's green mobility market is in its
-                                early stages but moving fast, with growth led by electric two- and three-wheelers in
-                                major cities.</p>
-                            <span
-                                class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW
-                                IN DETAIL<span>→</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 6: Energy Efficiency -->
-                    <a href="EnergyEfficiency.html"
-                        class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
-                        <div class="h-[4px] w-full bg-[#1f5940]"></div>
-                        <div class="p-5">
-                            <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
-                                <img alt="Energy Efficiency"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80">
-                            </div>
-                            <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
-                                style="font-family: Manrope, sans-serif;">Energy Efficiency</h3>
-                            <p class="text-[#5f6368] text-[15px] leading-7 mb-6">The fastest and lowest-cost energy
-                                solution, reducing consumption, lowering bills, and improving system-wide power
-                                reliability.</p>
-                            <span
-                                class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW
-                                IN DETAIL<span>→</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 7: Clean Cooking -->
-                    <a href="CleanCooking.html"
-                        class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
-                        <div class="h-[4px] w-full bg-[#1f5940]"></div>
-                        <div class="p-5">
-                            <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
-                                <img alt="Clean Cooking"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80">
-                            </div>
-                            <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
-                                style="font-family: Manrope, sans-serif;">Clean Cooking</h3>
-                            <p class="text-[#5f6368] text-[15px] leading-7 mb-6">Nigeria's clean cooking market is at an
-                                early but accelerating stage, with LPG, eCooking, and improved cookstoves expanding
-                                rapidly against a backdrop of critically low access across most of the country.</p>
-                            <span
-                                class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW
-                                IN DETAIL<span>→</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 8: Bioenergy -->
-                    <a href="Bioenergy.html"
-                        class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
-                        <div class="h-[4px] w-full bg-[#1f5940]"></div>
-                        <div class="p-5">
-                            <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
-                                <img alt="Bioenergy"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80">
-                            </div>
-                            <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
-                                style="font-family: Manrope, sans-serif;">Bioenergy</h3>
-                            <p class="text-[#5f6368] text-[15px] leading-7 mb-6">Nigeria's bioenergy market is one of the
-                                most resource-rich and underleveraged opportunities in the country's clean energy
-                                transition, with feedstock from agricultural waste, municipal solid waste, and forestry
-                                residues available at scale and low cost.</p>
-                            <span
-                                class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW
-                                IN DETAIL<span>→</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 9: Agriculture PUE -->
-                    <a href="AgriculturePUE.html"
-                        class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
-                        <div class="h-[4px] w-full bg-[#1f5940]"></div>
-                        <div class="p-5">
-                            <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
-                                <img alt="Agriculture PUE"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80">
-                            </div>
-                            <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
-                                style="font-family: Manrope, sans-serif;">Agriculture PUE</h3>
-                            <p class="text-[#5f6368] text-[15px] leading-7 mb-6">Nigeria's agriculture PUE market has
-                                moved past the pilot stage; farmers are already using solar irrigation, cold storage,
-                                milling, and agro-processing equipment to cut costs and grow incomes.</p>
-                            <span
-                                class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW
-                                IN DETAIL<span>→</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 10: Green Hydrogen -->
-                    <a href="GreenHydrogen.html"
-                        class="bg-white border border-[#e5e7eb] overflow-hidden transition-all duration-300 hover:shadow-lg group block cursor-pointer">
-                        <div class="h-[4px] w-full bg-[#1f5940]"></div>
-                        <div class="p-5">
-                            <div class="bg-[#f1f1f1] h-40 mb-5 overflow-hidden">
-                                <img alt="Green Hydrogen"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    src="https://images.unsplash.com/photo-1548337138-e87d889cc369?auto=format&fit=crop&w=1200&q=80">
-                            </div>
-                            <h3 class="text-[22px] leading-tight font-bold text-[#1d1d1f] mb-4"
-                                style="font-family: Manrope, sans-serif;">Green Hydrogen</h3>
-                            <p class="text-[#5f6368] text-[15px] leading-7 mb-6">An emerging frontier energy resource with
-                                long-term potential for industrial decarbonisation, export markets, and clean fuel
-                                production.</p>
-                            <span
-                                class="inline-flex items-center gap-2 text-[#1f5940] text-[12px] font-bold uppercase tracking-[1.5px] group-hover:opacity-80 transition-opacity">VIEW
-                                IN DETAIL<span>→</span></span>
-                        </div>
-                    </a>
-
+                <!-- The page had ten cards and nothing to do with them. The field
+                     filters the grid live on name and description; the count to its
+                     right is the only thing that reports how many are showing. -->
+                <div class="sec-toolbar">
+                    <label class="sec-search" for="sector-search">
+                        <span class="material-symbols-outlined sec-search-icon" aria-hidden="true">search</span>
+                        <input id="sector-search" type="search" autocomplete="off"
+                            placeholder="Filter sectors" aria-label="Filter sectors by name or description">
+                        <button type="button" class="sec-search-clear" aria-label="Clear filter">
+                            <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                        </button>
+                    </label>
+                    <p class="sec-count" id="sector-count" role="status" aria-live="polite"></p>
+                    <span class="sec-toolbar-spacer" aria-hidden="true"></span>
                 </div>
+
+                <!-- All ten sectors at once, three to a row: a photograph, a stripe that
+                     takes the sector's colour, and the name and description beneath. -->
+                <div class="sec-grid" id="sector-grid">
+                    <a href="DetailedSector.html" class="sector-card sec-reveal" data-name="solar" aria-label="View Solar in detail" style="--accent: #f7be26">
+                        <div class="sec-media">
+                            <img alt="Solar" decoding="async"  src="sector-Solar-hero.jpg">
+                        </div>
+                        <span class="sec-stripe" aria-hidden="true"></span>
+                        <div class="sec-body">
+                            <h3>Solar</h3>
+                            <p class="sec-lede">Nigeria's largest clean energy opportunity, driven by abundant sunlight and strong demand for reliable off-grid and embedded power solutions.</p>
+                            <span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                        </div>
+                    </a>
+                    <a href="Wind.html" class="sector-card sec-reveal" data-name="wind" aria-label="View Wind in detail" style="--accent: #7cc6ec">
+                        <div class="sec-media">
+                            <img alt="Wind" decoding="async"  src="sector-Wind-2.jpg">
+                        </div>
+                        <span class="sec-stripe" aria-hidden="true"></span>
+                        <div class="sec-body">
+                            <h3>Wind</h3>
+                            <p class="sec-lede">Nigeria's wind energy market is early stage but gaining policy momentum, with megawatts of untapped potential concentrated in the northern states.</p>
+                            <span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                        </div>
+                    </a>
+                    <a href="Storage.html" class="sector-card sec-reveal" data-name="storage" aria-label="View Storage in detail" style="--accent: #a78bfa">
+                        <div class="sec-media">
+                            <img alt="Storage" decoding="async"  style="object-position: 50% 30%" src="sector-Storage-ng.jpg">
+                        </div>
+                        <span class="sec-stripe" aria-hidden="true"></span>
+                        <div class="sec-body">
+                            <h3>Storage</h3>
+                            <p class="sec-lede">Critical enabler for grid stability and renewable integration, unlocking reliable power supply through batteries and hybrid systems.</p>
+                            <span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                        </div>
+                    </a>
+                    <a href="SmallHydro.html" class="sector-card sec-reveal" data-name="small hydro" aria-label="View Small Hydro in detail" style="--accent: #38b2ac">
+                        <div class="sec-media">
+                            <img alt="Small Hydro" decoding="async"  src="sector-SmallHydro-ng.jpg">
+                        </div>
+                        <span class="sec-stripe" aria-hidden="true"></span>
+                        <div class="sec-body">
+                            <h3>Small Hydro</h3>
+                            <p class="sec-lede">A stable, site-specific renewable energy source delivering reliable baseload power from rivers and small water systems across Nigeria.</p>
+                            <span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                        </div>
+                    </a>
+                    <a href="GreenMobility.html" class="sector-card sec-reveal" data-name="green mobility" aria-label="View Green Mobility in detail" style="--accent: #34c38f">
+                        <div class="sec-media">
+                            <img alt="Green Mobility" loading="lazy" decoding="async"  src="sector-GreenMobility.jpg">
+                        </div>
+                        <span class="sec-stripe" aria-hidden="true"></span>
+                        <div class="sec-body">
+                            <h3>Green Mobility</h3>
+                            <p class="sec-lede">Nigeria's green mobility market is in its early stages but moving fast, with growth led by electric two- and three-wheelers in major cities.</p>
+                            <span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                        </div>
+                    </a>
+                    <a href="EnergyEfficiency.html" class="sector-card sec-reveal" data-name="energy efficiency" aria-label="View Energy Efficiency in detail" style="--accent: #b8d335">
+                        <div class="sec-media">
+                            <img alt="Energy Efficiency" loading="lazy" decoding="async"  src="sector-EnergyEfficiency-ng.jpg">
+                        </div>
+                        <span class="sec-stripe" aria-hidden="true"></span>
+                        <div class="sec-body">
+                            <h3>Energy Efficiency</h3>
+                            <p class="sec-lede">The fastest and lowest-cost energy solution, reducing consumption, lowering bills, and improving system-wide power reliability.</p>
+                            <span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                        </div>
+                    </a>
+                    <a href="CleanCooking.html" class="sector-card sec-reveal" data-name="clean cooking" aria-label="View Clean Cooking in detail" style="--accent: #ff7f50">
+                        <div class="sec-media">
+                            <img alt="Clean Cooking" loading="lazy" decoding="async"  src="sector-CleanCooking-ng.jpg">
+                        </div>
+                        <span class="sec-stripe" aria-hidden="true"></span>
+                        <div class="sec-body">
+                            <h3>Clean Cooking</h3>
+                            <p class="sec-lede">Nigeria's clean cooking market is at an early but accelerating stage, with LPG, eCooking, and improved cookstoves expanding rapidly against a backdrop of critically low access across most of the country.</p>
+                            <span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                        </div>
+                    </a>
+                    <a href="Bioenergy.html" class="sector-card sec-reveal" data-name="bioenergy" aria-label="View Bioenergy in detail" style="--accent: #d4a53c">
+                        <div class="sec-media">
+                            <img alt="Bioenergy" loading="lazy" decoding="async"  src="sector-Bioenergy.jpg">
+                        </div>
+                        <span class="sec-stripe" aria-hidden="true"></span>
+                        <div class="sec-body">
+                            <h3>Bioenergy</h3>
+                            <p class="sec-lede">Nigeria's bioenergy market is one of the most resource-rich and underleveraged opportunities in the country's clean energy transition, with feedstock from agricultural waste, municipal solid waste, and forestry residues available at scale and low cost.</p>
+                            <span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                        </div>
+                    </a>
+                    <a href="AgriculturePUE.html" class="sector-card sec-reveal" data-name="agriculture pue" aria-label="View Agriculture PUE in detail" style="--accent: #f4a259">
+                        <div class="sec-media">
+                            <img alt="Agriculture PUE" loading="lazy" decoding="async"  src="sector-AgriculturePUE-ng.jpg">
+                        </div>
+                        <span class="sec-stripe" aria-hidden="true"></span>
+                        <div class="sec-body">
+                            <h3>Agriculture PUE</h3>
+                            <p class="sec-lede">Nigeria's agriculture PUE market has moved past the pilot stage; farmers are already using solar irrigation, cold storage, milling, and agro-processing equipment to cut costs and grow incomes.</p>
+                            <span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                        </div>
+                    </a>
+                    <a href="GreenHydrogen.html" class="sector-card sec-reveal" data-name="green hydrogen" aria-label="View Green Hydrogen in detail" style="--accent: #5cd6e8">
+                        <div class="sec-media">
+                            <img alt="Green Hydrogen" loading="lazy" decoding="async"  src="sector-GreenHydrogen.jpg">
+                        </div>
+                        <span class="sec-stripe" aria-hidden="true"></span>
+                        <div class="sec-body">
+                            <h3>Green Hydrogen</h3>
+                            <p class="sec-lede">An emerging frontier energy resource with long-term potential for industrial decarbonisation, export markets, and clean fuel production.</p>
+                            <span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="sec-empty" id="sector-empty">
+                    <span class="material-symbols-outlined" aria-hidden="true">search_off</span>
+                    <p>No sector matches that filter. Clear the field to see all ten.</p>
+                </div>
+
             </div>
         </section>
 
@@ -419,26 +1514,159 @@
     <!-- Footer -->
     <div id="site-footer"></div>
     <script>
-        // Micro-interactions for card depth
-        document.querySelectorAll('.sector-card-hover').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+        /* Sector index behaviour.
+           A live filter over the ten cards. It adds and removes nothing - a
+           filtered-out card is hidden, never deleted, so the content of the page is
+           the same whatever is typed. The cards' arrival belongs to the page's
+           motion layer, which is told whenever the filter moves them. */
+        (function () {
+            var grid = document.getElementById('sector-grid');
+            if (!grid) return;
 
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
+            var cards = Array.prototype.slice.call(grid.querySelectorAll('.sector-card'));
+            var field = document.getElementById('sector-search');
+            var wrap = field && field.closest('.sec-search');
+            var clear = wrap && wrap.querySelector('.sec-search-clear');
+            var count = document.getElementById('sector-count');
+            var empty = document.getElementById('sector-empty');
+            var total = cards.length;
 
-                const rotateX = (y - centerY) / 40;
-                const rotateY = (centerX - x) / 40;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            /* Matched against the name and the description together, so "off-grid"
+               finds Solar even though the word is only in its paragraph. */
+            var haystack = cards.map(function (c) {
+                return (c.textContent || '').replace(/\s+/g, ' ').toLowerCase();
             });
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+            function report(n) {
+                if (!count) return;
+                count.innerHTML = n === total
+                    ? '<b>' + total + '</b> sectors'
+                    : '<b>' + n + '</b> of ' + total + ' sectors';
+            }
+
+            function apply() {
+                var q = (field && field.value || '').trim().toLowerCase();
+                var shown = 0;
+                cards.forEach(function (card, i) {
+                    var hit = !q || haystack[i].indexOf(q) !== -1;
+                    card.hidden = !hit;
+                    if (hit) shown++;
+                });
+                if (wrap) wrap.classList.toggle('has-value', !!q);
+                if (empty) empty.classList.toggle('is-on', shown === 0);
+                report(shown);
+                if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+            }
+
+            if (field) {
+                field.addEventListener('input', apply);
+                field.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && field.value) { field.value = ''; apply(); }
+                });
+            }
+            if (clear) {
+                clear.addEventListener('click', function () {
+                    field.value = '';
+                    apply();
+                    field.focus();
+                });
+            }
+            report(total);
+        })();
+    </script>
+    <script>
+        /* Hero slideshow.
+           Decorative only - the hero's meaning is entirely in the copy, which is
+           why the whole strip is aria-hidden and the controls are the only part
+           exposed. If any of this fails the section keeps the CSS background it
+           has always had. */
+        (function () {
+            var strip = document.querySelector('.hero-slides');
+            if (!strip) return;
+
+            var slides = Array.prototype.slice.call(strip.querySelectorAll('.hero-slide'));
+            var dots = Array.prototype.slice.call(document.querySelectorAll('.hero-dot'));
+            if (slides.length < 2) return;
+
+            var HOLD = 5200;   // time between one picture and the next
+            var TRAVEL = 1400;  // must match the dissolve above
+            var at = 0, timer = null;
+            var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            /* Only ever two images in flight: the one on screen and the one due
+               next. */
+            function fetchAt(i) {
+                var el = slides[(i + slides.length) % slides.length];
+                if (el.dataset.loaded) return;
+                el.dataset.loaded = '1';
+                el.querySelector('.hero-shot').style.backgroundImage = "url('" + el.dataset.bg + "')";
+            }
+
+            function go(next) {
+                next = (next + slides.length) % slides.length;
+                if (next === at) return;
+                fetchAt(next);
+
+                var incoming = slides[next];
+                incoming.style.zIndex = 2;
+                slides[at].style.zIndex = 1;
+                /* The pan starts by itself: a slide only carries `is-in` while
+                   it is the current one, and parking strips the class, so the
+                   animation is added fresh on every activation. */
+                incoming.classList.add('is-in');
+
+                var spent = at;
+                at = next;
+                dots.forEach(function (d, i) { d.classList.toggle('is-on', i === at); });
+
+                /* Park every slide that is not the current one, with transitions
+                   off so nothing slides backwards across the picture. They are
+                   underneath an opaque, full-bleed slide by now, so none of this
+                   is on screen. */
+                window.setTimeout(function () {
+                    slides.forEach(function (el, i) {
+                        if (i === at) return;
+                        el.classList.add('no-anim');
+                        el.classList.remove('is-in');
+                        el.style.zIndex = 0;
+                        void el.offsetWidth;          // flush, so the class removal below re-arms it
+                        el.classList.remove('no-anim');
+                    });
+                    if (spent !== at) fetchAt(at + 1);
+                }, TRAVEL + 60);
+            }
+
+            function play() { stop(); timer = window.setInterval(function () { go(at + 1); }, HOLD); }
+            function stop() { if (timer) { window.clearInterval(timer); timer = null; } }
+
+            fetchAt(0);
+            fetchAt(1);
+
+            dots.forEach(function (d) {
+                d.addEventListener('click', function () {
+                    go(parseInt(d.dataset.go, 10));
+                    if (!still) play();               // a click restarts the clock
+                });
             });
-        });
+
+            if (still) return;                        // no auto-run, but the dots still work
+
+            /* Hovering anywhere on the hero used to stop it, and the hero is
+               the first thing under the pointer when the page opens - so the
+               run often never started. Only the controls hold it now, which is
+               the one place a pause is actually wanted. */
+            var pad = document.querySelector('.hero-dots');
+            pad.addEventListener('mouseenter', stop);
+            pad.addEventListener('mouseleave', play);
+            pad.addEventListener('focusin', stop);
+            pad.addEventListener('focusout', play);
+            /* A backgrounded tab throttles timers and the queue arrives all at
+               once on return. */
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) stop(); else play();
+            });
+            play();
+        })();
     </script>
     <!-- NESP nav wiring (mobile toggle + active golden bar) -->
     <script>
@@ -609,7 +1837,7 @@
                 },
                 'DATA': {
                     head: 'Data & Insights', items: [
-                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'Investment & Capacity', d: 'Capacity and investment metrics across energy sectors.', href: 'Data.html' },
                         { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
                         { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
                     ]
@@ -646,6 +1874,270 @@
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
 <script src="nav.js"></script>
+    <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script>
+        /* =====================================================================
+           REDESIGN MOTION LAYER - Sector.html
+
+           The DetailedSector motion layer, pointed at the sector index: smooth
+           scroll, the hero slideshow settling while the title's letters rise,
+           headings rising out of a mask, the statement's words lighting up as it
+           is read, the gold rules drawing, and the ten cards arriving in the
+           order they sit. Built to fail open in the same way: nothing is hidden
+           until the libraries are confirmed present, everything hidden is
+           tracked so an error can put it back, and with reduced motion asked for
+           the script does nothing at all.
+           ===================================================================== */
+        (function () {
+            var html = document.documentElement;
+            var hidden = [];
+            var drawn = [];
+
+            function releaseIntro() { html.classList.remove('rd-intro'); }
+
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !window.gsap || !window.ScrollTrigger) { releaseIntro(); return; }
+
+            function start() {
+                try {
+                    run();
+                } catch (err) {
+                    if (window.console) console.warn('[rd] motion layer stopped:', err);
+                    releaseIntro();
+                    if (hidden.length) gsap.set(hidden, { clearProps: 'opacity,transform,visibility' });
+                    drawn.forEach(function (el) { el.style.removeProperty('--rd-draw'); });
+                }
+            }
+
+            /* After the page's own DOMContentLoaded work, then the webfonts, which
+               the line splits depend on - but never hold the hero back more than
+               900ms. */
+            var started = false;
+            function once() { if (!started) { started = true; start(); } }
+            function afterParse() {
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+                setTimeout(once, 900);
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', afterParse);
+            else afterParse();
+
+            function run() {
+                gsap.registerPlugin(ScrollTrigger);
+                var hasSplit = !!window.SplitText;
+                if (hasSplit) gsap.registerPlugin(SplitText);
+
+                var main = document.querySelector('main');
+                if (!main) { releaseIntro(); return; }
+                var sections = Array.prototype.filter.call(main.children, function (el) { return el.tagName === 'SECTION'; });
+                var hero = sections[0];
+                var rest = sections.slice(1);
+                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                var EASE = 'expo.out';
+                function all(root, sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
+                function inRest(sel) { return rest.reduce(function (out, s) { return out.concat(all(s, sel)); }, []); }
+
+                /* ---- Smooth scroll ---------------------------------------------------- */
+                var lenis = null;
+                if (window.Lenis) {
+                    lenis = new Lenis({ lerp: 0.09, smoothWheel: true, syncTouch: false });
+                    lenis.on('scroll', ScrollTrigger.update);
+                    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+                    gsap.ticker.lagSmoothing(0);
+                    window.__rdLenis = lenis;
+
+                    all(document, '#mobile-nav, .nesp-dropdown').forEach(function (el) { el.setAttribute('data-lenis-prevent', ''); });
+
+                    /* In-page jumps glide and park clear of the sticky header, using the
+                       offset nav.js measures (a pixel target, so it is not applied twice). */
+                    document.addEventListener('click', function (e) {
+                        var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+                        if (!a) return;
+                        var hash = a.getAttribute('href');
+                        var target = hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+                        if (!target) return;
+                        e.preventDefault();
+                        var offset = parseInt(getComputedStyle(html).getPropertyValue('--osip-nav-offset'), 10) || 100;
+                        var y = target.getBoundingClientRect().top + window.scrollY - offset;
+                        lenis.scrollTo(Math.max(0, y), { duration: 1.5, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
+                        if (history.replaceState) history.replaceState(null, '', hash);
+                    });
+                }
+
+                /* ---- Reading progress ------------------------------------------------- */
+                var bar = document.createElement('div');
+                bar.className = 'rd-progress';
+                bar.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(bar);
+                gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.4 } });
+
+                /* ---- Hero: the slideshow settles, the title's letters rise --------------
+                   The scale and drift go on the slideshow's container; the slides pan
+                   inside it on their own clock, untouched. */
+                if (hero) {
+                    var slides = hero.querySelector('.hero-slides');
+                    var copy = hero.querySelector('.sec-hero-copy');
+                    var eyebrow = copy ? copy.querySelector('.sec-eyebrow') : null;
+                    var h1 = hero.querySelector('h1');
+                    var lede = hero.querySelector('h1 ~ p');
+                    var dots = hero.querySelector('.hero-dots');
+                    var intro = gsap.timeline({ defaults: { ease: EASE } });
+
+                    if (slides) intro.fromTo(slides, { scale: 1.14 }, { scale: 1, duration: 2.6, ease: 'power3.out' }, 0);
+                    if (eyebrow && eyebrow.children.length === 2) {
+                        intro.from(eyebrow.children[0], { scaleX: 0, duration: 1.1 }, 0.1);
+                        intro.from(eyebrow.children[1], { opacity: 0, x: -8, duration: 0.9, clearProps: 'transform' }, 0.25);
+                    }
+                    if (h1) {
+                        if (hasSplit) {
+                            /* Words as well as letters, so a word never breaks across lines
+                               mid-entrance. The split is undone once the letters land. */
+                            var title = SplitText.create(h1, { type: 'words,chars', mask: 'chars', charsClass: 'rd-char' });
+                            intro.from(title.chars, { yPercent: 150, duration: 1.3, stagger: 0.022, onComplete: function () { title.revert(); } }, 0.2);
+                        } else {
+                            intro.from(h1, { opacity: 0, y: 30, duration: 1.2 }, 0.2);
+                        }
+                    }
+                    if (lede) {
+                        intro.from(lede, { opacity: 0, y: 22, duration: 1.2 }, 0.75);
+                        drawn.push(lede);
+                        intro.fromTo(lede, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.6, ease: 'expo.inOut' }, 0.8);
+                    }
+                    if (dots) intro.from(dots, { opacity: 0, duration: 1 }, 1.1);
+                    /* The start states above are already applied, so lifting the
+                       pre-hide now cannot flash the finished hero first. */
+                    releaseIntro();
+
+                    if (slides) gsap.to(slides, { yPercent: 12, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+                    if (copy) gsap.to(copy, { yPercent: -16, opacity: 0.25, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+
+                    var cue = document.createElement('div');
+                    cue.className = 'rd-scrollcue';
+                    cue.setAttribute('aria-hidden', 'true');
+                    cue.appendChild(document.createElement('span'));
+                    hero.appendChild(cue);
+                } else {
+                    releaseIntro();
+                }
+
+                /* ---- The statement's short gold rule draws out ------------------------ */
+                inRest('.sec-hero-rule').forEach(function (rule) {
+                    gsap.from(rule, { scaleX: 0, duration: 1.2, ease: EASE, scrollTrigger: { trigger: rule, start: 'top 92%', once: true } });
+                    hidden.push(rule);
+                });
+
+                /* ---- Headings: lines rise out of a mask -------------------------------
+                   Card names arrive with their card instead. */
+                inRest('h2, h3').forEach(function (h) {
+                    if (h.closest('.sector-card')) return;
+                    if (!hasSplit) {
+                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+                        hidden.push(h);
+                        return;
+                    }
+                    SplitText.create(h, {
+                        type: 'lines',
+                        mask: 'lines',
+                        linesClass: 'rd-line',
+                        autoSplit: true,
+                        onSplit: function (self) {
+                            return gsap.from(self.lines, {
+                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
+                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
+                            });
+                        }
+                    });
+                });
+
+                /* ---- The statement: its words light up in reading order ----------------
+                   Words wait faint rather than invisible and are fully lit a third of
+                   the way up the screen; words only, no masks, no aria rewriting. */
+                inRest('.sec-statement p').forEach(function (t) {
+                    if (!hasSplit) {
+                        gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
+                        hidden.push(t);
+                        return;
+                    }
+                    var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
+                    hidden = hidden.concat(words);
+                    gsap.fromTo(words, { opacity: 0.2 }, {
+                        opacity: 1, ease: 'none', stagger: 0.1,
+                        scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Its gold rule draws down with the words --------------------------- */
+                inRest('.sec-statement').forEach(function (el) {
+                    drawn.push(el);
+                    gsap.fromTo(el, { '--rd-draw': 0 }, {
+                        '--rd-draw': 1, ease: 'none',
+                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- The filter, then the cards in the order they sit ------------------
+                   The page's filter calls ScrollTrigger.refresh() when it moves cards,
+                   so a card brought up the page by a filter still arrives. */
+                function batch(list, from, to) {
+                    if (!list.length) return;
+                    gsap.set(list, from);
+                    hidden = hidden.concat(list);
+                    ScrollTrigger.batch(list, {
+                        start: 'top 94%', once: true,
+                        onEnter: function (els) { gsap.to(els, Object.assign({ overwrite: true, clearProps: 'transform' }, to)); }
+                    });
+                }
+                var cards = inRest('.sector-card');
+                batch(inRest('.sec-toolbar'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 1, ease: EASE });
+                batch(cards, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09 });
+
+                /* ---- Cursor ----------------------------------------------------------- */
+                if (fine) {
+                    var cursor = document.createElement('div');
+                    cursor.className = 'rd-cursor';
+                    cursor.setAttribute('aria-hidden', 'true');
+                    var dot = document.createElement('div');
+                    dot.className = 'rd-cursor-dot';
+                    var label = document.createElement('span');
+                    label.className = 'rd-cursor-label';
+                    dot.appendChild(label);
+                    cursor.appendChild(dot);
+                    document.body.appendChild(cursor);
+                    html.classList.add('rd-cursor-on');
+
+                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
+                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
+                    var placed = false;
+                    window.addEventListener('pointermove', function (e) {
+                        if (e.pointerType && e.pointerType !== 'mouse') return;
+                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
+                        toX(e.clientX);
+                        toY(e.clientY);
+                    }, { passive: true });
+
+                    var off = function () { cursor.removeAttribute('data-mode'); };
+                    function target(el, mode, text) {
+                        el.setAttribute('data-rd-cursor', mode);
+                        el.addEventListener('pointerenter', function () {
+                            cursor.setAttribute('data-mode', mode);
+                            cursor.setAttribute('data-look', mode);
+                            label.textContent = text || '';
+                        });
+                        el.addEventListener('pointerleave', off);
+                    }
+                    inRest('h2').forEach(function (h) { target(h, 'text'); });
+                    cards.forEach(function (c) { target(c, 'label', 'View'); });
+                    document.documentElement.addEventListener('mouseleave', off);
+                }
+
+                window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+                ScrollTrigger.refresh();
+            }
+        })();
+    </script>
 </body>
 
 </html>

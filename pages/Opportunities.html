@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>OSIP - Nigerian Energy Investment Portal | Opportunities</title>
+    <title>Opportunities | One-Stop Investment Platform (OSIP)</title>
     <!-- Google Fonts: Inter (body) + Manrope (headings) — matches Homepage -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -1074,9 +1074,998 @@
             }
         }
     </style>
+    <!-- Redesign: Newsreader for headings and reading text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        /* Redesign: hold the page title and search back for their entrance. The
+           motion layer lifts this the moment its start states are applied, and it
+           lifts itself after 3.5s whatever happens, so a slow or blocked CDN can
+           never leave the header empty. Not set when reduced motion is asked for. */
+        (function () {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var root = document.documentElement;
+                root.classList.add('rd-intro');
+                setTimeout(function () { root.classList.remove('rd-intro'); }, 3500);
+            } catch (e) {}
+        })();
+    </script>
+    <style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - Opportunities.html (11 Sep 2026)
+
+           The DetailedSector.html redesign, carried to the Invest page with the
+           same tokens: Newsreader for headings and reading text, sans for
+           interface text (filters, chips, buttons, labels), warm paper grounds,
+           borders and icons turned down. No section markup was edited. Scoped
+           under body.rd; the older design is kept in OSIP/Backups/Opportunities/.
+
+           Two things specific to this page:
+           - The Active Opportunities cards are the same component as the
+             homepage's Priority Investment Opportunities cards, so the rules
+             below restate the homepage's card rules one for one. Change one,
+             change the other.
+           - The filter sidebar gets a desktop close / open control (see the
+             filter panel hide / show rules and the script at the foot of the page). Phones
+             keep the existing filter drawer.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-card-2: #f1eee8;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-ease: cubic-bezier(.22, 1, .36, 1);
+        }
+
+        /* ---- Lenis, from lenis@1.3.26/dist/lenis.css ---------------------------- */
+        html.lenis,
+        html.lenis body { height: auto; }
+        .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+        .lenis [data-lenis-prevent],
+        .lenis [data-lenis-prevent-wheel],
+        .lenis [data-lenis-prevent-touch],
+        .lenis [data-lenis-prevent-vertical],
+        .lenis [data-lenis-prevent-horizontal] { overscroll-behavior: contain; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        .lenis.lenis-autoToggle {
+            transition-property: overflow;
+            transition-duration: 1ms;
+            transition-behavior: allow-discrete;
+        }
+
+        /* ---- Page ---------------------------------------------------------------- */
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd ::selection { background: #f7be26; color: var(--rd-ink); }
+
+        @media (min-width: 1024px) {
+            .rd main {
+                padding: clamp(48px, 5vw, 72px) clamp(40px, 4.5vw, 72px) clamp(72px, 8vw, 112px) !important;
+            }
+        }
+
+        /* ---- Page header: the gold bar draws, the title in the serif -------------- */
+        .rd main > div:first-of-type {
+            margin-bottom: clamp(40px, 5vw, 64px) !important;
+        }
+
+        .rd main div.w-1.h-10 {
+            width: 1px !important;
+            height: 60px !important;
+            background: #f7be26 !important;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+        }
+
+        .rd main h1 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            /* 14 Sep 2026: a step smaller, so the title no longer outweighs the page */
+            font-size: clamp(34px, 3vw, 46px) !important;
+            line-height: 1.08 !important;
+            letter-spacing: -0.025em !important;
+            color: var(--rd-ink) !important;
+            text-wrap: balance;
+        }
+
+        .rd .opp-search {
+            height: 50px;
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line-2) !important;
+            border-radius: 999px !important;
+            box-shadow: none !important;
+            transition: border-color .35s ease, background-color .35s ease !important;
+        }
+
+        .rd .opp-search:focus-within {
+            background: #ffffff !important;
+            border-color: var(--rd-green) !important;
+            box-shadow: 0 0 0 3px rgba(0, 66, 37, .08) !important;
+        }
+
+        .rd .opp-search input { padding-left: 46px !important; font-size: 14.5px !important; color: var(--rd-ink) !important; }
+        .rd .opp-search .opp-search-icon { left: 18px !important; color: var(--rd-ink-3) !important; }
+        .rd .opp-search:focus-within .opp-search-icon { color: var(--rd-green) !important; }
+
+        /* The header waits for its entrance; see the flag script in <head>. */
+        html.rd-intro main h1,
+        html.rd-intro #opp-search,
+        html.rd-intro main div.w-1.h-10 {
+            opacity: 0 !important;
+        }
+
+        /* ---- Section eyebrows: a finer gold rule and a quieter label --------------- */
+        .rd .opp-section-eyebrow {
+            gap: 14px !important;
+            margin-bottom: 22px !important;
+        }
+
+        .rd .opp-section-eyebrow span:first-child {
+            width: 28px !important;
+            height: 1px !important;
+            background: var(--rd-gold) !important;
+            transform-origin: 0 50%;
+        }
+
+        .rd .opp-section-eyebrow span:last-child {
+            font-weight: 500 !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        /* ---- Section headings and spacing --------------------------------------------- */
+        .rd main section > h2 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-optical-sizing: auto;
+            font-size: clamp(32px, 3vw, 44px) !important;
+            line-height: 1.06 !important;
+            letter-spacing: -0.022em !important;
+            color: var(--rd-ink) !important;
+            margin-bottom: clamp(16px, 1.6vw, 22px) !important;
+            text-wrap: balance;
+        }
+
+        .rd main h2 .rd-line-mask,
+        .rd main h1 .rd-line-mask {
+            padding: 0.18em;
+            margin: -0.18em;
+        }
+
+        .rd #opportunity-areas {
+            margin-bottom: 0 !important;
+            padding-bottom: clamp(56px, 7vw, 96px);
+        }
+
+        .rd #active-opportunities {
+            padding-top: clamp(56px, 7vw, 96px) !important;
+            border-top-color: var(--rd-line) !important;
+        }
+
+        /* ---- Reading text, with the scroll-drawn gold rule ------------------------------
+           As on DetailedSector and the homepage: the 1px gold line beside the
+           introduction, and the provenance note's gold edge, draw downwards over the
+           same scroll range as the words light up. One custom property, --rd-draw,
+           scrubbed by the motion layer; without it the lines are simply there. */
+        .rd #opportunity-areas > h2 + p {
+            position: relative;
+            max-width: 62rem;
+            margin-bottom: clamp(32px, 3.6vw, 48px) !important;
+            padding-left: 23px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18.5px !important;
+            line-height: 1.65 !important;
+            letter-spacing: -0.003em !important;
+            color: var(--rd-ink-2) !important;
+            text-wrap: pretty;
+        }
+
+        .rd .opp-provenance {
+            position: relative;
+            gap: 14px !important;
+            margin-bottom: clamp(32px, 3.6vw, 48px) !important;
+            padding: 18px 22px 18px 24px !important;
+            background: var(--rd-card-2) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-left-color: transparent !important;
+            border-radius: 0 16px 16px 0 !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            line-height: 1.6 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd .opp-provenance .material-symbols-outlined {
+            margin-top: 2px;
+            color: var(--rd-green-2) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd #opportunity-areas > h2 + p::before,
+        .rd .opp-provenance::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .35em;
+            bottom: .35em;
+            width: 1px;
+            background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        .rd .opp-provenance::before {
+            left: -1px;
+            top: -1px;
+            bottom: -1px;
+            width: 2px;
+        }
+
+        .rd .rd-sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        /* ---- Opportunity areas ------------------------------------------------------------ */
+        .rd .area-grid { gap: 22px !important; }
+
+        .rd .opportunity-area {
+            overflow: hidden;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd .opportunity-area:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+            border-color: var(--rd-line-2) !important;
+        }
+
+        .rd .area-media { height: 132px !important; }
+        .rd .area-media .area-sector { font-weight: 500 !important; letter-spacing: .2em !important; }
+        .rd .area-body { padding: 18px 20px !important; }
+
+        .rd #areas-grid .opportunity-area h3 {
+            margin-bottom: 8px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 20px !important;
+            line-height: 1.22 !important;
+            letter-spacing: -0.01em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd .area-lede {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 15.5px !important;
+            line-height: 1.55 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd .area-links { border-top-color: var(--rd-line) !important; }
+
+        .rd .area-cta {
+            min-height: 40px;
+            border-radius: 999px !important;
+            border-color: var(--rd-line-2) !important;
+            background: transparent !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            color: var(--rd-green) !important;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd .opportunity-area:hover .area-cta,
+        .rd .area-cta:hover {
+            background: var(--rd-green) !important;
+            border-color: var(--rd-green) !important;
+            color: #ffffff !important;
+        }
+
+        .rd .area-sub a { font-weight: 500 !important; color: var(--rd-ink-3) !important; }
+        .rd .area-sub a:hover { color: var(--rd-green) !important; }
+
+        /* ---- Active opportunities: the homepage Priority card, rule for rule ---------------- */
+        .rd #opportunities-grid .opportunity-card {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top: 2px solid #dfa800 !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card::before { display: none !important; }
+
+        .rd #opportunities-grid .opportunity-card:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+            border-color: var(--rd-line-2) !important;
+            border-top-color: #dfa800 !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card.is-pending,
+        .rd #opportunities-grid .opportunity-card.is-pending:hover {
+            background: var(--rd-card-2) !important;
+            border-color: var(--rd-line) !important;
+            border-top: 2px solid #e7d6a6 !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card h3 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-optical-sizing: auto;
+            font-size: 21px !important;
+            line-height: 1.22 !important;
+            letter-spacing: -0.012em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card:not(.is-pending):hover h3 { color: var(--rd-green) !important; }
+
+        .rd #opportunities-grid .inv-box,
+        .rd #opportunities-grid .opportunity-card:hover .inv-box {
+            background: var(--rd-card-2) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 14px !important;
+        }
+
+        .rd #opportunities-grid .text-headline-lg-mobile {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 32px !important;
+            line-height: 1.1 !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card.is-pending .text-headline-lg-mobile { color: var(--rd-ink-2) !important; }
+        .rd #opportunities-grid .border-y.border-outline-variant { border-color: var(--rd-line) !important; }
+
+        .rd #opportunities-grid .sector-badge,
+        .rd #opportunities-grid .readiness-tag { font-weight: 500 !important; }
+
+        .rd #opportunities-grid .opportunity-card .flex.gap-2 button {
+            border-radius: 999px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card .flex.gap-2 button:first-child {
+            background: transparent !important;
+            border-color: var(--rd-line-2) !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card .flex.gap-2 button:first-child:hover,
+        .rd #opportunities-grid .opportunity-card .flex.gap-2 button:last-child {
+            background: var(--rd-green) !important;
+            border-color: var(--rd-green) !important;
+            color: #ffffff !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card .flex.gap-2 button:last-child:hover {
+            background: #062f1f !important;
+            border-color: #062f1f !important;
+        }
+
+        .rd #opportunities-grid .osip-opp-pending {
+            border-radius: 999px !important;
+            border-color: var(--rd-line-2) !important;
+            background: transparent !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .16em !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* ---- Pagers ------------------------------------------------------------------------ */
+        .rd .opp-pager { margin-top: clamp(32px, 3.4vw, 44px) !important; }
+
+        .rd .opp-pager button {
+            border-radius: 999px !important;
+            border-color: var(--rd-line-2) !important;
+            background: var(--rd-card) !important;
+            font-family: var(--rd-sans) !important;
+            font-weight: 500 !important;
+            color: var(--rd-ink-2) !important;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd .opp-pager button:hover:not(:disabled) {
+            background: #ffffff !important;
+            border-color: var(--rd-green) !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd .opp-pager button[aria-current="page"] {
+            background: var(--rd-green) !important;
+            border-color: var(--rd-green) !important;
+            color: #ffffff !important;
+        }
+
+        .rd .opp-pager .opp-gap { color: var(--rd-ink-3) !important; }
+
+        /* ---- No results ---------------------------------------------------------------------- */
+        .rd #no-results h3 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 28px !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #no-results p,
+        .rd #no-areas {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 17px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #no-results-reset {
+            height: 48px;
+            padding: 0 26px !important;
+            border-radius: 999px !important;
+            background: var(--rd-green) !important;
+            font-weight: 500 !important;
+        }
+
+        /* ---- Filter sidebar: interface, so it stays in the sans --------------------------------- */
+        .rd #sidebar {
+            background: var(--rd-paper-2) !important;
+            border-right-color: var(--rd-line) !important;
+        }
+
+        .rd #sidebar h2 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 22px !important;
+            letter-spacing: -0.01em;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #sidebar .bg-primary-container {
+            border-radius: 999px;
+            background: transparent !important;
+            color: var(--rd-green) !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line-2);
+        }
+
+        .rd #sidebar .filter-group h3 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18px !important;
+            font-weight: 500 !important;
+            letter-spacing: -0.005em !important;
+            text-transform: none !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #sidebar h2 + p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-style: italic;
+            font-size: 14px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #sidebar .filter-group .bg-surface-container-high {
+            border-radius: 999px !important;
+            background: transparent !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line-2);
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 12.5px !important;
+            font-weight: 500 !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #sidebar .filter-group label span {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16px !important;
+            color: var(--rd-ink-2) !important;
+        }
+        .rd #sidebar .filter-group label:hover span { color: var(--rd-green) !important; }
+
+        .rd #sidebar .filter-checkbox {
+            border-radius: 4px !important;
+            border-color: var(--rd-line-2) !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #sidebar .view-more-btn { font-weight: 500 !important; color: var(--rd-green-2) !important; }
+        .rd #sidebar .border-t.border-outline-variant { border-top-color: var(--rd-line) !important; }
+
+        .rd #reset-filters {
+            min-height: 44px;
+            border-radius: 999px !important;
+            border-color: var(--rd-line-2) !important;
+            background: transparent !important;
+            font-weight: 500 !important;
+            color: var(--rd-green) !important;
+            transition: background-color .35s ease, color .35s ease, border-color .35s ease !important;
+        }
+
+        .rd #reset-filters:hover {
+            background: var(--rd-green) !important;
+            border-color: var(--rd-green) !important;
+            color: #ffffff !important;
+        }
+
+        .rd #sidebar-toggle {
+            border-radius: 999px !important;
+            border-color: var(--rd-line-2) !important;
+            background: var(--rd-card) !important;
+            font-weight: 500 !important;
+            color: var(--rd-green) !important;
+        }
+
+        /* ---- Card grids: fill the row -------------------------------------------------------
+           The page's grids used fixed 314px tracks, so at common laptop widths an open
+           filter panel left two cards and a wide empty strip. Flexible tracks with a
+           260px floor fill the width instead: three across with the filters open at
+           the usual desktop sizes, four with them hidden. auto-fill (not auto-fit)
+           keeps a lone filtered card at card width. Phones keep the single column. */
+        @media (min-width: 640px) {
+            .rd .area-grid,
+            .rd .opp-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+            }
+
+            .rd .opportunity-area,
+            .rd .opportunity-card {
+                max-width: none !important;
+            }
+        }
+
+        /* ---- Filter panel: hide / show (desktop) ------------------------------------------------
+           "Hide filters" sits in the panel's own header. While the panel is hidden, the
+           page's Filters button (the one phones already use) appears above the title to
+           bring it back. The panel always starts open. Phones keep the drawer. */
+        .rd-filters-hide { display: none; }
+
+        @media (min-width: 1024px) {
+            .rd #sidebar {
+                transition: width .5s var(--rd-ease), padding .5s var(--rd-ease), border-color .3s ease !important;
+            }
+
+            .rd #sidebar > .sidebar-sticky {
+                min-width: 248px;
+                transition: opacity .15s ease, visibility .15s ease;
+            }
+
+            .rd.rd-filters-closed #sidebar {
+                width: 0 !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                overflow: hidden !important;
+                border-right-color: transparent !important;
+            }
+
+            .rd.rd-filters-closed #sidebar > .sidebar-sticky {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .rd-filters-hide {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex: 0 0 auto;
+                width: 34px;
+                height: 34px;
+                margin-left: auto;
+                padding: 0;
+                border: 1px solid var(--rd-line-2);
+                border-radius: 999px;
+                background: transparent;
+                color: var(--rd-green);
+                cursor: pointer;
+                transition: background-color .35s ease, color .35s ease, border-color .35s ease;
+            }
+
+            .rd-filters-hide:hover {
+                background: var(--rd-green);
+                border-color: var(--rd-green);
+                color: #ffffff;
+            }
+
+            .rd-filters-hide:focus-visible {
+                outline: 2px solid var(--rd-green);
+                outline-offset: 3px;
+            }
+
+            .rd-filters-hide .material-symbols-outlined {
+                font-size: 19px;
+                font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            }
+
+            /* the page's Filters button, shown on desktop only while the panel is hidden */
+            .rd.rd-filters-closed #sidebar-toggle {
+                display: inline-flex !important;
+            }
+        }
+
+        /* ---- Reading progress ------------------------------------------------------------------ */
+        .rd-progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 80;
+            height: 2px;
+            background: #f7be26;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            pointer-events: none;
+        }
+
+        /* ---- Cursor: only over the things worth pointing at (as on DetailedSector) ------------ */
+        .rd-cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 9998;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .rd-cursor-dot {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 72px;
+            height: 72px;
+            margin: -36px 0 0 -36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            background: var(--rd-green);
+            color: #ffffff;
+            font: 500 12px/1 var(--rd-sans);
+            letter-spacing: .06em;
+            transform: scale(0);
+            transition: transform .5s var(--rd-ease), width .5s var(--rd-ease), height .5s var(--rd-ease),
+                margin .5s var(--rd-ease), background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd-cursor[data-mode="ring"] .rd-cursor-dot {
+            width: 40px;
+            height: 40px;
+            margin: -20px 0 0 -20px;
+            background: transparent;
+            border-color: rgba(0, 66, 37, .4);
+            transform: scale(1);
+        }
+
+        .rd-cursor[data-look="text"] { mix-blend-mode: multiply; }
+
+        .rd-cursor[data-look="text"] .rd-cursor-dot {
+            width: 96px;
+            height: 96px;
+            margin: -48px 0 0 -48px;
+            background: #f7be26;
+            transition-property: transform, width, height, margin;
+        }
+
+        .rd-cursor[data-mode="text"] .rd-cursor-dot { transform: scale(1); }
+
+        /* ---- Small screens and reduced motion ------------------------------------------------------ */
+        @media (max-width: 639px) {
+            .rd #opportunity-areas > h2 + p { font-size: 17px !important; }
+            .rd .opp-provenance { font-size: 15.5px !important; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html.rd-intro main h1,
+            html.rd-intro #opp-search,
+            html.rd-intro main div.w-1.h-10 {
+                opacity: 1 !important;
+            }
+
+            .rd #sidebar,
+            .rd #sidebar > .sidebar-sticky,
+            .rd-filters-hide {
+                transition: none !important;
+            }
+        }
+
+        /* ---- Buttons in Newsreader ----------------------------------------------------
+           Button labels follow the headings into the serif. font-size-adjust holds each
+           label to the visual size it had in the sans (Newsreader runs small at the same
+           px), so no button grows or rewraps; the header menu stays as it is, and icons
+           inside a button keep their own font and size. */
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta,
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .area-cta {
+          font-family: var(--rd-serif) !important;
+          font-size-adjust: 0.52;
+          letter-spacing: 0 !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta *:not([class*="material-symbols"]):not([class*="material-icons"]),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .area-cta *:not([class*="material-symbols"]):not([class*="material-icons"]) {
+          font-family: inherit !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *) [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta [class*="material-icons"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .area-cta [class*="material-symbols"],
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .area-cta [class*="material-icons"] {
+          font-size-adjust: none !important;
+        }
+
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .nesp-header .nesp-cta { font-weight: 500 !important; }
+        /* ---- Type: Inter throughout (14 Sep 2026) --------------------------------------
+           Inter replaces Newsreader on this page, to match the homepage; the theme, layout,
+           colours and motion are untouched. Every rule above that set the serif now sets
+           Inter held to the serif's x-height (font-size-adjust), so each heading and
+           paragraph keeps the visual size, line length and rhythm it had. Icons keep their
+           own size. The previous type is kept in OSIP/Backups/Opportunities/. */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-type-adjust: 0.515;
+        }
+
+        .rd [class*="material-symbols"],
+        .rd [class*="material-icons"] {
+            font-size-adjust: none !important;
+        }
+
+        /* the shared header and footer set Newsreader in their own stylesheets; on this
+           page they follow the page */
+        .rd .nesp-header .nesp-menu-item .t,
+        .rd .nesp-header .nesp-menu-item .d,
+        .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link,
+        .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead),
+        .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head,
+        .rd .nesp-header .nesp-res-foot-h,
+        .rd .nesp-footer h3,
+        .rd .nesp-footer .nesp-foot-brand p,
+        .rd .nesp-footer a,
+        .rd .nesp-footer .nesp-foot-contact li,
+        .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: var(--rd-type-adjust) !important;
+        }
+
+        .rd .nesp-header .nesp-cta {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+
+        /* ---- Heading weight (14 Sep 2026) ----------------------------------------------
+           In Inter the headings read better one step heavier than they sat in the serif. */
+        .rd main h1,
+        .rd main h2,
+        .rd main h3 {
+            font-weight: 500 !important;
+        }
+
+        .rd main h4 {
+            font-weight: 600 !important;
+        }
+
+        .rd .nesp-footer h3 {
+            font-weight: 500 !important;
+        }
+
+        /* the headings whose own rules above name weight 400 at higher specificity:
+           one step heavier, as on the homepage */
+        .rd main section > h2,
+        .rd #areas-grid .opportunity-area h3,
+        .rd #opportunities-grid .opportunity-card h3,
+        .rd #sidebar h2,
+        .rd #no-results h3 {
+            font-weight: 500 !important;
+        }
+
+        /* the footer column headings still name Manrope in this page's own base styles */
+        .rd .nesp-footer h4 {
+            font-family: var(--rd-sans) !important;
+        }
+
+        /* buttons: Inter at its own size, as on the homepage (the 0.52 hold above was
+           set for the serif) */
+        .rd:not(#rd-btn-a):not(#rd-btn-b) button:not(.nesp-header *):not(.leaflet-container *),
+        .rd:not(#rd-btn-a):not(#rd-btn-b) .area-cta {
+            font-size-adjust: none !important;
+        }
+
+        /* ---- Wide screens (14 Sep 2026) -------------------------------------------------
+           The filter panel and the content sat in a 1440px box centred on the screen, so a
+           wide monitor showed an empty strip beside the panel. The row now runs the full
+           width: the panel keeps to the left edge, and the content keeps the width it had
+           inside that box (1296px), centred in the space beside the panel. */
+        @media (min-width: 1024px) {
+            .rd div.max-w-\[1440px\]:has(> #sidebar) {
+                max-width: none !important;
+            }
+
+            .rd main > * {
+                max-width: 1296px;
+                margin-left: max(0px, calc((100% - 1296px) / 2));
+            }
+        }
+
+        /* ---- Search: an icon while the title row is tight (14 Sep 2026) -----------------
+           With the filter panel open the row was too narrow for the title and a 384px
+           search, so the title broke onto a second line. While the row is 1120px or less
+           the search is a round icon; clicking it (or tabbing to it) opens the field into
+           the space beside the title, which stays on one line, and it stays open while it
+           holds a search. The whole circle is the field, so it needs no script. Phones keep
+           the full-width field under the title. */
+        @media (min-width: 768px) {
+            .rd main > div:first-of-type {
+                container: opphead / inline-size;
+            }
+        }
+
+        @media (min-width: 768px) {
+            @container opphead (max-width: 1120px) {
+                .rd main > div:first-of-type > div:first-child {
+                    flex: 0 0 auto;
+                    max-width: calc(100% - 66px);
+                }
+
+                .rd main .opp-search {
+                    flex: 0 0 50px;
+                    width: 50px !important;
+                    min-width: 50px;
+                    margin-left: auto;
+                    cursor: pointer;
+                    transition: flex-basis .45s cubic-bezier(.22, 1, .36, 1), width .45s cubic-bezier(.22, 1, .36, 1),
+                        background-color .3s ease, border-color .3s ease, box-shadow .3s ease !important;
+                }
+
+                .rd main .opp-search input {
+                    padding: 0 !important;
+                    color: transparent !important;
+                    caret-color: transparent;
+                    cursor: pointer;
+                }
+
+                .rd main .opp-search input::placeholder { color: transparent !important; }
+
+                .rd main .opp-search .opp-search-icon {
+                    left: 50% !important;
+                    transform: translateX(-50%);
+                    color: var(--rd-green) !important;
+                    pointer-events: none;
+                }
+
+                .rd main .opp-search .opp-search-clear { display: none; }
+
+                .rd main .opp-search:hover { border-color: var(--rd-green) !important; }
+
+                .rd main .opp-search:focus-within,
+                .rd main .opp-search.has-value {
+                    flex: 1 1 384px;
+                    width: auto !important;
+                    max-width: 384px;
+                    cursor: text;
+                }
+
+                .rd main .opp-search:focus-within input,
+                .rd main .opp-search.has-value input {
+                    padding-left: 46px !important;
+                    color: var(--rd-ink) !important;
+                    caret-color: auto;
+                    cursor: text;
+                }
+
+                .rd main .opp-search:focus-within input::placeholder,
+                .rd main .opp-search.has-value input::placeholder { color: var(--rd-ink-3) !important; }
+
+                .rd main .opp-search:focus-within .opp-search-icon,
+                .rd main .opp-search.has-value .opp-search-icon {
+                    left: 18px !important;
+                    transform: none;
+                }
+
+                .rd main .opp-search:focus-within .opp-search-clear,
+                .rd main .opp-search.has-value .opp-search-clear { display: inline-flex; }
+            }
+        }
+
+    </style>
+    <style id="rd-card-actions">
+        /* Opportunity card actions (11 Sep 2026): compact, each on one line.
+           "View in Detail" is a quiet text link with its arrow and "Invest Now" a
+           small pill sized to its label, so neither stretches across the card.
+           Shared by homepage.html and pages/Opportunities.html so both card sets
+           stay identical. Fonts are deliberately not set here. */
+        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 {
+            flex-wrap: wrap;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 10px !important;
+        }
+
+        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button {
+            flex: 0 0 auto !important;
+            width: auto !important;
+            min-width: 0 !important;
+            white-space: nowrap !important;
+            line-height: 1.2 !important;
+            box-shadow: none !important;
+        }
+
+        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button:first-child {
+            gap: 6px !important;
+            padding: 8px 0 !important;
+            border-color: transparent !important;
+            background: transparent !important;
+            color: var(--rd-green, #004225) !important;
+        }
+
+        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button:first-child:hover {
+            border-color: transparent !important;
+            background: transparent !important;
+            color: var(--rd-green-2, #0b6b45) !important;
+        }
+
+        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button:last-child {
+            gap: 6px !important;
+            padding: 9px 16px !important;
+        }
+
+        /* Narrow cards (1280px screens with the filters open, four-up rows when
+           they are hidden, the homepage, phones): the arrows step aside so both
+           actions still share one row instead of stacking. */
+        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 {
+            container-type: inline-size;
+        }
+
+        @container (width < 272px) {
+            html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button .opp-btn-arrow {
+                display: none !important;
+            }
+
+            html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button:last-child {
+                padding: 9px 13px !important;
+            }
+        }
+    </style>
 </head>
 
-<body class="text-on-surface">
+<body class="text-on-surface rd">
     <!-- Top Navigation Bar -->
     <div id="site-nav"></div>
 
@@ -2862,7 +3851,17 @@
         // Each family pages independently, one row at a time, so neither section
         // buries the other and neither is written against a fixed card count.
         (function () {
-            const PER_PAGE = 3;
+            // One row per page: as many cards as the grid has tracks, so three with
+            // the filters open at desktop sizes and four with them hidden. A
+            // single-column phone layout still pages three at a time, as it always has.
+            const MIN_PER_PAGE = 3;
+            function rowSize(gridEl) {
+                if (!gridEl) return MIN_PER_PAGE;
+                // auto-fit reports every track it laid out, empty ones as 0px, so
+                // this counts the row's capacity, not the cards currently showing.
+                const tracks = getComputedStyle(gridEl).gridTemplateColumns.split(' ').filter(Boolean).length;
+                return tracks <= 1 ? MIN_PER_PAGE : tracks;
+            }
 
             const checkboxes = Array.from(document.querySelectorAll('.filter-checkbox'));
             const projectCards = Array.from(document.querySelectorAll('.opportunity-card'));
@@ -2897,9 +3896,12 @@
             function makePager(pagerEl, sectionEl) {
                 let items = [];
                 let page = 1;
+                let lastSize = MIN_PER_PAGE;
+                const gridEl = sectionEl ? sectionEl.querySelector('.area-grid, .opp-grid') : null;
+                function size() { return rowSize(gridEl); }
 
                 function pageCount() {
-                    return Math.max(1, Math.ceil(items.length / PER_PAGE));
+                    return Math.max(1, Math.ceil(items.length / size()));
                 }
 
                 function btn(label, opts) {
@@ -2945,7 +3947,7 @@
                 function draw() {
                     const total = pageCount();
                     pagerEl.textContent = '';
-                    if (items.length <= PER_PAGE) { pagerEl.hidden = true; return; }
+                    if (items.length <= size()) { pagerEl.hidden = true; return; }
                     pagerEl.hidden = false;
                     pagerEl.appendChild(btn('chevron_left', {
                         icon: true, label: 'Previous page', disabled: page === 1, go: page - 1
@@ -2967,14 +3969,20 @@
                     }));
                 }
 
-                function render() {
+                // quiet: a re-layout, not a page turn, so a re-layout shows every card still,
+                // including any it newly reveals. The sidebar's slide is the motion for
+                // that change; page turns and filtering keep the rise below.
+                function render(quiet) {
                     if (page > pageCount()) page = pageCount();
                     if (page < 1) page = 1;
-                    const start = (page - 1) * PER_PAGE;
+                    const n = size();
+                    lastSize = n;
+                    const start = (page - 1) * n;
                     items.forEach(function (el, i) {
-                        const on = i >= start && i < start + PER_PAGE;
+                        const on = i >= start && i < start + n;
                         el.style.display = on ? '' : 'none';
                         if (!on) { el.classList.remove('opp-enter'); return; }
+                        if (quiet) return;
                         // Restart the rise on every swap, staggered by position,
                         // so a page turn reads as a change and not a flicker.
                         el.classList.remove('opp-enter');
@@ -2993,6 +4001,15 @@
                         items = list;
                         page = 1;
                         render();
+                    },
+                    // Re-fit after a layout change, keeping the first card that was
+                    // on screen on screen instead of jumping back to page one.
+                    relayout: function () {
+                        const n = size();
+                        if (n === lastSize || !items.length) return;
+                        const first = (page - 1) * lastSize;
+                        page = Math.floor(first / n) + 1;
+                        render(true);
                     }
                 };
             }
@@ -3026,6 +4043,17 @@
             const projectsPager = makePager(
                 document.getElementById('pagination'),
                 document.getElementById('active-opportunities'));
+
+            // Closing or opening the filter sidebar, or resizing the window, can
+            // change how many cards fit a row.
+            let relayoutTimer = 0;
+            window.addEventListener('resize', function () {
+                clearTimeout(relayoutTimer);
+                relayoutTimer = setTimeout(function () {
+                    areasPager.relayout();
+                    projectsPager.relayout();
+                }, 60);
+            });
 
             function applyFilters() {
                 // OR within a group, AND across groups.
@@ -3151,11 +4179,20 @@
             });
         })();
 
-        // Wire every "View in Detail" button to the opportunity detail page.
+        // Each card opens its own project: detailedOppNew.html?id=<the card's ID>,
+        // read from the card's "ID:" line. oppdetail.js fills the page from it.
+        window.oppDetailHref = function (el) {
+            const card = el && el.closest ? el.closest('.opportunity-card') : null;
+            const idLine = card ? card.querySelector('p') : null;
+            const m = idLine ? idLine.textContent.match(/ID:\s*([A-Za-z0-9-]+)/) : null;
+            return 'detailedOppNew.html' + (m ? '?id=' + encodeURIComponent(m[1].toUpperCase()) : '');
+        };
+
+        // Wire every "View in Detail" button to its project's detail page.
         document.querySelectorAll('.opportunity-card button').forEach(b => {
             if (/view\s*in\s*detail/i.test(b.textContent)) {
                 b.style.cursor = 'pointer';
-                b.addEventListener('click', () => { window.location.href = 'detailedOppNew.html'; });
+                b.addEventListener('click', () => { window.location.href = window.oppDetailHref(b); });
             }
         });
     </script>
@@ -3301,7 +4338,7 @@
                 },
                 'DATA': {
                     head: 'Data & Insights', items: [
-                        { t: 'Investment & Capacity', d: 'Live metrics across energy sectors.', href: 'Data.html' },
+                        { t: 'Investment & Capacity', d: 'Capacity and investment metrics across energy sectors.', href: 'Data.html' },
                         { t: 'State-wise Performance', d: 'Project, capacity & growth by state.', href: 'Data.html' },
                         { t: 'Open Data Downloads', d: 'CSV, XLSX & API datasets.', href: 'Data.html' }
                     ]
@@ -3335,12 +4372,12 @@
         })();
     </script>
 
-    <!-- NESP button wiring + whole-card click → detailedOppNew -->
+    <!-- NESP button wiring + whole-card click → detailedOppNew.html?id=<card ID> -->
     <script>
         (function () {
             document.querySelectorAll('#opportunities-grid button').forEach(function (b) {
                 var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
-                if (t === 'view in detail') b.addEventListener('click', function () { location.href = 'detailedOppNew.html'; });
+                if (t === 'view in detail') b.addEventListener('click', function () { location.href = window.oppDetailHref(b); });
                 else if (t === 'invest now') b.addEventListener('click', function () { location.href = '#'; });
             });
 
@@ -3351,12 +4388,12 @@
                 card.setAttribute('tabindex', '0');
                 card.addEventListener('click', function (e) {
                     if (e.target.closest('button, a')) return;     // let inner buttons handle their own clicks
-                    location.href = 'detailedOppNew.html';
+                    location.href = window.oppDetailHref(card);
                 });
                 card.addEventListener('keydown', function (e) {
                     if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('button, a')) {
                         e.preventDefault();
-                        location.href = 'detailedOppNew.html';
+                        location.href = window.oppDetailHref(card);
                     }
                 });
             });
@@ -3433,6 +4470,289 @@
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
 <script src="nav.js"></script>
+    <script>
+        /* =====================================================================
+           FILTER PANEL HIDE / SHOW (desktop) - Opportunities.html
+
+           Independent of the motion layer. "Hide filters" sits in the panel's own
+           header; while the panel is hidden, the page's existing Filters button
+           above the title brings it back. A class on <body> collapses the panel
+           (see the filter panel rules); Tailwind's `hidden` stays with the mobile
+           drawer. The panel always starts open: nothing is remembered between
+           visits. When the width change ends, a resize event lets both pagers
+           re-fit the row, and scroll triggers are refreshed.
+           ===================================================================== */
+        (function () {
+            var body = document.body;
+            var sidebar = document.getElementById('sidebar');
+            var openBtn = document.getElementById('sidebar-toggle');
+            if (!sidebar || !body.classList.contains('rd')) return;
+            var head = sidebar.querySelector('.sidebar-sticky > div');
+            var desktop = window.matchMedia('(min-width: 1024px)');
+
+            var hideBtn = document.createElement('button');
+            hideBtn.type = 'button';
+            hideBtn.className = 'rd-filters-hide';
+            hideBtn.setAttribute('aria-controls', 'sidebar');
+            hideBtn.setAttribute('aria-label', 'Hide filters');
+            hideBtn.title = 'Hide filters';
+            hideBtn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">left_panel_close</span>';
+            if (head) head.appendChild(hideBtn);
+
+            function syncInert() {
+                /* a hidden panel's filters leave the tab order, on desktop only */
+                if (body.classList.contains('rd-filters-closed') && desktop.matches) sidebar.setAttribute('inert', '');
+                else sidebar.removeAttribute('inert');
+            }
+
+            var relayoutTimer = null;
+            function relayout() {
+                clearTimeout(relayoutTimer);
+                relayoutTimer = setTimeout(function () {
+                    window.dispatchEvent(new Event('resize'));
+                    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+                }, 40);
+            }
+
+            function setClosed(closed) {
+                body.classList.toggle('rd-filters-closed', closed);
+                if (openBtn) openBtn.setAttribute('aria-expanded', closed ? 'false' : 'true');
+                syncInert();
+                /* a fallback for reduced motion, where there is no transitionend */
+                setTimeout(relayout, 600);
+            }
+
+            hideBtn.addEventListener('click', function () {
+                setClosed(true);
+                if (openBtn) openBtn.focus();
+            });
+
+            /* On desktop the Filters button reopens the panel. It is caught here, before
+               the page's own drawer handler, which on desktop would hide the panel. */
+            document.addEventListener('click', function (e) {
+                if (!desktop.matches || !openBtn || !e.target.closest) return;
+                if (e.target.closest('#sidebar-toggle') !== openBtn) return;
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                setClosed(false);
+                hideBtn.focus();
+            }, true);
+
+            sidebar.addEventListener('transitionend', function (e) {
+                if (e.target === sidebar && e.propertyName === 'width') relayout();
+            });
+
+            /* Narrowed to phone width with the panel hidden: the drawer takes over there,
+               so the desktop state is dropped rather than carried across. */
+            window.addEventListener('resize', function () {
+                if (!desktop.matches && body.classList.contains('rd-filters-closed')) body.classList.remove('rd-filters-closed');
+                syncInert();
+            });
+        })();
+    </script>
+    <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script>
+        /* =====================================================================
+           REDESIGN MOTION LAYER - Opportunities.html
+
+           The DetailedSector motion layer, fitted to this page and built to fail
+           open in the same way: nothing is hidden until the libraries are
+           confirmed present, anything hidden is tracked so an error can put it
+           back, and with reduced motion asked for it does nothing.
+
+           One deliberate difference: the cards are NOT faded in here. Both pagers
+           and the filters show and hide cards with display:none, and a card
+           pre-hidden for a scroll entrance that is then paged in later would stay
+           invisible. So the cards keep their place, and the motion is in the
+           header, the eyebrows, the headings, the reading text and its gold rules.
+           Selectors below use no escaped characters.
+           ===================================================================== */
+        (function () {
+            var html = document.documentElement;
+            var hidden = [];
+            var drawn = [];
+
+            function releaseIntro() { html.classList.remove('rd-intro'); }
+
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !window.gsap || !window.ScrollTrigger) { releaseIntro(); return; }
+
+            function start() {
+                try {
+                    run();
+                } catch (err) {
+                    if (window.console) console.warn('[rd] motion layer stopped:', err);
+                    releaseIntro();
+                    html.classList.remove('rd-motion');
+                    if (hidden.length) gsap.set(hidden, { clearProps: 'opacity,transform,visibility' });
+                    drawn.forEach(function (el) { el.style.removeProperty('--rd-draw'); });
+                }
+            }
+
+            var started = false;
+            function once() { if (!started) { started = true; start(); } }
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+            setTimeout(once, 900);
+
+            function run() {
+                gsap.registerPlugin(ScrollTrigger);
+                var hasSplit = !!window.SplitText;
+                if (hasSplit) gsap.registerPlugin(SplitText);
+
+                var main = document.querySelector('main');
+                if (!main) { releaseIntro(); return; }
+                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                var EASE = 'expo.out';
+                function all(root, sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
+                function keep(list) { return list.filter(function (el) { return !!el; }); }
+
+                html.classList.add('rd-motion');
+
+                /* ---- Smooth scroll ---------------------------------------------------- */
+                if (window.Lenis) {
+                    var lenis = new Lenis({ lerp: 0.09, smoothWheel: true, syncTouch: false });
+                    lenis.on('scroll', ScrollTrigger.update);
+                    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+                    gsap.ticker.lagSmoothing(0);
+                    window.__rdLenis = lenis;
+                    /* the filter list, the mobile menu and the header dropdowns scroll on their own */
+                    all(document, '#sidebar .overflow-y-auto, #mobile-nav, .nesp-dropdown').forEach(function (el) {
+                        el.setAttribute('data-lenis-prevent', '');
+                    });
+                }
+
+                /* ---- Reading progress ------------------------------------------------- */
+                var bar = document.createElement('div');
+                bar.className = 'rd-progress';
+                bar.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(bar);
+                gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.4 } });
+
+                /* ---- Header: the gold bar draws, the title's lines rise --------------- */
+                var rule = main.querySelector('div.w-1.h-10');
+                var h1 = main.querySelector('h1');
+                var search = document.getElementById('opp-search');
+                var intro = gsap.timeline({ defaults: { ease: EASE } });
+                if (rule) {
+                    drawn.push(rule);
+                    intro.fromTo(rule, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.4, ease: 'expo.inOut' }, 0.05);
+                }
+                if (h1) {
+                    if (hasSplit) {
+                        var title = SplitText.create(h1, { type: 'lines', mask: 'lines', linesClass: 'rd-line' });
+                        intro.from(title.lines, { yPercent: 144, duration: 1.2, stagger: 0.09, onComplete: function () { title.revert(); } }, 0.15);
+                    } else {
+                        intro.from(h1, { opacity: 0, y: 24, duration: 1.1 }, 0.15);
+                    }
+                }
+                if (search) intro.from(search, { opacity: 0, y: 14, duration: 1, clearProps: 'transform' }, 0.45);
+                releaseIntro();
+
+                /* ---- Eyebrows: the gold rule draws, then the label ------------------- */
+                all(main, '.opp-section-eyebrow').forEach(function (eyebrow) {
+                    var dash = eyebrow.children[0];
+                    var label = eyebrow.children[1];
+                    var tl = gsap.timeline({ scrollTrigger: { trigger: eyebrow, start: 'top 90%', once: true } });
+                    if (dash) tl.from(dash, { scaleX: 0, duration: 1.1, ease: EASE });
+                    if (label) tl.from(label, { opacity: 0, x: -8, duration: 0.9, ease: EASE, clearProps: 'transform' }, 0.15);
+                    hidden = hidden.concat(keep([dash, label]));
+                });
+
+                /* ---- Section headings: lines rise out of a mask ----------------------- */
+                all(main, 'section > h2').forEach(function (h) {
+                    if (!hasSplit) {
+                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+                        hidden.push(h);
+                        return;
+                    }
+                    SplitText.create(h, {
+                        type: 'lines', mask: 'lines', linesClass: 'rd-line', autoSplit: true,
+                        onSplit: function (self) {
+                            return gsap.from(self.lines, {
+                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
+                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
+                            });
+                        }
+                    });
+                });
+
+                /* ---- Reading text: the words light up in reading order ---------------- */
+                var areasIntro = main.querySelector('#opportunity-areas > h2 + p');
+                var provenance = main.querySelector('.opp-provenance');
+                var provenanceText = provenance ? provenance.querySelector('span:last-child') : null;
+                keep([areasIntro, provenanceText]).forEach(function (t) {
+                    if (!hasSplit) return;
+                    var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
+                    hidden = hidden.concat(words);
+                    gsap.fromTo(words, { opacity: 0.2 }, {
+                        opacity: 1, ease: 'none', stagger: 0.1,
+                        scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Gold rules draw down as the text beside them is read ------------ */
+                keep([areasIntro, provenance]).forEach(function (el) {
+                    drawn.push(el);
+                    gsap.fromTo(el, { '--rd-draw': 0 }, {
+                        '--rd-draw': 1, ease: 'none',
+                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
+                    });
+                });
+
+                /* ---- Cursor: a gold highlighter over headings, a ring over cards ---------
+                   Listeners sit on the cards themselves, so paging and filtering do not
+                   need to re-bind anything. */
+                if (fine) {
+                    var cursor = document.createElement('div');
+                    cursor.className = 'rd-cursor';
+                    cursor.setAttribute('aria-hidden', 'true');
+                    var dot = document.createElement('div');
+                    dot.className = 'rd-cursor-dot';
+                    cursor.appendChild(dot);
+                    document.body.appendChild(cursor);
+
+                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
+                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
+                    var placed = false;
+                    window.addEventListener('pointermove', function (e) {
+                        if (e.pointerType && e.pointerType !== 'mouse') return;
+                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
+                        toX(e.clientX);
+                        toY(e.clientY);
+                    }, { passive: true });
+
+                    var off = function () { cursor.removeAttribute('data-mode'); };
+                    function target(el, mode) {
+                        el.addEventListener('pointerenter', function () {
+                            cursor.setAttribute('data-mode', mode);
+                            cursor.setAttribute('data-look', mode);
+                        });
+                        el.addEventListener('pointerleave', off);
+                    }
+                    keep([h1]).concat(all(main, 'section > h2')).forEach(function (h) { target(h, 'text'); });
+                    all(main, '.opportunity-card, .opportunity-area').forEach(function (c) { target(c, 'ring'); });
+                    document.documentElement.addEventListener('mouseleave', off);
+                }
+
+                /* ---- Filters, search and paging change the page's height ---------------- */
+                var refreshTimer = null;
+                function refreshSoon() {
+                    clearTimeout(refreshTimer);
+                    refreshTimer = setTimeout(function () { ScrollTrigger.refresh(); }, 160);
+                }
+                all(document, '.filter-checkbox').forEach(function (box) { box.addEventListener('change', refreshSoon); });
+                all(document, '#search-opportunities').forEach(function (input) { input.addEventListener('input', refreshSoon); });
+                all(document, '#reset-filters, #no-results-reset, .opp-pager').forEach(function (el) { el.addEventListener('click', refreshSoon); });
+
+                window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+                ScrollTrigger.refresh();
+            }
+        })();
+    </script>
 </body>
 
 </html>
