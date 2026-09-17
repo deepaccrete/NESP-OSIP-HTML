@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Invest by State | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="OSIP covers all 36 states and the Federal Capital Territory. See which state profiles are published and which are in preparation." />
+    <title>Invest by State | OSIP, One-Stop Investment Platform</title>
     <!-- Fonts & Icons -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap"
@@ -992,6 +993,8 @@
         }
 
         .rd .osip-map-state {
+            /* the same shade as the "profile in preparation" mark in the key */
+            fill: #c2d9cb !important;
             stroke: #fbfaf7 !important;
         }
 
@@ -1065,6 +1068,19 @@
             border-color: rgba(40, 34, 20, .12) !important;
         }
 
+        .rd .osip-map-key {
+            gap: 8px 22px !important;
+        }
+
+        .rd .osip-map-key i.is-live {
+            background: var(--rd-green);
+            border-color: var(--rd-green) !important;
+        }
+
+        .rd .osip-map-key i.is-pending {
+            background: #c2d9cb;
+        }
+
         .rd .osip-map-credit {
             color: #8f948f !important;
         }
@@ -1114,6 +1130,89 @@
             color: var(--rd-ink-2) !important;
         }
 
+        /* Coverage figures inside the map panel: one quiet row under a hairline,
+           then the rollout line. */
+        .rd .osip-st-legend:first-child {
+            margin-top: 0 !important;
+        }
+
+        .rd .osip-map-stats {
+            margin-top: 26px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rd-line);
+        }
+
+        .rd .osip-map-figs {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin: 0;
+        }
+
+        .rd .osip-map-figs > div {
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 0 14px;
+            border-left: 1px solid var(--rd-line);
+        }
+
+        .rd .osip-map-figs > div:first-child {
+            padding-left: 0;
+            border-left: 0;
+        }
+
+        .rd .osip-map-figs dd {
+            margin: 0;
+            font-family: var(--rd-serif);
+            font-size-adjust: var(--rd-type-adjust);
+            font-size: clamp(24px, 2.1vw, 30px);
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+            color: var(--rd-green);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .rd .osip-map-figs dt {
+            font-size: 10.5px;
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--rd-ink-3);
+        }
+
+        .rd .osip-map-progress {
+            height: 3px;
+            margin-top: 22px;
+            border-radius: 999px;
+            background: var(--rd-line);
+            overflow: hidden;
+        }
+
+        .rd .osip-map-progress span {
+            display: block;
+            height: 100%;
+            min-width: 10px;
+            border-radius: inherit;
+            background: var(--rd-green);
+            transform-origin: 0 50%;
+        }
+
+        .rd .osip-map-progress-note {
+            margin: 10px 0 0;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--rd-ink-3);
+        }
+
+        @media (max-width: 420px) {
+            .rd .osip-map-figs > div { padding: 0 10px; }
+            .rd .osip-map-figs dt { letter-spacing: .1em; }
+        }
+
         .rd .osip-map-status {
             font-weight: 500 !important;
             letter-spacing: .16em !important;
@@ -1128,45 +1227,13 @@
             box-shadow: none;
         }
 
-        .rd .osip-map-cta,
-        .rd .osip-notify-row button {
-            border-radius: 999px !important;
-            background: var(--rd-green) !important;
-            font-weight: 500 !important;
-            opacity: 1 !important;
-            transition: background-color .35s ease !important;
+        .rd .osip-map-wait {
+            margin: 14px 0 18px !important;
+            font-size: 14.5px !important;
+            line-height: 1.55 !important;
+            color: var(--rd-ink-3) !important;
         }
-
-        .rd .osip-map-cta:hover,
-        .rd .osip-notify-row button:hover {
-            background: #062f1f !important;
-        }
-
-        .rd .osip-notify-label {
-            font-weight: 500 !important;
-            color: var(--rd-ink) !important;
-        }
-
-        .rd .osip-notify-row input {
-            padding: 11px 16px !important;
-            background: #ffffff !important;
-            border-color: var(--rd-line-2) !important;
-            border-radius: 999px !important;
-        }
-
-        .rd .osip-notify-row input:focus {
-            border-color: var(--rd-green) !important;
-            box-shadow: 0 0 0 3px rgba(0, 66, 37, .10) !important;
-        }
-
-        .rd .osip-notify-done {
-            color: var(--rd-green) !important;
-            background: #e7f0ea !important;
-            border-color: #cfe0d5 !important;
-            border-radius: 14px !important;
-        }
-
-        /* ---- Directory: search, zone chips, zone heads ----------------------------- */
+/* ---- Directory: search, zone chips, zone heads ----------------------------- */
         .rd .osip-st-search .material-symbols-outlined {
             color: var(--rd-ink-3) !important;
         }
@@ -1572,89 +1639,13 @@
             </div>
         </section>
 
-        <!-- Coverage strip -->
-        <section class="bg-surface-container-lowest py-10 lg:py-12 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
-            <div class="max-w-7xl mx-auto">
-                <div class="osip-st-coverage">
-                <div class="osip-st-stats">
-                    <div class="osip-st-stat">
-                        <span class="osip-st-statnum">36 + FCT</span>
-                        <span class="osip-st-statlabel">States covered</span>
-                    </div>
-                    <div class="osip-st-stat">
-                        <span class="osip-st-statnum">1</span>
-                        <span class="osip-st-statlabel">Profile live</span>
-                    </div>
-                    <div class="osip-st-stat">
-                        <span class="osip-st-statnum">36</span>
-                        <span class="osip-st-statlabel">Profiles in preparation</span>
-                    </div>
-                </div>
-
-                <div class="osip-st-progress">
-                    <div class="osip-st-progress-track">
-                        <span class="osip-st-progress-fill" style="width:2.7%"></span>
-                    </div>
-                    <div class="osip-st-progress-note">
-                        <span>1 of 37 profiles published so far.</span>
-                        <span>Profiles open as each state completes its investment data submission.</span>
-                    </div>
-                </div>
-                </div>
-
-                <div class="osip-st-legend mt-6">
-                    <span class="k"><i></i>Live profile, open to browse</span>
-                    <span class="k"><i class="pending"></i>Profile in preparation, not yet published</span>
-                </div>
-
-                <!-- PORT-01: the portal ownership model, stated where state information
-                     starts. Client decision is Option 1 -- one central OSIP platform that links
-                     out to each state's own portal. OSIP does not host state logins or
-                     state-managed content; the state's own site is always marked external. -->
-                <div class="mt-8 border border-[#e5e7eb] rounded-xl bg-white p-5 sm:p-6">
-                    <p class="text-[11px] font-bold uppercase tracking-[0.16em] text-[#004225] mb-4">How state
-                        information works</p>
-                    <ol class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-                        <li class="flex gap-3">
-                            <span class="material-symbols-outlined text-[#047857] text-[24px] shrink-0"
-                                aria-hidden="true">hub</span>
-                            <span>
-                                <span class="block font-semibold text-[#111827] text-[15px] leading-snug">1. OSIP, the
-                                    federal entry point</span>
-                                <span class="block text-[#5f6368] text-[14px] leading-6 mt-1">Covers all 37 territories
-                                    and points you to the right state.</span>
-                            </span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="material-symbols-outlined text-[#047857] text-[24px] shrink-0"
-                                aria-hidden="true">description</span>
-                            <span>
-                                <span class="block font-semibold text-[#111827] text-[15px] leading-snug">2. The state
-                                    profile on OSIP</span>
-                                <span class="block text-[#5f6368] text-[14px] leading-6 mt-1">A summary of the state's
-                                    sectors, agencies and published opportunities.</span>
-                            </span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="material-symbols-outlined text-[#047857] text-[24px] shrink-0"
-                                aria-hidden="true">open_in_new</span>
-                            <span>
-                                <span class="block font-semibold text-[#111827] text-[15px] leading-snug">3. The state's
-                                    own investment portal</span>
-                                <span class="block text-[#5f6368] text-[14px] leading-6 mt-1">Operated by the state
-                                    government, not by OSIP. State-level processes are handled there.</span>
-                            </span>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </section>
+        <!-- 15 Sep 2026: the strip that held the status legend and "How state information works"
+             was removed; the legend now sits under the map. -->
 
 
         <!-- Nigeria map. All 37 territories are drawn; the one published profile is
              the only lit, clickable shape. Everything else is inert and offers a
-             "tell me when it is ready" reminder instead of a dead link.
-             Outlines: the svg-maps project (CC BY 4.0), credited under the map. -->
+             route to the OSIP team instead of a dead link. -->
         <style>
             .osip-map-wrap {
                 display: grid;
@@ -1693,33 +1684,12 @@
                 outline: none;
             }
 
-            /* One hue, six steps, running north to south. The zones read as bands
-               of a single surface rather than six unrelated colours, which leaves
-               the saturated green free to mean one thing only: this profile is
-               published. */
-            .osip-map-state[data-zone="North West"] {
-                fill: #dbe7de;
-            }
-
-            .osip-map-state[data-zone="North East"] {
-                fill: #b6cec2;
-            }
-
-            .osip-map-state[data-zone="North Central"] {
-                fill: #cadfd2;
-            }
-
-            .osip-map-state[data-zone="South West"] {
-                fill: #a7c6b7;
-            }
-
-            .osip-map-state[data-zone="South East"] {
-                fill: #c2d9cb;
-            }
-
-            .osip-map-state[data-zone="South South"] {
-                fill: #96bcaa;
-            }
+            /* 16 Sep 2026: two colours, and the key under the map names both of
+               them - one shade for every profile in preparation, the saturated
+               green for a profile that is live. The six zone tints were dropped
+               with the zone key: the map was showing more colours than the key
+               explained. The zone of a territory is still named in the panel and
+               in the directory below. */
 
             /* Pointing at one territory quiets the others instead of recolouring
                the one under the cursor, so the map never changes its palette while
@@ -1958,67 +1928,7 @@
             .osip-map-cta:hover {
                 opacity: .9;
             }
-
-            .osip-notify-label {
-                display: block;
-                font-size: 13px;
-                font-weight: 600;
-                color: #111827;
-                margin-bottom: 8px;
-            }
-
-            .osip-notify-row {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .osip-notify-row input {
-                width: 100%;
-                border: 1px solid #cfd8d4;
-                border-radius: 4px;
-                padding: 11px 12px;
-                font-size: 14px;
-                color: #111827;
-                background: #ffffff;
-            }
-
-            .osip-notify-row input:focus {
-                outline: none;
-                border-color: #047857;
-                box-shadow: 0 0 0 3px rgba(4, 120, 87, .12);
-            }
-
-            .osip-notify-row button {
-                border: 0;
-                cursor: pointer;
-                background: #004225;
-                color: #ffffff;
-                padding: 11px 18px;
-                font-size: 14px;
-                font-weight: 600;
-                border-radius: 4px;
-                transition: opacity .3s ease;
-            }
-
-            .osip-notify-row button:hover {
-                opacity: .9;
-            }
-
-            .osip-notify-done {
-                display: flex;
-                align-items: flex-start;
-                gap: 10px;
-                background: #e6f2ec;
-                border: 1px solid #cfe0d7;
-                border-radius: 8px;
-                padding: 12px 14px;
-                font-size: 13px;
-                line-height: 1.55;
-                color: #14532d;
-            }
-
-            .osip-map-hint {
+.osip-map-hint {
                 font-size: 12.5px;
                 line-height: 1.6;
                 color: #6b746f;
@@ -2051,20 +1961,6 @@
                     top: 96px;
                 }
             }
-
-            @media (width >=40rem) {
-                .osip-notify-row {
-                    flex-direction: row;
-                }
-
-                .osip-notify-row input {
-                    flex: 1 1 auto;
-                }
-
-                .osip-notify-row button {
-                    flex: 0 0 auto;
-                }
-            }
         </style>
 
         <section class="bg-[#f3f4f2] py-12 lg:py-16 px-6 lg:px-8" id="map"
@@ -2075,7 +1971,7 @@
                         style="font-family: Manrope, sans-serif;">Nigeria at a Glance</h2>
                     <p class="text-[#5f6368] text-[15px] leading-7">All 36 states and the Federal Capital
                         Territory are on the map. Select any territory to see where its investment profile stands. Where
-                        a profile is still being prepared you can ask to be told the moment it goes live.</p>
+                        a profile is still being prepared the OSIP team can point you to the state's own investment agency.</p>
                 </div>
 
                 <div class="osip-map-wrap">
@@ -2129,24 +2025,28 @@
                         <span class="osip-map-kicker">Selected territory</span>
                         <div class="osip-map-name" id="osip-map-name">Pick a territory</div>
                         <p class="osip-map-hint" id="osip-map-body">Hover the map to read a territory's name, then
-                            select it. Enugu is published today. Every other profile is in preparation, and you can
-                            leave an address to be notified when it opens.</p>
+                            select it. Enugu is published today. Every other profile is in preparation, and the OSIP
+                            team can help while you wait.</p>
+
+                        <!-- Coverage figures (moved from the strip above the map). Kept outside
+                             #osip-map-body, which the map script rewrites on selection. -->
+                        <div class="osip-map-stats">
+                            <dl class="osip-map-figs">
+                                <div><dt>States covered</dt><dd class="osip-map-fig">36 + FCT</dd></div>
+                                <div><dt>Profile live</dt><dd class="osip-map-fig">1</dd></div>
+                                <div><dt>Profiles in preparation</dt><dd class="osip-map-fig">36</dd></div>
+                            </dl>
+                            <div class="osip-map-progress" aria-hidden="true"><span style="width:2.7%"></span></div>
+                            <p class="osip-map-progress-note">1 of 37 profiles published so far. Profiles open as each
+                                state completes its investment data submission.</p>
+                        </div>
                     </aside>
                 </div>
 
                 <div class="osip-map-key">
-                    <b>Zones</b>
-                    <span><i style="background:#dbe7de"></i>North West</span>
-                    <span><i style="background:#b6cec2"></i>North East</span>
-                    <span><i style="background:#cadfd2"></i>North Central</span>
-                    <span><i style="background:#a7c6b7"></i>South West</span>
-                    <span><i style="background:#c2d9cb"></i>South East</span>
-                    <span><i style="background:#96bcaa"></i>South South</span>
+                    <span><i class="is-live"></i>Live profile, open to browse</span>
+                    <span><i class="is-pending"></i>Profile in preparation, not yet published</span>
                 </div>
-
-                <p class="osip-map-credit">State outlines from the
-                    <a href="https://github.com/VictorCazanave/svg-maps" target="_blank"
-                        rel="noopener">svg-maps</a> project, used under CC BY 4.0.</p>
             </div>
         </section>
 
@@ -2188,25 +2088,12 @@
                         bodyEl.innerHTML =
                             '<p class="osip-map-zone">' + esc(zone) + '</p>' +
                             '<span class="osip-map-status"><i></i>Profile in preparation</span>' +
-                            '<form class="osip-notify-form">' +
-                            '<label class="osip-notify-label" for="osip-notify-email">Tell me when ' +
-                            esc(name) + ' is ready</label>' +
-                            '<div class="osip-notify-row">' +
-                            '<input id="osip-notify-email" type="email" required placeholder="you@company.com" ' +
-                            'aria-label="Email address for the ' + esc(name) + ' profile reminder">' +
-                            '<button type="submit">Notify me</button>' +
-                            '</div></form>';
-
-                        var form = bodyEl.querySelector('.osip-notify-form');
-                        form.addEventListener('submit', function (e) {
-                            e.preventDefault();
-                            var addr = form.querySelector('input').value.trim();
-                            form.outerHTML =
-                                '<div class="osip-notify-done">' +
-                                '<span class="material-symbols-outlined text-[18px]">check_circle</span>' +
-                                '<span>Noted. We will write to ' + esc(addr) + ' as soon as the ' +
-                                esc(name) + ' profile is published.</span></div>';
-                        });
+                            '<p class="osip-map-wait">The OSIP team can connect you to the ' +
+                            esc(name) + ' state investment agency while the profile is being ' +
+                            'prepared.</p>' +
+                            '<a class="osip-map-cta" href="Contact.html?category=state&amp;state=' +
+                            encodeURIComponent(name) + '">Contact the OSIP team ' +
+                            '<span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>';
                     }
                 }
 
@@ -2221,8 +2108,9 @@
                     });
                     el.addEventListener('mouseleave', function () { tip.hidden = true; });
                     // A territory whose profile is published opens that profile
-                    // straight away; the rest are selected, so the panel can offer
-                    // the "tell me when it is ready" form.
+                    // straight away; the rest are selected, so the panel can point
+                    // the reader at the OSIP team (16 Sep 2026: this replaced a
+                    // "tell me when it is ready" form that went nowhere).
                     function activate() {
                         var href = el.getAttribute('data-href');
                         if (href) { location.href = href; return; }
@@ -2686,7 +2574,7 @@
                         style="font-family: Manrope, sans-serif;">Every territory, by zone</h2>
                     <p class="text-[#5f6368] text-[15px] leading-7 max-w-3xl">Search for a state, or narrow the list
                         to one geopolitical zone. Published profiles open directly; the rest take you to the map,
-                        where you can ask to be told the moment they go live.</p>
+                        where you can reach the OSIP team about that state.</p>
                 </div>
 
                 <!-- Thirty-seven names is a lot to read through, so the list can be
@@ -2694,7 +2582,7 @@
                      is front-end only and resets itself when a link elsewhere on the
                      site jumps to a particular zone, so a hash can never land on a
                      block the filter is hiding. -->
-                <div class="osip-st-toolbar">
+                <div class="osip-st-toolbar" data-osip-filters="#osip-st-directory">
                     <div class="osip-st-search">
                         <span class="material-symbols-outlined">search</span>
                         <input id="osip-st-q" type="search" autocomplete="off"
@@ -2714,7 +2602,8 @@
                 <p class="osip-st-count" id="osip-st-count" aria-live="polite">Showing all 37 territories.</p>
                 <p class="osip-st-empty" id="osip-st-empty" hidden>No territory matches that search.</p>
 
-                <div class="space-y-10 lg:space-y-12">
+                <div class="space-y-10 lg:space-y-12" id="osip-st-directory" data-osip-list
+                    data-osip-label="territories" data-osip-empty="#osip-st-empty">
 
                 <div id="north-central" class="osip-st-zone scroll-mt-24" data-zone="north-central">
                     <div class="osip-st-zonehead">
@@ -3101,6 +2990,12 @@
 
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
+    <!-- UX-FRM-07: loading, empty, error and success states. The lists on this page
+         are marked data-osip-list; osipstate.js gives each one the loader while it
+         is working, a message when a filter matches nothing, an error state when
+         its data does not arrive, and the confirmations the page shows after an
+         action. -->
+    <script src="osipstate.js"></script>
     <script src="nav.js"></script>
     <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
@@ -3369,10 +3264,10 @@
                         onComplete: function () { el.textContent = final; }
                     });
                 }
-                inRest('.osip-st-statnum').forEach(function (el) {
+                inRest('.osip-st-statnum, .osip-map-fig').forEach(function (el) {
                     ScrollTrigger.create({ trigger: el, start: 'top 92%', once: true, onEnter: function () { countUp(el); } });
                 });
-                inRest('.osip-st-progress-fill').forEach(function (fill) {
+                inRest('.osip-st-progress-fill, .osip-map-progress span').forEach(function (fill) {
                     hidden.push(fill);
                     gsap.from(fill, { scaleX: 0, duration: 1.8, ease: 'expo.inOut', clearProps: 'transform', scrollTrigger: { trigger: fill, start: 'top 94%', once: true } });
                 });

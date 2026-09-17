@@ -5,9 +5,10 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="A rising investment powerhouse in South-East Nigeria, rich in coal, limestone and arable land, and targeting a $30bn economy by 2031." />
     <!-- enable scroll/entrance animations only when JS is on (avoids a flash of hidden content) -->
     <script>document.documentElement.classList.add('js-anim');</script>
-    <title>Enugu State | One-Stop Investment Platform (OSIP)</title>
+    <title>Enugu State | OSIP, One-Stop Investment Platform</title>
     <!-- Fonts & Icons -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap"
@@ -649,11 +650,14 @@
 
         /* ---- Opportunities: the homepage's card (15 Sep 2026) ---- */
         .rd main > section:nth-of-type(5) h2 { margin: 0 !important; }
-        .rd .opp-grid { grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)) !important; gap: 24px !important; }
+        /* The grid and the card keep the size the component is drawn at on
+           Opportunities.html: 314px tracks from the left, and the card's own
+           min-h-[380px]. This page had stretched the track to a 300px floor and
+           forced min-height to 404px, which made three cards 389px wide and
+           shorter than the same card on the listing page. */
         .rd .opportunity-card {
             position: relative;
             overflow: hidden;
-            max-width: none !important; min-height: 404px !important;
             padding: 24px !important;
             background: var(--rd-card) !important;
             border: 1px solid var(--rd-line) !important;
@@ -691,21 +695,40 @@
         .rd .opportunity-card .inv-box p + p { font-size: 32px !important; font-weight: 400 !important; line-height: 1.1 !important; letter-spacing: -0.02em !important; color: var(--rd-green) !important; }
         .rd .opportunity-card .border-y { border-color: var(--rd-line) !important; }
         .rd .opportunity-card .border-y .font-semibold { font-weight: 600 !important; color: var(--rd-ink) !important; }
-        .rd .opportunity-card .flex.gap-2 { align-items: center !important; justify-content: space-between !important; gap: 10px !important; }
-        .rd .opportunity-card .flex.gap-2 > a {
-            flex: 0 0 auto !important;
-            display: inline-flex !important; align-items: center; gap: 6px;
-            border-radius: 999px !important; box-shadow: none !important;
-            font-size: 13px !important; font-weight: 500 !important; line-height: 1.2 !important;
-            white-space: nowrap;
-            transition: background-color .35s ease, border-color .35s ease, color .35s ease !important;
+        /* One action, drawn as the listing page draws it: centred, full width, on a
+           soft green tint that fills in on hover. These are the rules Opportunities.html,
+           homepage.html and InvestorMatch.html carry under id="rd-card-actions", so a
+           card here is the card the reader meets there. It used to be two - a text
+           "View project details" beside a solid "Invest Now" - which matched no other card
+           on the site, and both went to the same place. */
+        .rd .opportunity-card .flex.gap-2 {
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0 !important;
+            padding-top: 16px !important;
         }
-        .rd .opportunity-card .flex.gap-2 > a:first-child { padding: 8px 0 !important; background: transparent !important; border-color: transparent !important; color: var(--rd-green) !important; }
-        .rd .opportunity-card .flex.gap-2 > a:first-child:hover { color: var(--rd-green-2) !important; background: transparent !important; }
-        .rd .opportunity-card .flex.gap-2 > a:last-child { padding: 9px 16px !important; background: var(--rd-green) !important; border-color: var(--rd-green) !important; color: #ffffff !important; opacity: 1 !important; }
-        .rd .opportunity-card .flex.gap-2 > a:last-child:hover { background: #062f1f !important; border-color: #062f1f !important; }
-        .rd .opportunity-card .opp-btn-arrow { font-size: 15px !important; transition: transform .28s cubic-bezier(.22, .61, .36, 1); }
-        .rd .opportunity-card .flex.gap-2 > a:hover .opp-btn-arrow { transform: translateX(3px); }
+        .rd .opportunity-card .flex.gap-2 > a {
+            flex: 1 1 auto !important;
+            display: inline-flex !important; align-items: center; justify-content: center; gap: 8px;
+            width: 100% !important;
+            min-height: 44px;
+            padding: 11px 20px !important;
+            border: 1px solid transparent !important;
+            border-radius: 999px !important;
+            background: #edf3ef !important;
+            color: var(--rd-green) !important;
+            font-size: 14px !important; font-weight: 500 !important; line-height: 1.2 !important;
+            white-space: nowrap; text-decoration: none !important; box-shadow: none !important;
+            transition: background-color .35s ease, color .35s ease !important;
+        }
+        .rd .opportunity-card .flex.gap-2 > a:hover { background: var(--rd-green) !important; color: #ffffff !important; }
+        .rd .opportunity-card .flex.gap-2 > a:focus-visible { outline: 2px solid var(--rd-green-2); outline-offset: 3px; }
+        .rd .opportunity-card .flex.gap-2 .opp-btn-arrow {
+            display: inline-block !important;
+            font-size: 17px !important;
+            transition: transform .45s cubic-bezier(.16, 1, .3, 1);
+        }
+        .rd .opportunity-card .flex.gap-2 > a:hover .opp-btn-arrow { transform: translateX(4px); }
 
         @media (prefers-reduced-motion: reduce) {
             html.rd-intro main > section:first-of-type .max-w-3xl > * { opacity: 1 !important; }
@@ -973,6 +996,12 @@
             <div class="max-w-[1440px] mx-auto">
                 <div class="reveal flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 lg:mb-14">
                     <div>
+                        <!-- UX-LNK-11: each card is the Active Opportunities card from
+                             Opportunities.html - one action, the same fields in the same
+                             order - and opens its own project, detailedOppNew.html?id=<the
+                             card's ID>. Both buttons used to point at detailedOppNew.html
+                             with no id, so all three landed on Katsina Wind Farm. The
+                             projects are records in oppdata.js. -->
                         <h2 class="text-[28px] md:text-[36px] font-bold text-primary uppercase tracking-wide"
                             style="font-family: Manrope, sans-serif;">Opportunities in Enugu</h2>
                         <div class="w-14 h-[3px] bg-[#1a5c3a] mt-3"></div>
@@ -986,96 +1015,82 @@
                         <span class="material-symbols-outlined card-watermark" aria-hidden="true">agriculture</span>
                         <div class="mb-6">
                             <p class="text-[12px] text-on-surface-variant mb-1 uppercase tracking-wider">ID: 2026-ENU-01</p>
-                            <h3 class="text-base font-bold text-on-surface leading-tight mb-1"
+                            <h3 class="text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2"
                                 style="font-family: Manrope, sans-serif;">Enugu Agro-Industrial Cluster</h3>
                             <span class="sector-badge"><span
-                                    class="material-symbols-outlined">category</span>Sector : Agriculture</span>
+                                    class="material-symbols-outlined">category</span>Sector: Agriculture</span>
                             <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-[12px] mb-1">Investment Amount</p>
-                            <p class="text-[26px] font-bold text-primary tracking-tight leading-none">USD 0.45 <span
-                                    class="text-[13px] font-normal text-on-surface-variant">bn</span></p>
+                            <p class="text-[26px] font-bold text-primary tracking-tight leading-none">USD 450 <span
+                                    class="text-[13px] font-normal text-on-surface-variant">m</span></p>
                         </div>
                         <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-[12px]"><span class="text-on-surface-variant">State:</span><span
-                                    class="font-semibold">Enugu — Nsukka Zone</span></div>
+                            <div class="flex justify-between text-[12px]"><span class="text-on-surface-variant">Location:</span><span
+                                    class="font-semibold">Enugu State</span></div>
                             <div class="flex justify-between text-[12px]"><span
                                     class="text-on-surface-variant">Published:</span><span class="font-semibold">08 Jul 2026</span></div>
                         </div>
                         <div class="flex gap-2 mt-auto pt-2">
-                            <a href="detailedOppNew.html"
-                                class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold text-[12px] hover:bg-surface-container-high transition-all rounded">View
-                                in Detail <span class="material-symbols-outlined opp-btn-arrow" aria-hidden="true">arrow_forward</span></a>
-                            <a href="detailedOppNew.html"
-                                class="flex-1 text-center py-2 border border-transparent bg-primary-container text-white font-semibold text-[12px] hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now <span class="material-symbols-outlined opp-btn-arrow" aria-hidden="true">arrow_forward</span></a>
+                            <a href="detailedOppNew.html?id=2026-ENU-01"
+                                class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold text-[12px] hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow" aria-hidden="true">arrow_forward</span></a>
                         </div>
                     </div>
-
                     <!-- Opportunity 2 -->
                     <div
                         class="reveal opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300">
                         <span class="material-symbols-outlined card-watermark" aria-hidden="true">bolt</span>
                         <div class="mb-6">
                             <p class="text-[12px] text-on-surface-variant mb-1 uppercase tracking-wider">ID: 2026-ENU-02</p>
-                            <h3 class="text-base font-bold text-on-surface leading-tight mb-1"
+                            <h3 class="text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2"
                                 style="font-family: Manrope, sans-serif;">Enugu Coal-to-Power Programme</h3>
                             <span class="sector-badge"><span
-                                    class="material-symbols-outlined">category</span>Sector : Energy &amp; Mining</span>
+                                    class="material-symbols-outlined">category</span>Sector: Energy &amp; Mining</span>
                             <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-[12px] mb-1">Investment Amount</p>
-                            <p class="text-[26px] font-bold text-primary tracking-tight leading-none">USD 1.20 <span
+                            <p class="text-[26px] font-bold text-primary tracking-tight leading-none">USD 1.2 <span
                                     class="text-[13px] font-normal text-on-surface-variant">bn</span></p>
                         </div>
                         <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-[12px]"><span class="text-on-surface-variant">State:</span><span
-                                    class="font-semibold">Enugu — Coal City</span></div>
+                            <div class="flex justify-between text-[12px]"><span class="text-on-surface-variant">Location:</span><span
+                                    class="font-semibold">Enugu State</span></div>
                             <div class="flex justify-between text-[12px]"><span
                                     class="text-on-surface-variant">Published:</span><span class="font-semibold">08 Jul 2026</span></div>
                         </div>
                         <div class="flex gap-2 mt-auto pt-2">
-                            <a href="detailedOppNew.html"
-                                class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold text-[12px] hover:bg-surface-container-high transition-all rounded">View
-                                in Detail <span class="material-symbols-outlined opp-btn-arrow" aria-hidden="true">arrow_forward</span></a>
-                            <a href="detailedOppNew.html"
-                                class="flex-1 text-center py-2 border border-transparent bg-primary-container text-white font-semibold text-[12px] hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now <span class="material-symbols-outlined opp-btn-arrow" aria-hidden="true">arrow_forward</span></a>
+                            <a href="detailedOppNew.html?id=2026-ENU-02"
+                                class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold text-[12px] hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow" aria-hidden="true">arrow_forward</span></a>
                         </div>
                     </div>
-
                     <!-- Opportunity 3 -->
                     <div
                         class="reveal opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300">
                         <span class="material-symbols-outlined card-watermark" aria-hidden="true">forest</span>
                         <div class="mb-6">
                             <p class="text-[12px] text-on-surface-variant mb-1 uppercase tracking-wider">ID: 2026-ENU-03</p>
-                            <h3 class="text-base font-bold text-on-surface leading-tight mb-1"
+                            <h3 class="text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2"
                                 style="font-family: Manrope, sans-serif;">Awhum Waterfall Eco-Resort</h3>
                             <span class="sector-badge"><span
-                                    class="material-symbols-outlined">category</span>Sector : Tourism &amp; Hospitality</span>
+                                    class="material-symbols-outlined">category</span>Sector: Tourism &amp; Hospitality</span>
                             <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-[12px] mb-1">Investment Amount</p>
-                            <p class="text-[26px] font-bold text-primary tracking-tight leading-none">USD 0.085 <span
-                                    class="text-[13px] font-normal text-on-surface-variant">bn</span></p>
+                            <p class="text-[26px] font-bold text-primary tracking-tight leading-none">USD 85 <span
+                                    class="text-[13px] font-normal text-on-surface-variant">m</span></p>
                         </div>
                         <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
-                            <div class="flex justify-between text-[12px]"><span class="text-on-surface-variant">State:</span><span
-                                    class="font-semibold">Enugu — Udi</span></div>
+                            <div class="flex justify-between text-[12px]"><span class="text-on-surface-variant">Location:</span><span
+                                    class="font-semibold">Enugu State</span></div>
                             <div class="flex justify-between text-[12px]"><span
                                     class="text-on-surface-variant">Published:</span><span class="font-semibold">08 Jul 2026</span></div>
                         </div>
                         <div class="flex gap-2 mt-auto pt-2">
-                            <a href="detailedOppNew.html"
-                                class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold text-[12px] hover:bg-surface-container-high transition-all rounded">View
-                                in Detail <span class="material-symbols-outlined opp-btn-arrow" aria-hidden="true">arrow_forward</span></a>
-                            <a href="detailedOppNew.html"
-                                class="flex-1 text-center py-2 border border-transparent bg-primary-container text-white font-semibold text-[12px] hover:opacity-90 transition-all rounded shadow-sm">Invest
-                                Now <span class="material-symbols-outlined opp-btn-arrow" aria-hidden="true">arrow_forward</span></a>
+                            <a href="detailedOppNew.html?id=2026-ENU-03"
+                                class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold text-[12px] hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow" aria-hidden="true">arrow_forward</span></a>
                         </div>
                     </div>
 
@@ -1342,6 +1357,41 @@
             counts.forEach(function (c) { if (!c.closest('.reveal')) cio.observe(c); });
         })();
     </script>
+    <!-- UX-LNK-11: the whole card opens its project, the same wiring
+         Opportunities.html carries. The motion layer already draws the ring
+         cursor over these cards, so they read as one target; only the button
+         answered a click. Inner links keep their own. -->
+    <script>
+        (function () {
+            var cards = document.querySelectorAll('.opp-grid .opportunity-card');
+            if (!cards.length) return;
+
+            /* The address comes off the card's own "ID:" line, so a card and its
+               page can never drift apart. */
+            function href(card) {
+                var idLine = card.querySelector('p');
+                var m = idLine ? idLine.textContent.match(/ID:\s*([A-Za-z0-9-]+)/) : null;
+                return 'detailedOppNew.html' + (m ? '?id=' + encodeURIComponent(m[1].toUpperCase()) : '');
+            }
+
+            cards.forEach(function (card) {
+                card.style.cursor = 'pointer';
+                card.setAttribute('role', 'link');
+                card.setAttribute('tabindex', '0');
+                card.addEventListener('click', function (e) {
+                    if (e.target.closest('button, a')) return;
+                    location.href = href(card);
+                });
+                card.addEventListener('keydown', function (e) {
+                    if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('button, a')) {
+                        e.preventDefault();
+                        location.href = href(card);
+                    }
+                });
+            });
+        })();
+    </script>
+
     <!-- Invest Now popup flow -->
     <script src="footer.js"></script>
     <script src="investflow.js"></script>

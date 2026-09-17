@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Data &amp; Insights | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Investment, capacity and project metrics across Nigeria's renewable energy and efficiency landscape, with the source and year for each figure." />
+    <title>Data &amp; Insights | OSIP, One-Stop Investment Platform</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <!-- Type: Inter only (14 Sep 2026), as on DetailedSector.html -->
     <link
@@ -656,6 +657,42 @@
         }
 
         .d-feature-body a:hover { text-decoration: none; }
+
+        /* the dataset card's footer, once it holds a control (17 Sep 2026) */
+        .rd .d-feature-foot {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 14px;
+        }
+
+        .rd .d-feature-left {
+            flex-direction: row !important;
+            align-items: baseline;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        /* the download control on a dataset card (17 Sep 2026) */
+        .rd .d-feature-get {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: var(--rd-green, #004225);
+            color: #ffffff;
+            font-family: var(--rd-sans, Inter, sans-serif);
+            font-size: 12.5px;
+            font-weight: 500;
+            letter-spacing: .01em;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background-color .3s ease, transform .3s ease;
+        }
+
+        .rd .d-feature-get:hover { background: var(--rd-green-2, #0b6b45); }
+        .rd .d-feature-get:focus-visible { outline: 2px solid var(--rd-green-2, #0b6b45); outline-offset: 3px; }
+        .rd .d-feature-get .material-symbols-outlined { font-size: 16px; }
 
         .d-feature-foot {
             display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -1966,7 +2003,7 @@
                 <div class="max-w-3xl">
                     <div class="osip-hero-eyebrow"><i></i><span>Data &amp; Insights</span></div>
                     <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight" style="text-wrap: balance">
-                        Investment, Capacity &amp; Policy Data</h1>
+                        Data &amp; Insights</h1>
                     <p
                         class="text-base sm:text-lg text-white/80 mb-10 leading-relaxed max-w-2xl border-l-4 border-amber-400 pl-6">
                         Investment, capacity and project metrics across Nigeria's <strong class="text-white">Renewable
@@ -2310,7 +2347,8 @@
              Data tab is where the national picture gets compared, with each card
              going back to the sector for the rest of the story. Storage has no
              hotspot block on its page, so it is absent rather than invented. -->
-            <div id="hotspots" class="d-section pb-2">
+            <div id="hotspots" class="d-section pb-2" data-osip-list data-osip-label="hotspots"
+                data-osip-empty="#hotspots-empty">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
                 <div>
                     <div class="d-eyebrow"><i></i><span>Sector Hotspots</span></div>
@@ -2389,7 +2427,7 @@
                         <span class="material-symbols-outlined d-hot-arrow text-[19px]"
                             aria-hidden="true">arrow_outward</span>
                     </div>
-                    <div class="d-hot-body">                    <p class="d-hot-desc text-body-sm font-body-sm text-on-surface-variant leading-relaxed">High-opportunity bioenergy markets span Nigeria's major agricultural zones and urban centers, from cassava belts in the southwest to rice husk corridors in the northwest and palm oil states in the south.</p>
+                    <div class="d-hot-body">                    <p class="d-hot-desc text-body-sm font-body-sm text-on-surface-variant leading-relaxed">High-opportunity bioenergy markets span Nigeria's major agricultural zones and urban centres, from cassava belts in the southwest to rice husk corridors in the northwest and palm oil states in the south.</p>
                     <div class="d-hot-chips mt-4">
                         <span class="d-chip"><span class="material-symbols-outlined">location_on</span>Lagos (MSW)</span>
                         <span class="d-chip"><span class="material-symbols-outlined">location_on</span>FCT (MSW)</span>
@@ -2697,8 +2735,10 @@
                     <div class="d-eyebrow"><i></i><span>Open Data</span></div>
                     <h2 class="d-h2">Open Data Downloads</h2>
                     <p class="text-body-sm font-body-sm text-on-surface-variant mt-2 rd-read rd-rule">The datasets OSIP
-                        intends to publish. None is downloadable yet &mdash; each is listed so the scope is visible,
-                        and each will carry its source and reference date when it goes up.</p>
+                        intends to publish. Each one opens a <strong class="text-on-surface">sample file</strong> in the
+                        format it will be published in, so you can see its shape and columns now. The figures in them
+                        are illustrative, not reported data; the published editions will carry their source, method and
+                        reference date.</p>
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
@@ -2706,32 +2746,36 @@
                     <h4 class="d-feature-title">RE &amp; EE Investment by State 2024</h4>
                     <p class="d-feature-body">State-by-state breakdown of capital deployed across RE generation, EE retrofits, grid and storage.</p>
                     <div class="d-feature-foot">
-                        <span class="d-feature-left"><span class="d-feature-fmt">CSV</span><span class="d-feature-status">Not yet published</span></span>
-                        <span class="osip-pending osip-pending-end">In preparation</span>
+                        <span class="d-feature-left"><span class="d-feature-fmt">CSV</span><span class="d-feature-status">Sample &middot; 621 B</span></span>
+                        <a class="d-feature-get" href="docs/sample-re-ee-investment-by-state-2024.csv" download>Download sample
+                            <span class="material-symbols-outlined" aria-hidden="true">download</span></a>
                     </div>
                 </div>
                 <div class="d-card d-feature reveal" style="--i:1">
                     <h4 class="d-feature-title">RE Capacity Trends</h4>
                     <p class="d-feature-body">Installed and commissioned RE capacity by technology and geopolitical zone.</p>
                     <div class="d-feature-foot">
-                        <span class="d-feature-left"><span class="d-feature-fmt">XLSX</span><span class="d-feature-status">Not yet published</span></span>
-                        <span class="osip-pending osip-pending-end">In preparation</span>
+                        <span class="d-feature-left"><span class="d-feature-fmt">XLSX</span><span class="d-feature-status">Sample &middot; 2 KB</span></span>
+                        <a class="d-feature-get" href="docs/sample-re-capacity-trends.xlsx" download>Download sample
+                            <span class="material-symbols-outlined" aria-hidden="true">download</span></a>
                     </div>
                 </div>
                 <div class="d-card d-feature reveal" style="--i:2">
                     <h4 class="d-feature-title">NESP &middot; OSIP Impact Report</h4>
                     <p class="d-feature-body">Annual socio-economic and investment outcomes across the RE &amp; EE portfolio.</p>
                     <div class="d-feature-foot">
-                        <span class="d-feature-left"><span class="d-feature-fmt">PDF</span><span class="d-feature-status">Not yet published</span></span>
-                        <span class="osip-pending osip-pending-end">In preparation</span>
+                        <span class="d-feature-left"><span class="d-feature-fmt">PDF</span><span class="d-feature-status">Sample &middot; 2 KB</span></span>
+                        <a class="d-feature-get" href="docs/sample-nesp-osip-impact-report.pdf" target="_blank" rel="noopener">View sample PDF
+                            <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span></a>
                     </div>
                 </div>
                 <div class="d-card d-feature reveal" style="--i:3">
                     <h4 class="d-feature-title">OSIP Open Data API</h4>
                     <p class="d-feature-body">Programmatic access to OSIP's investment, capacity and project pipeline datasets.</p>
                     <div class="d-feature-foot">
-                        <span class="d-feature-left"><span class="d-feature-fmt">JSON</span><span class="d-feature-status">Not yet published</span></span>
-                        <span class="osip-pending osip-pending-end">In preparation</span>
+                        <span class="d-feature-left"><span class="d-feature-fmt">JSON</span><span class="d-feature-status">Sample &middot; 897 B</span></span>
+                        <a class="d-feature-get" href="docs/sample-osip-open-data-api.json" target="_blank" rel="noopener">View sample response
+                            <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span></a>
                     </div>
                 </div>
             </div>
@@ -3703,6 +3747,12 @@
     <!-- Invest Now popup flow -->
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
+    <!-- UX-FRM-07: loading, empty, error and success states. The lists on this page
+         are marked data-osip-list; osipstate.js gives each one the loader while it
+         is working, a message when a filter matches nothing, an error state when
+         its data does not arrive, and the confirmations the page shows after an
+         action. -->
+    <script src="osipstate.js"></script>
 <script src="nav.js"></script>
     <!-- Redesign motion libraries (the same builds DetailedSector.html loads) -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>

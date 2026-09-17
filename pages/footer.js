@@ -32,13 +32,9 @@
           </div>
           <div>
             <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-5">Quick Links</h4>
-            <ul class="nesp-foot-links grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-x-6 gap-y-3">
+            <ul class="nesp-foot-links grid grid-cols-1 gap-y-3">
               <li><a href="{{base}}AboutOSIP.html" class="text-sm sm:text-base hover:text-white transition-colors">About
                   OSIP</a></li>
-              <li><a href="{{base}}AboutOSIP.html" class="text-sm sm:text-base hover:text-white transition-colors">About
-                  the Platform</a></li>
-              <li><a href="{{base}}Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Investor
-                  Support</a></li>
               <li><a href="{{base}}FAQs.html"
                   class="text-sm sm:text-base hover:text-white transition-colors">FAQs</a></li>
               <li><a href="{{base}}Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">Contact
@@ -46,11 +42,7 @@
               <li><a href="{{base}}News.html" class="text-sm sm:text-base hover:text-white transition-colors">News</a></li>
               <li><a href="{{base}}Event.html"
                   class="text-sm sm:text-base hover:text-white transition-colors">Events</a></li>
-              <li><a href="{{base}}Announcements.html"
-                  class="text-sm sm:text-base hover:text-white transition-colors">Announcements</a></li>
-              <li><a href="{{base}}Contact.html"
-                  class="text-sm sm:text-base hover:text-white transition-colors">Contact</a></li>
-              <li><a href="{{base}}Contact.html" class="text-sm sm:text-base hover:text-white transition-colors">OSIP Help
+              <li><a href="{{base}}HelpDesk.html" class="text-sm sm:text-base hover:text-white transition-colors">OSIP Help
                   Desk</a></li>
               <li class="nesp-foot-soon"><span>Privacy Policy</span><em>Coming soon</em></li>
               <li class="nesp-foot-soon"><span>Terms of Use</span><em>Coming soon</em></li>
@@ -64,10 +56,9 @@
                   class="material-symbols-outlined text-[20px] text-white/70 flex-shrink-0">mail</span><a
                   href="mailto:info@osip.gov.ng"
                   class="text-sm sm:text-base hover:text-white transition-colors break-all">info@osip.gov.ng</a></li>
-              <li class="flex items-start gap-3"><span
-                  class="material-symbols-outlined text-[20px] text-white/70 flex-shrink-0">call</span><a
-                  href="tel:+2349000000000" class="text-sm sm:text-base hover:text-white transition-colors">+234 (0)9
-                  000 0000</a></li>
+              <!-- UX-TEC-06 (15 Sep 2026): the placeholder phone line (not a dialable
+                   number) is removed until a monitored number is confirmed.
+                   To restore, add a <li> here matching the email row with a call icon. -->
               <li class="flex items-start gap-3"><span
                   class="material-symbols-outlined text-[20px] text-white/70 flex-shrink-0">location_on</span><span
                   class="text-sm sm:text-base">Federal Ministry of Power, Abuja, Nigeria</span></li>
@@ -166,7 +157,7 @@
       .nesp-footer .nesp-foot-brand p{font-family:Inter,system-ui,sans-serif;font-size-adjust:.515;font-size:1.0625rem;line-height:1.72;color:rgba(243,239,230,.66);margin:0;max-width:40rem}
       .nesp-footer h4,.nesp-footer .nesp-foot-social-title{font-family:Inter,system-ui,sans-serif;color:#d9a520;font-size:.6875rem;font-weight:500;text-transform:uppercase;letter-spacing:.24em;margin:0 0 1.375rem}
       .nesp-footer ul{list-style:none;margin:0;padding:0}
-      .nesp-footer .nesp-foot-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));row-gap:.75rem;column-gap:1.5rem}
+      .nesp-footer .nesp-foot-links{display:grid;grid-template-columns:minmax(0,1fr);row-gap:.75rem}
       /* Links carry an underline that draws in from the left on hover. */
       .nesp-footer a{color:rgba(243,239,230,.82);text-decoration:none;font-family:Inter,system-ui,sans-serif;font-size-adjust:.515;font-size:1.0625rem;line-height:1.4;background-image:linear-gradient(currentColor,currentColor);background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:color .3s ease,background-size .5s cubic-bezier(.16,1,.3,1)}
       .nesp-footer a:hover{color:#ffffff;background-size:100% 1px}

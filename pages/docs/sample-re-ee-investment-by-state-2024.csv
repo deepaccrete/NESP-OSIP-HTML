@@ -1,0 +1,9 @@
+# OSIP sample file. This file is not sourced from any real or official source. It is provided solely for representational and illustrative purposes.
+# Columns: state, zone, re_generation_usd_m, ee_retrofit_usd_m, grid_usd_m, storage_usd_m, as_at
+state,zone,re_generation_usd_m,ee_retrofit_usd_m,grid_usd_m,storage_usd_m,as_at
+Lagos,South West,412.5,88.2,61.0,45.3,2026-06-30
+Kaduna,North West,204.1,31.7,52.4,12.9,2026-06-30
+Enugu,South East,96.8,18.4,27.5,6.2,2026-06-30
+Rivers,South South,150.3,42.9,33.1,9.8,2026-06-30
+Niger,North Central,187.6,22.5,48.7,7.4,2026-06-30
+Bauchi,North East,74.2,11.9,19.3,3.1,2026-06-30

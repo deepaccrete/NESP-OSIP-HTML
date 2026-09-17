@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Opportunities | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Two ways in: the business models open to any investor, and the projects published so far. Narrow by sector, state and stage." />
+    <title>Investment Opportunities | OSIP, One-Stop Investment Platform</title>
     <!-- Google Fonts: Inter (body) + Manrope (headings) — matches Homepage -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -457,6 +458,40 @@
         .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
         .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
 
+        /* The stage tag: the other axis a card can carry. A project's stage says
+           where the project itself has got to; a readiness tag says what it needs
+           from an investor now. A card shows one or the other, so the two are
+           drawn differently - the readiness tag is a pale wash with a coloured
+           dot, the stage tag a plain outline with a track icon - and nobody has
+           to read the words to tell which list they are looking at. */
+        .stage-tag {
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px 3px 7px;
+            border-radius: 6px;
+            background: #ffffff;
+            border: 1px solid #d8ded9;
+            color: #44504a;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        .stage-tag .material-symbols-outlined {
+            font-size: 14px;
+            color: #6b7f74;
+        }
+
+        .stage-tag[data-stage="conceptualization"] .material-symbols-outlined { color: #94a3b8; }
+        .stage-tag[data-stage="development"] .material-symbols-outlined { color: #d19a2e; }
+        .stage-tag[data-stage="implementation"] .material-symbols-outlined { color: #1f9d5f; }
+        .stage-tag[data-stage="completed"] .material-symbols-outlined { color: #3b7dd8; }
+
         /* ------------------------------------------------------------------
            OPP-01: business models come first.
            The unit here is the BUSINESS MODEL, not the sector. Sector.html
@@ -829,6 +864,22 @@
             color: #004225;
         }
 
+        /* The result count under each section title: how many cards the filters
+           leave and which of them this page is showing. Same tracked-caps line the
+           other index pages use for their counts. */
+        .opp-count {
+            margin: 0 0 18px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #6b716c;
+        }
+
+        .opp-count:empty {
+            display: none;
+        }
+
         /* The standing note under "Active Opportunities". It is the visible half of
            OPP-01's second clause: it tells the reader why this list is short
            instead of letting a thin pipeline read as the whole market. */
@@ -1167,24 +1218,37 @@
             margin-bottom: clamp(40px, 5vw, 64px) !important;
         }
 
-        .rd main div.w-1.h-10 {
-            width: 1px !important;
-            height: 60px !important;
-            background: #f7be26 !important;
-            transform: scaleY(var(--rd-draw, 1));
-            transform-origin: 50% 0;
+        /* The reading column is centred in the space next to the filter panel, so the
+           cards are not pinned to the right edge on a wide screen (16 Sep 2026). */
+        .rd main {
+            width: 100% !important;
+            max-width: 1180px !important;
+            margin-inline: auto !important;
         }
 
         .rd main h1 {
             font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
-            font-weight: 400 !important;
-            /* 14 Sep 2026: a step smaller, so the title no longer outweighs the page */
-            font-size: clamp(34px, 3vw, 46px) !important;
-            line-height: 1.08 !important;
-            letter-spacing: -0.025em !important;
+            /* 16 Sep 2026: the same weight and scale as the News page heading */
+            font-weight: 500 !important;
+            font-size: clamp(42px, 5.2vw, 76px) !important;
+            line-height: 1.02 !important;
+            letter-spacing: -0.032em !important;
             color: var(--rd-ink) !important;
             text-wrap: balance;
         }
+
+        /* the line under the title: what this page holds, in one sentence */
+        .rd main .opp-lede {
+            max-width: 46rem;
+            margin: 0;
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+            font-size: 16.5px;
+            line-height: 1.65;
+            color: var(--rd-ink-3);
+        }
+
+        .rd main .opp-head { margin-bottom: clamp(40px, 5vw, 64px) !important; }
 
         .rd .opp-search {
             height: 50px;
@@ -1207,9 +1271,18 @@
 
         /* The header waits for its entrance; see the flag script in <head>. */
         html.rd-intro main h1,
-        html.rd-intro #opp-search,
-        html.rd-intro main div.w-1.h-10 {
+        html.rd-intro #opp-search {
             opacity: 0 !important;
+        }
+
+        /* ---- Result counts ------------------------------------------------------------ */
+        .rd .opp-count {
+            margin: -6px 0 20px !important;
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .2em !important;
+            color: var(--rd-ink-3) !important;
         }
 
         /* ---- Section eyebrows: a finer gold rule and a quieter label --------------- */
@@ -1265,7 +1338,7 @@
            introduction, and the provenance note's gold edge, draw downwards over the
            same scroll range as the words light up. One custom property, --rd-draw,
            scrubbed by the motion layer; without it the lines are simply there. */
-        .rd #opportunity-areas > h2 + p {
+        .rd #opportunity-areas > .opp-count + p {
             position: relative;
             max-width: 62rem;
             margin-bottom: clamp(32px, 3.6vw, 48px) !important;
@@ -1299,7 +1372,7 @@
             font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
         }
 
-        .rd #opportunity-areas > h2 + p::before,
+        .rd #opportunity-areas > .opp-count + p::before,
         .rd .opp-provenance::before {
             content: "";
             position: absolute;
@@ -1454,6 +1527,18 @@
 
         .rd #opportunities-grid .sector-badge,
         .rd #opportunities-grid .readiness-tag { font-weight: 500 !important; }
+
+        .rd #opportunities-grid .stage-tag {
+            margin-top: 6px !important;
+            border-color: var(--rd-line-2) !important;
+            /* Square-ish where the readiness tag is a pill: the shape alone says
+               which of the two lists this card is on. */
+            border-radius: 8px !important;
+            background: var(--rd-card) !important;
+            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+            font-weight: 500 !important;
+            color: var(--rd-ink-2) !important;
+        }
 
         .rd #opportunities-grid .opportunity-card .flex.gap-2 button {
             border-radius: 999px !important;
@@ -1783,14 +1868,13 @@
 
         /* ---- Small screens and reduced motion ------------------------------------------------------ */
         @media (max-width: 639px) {
-            .rd #opportunity-areas > h2 + p { font-size: 17px !important; }
+            .rd #opportunity-areas > .opp-count + p { font-size: 17px !important; }
             .rd .opp-provenance { font-size: 15.5px !important; }
         }
 
         @media (prefers-reduced-motion: reduce) {
             html.rd-intro main h1,
-            html.rd-intro #opp-search,
-            html.rd-intro main div.w-1.h-10 {
+            html.rd-intro #opp-search {
                 opacity: 1 !important;
             }
 
@@ -1924,143 +2008,63 @@
             }
         }
 
-        /* ---- Search: an icon while the title row is tight (14 Sep 2026) -----------------
-           With the filter panel open the row was too narrow for the title and a 384px
-           search, so the title broke onto a second line. While the row is 1120px or less
-           the search is a round icon; clicking it (or tabbing to it) opens the field into
-           the space beside the title, which stays on one line, and it stays open while it
-           holds a search. The whole circle is the field, so it needs no script. Phones keep
-           the full-width field under the title. */
-        @media (min-width: 768px) {
-            .rd main > div:first-of-type {
-                container: opphead / inline-size;
-            }
-        }
-
-        @media (min-width: 768px) {
-            @container opphead (max-width: 1120px) {
-                .rd main > div:first-of-type > div:first-child {
-                    flex: 0 0 auto;
-                    max-width: calc(100% - 66px);
-                }
-
-                .rd main .opp-search {
-                    flex: 0 0 50px;
-                    width: 50px !important;
-                    min-width: 50px;
-                    margin-left: auto;
-                    cursor: pointer;
-                    transition: flex-basis .45s cubic-bezier(.22, 1, .36, 1), width .45s cubic-bezier(.22, 1, .36, 1),
-                        background-color .3s ease, border-color .3s ease, box-shadow .3s ease !important;
-                }
-
-                .rd main .opp-search input {
-                    padding: 0 !important;
-                    color: transparent !important;
-                    caret-color: transparent;
-                    cursor: pointer;
-                }
-
-                .rd main .opp-search input::placeholder { color: transparent !important; }
-
-                .rd main .opp-search .opp-search-icon {
-                    left: 50% !important;
-                    transform: translateX(-50%);
-                    color: var(--rd-green) !important;
-                    pointer-events: none;
-                }
-
-                .rd main .opp-search .opp-search-clear { display: none; }
-
-                .rd main .opp-search:hover { border-color: var(--rd-green) !important; }
-
-                .rd main .opp-search:focus-within,
-                .rd main .opp-search.has-value {
-                    flex: 1 1 384px;
-                    width: auto !important;
-                    max-width: 384px;
-                    cursor: text;
-                }
-
-                .rd main .opp-search:focus-within input,
-                .rd main .opp-search.has-value input {
-                    padding-left: 46px !important;
-                    color: var(--rd-ink) !important;
-                    caret-color: auto;
-                    cursor: text;
-                }
-
-                .rd main .opp-search:focus-within input::placeholder,
-                .rd main .opp-search.has-value input::placeholder { color: var(--rd-ink-3) !important; }
-
-                .rd main .opp-search:focus-within .opp-search-icon,
-                .rd main .opp-search.has-value .opp-search-icon {
-                    left: 18px !important;
-                    transform: none;
-                }
-
-                .rd main .opp-search:focus-within .opp-search-clear,
-                .rd main .opp-search.has-value .opp-search-clear { display: inline-flex; }
-            }
-        }
+        /* 17 Sep 2026: the search used to shrink to a round icon here, because the title
+           and a 384px field could not share one row. The title has the row to itself now
+           and the field sits under it, so that treatment is gone. The previous CSS is in
+           OSIP/Backups/Opportunities/. */
 
     </style>
     <style id="rd-card-actions">
-        /* Opportunity card actions (11 Sep 2026): compact, each on one line.
-           "View in Detail" is a quiet text link with its arrow and "Invest Now" a
-           small pill sized to its label, so neither stretches across the card.
-           Shared by homepage.html and pages/Opportunities.html so both card sets
-           stay identical. Fonts are deliberately not set here. */
-        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 {
-            flex-wrap: wrap;
+        /* Opportunity card action (15 Sep 2026): one "View project details" button, centred,
+           on a soft green tint that fills in on hover. Shared by homepage.html,
+           pages/Opportunities.html and pages/InvestorMatch.html so the cards match. */
+        html body:not(#rd-ca-a):not(#rd-ca-b) :is(#opportunities-grid, .osip-opp-grid, #quiz-opps) .opportunity-card .flex.gap-2 {
+            justify-content: center !important;
             align-items: center !important;
-            justify-content: space-between !important;
-            gap: 10px !important;
+            gap: 0 !important;
+            padding-top: 16px !important;
         }
 
-        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button {
-            flex: 0 0 auto !important;
-            width: auto !important;
-            min-width: 0 !important;
-            white-space: nowrap !important;
-            line-height: 1.2 !important;
-            box-shadow: none !important;
-        }
-
-        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button:first-child {
-            gap: 6px !important;
-            padding: 8px 0 !important;
-            border-color: transparent !important;
-            background: transparent !important;
+        html body:not(#rd-ca-a):not(#rd-ca-b) :is(#opportunities-grid, .osip-opp-grid, #quiz-opps) .opportunity-card .flex.gap-2 > :is(button, a) {
+            flex: 1 1 auto !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            width: 100% !important;
+            min-height: 44px;
+            padding: 11px 20px !important;
+            border: 1px solid transparent !important;
+            border-radius: 999px !important;
+            background: #edf3ef !important;
             color: var(--rd-green, #004225) !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+            white-space: nowrap !important;
+            text-decoration: none !important;
+            box-shadow: none !important;
+            transition: background-color .35s ease, color .35s ease !important;
         }
 
-        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button:first-child:hover {
-            border-color: transparent !important;
-            background: transparent !important;
-            color: var(--rd-green-2, #0b6b45) !important;
+        html body:not(#rd-ca-a):not(#rd-ca-b) :is(#opportunities-grid, .osip-opp-grid, #quiz-opps) .opportunity-card .flex.gap-2 > :is(button, a):hover {
+            background: var(--rd-green, #004225) !important;
+            color: #ffffff !important;
         }
 
-        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button:last-child {
-            gap: 6px !important;
-            padding: 9px 16px !important;
+        html body:not(#rd-ca-a):not(#rd-ca-b) :is(#opportunities-grid, .osip-opp-grid, #quiz-opps) .opportunity-card .flex.gap-2 > :is(button, a):focus-visible {
+            outline: 2px solid var(--rd-green-2, #0b6b45);
+            outline-offset: 3px;
         }
 
-        /* Narrow cards (1280px screens with the filters open, four-up rows when
-           they are hidden, the homepage, phones): the arrows step aside so both
-           actions still share one row instead of stacking. */
-        html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 {
-            container-type: inline-size;
+        html body:not(#rd-ca-a):not(#rd-ca-b) :is(#opportunities-grid, .osip-opp-grid, #quiz-opps) .opportunity-card .flex.gap-2 .opp-btn-arrow {
+            display: inline-block !important;
+            font-size: 17px !important;
+            transition: transform .45s cubic-bezier(.16, 1, .3, 1);
         }
 
-        @container (width < 272px) {
-            html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button .opp-btn-arrow {
-                display: none !important;
-            }
-
-            html body.rd :is(#opportunities-grid, .osip-opp-grid) .opportunity-card .flex.gap-2 > button:last-child {
-                padding: 9px 13px !important;
-            }
+        html body:not(#rd-ca-a):not(#rd-ca-b) :is(#opportunities-grid, .osip-opp-grid, #quiz-opps) .opportunity-card .flex.gap-2 > :is(button, a):hover .opp-btn-arrow {
+            transform: translateX(4px);
         }
     </style>
 </head>
@@ -2075,7 +2079,7 @@
         <div id="sidebar-backdrop" class="hidden fixed left-0 right-0 bottom-0 top-[68px] bg-black/40 z-30 lg:hidden">
         </div>
         <!-- Side Navigation Bar (Filters) -->
-        <aside id="sidebar"
+        <aside id="sidebar" data-osip-filters="#opportunities-grid"
             class="flex flex-col py-6 px-4 gap-y-stack-md w-[280px] max-w-[85vw] lg:w-[280px] flex-shrink-0 bg-surface-container-low border-r border-outline-variant overflow-hidden z-40">
             <button id="sidebar-close"
                 class="absolute right-3 top-2.5 text-on-surface-variant hover:text-primary lg:hidden"><span
@@ -2156,7 +2160,7 @@
                                 data-group="sector" data-value="green-hydrogen" type="checkbox" /><span
                                 class="text-label-md text-on-surface-variant group-hover:text-primary">Green Hydrogen</span></label>
                     </div>
-                    <button type="button"
+                    <button type="button" aria-label="Show all Sectors filters" aria-expanded="false"
                         class="view-more-btn mt-2 flex items-center gap-2 text-primary text-[12px] font-bold hover:underline"><span
                             class="material-symbols-outlined text-[18px]">expand_more</span><span
                             class="label-text">View more</span></button>
@@ -2327,21 +2331,27 @@
                                 data-group="state" data-value="zamfara" type="checkbox" /><span
                                 class="text-label-md text-on-surface-variant group-hover:text-primary">Zamfara</span></label>
                     </div>
-                    <button type="button"
+                    <button type="button" aria-label="Show all States filters" aria-expanded="false"
                         class="view-more-btn mt-2 flex items-center gap-2 text-primary text-[12px] font-bold hover:underline"><span
                             class="material-symbols-outlined text-[18px]">expand_more</span><span
                             class="label-text">View more</span></button>
                 </div>
                 <!-- Readiness -->
-                <!-- OPP-01: this slot held a "Project Stages" filter (Planning /
-                     Tendering / Under Construction / Operational). GOPA's note on
-                     the Opportunities tab warned that project stage "might be a
-                     bit difficult to maintain subsequently" and asked for the
-                     simpler readiness tags instead. Those tags shipped as OPP-02
-                     and already sit on every card, so the stage filter was both
-                     unmaintainable and a duplicate. The cards keep their
-                     data-stage attribute untouched in case the client reinstates
-                     it; nothing reads it now. -->
+                <!-- OPP-01 / OPP-02: the two axes, side by side.
+                     This slot once held a "Project Stages" filter (Planning /
+                     Tendering / Under Construction / Operational), which was
+                     dropped when GOPA's note warned that project stage "might be
+                     a bit difficult to maintain subsequently" and asked for the
+                     simpler readiness tags. The tags shipped as OPP-02 and are
+                     the client's own list of six.
+                     They are not, though, the same question: a stage says where
+                     the PROJECT has got to, a readiness tag says what it needs
+                     from an INVESTOR now. While the design is being reviewed both
+                     are offered here, and each project answers to one of them -
+                     `track` in oppdata.js, and the tag the card carries. Pick a
+                     readiness tag and you are filtering the projects listed by
+                     readiness; pick a stage and you are filtering the ones listed
+                     by stage. -->
                 <div class="filter-group">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Readiness
@@ -2391,7 +2401,49 @@
                                 validation</span>
                         </label>
                     </div>
-                    <button type="button"
+                    <button type="button" aria-label="Show all Readiness filters" aria-expanded="false"
+                        class="view-more-btn mt-2 flex items-center gap-2 text-primary text-[12px] font-bold hover:underline"><span
+                            class="material-symbols-outlined text-[18px]">expand_more</span><span
+                            class="label-text">View more</span></button>
+                </div>
+                <!-- Project stage: the project's own lifecycle, the axis the
+                     detail page draws as a four-step track. -->
+                <div class="filter-group">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Project
+                            stage</h3>
+                        <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">4</span>
+                    </div>
+                    <div class="space-y-2.5">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
+                                data-group="stage" data-value="conceptualization" type="checkbox" />
+                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Under
+                                Conceptualisation</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
+                                data-group="stage" data-value="development" type="checkbox" />
+                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Under
+                                Development</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
+                                data-group="stage" data-value="implementation" type="checkbox" />
+                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Under
+                                Implementation</span>
+                        </label>
+                        <label class="filter-extra flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
+                                data-group="stage" data-value="completed" type="checkbox" />
+                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Completed</span>
+                        </label>
+                    </div>
+                    <button type="button" aria-label="Show all Project stage filters" aria-expanded="false"
                         class="view-more-btn mt-2 flex items-center gap-2 text-primary text-[12px] font-bold hover:underline"><span
                             class="material-symbols-outlined text-[18px]">expand_more</span><span
                             class="label-text">View more</span></button>
@@ -2413,11 +2465,10 @@
                 <span class="material-symbols-outlined text-[18px]">filter_alt</span> Filters
             </button>
             <!-- Page Header + Search -->
-            <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
-                    <h1 class="font-headline-lg text-[28px] sm:text-[36px] font-bold text-primary">Investment Opportunities</h1>
-                </div>
+            <div class="opp-head flex flex-col gap-5 mb-12">
+                <h1 class="font-headline-lg text-[28px] sm:text-[36px] font-bold text-primary">Investment Opportunities</h1>
+                <p class="opp-lede">Two ways in: the business models open to any investor, and the projects
+                    published so far. Search both, or narrow them with the filters.</p>
                 <div id="opp-search" class="opp-search w-full md:w-96">
                     <span class="material-symbols-outlined opp-search-icon" aria-hidden="true">search</span>
                     <label class="sr-only" for="search-opportunities">Search opportunity areas and projects</label>
@@ -2444,12 +2495,16 @@
                 <div class="opp-section-eyebrow"><span></span><span>Start here</span></div>
                 <h2 class="font-headline-lg text-[24px] sm:text-[30px] font-bold text-on-surface mb-3">Opportunity Areas
                 </h2>
+                <!-- How many areas the filters leave, and which of them are on screen.
+                     Written by the pager, which is the only thing that knows both. -->
+                <p id="areas-count" class="opp-count" role="status" aria-live="polite"></p>
                 <p class="text-label-md text-on-surface-variant mb-8">The ways to take part in
                     Nigeria&#39;s energy transition, drawn from every sector on the One-Stop Investment Platform. Each
                     one is open whether or not a named project is listed below. Start from the model that fits your
                     capital and capability, then follow it through to the licences, regulations and incentives that
                     apply to it. Use the sector filter to narrow the list.</p>
-                <div id="areas-grid" class="area-grid">
+                <div id="areas-grid" class="area-grid" data-osip-list data-osip-label="opportunity areas"
+                    data-osip-reset="#reset-filters">
                     <article class="opportunity-area" data-sector="solar">
                         <div class="area-media">
                             <img src="sector-Solar-hero.jpg" alt="" loading="lazy" decoding="async" />
@@ -2479,7 +2534,7 @@
                         </div>
                         <div class="area-body">
                             <h3>Under 100 kW (Off-Grid)</h3>
-                            <p class="area-lede">NERC Registration only : the lightest-touch tier for community and isolated-system wind deployment.</p>
+                            <p class="area-lede">NERC Registration only: the lightest-touch tier for community and isolated-system wind deployment.</p>
                             <div class="area-links">
                                 <a class="area-cta" href="Wind.html#participate"
                                     aria-label="How to participate: Under 100 kW (Off-Grid), Wind">How to participate <span
@@ -2585,7 +2640,7 @@
                         </div>
                         <div class="area-body">
                             <h3>Non-Electric Track</h3>
-                            <p class="area-lede">LPG, cookstoves, briquettes, household biogas digesters : the lightest regulatory pathway. No NERC licence, no grid compliance, and minimal environmental review for small-scale operations.</p>
+                            <p class="area-lede">LPG, cookstoves, briquettes, household biogas digesters: the lightest regulatory pathway. No NERC licence, no grid compliance, and minimal environmental review for small-scale operations.</p>
                             <div class="area-links">
                                 <a class="area-cta" href="CleanCooking.html#participate"
                                     aria-label="How to participate: Non-Electric Track, Clean Cooking">How to participate <span
@@ -2606,7 +2661,7 @@
                         </div>
                         <div class="area-body">
                             <h3>Electricity Generation Track</h3>
-                            <p class="area-lede">Governed by NERC. A Generation License is required for grid-connected projects above 1 MW; a Captive Generation Permit applies for self-use at or above 1 MW; a separate Generation License is required to sell surplus of 1 MW or above to third parties; and a Mini-Grid Permit applies for projects under 1 MW.</p>
+                            <p class="area-lede">Governed by NERC. A Generation Licence is required for grid-connected projects above 1 MW; a Captive Generation Permit applies for self-use at or above 1 MW; a separate Generation Licence is required to sell surplus of 1 MW or above to third parties; and a Mini-Grid Permit applies for projects under 1 MW.</p>
                             <div class="area-links">
                                 <a class="area-cta" href="Bioenergy.html#participate"
                                     aria-label="How to participate: Electricity Generation Track, Bioenergy">How to participate <span
@@ -2627,7 +2682,7 @@
                         </div>
                         <div class="area-body">
                             <h3>Non-electric Assets</h3>
-                            <p class="area-lede">Irrigation pumps, dryers, agro-processing equipment: the lightest regulatory pathway. No NERC license required unless electricity generation is part of the project.</p>
+                            <p class="area-lede">Irrigation pumps, dryers, agro-processing equipment: the lightest regulatory pathway. No NERC licence required unless electricity generation is part of the project.</p>
                             <div class="area-links">
                                 <a class="area-cta" href="AgriculturePUE.html#participate"
                                     aria-label="How to participate: Non-electric Assets, Agriculture PUE">How to participate <span
@@ -2797,7 +2852,7 @@
                         </div>
                         <div class="area-body">
                             <h3>Electric Track</h3>
-                            <p class="area-lede">eCooking, RE-integrated systems, commercial biomass-to-power : triggers NERC licensing, NEMSA certification, and REA/REF engagement under the same frameworks as other electricity-generating technologies.</p>
+                            <p class="area-lede">eCooking, RE-integrated systems, commercial biomass-to-power: triggers NERC licensing, NEMSA certification, and REA/REF engagement under the same frameworks as other electricity-generating technologies.</p>
                             <div class="area-links">
                                 <a class="area-cta" href="CleanCooking.html#participate"
                                     aria-label="How to participate: Electric Track, Clean Cooking">How to participate <span
@@ -2903,7 +2958,7 @@
                         </div>
                         <div class="area-body">
                             <h3>Above 1 MW (Grid-Connected)</h3>
-                            <p class="area-lede">Full NERC Generation License required. Must comply with NERC Grid Code and execute a TCN Grid Connection Agreement. Typical range: 10-50 MW.</p>
+                            <p class="area-lede">Full NERC Generation Licence required. Must comply with NERC Grid Code and execute a TCN Grid Connection Agreement. Typical range: 10–50 MW.</p>
                             <div class="area-links">
                                 <a class="area-cta" href="Wind.html#participate"
                                     aria-label="How to participate: Above 1 MW (Grid-Connected), Wind">How to participate <span
@@ -3309,6 +3364,7 @@
                 <div class="opp-section-eyebrow"><span></span><span>Open to investors</span></div>
                 <h2 class="font-headline-lg text-[24px] sm:text-[30px] font-bold text-on-surface mb-3">Active
                     Opportunities</h2>
+                <p id="projects-count" class="opp-count" role="status" aria-live="polite"></p>
                 <div class="opp-provenance">
                     <span class="material-symbols-outlined">verified_user</span>
                     <span>Only projects whose information has been approved by the Federal Ministry of Power, GIZ or the
@@ -3330,10 +3386,11 @@
                  Agriculture PUE deliberately has no project. It is the case OPP-01
                  is built for: a sector with a live opportunity area and no named
                  project yet. -->
-            <div id="opportunities-grid" class="opp-grid">
+            <div id="opportunities-grid" class="opp-grid" data-osip-list data-osip-label="opportunities"
+                data-osip-empty="#no-results" data-osip-reset="#no-results-reset">
                 <!-- Opportunity Card 1 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="solar" data-state="" data-scheme="" data-readiness="preparation"
+                    data-sector="solar" data-state="" data-scheme="" data-stage="development"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">solar_power</span>
                     <div class="mb-6">
@@ -3342,9 +3399,9 @@
                         <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                             Solar Power Naija - Phase II</h3>
                         <span class="sector-badge"><span
-                                class="material-symbols-outlined">category</span>Sector : Solar</span>
-                        <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot"
-                                aria-hidden="true"></span>Under preparation</span>
+                                class="material-symbols-outlined">category</span>Sector: Solar</span>
+                        <span class="stage-tag" data-stage="development"><span
+                                class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 2: Under Development</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3353,7 +3410,7 @@
                     </div>
                     <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                         <div class="flex justify-between text-label-sm">
-                            <span class="text-on-surface-variant">State:</span>
+                            <span class="text-on-surface-variant">Location:</span>
                             <span class="font-semibold">Multi-State</span>
                         </div>
                         <div class="flex justify-between text-label-sm"><span
@@ -3361,17 +3418,13 @@
                                 class="font-semibold">18 Feb 2026</span></div>
                     </div>
                     <div class="flex gap-2 mt-auto pt-2">
-                        <button
-                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                            in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
-                        <button
-                            class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                            Now <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        <button aria-label="View project details: Solar Power Naija - Phase II"
+                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                     </div>
                 </div>
                 <!-- Opportunity Card 2 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="wind" data-state="katsina" data-scheme="" data-readiness="tender"
+                    data-sector="wind" data-state="katsina" data-scheme="" data-stage="implementation"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">wind_power</span>
                     <div class="mb-6">
@@ -3380,9 +3433,9 @@
                         <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                             Katsina Wind Farm Phase I</h3>
                         <span class="sector-badge"><span
-                                class="material-symbols-outlined">category</span>Sector : Wind</span>
-                        <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot"
-                                aria-hidden="true"></span>Tender / procurement</span>
+                                class="material-symbols-outlined">category</span>Sector: Wind</span>
+                        <span class="stage-tag" data-stage="implementation"><span
+                                class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 3: Under Implementation</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3391,7 +3444,7 @@
                     </div>
                     <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                         <div class="flex justify-between text-label-sm">
-                            <span class="text-on-surface-variant">State:</span>
+                            <span class="text-on-surface-variant">Location:</span>
                             <span class="font-semibold">Katsina State</span>
                         </div>
                         <div class="flex justify-between text-label-sm"><span
@@ -3399,12 +3452,8 @@
                                 class="font-semibold">05 May 2026</span></div>
                     </div>
                     <div class="flex gap-2 mt-auto pt-2">
-                        <button
-                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                            in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
-                        <button
-                            class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                            Now <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        <button aria-label="View project details: Katsina Wind Farm Phase I"
+                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                     </div>
                 </div>
                 <!-- Opportunity Card 3 -->
@@ -3418,7 +3467,7 @@
                         <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                             Nasarawa Lithium Processing Hub</h3>
                         <span class="sector-badge"><span
-                                class="material-symbols-outlined">category</span>Sector : Storage</span>
+                                class="material-symbols-outlined">category</span>Sector: Storage</span>
                         <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot"
                                 aria-hidden="true"></span>Seeking investor interest</span>
                     </div>
@@ -3429,7 +3478,7 @@
                     </div>
                     <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                         <div class="flex justify-between text-label-sm">
-                            <span class="text-on-surface-variant">State:</span>
+                            <span class="text-on-surface-variant">Location:</span>
                             <span class="font-semibold">Nasarawa State</span>
                         </div>
                         <div class="flex justify-between text-label-sm"><span
@@ -3437,17 +3486,13 @@
                                 class="font-semibold">14 Jan 2026</span></div>
                     </div>
                     <div class="flex gap-2 mt-auto pt-2">
-                        <button
-                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                            in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
-                        <button
-                            class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                            Now <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        <button aria-label="View project details: Nasarawa Lithium Processing Hub"
+                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                     </div>
                 </div>
                 <!-- Opportunity Card 4 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="small-hydro" data-state="cross-river" data-scheme="" data-readiness="concept"
+                    data-sector="small-hydro" data-state="cross-river" data-scheme="" data-stage="conceptualization"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">water</span>
                     <div class="mb-6">
@@ -3456,9 +3501,9 @@
                         <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                             Cross River Small Hydro Cluster</h3>
                         <span class="sector-badge"><span
-                                class="material-symbols-outlined">category</span>Sector : Small Hydro</span>
-                        <span class="readiness-tag" data-readiness="concept"><span class="readiness-dot"
-                                aria-hidden="true"></span>Concept</span>
+                                class="material-symbols-outlined">category</span>Sector: Small Hydro</span>
+                        <span class="stage-tag" data-stage="conceptualization"><span
+                                class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 1: Under Conceptualisation</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3467,7 +3512,7 @@
                     </div>
                     <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                         <div class="flex justify-between text-label-sm">
-                            <span class="text-on-surface-variant">State:</span>
+                            <span class="text-on-surface-variant">Location:</span>
                             <span class="font-semibold">Cross River State</span>
                         </div>
                         <div class="flex justify-between text-label-sm"><span
@@ -3475,17 +3520,13 @@
                                 class="font-semibold">22 Jun 2026</span></div>
                     </div>
                     <div class="flex gap-2 mt-auto pt-2">
-                        <button
-                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                            in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
-                        <button
-                            class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                            Now <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        <button aria-label="View project details: Cross River Small Hydro Cluster"
+                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                     </div>
                 </div>
                 <!-- Opportunity Card 5 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="green-mobility" data-state="lagos" data-scheme="" data-readiness="interest"
+                    data-sector="green-mobility" data-state="lagos" data-scheme="" data-stage="development"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">electric_car</span>
                     <div class="mb-6">
@@ -3494,9 +3535,9 @@
                         <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                             Lagos EV Charging Network</h3>
                         <span class="sector-badge"><span
-                                class="material-symbols-outlined">category</span>Sector : Green Mobility</span>
-                        <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot"
-                                aria-hidden="true"></span>Seeking investor interest</span>
+                                class="material-symbols-outlined">category</span>Sector: Green Mobility</span>
+                        <span class="stage-tag" data-stage="development"><span
+                                class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 2: Under Development</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3505,7 +3546,7 @@
                     </div>
                     <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                         <div class="flex justify-between text-label-sm">
-                            <span class="text-on-surface-variant">State:</span>
+                            <span class="text-on-surface-variant">Location:</span>
                             <span class="font-semibold">Lagos State</span>
                         </div>
                         <div class="flex justify-between text-label-sm"><span
@@ -3513,12 +3554,8 @@
                                 class="font-semibold">09 Apr 2026</span></div>
                     </div>
                     <div class="flex gap-2 mt-auto pt-2">
-                        <button
-                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                            in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
-                        <button
-                            class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                            Now <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        <button aria-label="View project details: Lagos EV Charging Network"
+                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                     </div>
                 </div>
                 <!-- Opportunity Card 6 -->
@@ -3532,7 +3569,7 @@
                         <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                             Ogun Industrial Efficiency Programme</h3>
                         <span class="sector-badge"><span
-                                class="material-symbols-outlined">category</span>Sector : Energy Efficiency</span>
+                                class="material-symbols-outlined">category</span>Sector: Energy Efficiency</span>
                         <span class="readiness-tag" data-readiness="financing"><span class="readiness-dot"
                                 aria-hidden="true"></span>Financing sought</span>
                     </div>
@@ -3543,7 +3580,7 @@
                     </div>
                     <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                         <div class="flex justify-between text-label-sm">
-                            <span class="text-on-surface-variant">State:</span>
+                            <span class="text-on-surface-variant">Location:</span>
                             <span class="font-semibold">Ogun State</span>
                         </div>
                         <div class="flex justify-between text-label-sm"><span
@@ -3551,12 +3588,8 @@
                                 class="font-semibold">30 Jul 2026</span></div>
                     </div>
                     <div class="flex gap-2 mt-auto pt-2">
-                        <button
-                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                            in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
-                        <button
-                            class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                            Now <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        <button aria-label="View project details: Ogun Industrial Efficiency Programme"
+                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                     </div>
                 </div>
                 <!-- Opportunity Card 7 -->
@@ -3570,7 +3603,7 @@
                         <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                             Kano Clean Cooking Rollout</h3>
                         <span class="sector-badge"><span
-                                class="material-symbols-outlined">category</span>Sector : Clean Cooking</span>
+                                class="material-symbols-outlined">category</span>Sector: Clean Cooking</span>
                         <span class="readiness-tag" data-readiness="validation"><span class="readiness-dot"
                                 aria-hidden="true"></span>Requires validation</span>
                     </div>
@@ -3581,7 +3614,7 @@
                     </div>
                     <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                         <div class="flex justify-between text-label-sm">
-                            <span class="text-on-surface-variant">State:</span>
+                            <span class="text-on-surface-variant">Location:</span>
                             <span class="font-semibold">Kano State</span>
                         </div>
                         <div class="flex justify-between text-label-sm"><span
@@ -3589,12 +3622,8 @@
                                 class="font-semibold">11 Mar 2026</span></div>
                     </div>
                     <div class="flex gap-2 mt-auto pt-2">
-                        <button
-                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                            in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
-                        <button
-                            class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                            Now <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        <button aria-label="View project details: Kano Clean Cooking Rollout"
+                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                     </div>
                 </div>
                 <!-- Opportunity Card 8 -->
@@ -3608,7 +3637,7 @@
                         <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                             Benue Biomass-to-Power Plant</h3>
                         <span class="sector-badge"><span
-                                class="material-symbols-outlined">category</span>Sector : Bioenergy</span>
+                                class="material-symbols-outlined">category</span>Sector: Bioenergy</span>
                         <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot"
                                 aria-hidden="true"></span>Under preparation</span>
                     </div>
@@ -3619,7 +3648,7 @@
                     </div>
                     <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                         <div class="flex justify-between text-label-sm">
-                            <span class="text-on-surface-variant">State:</span>
+                            <span class="text-on-surface-variant">Location:</span>
                             <span class="font-semibold">Benue State</span>
                         </div>
                         <div class="flex justify-between text-label-sm"><span
@@ -3627,17 +3656,13 @@
                                 class="font-semibold">26 Aug 2026</span></div>
                     </div>
                     <div class="flex gap-2 mt-auto pt-2">
-                        <button
-                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                            in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
-                        <button
-                            class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                            Now <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        <button aria-label="View project details: Benue Biomass-to-Power Plant"
+                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                     </div>
                 </div>
                 <!-- Opportunity Card 9 -->
                 <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-                    data-sector="green-hydrogen" data-state="rivers" data-scheme="" data-readiness="tender"
+                    data-sector="green-hydrogen" data-state="rivers" data-scheme="" data-stage="conceptualization"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">science</span>
                     <div class="mb-6">
@@ -3646,9 +3671,9 @@
                         <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
                             Green Hydrogen Niger Delta Pilot</h3>
                         <span class="sector-badge"><span
-                                class="material-symbols-outlined">category</span>Sector : Green Hydrogen</span>
-                        <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot"
-                                aria-hidden="true"></span>Tender / procurement</span>
+                                class="material-symbols-outlined">category</span>Sector: Green Hydrogen</span>
+                        <span class="stage-tag" data-stage="conceptualization"><span
+                                class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 1: Under Conceptualisation</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3657,7 +3682,7 @@
                     </div>
                     <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                         <div class="flex justify-between text-label-sm">
-                            <span class="text-on-surface-variant">State:</span>
+                            <span class="text-on-surface-variant">Location:</span>
                             <span class="font-semibold">Rivers State</span>
                         </div>
                         <div class="flex justify-between text-label-sm"><span
@@ -3665,12 +3690,8 @@
                                 class="font-semibold">07 Jul 2026</span></div>
                     </div>
                     <div class="flex gap-2 mt-auto pt-2">
-                        <button
-                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View
-                            in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
-                        <button
-                            class="flex-1 py-2 border border-transparent bg-primary-container text-white font-semibold text-label-md hover:opacity-90 transition-all rounded shadow-sm">Invest
-                            Now <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        <button aria-label="View project details: Green Hydrogen Niger Delta Pilot"
+                            class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                     </div>
                 </div>
             </div>
@@ -3836,6 +3857,9 @@
                     const icon = btn.querySelector('.material-symbols-outlined');
                     if (label) label.textContent = expanded ? 'View less' : 'View more';
                     if (icon) icon.textContent = expanded ? 'expand_less' : 'expand_more';
+                    // The button's own name stays put; only its state changes, so a
+                    // screen reader says "Show all States filters, expanded".
+                    btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
                 });
             });
         })();
@@ -3851,10 +3875,12 @@
         // Each family pages independently, one row at a time, so neither section
         // buries the other and neither is written against a fixed card count.
         (function () {
-            // One row per page: as many cards as the grid has tracks, so three with
-            // the filters open at desktop sizes and four with them hidden. A
-            // single-column phone layout still pages three at a time, as it always has.
+            // Opportunity areas page one row at a time: as many cards as the grid has
+            // tracks, so three with the filters open at desktop sizes and four with them
+            // hidden. Named projects page six at a time regardless of the row width, so
+            // a reader sees two rows of the pipeline before reaching for the pager.
             const MIN_PER_PAGE = 3;
+            const PROJECTS_PER_PAGE = 6;
             function rowSize(gridEl) {
                 if (!gridEl) return MIN_PER_PAGE;
                 // auto-fit reports every track it laid out, empty ones as 0px, so
@@ -3880,25 +3906,67 @@
                     .split(/\s+/).filter(Boolean);
             }
 
+            // Readiness and stage are two answers to one question - where is this
+            // project - and a project is listed under one of them, never both. So
+            // they are OR'd with each other and AND'ed with everything else:
+            // "solar, and either under development or seeking investor interest".
+            // Treated like any other pair of groups, ticking one of each would
+            // always return nothing.
+            const AXIS_GROUPS = ['readiness', 'stage'];
+
             function matches(card, selected, query, only) {
-                const ok = Object.keys(selected).every(function (group) {
-                    if (only && only.indexOf(group) === -1) return true;
+                const groups = Object.keys(selected).filter(function (group) {
+                    return !only || only.indexOf(group) > -1;
+                });
+                function hit(group) {
                     return selected[group].some(function (val) {
                         return tokens(card, group).includes(val);
                     });
-                });
+                }
+                const axis = groups.filter(function (g) { return AXIS_GROUPS.indexOf(g) > -1; });
+                const rest = groups.filter(function (g) { return AXIS_GROUPS.indexOf(g) === -1; });
+                const ok = rest.every(hit) && (axis.length === 0 || axis.some(hit));
                 if (!ok) return false;
                 if (query) return card.textContent.toLowerCase().includes(query);
                 return true;
             }
 
             // One pager builder for both sections, so they cannot drift apart.
-            function makePager(pagerEl, sectionEl) {
+            // opts.perPage fixes the page size; without it the page is one grid row.
+            // opts.countEl / opts.noun / opts.nounPl drive the count line under the
+            // section title.
+            function makePager(pagerEl, sectionEl, opts) {
+                opts = opts || {};
                 let items = [];
                 let page = 1;
-                let lastSize = MIN_PER_PAGE;
+                let lastSize = opts.perPage || MIN_PER_PAGE;
+                let total = 0;
                 const gridEl = sectionEl ? sectionEl.querySelector('.area-grid, .opp-grid') : null;
-                function size() { return rowSize(gridEl); }
+                function size() { return opts.perPage || rowSize(gridEl); }
+
+                // "9 projects", or "3 of 9 projects" once a filter or the search box
+                // has dropped some, plus the slice on screen when there is more than
+                // one page of them. Numbers either way, filtered or not.
+                function count() {
+                    const el = opts.countEl;
+                    if (!el) return;
+                    const noun = opts.noun || 'result';
+                    const nounPl = opts.nounPl || (noun + 's');
+                    if (!items.length) {
+                        el.textContent = 'No ' + nounPl + ' match';
+                        return;
+                    }
+                    let text = items.length === total
+                        ? total + ' ' + (total === 1 ? noun : nounPl)
+                        : items.length + ' of ' + total + ' ' + nounPl;
+                    const n = size();
+                    if (items.length > n) {
+                        const first = (page - 1) * n + 1;
+                        const last = Math.min(page * n, items.length);
+                        text += ' \u00b7 showing ' + first + '\u2013' + last;
+                    }
+                    el.textContent = text;
+                }
 
                 function pageCount() {
                     return Math.max(1, Math.ceil(items.length / size()));
@@ -3994,11 +4062,13 @@
                     // amount animation's observer, so nudge it.
                     if (typeof window.oppRevealAmounts === 'function') window.oppRevealAmounts();
                     draw();
+                    count();
                 }
 
                 return {
-                    set: function (list) {
+                    set: function (list, all) {
                         items = list;
+                        if (typeof all === 'number') total = all;
                         page = 1;
                         render();
                     },
@@ -4039,10 +4109,19 @@
 
             const areasPager = makePager(
                 document.getElementById('areas-pagination'),
-                document.getElementById('opportunity-areas'));
+                document.getElementById('opportunity-areas'),
+                {
+                    countEl: document.getElementById('areas-count'),
+                    noun: 'opportunity area', nounPl: 'opportunity areas'
+                });
             const projectsPager = makePager(
                 document.getElementById('pagination'),
-                document.getElementById('active-opportunities'));
+                document.getElementById('active-opportunities'),
+                {
+                    perPage: PROJECTS_PER_PAGE,
+                    countEl: document.getElementById('projects-count'),
+                    noun: 'project', nounPl: 'projects'
+                });
 
             // Closing or opening the filter sidebar, or resizing the window, can
             // change how many cards fit a row.
@@ -4075,7 +4154,7 @@
                     else card.style.display = 'none';
                 });
                 if (noAreas) noAreas.classList.toggle('hidden', areaHits.length !== 0);
-                areasPager.set(areaHits);
+                areasPager.set(areaHits, areaCards.length);
 
                 const projectHits = [];
                 projectCards.forEach(function (card) {
@@ -4089,7 +4168,7 @@
                     noResults.classList.add('hidden');
                     noResults.classList.remove('flex');
                 }
-                projectsPager.set(projectHits);
+                projectsPager.set(projectHits, projectCards.length);
 
                 // Visible card count changed -> refresh scroll arrows
                 if (typeof refreshAllScrollArrows === 'function') refreshAllScrollArrows();
@@ -4188,7 +4267,7 @@
             return 'detailedOppNew.html' + (m ? '?id=' + encodeURIComponent(m[1].toUpperCase()) : '');
         };
 
-        // Wire every "View in Detail" button to its project's detail page.
+        // Wire every "View project details" button to its project's detail page.
         document.querySelectorAll('.opportunity-card button').forEach(b => {
             if (/view\s*in\s*detail/i.test(b.textContent)) {
                 b.style.cursor = 'pointer';
@@ -4469,6 +4548,12 @@
     <!-- Invest Now popup flow -->
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
+    <!-- UX-FRM-07: loading, empty, error and success states. The lists on this page
+         are marked data-osip-list; osipstate.js gives each one the loader while it
+         is working, a message when a filter matches nothing, an error state when
+         its data does not arrive, and the confirmations the page shows after an
+         action. -->
+    <script src="osipstate.js"></script>
 <script src="nav.js"></script>
     <script>
         /* =====================================================================
@@ -4681,7 +4766,7 @@
                 });
 
                 /* ---- Reading text: the words light up in reading order ---------------- */
-                var areasIntro = main.querySelector('#opportunity-areas > h2 + p');
+                var areasIntro = main.querySelector('#opportunity-areas > .opp-count + p');
                 var provenance = main.querySelector('.opp-provenance');
                 var provenanceText = provenance ? provenance.querySelector('span:last-child') : null;
                 keep([areasIntro, provenanceText]).forEach(function (t) {

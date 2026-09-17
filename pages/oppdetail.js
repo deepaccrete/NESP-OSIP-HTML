@@ -29,6 +29,34 @@
         if (o.id === wanted) opp = o;
         if (o.id === window.OSIP_OPPORTUNITY_DEFAULT) fallback = o;
     });
+    /* UX-FRM-07: an id we do not list is an error. Without it the page used to show
+       the default project under the wrong address. A bare link (no id) still lands on
+       the default project. */
+    if (wanted && !opp) {
+        document.addEventListener('DOMContentLoaded', function () {
+            var wrapEl = document.getElementById('page-wrapper');
+            var mainEl = wrapEl ? wrapEl.querySelector('main') : document.querySelector('main');
+            if (!mainEl) return;
+            mainEl.textContent = '';
+            if (window.OSIPState && window.OSIPState.error) {
+                window.OSIPState.error(mainEl, {
+                    title: 'That opportunity is not listed',
+                    note: 'The address asked for a project that is not on the platform. It may have closed, or the link may be mistyped.',
+                    retry: false
+                });
+                var back = document.createElement('p');
+                back.className = 'osip-state';
+                back.innerHTML = '<a class="osip-state-btn" href="Opportunities.html">All opportunities</a>';
+                mainEl.appendChild(back);
+            } else {
+                mainEl.innerHTML = '<h1>That opportunity is not listed</h1>' +
+                    '<p><a href="Opportunities.html">Back to all opportunities</a></p>';
+            }
+            document.title = 'Opportunity not found | OSIP, One-Stop Investment Platform';
+        });
+        return;
+    }
+
     opp = opp || fallback || list[0];
 
     var wrap = document.getElementById('page-wrapper');
@@ -49,7 +77,7 @@
     }
 
     /* ---- Page title and breadcrumb --------------------------------------------- */
-    document.title = opp.title + ' | One-Stop Investment Platform (OSIP)';
+    document.title = opp.title + ' | OSIP, One-Stop Investment Platform';
     setText(one(wrap, 'nav[aria-label="Breadcrumb"] li:last-child'), opp.title);
 
     /* ---- Hero ------------------------------------------------------------------ */
@@ -59,88 +87,178 @@
     setOwnText(h1, opp.title);
     setText(one(h1 ? h1.nextElementSibling : null, 'span'), opp.updated);
 
-    /* ---- Stage tracker: rebuilt from the stage number, in the page's own markup -- */
+    /* ---- Tracker: two axes, one component ----------------------------------------
+       A project has a lifecycle stage and a readiness tag, and they answer
+       different questions:
+
+         stage      where the project itself has got to - conceptualisation,
+                    development, implementation, completed. The prototype's own
+                    four-step lifecycle.
+         readiness  what the project needs from an investor right now - the
+                    client's six tags (Concept, Under preparation, Seeking
+                    investor interest, Tender / procurement, Financing sought,
+                    Requires validation), from Change Tracker OPP-02 and Change
+                    Log D10, in the order the Change Log lists them.
+
+       While the design is being reviewed both are on the table, so each record
+       says which axis its page shows: `track: 'readiness'` in oppdata.js picks
+       the six tags, anything else (the default) keeps the four stages. The card
+       for that project on Opportunities.html carries the same axis, and the
+       filter rail offers both.
+
+       Everything below is written against the chosen list, so the track is as
+       long as the list is: four nodes or six, desktop rail and phone rail alike. */
     var STAGES = [
-        { name: 'Under Conceptualization', icon: 'lightbulb' },
+        { name: 'Under Conceptualisation', icon: 'lightbulb' },
         { name: 'Under Development', icon: 'gavel' },
         { name: 'Under Implementation', icon: 'engineering' },
         { name: 'Completed', icon: 'flag' }
     ];
-    var stage = Math.min(4, Math.max(1, opp.stage | 0));
+    var READINESS = [
+        { name: 'Concept', icon: 'lightbulb' },
+        { name: 'Under preparation', icon: 'draw' },
+        { name: 'Seeking investor interest', icon: 'handshake' },
+        { name: 'Tender / procurement', icon: 'gavel' },
+        { name: 'Financing sought', icon: 'payments' },
+        { name: 'Requires validation', icon: 'fact_check' }
+    ];
 
-    function stateOf(i) {
-        var cur = stage - 1;
-        if (i < cur || (i === cur && stage === 4)) return 'done';
-        return i === cur ? 'current' : 'upcoming';
+    function tagKey(name) { return String(name || '').toLowerCase().replace(/\s*\/\s*/g, '/').trim(); }
+
+    var onReadiness = tagKey(opp.track) === 'readiness';
+    var TRACK = onReadiness ? READINESS : STAGES;
+    var LAST = TRACK.length - 1;
+
+    var idx = 0;
+    if (onReadiness) {
+        READINESS.forEach(function (r, i) { if (tagKey(r.name) === tagKey(opp.status)) idx = i; });
+    } else {
+        idx = Math.min(TRACK.length, Math.max(1, opp.stage | 0)) - 1;
     }
 
+    /* On the lifecycle, the last stage is Completed: reaching it is finishing it.
+       On the readiness list nothing is "finished" - a tag is where the project
+       stands - so the tag it is on is the current one and no more. */
+    function stateOf(i) {
+        if (i < idx || (!onReadiness && i === idx && idx === LAST)) return 'done';
+        return i === idx ? 'current' : 'upcoming';
+    }
+
+    /* The lifecycle ticks off what is behind it and names what is ahead; the
+       readiness list fills the tags passed and leaves the wording to the tag. */
+    function doneIcon(step) { return onReadiness ? step.icon : 'check'; }
+    function caption(state) {
+        if (state === 'current') return 'Active';
+        if (onReadiness) return '';
+        return state === 'done' ? 'Done' : 'Upcoming';
+    }
+    var CURRENT_LABEL = onReadiness ? 'Current tag' : 'Current Stage';
+
+    /* A name too long for one line breaks after its first word on the desktop
+       rail, where each node is only a fraction of the card wide. */
     function twoLines(name) {
         var i = name.indexOf(' ');
-        return i < 0 ? name : name.slice(0, i) + '<br>' + name.slice(i + 1);
+        return i < 0 || onReadiness ? esc(name) : esc(name.slice(0, i)) + '<br>' + esc(name.slice(i + 1));
     }
 
     function desktopNode(i) {
-        var s = STAGES[i];
+        var step = TRACK[i];
         var st = stateOf(i);
+        var cap = caption(st);
         if (st === 'done') {
             return '<div class="w-8 h-8 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shadow-md">' +
-                '<span class="material-symbols-outlined text-white text-[18px]">check</span></div>' +
-                '<p class="mt-3 text-[11px] font-bold text-brand-green text-center leading-tight px-1">' + twoLines(s.name) + '</p>' +
-                '<span class="mt-1 text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">Done</span>';
+                '<span class="material-symbols-outlined text-white text-[18px]">' + doneIcon(step) + '</span></div>' +
+                '<p class="mt-3 text-[11px] font-bold text-brand-green text-center leading-tight px-1">' + twoLines(step.name) + '</p>' +
+                (cap ? '<span class="mt-1 text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">' + cap + '</span>' : '');
         }
         if (st === 'current') {
-            return '<span class="osip-current-pill absolute -top-9 bg-brand-gold text-brand-green text-[9px] font-extrabold uppercase tracking-[0.1em] px-2.5 py-1 rounded-md shadow-md whitespace-nowrap">Current Stage</span>' +
+            return '<span class="osip-current-pill absolute -top-9 bg-brand-gold text-brand-green text-[9px] font-extrabold uppercase tracking-[0.1em] px-2.5 py-1 rounded-md shadow-md whitespace-nowrap">' + CURRENT_LABEL + '</span>' +
                 '<div class="osip-node-current w-8 h-8 rounded-full bg-brand-gold flex items-center justify-center ring-4 ring-white shadow-lg">' +
-                '<span class="material-symbols-outlined text-brand-green text-[18px]">' + s.icon + '</span></div>' +
-                '<p class="mt-3 text-[11px] font-extrabold text-brand-green text-center leading-tight px-1">' + twoLines(s.name) + '</p>' +
-                '<span class="mt-1 text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">Active</span>';
+                '<span class="material-symbols-outlined text-brand-green text-[18px]">' + step.icon + '</span></div>' +
+                '<p class="mt-3 text-[11px] font-extrabold text-brand-green text-center leading-tight px-1">' + twoLines(step.name) + '</p>' +
+                '<span class="mt-1 text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">' + cap + '</span>';
         }
         return '<div class="w-8 h-8 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center ring-4 ring-white">' +
-            '<span class="material-symbols-outlined text-gray-300 text-[18px]">' + s.icon + '</span></div>' +
-            '<p class="mt-3 text-[11px] font-bold text-gray-400 text-center leading-tight px-1">' + twoLines(s.name) + '</p>' +
-            '<span class="mt-1 text-[10px] font-bold text-gray-300 uppercase tracking-wider">Upcoming</span>';
+            '<span class="material-symbols-outlined text-gray-300 text-[18px]">' + step.icon + '</span></div>' +
+            '<p class="mt-3 text-[11px] font-bold text-gray-400 text-center leading-tight px-1">' + twoLines(step.name) + '</p>' +
+            (cap ? '<span class="mt-1 text-[10px] font-bold text-gray-300 uppercase tracking-wider">' + cap + '</span>' : '');
     }
 
     function mobileNode(i) {
-        var s = STAGES[i];
+        var step = TRACK[i];
         var st = stateOf(i);
+        var cap = caption(st);
         if (st === 'done') {
             return '<div class="relative z-10 w-9 h-9 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shadow-md flex-shrink-0">' +
-                '<span class="material-symbols-outlined text-white text-[20px]">check</span></div>' +
-                '<div class="pt-1 min-w-0"><p class="text-sm font-bold text-brand-green leading-tight">' + s.name + '</p>' +
-                '<span class="mt-1 inline-block text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">Done</span></div>';
+                '<span class="material-symbols-outlined text-white text-[20px]">' + doneIcon(step) + '</span></div>' +
+                '<div class="pt-1 min-w-0"><p class="text-sm font-bold text-brand-green leading-tight">' + esc(step.name) + '</p>' +
+                (cap ? '<span class="mt-1 inline-block text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">' + cap + '</span>' : '') +
+                '</div>';
         }
         if (st === 'current') {
             return '<div class="osip-node-current relative z-10 w-9 h-9 rounded-full bg-brand-gold flex items-center justify-center ring-4 ring-white shadow-lg flex-shrink-0">' +
-                '<span class="material-symbols-outlined text-brand-green text-[20px]">' + s.icon + '</span></div>' +
-                '<div class="pt-0.5 min-w-0"><span class="inline-flex items-center gap-1 mb-1 bg-brand-gold text-brand-green text-[9px] font-extrabold uppercase tracking-[0.1em] px-2 py-0.5 rounded-md shadow-sm">Current Stage</span>' +
-                '<p class="text-sm font-extrabold text-brand-green leading-tight">' + s.name + '</p>' +
-                '<span class="mt-1 inline-block text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">Active</span></div>';
+                '<span class="material-symbols-outlined text-brand-green text-[20px]">' + step.icon + '</span></div>' +
+                '<div class="pt-0.5 min-w-0"><span class="inline-flex items-center gap-1 mb-1 bg-brand-gold text-brand-green text-[9px] font-extrabold uppercase tracking-[0.1em] px-2 py-0.5 rounded-md shadow-sm">' + CURRENT_LABEL + '</span>' +
+                '<p class="text-sm font-extrabold text-brand-green leading-tight">' + esc(step.name) + '</p>' +
+                '<span class="mt-1 inline-block text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">' + cap + '</span></div>';
         }
         return '<div class="relative z-10 w-9 h-9 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center ring-4 ring-white flex-shrink-0">' +
-            '<span class="material-symbols-outlined text-gray-300 text-[20px]">' + s.icon + '</span></div>' +
-            '<div class="pt-1 min-w-0"><p class="text-sm font-bold text-gray-400 leading-tight">' + s.name + '</p>' +
-            '<span class="mt-1 inline-block text-[10px] font-bold text-gray-300 uppercase tracking-wider">Upcoming</span></div>';
+            '<span class="material-symbols-outlined text-gray-300 text-[20px]">' + step.icon + '</span></div>' +
+            '<div class="pt-1 min-w-0"><p class="text-sm font-bold text-gray-400 leading-tight">' + esc(step.name) + '</p>' +
+            (cap ? '<span class="mt-1 inline-block text-[10px] font-bold text-gray-300 uppercase tracking-wider">' + cap + '</span>' : '') +
+            '</div>';
+    }
+
+    /* The markup ships four nodes; a readiness page needs six. The track is built
+       from the list rather than the list cut to fit the track. */
+    function fitNodes(parent, existing, make) {
+        var nodes = existing.slice();
+        while (nodes.length > TRACK.length) { parent.removeChild(nodes.pop()); }
+        while (nodes.length < TRACK.length) { nodes.push(parent.appendChild(make())); }
+        return nodes;
     }
 
     var fill = one(hero, '.osip-progress-fill');
     var tracker = fill ? fill.closest('.rounded-xl') : null;
     if (tracker) {
         var head = tracker.firstElementChild;
-        setOwnText(head ? head.firstElementChild : null, STAGES[stage - 1].name);
+        /* The pill says where the project is on the axis this page shows, and the
+           count says which step of how many that is. */
+        setOwnText(head ? head.firstElementChild : null,
+            onReadiness ? (opp.status || TRACK[idx].name) : TRACK[idx].name);
         var count = one(head, '.text-right');
-        setText(one(count, ':scope > span'), 'Stage ' + stage);
-        setText(one(count, ':scope > p'), stage === 4 ? 'Completed' : 'In Progress');
+        setText(one(count, ':scope > span'), (onReadiness ? 'Tag ' : 'Stage ') + (idx + 1));
+        setText(one(count, ':scope > span:nth-of-type(2)'), ' / ' + TRACK.length);
+        setText(one(count, ':scope > p'), onReadiness ? 'Readiness' : (idx === LAST ? 'Completed' : 'In Progress'));
 
-        fill.style.width = (stage - 1) * 25 + '%';
-        every(fill.parentElement, ':scope > .relative.z-10').forEach(function (node, i) {
+        /* Horizontal rail: it runs between the first and last node's centres, so
+           both ends move with the number of steps. */
+        var pitch = 100 / TRACK.length;
+        var edge = pitch / 2;
+        var track = fill.parentElement;
+        var rail = one(track, ':scope > .bg-gray-200');
+        if (rail) { rail.style.left = edge + '%'; rail.style.right = edge + '%'; }
+        fill.style.left = edge + '%';
+        fill.style.width = (idx * pitch) + '%';
+
+        fitNodes(track, every(track, ':scope > .relative.z-10'), function () {
+            var d = document.createElement('div');
+            d.className = 'relative z-10 flex flex-col items-center';
+            return d;
+        }).forEach(function (node, i) {
+            node.style.width = pitch + '%';
             node.innerHTML = desktopNode(i);
         });
 
+        /* Vertical rail, phone width. */
         var steps = one(tracker, 'ol');
         var fillV = one(steps, '.osip-progress-fill-v');
-        if (fillV) fillV.style.height = stage === 1 ? '0px' : 'calc((100% - 32px) / 3 * ' + (stage - 1) + ')';
-        every(steps, ':scope > li').forEach(function (li, i) {
+        if (fillV) fillV.style.height = idx === 0 ? '0px' : 'calc((100% - 32px) / ' + LAST + ' * ' + idx + ')';
+        fitNodes(steps, every(steps, ':scope > li'), function () {
+            var li = document.createElement('li');
+            li.className = 'relative flex items-start gap-4';
+            return li;
+        }).forEach(function (li, i) {
             li.innerHTML = mobileNode(i);
         });
     }
@@ -149,7 +267,7 @@
     var overview = one(main, ':scope > section > div.space-y-4');
     if (overview && opp.overview) {
         overview.innerHTML = opp.overview.map(function (p, i) {
-            var lead = i === 0 ? '<span class="font-semibold text-brand-green">' + esc(opp.title) + '</span> ' : '';
+            var lead = i === 0 && opp.lead !== false ? '<span class="font-semibold text-brand-green">' + esc(opp.title) + '</span> ' : '';
             return '<p>' + lead + p + '</p>';
         }).join('');
     }
@@ -199,13 +317,26 @@
             setText(one(facade, '.facade-cover > span:last-child > span:first-child'), opp.video[0]);
         }
 
+        /* UX-LNK-07: each row opens the sample file for its slot - the investment case,
+           the study, the environmental summary, the terms - because no project's real
+           paperwork is published yet. The line under the title states that file's own
+           size; it used to state an invented size and page count for a link that went
+           nowhere. */
+        var SAMPLES = [
+            ['docs/sample-project-investment-memorandum.pdf', '2.0 KB'],
+            ['docs/sample-project-technical-study.pdf', '2.0 KB'],
+            ['docs/sample-project-environmental-summary.pdf', '2.0 KB'],
+            ['docs/sample-project-term-sheet.pdf', '2.0 KB']
+        ];
         every(blocks[3], 'a[download]').forEach(function (a, i) {
             var doc = opp.docs ? opp.docs[i] : null;
-            if (!doc) return;
+            var sample = SAMPLES[i];
+            if (!doc || !sample) return;
             var ps = every(a, 'p');
+            a.setAttribute('href', sample[0]);
             a.setAttribute('download', opp.file + '-' + doc[0].replace(/[^A-Za-z0-9]+/g, '-') + '.pdf');
             setText(ps[0], doc[0]);
-            setText(ps[1], 'PDF · ' + doc[1] + ' MB · ' + doc[2] + ' pages');
+            setText(ps[1], 'PDF \u00b7 ' + sample[1] + ' \u00b7 sample');
         });
     }
 
@@ -219,6 +350,36 @@
         if (tel) { tel.textContent = opp.contact[2]; tel.setAttribute('href', 'tel:' + opp.contact[2].replace(/[^+\d]/g, '')); }
         var mail = one(rows[3], 'a');
         if (mail) { mail.textContent = opp.contact[3]; mail.setAttribute('href', 'mailto:' + opp.contact[3]); }
+    }
+
+    /* ---- Where to go next: this project's sector and state --------------------- */
+    var SECTOR_PAGES = {
+        'Solar': 'DetailedSector.html', 'Wind': 'Wind.html', 'Storage': 'Storage.html',
+        'Small Hydro': 'SmallHydro.html', 'Bioenergy': 'Bioenergy.html',
+        'Clean Cooking': 'CleanCooking.html', 'Green Mobility': 'GreenMobility.html',
+        'Green Hydrogen': 'GreenHydrogen.html', 'Energy Efficiency': 'EnergyEfficiency.html',
+        'Agriculture PUE': 'AgriculturePUE.html'
+    };
+
+    var nextSector = one(wrap, '[data-purpose="next-sector"]');
+    if (nextSector) {
+        nextSector.setAttribute('href', SECTOR_PAGES[opp.sector] || 'Sector.html');
+        setText(one(nextSector, '.osip-next-t'), opp.sector + ' sector guide');
+    }
+
+    var nextState = one(wrap, '[data-purpose="next-state"]');
+    if (nextState) {
+        var st = opp.state || '';
+        var slug = st.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        /* Enugu is the one state with a profile of its own; a multi-state project
+           has no single one to send anybody to, so it goes to the hub. */
+        if (/multi/i.test(st)) {
+            nextState.setAttribute('href', 'States.html');
+            setText(one(nextState, '.osip-next-t'), 'Invest by state');
+        } else {
+            nextState.setAttribute('href', st === 'Enugu' ? 'Enugu.html' : 'States.html#' + slug);
+            setText(one(nextState, '.osip-next-t'), st + ' state profile');
+        }
     }
 
     document.documentElement.setAttribute('data-opp-id', opp.id);

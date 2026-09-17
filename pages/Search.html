@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="Search OSIP: the ten sectors, published opportunities, regulations, the data pages, all 36 states and the FCT, and the newsroom." />
+    <title>Search | OSIP, One-Stop Investment Platform</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <style id="rd-style">
+        /* =====================================================================
+           Search results (16 Sep 2026)
+
+           UX-NAV-06: "The Opportunities, Regulations and News pages each have a
+           search box. None of them works. Add one search box in the header that
+           covers projects, regulations, sectors, states, data and news."
+
+           This is the page behind that box. It reads searchdata.js, which is
+           generated from the pages themselves - their titles, their anchored
+           sections, oppdata.js and the state list - so a result always opens
+           something that exists, and often the exact section that matched.
+
+           No Tailwind here: the page is a list of links on paper, and the nav
+           and footer bring their own styles.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-card: #fbfaf7;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-gold: #d9a520;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body.sr {
+            margin: 0;
+            background: var(--rd-paper);
+            color: var(--rd-ink-2);
+            font-family: var(--rd-sans);
+            font-size-adjust: 0.515;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .sr-main {
+            max-width: 940px;
+            margin: 0 auto;
+            padding: 3.5rem 2rem 5rem;
+        }
+
+        .sr-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            margin: 0 0 .75rem;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--rd-green-2);
+        }
+
+        .sr-eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background: var(--rd-gold);
+        }
+
+        .sr-title {
+            margin: 0 0 1.75rem;
+            font-size: clamp(32px, 5vw, 46px);
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            color: var(--rd-ink);
+        }
+
+        /* ---- the box ---------------------------------------------------- */
+        .sr-form {
+            display: flex;
+            align-items: center;
+            gap: .625rem;
+            padding: .4375rem .4375rem .4375rem 1.125rem;
+            background: var(--rd-card);
+            border: 1px solid var(--rd-line);
+            border-radius: 999px;
+            transition: border-color .3s ease, box-shadow .3s ease;
+        }
+
+        .sr-form:focus-within {
+            border-color: var(--rd-green-2);
+            box-shadow: 0 0 0 4px rgba(11, 107, 69, .08);
+        }
+
+        .sr-form>svg {
+            flex: 0 0 auto;
+            color: var(--rd-green-2);
+        }
+
+        .sr-input {
+            flex: 1 1 auto;
+            min-width: 0;
+            height: 46px;
+            border: 0;
+            background: transparent;
+            font-family: var(--rd-sans);
+            font-size-adjust: 0.515;
+            font-size: 17px;
+            color: var(--rd-ink);
+            outline: 0;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .sr-input::placeholder {
+            color: var(--rd-ink-3);
+            opacity: 1;
+        }
+
+        .sr-input::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+        }
+
+        .sr-go {
+            flex: 0 0 auto;
+            height: 42px;
+            padding: 0 1.375rem;
+            border: 0;
+            border-radius: 999px;
+            background: var(--rd-green);
+            color: #fff;
+            font-family: var(--rd-sans);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color .3s ease;
+        }
+
+        .sr-go:hover {
+            background: #062f1f;
+        }
+
+        .sr-go:focus-visible,
+        .sr-chip:focus-visible,
+        .sr-item a:focus-visible {
+            outline: 2px solid var(--rd-green-2);
+            outline-offset: 2px;
+        }
+
+        /* ---- count and type filters ------------------------------------- */
+        .sr-meta {
+            margin: 1.5rem 0 0;
+            font-size: 13.5px;
+            color: var(--rd-ink-3);
+        }
+
+        .sr-meta b {
+            font-weight: 500;
+            color: var(--rd-ink);
+        }
+
+        .sr-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            margin: 1rem 0 0;
+            padding: 0 0 1.5rem;
+            border-bottom: 1px solid var(--rd-line);
+        }
+
+        .sr-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: .4375rem;
+            height: 34px;
+            padding: 0 .875rem;
+            border: 1px solid var(--rd-line);
+            border-radius: 999px;
+            background: transparent;
+            font-family: var(--rd-sans);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--rd-ink-2);
+            cursor: pointer;
+            transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+        }
+
+        .sr-chip span {
+            font-size: 11.5px;
+            color: var(--rd-ink-3);
+        }
+
+        .sr-chip:hover {
+            border-color: var(--rd-line-2);
+            background: #edeae3;
+        }
+
+        .sr-chip[aria-pressed="true"] {
+            background: var(--rd-green);
+            border-color: var(--rd-green);
+            color: #fff;
+        }
+
+        .sr-chip[aria-pressed="true"] span {
+            color: rgba(255, 255, 255, .7);
+        }
+
+        /* ---- results ----------------------------------------------------- */
+        .sr-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .sr-item {
+            border-bottom: 1px solid var(--rd-line);
+        }
+
+        .sr-item a {
+            position: relative;
+            display: block;
+            padding: 1.375rem 2.5rem 1.375rem 1rem;
+            margin: 0 -1rem;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: background-color .25s ease;
+        }
+
+        .sr-item a:hover {
+            background: #edeae3;
+        }
+
+        .sr-kind {
+            display: block;
+            margin-bottom: .375rem;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--rd-green-2);
+        }
+
+        .sr-kind i {
+            font-style: normal;
+            color: var(--rd-ink-3);
+        }
+
+        .sr-h {
+            display: block;
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.3;
+            letter-spacing: -.01em;
+            color: var(--rd-ink);
+        }
+
+        .sr-item a:hover .sr-h {
+            color: var(--rd-green);
+        }
+
+        .sr-s {
+            display: block;
+            margin-top: .375rem;
+            font-size: 15px;
+            line-height: 1.55;
+            color: var(--rd-ink-2);
+        }
+
+        .sr-s mark,
+        .sr-h mark {
+            background: rgba(217, 165, 32, .28);
+            color: inherit;
+            border-radius: 3px;
+            padding: 0 1px;
+        }
+
+        .sr-go-arrow {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            width: 7px;
+            height: 7px;
+            border-right: 1.5px solid var(--rd-green-2);
+            border-top: 1.5px solid var(--rd-green-2);
+            transform: translate(-5px, -50%) rotate(45deg);
+            opacity: 0;
+            transition: transform .3s ease, opacity .3s ease;
+        }
+
+        .sr-item a:hover .sr-go-arrow {
+            transform: translate(0, -50%) rotate(45deg);
+            opacity: .8;
+        }
+
+        /* ---- nothing found / nothing typed yet --------------------------- */
+        .sr-note {
+            padding: 2.5rem 0 0;
+        }
+
+        .sr-note h2 {
+            margin: 0 0 .5rem;
+            font-size: 22px;
+            font-weight: 500;
+            letter-spacing: -.01em;
+            color: var(--rd-ink);
+        }
+
+        .sr-note p {
+            margin: 0 0 1.75rem;
+            font-size: 15.5px;
+            line-height: 1.6;
+            max-width: 60ch;
+        }
+
+        .sr-quick {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: .75rem;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .sr-quick a {
+            display: block;
+            padding: 1rem 1.125rem;
+            background: var(--rd-card);
+            border: 1px solid var(--rd-line);
+            border-radius: 16px;
+            text-decoration: none;
+            transition: border-color .25s ease, background-color .25s ease;
+        }
+
+        .sr-quick a:hover {
+            border-color: var(--rd-line-2);
+            background: #edeae3;
+        }
+
+        .sr-quick b {
+            display: block;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--rd-ink);
+        }
+
+        .sr-quick em {
+            display: block;
+            margin-top: 2px;
+            font-style: normal;
+            font-size: 13px;
+            color: var(--rd-ink-3);
+        }
+
+        @media (max-width: 47.9375rem) {
+            .sr-main {
+                padding: 2.5rem 1.25rem 3.5rem;
+            }
+
+            .sr-form {
+                flex-wrap: wrap;
+                border-radius: 22px;
+                padding: .5rem .5rem .5rem 1rem;
+            }
+
+            .sr-go {
+                width: 100%;
+            }
+
+            .sr-h {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body class="sr rd">
+    <div id="site-nav"></div>
+
+    <main class="sr-main">
+        <p class="sr-eyebrow">Search</p>
+        <h1 class="sr-title">Search OSIP</h1>
+
+        <form class="sr-form" id="sr-form" data-osip-filters="#sr-list" role="search" method="get" action="Search.html">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.6-3.6" />
+            </svg>
+            <label class="sr-only" for="sr-q"
+                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search OSIP</label>
+            <input class="sr-input" id="sr-q" name="q" type="search" autocomplete="off"
+                placeholder="Sectors, opportunities, regulations, states, data, news" />
+            <button class="sr-go" type="submit">Search</button>
+        </form>
+
+        <p class="sr-meta" id="sr-meta" role="status" aria-live="polite"></p>
+        <div class="sr-chips" id="sr-chips" role="group" aria-label="Filter results by type" hidden></div>
+
+        <ol class="sr-list" id="sr-list" data-osip-list data-osip-label="results"
+            data-osip-requires="OSIP_SEARCH_INDEX" data-osip-empty="#sr-note"></ol>
+
+        <div class="sr-note" id="sr-note" hidden>
+            <h2 id="sr-note-h"></h2>
+            <p id="sr-note-p"></p>
+            <ul class="sr-quick">
+                <li><a href="Sector.html"><b>Sectors</b><em>All ten investment sectors</em></a></li>
+                <li><a href="Opportunities.html"><b>Opportunities</b><em>Areas, models and published projects</em></a>
+                </li>
+                <li><a href="Regulation.html"><b>Regulations</b><em>Laws, registration, tax and permits</em></a></li>
+                <li><a href="Data.html"><b>Data &amp; Insights</b><em>Indicators, hotspots and downloads</em></a></li>
+                <li><a href="States.html"><b>States</b><em>All 36 states and the FCT</em></a></li>
+                <li><a href="Contact.html"><b>Support</b><em>Contact the OSIP team</em></a></li>
+            </ul>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="searchdata.js"></script>
+    <script>
+        /* The search itself. Everything runs here in the page: the index is a
+           few hundred records, so there is nothing to wait for and no request to
+           make. Scoring is deliberately plain - where the word was found decides
+           the rank - because an investor searching "mini-grid" wants the sector
+           section called that at the top, not a cleverly weighted guess. */
+        (function () {
+            var INDEX = window.OSIP_SEARCH_INDEX || [];
+            var KIND = {
+                Sector: 'Sectors', Opportunity: 'Opportunities', Regulation: 'Regulations',
+                Data: 'Data', State: 'States', News: 'Newsroom', Support: 'Support', Page: 'Pages'
+            };
+            var ORDER = ['Sector', 'Opportunity', 'Regulation', 'Data', 'State', 'News', 'Support', 'Page'];
+
+            var form = document.getElementById('sr-form');
+            var input = document.getElementById('sr-q');
+            var meta = document.getElementById('sr-meta');
+            var chips = document.getElementById('sr-chips');
+            var list = document.getElementById('sr-list');
+            var note = document.getElementById('sr-note');
+            var noteH = document.getElementById('sr-note-h');
+            var noteP = document.getElementById('sr-note-p');
+            var type = '';
+
+            function params() {
+                try { return new URLSearchParams(location.search); } catch (e) { return null; }
+            }
+            var p = params();
+            if (p) {
+                input.value = p.get('q') || '';
+                type = p.get('type') || '';
+            }
+
+            /* "in", "of", "the" match everything and rank nothing, so they are
+               dropped unless that would leave nothing to search for. */
+            var STOP = ' a an and are as at be by for from in is it of on or the to with '.split(' ');
+
+            function tokens(q) {
+                var all = q.toLowerCase().split(/[^a-z0-9+&]+/i).filter(function (t) { return t.length > 1; });
+                var kept = all.filter(function (t) { return STOP.indexOf(t) === -1; });
+                return kept.length ? kept : all;
+            }
+
+            /* Plural and singular count as the same word: someone searching
+               "incentives" should still find the paragraph about the incentive
+               stack. Anything cleverer than this needs a real stemmer. */
+            function variants(w) {
+                var v = [w];
+                if (/ies$/.test(w)) v.push(w.slice(0, -3) + 'y');
+                if (/s$/.test(w)) v.push(w.slice(0, -1)); else v.push(w + 's');
+                return v;
+            }
+
+            function has(hay, vs) {
+                for (var i = 0; i < vs.length; i++) if (hay.indexOf(vs[i]) > -1) return true;
+                return false;
+            }
+
+            function score(doc, ts, raw) {
+                var t = doc.t.toLowerCase();
+                var s = (doc.s || '').toLowerCase();
+                var k = ((doc.k || '') + ' ' + (doc.p || '')).toLowerCase();
+                var total = 0;
+                for (var i = 0; i < ts.length; i++) {
+                    var w = ts[i], vs = variants(w), hit = 0;
+                    if (t === w) hit = 120;
+                    else if (t.indexOf(w) === 0) hit = 80;
+                    else if (has(t, vs)) hit = 55;
+                    if (has(k, vs)) hit += 22;
+                    if (has(s, vs)) hit += 14;
+                    if (!hit) return 0;          // every word has to be somewhere
+                    total += hit;
+                }
+                if (t.indexOf(raw) === 0) total += 60;       // the whole phrase, at the front
+                else if (t.indexOf(raw) > -1) total += 30;
+                if (doc.u.indexOf('#') === -1) total += 12;  // a whole page outranks its section
+                return total;
+            }
+
+            /* Highlighting builds text nodes and <mark>s rather than HTML, so
+               whatever someone types can never become markup. */
+            function mark(el, text, ts) {
+                var low = text.toLowerCase(), at = 0;
+                while (at < text.length) {
+                    var best = -1, bestLen = 0;
+                    for (var i = 0; i < ts.length; i++) {
+                        var idx = low.indexOf(ts[i], at);
+                        if (idx > -1 && (best === -1 || idx < best || (idx === best && ts[i].length > bestLen))) {
+                            best = idx; bestLen = ts[i].length;
+                        }
+                    }
+                    if (best === -1) { el.appendChild(document.createTextNode(text.slice(at))); return; }
+                    if (best > at) el.appendChild(document.createTextNode(text.slice(at, best)));
+                    var m = document.createElement('mark');
+                    m.textContent = text.slice(best, best + bestLen);
+                    el.appendChild(m);
+                    at = best + bestLen;
+                }
+            }
+
+            function row(doc, ts) {
+                var li = document.createElement('li');
+                li.className = 'sr-item';
+                var a = document.createElement('a');
+                a.href = doc.u;
+
+                var kind = document.createElement('span');
+                kind.className = 'sr-kind';
+                kind.textContent = KIND[doc.y] || doc.y;
+                if (doc.p) {
+                    var par = document.createElement('i');
+                    par.textContent = '  ·  ' + doc.p;
+                    kind.appendChild(par);
+                }
+                a.appendChild(kind);
+
+                var h = document.createElement('span');
+                h.className = 'sr-h';
+                mark(h, doc.t, ts);
+                a.appendChild(h);
+
+                if (doc.s) {
+                    var s = document.createElement('span');
+                    s.className = 'sr-s';
+                    mark(s, doc.s, ts);
+                    a.appendChild(s);
+                }
+
+                var arrow = document.createElement('span');
+                arrow.className = 'sr-go-arrow';
+                arrow.setAttribute('aria-hidden', 'true');
+                a.appendChild(arrow);
+
+                li.appendChild(a);
+                return li;
+            }
+
+            function drawChips(counts, total) {
+                chips.textContent = '';
+                var all = document.createElement('button');
+                all.type = 'button';
+                all.className = 'sr-chip';
+                all.setAttribute('aria-pressed', type ? 'false' : 'true');
+                all.textContent = 'All results';
+                var c = document.createElement('span');
+                c.textContent = total;
+                all.appendChild(c);
+                all.addEventListener('click', function () { type = ''; run(); });
+                chips.appendChild(all);
+
+                ORDER.forEach(function (y) {
+                    if (!counts[y]) return;
+                    var b = document.createElement('button');
+                    b.type = 'button';
+                    b.className = 'sr-chip';
+                    b.setAttribute('aria-pressed', type === y ? 'true' : 'false');
+                    b.textContent = KIND[y];
+                    var n = document.createElement('span');
+                    n.textContent = counts[y];
+                    b.appendChild(n);
+                    b.addEventListener('click', function () { type = (type === y ? '' : y); run(); });
+                    chips.appendChild(b);
+                });
+                chips.hidden = false;
+            }
+
+            function run(push) {
+                var raw = input.value.trim();
+                var ts = tokens(raw);
+                list.textContent = '';
+
+                if (!ts.length) {
+                    meta.textContent = '';
+                    chips.hidden = true;
+                    note.hidden = false;
+                    noteH.textContent = 'What are you looking for?';
+                    noteP.textContent = 'Search covers the ten sectors, the published opportunities, regulations, ' +
+                        'the data pages, all 36 states and the FCT, and everything in the newsroom.';
+                    if (push !== false) sync(raw);
+                    return;
+                }
+
+                var hits = [];
+                var counts = {};
+                for (var i = 0; i < INDEX.length; i++) {
+                    var sc = score(INDEX[i], ts, raw.toLowerCase());
+                    if (!sc) continue;
+                    counts[INDEX[i].y] = (counts[INDEX[i].y] || 0) + 1;
+                    hits.push({ d: INDEX[i], s: sc });
+                }
+                hits.sort(function (a, b) { return b.s - a.s || a.d.t.localeCompare(b.d.t); });
+                var shown = type ? hits.filter(function (h) { return h.d.y === type; }) : hits;
+
+                if (!hits.length) {
+                    meta.textContent = '';
+                    chips.hidden = true;
+                    note.hidden = false;
+                    noteH.textContent = 'No results for “' + raw + '”';
+                    noteP.textContent = 'Check the spelling, try a shorter word, or start from one of these.';
+                    if (push !== false) sync(raw);
+                    return;
+                }
+
+                note.hidden = true;
+                meta.textContent = '';
+                var n = document.createElement('b');
+                n.textContent = shown.length + (shown.length === 1 ? ' result' : ' results');
+                meta.appendChild(n);
+                meta.appendChild(document.createTextNode(' for “' + raw + '”' +
+                    (type ? ' in ' + KIND[type] : '')));
+                drawChips(counts, hits.length);
+
+                var frag = document.createDocumentFragment();
+                // highlight the plurals too, not only what was typed
+                var hl = [];
+                ts.forEach(function (w) { variants(w).forEach(function (v) { if (hl.indexOf(v) === -1) hl.push(v); }); });
+                shown.slice(0, 60).forEach(function (h) { frag.appendChild(row(h.d, hl)); });
+                list.appendChild(frag);
+                if (shown.length > 60) {
+                    var more = document.createElement('li');
+                    more.className = 'sr-item';
+                    more.style.padding = '1.25rem 0';
+                    more.style.color = 'var(--rd-ink-3)';
+                    more.style.fontSize = '14px';
+                    more.textContent = 'Showing the first 60 of ' + shown.length +
+                        ' results. Add another word to narrow them down.';
+                    list.appendChild(more);
+                }
+                if (push !== false) sync(raw);
+            }
+
+            /* The address bar follows what is on screen, so a result list can be
+               sent to someone or bookmarked. */
+            function sync(raw) {
+                if (!history.replaceState) return;
+                var qs = [];
+                if (raw) qs.push('q=' + encodeURIComponent(raw));
+                if (type) qs.push('type=' + encodeURIComponent(type));
+                history.replaceState(null, '', 'Search.html' + (qs.length ? '?' + qs.join('&') : ''));
+            }
+
+            var timer = null;
+            input.addEventListener('input', function () {
+                clearTimeout(timer);
+                timer = setTimeout(function () { type = ''; run(); }, 160);
+            });
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();          // the results are already here
+                clearTimeout(timer);
+                run();
+                input.blur();
+            });
+
+            run(false);
+            if (!input.value) input.focus();
+        })();
+    </script>
+
+    <script src="footer.js"></script>
+    <!-- UX-FRM-07: loading, empty, error and success states. The lists on this page
+         are marked data-osip-list; osipstate.js gives each one the loader while it
+         is working, a message when a filter matches nothing, an error state when
+         its data does not arrive, and the confirmations the page shows after an
+         action. -->
+    <script src="osipstate.js"></script>
+    <script src="nav.js"></script>
+</body>
+
+</html>

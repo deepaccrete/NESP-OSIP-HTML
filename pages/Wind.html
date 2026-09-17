@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Wind | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Nigeria's wind market is early stage but gaining policy momentum, with untapped potential along the northern wind corridor." />
+    <title>Wind | OSIP, One-Stop Investment Platform</title>
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -953,10 +954,13 @@
             background: var(--rd-paper-2) !important;
         }
 
+        /* 17 Sep 2026: the sections sat 288px apart, which read as gaps between pages
+           rather than one page. Closer now - about 168px on a desktop - so the page holds
+           together without the sections touching. Same as DetailedSector.html. */
         .rd main > section.py-12,
         .rd main > section.ovw {
-            padding-top: clamp(76px, 10vw, 148px) !important;
-            padding-bottom: clamp(76px, 10vw, 148px) !important;
+            padding-top: clamp(46px, 5.8vw, 86px) !important;
+            padding-bottom: clamp(46px, 5.8vw, 86px) !important;
         }
 
         .rd main > section.border-b {
@@ -2878,6 +2882,257 @@
         @keyframes kfMarch { to { stroke-dashoffset: -16; } }
         @keyframes kfGlow { 0%, 100% { filter: drop-shadow(0 0 0 rgba(247, 190, 38, 0)); } 50% { filter: drop-shadow(0 0 5px rgba(247, 190, 38, .9)); } }
     </style>
+    <style id="rd-sector-opps">
+        /* ---- Featured Investment Areas: the Opportunities card (15 Sep 2026) -------------------
+           These are the Active Opportunities card rules from pages/Opportunities.html - its base
+           card styles, its redesign layer and its shared card action - scoped to this page's
+           #opportunities-grid, so the cards here and there are the same component. The first
+           block restates the Opportunities page's Tailwind type and colour tokens the card uses,
+           which this page's own config does not define the same way. Change the card there,
+           change it here. */
+        #opportunities-grid .text-label-sm { font-family: 'Inter', sans-serif; font-size: 12px; line-height: 16px; letter-spacing: 0.05em; font-weight: 600; }
+        #opportunities-grid .text-label-md { font-family: 'Inter', sans-serif; font-size: 14px; line-height: 20px; letter-spacing: 0.01em; }
+        #opportunities-grid .text-headline-lg-mobile { font-size: 24px; line-height: 32px; }
+        #opportunities-grid .text-base { font-size: 1rem; line-height: 1.5rem; }
+        #opportunities-grid .leading-tight { line-height: 1.25; }
+        #opportunities-grid .text-on-surface-variant { color: #3f4945; }
+        #opportunities-grid .text-on-surface { color: #161d1b; }
+        #opportunities-grid .text-primary { color: #00342b; }
+        #opportunities-grid .border-outline-variant { border-color: #bfc9c4; }
+        #opportunities-grid .font-semibold { font-weight: 600; }
+        #opportunities-grid .font-normal { font-weight: 400; }
+        #opportunities-grid .tracking-wider { letter-spacing: 0.05em; }
+        #opportunities-grid .tracking-tight { letter-spacing: -0.025em; }
+
+        /* base card (Opportunities.html head) */
+        #opportunities-grid .opportunity-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 380px;
+            max-width: 314px;
+            width: 100%;
+            margin-inline: auto;
+            border-top: 4px solid #dfa800 !important;
+            background: linear-gradient(180deg, #ffffff 0%, #fcfdfc 100%) !important;
+            transition: box-shadow .3s ease, transform .3s ease, border-color .3s ease;
+        }
+
+        #opportunities-grid .opportunity-card::before {
+            content: "";
+            position: absolute;
+            top: -4px;
+            left: -1px;
+            right: -1px;
+            height: 4px;
+            background: linear-gradient(90deg, #f7be26, #ffd873, #f7be26);
+            opacity: 0;
+            transition: opacity .3s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #opportunities-grid .opportunity-card h3 { transition: color .22s ease; }
+
+        #opportunities-grid .opportunity-card .inv-box {
+            background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
+            border: 1px solid rgba(0, 52, 43, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+            transition: background .3s ease, border-color .3s ease;
+        }
+
+        #opportunities-grid .sector-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            background: rgba(223, 168, 0, 0.14);
+            border: 1px solid rgba(223, 168, 0, 0.35);
+            color: #5b4300;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1.45;
+        }
+
+        #opportunities-grid .sector-badge .material-symbols-outlined { font-size: 14px; color: #c98a00; }
+
+        #opportunities-grid .opp-grid,
+        .opp-grid#opportunities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0, 314px));
+            justify-content: start;
+            gap: 24px;
+        }
+
+        #opportunities-grid .readiness-tag {
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 3px 10px 3px 8px;
+            border-radius: 9999px;
+            background: #fbfcfb;
+            border: 1px solid #e2e8e5;
+            color: #55635c;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        #opportunities-grid .readiness-tag[data-readiness="concept"] { background: #f2f5f8; border-color: #dde5ec; color: #4a5a68; }
+        #opportunities-grid .readiness-tag[data-readiness="preparation"] { background: #fdf6e8; border-color: #f0e0bb; color: #85631a; }
+        #opportunities-grid .readiness-tag[data-readiness="interest"] { background: #eaf7f0; border-color: #c3e7d4; color: #1a7047; }
+        #opportunities-grid .readiness-tag[data-readiness="tender"] { background: #eef4fd; border-color: #cde0f7; color: #2b5da3; }
+        #opportunities-grid .readiness-tag[data-readiness="financing"] { background: #f4f1fd; border-color: #ded5f6; color: #5a46a3; }
+        #opportunities-grid .readiness-tag[data-readiness="validation"] { background: #fdf2ed; border-color: #f6dacd; color: #a3532f; }
+
+        #opportunities-grid .readiness-dot { width: 6px; height: 6px; border-radius: 50%; background: #9aa8a1; flex: 0 0 auto; }
+        #opportunities-grid .readiness-tag[data-readiness="concept"] .readiness-dot { background: #94a3b8; }
+        #opportunities-grid .readiness-tag[data-readiness="preparation"] .readiness-dot { background: #d19a2e; }
+        #opportunities-grid .readiness-tag[data-readiness="interest"] .readiness-dot { background: #1f9d5f; }
+        #opportunities-grid .readiness-tag[data-readiness="tender"] .readiness-dot { background: #3b7dd8; }
+        #opportunities-grid .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
+        #opportunities-grid .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
+
+        #opportunities-grid .card-watermark {
+            position: absolute;
+            right: -26px;
+            top: -18px;
+            z-index: 0;
+            font-size: 106px;
+            line-height: 1;
+            color: #00342b;
+            opacity: .04;
+            pointer-events: none;
+            user-select: none;
+            transition: transform .5s cubic-bezier(.22, .61, .36, 1), opacity .5s ease;
+        }
+
+        #opportunities-grid .opportunity-card:hover .card-watermark { transform: translate(-5px, 3px) rotate(-5deg); opacity: .07; }
+        #opportunities-grid .opportunity-card > *:not(.card-watermark) { position: relative; z-index: 1; }
+
+        #opportunities-grid .opportunity-card .opp-btn-arrow { font-size: 15px; transition: transform .28s cubic-bezier(.22, .61, .36, 1); }
+
+        /* redesign layer (Opportunities.html rd-style) */
+        .rd #opportunities-grid .opportunity-card {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top: 2px solid #dfa800 !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card::before { display: none !important; }
+
+        .rd #opportunities-grid .opportunity-card:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+            border-color: var(--rd-line-2) !important;
+            border-top-color: #dfa800 !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card h3 {
+            margin: 0 0 4px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-optical-sizing: auto;
+            font-size: 21px !important;
+            line-height: 1.22 !important;
+            letter-spacing: -0.012em !important;
+            color: var(--rd-ink) !important;
+            text-wrap: wrap !important;
+            display: -webkit-box !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card:not(.is-pending):hover h3 { color: var(--rd-green) !important; }
+
+        .rd #opportunities-grid .inv-box,
+        .rd #opportunities-grid .opportunity-card:hover .inv-box {
+            background: var(--rd-card-2) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 14px !important;
+        }
+
+        .rd #opportunities-grid .text-headline-lg-mobile {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 32px !important;
+            line-height: 1.1 !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #opportunities-grid .border-y.border-outline-variant { border-color: var(--rd-line) !important; }
+
+        .rd #opportunities-grid .sector-badge,
+        .rd #opportunities-grid .readiness-tag { font-weight: 500 !important; }
+
+        @media (min-width: 640px) {
+            .rd .opp-grid#opportunities-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important; }
+            .rd #opportunities-grid .opportunity-card { max-width: none !important; }
+        }
+
+        /* the shared card action (Opportunities.html rd-card-actions) */
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 {
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 0 !important;
+            padding-top: 16px !important;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a) {
+            flex: 1 1 auto !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            width: 100% !important;
+            min-height: 44px;
+            padding: 11px 20px !important;
+            border: 1px solid transparent !important;
+            border-radius: 999px !important;
+            background: #edf3ef !important;
+            color: var(--rd-green, #004225) !important;
+            font-family: var(--rd-sans, 'Inter'), sans-serif !important;
+            font-size-adjust: none !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0 !important;
+            white-space: nowrap !important;
+            text-decoration: none !important;
+            box-shadow: none !important;
+            transition: background-color .35s ease, color .35s ease !important;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a):hover {
+            background: var(--rd-green, #004225) !important;
+            color: #ffffff !important;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a):focus-visible {
+            outline: 2px solid var(--rd-green-2, #0b6b45);
+            outline-offset: 3px;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 .opp-btn-arrow {
+            display: inline-block !important;
+            font-size: 17px !important;
+            transition: transform .45s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a):hover .opp-btn-arrow {
+            transform: translateX(4px);
+        }
+    </style>
 </head>
 
 <body class="font-body-md overflow-x-hidden rd">
@@ -3079,7 +3334,7 @@
                         <p class="ovw-lede ovw-rise" style="--o:2">
                         Nigeria sits on thousands of megawatts of wind energy it has barely touched. Nigeria’s wind
                         speeds range from 2.1 m/s to 8 m/s nationally (IRENA), with a current mean of 6.82 m/s at 100
-                        meters hub height and a mean power density of 272 W/m² (Global Wind Atlas, DTU, 2026), and an
+                        metres hub height and a mean power density of 272 W/m² (Global Wind Atlas, DTU, 2026), and an
                         estimated total wind energy potential of approximately 3,200 MW. Yet no utility-scale wind farms
                         are operating at any meaningful capacity; that gap is an opportunity.
                     </p>
@@ -3120,7 +3375,7 @@
                 <div class="ovw-media">
                     <div class="ovw-sticky">
                         <figure class="ovw-photo">
-                            <img alt="Wind energy installation in northern Nigeria" decoding="async" src="sector-Wind-2.jpg" />
+                            <img alt="Five wind turbines along a ridge above rolling green hills, with mountains in the distance" decoding="async" src="sector-Wind-2.jpg" />
                         </figure>
                         <!-- Floating stat card -->
                         <div class="ovw-stat">
@@ -3395,7 +3650,7 @@
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">bolt</span></span>
                         <h4 class="rd-card-title">Above 1 MW (Grid-Connected)</h4>
-                        <p class="rd-card-text">Full NERC Generation License required. Must comply with NERC Grid Code and execute a TCN Grid Connection Agreement. Typical range: 10–50 MW.</p>
+                        <p class="rd-card-text">Full NERC Generation Licence required. Must comply with NERC Grid Code and execute a TCN Grid Connection Agreement. Typical range: 10–50 MW.</p>
                     </div>
                 </div>
             </div>
@@ -3583,42 +3838,42 @@
                     style="font-family: Manrope, sans-serif;">Key Regulatory Agencies</h3>
                 <div class="rd-cards grid" data-no-glossary>
                     <a href="https://nerc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="Nigerian Electricity Regulatory Commission logo.png" alt="Nigerian Electricity Regulatory Commission (NERC)" /></span>
                         <span class="rd-card-title">Nigerian Electricity Regulatory Commission (NERC)</span>
                         <span class="rd-card-text">Licenses generation, distribution, embedded generation and mini-grids, and sets tariffs.</span>
                     </a>
                     <a href="https://rea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="REA-logo.png" alt="REA logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="REA-logo.png" alt="Rural Electrification Agency (REA)" /></span>
                         <span class="rd-card-title">Rural Electrification Agency (REA)</span>
                         <span class="rd-card-text">Runs off-grid, mini-grid and rural electrification programmes.</span>
                     </a>
                     <a href="https://nipc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="nipc-logo.png" alt="NIPC logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="nipc-logo.png" alt="Nigerian Investment Promotion Commission (NIPC)" /></span>
                         <span class="rd-card-title">Nigerian Investment Promotion Commission (NIPC)</span>
                         <span class="rd-card-text">Registers investors and administers incentives such as Pioneer Status.</span>
                     </a>
                     <a href="https://environment.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="FMEnew.png" alt="Federal Ministry of Environment logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="FMEnew.png" alt="Federal Ministry of Environment" /></span>
                         <span class="rd-card-title">Federal Ministry of Environment</span>
                         <span class="rd-card-text">Sets environmental policy and approves Environmental Impact Assessments.</span>
                     </a>
                     <a href="https://nesrea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="nesrea.jpeg" alt="NESREA logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="nesrea.jpeg" alt="National Environmental Standards and Regulations Enforcement Agency (NESREA)" /></span>
                         <span class="rd-card-title">National Environmental Standards and Regulations Enforcement Agency (NESREA)</span>
                         <span class="rd-card-text">Enforces environmental standards and monitors compliance.</span>
                     </a>
                     <a href="https://son.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="son_png.png" alt="SON logo" /></span>
-                        <span class="rd-card-title">Standards Organization of Nigeria (SON)</span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="son_png.png" alt="Standards Organisation of Nigeria (SON)" /></span>
+                        <span class="rd-card-title">Standards Organisation of Nigeria (SON)</span>
                         <span class="rd-card-text">Sets product standards, with SONCAP for imports and MANCAP for local manufacture.</span>
                     </a>
                     <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="NEMSA.png" alt="NEMSA logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="NEMSA.png" alt="Nigerian Electricity Management Services Agency (NEMSA)" /></span>
                         <span class="rd-card-title">Nigerian Electricity Management Services Agency (NEMSA)</span>
                         <span class="rd-card-text">Inspects and certifies electrical installations and equipment for safety.</span>
                     </a>
                     <a href="https://www.tcn.org.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="TCN.png" alt="TCN logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="TCN.png" alt="Transmission Company of Nigeria (TCN)" /></span>
                         <span class="rd-card-title">Transmission Company of Nigeria (TCN)</span>
                         <span class="rd-card-text">Operates the transmission grid and handles interconnection and grid-impact studies.</span>
                     </a>
@@ -4116,7 +4371,7 @@
                                                     <path d="M9 12l2 2 4-4" />
                                                 </svg>
                                             </div>
-                                            <div class="wf-label">NERC Generation License</div>
+                                            <div class="wf-label">NERC Generation Licence</div>
                                         </div>
 
                                         <div class="wf-node up" data-wf-node data-crm-field="tcn_grid_connection">
@@ -4202,7 +4457,7 @@
                                                 <path d="M9 12l2 2 4-4" />
                                             </svg></div>
                                         <div class="wf-item-text">
-                                            <div class="wf-item-label">NERC Generation License</div>
+                                            <div class="wf-item-label">NERC Generation Licence</div>
                                         </div>
                                     </div>
                                     <div class="wf-connector"></div>
@@ -4367,7 +4622,7 @@
                             data-video-id="aqz-KE-bpKQ" data-video-title="wind technical and safety walkthrough">
                             <button type="button" aria-label="Play the wind technical and safety walkthrough"
                                 class="facade-cover absolute inset-0 group cursor-pointer w-full h-full">
-                                <img alt="Wind energy project in northern Nigeria"
+                                <img alt="Wind turbines silhouetted against a deep orange sunset over an open field"
                                     class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity"
                                     loading="lazy" src="sector-Wind.jpg" />
                                 <span class="absolute inset-0 flex items-center justify-center">
@@ -4514,18 +4769,207 @@
                     style="font-family: Manrope, sans-serif;">Featured Investment Areas</h2>
 
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's wind energy market remains largely untapped, with no utility-scale commercial wind farms currently in operation despite proven wind resources and an evolving policy landscape. This presents a rare first-mover opportunity for investors seeking long-term growth in an emerging market.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Momentum is building through REA-led procurement programmes, including 1,225 mini-grids targeted through competitive reverse auctions, where wind-hybrid configurations are eligible alongside solar. Multi-year studies have also identified Plateau, Taraba, and Katsina as Nigeria's strongest locations for utility-scale wind development.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">For investors with patient capital, Nigeria offers a compelling opportunity to enter a market with strong resource fundamentals, increasing government support, and relatively limited competition.</p>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-12 lg:mt-16">
-                    <div>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Momentum is building through REA-led procurement programmes, including 1,225 mini-grids targeted through competitive reverse auctions, where wind-hybrid configurations are eligible alongside solar. Multi-year studies have also identified Plateau, Taraba, and Katsina as Nigeria's strongest locations for utility-scale wind development.</p>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">For investors with patient capital, Nigeria offers a compelling opportunity to enter a market with strong resource fundamentals, increasing government support, and relatively limited competition.</p>
+                <!-- Featured Investment Areas (15 Sep 2026): the Active Opportunities card, as on
+                     DetailedSector.html. Each opens its own project page, detailedOppNew.html?id=... (records in oppdata.js). -->
+                <div id="opportunities-grid" class="opp-grid mt-16 lg:mt-20">
+                    <!-- Featured area 1 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-1" data-sector="wind" data-readiness="tender">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">hub</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-WND-21</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Mini-Grid Development</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Wind</span>
+                            <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Tender / procurement</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 140 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Plateau State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">14 Jan 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Mini-Grid Development"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        </div>
                     </div>
-                    <div class="relative">
-                        <div class="overflow-hidden rounded-2xl shadow-xl">
-                            <img alt="Wind turbines across open grassland" class="w-full h-72 sm:h-80 lg:h-[26rem] object-cover" src="sector-Wind-opp.jpg" loading="lazy" decoding="async" />
+                    <!-- Featured area 2 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-2" data-sector="wind" data-readiness="interest">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">wind_power</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-WND-22</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Hybrid Wind-Solar Systems</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Wind</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Seeking investor interest</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 85 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Katsina State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">10 Mar 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Hybrid Wind-Solar Systems"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        </div>
+                    </div>
+                    <!-- Featured area 3 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-3" data-sector="wind" data-readiness="preparation">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">bolt</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-WND-23</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Utility-Scale Wind Development</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Wind</span>
+                            <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Under preparation</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 420 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Taraba State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">22 Apr 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Utility-Scale Wind Development"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        </div>
+                    </div>
+                    <!-- Featured area 4 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-4" data-sector="wind" data-readiness="concept">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">location_on</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-WND-24</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Geographic Hotspots</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Wind</span>
+                            <span class="readiness-tag" data-readiness="concept"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Concept</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 210 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Multi-State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">02 Jun 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Geographic Hotspots"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                         </div>
                     </div>
                 </div>
+                <script>
+                    /* The same behaviour as the Active Opportunities cards on Opportunities.html:
+                       the whole card and its View in Detail button open the project, and the
+                       investment amount counts up from 0 as the card comes into view. */
+                    (function () {
+                        var cards = Array.prototype.slice.call(document.querySelectorAll('#opportunities-grid .opportunity-card'));
+                        if (!cards.length) return;
+                        function href(card) {
+                            var line = card.querySelector('p');
+                            var m = line ? line.textContent.match(/ID:\s*([A-Za-z0-9-]+)/) : null;
+                            return 'detailedOppNew.html' + (m ? '?id=' + encodeURIComponent(m[1].toUpperCase()) : '');
+                        }
+                        cards.forEach(function (card) {
+                            card.style.cursor = 'pointer';
+                            card.setAttribute('role', 'link');
+                            card.setAttribute('tabindex', '0');
+                            card.addEventListener('click', function () { location.href = href(card); });
+                            card.addEventListener('keydown', function (e) {
+                                if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('button, a')) {
+                                    e.preventDefault();
+                                    location.href = href(card);
+                                }
+                            });
+                        });
+
+                        var amounts = document.querySelectorAll('#opportunities-grid .inv-box p.text-headline-lg-mobile');
+                        function ease(t) { return 1 - Math.pow(1 - t, 3); }
+                        amounts.forEach(function (p) {
+                            var node = p.firstChild;
+                            if (!node || node.nodeType !== 3) return;
+                            var m = node.nodeValue.match(/([^\d-]*)(-?\d+(?:\.\d+)?)(.*)/);
+                            if (!m) return;
+                            p.dataset.cuPrefix = m[1];
+                            p.dataset.cuTarget = m[2];
+                            p.dataset.cuSuffix = m[3];
+                            p.dataset.cuDecimals = (m[2].split('.')[1] || '').length;
+                            node.nodeValue = m[1] + (0).toFixed(p.dataset.cuDecimals) + m[3];
+                        });
+                        function run(p) {
+                            if (p.dataset.cuDone === '1' || !p.dataset.cuTarget) return;
+                            p.dataset.cuDone = '1';
+                            var node = p.firstChild, target = parseFloat(p.dataset.cuTarget), dec = parseInt(p.dataset.cuDecimals, 10), start = null;
+                            function step(ts) {
+                                if (start === null) start = ts;
+                                var t = Math.min(1, (ts - start) / 1100);
+                                node.nodeValue = p.dataset.cuPrefix + (ease(t) * target).toFixed(dec) + p.dataset.cuSuffix;
+                                if (t < 1) requestAnimationFrame(step);
+                            }
+                            requestAnimationFrame(step);
+                        }
+                        if ('IntersectionObserver' in window) {
+                            var io = new IntersectionObserver(function (entries) {
+                                entries.forEach(function (entry) {
+                                    if (entry.isIntersecting) { run(entry.target); io.unobserve(entry.target); }
+                                });
+                            }, { threshold: 0.25 });
+                            amounts.forEach(function (p) { io.observe(p); });
+                        } else {
+                            amounts.forEach(run);
+                        }
+                    })();
+                </script>
 
                 <!-- kept from the earlier section: the video facade style and script -->
                 <style>
@@ -4560,6 +5004,7 @@
                         });
                     })();
                 </script>
+
             </div>
         </section>
 
@@ -5641,6 +6086,7 @@
             }
         })();
     </script>
+    <script src="cardrail.js"></script>
 </body>
 
 </html>

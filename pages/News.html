@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>News | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Policy, market and sector updates from Nigeria's clean energy sector." />
+    <title>News | OSIP, One-Stop Investment Platform</title>
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -407,6 +408,101 @@
 
         .rd #news-grid article:hover a[href] .material-symbols-outlined { transform: translateX(3px); }
 
+        /* ---- Result count and active-filter chips (UX-SUP-03) ----------------------- */
+        /* The count is the tracked-caps line Opportunities.html uses for the same job. */
+        .news-count {
+            margin: 0 0 12px;
+            font-family: Inter, sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--rd-ink-3, #6b716c);
+        }
+
+        .news-count:empty { display: none; }
+
+        .news-chips {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 22px;
+        }
+
+        .news-chips[hidden] { display: none; }
+
+        .news-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 32px;
+            padding: 0 4px 0 12px;
+            border: 1px solid var(--rd-line, #e2ded5);
+            border-radius: 999px;
+            background: var(--rd-card, #fbfaf7);
+            font-family: Inter, sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--rd-ink-2, #3d4742);
+            transition: border-color .25s ease;
+        }
+
+        .news-chip:hover { border-color: var(--rd-line-2, #cfc9bd); }
+
+        .news-chip i {
+            font-style: normal;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--rd-ink-3, #6b716c);
+        }
+
+        .news-chip button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            padding: 0;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--rd-ink-3, #6b716c);
+            cursor: pointer;
+            transition: background-color .25s ease, color .25s ease;
+        }
+
+        .news-chip button:hover {
+            background: #edeae3;
+            color: var(--rd-green, #004225);
+        }
+
+        .news-chip button .material-symbols-outlined { font-size: 15px; }
+
+        .news-chips-clear {
+            height: 32px;
+            padding: 0 12px;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            font-family: Inter, sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--rd-green, #004225);
+            cursor: pointer;
+            transition: background-color .25s ease;
+        }
+
+        .news-chips-clear:hover { background: #edeae3; }
+
+        .news-chip button:focus-visible,
+        .news-chips-clear:focus-visible {
+            outline: 2px solid var(--rd-green-2, #0b6b45);
+            outline-offset: 2px;
+        }
+
         /* ---- No results ------------------------------------------------------------ */
         .rd #news-empty .material-symbols-outlined {
             font-size: 44px !important;
@@ -658,6 +754,14 @@
         .rd [class*="material-symbols"],
         .rd [class*="material-icons"] { font-size-adjust: none !important; }
 
+        /* The reading column is centred in the space next to the filter panel, so the
+           cards are not pinned to the right edge on a wide screen (16 Sep 2026). */
+        .rd main {
+            width: 100% !important;
+            max-width: 1180px !important;
+            margin-inline: auto !important;
+        }
+
         .rd main h1 { font-weight: 500 !important; }
         .rd #news-grid article h3 { font-weight: 500 !important; }
         /* the filter panel's type, matched to the Opportunities panel */
@@ -829,7 +933,7 @@
         <!-- Backdrop for the mobile filter drawer -->
         <div id="filter-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden"></div>
         <!-- Sidebar Filter — off-canvas drawer on mobile, static column on lg+ -->
-        <aside id="filter-sidebar"
+        <aside id="filter-sidebar" data-osip-filters="#news-grid"
             class="fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85%] bg-surface-container-low border-r border-outline-variant flex flex-col p-6 gap-6 overflow-y-auto transform -translate-x-full transition-transform duration-300 lg:static lg:translate-x-0 lg:transform-none lg:z-auto lg:max-w-none lg:overflow-visible">
             <div class="filter-sticky">
             <div class="flex items-center justify-between gap-3">
@@ -848,48 +952,56 @@
                 </button>
             </div>
             <div class="filter-scroll" data-lenis-prevent>
-            <!-- News Categories -->
+            <!-- News Categories (UX-SUP-03, 16 Sep 2026): the taxonomy investors actually
+                 look for - tenders, opportunities, regulatory updates, policy, projects and
+                 events - in place of the newsroom subject list. The values match
+                 data-category on the cards, which is what the filter script reads. -->
             <section>
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">News
                         Categories</h3>
-                    <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">5</span>
+                    <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">6</span>
                 </div>
                 <div class="space-y-3">
                     <label class="flex items-center gap-3 cursor-pointer group">
                         <input
                             class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
                             type="checkbox" />
-                        <span class="text-body-sm text-on-surface group-hover:text-primary">Policy &amp;
-                            Legislation</span>
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Investment opportunities</span>
                     </label>
                     <label class="flex items-center gap-3 cursor-pointer group">
                         <input
                             class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
                             type="checkbox" />
-                        <span class="text-body-sm text-on-surface group-hover:text-primary">Power &amp; Energy</span>
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Tenders &amp; bids</span>
                     </label>
                     <label class="flex items-center gap-3 cursor-pointer group">
                         <input
                             class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
                             type="checkbox" />
-                        <span class="text-body-sm text-on-surface group-hover:text-primary">Renewables</span>
+                        <span class="text-body-sm text-on-surface group-hover:text-primary">Regulatory updates</span>
                     </label>
                     <div class="more-options space-y-3 hidden">
                         <label class="flex items-center gap-3 cursor-pointer group">
                             <input
                                 class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
                                 type="checkbox" />
-                            <span class="text-body-sm text-on-surface group-hover:text-primary">Oil &amp; Gas</span>
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Policy &amp; reform</span>
                         </label>
                         <label class="flex items-center gap-3 cursor-pointer group">
                             <input
                                 class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
                                 type="checkbox" />
-                            <span class="text-body-sm text-on-surface group-hover:text-primary">Infrastructure</span>
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Projects &amp; infrastructure</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                class="filter-checkbox rounded-sm border-outline w-4 h-4 text-primary-container focus:ring-primary"
+                                type="checkbox" />
+                            <span class="text-body-sm text-on-surface group-hover:text-primary">Events</span>
                         </label>
                     </div>
-                    <button type="button"
+                    <button type="button" aria-label="Show all News Categories filters" aria-expanded="false"
                         class="filter-more-btn flex items-center gap-2 text-primary text-[12px] font-bold mt-2 hover:underline">
                         <span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span> <span
                             class="more-label">View more</span>
@@ -1127,7 +1239,7 @@
                             <span class="text-body-sm text-on-surface group-hover:text-primary">Zamfara</span>
                         </label>
                     </div>
-                    <button type="button"
+                    <button type="button" aria-label="Show all States filters" aria-expanded="false"
                         class="filter-more-btn flex items-center gap-2 text-primary text-[12px] font-bold mt-2 hover:underline">
                         <span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span> <span
                             class="more-label">View more</span>
@@ -1167,7 +1279,7 @@
                             <span class="text-body-sm text-on-surface group-hover:text-primary">This Year</span>
                         </label>
                     </div>
-                    <button type="button"
+                    <button type="button" aria-label="Show all Timeline filters" aria-expanded="false"
                         class="filter-more-btn flex items-center gap-2 text-primary text-[12px] font-bold mt-2 hover:underline">
                         <span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span> <span
                             class="more-label">View more</span>
@@ -1210,156 +1322,187 @@
                         class="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant">search</span>
                 </div>
             </div>
+            <!-- UX-SUP-03: how many items the filters left, and which filters
+                 are on. The chips are the way back out of a filter: each one
+                 removes its own, without hunting for the box that set it. -->
+            <p id="news-count" class="news-count" role="status" aria-live="polite"></p>
+            <div id="news-chips" class="news-chips" role="group" aria-label="Active filters" hidden></div>
+
             <!-- News Grid -->
-            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
-                <!-- News Card 1 -->
+            <h2 class="rd-sr">Latest news</h2>
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter"
+                data-osip-list data-osip-label="news items" data-osip-empty="#news-empty"
+                data-osip-reset="#reset-filters">
+                <!-- News card 1: Govt upbeat on Nyerere Hydropower Project completion -->
                 <article
                     class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
                     <div class="aspect-video overflow-hidden relative shrink-0">
                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="A sweeping aerial shot of a vast solar farm in a semi-arid Nigerian landscape. Hundreds of blue photovoltaic panels are arranged in perfect geometric rows under a bright, clear sky. The lighting is warm and natural, emphasizing the scale of renewable energy infrastructure. The image has a clean, corporate, and optimistic industrial feel."
-                            src="news-hydro.jpg" />
+                            alt="Aerial view of a hydropower dam and its reservoir, with the spillway and powerhouse in the foreground" src="news-hydro.jpg" />
                     </div>
                     <div class="p-6 flex flex-col flex-1">
                         <div class="flex items-center gap-2 mb-3">
                             <span
                                 class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-20">20 Nov 2024</time>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-09-08">08 Sep 2026</time>
                         </div>
-                        <h3 data-category="Renewables,Power &amp; Energy" data-state="Niger"
+                        <h3 data-category="Projects &amp; infrastructure" data-state="Niger"
                             data-timeline="Last 30 Days"
                             class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
                             Govt upbeat on Nyerere Hydropower Project completion</h3>
                         <div class="mt-auto pt-6 flex justify-between items-center">
                             <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="NewsInDetail.html">
+                                href="NewsInDetail.html?id=nyerere-hydropower" aria-label="Read: Govt upbeat on Nyerere Hydropower Project completion">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                             </a>
                         </div>
                     </div>
                 </article>
-                <!-- News Card 2 -->
+                <!-- News card 2: Offshore Wind Potential in Lagos Coastline Explored by Global Investors -->
                 <article
                     class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
                     <div class="aspect-video overflow-hidden relative shrink-0">
                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="A professional close-up of modern offshore wind turbines rising from a deep blue ocean near a coastal metropolitan skyline. The sun is setting, casting a golden glow on the rotating blades. The atmosphere is professional and visionary, highlighting the intersection of urban growth and sustainable technology. High-key lighting ensures a clean, modern aesthetic."
-                            src="news-wind.jpg" />
+                            alt="Offshore wind turbines standing in open water at sunset, seen from the coast" src="news-wind.jpg" />
                     </div>
                     <div class="p-6 flex flex-col flex-1">
                         <div class="flex items-center gap-2 mb-3">
                             <span
                                 class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-18">18 Nov 2024</time>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-09-01">01 Sep 2026</time>
                         </div>
-                        <h3 data-category="Renewables" data-state="Lagos" data-timeline="Last 30 Days"
+                        <h3 data-category="Investment opportunities" data-state="Lagos"
+                            data-timeline="Last 30 Days"
                             class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
                             Offshore Wind Potential in Lagos Coastline Explored by Global Investors</h3>
                         <div class="mt-auto pt-6 flex justify-between items-center">
                             <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="NewsInDetail.html">
+                                href="NewsInDetail.html?id=lagos-offshore-wind" aria-label="Read: Offshore Wind Potential in Lagos Coastline Explored by Global Investors">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                             </a>
                         </div>
                     </div>
                 </article>
-                <!-- News Card 3 -->
+                <!-- News card 3: Major Update on AKK Gas Pipeline: Project Reaches 85% Completion Milestone -->
                 <article
                     class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
                     <div class="aspect-video overflow-hidden relative shrink-0">
                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="Construction site of a major gas pipeline project with large industrial pipes being laid in a prepared trench across a vast terrain. Workers in high-visibility gear are visible in the distance, suggesting active progress. The lighting is bright daylight, creating a sharp, high-resolution look that communicates stability and industrial development."
-                            src="news-pipeline.jpg" />
+                            alt="Large-diameter gas pipeline sections being laid in a prepared trench across open ground" src="news-pipeline.jpg" />
                     </div>
                     <div class="p-6 flex flex-col flex-1">
                         <div class="flex items-center gap-2 mb-3">
                             <span
                                 class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-15">15 Nov 2024</time>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-08-12">12 Aug 2026</time>
                         </div>
-                        <h3 data-category="Power &amp; Energy" data-state="Kaduna" data-timeline="Past Quarter"
+                        <h3 data-category="Projects &amp; infrastructure" data-state="Kaduna"
+                            data-timeline="Past Quarter"
                             class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
                             Major Update on AKK Gas Pipeline: Project Reaches 85% Completion Milestone</h3>
                         <div class="mt-auto pt-6 flex justify-between items-center">
                             <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="NewsInDetail.html">
+                                href="NewsInDetail.html?id=akk-gas-pipeline" aria-label="Read: Major Update on AKK Gas Pipeline: Project Reaches 85% Completion Milestone">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                             </a>
                         </div>
                     </div>
                 </article>
-                <!-- News Card 4 -->
+                <!-- News card 4: New Electricity Act Signed into Law: What it Means for Private Investors -->
                 <article
                     class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
                     <div class="aspect-video overflow-hidden relative shrink-0">
                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="High-level meeting room with government officials and international business executives in professional attire seated around a sleek, modern conference table. Large windows reveal a bright cityscape. The mood is serious and institutional, reflecting transparency and corporate partnership in the energy sector. Soft, professional lighting."
-                            src="news-act.jpg" />
+                            alt="Government officials and business representatives seated around a conference table at a signing ceremony" src="news-act.jpg" />
                     </div>
                     <div class="p-6 flex flex-col flex-1">
                         <div class="flex items-center gap-2 mb-3">
                             <span
                                 class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-10">10 Nov 2024</time>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-07-23">23 Jul 2026</time>
                         </div>
-                        <h3 data-category="Policy &amp; Legislation" data-state="Abuja (FCT)"
+                        <h3 data-category="Regulatory updates,Policy &amp; reform" data-state="Abuja (FCT)"
                             data-timeline="Past Quarter"
                             class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
                             New Electricity Act Signed into Law: What it Means for Private Investors</h3>
                         <div class="mt-auto pt-6 flex justify-between items-center">
                             <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="NewsInDetail.html">
+                                href="NewsInDetail.html?id=electricity-act-investors" aria-label="Read: New Electricity Act Signed into Law: What it Means for Private Investors">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                             </a>
                         </div>
                     </div>
                 </article>
-                <!-- News Card 5 -->
+                <!-- News card 5: Nigeria Expands Renewable Energy Investment Pipeline -->
                 <article
                     class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
                     <div class="aspect-video overflow-hidden relative shrink-0">
                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="A modern green hydrogen processing plant featuring complex industrial machinery and large storage spheres under a clean, overcast sky. The facility is pristine and highly technological. The image uses a cool-toned palette with professional lighting, emphasizing sustainability and the future of clean energy innovation."
-                            src="news-hydrogen.jpg" />
+                            alt="A wind turbine at dusk on the coast, one of the technologies in the renewable generation pipeline" src="news-renewable-pipeline.jpg" />
                     </div>
                     <div class="p-6 flex flex-col flex-1">
                         <div class="flex items-center gap-2 mb-3">
                             <span
                                 class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-05">05 Nov 2024</time>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-07-14">14 Jul 2026</time>
                         </div>
-                        <h3 data-category="Renewables" data-state="Rivers" data-timeline="Archived"
+                        <h3 data-category="Policy &amp; reform,Investment opportunities" data-state="Abuja (FCT)"
+                            data-timeline="Past Quarter"
+                            class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
+                            Nigeria Expands Renewable Energy Investment Pipeline</h3>
+                        <div class="mt-auto pt-6 flex justify-between items-center">
+                            <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                href="NewsInDetail.html?id=renewable-investment-pipeline" aria-label="Read: Nigeria Expands Renewable Energy Investment Pipeline">
+                                Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- News card 6: Niger Delta Pilot: Green Hydrogen Production Site Groundbreaking Ceremony -->
+                <article
+                    class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                    <div class="aspect-video overflow-hidden relative shrink-0">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            alt="Industrial hydrogen plant with storage spheres and process pipework" src="news-hydrogen.jpg" />
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span
+                                class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-06-18">18 Jun 2026</time>
+                        </div>
+                        <h3 data-category="Projects &amp; infrastructure,Investment opportunities" data-state="Rivers"
+                            data-timeline="This Year"
                             class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
                             Niger Delta Pilot: Green Hydrogen Production Site Groundbreaking Ceremony</h3>
                         <div class="mt-auto pt-6 flex justify-between items-center">
                             <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="NewsInDetail.html">
+                                href="NewsInDetail.html?id=niger-delta-green-hydrogen" aria-label="Read: Niger Delta Pilot: Green Hydrogen Production Site Groundbreaking Ceremony">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                             </a>
                         </div>
                     </div>
                 </article>
-                <!-- News Card 6 -->
+                <!-- News card 7: Nigeria Energy Sector Reports 15% Increase in Foreign Direct Investment -->
                 <article
                     class="bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col">
                     <div class="aspect-video overflow-hidden relative shrink-0">
                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="Dynamic financial stock market chart displayed on a modern tablet held by an analyst in a professional office setting. The graphs show upward trends in green, symbolizing growth in the energy sector. The background is softly blurred to keep focus on the data and the sense of economic prosperity and transparent investment tracking."
-                            src="news-fdi.jpg" />
+                            alt="Analyst reviewing an energy investment chart on a tablet in an office" src="news-fdi.jpg" />
                     </div>
                     <div class="p-6 flex flex-col flex-1">
                         <div class="flex items-center gap-2 mb-3">
                             <span
                                 class="material-symbols-outlined text-[16px] text-on-surface-variant">calendar_today</span>
-                            <time class="text-label-md text-on-surface-variant" datetime="2024-11-01">01 Nov 2024</time>
+                            <time class="text-label-md text-on-surface-variant" datetime="2026-05-14">14 May 2026</time>
                         </div>
-                        <h3 data-category="Policy &amp; Legislation,Power &amp; Energy" data-state="Lagos"
-                            data-timeline="Archived"
+                        <h3 data-category="Policy &amp; reform" data-state="Lagos"
+                            data-timeline="This Year"
                             class="font-h4 text-h4 text-primary leading-tight group-hover:text-secondary transition-colors">
                             Nigeria Energy Sector Reports 15% Increase in Foreign Direct Investment</h3>
                         <div class="mt-auto pt-6 flex justify-between items-center">
                             <a class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                href="NewsInDetail.html">
+                                href="NewsInDetail.html?id=fdi-energy-increase" aria-label="Read: Nigeria Energy Sector Reports 15% Increase in Foreign Direct Investment">
                                 Read More <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                             </a>
                         </div>
@@ -1371,6 +1514,7 @@
                 <span class="material-symbols-outlined text-[40px] text-on-surface-variant">search_off</span>
                 <p class="mt-3 font-bold text-on-surface">No news items match your filters</p>
                 <p class="text-sm text-on-surface-variant">Try removing a filter or clearing your search.</p>
+                <p id="news-empty-hint" class="mt-2 text-sm text-on-surface-variant hidden"></p>
             </div>
             <!-- Pagination: built from the filtered results by the script below -->
             <div id="news-pager" class="mt-16 flex justify-center items-center gap-2" hidden></div>
@@ -1443,6 +1587,9 @@
         (function () {
             const grid = document.getElementById('news-grid');
             const empty = document.getElementById('news-empty');
+            const emptyHint = document.getElementById('news-empty-hint');
+            const countEl = document.getElementById('news-count');
+            const chipsEl = document.getElementById('news-chips');
             const search = document.getElementById('news-search');
             const resetBtn = document.getElementById('reset-filters');
             const pager = document.getElementById('news-pager');
@@ -1481,6 +1628,92 @@
                     if (box && span) filters.push({ attr, box, value: clean(span.textContent) });
                 });
             });
+
+            // What each filter group is called on a chip.
+            const GROUP_LABEL = { category: 'Category', state: 'State', timeline: 'Timeline' };
+
+            // "7 news items", or "3 of 7 news items" once something is filtered out,
+            // plus the slice on screen when there is more than one page of them.
+            function renderCount(hits, from, to) {
+                if (!countEl) return;
+                if (!hits) { countEl.textContent = 'No news items match'; return; }
+                let text = hits === cards.length
+                    ? cards.length + (cards.length === 1 ? ' news item' : ' news items')
+                    : hits + ' of ' + cards.length + ' news items';
+                if (hits > PER_PAGE) {
+                    text += ' \u00b7 showing ' + (from + 1) + '\u2013' + Math.min(to, hits);
+                }
+                countEl.textContent = text;
+            }
+
+            function chipFor(item) {
+                const chip = document.createElement('span');
+                chip.className = 'news-chip';
+                const label = document.createElement('i');
+                label.textContent = item.label;
+                const text = document.createElement('span');
+                text.textContent = item.text;
+                const off = document.createElement('button');
+                off.type = 'button';
+                off.setAttribute('aria-label', 'Remove filter: ' + item.label + ' ' + item.text);
+                off.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">close</span>';
+                off.addEventListener('click', function () { item.off(); applyFilters(); });
+                chip.appendChild(label);
+                chip.appendChild(text);
+                chip.appendChild(off);
+                return chip;
+            }
+
+            function renderChips(query) {
+                if (!chipsEl) return;
+                const items = [];
+                filters.forEach(function (f) {
+                    if (!f.box.checked) return;
+                    items.push({
+                        label: GROUP_LABEL[f.attr] || '', text: f.value,
+                        off: function () { f.box.checked = false; }
+                    });
+                });
+                if (query) {
+                    items.push({
+                        label: 'Search', text: clean(search.value),
+                        off: function () { search.value = ''; }
+                    });
+                }
+                chipsEl.innerHTML = '';
+                chipsEl.hidden = !items.length;
+                if (!items.length) return;
+                items.forEach(function (item) { chipsEl.appendChild(chipFor(item)); });
+                if (items.length < 2) return;
+                const clearAll = document.createElement('button');
+                clearAll.type = 'button';
+                clearAll.className = 'news-chips-clear';
+                clearAll.textContent = 'Clear all';
+                clearAll.addEventListener('click', function () {
+                    filters.forEach(function (f) { f.box.checked = false; });
+                    if (search) search.value = '';
+                    applyFilters();
+                });
+                chipsEl.appendChild(clearAll);
+            }
+
+            // Two categories have no stories yet, and one of them has a page of its
+            // own, so the empty state says where to look instead of stopping dead.
+            function renderEmptyHint(active) {
+                if (!emptyHint) return;
+                const on = (active.category || []);
+                let html = '';
+                if (on.indexOf('Events') > -1) {
+                    html = 'Events are published on their own page: ' +
+                        '<a class="font-bold text-primary hover:underline" href="Event.html">Events &amp; Engagements</a>.';
+                } else if (on.indexOf('Tenders & bids') > -1) {
+                    html = 'No tender or bid notice has been published here yet. ' +
+                        '<a class="font-bold text-primary hover:underline" href="Announcements.html">Announcements</a> ' +
+                        'carries the calls and deadlines issued so far.';
+                }
+                emptyHint.innerHTML = html;
+                emptyHint.classList.toggle('hidden', !html);
+            }
 
             function cardValues(card, attr) {
                 const h3 = card.querySelector('h3');
@@ -1549,6 +1782,9 @@
                 cards.forEach(card => card.classList.add('hidden'));
                 hits.slice(from, to).forEach(card => card.classList.remove('hidden'));
                 if (empty) empty.classList.toggle('hidden', hits.length !== 0);
+                if (!hits.length) renderEmptyHint(active);
+                renderCount(hits.length, from, to);
+                renderChips(query);
                 renderPager(hits.length ? pages : 0);
 
                 if (window.ScrollTrigger) window.ScrollTrigger.refresh();
@@ -1632,6 +1868,10 @@
                 if (label) label.textContent = collapsed ? 'View more' : 'View less';
                 const icon = btn.querySelector('.material-symbols-outlined');
                 if (icon) icon.textContent = collapsed ? 'keyboard_arrow_down' : 'keyboard_arrow_up';
+                // UX-A11-08: the button keeps its own name ("Show all States
+                // filters"); only its state changes, so a screen reader can tell
+                // the three of them apart and hear whether each is open.
+                btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
             });
         });
 
@@ -1826,6 +2066,12 @@
     <!-- Invest Now popup flow -->
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
+    <!-- UX-FRM-07: loading, empty, error and success states. The lists on this page
+         are marked data-osip-list; osipstate.js gives each one the loader while it
+         is working, a message when a filter matches nothing, an error state when
+         its data does not arrive, and the confirmations the page shows after an
+         action. -->
+    <script src="osipstate.js"></script>
 <script src="nav.js"></script>
     <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>

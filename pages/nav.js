@@ -24,9 +24,70 @@
   // in the bar and the name on the profile page are the same person rather than
   // two unrelated placeholders. One name here changes both marks.
   var USER = { name: 'Adaeze Okoye' };
-  var INITIALS = USER.name.split(/\s+/).slice(0, 2).map(function (w) {
-    return w.charAt(0);
-  }).join('').toUpperCase();
+  // One magnifier, used by the header button, the open search bar and the
+  // mobile sheet's search field.
+  var SEARCH_SVG = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>';
+  var CLOSE_SVG = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" ' +
+    'stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+
+  function initialsOf(name) {
+    return (name || '').split(/\s+/).slice(0, 2).map(function (w) {
+      return w.charAt(0);
+    }).join('').toUpperCase();
+  }
+
+  // ---- Session (16 Sep 2026) ---------------------------------------------
+  // There is no backend to authenticate against yet, so "signed in" is a flag
+  // this prototype keeps in localStorage under osip_session - the same place
+  // InvestNow1 already keeps the sectors someone picked. Login.html writes it,
+  // Sign out clears it, and every header reads it, so the state survives a
+  // refresh, a new tab and moving between pages. Where storage is blocked
+  // (private windows, some file:// setups) it falls back to memory and simply
+  // lasts as long as the tab.
+  //
+  // It is a display flag and nothing more: no page keeps anything private
+  // behind it, and real authentication replaces readSession/writeSession
+  // without touching anything else.
+  var SESSION_KEY = 'osip_session';
+  var memorySession = null;
+
+  function readSession() {
+    try {
+      var raw = window.localStorage.getItem(SESSION_KEY);
+      if (raw) return JSON.parse(raw);
+      return null;
+    } catch (e) { return memorySession; }
+  }
+
+  function writeSession(value) {
+    memorySession = value;
+    try {
+      if (value) window.localStorage.setItem(SESSION_KEY, JSON.stringify(value));
+      else window.localStorage.removeItem(SESSION_KEY);
+    } catch (e) { /* memory only */ }
+  }
+
+  var session = readSession();
+  var USER_NAME = (session && session.name) || USER.name;
+  var INITIALS = initialsOf(USER_NAME);
+
+  // Shared with Login.html, AboutMe.html's Sign out and the opportunity page's
+  // members-only sections, all of which load this file.
+  window.OSIPSession = {
+    key: SESSION_KEY,
+    get: function () { return readSession(); },
+    signIn: function (who) {
+      var value = {
+        name: (who && who.name) || USER.name,
+        email: (who && who.email) || '',
+        at: new Date().toISOString()
+      };
+      writeSession(value);
+      return value;
+    },
+    signOut: function () { writeSession(null); }
+  };
   var url = {
     sectors: base + 'Sector.html',
     // NAV-03: the state overview. Live profiles are links there, every state
@@ -38,13 +99,30 @@
     news: base + 'News.html',
     contact: base + 'Contact.html',
     profile: base + 'AboutMe.html',
-    // "Invest Now" now opens the InvestorMatch quiz rather than the old
-    // InvestNow1-3 popup flow (see investflow.js).
+    // The primary action ("Register your interest") opens the InvestorMatch
+    // quiz rather than the old InvestNow1-3 popup flow (see investflow.js).
     invest: base + 'InvestorMatch.html',
     faqs: base + 'FAQs.html',
     events: base + 'Event.html',
-    announcements: base + 'Announcements.html'
+    announcements: base + 'Announcements.html',
+    // UX-NAV-06: one search box in the header, one results page behind it.
+    search: base + 'Search.html',
+    // UX-10: login could not be reached from any menu. It can now.
+    login: base + 'Login.html'
   };
+
+  // Log in comes back to the page it was opened from, so signing in does not
+  // cost the reader their place. Only a path inside the site is ever passed on
+  // (see Login.html), never a full URL.
+  function loginHref() {
+    try {
+      var path = window.location.pathname;
+      var file = path.split('/').pop() || 'homepage.html';
+      var next = (/\/pages\/[^\/]*$/.test(path) ? '' : '../') + file +
+        window.location.search + window.location.hash;
+      return url.login + '?next=' + encodeURIComponent(next);
+    } catch (e) { return url.login; }
+  }
 
   // NAV-01 asks for: Invest, Sectors, States, Regulations, Financing,
   // Data & Insights, News & Events, Support.
@@ -72,8 +150,8 @@
     { label: 'Sectors', href: url.sectors },
     { label: 'States', href: url.states },
     { label: 'Resources', menuOnly: true },
-    // News, Events and Announcements are three separate pages; one tab now
-    // holds all three, the same way Resources holds its sections.
+    // News and Events are separate pages; one tab holds both, the same way
+    // Resources holds its sections.
     { label: 'Newsroom', menuOnly: true },
     { label: 'Support', href: url.contact }
   ];
@@ -139,20 +217,25 @@
     'STATES': {
       head: 'States & Territories', mega: true, groups: STATE_GROUPS
     },
+    // 16 Sep 2026: three of five entries used to open the same unfiltered
+    // Opportunities page, and Grid Infrastructure had nothing behind it at all -
+    // no OSIP sector covers transmission.
+    //
+    // 17 Sep 2026: down to the two halves of the Opportunities page, named as that
+    // page names them. Sector-filtered views and the matcher were a second way of
+    // saying the same thing; the page's own filters do the first, and the header's
+    // "Register your interest" button does the second.
     'INVEST': {
       head: 'Investment Opportunities', items: [
-        { t: 'Renewable Generation', d: 'Solar, wind & off-grid investment projects.', href: base + 'Opportunities.html' },
-        { t: 'Grid Infrastructure', d: 'Transmission & distribution tenders.', href: base + 'Opportunities.html' },
-        { t: 'Energy Storage', d: 'Battery & storage deployment projects.', href: base + 'Opportunities.html' },
-        { t: 'Browse all opportunities', d: 'View every open opportunity.', href: base + 'Opportunities.html' },
-        { t: 'Investor match', d: 'Answer a few questions and get matched.', href: base + 'InvestorMatch.html' }
+        { t: 'Opportunity Areas', d: 'Business models open to investors, sector by sector.', href: base + 'Opportunities.html#opportunity-areas' },
+        { t: 'Active Opportunities', d: 'Published projects with figures, stage and location.', href: base + 'Opportunities.html#active-opportunities' }
       ]
     },
     'SUPPORT': {
       head: 'Help and Support', items: [
         { t: 'Contact us', d: 'Reach the OSIP team directly.', href: base + 'Contact.html' },
         { t: 'FAQs', d: 'Answers to the questions we are asked most.', href: base + 'FAQs.html' },
-        { t: 'OSIP Help Desk', d: 'Investor support services.', href: base + 'Contact.html' }
+        { t: 'OSIP Help Desk', d: 'Investor support services.', href: base + 'HelpDesk.html' }
       ]
     },
     // Resources: the former Regulations, Data & Insights and Financing tabs as
@@ -166,13 +249,14 @@
         // menu promised detail and delivered a general page. Each entry now opens
         // the section it names, which REG-01 gave the page.
         {
-          head: 'Regulations & Compliance', href: url.regulations, wide: true, items: [
+          head: 'Regulations', href: url.regulations, wide: true, items: [
             { t: 'Core Laws & Policies', d: 'Electricity Act, PIA, NIEP & the core energy laws.', href: base + 'Regulation.html#core-laws' },
             { t: 'Business Registration', d: 'CAC incorporation, NIPC registration & licensing.', href: base + 'Regulation.html#registration' },
             { t: 'Tax & Fiscal Policy', d: 'Rates, Pioneer Status & equipment reliefs.', href: base + 'Regulation.html#tax' },
             { t: 'Import & Export', d: 'Duty treatment, SONCAP conformity & free zones.', href: base + 'Regulation.html#trade' },
             { t: 'Treaties & Immigration', d: 'Investment guarantees, CERPAC & expatriate quota.', href: base + 'Regulation.html#treaties' },
-            { t: 'Regulatory Bodies', d: 'NERC, REA & NIPC.', href: base + 'Regulation.html#bodies' }
+            { t: 'Regulatory Bodies', d: 'NERC, REA & NIPC.', href: base + 'Regulation.html#bodies' },
+            { t: 'Pathway Finder', d: 'Your approvals, by sector, model and connection.', href: base + 'Regulation.html#pathway' }
           ]
         },
         {
@@ -182,32 +266,21 @@
             { t: 'Open Data Downloads', d: 'Planned datasets, and where to get data today.', href: base + 'Data.html#downloads' }
           ]
         },
-        { head: 'Financing', soon: true }
       ]
     },
-    // Newsroom: the News page's categories as one section, and the Events and
-    // Announcements pages side by side in the other. A section without an href
-    // shows its title as a plain heading.
+    // Newsroom (17 Sep 2026): News and Events. Announcements was the third item
+    // here and is no longer published, so the menu no longer offers it. The page
+    // and its breadcrumbs are left in place for anything that still holds a
+    // link; nothing in the header points at them.
     'NEWSROOM': {
-      head: 'News, Events & Announcements', sections: [
-        {
-          head: 'News', href: url.news, wide: true, items: [
-            { t: 'Policy & Legislation', d: 'Regulatory and policy developments.', href: base + 'News.html' },
-            { t: 'Power & Energy', d: 'Generation, supply & market news.', href: base + 'News.html' },
-            { t: 'Renewables', d: 'Solar, wind & clean-energy coverage.', href: base + 'News.html' },
-            { t: 'Oil & Gas', d: 'Upstream and downstream updates.', href: base + 'News.html' },
-            { t: 'Infrastructure', d: 'Projects, grids & facilities.', href: base + 'News.html' }
-          ]
-        },
-        {
-          head: 'Events & Announcements', items: [
-            { t: 'Events', d: 'Forums, workshops & roadshows.', href: url.events },
-            { t: 'Announcements', d: 'Calls, deadlines & official notices.', href: url.announcements }
-          ]
-        }
+      head: 'Newsroom', items: [
+        { t: 'News', d: 'Policy, market and sector updates.', href: url.news },
+        { t: 'Events', d: 'Forums, workshops & roadshows.', href: url.events }
       ]
     }
   };
+
+  var FILE = (location.pathname.split('/').pop() || '').toLowerCase() || 'homepage.html';
 
   // Which top-level tab is "active" for a given page (basename -> label).
   var PAGE_ACTIVE = {
@@ -222,7 +295,7 @@
     'opportunities.html': 'INVEST', 'opportunitiesnew.html': 'INVEST',
     'detailedoppnew.html': 'INVEST', 'investormatch.html': 'INVEST',
     'states.html': 'STATES', 'enugu.html': 'STATES',
-    'contact.html': 'SUPPORT', 'faqs.html': 'SUPPORT'
+    'contact.html': 'SUPPORT', 'faqs.html': 'SUPPORT', 'helpdesk.html': 'SUPPORT'
   };
 
   // ---- Header markup -----------------------------------------------------
@@ -290,35 +363,258 @@
       '<div class="nesp-m-sub"><div><div class="nesp-m-sublist">' + subs + '</div></div></div></li>';
   }
 
+  // ---- Breadcrumbs (UX-NAV-07) -------------------------------------------
+  // Only two pages carried a trail, so on a sector or a notice there was nothing
+  // saying where you were or how to step back up. The trail is declared here, with
+  // the rest of the site's structure, rather than pasted into thirty pages.
+  //
+  // It is NOT a bar under the header. A full-width strip between the header and
+  // the page is another horizontal line to get past before the page begins, and
+  // it reads as chrome rather than as part of the page. Instead the trail is set
+  // into the page's own header, in the slot the eyebrow already occupies:
+  //
+  //   - a big dark hero (Sector, States, Data, the notices and events, a sector
+  //     page): it REPLACES the eyebrow, in white on the photograph;
+  //   - a paper page (Opportunities, News, Contact): it sits directly above the
+  //     title, small and grey, exactly as the opportunity detail pages have it;
+  //   - Regulations: it takes the place of the gold rule above the title.
+  //
+  // Each entry is the path ABOVE the page; Home is added in front of every trail
+  // and the page itself closes it. `self` names the page; where it is left out the
+  // page's own <h1> (or its <title>) names it, so an article or a notice reads as
+  // itself. Pages with no entry - the homepage, the quiz, the sign-in and pop-up
+  // steps - get no trail.
+  var SECTORS_UP = [{ t: 'Sectors', href: url.sectors }];
+  var NEWSROOM_UP = { t: 'Newsroom' };
+  var CRUMBS = {
+    'sector.html': { self: 'Sectors' },
+    'detailedsector.html': { up: SECTORS_UP },
+    'wind.html': { up: SECTORS_UP },
+    'storage.html': { up: SECTORS_UP },
+    'smallhydro.html': { up: SECTORS_UP },
+    'bioenergy.html': { up: SECTORS_UP },
+    'cleancooking.html': { up: SECTORS_UP },
+    'greenmobility.html': { up: SECTORS_UP },
+    'greenhydrogen.html': { up: SECTORS_UP },
+    'energyefficiency.html': { up: SECTORS_UP },
+    'agriculturepue.html': { up: SECTORS_UP },
+    'newdetailedsectortesting.html': { up: SECTORS_UP },
+    'opportunities.html': { self: 'Investment Opportunities' },
+    'states.html': { self: 'Invest by State' },
+    'enugu.html': { up: [{ t: 'Invest by State', href: url.states }] },
+    'regulation.html': { self: 'Regulations' },
+    'data.html': { self: 'Data & Insights' },
+    'news.html': { up: [NEWSROOM_UP], self: 'News' },
+    'newsindetail.html': { up: [NEWSROOM_UP, { t: 'News', href: url.news }] },
+    'announcements.html': { up: [NEWSROOM_UP], self: 'Announcements' },
+    'individualannouncement.html': { up: [NEWSROOM_UP, { t: 'Announcements', href: url.announcements }] },
+    'event.html': { up: [NEWSROOM_UP], self: 'Events & Engagements' },
+    'individualevent.html': { up: [NEWSROOM_UP, { t: 'Events', href: url.events }] },
+    'contact.html': { up: [{ t: 'Support' }], self: 'Contact Us' },
+    'faqs.html': { up: [{ t: 'Support' }], self: 'FAQs' },
+    'helpdesk.html': { up: [{ t: 'Support' }], self: 'OSIP Help Desk' },
+    'aboutosip.html': { self: 'About OSIP' },
+    'aboutme.html': { self: 'My Profile' },
+    'search.html': { self: 'Search' }
+  };
+
+  // Where the trail goes on each page, and in what tone.
+  //   replace - stand in for this element (an eyebrow, a back-link, a gold rule)
+  //   before  - sit immediately above it
+  //   title   - sit above the block that holds the page title
+  // `light` is the white-on-photograph tone for a dark hero.
+  var HERO_EYEBROW = '.max-w-3xl > div.flex.items-center.gap-3';   // dash + label
+  var CRUMB_MOUNT = {
+    'sector.html': { mode: 'replace', sel: '.sec-hero-copy .sec-eyebrow', tone: 'light' },
+    'detailedsector.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'wind.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'storage.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'smallhydro.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'bioenergy.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'cleancooking.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'greenmobility.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'greenhydrogen.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'energyefficiency.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'agriculturepue.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'newdetailedsectortesting.html': { mode: 'before', sel: 'main > section:first-of-type .max-w-3xl h1', tone: 'light' },
+    'states.html': { mode: 'replace', sel: '.max-w-3xl > span.text-tertiary-fixed-dim', tone: 'light' },
+    'enugu.html': { mode: 'replace', sel: '.max-w-3xl > a[href="States.html"]', tone: 'light' },
+    'data.html': { mode: 'replace', sel: '.max-w-3xl > .osip-hero-eyebrow', tone: 'light' },
+    'announcements.html': { mode: 'replace', sel: HERO_EYEBROW, tone: 'light' },
+    'event.html': { mode: 'replace', sel: HERO_EYEBROW, tone: 'light' },
+    'faqs.html': { mode: 'replace', sel: HERO_EYEBROW, tone: 'light' },
+    'individualannouncement.html': { mode: 'replace', sel: '.max-w-3xl > a[href="Announcements.html"]', tone: 'light' },
+    'individualevent.html': { mode: 'replace', sel: '.max-w-3xl > a[href="Event.html"]', tone: 'light' },
+    'aboutosip.html': { mode: 'replace', sel: '.ab-hero-inner > .ab-eyebrow', tone: 'light' },
+    // Paper pages: above the title. Regulations' gold rule is the slot itself.
+    'regulation.html': { mode: 'replace', sel: 'main > div:first-child > .flex > .w-1' },
+    'opportunities.html': { mode: 'title' },
+    'news.html': { mode: 'title' },
+    'contact.html': { mode: 'title' },
+    'newsindetail.html': { mode: 'replace', sel: 'body > div > nav:first-child' },
+    'helpdesk.html': { mode: 'replace', sel: '.hd-eyebrow' },
+    'search.html': { mode: 'replace', sel: '.sr-eyebrow' }
+  };
+
+  // A chevron, the one the opportunity pages draw.
+  var CRUMB_SEP = '<svg class="nesp-crumb-sep" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">' +
+    '<path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"></path></svg>';
+
+  function crumbLabel(cfg) {
+    if (cfg.self) return cfg.self;
+    var h1 = document.querySelector('main h1, h1');
+    var text = h1 ? h1.textContent : '';
+    if (!text) text = (document.title || '').split('|')[0];
+    return text.replace(/\s+/g, ' ').trim() || 'This page';
+  }
+
+  function crumbsHtml(light) {
+    var cfg = CRUMBS[FILE];
+    if (!cfg) return '';
+    var links = [{ t: 'Home', href: HOME }].concat(cfg.up || []);
+    var items = links.map(function (c) {
+      return '<li>' + (c.href
+        ? '<a href="' + c.href + '">' + c.t + '</a>'
+        : '<span class="nesp-crumb-step">' + c.t + '</span>') + CRUMB_SEP + '</li>';
+    }).join('');
+    return '<nav class="nesp-crumbs' + (light ? ' nesp-crumbs--light' : '') + '" aria-label="Breadcrumb"><ol>' + items +
+      '<li><span class="nesp-crumb-here" aria-current="page">' + crumbLabel(cfg) + '</span></li>' +
+      '</ol></nav>';
+  }
+
+  // The block that carries the page title: climb from the <h1> to the child of
+  // <main> (or of the body) that contains it, so the trail clears the whole
+  // header row - title, count line and search field - rather than landing inside it.
+  function titleBlock() {
+    var h1 = document.querySelector('main h1') || document.querySelector('h1');
+    if (!h1) return null;
+    var node = h1;
+    while (node.parentNode && node.parentNode.nodeType === 1) {
+      var tag = node.parentNode.tagName;
+      if (tag === 'MAIN' || tag === 'BODY' || tag === 'HTML') return node;
+      node = node.parentNode;
+    }
+    return null;
+  }
+
+  function mountCrumbs() {
+    var at = CRUMB_MOUNT[FILE];
+    if (!at || !CRUMBS[FILE] || document.querySelector('.nesp-crumbs')) return;
+    var target = at.mode === 'title' ? titleBlock() : document.querySelector(at.sel);
+    if (!target || !target.parentNode) return;
+
+    var html = crumbsHtml(at.tone === 'light');
+    if (!html) return;
+    var holder = document.createElement('div');
+    holder.innerHTML = html;
+    var crumbs = holder.firstChild;
+
+    if (at.mode === 'replace') target.parentNode.replaceChild(crumbs, target);
+    else target.parentNode.insertBefore(crumbs, target);
+
+    // In a flex or grid header the parent's own gap already sets the distance to
+    // the title; the trail's margin would be added on top of it.
+    var pd = '';
+    try { pd = window.getComputedStyle(crumbs.parentNode).display || ''; } catch (e) { }
+    if (pd.indexOf('flex') > -1 || pd.indexOf('grid') > -1) crumbs.style.marginBottom = '0';
+
+    // The hero pages hold their copy at opacity 0 until the motion layer takes
+    // over (html.rd-intro). The trail waits with them and then arrives on its
+    // own, so it is never the one thing already on screen.
+    var root = document.documentElement;
+    if (!root.classList.contains('rd-intro')) { crumbs.classList.add('is-in'); return; }
+    var done = false;
+    function show() {
+      if (done) return;
+      done = true;
+      crumbs.classList.add('is-in');
+    }
+    if (window.MutationObserver) {
+      var mo = new MutationObserver(function () {
+        if (!root.classList.contains('rd-intro')) { mo.disconnect(); show(); }
+      });
+      mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+    }
+    setTimeout(show, 1600);
+  }
+
   var NAV =
     '<nav class="nesp-header bg-white">' +
+    // UX-A11-07: the first Tab stop on every page. Off-screen until it takes
+    // focus, then a pill in the top-left corner. Its target is worked out below,
+    // because not every page has a <main> (the homepage builds itself inside
+    // #root instead).
+    '<a class="nesp-skip" href="#osip-main">Skip to main content</a>' +
     '<div class="nesp-nav-wrap">' +
     '<div class="nesp-nav-row">' +
     // Both logos sit together on the left, separated by a hairline so they read
     // as two marks rather than one wordmark.
     '<div class="nesp-nav-brand">' +
     '<div class="nesp-nav-marks">' +
-    '<img alt="Partner" src="' + base + 'logoNESP.png">' +
+    '<img class="nesp-mark-partner" alt="Federal Ministry of Power" src="' + base + 'logoNESP.png">' +
     '<span class="nesp-nav-rule" aria-hidden="true"></span>' +
-    '<a class="nesp-nav-home" href="' + HOME + '" aria-label="One-Stop Investment Platform (OSIP), home"><img alt="Logo" src="' + base + 'Text.png"></a>' +
+    '<a class="nesp-nav-home" href="' + HOME + '" aria-label="One-Stop Investment Platform (OSIP), home"><img class="nesp-mark-osip" alt="" src="' + base + 'Text.png"></a>' +
     '</div></div>' +
     '<ul class="nesp-nav-top">' + TOP.map(topItem).join('') + '</ul>' +
     '<div class="nesp-nav-actions">' +
-    '<a href="' + url.invest + '" class="nesp-cta">Invest Now</a>' +
-    '<a href="' + url.profile + '" class="nesp-avatar" title="My Profile" aria-label="My Profile">' +
-    '<span aria-hidden="true">' + INITIALS + '</span></a>' +
+    '<button type="button" class="nesp-icon-btn nesp-search-btn" aria-label="Search this site"' +
+    ' aria-expanded="false" aria-controls="nesp-search">' + SEARCH_SVG + '</button>' +
+    // UX-08-13: the biggest label on the site used to be "Invest Now", and you
+    // cannot invest here. It names what the button actually does now.
+    '<a href="' + url.invest + '" class="nesp-cta">Register your interest</a>' +
+    // One or the other, never both: the profile mark only means anything to
+    // someone who is signed in, and Log in only to someone who is not.
+    (session
+      ? '<a href="' + url.profile + '" class="nesp-avatar" title="' + USER_NAME + '" aria-label="My profile: ' + USER_NAME + '">' +
+      '<span aria-hidden="true">' + INITIALS + '</span></a>'
+      : '<a href="' + loginHref() + '" class="nesp-login">Log in</a>') +
     '</div>' +
+    // UX-13: on a phone the primary action used to be buried in the menu sheet.
+    // It now sits in the bar itself, next to the burger, and only shortens its
+    // label on the narrowest screens.
+    '<a href="' + url.invest + '" class="nesp-cta nesp-cta--m" aria-label="Register your interest">' +
+    '<span class="nesp-cta-long">Register your interest</span>' +
+    '<span class="nesp-cta-short">Register interest</span></a>' +
     '<button id="mobile-nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"' +
     ' class="nesp-nav-toggle"><span class="nesp-burger" aria-hidden="true"><i></i><i></i><i></i></span></button>' +
     '</div>' +
-    '<div id="mobile-nav" class="nesp-mnav"><ul>' + TOP.map(mobileItem).join('') + '</ul>' +
+    '<div id="mobile-nav" class="nesp-mnav">' +
+    '<form class="nesp-m-search" role="search" method="get" action="' + url.search + '">' +
+    '<span aria-hidden="true">' + SEARCH_SVG + '</span>' +
+    '<label class="nesp-sr-only" for="nesp-m-search-q">Search OSIP</label>' +
+    '<input id="nesp-m-search-q" type="search" name="q" autocomplete="off" placeholder="Search OSIP">' +
+    '<button type="submit">Search</button></form>' +
+    '<ul>' + TOP.map(mobileItem).join('') + '</ul>' +
     '<div class="nesp-m-foot">' +
-    '<a href="' + url.profile + '" class="nesp-m-profile">' +
-    '<span class="nesp-avatar nesp-avatar--sm"><span aria-hidden="true">' + INITIALS + '</span></span>' +
-    '<span class="nesp-m-profile-t"><b>' + USER.name + '</b><em>View profile</em></span></a>' +
-    '<a href="' + url.invest + '" class="nesp-cta">Invest Now</a>' +
+    (session
+      ? '<a href="' + url.profile + '" class="nesp-m-profile">' +
+      '<span class="nesp-avatar nesp-avatar--sm"><span aria-hidden="true">' + INITIALS + '</span></span>' +
+      '<span class="nesp-m-profile-t"><b>' + USER_NAME + '</b><em>View profile</em></span></a>'
+      : '') +
+    '<a href="' + url.invest + '" class="nesp-cta">Register your interest</a>' +
+    (session
+      ? '<button type="button" class="nesp-login nesp-login--m" data-osip-signout>Sign out</button>'
+      : '<a href="' + loginHref() + '" class="nesp-login nesp-login--m">Log in or register</a>') +
     '</div></div>' +
     '</div></nav>';
+
+  // UX-NAV-06: one site-wide search. It is not part of the header: opening it
+  // lays a blurred sheet over the whole window, header included, and puts the
+  // box a third of the way down the screen where the eye already is. The layer
+  // lives on the body rather than inside the nav, because a child of the
+  // header can never paint over the header it belongs to.
+  var SEARCH_LAYER =
+    '<div class="nesp-search-layer" role="dialog" aria-modal="true" aria-label="Search OSIP" hidden>' +
+    '<form id="nesp-search" class="nesp-search" role="search" method="get" action="' + url.search + '">' +
+    '<span class="nesp-search-ico" aria-hidden="true">' + SEARCH_SVG + '</span>' +
+    '<label class="nesp-sr-only" for="nesp-search-q">Search OSIP</label>' +
+    '<input id="nesp-search-q" class="nesp-search-input" type="search" name="q" autocomplete="off"' +
+    ' placeholder="Search sectors, opportunities, regulations, states, data and news">' +
+    '<button type="submit" class="nesp-search-go">Search</button>' +
+    '<button type="button" class="nesp-search-close" aria-label="Close search">' + CLOSE_SVG + '</button>' +
+    '</form>' +
+    '<p class="nesp-search-hint">Press Enter for all results, Esc to close</p>' +
+    '</div>';
 
   // ---- Stylesheet --------------------------------------------------------
   // Appended to the END OF BODY, not to <head>. Around twenty pages still carry
@@ -383,14 +679,14 @@
       'nav.nesp-header.nesp-sheet-open::before{background:' + CARD + '!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}',
       'nav.nesp-header.is-stuck .nesp-dropdown,nav.nesp-header.osip-scrolled .nesp-dropdown{margin-top:2px}',
       '.nesp-nav-wrap{max-width:1440px;margin:0 auto;padding:0 2rem}',
-      '.nesp-nav-row{display:flex;align-items:stretch;gap:1.25rem;height:64px}',
+      '.nesp-nav-row{position:relative;display:flex;align-items:stretch;gap:1.25rem;height:64px}',
 
       // ---- brand ---------------------------------------------------------
       '.nesp-header .nesp-nav-brand{display:flex;align-items:center;flex:0 0 auto}',
       '.nesp-header .nesp-nav-marks{display:flex;align-items:center;gap:1rem}',
       '.nesp-header .nesp-nav-marks img{display:block;width:auto;object-fit:contain}',
-      '.nesp-header .nesp-nav-marks img[alt="Partner"]{height:2.125rem}',
-      '.nesp-header .nesp-nav-marks img[alt="Logo"]{height:1.375rem}',
+      '.nesp-header .nesp-nav-marks .nesp-mark-partner{height:2.125rem}',
+      '.nesp-header .nesp-nav-marks .nesp-mark-osip{height:1.375rem}',
       '.nesp-header .nesp-nav-rule{width:1px;height:1.5rem;background:linear-gradient(180deg,transparent,' + LINE2 + ' 25%,' + LINE2 + ' 75%,transparent)}',
       '.nesp-header .nesp-nav-home{display:inline-flex;align-items:center;transition:opacity .3s ease}',
       '.nesp-header .nesp-nav-home:hover{opacity:.7}',
@@ -427,12 +723,63 @@
       '.nesp-header .nesp-avatar{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 auto;border-radius:999px;background:' + CARD + ';border:1px solid ' + LINE2 + ';color:' + GREEN + ';text-decoration:none;font-family:' + SANS + ';font-size:11.5px;font-weight:600;letter-spacing:.06em;line-height:1;transition:background-color .3s ease,color .3s ease,border-color .3s ease}',
       '.nesp-header a.nesp-avatar:hover{background:' + GREEN + ';border-color:' + GREEN + ';color:#fff}',
       '.nesp-header .nesp-avatar--sm{width:36px;height:36px;font-size:11px}',
-
+      // ---- skip to content (UX-A11-07) ------------------------------------
+      // Moved out of sight with a transform rather than display:none, which
+      // would take it out of the tab order and defeat the point.
+      '.nesp-header .nesp-skip{position:absolute;top:10px;left:14px;z-index:80;display:inline-flex;align-items:center;height:40px;padding:0 1.125rem;border-radius:999px;background:' + GREEN + ';color:#fff;font-family:' + SANS + ';font-size:14px;font-weight:500;letter-spacing:0;text-decoration:none;white-space:nowrap;box-shadow:0 10px 30px -12px rgba(19,32,27,.5);opacity:0;pointer-events:none;transform:translateY(-160%);transition:transform .24s cubic-bezier(.16,1,.3,1),opacity .24s ease}',
+      '.nesp-header .nesp-skip:focus{opacity:1;pointer-events:auto;transform:none;outline:2px solid ' + GREEN2 + ';outline-offset:3px}',
+      '@media (prefers-reduced-motion:reduce){.nesp-header .nesp-skip{transition:none}}',
+      // ---- search, log in, mobile action (16 Sep 2026) --------------------
+      // The bell went: nothing in the brief asks for notifications. What the audit does
+      // ask for - search, a way to log in, and the main action visible on a
+      // phone - takes its place.
+      '.nesp-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
+      '.nesp-header .nesp-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 auto;padding:0;border-radius:999px;background:' + CARD + ';border:1px solid ' + LINE2 + ';color:' + GREEN + ';cursor:pointer;transition:background-color .3s ease,color .3s ease,border-color .3s ease}',
+      '.nesp-header .nesp-icon-btn:hover{background:' + GREEN + ';border-color:' + GREEN + ';color:#fff}',
+      '.nesp-header .nesp-icon-btn:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:2px}',
+      '.nesp-header .nesp-icon-btn svg{display:block}',
+      '.nesp-header .nesp-login{display:inline-flex;align-items:center;justify-content:center;height:42px;padding:0 1.125rem;border-radius:999px;background:transparent;border:1px solid ' + LINE2 + ';color:' + GREEN + ';font-family:' + SANS + ';font-size-adjust:none;font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;text-decoration:none;transition:background-color .3s ease,border-color .3s ease,color .3s ease}',
+      '.nesp-header .nesp-login:hover{background:' + TINT + ';border-color:' + GREEN2 + '}',
+      '.nesp-header .nesp-login:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:2px}',
+      // The search bar covers the row it opens over.
+      // The layer sits above everything, including the sticky header, so the
+      // whole page goes soft behind it and only the box is in focus.
+      '.nesp-search-layer{position:fixed;top:0;right:0;bottom:0;left:0;z-index:70;display:flex;flex-direction:column;align-items:center;padding:0 1.25rem;background:rgba(19,32,27,.28);-webkit-backdrop-filter:blur(9px) saturate(115%);backdrop-filter:blur(9px) saturate(115%);opacity:0;transition:opacity .26s ease}',
+      '.nesp-search-layer[hidden]{display:none}',
+      '.nesp-search-layer.is-open{opacity:1}',
+      // A third of the way down: the line the hero headline sits on.
+      '.nesp-header .nesp-search,.nesp-search-layer .nesp-search{width:min(720px,100%);margin-top:clamp(120px,30vh,300px);display:flex;align-items:center;gap:.5rem;padding:.4375rem .4375rem .4375rem 1.25rem;background:' + CARD + ';border:1px solid ' + LINE + ';border-radius:999px;box-shadow:0 2px 6px rgba(19,32,27,.06),0 40px 80px -40px rgba(19,32,27,.55);transform:translateY(-10px) scale(.99);transition:transform .38s cubic-bezier(.16,1,.3,1)}',
+      '.nesp-search-layer.is-open .nesp-search{transform:none}',
+      '.nesp-search-ico{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;color:' + GREEN2 + '}',
+      '.nesp-search-input{flex:1 1 auto;min-width:0;height:44px;border:0;background:transparent;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:17px;font-weight:400;letter-spacing:-.006em;color:' + INK + ';outline:0;-webkit-appearance:none;appearance:none}',
+      '.nesp-search-input::placeholder{color:' + INK3 + ';opacity:1}',
+      '.nesp-search-input::-webkit-search-cancel-button{-webkit-appearance:none}',
+      '.nesp-search-go{flex:0 0 auto;height:40px;padding:0 1.25rem;border:0;border-radius:999px;background:' + GREEN + ';color:#fff;font-family:' + SANS + ';font-size:13.5px;font-weight:500;cursor:pointer;transition:background-color .3s ease}',
+      '.nesp-search-go:hover{background:#062f1f}',
+      '.nesp-search-close{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:0;border-radius:999px;background:transparent;color:' + INK3 + ';cursor:pointer;transition:background-color .3s ease,color .3s ease}',
+      '.nesp-search-close:hover{background:' + TINT + ';color:' + INK + '}',
+      '.nesp-search-go:focus-visible,.nesp-search-close:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:2px}',
+      '.nesp-search-hint{margin:.875rem 0 0;font-family:' + SANS + ';font-size:12px;font-weight:500;letter-spacing:.04em;color:rgba(255,255,255,.72);text-shadow:0 1px 10px rgba(19,32,27,.45)}',
+      '@media (max-width:30rem){.nesp-search-layer .nesp-search{margin-top:18vh;flex-wrap:wrap}.nesp-search-go{width:100%;order:3}}',
+      '@media (prefers-reduced-motion:reduce){.nesp-search-layer{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(19,32,27,.5)}.nesp-search-layer .nesp-search{transform:none}}',
+      // Mobile: the action pill in the bar, the search field in the sheet.
+      '.nesp-header .nesp-cta--m{align-self:center;margin-left:auto;height:38px;padding:0 1rem;font-size:13px}',
+      '.nesp-header .nesp-cta--m + .nesp-nav-toggle{margin-left:.25rem}',
+      '.nesp-header .nesp-cta--m .nesp-cta-short{display:none}',
+      '.nesp-header .nesp-m-search{display:flex;align-items:center;gap:.5rem;margin:.25rem .25rem 1rem;padding:.3125rem .3125rem .3125rem .875rem;border:1px solid ' + LINE + ';border-radius:999px;background:' + CARD + '}',
+      '.nesp-header .nesp-m-search:focus-within{border-color:' + GREEN2 + '}',
+      '.nesp-header .nesp-m-search>span{display:inline-flex;flex:0 0 auto;color:' + GREEN2 + '}',
+      '.nesp-header .nesp-m-search input{flex:1 1 auto;min-width:0;height:40px;border:0;background:transparent;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:16.5px;color:' + INK + ';outline:0;-webkit-appearance:none;appearance:none}',
+      '.nesp-header .nesp-m-search input::placeholder{color:' + INK3 + ';opacity:1}',
+      '.nesp-header .nesp-m-search button{flex:0 0 auto;height:38px;padding:0 1rem;border:0;border-radius:999px;background:' + GREEN + ';color:#fff;font-family:' + SANS + ';font-size:13.5px;font-weight:500;cursor:pointer}',
+      '.nesp-header .nesp-login--m{height:46px;width:100%}',
+      // Keyboard: every menu entry shows where the focus is.
+      '.nesp-header .nesp-menu-item:focus-visible,.nesp-header .nesp-state:focus-visible,.nesp-header .nesp-group-head:focus-visible,.nesp-header .nesp-res-head:focus-visible,.nesp-header .nesp-m-sublist a:focus-visible,.nesp-header .nesp-m-link:focus-visible,.nesp-header .nesp-m-exp:focus-visible,.nesp-header .nesp-m-profile:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:-2px;background:' + TINT + '}',
       // ---- dropdown ------------------------------------------------------
       // A warm card; entry names in Newsreader, their one-liners under them.
       '.nesp-header .nesp-has-menu{position:relative}',
-      '.nesp-header .nesp-dropdown{position:absolute;top:100%;left:50%;margin-top:10px;min-width:320px;max-width:390px;background:' + CARD + ';border:1px solid ' + LINE + ';border-radius:20px;box-shadow:0 1px 2px rgba(19,32,27,.04),0 24px 50px -26px rgba(19,32,27,.32);padding:.5rem;opacity:0;visibility:hidden;transform:translateX(calc(-50% + var(--nesp-dx,0px))) translateY(10px) scale(.985);transform-origin:top center;transition:opacity .26s ease,transform .36s cubic-bezier(.16,1,.3,1),visibility .36s ease;z-index:60}',
-      '.nesp-header .nesp-has-menu:hover .nesp-dropdown,.nesp-header .nesp-dropdown:hover,.nesp-header .nesp-has-menu:focus-within .nesp-dropdown,.nesp-header .nesp-has-menu.is-open .nesp-dropdown{opacity:1;visibility:visible;transform:translateX(calc(-50% + var(--nesp-dx,0px))) translateY(0) scale(1)}',
+      '.nesp-header .nesp-dropdown{position:absolute;top:100%;left:50%;margin-top:10px;min-width:320px;max-width:390px;background:' + CARD + ';border:1px solid ' + LINE + ';border-radius:20px;box-shadow:0 1px 2px rgba(19,32,27,.04),0 24px 50px -26px rgba(19,32,27,.32);padding:.5rem;opacity:0;visibility:hidden;transform:translateX(calc(-50% + var(--nesp-dx,0px))) translateY(10px) scale(.985);transform-origin:top center;transition:opacity .26s ease,transform .36s cubic-bezier(.16,1,.3,1),visibility 0s linear .36s;z-index:60}',
+      '.nesp-header .nesp-has-menu:hover .nesp-dropdown,.nesp-header .nesp-dropdown:hover,.nesp-header .nesp-dropdown:focus-within,.nesp-header .nesp-has-menu.is-open .nesp-dropdown{opacity:1;visibility:visible;transition:opacity .26s ease,transform .36s cubic-bezier(.16,1,.3,1),visibility 0s linear 0s;transform:translateX(calc(-50% + var(--nesp-dx,0px))) translateY(0) scale(1)}',
       '.nesp-header .nesp-has-menu.is-open .nesp-caret{transform:translateY(1px) rotate(225deg);opacity:.85}',
       // Invisible bridge so the pointer can cross the gap without the panel closing.
       '.nesp-header .nesp-dropdown::before{content:"";position:absolute;top:-16px;left:0;right:0;height:18px}',
@@ -549,24 +896,89 @@
       '.nesp-header .nesp-nav-top{display:flex}',
       '.nesp-header .nesp-nav-actions{display:flex}',
       '.nesp-header .nesp-nav-toggle{display:none}',
+      '.nesp-header .nesp-cta--m{display:none}',
       '.nesp-header .nesp-mnav{display:none!important}',
       '}',
       '@media (min-width:85rem){.nesp-header .nesp-top{padding:0 .875rem;font-size:14px}}',
       '@media (min-width:95rem){.nesp-header .nesp-top{padding:0 1.0625rem}}',
       '@media (max-width:47.9375rem){.nesp-nav-wrap{padding:0 1.5rem}}',
+      // UX-MOB-01: on a phone the action drops one word, to "Register interest".
+      // At 390px the full label made the pill 156px - two fifths of the bar -
+      // which squeezed the ministry mark and left the burger on the edge. It is
+      // "Register interest" and not "Register" because this opens the investor
+      // match, not a sign-up: bare "Register" reads as create-an-account, which
+      // is what Log in is for. The anchor's aria-label keeps the full phrase.
+      // 30rem, not the old 23.75rem: every phone in portrait is under it.
+      '@media (max-width:30rem){',
+      '.nesp-header .nesp-cta--m .nesp-cta-long{display:none}',
+      '.nesp-header .nesp-cta--m .nesp-cta-short{display:inline}',
+      '}',
       '@media (max-width:39.9375rem){',
       '.nesp-nav-wrap{padding:0 1.125rem}',
+      '.nesp-header .nesp-cta--m{height:36px;padding:0 .875rem;font-size:12.5px}',
       '.nesp-nav-row{height:58px}',
       '.nesp-header .nesp-nav-marks{gap:.625rem}',
-      '.nesp-header .nesp-nav-marks img[alt="Partner"]{height:1.625rem}',
-      '.nesp-header .nesp-nav-marks img[alt="Logo"]{height:1rem}',
+      '.nesp-header .nesp-nav-marks .nesp-mark-partner{height:1.625rem}',
+      '.nesp-header .nesp-nav-marks .nesp-mark-osip{height:1rem}',
       '.nesp-header .nesp-nav-rule{height:1.375rem}',
       '.nesp-header .nesp-mnav{max-height:calc(100svh - 58px)}',
       'nav.nesp-header.is-stuck::before,nav.nesp-header.osip-scrolled::before{top:5px;right:10px;bottom:5px;left:10px;border-radius:16px}',
       '}',
-      '@media (max-width:22.5rem){.nesp-header .nesp-nav-marks img[alt="Partner"],.nesp-header .nesp-nav-rule{display:none}}',
+      '@media (max-width:22.5rem){.nesp-header .nesp-nav-marks .nesp-mark-partner,.nesp-header .nesp-nav-rule{display:none}}',
       '@media (prefers-reduced-motion:reduce){.nesp-header *,.nesp-header *::before,.nesp-header *::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}',
       // The header is sticky, so every anchor target keeps its height clear.
+      // ---- breadcrumbs (UX-NAV-07) ---------------------------------------
+      // Small, grey and quiet, set in the page's own header rather than in a
+      // strip of its own: 13px, a chevron between steps, and the page you are
+      // on in ink at the end. On a dark hero the same trail in white.
+      '.nesp-crumbs{font-family:' + SANS + ';margin:0 0 clamp(18px,2.2vw,26px)}',
+      '.nesp-crumbs ol{display:flex;flex-wrap:wrap;align-items:center;list-style:none;margin:0;padding:0}',
+      '.nesp-crumbs li{display:inline-flex;align-items:center;min-width:0}',
+      '.nesp-crumbs a,.nesp-crumbs .nesp-crumb-step,.nesp-crumbs .nesp-crumb-here{font-size:13px;font-weight:500;line-height:1.35;letter-spacing:.01em;text-transform:none}',
+      '.nesp-crumbs a{color:' + INK3 + ';text-decoration:none;transition:color .25s ease}',
+      '.nesp-crumbs a:hover{color:' + GREEN + '}',
+      '.nesp-crumbs a:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:3px;border-radius:4px}',
+      '.nesp-crumbs .nesp-crumb-step{color:' + INK3 + '}',
+      '.nesp-crumbs .nesp-crumb-here{color:' + INK + ';font-weight:600;max-width:min(54ch,74vw);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
+      '.nesp-crumbs .nesp-crumb-sep{width:15px;height:15px;flex:0 0 auto;margin:0 .375rem;color:' + INK3 + ';opacity:.5}',
+      '.nesp-crumbs li:last-child .nesp-crumb-sep{display:none}',
+      // On a photograph: white, and a touch more air under it.
+      '.nesp-crumbs--light{margin-bottom:clamp(16px,2vw,24px)}',
+      '.nesp-crumbs--light a,.nesp-crumbs--light .nesp-crumb-step{color:rgba(255,255,255,.72)}',
+      '.nesp-crumbs--light a:hover{color:#fff}',
+      '.nesp-crumbs--light .nesp-crumb-here{color:#fff}',
+      '.nesp-crumbs--light .nesp-crumb-sep{color:#fff;opacity:.45}',
+      '.nesp-crumbs.is-in{animation:nesp-crumb-in .7s cubic-bezier(.22,.61,.36,1) both}',
+      '@keyframes nesp-crumb-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}',
+      '@media (max-width:39.9375rem){.nesp-crumbs a,.nesp-crumbs .nesp-crumb-step,.nesp-crumbs .nesp-crumb-here{font-size:12.5px}.nesp-crumbs .nesp-crumb-sep{margin:0 .25rem}}',
+      '@media (prefers-reduced-motion:reduce){.nesp-crumbs.is-in{animation:none}}',
+      // ---- UX-A11-01: a focus ring you can see, on every page ------------
+      // Several pages set `outline: none` on :focus-visible and put nothing in
+      // its place, so a keyboard user had no idea where they were. This is the
+      // one indicator for the whole site, declared here because nav.js is the
+      // only stylesheet every page loads.
+      //
+      // Two rings rather than one colour: a dark hairline against the element
+      // and the site's gold outside it. Backgrounds run from cream to a
+      // photograph to near-black, and no single colour clears 3:1 against all
+      // of them - but one of these two always does, whatever is behind it.
+      //
+      // The selector carries two :not(#id) so it outweighs the id-level rules on
+      // the pages that switched the outline off; it is the only way to win
+      // without editing thirty stylesheets. Mouse and touch are untouched:
+      // :focus-visible fires for the keyboard (and for text fields), not for a
+      // click on a button.
+      // The dark ring is the outline and the gold one the shadow, not the other
+      // way round: a page that suppresses box-shadow on a component (the
+      // opportunity cards' buttons do) then still leaves a ring behind, and so
+      // does a page that suppresses the outline. Either survives alone.
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) :focus-visible{outline:3px solid #0b2a1f!important;outline-offset:2px!important;box-shadow:0 0 0 2px #f7be26!important}',
+      // Containers that are focused programmatically (a panel, a dialog, a
+      // scroll target) are not a place the user has navigated to.
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) [tabindex="-1"]:focus-visible{outline:none!important;box-shadow:none!important}',
+      // In forced-colours modes the shadows are dropped, so the ring goes back
+      // to being an outline in the colour the user chose.
+      '@media (forced-colors:active){html body:not(#osip-a11y-a):not(#osip-a11y-b) :focus-visible{outline:3px solid Highlight!important;outline-offset:2px!important;box-shadow:none!important}}',
       '[id]{scroll-margin-top:var(--osip-nav-offset,7.5rem)}'
     ].join('');
     (document.body || document.head || document.documentElement).appendChild(st);
@@ -578,6 +990,12 @@
   mount.outerHTML = NAV;
   var nav = document.querySelector('nav.nesp-header');
   if (!nav) return;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountCrumbs);
+  } else {
+    mountCrumbs();
+  }
 
   // ---- Sticky-header offset for in-page anchors --------------------------
   // The header height is not a constant: it changes with the breakpoint, and
@@ -729,24 +1147,64 @@
     panel.innerHTML = '<div class="nesp-menu-head">' + menu.head + '</div>' + body;
     li.appendChild(panel);
 
+    // ---- keyboard (UX-12) ------------------------------------------------
+    // The panels used to open on hover and on focus, but there was no way to
+    // walk one: Tab fell through the entries in source order and Esc did
+    // nothing on the six tabs that are links. Every tab is now a disclosure:
+    // Down opens it and lands on the first entry, Up/Down walk the entries,
+    // Home/End jump, Esc closes and puts the focus back on the tab, and moving
+    // the focus out of the tab closes it behind you.
+    panel.id = 'nesp-menu-' + label.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    a.setAttribute('aria-haspopup', 'true');
+    a.setAttribute('aria-controls', panel.id);
+    a.setAttribute('aria-expanded', 'false');
+
+    var entries = function () {
+      return Array.prototype.slice.call(panel.querySelectorAll('a[href],button:not([disabled])'));
+    };
+    var setMenu = function (open, focusFirst) {
+      li.classList.toggle('is-open', open);
+      a.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (!open || !focusFirst) return;
+      var first = entries()[0];
+      if (first) first.focus();
+    };
+
+    a.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'Down') { e.preventDefault(); setMenu(true, true); }
+      else if (e.key === 'ArrowUp' || e.key === 'Up') {
+        e.preventDefault(); setMenu(true);
+        var list = entries(); var last = list[list.length - 1];
+        if (last) last.focus();
+      } else if (e.key === 'Escape' || e.key === 'Esc') { setMenu(false); }
+    });
+
+    panel.addEventListener('keydown', function (e) {
+      var list = entries();
+      var i = list.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown' || e.key === 'Down') { e.preventDefault(); (list[i + 1] || list[0]).focus(); }
+      else if (e.key === 'ArrowUp' || e.key === 'Up') { e.preventDefault(); (list[i - 1] || list[list.length - 1]).focus(); }
+      else if (e.key === 'Home') { e.preventDefault(); if (list[0]) list[0].focus(); }
+      else if (e.key === 'End') { e.preventDefault(); if (list.length) list[list.length - 1].focus(); }
+      else if (e.key === 'Escape' || e.key === 'Esc') { e.preventDefault(); setMenu(false); a.focus(); }
+    });
+
+    li.addEventListener('focusout', function (e) {
+      if (!li.contains(e.relatedTarget)) setMenu(false);
+    });
+    li.addEventListener('mouseenter', function () { a.setAttribute('aria-expanded', 'true'); });
+    li.addEventListener('mouseleave', function () {
+      if (!li.contains(document.activeElement)) setMenu(false);
+    });
+
     // A button tab has no page to go to, so a click (or tap on a touch laptop)
-    // opens and closes its panel. Hover and keyboard focus still open it too;
-    // leaving, clicking elsewhere and Esc close it.
+    // opens and closes its panel.
     if (a.tagName === 'BUTTON') {
-      var setMenu = function (open) {
-        li.classList.toggle('is-open', open);
-        a.setAttribute('aria-expanded', open ? 'true' : 'false');
-      };
       a.addEventListener('click', function (e) {
         e.stopPropagation();
         setMenu(!li.classList.contains('is-open'));
       });
-      li.addEventListener('mouseenter', function () { a.setAttribute('aria-expanded', 'true'); });
-      li.addEventListener('mouseleave', function () { setMenu(false); });
       document.addEventListener('click', function (e) { if (!li.contains(e.target)) setMenu(false); });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' || e.key === 'Esc') { setMenu(false); }
-      });
     }
   });
 
@@ -812,6 +1270,27 @@
     });
   }
 
+  // ---- Keeping the keyboard inside an open overlay (UX-A11-02) -----------
+  // The sheet and the search layer both cover the page. Tabbing past their last
+  // control used to land on the links behind them - invisible under the blur, and
+  // out of reach of the Esc that would have closed the thing on top. Tab now
+  // cycles within whichever of the two is open, and Esc hands the focus back to
+  // the button that opened it.
+  function focusable(root) {
+    return Array.prototype.filter.call(
+      root.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'),
+      function (el) {
+        return el.offsetWidth || el.offsetHeight || el.getClientRects().length;
+      });
+  }
+
+  function trapTab(e, list) {
+    if (e.key !== 'Tab' || !list.length) return;
+    var at = list.indexOf(document.activeElement);
+    if (e.shiftKey && at <= 0) { e.preventDefault(); list[list.length - 1].focus(); }
+    else if (!e.shiftKey && (at === -1 || at === list.length - 1)) { e.preventDefault(); list[0].focus(); }
+  }
+
   // ---- Mobile sheet open/close -------------------------------------------
   // Panel, button icon and aria-expanded all route through setOpen() so they
   // can never disagree. Don't toggle the open class from anywhere else.
@@ -826,7 +1305,20 @@
 
     toggle.addEventListener('click', function (e) {
       e.stopPropagation();
-      setOpen(!mobile.classList.contains('is-open'));
+      var open = !mobile.classList.contains('is-open');
+      setOpen(open);
+      // A click with no pointer behind it came from Enter or Space: the sheet was
+      // opened by keyboard, so the keyboard is put inside it.
+      if (open && e.detail === 0) {
+        var first = focusable(mobile)[0];
+        if (first) first.focus();
+      }
+    });
+
+    // Tab cycles the button and the sheet, and nothing behind them.
+    mobile.addEventListener('keydown', function (e) {
+      if (!mobile.classList.contains('is-open')) return;
+      trapTab(e, [toggle].concat(focusable(mobile)));
     });
 
     // Tapping a destination closes the sheet behind you. The accordion buttons
@@ -843,12 +1335,130 @@
       setOpen(false);
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' || e.key === 'Esc') setOpen(false);
+      if (e.key !== 'Escape' && e.key !== 'Esc') return;
+      if (!mobile.classList.contains('is-open')) return;
+      var inside = mobile.contains(document.activeElement) || toggle.contains(document.activeElement);
+      setOpen(false);
+      if (inside) toggle.focus();
     });
 
     // Crossing into desktop must reset the button too, not just hide the panel.
     window.addEventListener('resize', function () {
       if (window.matchMedia('(min-width: 1152px)').matches) setOpen(false);
+    });
+  }
+
+  // ---- Skip to content (UX-A11-07) ---------------------------------------
+  // The link needs something to skip TO. Most pages have a <main>; the homepage
+  // does not, so the first block of the page after the header stands in. Whatever
+  // it turns out to be gets the id the link points at and tabindex="-1", so the
+  // focus can actually be put there rather than the page merely scrolling.
+  var skip = nav.querySelector('.nesp-skip');
+  if (skip) {
+    var main = document.querySelector('main');
+    if (!main) {
+      var after = (nav.parentNode === document.body ? nav : nav.closest('header') || nav).nextElementSibling;
+      while (after && !/^(section|article|div)$/i.test(after.tagName)) after = after.nextElementSibling;
+      main = after;
+    }
+    if (!main) {
+      skip.parentNode.removeChild(skip);
+    } else {
+      if (!main.id) main.id = 'osip-main';
+      if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
+      skip.setAttribute('href', '#' + main.id);
+      // Done by hand: the page's smooth-scrolling would swallow the default jump,
+      // and the focus has to move with it or the next Tab starts from the header
+      // again. The address bar is left alone - States.html and the detail pages
+      // read the hash for their own purposes.
+      skip.addEventListener('click', function (e) {
+        e.preventDefault();
+        var y = main.getBoundingClientRect().top + window.pageYOffset - 8;
+        if (window.__rdLenis && window.__rdLenis.scrollTo) window.__rdLenis.scrollTo(y, { immediate: true });
+        else window.scrollTo(0, Math.max(0, y));
+        try { main.focus({ preventScroll: true }); } catch (err) { main.focus(); }
+      });
+    }
+  }
+
+  // ---- Site-wide search (UX-NAV-06) --------------------------------------
+  // The magnifier opens the search layer over the whole window; Enter submits
+  // the form to Search.html, which is a real page with real results, so the box
+  // never silently does nothing. Esc, the close button and a click on the
+  // blurred page put everything back and return the focus to the magnifier.
+  var searchBtn = nav.querySelector('.nesp-search-btn');
+  if (searchBtn && !document.querySelector('.nesp-search-layer')) {
+    document.body.insertAdjacentHTML('beforeend', SEARCH_LAYER);
+  }
+  var searchLayer = document.querySelector('.nesp-search-layer');
+  var searchBar = searchLayer && searchLayer.querySelector('#nesp-search');
+  if (searchBtn && searchBar) {
+    var searchInput = searchBar.querySelector('.nesp-search-input');
+    var setSearch = function (open) {
+      searchBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) {
+        searchLayer.hidden = false;
+        // The box takes the focus in the same beat the layer is shown. Waiting a
+        // frame for it left a keyboard user typing into the page behind on any
+        // frame that ran late.
+        if (searchInput) searchInput.focus();
+        window.requestAnimationFrame(function () { searchLayer.classList.add('is-open'); });
+        return;
+      }
+      searchLayer.classList.remove('is-open');
+      // Kept out of the tab order while it is closing, not only once it has.
+      searchLayer.hidden = true;
+    };
+    // The blurred page behind the box is a way out, the box itself is not.
+    searchLayer.addEventListener('click', function (e) {
+      if (searchBar.contains(e.target)) return;
+      setSearch(false);
+      searchBtn.focus();
+    });
+    searchBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setSearch(searchLayer.hidden);
+    });
+    searchBar.querySelector('.nesp-search-close').addEventListener('click', function () {
+      setSearch(false);
+      searchBtn.focus();
+    });
+    searchLayer.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' || e.key === 'Esc') { setSearch(false); searchBtn.focus(); return; }
+      trapTab(e, focusable(searchBar));
+    });
+    // An empty box has nothing to search for; the page would only say so.
+    searchBar.addEventListener('submit', function (e) {
+      if (!searchInput || searchInput.value.trim()) return;
+      e.preventDefault();
+      searchInput.focus();
+    });
+    document.addEventListener('click', function (e) {
+      if (searchLayer.hidden || searchLayer.contains(e.target) || searchBtn.contains(e.target)) return;
+      setSearch(false);
+    });
+    // Arriving on the results page, the box carries the query it was given.
+    if (searchInput && /(^|\/)search\.html$/i.test(file)) {
+      try {
+        var q = new URLSearchParams(window.location.search).get('q');
+        if (q) searchInput.value = q;
+      } catch (e) { /* older browsers: the field just starts empty */ }
+    }
+  }
+
+  // Sign out, wherever the header offers it.
+  nav.querySelectorAll('[data-osip-signout]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      window.OSIPSession.signOut();
+      window.location.href = HOME;
+    });
+  });
+
+  var mSearch = nav.querySelector('.nesp-m-search');
+  if (mSearch) {
+    mSearch.addEventListener('submit', function (e) {
+      var input = mSearch.querySelector('input');
+      if (input && !input.value.trim()) { e.preventDefault(); input.focus(); }
     });
   }
 })();

@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Contact Us | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Reach the OSIP team about energy investments, regulatory guidance or technical help with the platform." />
+    <title>Contact Us | OSIP, One-Stop Investment Platform</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
@@ -728,6 +729,417 @@
             font-size-adjust: none !important;
         }
 
+        /* ---- UX-FRM-02 / UX-FRM-04 (15 Sep 2026) ---------------------------------------
+           Required fields show a message right under the field when they are missing or
+           wrong; the field's border turns red and the message is tied to it for screen
+           readers. "Clear form" is a quiet text link that asks before clearing. */
+        .rd main #contactForm .osip-field-error {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin: 8px 0 0;
+            font-size: 13.5px;
+            line-height: 1.45;
+            color: #b3261e;
+        }
+
+        .rd main #contactForm .osip-field-error[hidden] { display: none; }
+
+        .rd main #contactForm .osip-field-error::before {
+            content: "error";
+            font-family: 'Material Symbols Outlined';
+            font-size: 17px;
+            line-height: 1.2;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .rd main #contactForm [aria-invalid="true"],
+        .rd main #contactForm [aria-invalid="true"]:hover,
+        .rd main #contactForm input[aria-invalid="true"]:not([type=checkbox]):not([type=radio]):not([type=file]),
+        .rd main #contactForm input[aria-invalid="true"]:not([type=checkbox]):not([type=radio]):not([type=file]):hover {
+            border-color: #b3261e !important;
+        }
+
+        .rd main #contactForm [aria-invalid="true"]:focus,
+        .rd main #contactForm input[aria-invalid="true"]:not([type=checkbox]):not([type=radio]):not([type=file]):focus {
+            border-color: #b3261e !important;
+            box-shadow: 0 0 0 4px rgba(179, 38, 30, .12) !important;
+        }
+
+        .rd main #contactForm .osip-clear {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 14px;
+            font-size: 14px;
+            color: var(--rd-ink-3);
+        }
+
+        .rd main #contactForm .osip-clear-link,
+        .rd main #contactForm .osip-clear-no {
+            padding: 6px 2px;
+            border: 0;
+            background: transparent;
+            font-family: var(--rd-sans) !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            color: var(--rd-ink-3);
+            text-decoration: underline;
+            text-decoration-color: var(--rd-line-2);
+            text-underline-offset: 4px;
+            cursor: pointer;
+            transition: color .3s ease, text-decoration-color .3s ease;
+        }
+
+        .rd main #contactForm .osip-clear-link:hover,
+        .rd main #contactForm .osip-clear-no:hover { color: var(--rd-green); text-decoration-color: currentColor; }
+
+        .rd main #contactForm .osip-clear-link[hidden] { display: none; }
+        .rd main #contactForm .osip-clear-confirm { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+        .rd main #contactForm .osip-clear-confirm[hidden] { display: none; }
+        .rd main #contactForm .osip-clear-confirm > span { color: var(--rd-ink-2); }
+
+        .rd main #contactForm .osip-clear-yes {
+            min-height: 34px;
+            padding: 0 14px;
+            border: 1px solid #b3261e;
+            border-radius: 999px;
+            background: transparent;
+            font-family: var(--rd-sans) !important;
+            font-size: 13.5px !important;
+            font-weight: 500 !important;
+            color: #b3261e;
+            cursor: pointer;
+            transition: background-color .3s ease, color .3s ease;
+        }
+
+        .rd main #contactForm .osip-clear-yes:hover { background: #b3261e; color: #ffffff; }
+
+
+        /* ---- Dropdowns (16 Sep 2026) ---------------------------------------------------
+           osipselect.js puts this control in front of each <select>: a rounded field, a
+           rounded panel, hover and keyboard selection, and a filter box on the long lists.
+           The native select stays in the form and keeps the value; it is only hidden. */
+        .rd main #contactForm .osip-select-wrap {
+            position: relative;
+        }
+
+        .rd main #contactForm select.osip-select-native {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0 !important;
+            margin: -1px;
+            border: 0 !important;
+            opacity: 0;
+            pointer-events: none;
+            overflow: hidden;
+            clip-path: inset(50%);
+        }
+
+        .rd main #contactForm .osip-select-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            min-height: 52px;
+            padding: 13px 16px 13px 18px;
+            background: #ffffff;
+            border: 1px solid var(--rd-line-2);
+            border-radius: 14px;
+            font-family: var(--rd-sans);
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--rd-ink);
+            text-align: left;
+            cursor: pointer;
+            transition: border-color .3s ease, box-shadow .3s ease, background-color .3s ease;
+        }
+
+        .rd main #contactForm .osip-select-btn:hover { border-color: var(--rd-line-3); }
+
+        .rd main #contactForm .osip-select-wrap.is-open .osip-select-btn,
+        .rd main #contactForm .osip-select-btn:focus-visible {
+            outline: none;
+            border-color: var(--rd-green-2);
+            box-shadow: 0 0 0 4px rgba(11, 107, 69, .12);
+        }
+
+        .rd main #contactForm .osip-select-wrap.is-empty .osip-select-value { color: var(--rd-ink-3); }
+
+        .rd main #contactForm .osip-select-wrap.is-invalid .osip-select-btn {
+            border-color: #b3261e;
+            background: #fffafa;
+        }
+
+        .rd main #contactForm .osip-select-value {
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .rd main #contactForm .osip-select-chev {
+            flex: 0 0 auto;
+            font-size: 22px;
+            color: var(--rd-ink-3);
+            transition: transform .3s cubic-bezier(.22, 1, .36, 1), color .3s ease;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .rd main #contactForm .osip-select-wrap.is-open .osip-select-chev {
+            transform: rotate(180deg);
+            color: var(--rd-green-2);
+        }
+
+        .rd main #contactForm .osip-select-menu {
+            position: absolute;
+            z-index: 40;
+            left: 0;
+            right: 0;
+            top: calc(100% + 8px);
+            padding: 6px;
+            background: #ffffff;
+            border: 1px solid var(--rd-line);
+            border-radius: 18px;
+            box-shadow: 0 18px 40px -20px rgba(19, 32, 27, .35), 0 2px 8px rgba(19, 32, 27, .06);
+            animation: osipSelectIn .22s cubic-bezier(.22, 1, .36, 1) both;
+        }
+
+        .rd main #contactForm .osip-select-wrap.is-up .osip-select-menu {
+            top: auto;
+            bottom: calc(100% + 8px);
+            transform-origin: 50% 100%;
+        }
+
+        @keyframes osipSelectIn {
+            from { opacity: 0; transform: translateY(-6px) scale(.99); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rd main #contactForm .osip-select-menu { animation-duration: .01s; }
+            .rd main #contactForm .osip-select-chev { transition: none; }
+        }
+
+        .rd main #contactForm .osip-select-search {
+            padding: 6px 6px 8px;
+            border-bottom: 1px solid var(--rd-line);
+            margin-bottom: 6px;
+        }
+
+        .rd main #contactForm .osip-select-search input {
+            width: 100%;
+            min-height: 40px !important;
+            padding: 9px 14px !important;
+            background: var(--rd-paper) !important;
+            border: 1px solid transparent !important;
+            border-radius: 999px !important;
+            font-size: 14.5px !important;
+        }
+
+        .rd main #contactForm .osip-select-search input:focus {
+            background: #ffffff !important;
+            border-color: var(--rd-green-2) !important;
+            box-shadow: none !important;
+        }
+
+        .rd main #contactForm .osip-select-list {
+            max-height: 264px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+        }
+
+        .rd main #contactForm .osip-select-opt {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 10px 40px 10px 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            line-height: 1.4;
+            color: var(--rd-ink);
+            cursor: pointer;
+            transition: background-color .18s ease, color .18s ease;
+        }
+
+        .rd main #contactForm .osip-select-opt.is-active { background: var(--rd-paper); }
+        .rd main #contactForm .osip-select-opt.is-chosen { color: var(--rd-green-2); font-weight: 500; }
+        .rd main #contactForm .osip-select-opt[hidden] { display: none; }
+
+        .rd main #contactForm .osip-select-opt-desc {
+            font-size: 13px;
+            line-height: 1.45;
+            color: var(--rd-ink-3);
+        }
+
+        .rd main #contactForm .osip-select-opt.is-chosen .osip-select-opt-desc { color: var(--rd-ink-3); }
+
+        .rd main #contactForm .osip-select-tick {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            font-size: 19px;
+            color: var(--rd-green-2);
+            opacity: 0;
+            transform: scale(.7);
+            transition: opacity .18s ease, transform .18s ease;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .rd main #contactForm .osip-select-opt.is-chosen .osip-select-tick { opacity: 1; transform: none; }
+
+        .rd main #contactForm .osip-select-none {
+            margin: 0;
+            padding: 14px;
+            font-size: 14.5px;
+            color: var(--rd-ink-3);
+        }
+
+        /* the line shown when the form arrives part-filled from another page */
+        .rd main .osip-prefill {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 0 0 26px;
+            padding: 14px 16px;
+            background: #eef3ef;
+            border: 1px solid #d5e3da;
+            border-radius: 14px;
+            font-size: 14.5px;
+            line-height: 1.55;
+            color: var(--rd-ink-2);
+        }
+
+        .rd main .osip-prefill .material-symbols-outlined {
+            flex: 0 0 auto;
+            margin-top: 1px;
+            font-size: 19px;
+            color: var(--rd-green-2);
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .rd main .osip-prefill[hidden] { display: none; }
+
+        /* ---- UX-FRM-05 / 06 / 07 (15 Sep 2026) -------------------------------------------
+           The after-sending promise stated before sending, readable upload rules with a
+           picked-files list, and a sending state on the button. */
+        .rd main #contactForm .osip-upload-rules {
+            margin: 0 0 12px;
+            font-size: 14px;
+            line-height: 1.55;
+            color: var(--rd-ink-3);
+        }
+
+        .rd main #contactForm #dropZone.is-drag {
+            background: #eef3ef !important;
+            border-color: var(--rd-green-2) !important;
+            border-style: solid !important;
+        }
+
+        .rd main #contactForm .osip-file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 4px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .rd main #contactForm .osip-file-list[hidden] { display: none; }
+
+        .rd main #contactForm .osip-file-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 10px 10px 14px;
+            background: #ffffff;
+            border: 1px solid var(--rd-line);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--rd-ink);
+        }
+
+        .rd main #contactForm .osip-file-list .material-symbols-outlined {
+            flex: 0 0 auto;
+            font-size: 20px;
+            color: var(--rd-green-2);
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .rd main #contactForm .osip-file-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .rd main #contactForm .osip-file-size { flex: 0 0 auto; font-size: 12.5px; color: var(--rd-ink-3); font-variant-numeric: tabular-nums; }
+
+        .rd main #contactForm .osip-file-remove {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--rd-ink-3);
+            cursor: pointer;
+            transition: background-color .25s ease, color .25s ease;
+        }
+
+        .rd main #contactForm .osip-file-remove:hover { background: var(--rd-paper-2); color: #b3261e; }
+        .rd main #contactForm .osip-file-remove .material-symbols-outlined { font-size: 18px; color: inherit; }
+        .rd main #contactForm .osip-file-remove:focus-visible { outline: 2px solid var(--rd-green-2); outline-offset: 2px; }
+
+        .rd main #contactForm .osip-send-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 2rem 0 0;
+            padding: 14px 16px;
+            background: var(--rd-card);
+            border: 1px solid var(--rd-line);
+            border-radius: 14px;
+            font-size: 14.5px;
+            line-height: 1.55;
+            color: var(--rd-ink-2);
+        }
+
+        .rd main #contactForm .osip-send-note .material-symbols-outlined {
+            flex: 0 0 auto;
+            margin-top: 1px;
+            font-size: 19px;
+            color: var(--rd-green-2);
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .rd main #contactForm .osip-send-note strong { font-weight: 600; color: var(--rd-ink); }
+
+        .rd main #contactForm button[type="submit"].is-sending,
+        .rd main #contactForm button[type="submit"]:disabled {
+            gap: 10px;
+            cursor: progress;
+            opacity: .85;
+        }
+
+        .osip-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, .35);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: osipSpin .8s linear infinite;
+        }
+
+        @keyframes osipSpin { to { transform: rotate(360deg); } }
+
+        @media (prefers-reduced-motion: reduce) { .osip-spinner { animation-duration: 2.4s; } }
+
         /* ---- UX-FRM-01: submission confirmation (15 Sep 2026) ---------------------------
            Front-end only. Submitting no longer reloads the page and empties the form: the
            form is swapped for this confirmation, carrying a reference number and a summary
@@ -974,66 +1386,344 @@
                     <p class="font-body-lg text-on-surface-variant max-w-xl rd-read rd-rule">Reach out for inquiries regarding energy
                         investments, regulatory guidelines, or technical platform assistance.</p>
                 </header>
-                <form class="space-y-8" id="contactForm">
+                <p class="osip-prefill" id="prefillNote" hidden>
+                    <span class="material-symbols-outlined" aria-hidden="true">auto_awesome</span>
+                    <span></span>
+                </p>
+                <form class="space-y-8" id="contactForm" novalidate>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                         <!-- Dropdown: Who are you? -->
                         <div class="md:col-span-2">
-                            <label
+                            <label for="stakeholderCategory"
                                 class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Stakeholder
                                 Category <span class="text-error">*</span></label>
-                            <select
-                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all appearance-none">
+                            <select id="stakeholderCategory" name="stakeholderCategory" required aria-required="true"
+                                class="osip-select w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
                                 <option disabled="" selected="" value="">Select your category</option>
                                 <option value="investor">Institutional Investor</option>
                                 <option value="regulator">Regulatory Body</option>
                                 <option value="government">Government Agency</option>
                                 <option value="developer">Project Developer</option>
                             </select>
+                            <p class="osip-field-error" id="stakeholderCategory-error" hidden></p>
                         </div>
                         <!-- Name -->
                         <div>
-                            <label
+                            <label for="fullName"
                                 class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Full
                                 Name <span class="text-error">*</span></label>
-                            <input
+                            <input id="fullName" name="fullName" required aria-required="true"
                                 class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all"
                                 placeholder="e.g. John Doe" type="text" />
+                            <p class="osip-field-error" id="fullName-error" hidden></p>
                         </div>
                         <!-- Email -->
                         <div>
-                            <label
+                            <label for="email"
                                 class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Email
                                 Address <span class="text-error">*</span></label>
-                            <input
+                            <input id="email" name="email" required aria-required="true"
                                 class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all"
-                                placeholder="e.g. name@organization.com" type="email" />
+                                placeholder="e.g. name@organisation.com" type="email" />
+                            <p class="osip-field-error" id="email-error" hidden></p>
                         </div>
                         <!-- Country -->
                         <div>
-                            <label
+                            <label for="country"
                                 class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Country
                                 <span class="text-error">*</span></label>
-                            <select
-                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
+                            <!-- Every country, Nigeria first because most enquiries come from here
+                                 (16 Sep 2026: the list was four countries). -->
+                            <select id="country" name="country" required aria-required="true"
+                                class="osip-select w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
                                 <option disabled="" selected="" value="">Select country</option>
                                 <option value="NG">Nigeria</option>
-                                <option value="UK">United Kingdom</option>
-                                <option value="US">United States</option>
+                                <option value="AF">Afghanistan</option>
+                                <option value="AL">Albania</option>
+                                <option value="DZ">Algeria</option>
+                                <option value="AD">Andorra</option>
+                                <option value="AO">Angola</option>
+                                <option value="AG">Antigua and Barbuda</option>
+                                <option value="AR">Argentina</option>
+                                <option value="AM">Armenia</option>
+                                <option value="AW">Aruba</option>
+                                <option value="AU">Australia</option>
+                                <option value="AT">Austria</option>
+                                <option value="AZ">Azerbaijan</option>
+                                <option value="BS">Bahamas</option>
+                                <option value="BH">Bahrain</option>
+                                <option value="BD">Bangladesh</option>
+                                <option value="BB">Barbados</option>
+                                <option value="BY">Belarus</option>
+                                <option value="BE">Belgium</option>
+                                <option value="BZ">Belize</option>
+                                <option value="BJ">Benin</option>
+                                <option value="BM">Bermuda</option>
+                                <option value="BT">Bhutan</option>
+                                <option value="BO">Bolivia</option>
+                                <option value="BA">Bosnia and Herzegovina</option>
+                                <option value="BW">Botswana</option>
+                                <option value="BR">Brazil</option>
+                                <option value="VG">British Virgin Islands</option>
+                                <option value="BN">Brunei</option>
+                                <option value="BG">Bulgaria</option>
+                                <option value="BF">Burkina Faso</option>
+                                <option value="BI">Burundi</option>
+                                <option value="CV">Cabo Verde</option>
+                                <option value="KH">Cambodia</option>
+                                <option value="CM">Cameroon</option>
+                                <option value="CA">Canada</option>
+                                <option value="KY">Cayman Islands</option>
+                                <option value="CF">Central African Republic</option>
+                                <option value="TD">Chad</option>
+                                <option value="CL">Chile</option>
                                 <option value="CN">China</option>
+                                <option value="CO">Colombia</option>
+                                <option value="KM">Comoros</option>
+                                <option value="CD">Congo (Democratic Republic)</option>
+                                <option value="CG">Congo (Republic)</option>
+                                <option value="CR">Costa Rica</option>
+                                <option value="CI">Côte d'Ivoire</option>
+                                <option value="HR">Croatia</option>
+                                <option value="CU">Cuba</option>
+                                <option value="CW">Curaçao</option>
+                                <option value="CY">Cyprus</option>
+                                <option value="CZ">Czechia</option>
+                                <option value="DK">Denmark</option>
+                                <option value="DJ">Djibouti</option>
+                                <option value="DM">Dominica</option>
+                                <option value="DO">Dominican Republic</option>
+                                <option value="EC">Ecuador</option>
+                                <option value="EG">Egypt</option>
+                                <option value="SV">El Salvador</option>
+                                <option value="GQ">Equatorial Guinea</option>
+                                <option value="ER">Eritrea</option>
+                                <option value="EE">Estonia</option>
+                                <option value="SZ">Eswatini</option>
+                                <option value="ET">Ethiopia</option>
+                                <option value="FJ">Fiji</option>
+                                <option value="FI">Finland</option>
+                                <option value="FR">France</option>
+                                <option value="PF">French Polynesia</option>
+                                <option value="GA">Gabon</option>
+                                <option value="GM">Gambia</option>
+                                <option value="GE">Georgia</option>
+                                <option value="DE">Germany</option>
+                                <option value="GH">Ghana</option>
+                                <option value="GI">Gibraltar</option>
+                                <option value="GR">Greece</option>
+                                <option value="GL">Greenland</option>
+                                <option value="GD">Grenada</option>
+                                <option value="GT">Guatemala</option>
+                                <option value="GG">Guernsey</option>
+                                <option value="GN">Guinea</option>
+                                <option value="GW">Guinea-Bissau</option>
+                                <option value="GY">Guyana</option>
+                                <option value="HT">Haiti</option>
+                                <option value="HN">Honduras</option>
+                                <option value="HK">Hong Kong SAR</option>
+                                <option value="HU">Hungary</option>
+                                <option value="IS">Iceland</option>
+                                <option value="IN">India</option>
+                                <option value="ID">Indonesia</option>
+                                <option value="IR">Iran</option>
+                                <option value="IQ">Iraq</option>
+                                <option value="IE">Ireland</option>
+                                <option value="IM">Isle of Man</option>
+                                <option value="IL">Israel</option>
+                                <option value="IT">Italy</option>
+                                <option value="JM">Jamaica</option>
+                                <option value="JP">Japan</option>
+                                <option value="JE">Jersey</option>
+                                <option value="JO">Jordan</option>
+                                <option value="KZ">Kazakhstan</option>
+                                <option value="KE">Kenya</option>
+                                <option value="KI">Kiribati</option>
+                                <option value="KW">Kuwait</option>
+                                <option value="KG">Kyrgyzstan</option>
+                                <option value="LA">Laos</option>
+                                <option value="LV">Latvia</option>
+                                <option value="LB">Lebanon</option>
+                                <option value="LS">Lesotho</option>
+                                <option value="LR">Liberia</option>
+                                <option value="LY">Libya</option>
+                                <option value="LI">Liechtenstein</option>
+                                <option value="LT">Lithuania</option>
+                                <option value="LU">Luxembourg</option>
+                                <option value="MO">Macao SAR</option>
+                                <option value="MG">Madagascar</option>
+                                <option value="MW">Malawi</option>
+                                <option value="MY">Malaysia</option>
+                                <option value="MV">Maldives</option>
+                                <option value="ML">Mali</option>
+                                <option value="MT">Malta</option>
+                                <option value="MH">Marshall Islands</option>
+                                <option value="MQ">Martinique</option>
+                                <option value="MR">Mauritania</option>
+                                <option value="MU">Mauritius</option>
+                                <option value="MX">Mexico</option>
+                                <option value="FM">Micronesia</option>
+                                <option value="MD">Moldova</option>
+                                <option value="MC">Monaco</option>
+                                <option value="MN">Mongolia</option>
+                                <option value="ME">Montenegro</option>
+                                <option value="MA">Morocco</option>
+                                <option value="MZ">Mozambique</option>
+                                <option value="MM">Myanmar</option>
+                                <option value="NA">Namibia</option>
+                                <option value="NR">Nauru</option>
+                                <option value="NP">Nepal</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="NC">New Caledonia</option>
+                                <option value="NZ">New Zealand</option>
+                                <option value="NI">Nicaragua</option>
+                                <option value="NE">Niger</option>
+                                <option value="KP">North Korea</option>
+                                <option value="MK">North Macedonia</option>
+                                <option value="NO">Norway</option>
+                                <option value="OM">Oman</option>
+                                <option value="PK">Pakistan</option>
+                                <option value="PW">Palau</option>
+                                <option value="PS">Palestine</option>
+                                <option value="PA">Panama</option>
+                                <option value="PG">Papua New Guinea</option>
+                                <option value="PY">Paraguay</option>
+                                <option value="PE">Peru</option>
+                                <option value="PH">Philippines</option>
+                                <option value="PL">Poland</option>
+                                <option value="PT">Portugal</option>
+                                <option value="PR">Puerto Rico</option>
+                                <option value="QA">Qatar</option>
+                                <option value="RE">Réunion</option>
+                                <option value="RO">Romania</option>
+                                <option value="RU">Russia</option>
+                                <option value="RW">Rwanda</option>
+                                <option value="KN">Saint Kitts and Nevis</option>
+                                <option value="LC">Saint Lucia</option>
+                                <option value="VC">Saint Vincent and the Grenadines</option>
+                                <option value="WS">Samoa</option>
+                                <option value="SM">San Marino</option>
+                                <option value="ST">Sao Tome and Principe</option>
+                                <option value="SA">Saudi Arabia</option>
+                                <option value="SN">Senegal</option>
+                                <option value="RS">Serbia</option>
+                                <option value="SC">Seychelles</option>
+                                <option value="SL">Sierra Leone</option>
+                                <option value="SG">Singapore</option>
+                                <option value="SK">Slovakia</option>
+                                <option value="SI">Slovenia</option>
+                                <option value="SB">Solomon Islands</option>
+                                <option value="SO">Somalia</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="KR">South Korea</option>
+                                <option value="SS">South Sudan</option>
+                                <option value="ES">Spain</option>
+                                <option value="LK">Sri Lanka</option>
+                                <option value="SD">Sudan</option>
+                                <option value="SR">Suriname</option>
+                                <option value="SE">Sweden</option>
+                                <option value="CH">Switzerland</option>
+                                <option value="SY">Syria</option>
+                                <option value="TW">Taiwan</option>
+                                <option value="TJ">Tajikistan</option>
+                                <option value="TZ">Tanzania</option>
+                                <option value="TH">Thailand</option>
+                                <option value="TL">Timor-Leste</option>
+                                <option value="TG">Togo</option>
+                                <option value="TO">Tonga</option>
+                                <option value="TT">Trinidad and Tobago</option>
+                                <option value="TN">Tunisia</option>
+                                <option value="TR">Türkiye</option>
+                                <option value="TM">Turkmenistan</option>
+                                <option value="TV">Tuvalu</option>
+                                <option value="UG">Uganda</option>
+                                <option value="UA">Ukraine</option>
+                                <option value="AE">United Arab Emirates</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="US">United States</option>
+                                <option value="UY">Uruguay</option>
+                                <option value="UZ">Uzbekistan</option>
+                                <option value="VU">Vanuatu</option>
+                                <option value="VA">Vatican City</option>
+                                <option value="VE">Venezuela</option>
+                                <option value="VN">Vietnam</option>
+                                <option value="YE">Yemen</option>
+                                <option value="ZM">Zambia</option>
+                                <option value="ZW">Zimbabwe</option>
+                            </select>
+                            <p class="osip-field-error" id="country-error" hidden></p>
+                        </div>
+                        <!-- State or territory (16 Sep 2026). Optional: an enquiry does not have
+                             to be about one place. The "Contact the OSIP team" button on the States
+                             page arrives here with this field already filled in. -->
+                        <div>
+                            <label for="state"
+                                class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">State
+                                or Territory</label>
+                            <select id="state" name="state"
+                                class="osip-select w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
+                                <option disabled="" selected="" value="">Select a state (optional)</option>
+                                <option value="Abia">Abia</option>
+                                <option value="Adamawa">Adamawa</option>
+                                <option value="Akwa Ibom">Akwa Ibom</option>
+                                <option value="Anambra">Anambra</option>
+                                <option value="Bauchi">Bauchi</option>
+                                <option value="Bayelsa">Bayelsa</option>
+                                <option value="Benue">Benue</option>
+                                <option value="Borno">Borno</option>
+                                <option value="Cross River">Cross River</option>
+                                <option value="Delta">Delta</option>
+                                <option value="Ebonyi">Ebonyi</option>
+                                <option value="Edo">Edo</option>
+                                <option value="Ekiti">Ekiti</option>
+                                <option value="Enugu">Enugu</option>
+                                <option value="FCT Abuja">Abuja (FCT)</option>
+                                <option value="Gombe">Gombe</option>
+                                <option value="Imo">Imo</option>
+                                <option value="Jigawa">Jigawa</option>
+                                <option value="Kaduna">Kaduna</option>
+                                <option value="Kano">Kano</option>
+                                <option value="Katsina">Katsina</option>
+                                <option value="Kebbi">Kebbi</option>
+                                <option value="Kogi">Kogi</option>
+                                <option value="Kwara">Kwara</option>
+                                <option value="Lagos">Lagos</option>
+                                <option value="Nasarawa">Nasarawa</option>
+                                <option value="Niger">Niger</option>
+                                <option value="Ogun">Ogun</option>
+                                <option value="Ondo">Ondo</option>
+                                <option value="Osun">Osun</option>
+                                <option value="Oyo">Oyo</option>
+                                <option value="Plateau">Plateau</option>
+                                <option value="Rivers">Rivers</option>
+                                <option value="Sokoto">Sokoto</option>
+                                <option value="Taraba">Taraba</option>
+                                <option value="Yobe">Yobe</option>
+                                <option value="Zamfara">Zamfara</option>
+                                <option value="Multi-State">More than one state</option>
+                                <option value="National">Nationwide</option>
                             </select>
                         </div>
                         <!-- Sector -->
                         <div>
-                            <label
+                            <label for="energySector"
                                 class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Energy
                                 Sector</label>
-                            <select
-                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
-                                <option disabled="" selected="" value="">Select sector</option>
-                                <option value="solar">Solar Energy</option>
-                                <option value="wind">Wind Energy</option>
-                                <option value="gas">Natural Gas</option>
-                                <option value="hydro">Hydroelectric</option>
+                            <!-- The ten OSIP sectors, as listed on Sector.html (UX-NAV-05).
+                                 Natural Gas is not one of them and was removed. -->
+                            <select id="energySector" name="energySector"
+                                class="osip-select w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
+                                <option disabled="" selected="" value="">Select sector (optional)</option>
+                                <option value="solar">Solar</option>
+                                <option value="wind">Wind</option>
+                                <option value="storage">Storage</option>
+                                <option value="small-hydro">Small Hydro</option>
+                                <option value="green-mobility">Green Mobility</option>
+                                <option value="energy-efficiency">Energy Efficiency</option>
+                                <option value="clean-cooking">Clean Cooking</option>
+                                <option value="bioenergy">Bioenergy</option>
+                                <option value="agriculture-pue">Agriculture PUE</option>
+                                <option value="green-hydrogen">Green Hydrogen</option>
                             </select>
                         </div>
                         <!-- Enquiry Category (CON-01) -->
@@ -1045,9 +1735,9 @@
                                 <p class="font-body-sm text-on-surface-variant">Choose one — it decides which desk
                                     receives your message.</p>
                             </div>
-                            <select id="enquiryCategory" name="enquiryCategory" required
-                                aria-describedby="enquiryHint enquiryRouting"
-                                class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
+                            <select id="enquiryCategory" name="enquiryCategory" required aria-required="true"
+                                aria-describedby="enquiryHint enquiryRouting" data-search="off"
+                                class="osip-select w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all">
                                 <option disabled="" selected="" value="">Select a category</option>
                                 <option value="sector" data-label="Sector information" data-desc="Technology, project types or market structure in one of the 10 sectors.">Sector information</option>
                                 <option value="regulation" data-label="Regulation &amp; licensing" data-desc="Permits, approvals, agencies or the steps in a regulatory pathway.">Regulation &amp; licensing</option>
@@ -1058,6 +1748,7 @@
                                 <option value="technical" data-label="Technical issue" data-desc="A page, download, form or account that is not working.">Technical issue</option>
                             </select>
                             <p class="mt-2 font-body-sm text-on-surface-variant" id="enquiryHint" hidden></p>
+                            <p class="osip-field-error" id="enquiryCategory-error" hidden></p>
                             <p class="flex items-start gap-2 mt-3 font-body-sm text-on-surface-variant"
                                 id="enquiryRouting">
                                 <span class="material-symbols-outlined text-[18px] text-outline shrink-0">outgoing_mail</span>
@@ -1068,36 +1759,51 @@
                         </div>
                         <!-- Message -->
                         <div class="md:col-span-2">
-                            <label
+                            <label for="message"
                                 class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Your
                                 Message <span class="text-error">*</span></label>
-                            <textarea
+                            <textarea id="message" name="message" required aria-required="true"
                                 class="w-full bg-surface-container-lowest border border-outline-variant rounded px-4 py-3 font-body-md form-input-focus transition-all min-h-[160px]"
                                 placeholder="Briefly describe your request or query..."></textarea>
+                            <p class="osip-field-error" id="message-error" hidden></p>
                         </div>
                         <!-- File Upload -->
                         <div class="md:col-span-2">
-                            <label
+                            <label id="attachmentsLabel"
                                 class="block font-label-md text-label-md text-on-surface-variant uppercase mb-2 tracking-wider">Attachments
                                 (Optional)</label>
+                            <!-- UX-FRM-06: the rules in readable text above the area, the formats
+                                 investors actually send, a higher limit, working drag and drop, and a
+                                 list of what was picked with a way to remove each file. -->
+                            <p class="osip-upload-rules" id="fileUploadNote">Up to 5 files, 10&nbsp;MB each and 25&nbsp;MB in
+                                total. PDF, Word, Excel, PowerPoint, JPG, PNG or ZIP.</p>
                             <div class="flex flex-col gap-2">
-                                <div
+                                <div id="dropZone"
                                     class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border border-dashed border-outline-variant p-4 rounded bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer">
                                     <div class="flex items-center gap-3">
                                         <span class="material-symbols-outlined text-outline">upload_file</span>
-                                        <span class="font-body-sm text-on-surface-variant">Click to upload or drag and
-                                            drop</span>
+                                        <span class="font-body-sm text-on-surface-variant" id="dropZoneText">Drag files here, or choose
+                                            them from your device</span>
                                     </div>
-                                    <input class="hidden" id="fileUpload" type="file" />
+                                    <input class="hidden" id="fileUpload" name="attachments" type="file" multiple
+                                        accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.zip"
+                                        aria-labelledby="attachmentsLabel" aria-describedby="fileUploadNote" />
                                     <label
                                         class="bg-primary-container text-on-primary px-4 py-1.5 rounded text-label-md cursor-pointer text-center w-full sm:w-auto"
-                                        for="fileUpload">Choose File</label>
+                                        for="fileUpload">Choose files</label>
                                 </div>
-                                <p class="text-[11px] text-on-surface-variant italic">Maximum size: 5MB. Accepted
-                                    formats: JPG, PNG, PDF.</p>
+                                <ul class="osip-file-list" id="fileList" aria-label="Attached files" hidden></ul>
+                                <p class="osip-field-error" id="fileUpload-error" role="alert" hidden></p>
                             </div>
                         </div>
                     </div>
+                    <!-- UX-FRM-05: what happens after sending, stated before sending.
+                         "2 working days" is a placeholder target, to be confirmed by the platform owner. -->
+                    <p class="osip-send-note" id="sendNote">
+                        <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+                        <span>You&rsquo;ll get a reference number straight away and a confirmation by email. We aim to reply
+                            within <strong>2 working days</strong> (Monday to Friday, 09:00&ndash;17:00 WAT).</span>
+                    </p>
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pt-6">
                         <button
@@ -1105,11 +1811,15 @@
                             type="submit">
                             Submit Inquiry
                         </button>
-                        <button
-                            class="text-on-surface-variant font-label-md uppercase tracking-widest hover:text-primary transition-colors flex items-center justify-center gap-2 py-2 sm:py-0"
-                            type="reset">
-                            Clear Form
-                        </button>
+                        <!-- UX-FRM-04: a quiet link, and it asks first; nothing is cleared by one stray click -->
+                        <div class="osip-clear" id="clearArea">
+                            <button type="button" class="osip-clear-link" id="clearFormBtn">Clear form</button>
+                            <span class="osip-clear-confirm" id="clearConfirm" role="group" aria-label="Confirm clearing the form" hidden>
+                                <span>Clear everything you&rsquo;ve entered?</span>
+                                <button type="button" class="osip-clear-yes" id="clearYes">Yes, clear</button>
+                                <button type="button" class="osip-clear-no" id="clearNo">Keep</button>
+                            </span>
+                        </div>
                     </div>
                 </form>
 
@@ -1138,7 +1848,7 @@
                         <li><span class="material-symbols-outlined" aria-hidden="true">mark_email_read</span>
                             <span>A confirmation will go to <strong id="cfEmail">your email address</strong>.</span></li>
                         <li><span class="material-symbols-outlined" aria-hidden="true">schedule</span>
-                            <span>The desk is monitored Monday to Friday, 09:00&ndash;17:00 WAT, and answers enquiries in the order received.</span></li>
+                            <span>We aim to reply within <strong>2 working days</strong>. The desk is monitored Monday to Friday, 09:00&ndash;17:00 WAT.</span></li>
                         <li><span class="material-symbols-outlined" aria-hidden="true">alternate_email</span>
                             <span>Need to add something? Write to <a href="mailto:info@osip.gov.ng" id="cfMailto">info@osip.gov.ng</a> with your reference in the subject.</span></li>
                     </ul>
@@ -1220,7 +1930,7 @@
                         <div class="flex items-center gap-3">
                             <span
                                 class="material-symbols-outlined text-tertiary-fixed-dim text-[22px] shrink-0">support_agent</span>
-                            <span class="font-body-sm text-white">Dedicated investor support desk</span>
+                            <span class="font-body-sm text-white">One OSIP support desk</span>
                         </div>
                     </div>
 
@@ -1259,8 +1969,7 @@
 
                     <p class="flex items-start gap-2 mt-6 pt-5 border-t border-outline-variant font-body-sm text-on-surface-variant">
                         <span class="material-symbols-outlined text-[18px] text-outline shrink-0">schedule</span>
-                        <span>Monitored Monday to Friday, 09:00&ndash;17:00 WAT. Enquiries are answered in the order
-                            received.</span>
+                        <span>Monitored Monday to Friday, 09:00&ndash;17:00 WAT. We aim to reply within 2 working days.</span>
                     </p>
                 </div>
             </div>
@@ -1276,6 +1985,274 @@
             alert('Your inquiry has been successfully transmitted to the OSIP secretariat. A tracking number will be sent to your email address shortly.');
         });
     </script> -->
+
+    <!-- UX-FRM-02: required fields are checked, with a message next to each.
+         UX-FRM-04: "Clear form" asks before clearing. Front-end only. -->
+    <script>
+        (function () {
+            var form = document.getElementById('contactForm');
+            if (!form) return;
+
+            var RULES = [
+                { id: 'stakeholderCategory', empty: 'Choose your stakeholder category.' },
+                { id: 'fullName', empty: 'Enter your full name.' },
+                { id: 'email', empty: 'Enter your email address.', bad: 'Enter a valid email address, like name@organization.com.' },
+                { id: 'country', empty: 'Choose your country.' },
+                { id: 'enquiryCategory', empty: 'Choose what your enquiry is about.' },
+                { id: 'message', empty: 'Write a short message about your enquiry.' }
+            ];
+            var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+            var attempted = false;
+
+            function describe(el, errId, on) {
+                var ids = (el.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean)
+                    .filter(function (x) { return x !== errId; });
+                if (on) ids.push(errId);
+                if (ids.length) el.setAttribute('aria-describedby', ids.join(' '));
+                else el.removeAttribute('aria-describedby');
+            }
+
+            function check(rule) {
+                var el = document.getElementById(rule.id);
+                var err = document.getElementById(rule.id + '-error');
+                if (!el || !err) return true;
+                var v = (el.value || '').trim();
+                var msg = !v ? rule.empty : (rule.bad && !EMAIL_RE.test(v) ? rule.bad : '');
+                err.textContent = msg;
+                err.hidden = !msg;
+                if (msg) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
+                describe(el, rule.id + '-error', !!msg);
+                return !msg;
+            }
+
+            function clearErrors() {
+                attempted = false;
+                RULES.forEach(function (r) {
+                    var el = document.getElementById(r.id), err = document.getElementById(r.id + '-error');
+                    if (err) { err.hidden = true; err.textContent = ''; }
+                    if (el) { el.removeAttribute('aria-invalid'); describe(el, r.id + '-error', false); }
+                });
+            }
+
+            /* Called by the submit handler below. Returns false, and moves focus to
+               the first field that needs attention, when anything is missing. */
+            form._osipValidate = function () {
+                attempted = true;
+                var first = null;
+                RULES.forEach(function (r) { if (!check(r) && !first) first = document.getElementById(r.id); });
+                if (!first) return true;
+                var offset = (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--osip-nav-offset'), 10) || 100) + 48;
+                var y = Math.max(0, first.getBoundingClientRect().top + window.scrollY - offset);
+                if (window.__rdLenis) window.__rdLenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, y);
+                first.focus({ preventScroll: true });
+                return false;
+            };
+
+            /* After the first attempt, each field re-checks as it is corrected. */
+            RULES.forEach(function (r) {
+                var el = document.getElementById(r.id);
+                if (!el) return;
+                ['input', 'change'].forEach(function (type) {
+                    el.addEventListener(type, function () { if (attempted) check(r); });
+                });
+            });
+            form.addEventListener('reset', clearErrors);
+
+            /* ---- Clear form, with a confirmation ---- */
+            var clearBtn = document.getElementById('clearFormBtn');
+            var confirmBox = document.getElementById('clearConfirm');
+            var yes = document.getElementById('clearYes');
+            var no = document.getElementById('clearNo');
+            if (!clearBtn || !confirmBox || !yes || !no) return;
+
+            function hasContent() {
+                return Array.prototype.some.call(form.elements, function (el) {
+                    if (el.tagName === 'BUTTON' || el.tagName === 'FIELDSET') return false;
+                    if (el.type === 'file') return !!(el.files && el.files.length);
+                    return (el.value || '').trim() !== '';
+                });
+            }
+            function showConfirm(on) {
+                confirmBox.hidden = !on;
+                clearBtn.hidden = on;
+                (on ? no : clearBtn).focus();
+            }
+            clearBtn.addEventListener('click', function () {
+                if (!hasContent()) { clearErrors(); return; }       // nothing typed: nothing to lose
+                showConfirm(true);
+            });
+            no.addEventListener('click', function () { showConfirm(false); });
+            yes.addEventListener('click', function () {
+                form.reset();
+                confirmBox.hidden = true;
+                clearBtn.hidden = false;
+                var first = form.querySelector('select, input, textarea');
+                if (first) first.focus({ preventScroll: true });
+            });
+            confirmBox.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') showConfirm(false);
+            });
+        })();
+    </script>
+
+    <!-- The dropdowns: a styled control in front of each <select>. The selects
+         themselves still hold the values and are still what validation reads. -->
+    <script src="osipstate.js"></script>
+    <script src="osipselect.js"></script>
+
+    <!-- Arriving from elsewhere with the form part-filled, for example the
+         "Contact the OSIP team" button on the States page:
+         Contact.html?category=state&state=Taraba -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.getElementById('contactForm');
+            if (!form) return;
+            var params;
+            try { params = new URLSearchParams(location.search); } catch (e) { return; }
+            var FIELDS = ['category', 'state', 'sector', 'country'];
+            var IDS = { category: 'enquiryCategory', state: 'state', sector: 'energySector', country: 'country' };
+            var filled = [];
+
+            FIELDS.forEach(function (key) {
+                var raw = (params.get(key) || '').trim();
+                if (!raw) return;
+                var sel = document.getElementById(IDS[key]);
+                if (!sel) return;
+                var want = raw.toLowerCase();
+                var match = Array.prototype.filter.call(sel.options, function (o) {
+                    return o.value && (o.value.toLowerCase() === want || o.text.toLowerCase() === want);
+                })[0];
+                if (!match) return;
+                sel.value = match.value;
+                sel.dispatchEvent(new Event('change', { bubbles: true }));
+                filled.push(sel);
+            });
+
+            if (!filled.length) return;
+            /* land on the form, not at the top of the page, and say what was filled in */
+            var note = document.getElementById('prefillNote');
+            if (note) {
+                note.hidden = false;
+                note.querySelector('span:last-child').textContent =
+                    'We have filled in ' + filled.map(function (s) {
+                        var o = s.options[s.selectedIndex];
+                        return (o.getAttribute('data-label') || o.text);
+                    }).join(' and ') + ' for you. Change anything that is not right.';
+            }
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    var offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--osip-nav-offset'), 10) || 100;
+                    var y = Math.max(0, form.getBoundingClientRect().top + window.scrollY - offset - 24);
+                    if (window.__rdLenis) window.__rdLenis.scrollTo(y, { immediate: true, force: true });
+                    else window.scrollTo(0, y);
+                }, 400);
+            });
+        });
+    </script>
+
+    <!-- UX-FRM-06: attachments - accepted types and sizes checked as files are picked or
+         dropped, a list of picked files with a remove button each. Front-end only. -->
+    <script>
+        (function () {
+            var input = document.getElementById('fileUpload');
+            var zone = document.getElementById('dropZone');
+            var list = document.getElementById('fileList');
+            var err = document.getElementById('fileUpload-error');
+            if (!input || !zone || !list || !err) return;
+
+            var MAX_FILES = 5, MAX_EACH = 10 * 1024 * 1024, MAX_TOTAL = 25 * 1024 * 1024;
+            var TYPES = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'jpg', 'jpeg', 'png', 'zip'];
+            var picked = [];
+            var canSync = typeof DataTransfer !== 'undefined';
+
+            function ext(name) { var m = /\.([^.]+)$/.exec(name || ''); return m ? m[1].toLowerCase() : ''; }
+            function size(b) { return b < 1024 * 1024 ? Math.max(1, Math.round(b / 1024)) + ' KB' : (b / 1024 / 1024).toFixed(1) + ' MB'; }
+            function icon(name) {
+                var e = ext(name);
+                if (e === 'jpg' || e === 'jpeg' || e === 'png') return 'image';
+                if (e === 'zip') return 'folder_zip';
+                if (e === 'xls' || e === 'xlsx') return 'table_chart';
+                if (e === 'ppt' || e === 'pptx') return 'slideshow';
+                return 'description';
+            }
+
+            function sync() {
+                if (canSync) {
+                    var dt = new DataTransfer();
+                    picked.forEach(function (f) { dt.items.add(f); });
+                    input.files = dt.files;
+                }
+                list.textContent = '';
+                picked.forEach(function (f, i) {
+                    var li = document.createElement('li');
+                    var ic = document.createElement('span'); ic.className = 'material-symbols-outlined'; ic.setAttribute('aria-hidden', 'true'); ic.textContent = icon(f.name);
+                    var nm = document.createElement('span'); nm.className = 'osip-file-name'; nm.textContent = f.name; nm.title = f.name;
+                    var sz = document.createElement('span'); sz.className = 'osip-file-size'; sz.textContent = size(f.size);
+                    var rm = document.createElement('button'); rm.type = 'button'; rm.className = 'osip-file-remove';
+                    rm.setAttribute('aria-label', 'Remove ' + f.name);
+                    rm.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">close</span>';
+                    rm.addEventListener('click', function () {
+                        picked.splice(i, 1);
+                        showError('');
+                        sync();
+                        input.focus();
+                    });
+                    li.appendChild(ic); li.appendChild(nm); li.appendChild(sz); li.appendChild(rm);
+                    list.appendChild(li);
+                });
+                list.hidden = !picked.length;
+            }
+
+            function showError(msg) {
+                err.textContent = msg;
+                err.hidden = !msg;
+            }
+
+            function add(files) {
+                var problems = [];
+                Array.prototype.forEach.call(files, function (f) {
+                    var total = picked.reduce(function (t, x) { return t + x.size; }, 0);
+                    if (picked.some(function (x) { return x.name === f.name && x.size === f.size; })) return;
+                    if (TYPES.indexOf(ext(f.name)) === -1) { problems.push(f.name + ' is not an accepted file type.'); return; }
+                    if (f.size > MAX_EACH) { problems.push(f.name + ' is larger than 10 MB.'); return; }
+                    if (picked.length >= MAX_FILES) { problems.push('Only 5 files can be attached; ' + f.name + ' was not added.'); return; }
+                    if (total + f.size > MAX_TOTAL) { problems.push(f.name + ' would take the attachments over 25 MB in total.'); return; }
+                    picked.push(f);
+                });
+                showError(problems.join(' '));
+                sync();
+            }
+
+            /* Without DataTransfer the browser's own single selection is used as it is. */
+            input.addEventListener('change', function () {
+                if (!canSync) return;
+                var chosen = Array.prototype.slice.call(input.files || []);
+                sync();                                             // restore the list before adding
+                add(chosen);
+            });
+
+            ['dragenter', 'dragover'].forEach(function (t) {
+                zone.addEventListener(t, function (e) { e.preventDefault(); zone.classList.add('is-drag'); });
+            });
+            ['dragleave', 'dragend'].forEach(function (t) {
+                zone.addEventListener(t, function (e) { if (!zone.contains(e.relatedTarget)) zone.classList.remove('is-drag'); });
+            });
+            zone.addEventListener('drop', function (e) {
+                e.preventDefault();
+                zone.classList.remove('is-drag');
+                if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) add(e.dataTransfer.files);
+            });
+            /* the whole area opens the picker, not only its button */
+            zone.addEventListener('click', function (e) {
+                if (e.target.closest('label, input, button')) return;
+                input.click();
+            });
+
+            var form = input.form;
+            if (form) form.addEventListener('reset', function () { picked = []; showError(''); setTimeout(sync, 0); });
+            input._osipAdd = add;                                   // used by the page check only
+        })();
+    </script>
 
     <!-- UX-FRM-01: submission confirmation (front-end only, no connection) -->
     <script>
@@ -1295,8 +2272,11 @@
                 return 'OSIP-' + stamp + '-' + rand;
             }
             function labelText(el) {
-                var wrap = el.closest('div');
-                var lab = wrap ? wrap.querySelector('label') : null;
+                var lab = el.id ? document.querySelector('label[for="' + el.id + '"]') : null;
+                if (!lab) {
+                    var wrap = el.closest('div');
+                    lab = wrap ? wrap.querySelector('label') : null;
+                }
                 return lab ? lab.textContent.replace('*', '').replace(/\s+/g, ' ').trim() : '';
             }
             function valueText(el) {
@@ -1311,8 +2291,26 @@
                 else window.scrollTo(0, y);
             }
 
+            /* UX-FRM-07: a short "Sending…" state on the button before the confirmation.
+               Front-end only; the delay stands in for the request a real build would make. */
+            var submitBtn = form.querySelector('button[type="submit"]');
+            var submitLabel = submitBtn ? submitBtn.innerHTML : '';
+            var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            function setSending(on) {
+                form._sending = on;
+                form.setAttribute('aria-busy', on ? 'true' : 'false');
+                if (!submitBtn) return;
+                submitBtn.disabled = on;
+                submitBtn.classList.toggle('is-sending', on);
+                submitBtn.innerHTML = on
+                    ? '<span class="osip-spinner" aria-hidden="true"></span><span>Sending&hellip;</span>'
+                    : submitLabel;
+            }
+
             form.addEventListener('submit', function (e) {
                 e.preventDefault();                                 // no page reload, nothing sent
+                if (form._sending) return;                          // no double submit
+                if (form._osipValidate && !form._osipValidate()) return;   // UX-FRM-02
 
                 var catSelect = document.getElementById('enquiryCategory');
                 var category = catSelect && catSelect.value ? catSelect.options[catSelect.selectedIndex] : null;
@@ -1323,7 +2321,7 @@
                 fields.forEach(function (el) {
                     var v = valueText(el);
                     if (!v) return;
-                    var label = labelText(el) || (el.type === 'file' ? 'Attachments' : '');
+                    var label = el.type === 'file' ? 'Attachments' : labelText(el);
                     if (el.type === 'email') email = v;
                     if (el.type === 'text' && /name/i.test(label)) name = v;
                     rows.push([label.replace(/\s*\(Optional\)/i, ''), v]);
@@ -1346,12 +2344,16 @@
                     row.appendChild(dt); row.appendChild(dd); dl.appendChild(row);
                 });
 
-                form.hidden = true;
-                panel.hidden = false;
-                main.classList.add('cf-sent');
-                scrollToPanel();
-                document.getElementById('contactSuccessTitle').focus({ preventScroll: true });
-                if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+                setSending(true);
+                setTimeout(function () {
+                    setSending(false);
+                    form.hidden = true;
+                    panel.hidden = false;
+                    main.classList.add('cf-sent');
+                    scrollToPanel();
+                    document.getElementById('contactSuccessTitle').focus({ preventScroll: true });
+                    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+                }, still ? 250 : 1100);
             });
 
             document.getElementById('cfAnother').addEventListener('click', function () {
@@ -1369,6 +2371,7 @@
                 var btn = this, text = document.getElementById('cfRef').textContent;
                 var done = function () {
                     btn.lastChild.textContent = 'Copied';
+                    if (window.OSIPState) window.OSIPState.toast('Reference number copied.');
                     setTimeout(function () { btn.lastChild.textContent = 'Copy'; }, 1800);
                 };
                 if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, done);

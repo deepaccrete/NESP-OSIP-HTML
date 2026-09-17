@@ -192,7 +192,7 @@ window.OSIP_PATHWAYS =
         },
         {
           "href": "https://son.gov.ng",
-          "name": "Standards Organization of Nigeria (SON)",
+          "name": "Standards Organisation of Nigeria (SON)",
           "role": "Sets product standards, with SONCAP for imports and MANCAP for local manufacture."
         },
         {
@@ -287,8 +287,8 @@ window.OSIP_PATHWAYS =
             },
             {
               "n": "04",
-              "label": "NERC Generation License",
-              "labelMobile": "NERC Generation License",
+              "label": "NERC Generation Licence",
+              "labelMobile": "NERC Generation Licence",
               "svg": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"> <path d=\"M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z\" /> <path d=\"M9 12l2 2 4-4\" /> </svg>",
               "dir": "down"
             },
@@ -390,7 +390,7 @@ window.OSIP_PATHWAYS =
         },
         {
           "href": "https://son.gov.ng",
-          "name": "Standards Organization of Nigeria (SON)",
+          "name": "Standards Organisation of Nigeria (SON)",
           "role": "Sets product standards, with SONCAP for imports and MANCAP for local manufacture."
         },
         {
@@ -620,7 +620,7 @@ window.OSIP_PATHWAYS =
         },
         {
           "href": "https://son.gov.ng",
-          "name": "Standards Organization of Nigeria (SON)",
+          "name": "Standards Organisation of Nigeria (SON)",
           "role": "Sets product standards, with SONCAP for imports and MANCAP for local manufacture."
         },
         {
@@ -980,7 +980,7 @@ window.OSIP_PATHWAYS =
           "state": true
         },
         {
-          "text": "Solar-powered & off-grid charging stations are eligible for net billing under Section 80 of the Electricity Act 2023 and can access REA and REF support; co-location with existing mini-grid infrastructure is explicitly recognized as a viable, investable model.",
+          "text": "Solar-powered & off-grid charging stations are eligible for net billing under Section 80 of the Electricity Act 2023 and can access REA and REF support; co-location with existing mini-grid infrastructure is explicitly recognised as a viable, investable model.",
           "connection": [
             "grid",
             "mini",
@@ -1003,7 +1003,7 @@ window.OSIP_PATHWAYS =
         },
         {
           "href": "https://son.gov.ng",
-          "name": "Standards Organization of Nigeria (SON)",
+          "name": "Standards Organisation of Nigeria (SON)",
           "role": "Sets product standards, with SONCAP for imports and MANCAP for local manufacture."
         },
         {
@@ -1371,7 +1371,7 @@ window.OSIP_PATHWAYS =
         },
         {
           "href": "https://son.gov.ng",
-          "name": "Standards Organization of Nigeria (SON)",
+          "name": "Standards Organisation of Nigeria (SON)",
           "role": "Sets product standards, with SONCAP for imports and MANCAP for local manufacture."
         },
         {
@@ -1514,7 +1514,7 @@ window.OSIP_PATHWAYS =
         },
         {
           "href": "https://son.gov.ng",
-          "name": "Standards Organization of Nigeria (SON)",
+          "name": "Standards Organisation of Nigeria (SON)",
           "role": "Sets product standards, with SONCAP for imports and MANCAP for local manufacture."
         },
         {
@@ -1608,8 +1608,8 @@ window.OSIP_PATHWAYS =
             },
             {
               "n": "03",
-              "label": "NERC Mini-Grid Licensing (simplified <100 kW; or single license up to 5 MW; ~1–2 months)",
-              "labelMobile": "NERC Mini-Grid Licensing (simplified <100 kW; or single license up to 5 MW; ~1–2 months)",
+              "label": "NERC Mini-Grid Licensing (simplified <100 kW; or single licence up to 5 MW; ~1–2 months)",
+              "labelMobile": "NERC Mini-Grid Licensing (simplified <100 kW; or single licence up to 5 MW; ~1–2 months)",
               "svg": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"> <path d=\"M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z\" /> <path d=\"M9 12l2 2 4-4\" /> </svg>",
               "dir": "up"
             },
@@ -1715,7 +1715,7 @@ window.OSIP_PATHWAYS =
         },
         {
           "href": "https://www.son.gov.ng",
-          "name": "Standards Organization of Nigeria (SON)",
+          "name": "Standards Organisation of Nigeria (SON)",
           "role": "Sets product standards, with SONCAP for imports and MANCAP for local manufacture."
         },
         {

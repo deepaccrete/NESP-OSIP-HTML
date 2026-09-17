@@ -29,7 +29,8 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nigeria Renewable Energy Investment Forum 2027 | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Three days of plenaries, project pitch sessions and one-on-one investor matchmaking in Abuja." />
+    <title>Nigeria Renewable Energy Investment Forum 2027 | OSIP, One-Stop Investment Platform</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
@@ -491,8 +492,11 @@
             color: var(--rd-ink-3) !important;
         }
 
-        /* ---- About: reading text in the serif, on a readable measure ------------------- */
-        .rd main article .font-body-lg { max-width: 44rem; }
+        /* ---- About: reading text in the serif ----------------------------------------- */
+        /* No measure of its own: the column is already the measure. Capped at
+           44rem the paragraphs stopped some 200px short of the details card
+           beside them, which read as a mistake rather than as a decision. */
+        .rd main article .font-body-lg { max-width: none; }
         .rd main article .font-body-lg > * + * { margin-top: 22px !important; }
 
         .rd main article .font-body-lg > p {

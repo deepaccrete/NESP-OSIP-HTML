@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>My Profile | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Your OSIP profile: your details, your saved opportunities and the sectors they belong to." />
+    <title>My Profile | OSIP, One-Stop Investment Platform</title>
     <!-- Google Fonts: Manrope & Inter -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -162,36 +163,831 @@
             display: flex;
         }
     </style>
+
+<style id="rd-style">
+        /* =====================================================================
+           REDESIGN LAYER - opportunity detail page (11 Sep 2026)
+
+           The DetailedSector.html redesign, carried to the opportunity detail
+           pages (detailedOppNew.html and OpportunitiesNew.html share this layer).
+           Same tokens: Newsreader for headings, figures and reading text; sans for
+           interface text (labels, chips, stage names, captions); warm paper
+           grounds; borders and icons turned down. No section markup was edited.
+           Scoped under body.rd; the older designs are kept in OSIP/Backups/.
+
+           Buttons keep their own fonts (handled separately); only their shape
+           and colour follow the redesign here.
+           ===================================================================== */
+        :root {
+            --rd-paper: #f5f3ee;
+            --rd-paper-2: #edeae3;
+            --rd-card: #fbfaf7;
+            --rd-card-2: #f1eee8;
+            --rd-line: #e2ded5;
+            --rd-line-2: #cfc9bd;
+            --rd-ink: #13201b;
+            --rd-ink-2: #3d4742;
+            --rd-ink-3: #6b716c;
+            --rd-green: #004225;
+            --rd-green-2: #0b6b45;
+            --rd-deep: #0b2a1f;
+            --rd-gold: #d9a520;
+            --rd-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            --rd-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        /* ---- Lenis, from lenis@1.3.26/dist/lenis.css ---------------------------- */
+        html.lenis,
+        html.lenis body { height: auto; }
+        .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+        .lenis [data-lenis-prevent],
+        .lenis [data-lenis-prevent-wheel],
+        .lenis [data-lenis-prevent-touch],
+        .lenis [data-lenis-prevent-vertical],
+        .lenis [data-lenis-prevent-horizontal] { overscroll-behavior: contain; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        .lenis.lenis-autoToggle {
+            transition-property: overflow;
+            transition-duration: 1ms;
+            transition-behavior: allow-discrete;
+        }
+
+        /* ---- Page ---------------------------------------------------------------- */
+        body.rd {
+            background: var(--rd-paper) !important;
+            color: var(--rd-ink-2) !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .rd ::selection { background: #f7be26; color: var(--rd-ink); }
+
+        .rd #page-wrapper > div.mx-auto {
+            padding-top: clamp(28px, 4vw, 56px) !important;
+            padding-bottom: clamp(72px, 8vw, 120px) !important;
+        }
+
+        @media (min-width: 1024px) {
+            .rd #page-wrapper > div.mx-auto {
+                padding-left: clamp(32px, 4vw, 64px) !important;
+                padding-right: clamp(32px, 4vw, 64px) !important;
+            }
+
+            .rd #page-wrapper .grid.lg\:grid-cols-3 {
+                gap: clamp(32px, 3.2vw, 52px) !important;
+            }
+
+            /* The contact card stays in reach down the long main column. */
+            .rd #page-wrapper .grid > aside {
+                position: sticky;
+                top: 96px;
+                align-self: start;
+            }
+        }
+
+        .rd #page-wrapper main.space-y-8 > :not([hidden]) ~ :not([hidden]) {
+            margin-top: clamp(24px, 2.6vw, 36px) !important;
+        }
+
+        /* ---- Breadcrumbs --------------------------------------------------------------- */
+        .rd nav[aria-label="Breadcrumb"] { margin-bottom: clamp(22px, 2.6vw, 34px) !important; }
+        .rd nav[aria-label="Breadcrumb"] ol { font-size: 13px !important; color: var(--rd-ink-3) !important; }
+        .rd nav[aria-label="Breadcrumb"] a:hover { color: var(--rd-green) !important; }
+        .rd nav[aria-label="Breadcrumb"] li:last-child { font-weight: 500 !important; color: var(--rd-ink) !important; }
+
+        /* ---- Section cards ----------------------------------------------------------- */
+        .rd #page-wrapper main > section.bg-white {
+            padding: clamp(26px, 3.2vw, 48px) !important;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 24px !important;
+            box-shadow: none !important;
+        }
+
+        /* ---- Headings ---------------------------------------------------------------- */
+        .rd #page-wrapper main h1,
+        .rd #page-wrapper main h2,
+        .rd #page-wrapper main h3,
+        .rd #page-wrapper .grid > aside h3 {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-optical-sizing: auto;
+            letter-spacing: -0.016em !important;
+            color: var(--rd-ink) !important;
+            text-wrap: balance;
+        }
+
+        .rd #page-wrapper main h2 {
+            font-size: clamp(26px, 2.4vw, 34px) !important;
+            line-height: 1.12 !important;
+        }
+
+        .rd #page-wrapper main h2 .rd-line-mask { padding: 0.18em; margin: -0.18em; }
+
+        /* small uppercase labels inside the data room stay interface text, as eyebrows */
+        .rd #page-wrapper main h3.uppercase {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd #page-wrapper main h3.uppercase::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            flex: 0 0 auto;
+            background: var(--rd-gold);
+        }
+
+        /* ---- Hero: eyebrow, title with its drawn gold rule, stage tracker -------------------- */
+        .rd #page-wrapper main > section:first-of-type span.uppercase.tracking-widest {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+        }
+
+        .rd #page-wrapper main > section:first-of-type span.uppercase.tracking-widest::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            flex: 0 0 auto;
+            background: var(--rd-gold);
+            transform: scaleX(var(--rd-eyebrow, 1));
+            transform-origin: 0 50%;
+        }
+
+        .rd #page-wrapper main > section:first-of-type h1 {
+            margin-top: 18px !important;
+            font-size: clamp(38px, 4.2vw, 60px) !important;
+            line-height: 1.04 !important;
+            letter-spacing: -0.028em !important;
+            align-items: stretch !important;
+        }
+
+        .rd #page-wrapper main > section:first-of-type h1 > span {
+            flex: 0 0 auto;
+            width: 1px !important;
+            height: auto !important;
+            margin: .12em 22px .12em 0 !important;
+            border-radius: 0 !important;
+            background: #f7be26 !important;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+        }
+
+        .rd #page-wrapper main > section:first-of-type h1 + p {
+            margin-top: 14px !important;
+            font-size: 12.5px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #page-wrapper main > section:first-of-type h1 + p span { font-weight: 500 !important; color: var(--rd-ink-2) !important; }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) {
+            margin-top: clamp(28px, 3vw, 40px) !important;
+            background: var(--rd-card-2) !important;
+            background-image: none !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 18px !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) span.rounded-full.uppercase {
+            font-weight: 500 !important;
+            letter-spacing: .16em !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .text-right > span:first-child {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 34px !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .text-right > span:nth-child(2) {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 18px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .text-right > p,
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .flex-col > span:not(.osip-current-pill),
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) li .min-w-0 > span {
+            font-weight: 500 !important;
+            letter-spacing: .16em !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .flex-col > p,
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) li p {
+            font-size: 12px !important;
+            font-weight: 500 !important;
+        }
+
+        .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .bg-gray-200 { background: var(--rd-line) !important; }
+
+        /* ---- Overview: reading text with the scroll-drawn gold rule ----------------------------
+           As on the other redesigned pages: the 1px gold line beside the overview text
+           draws downwards over the same scroll range as its words light up. One custom
+           property, --rd-draw, scrubbed by the motion layer; without it, simply there. */
+        .rd #page-wrapper main span.w-1\.5.h-6.bg-brand-gold {
+            width: 1px !important;
+            height: 28px !important;
+            border-radius: 0 !important;
+            background: #f7be26 !important;
+        }
+
+        .rd #page-wrapper main > section > div.space-y-4 {
+            position: relative;
+            padding-left: 23px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18.5px !important;
+            line-height: 1.7 !important;
+            letter-spacing: -0.003em !important;
+            color: var(--rd-ink-2) !important;
+            text-wrap: pretty;
+        }
+
+        .rd #page-wrapper main > section > div.space-y-4::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .4em;
+            bottom: .4em;
+            width: 1px;
+            background: #f7be26;
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+            pointer-events: none;
+        }
+
+        .rd #page-wrapper main > section > div.space-y-4 .font-semibold { font-weight: 500 !important; color: var(--rd-ink) !important; }
+
+        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center {
+            padding: 22px 16px !important;
+            background: var(--rd-card-2) !important;
+            border: 1px solid var(--rd-line);
+            border-radius: 18px !important;
+        }
+
+        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center .material-symbols-outlined {
+            font-size: 24px !important;
+            color: #b98a12 !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p:first-of-type {
+            margin-top: 6px;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 28px !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p + p {
+            font-size: 12px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        /* ---- Project details grid -------------------------------------------------------------- */
+        .rd #page-wrapper [data-purpose="meta-item"] {
+            padding-left: 18px !important;
+            border-left: 1px solid rgba(217, 165, 32, .5) !important;
+        }
+
+        .rd #page-wrapper [data-purpose="meta-item"] h4 {
+            margin-bottom: 6px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .18em !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #page-wrapper [data-purpose="meta-item"] p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 20px !important;
+            line-height: 1.25 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #page-wrapper main p.text-2xl.text-gray-500 {
+            padding-top: 28px;
+            border-top: 1px solid var(--rd-line);
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: clamp(26px, 2.6vw, 36px) !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd #page-wrapper main p.text-2xl.text-gray-500 .text-brand-accent { color: var(--rd-green) !important; }
+
+        /* ---- Members only: teaser, data room, portal note -------------------------------------------- */
+        .rd #page-wrapper main h2 > span.w-9.h-9 {
+            border-radius: 999px !important;
+            background: transparent !important;
+            color: #b98a12 !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line-2);
+        }
+
+        .rd #page-wrapper main h2 > span.w-9.h-9.bg-brand-green {
+            background: var(--rd-green) !important;
+            color: #ffffff !important;
+            box-shadow: none;
+        }
+
+        .rd #page-wrapper main h2 > span.w-9.h-9 .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+            font-size: 20px !important;
+        }
+
+        .rd #page-wrapper main span.rounded-full.uppercase { font-weight: 500 !important; }
+
+        .rd #page-wrapper main .gated-content > .grid > div {
+            background: var(--rd-card-2) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 14px !important;
+        }
+
+        .rd #page-wrapper main .gated-content > .grid > div p + p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 24px !important;
+        }
+
+        .rd #page-wrapper .gated-overlay,
+        .rd #page-wrapper .grid > aside .p-6 > div.absolute.inset-0 {
+            background: rgba(251, 250, 247, .74) !important;
+        }
+
+        .rd #page-wrapper .gated-overlay p,
+        .rd #page-wrapper .grid > aside .p-6 > div.absolute.inset-0 p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-size: 17px !important;
+            line-height: 1.5 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #members-section header p,
+        .rd #members-section > div > p.leading-relaxed {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 18px !important;
+            line-height: 1.7 !important;
+            color: var(--rd-ink-2) !important;
+        }
+
+        .rd #members-section header p { font-size: 16.5px !important; color: var(--rd-ink-3) !important; }
+
+        .rd #members-section button[data-lightbox-src] { border-radius: 14px !important; }
+
+        .rd #members-section .video-facade { border-radius: 18px !important; }
+
+        .rd #members-section .video-facade .bg-red-600.rounded-full {
+            background: rgba(251, 250, 247, .94) !important;
+            box-shadow: 0 24px 50px -24px rgba(0, 0, 0, .55) !important;
+        }
+
+        .rd #members-section .video-facade .bg-red-600.rounded-full .material-symbols-outlined { color: var(--rd-green) !important; }
+        .rd #members-section .video-facade span.bg-red-600:not(.rounded-full) { background: var(--rd-deep) !important; }
+
+        .rd #members-section a[download] {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 16px !important;
+            transition: border-color .35s ease, background-color .35s ease !important;
+        }
+
+        .rd #members-section a[download]:hover {
+            background: #ffffff !important;
+            border-color: var(--rd-green) !important;
+        }
+
+        .rd #members-section a[download] .material-symbols-outlined.text-red-600 {
+            color: #a3372e !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 40 !important;
+        }
+
+        .rd #members-section a[download] p.font-bold {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-size: 17px !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked {
+            position: relative;
+            background: var(--rd-card-2) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-left-color: transparent !important;
+            border-radius: 0 16px 16px 0 !important;
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked::before {
+            content: "";
+            position: absolute;
+            left: -1px;
+            top: -1px;
+            bottom: -1px;
+            width: 2px;
+            background: #f7be26;
+            pointer-events: none;
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked > p {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-size: 16.5px !important;
+            line-height: 1.5 !important;
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked > span {
+            border-radius: 999px !important;
+            background: transparent !important;
+            color: #b98a12 !important;
+            box-shadow: inset 0 0 0 1px var(--rd-line-2);
+        }
+
+        /* Buttons: shape and colour only - their fonts are left as they are. */
+        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green,
+        .rd #connect-btn {
+            border-radius: 999px !important;
+            background: var(--rd-green) !important;
+            box-shadow: none !important;
+        }
+
+        .rd #page-wrapper main > section.border-t { border-top-color: var(--rd-line) !important; }
+
+        /* ---- Contact card --------------------------------------------------------------------------- */
+        .rd #page-wrapper .grid > aside > div {
+            overflow: hidden;
+            background: var(--rd-card) !important;
+            border: 1px solid var(--rd-line) !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+        }
+
+        .rd #page-wrapper .grid > aside > div > div:first-child {
+            padding: 16px 22px !important;
+            background: var(--rd-paper-2) !important;
+            border-bottom-color: var(--rd-line) !important;
+        }
+
+        .rd #page-wrapper .grid > aside h3 { font-size: 19px !important; font-weight: 500 !important; }
+
+        .rd #page-wrapper .grid > aside .p-6 { background: var(--rd-card) !important; }
+
+        .rd #page-wrapper .grid > aside .p-6 p.text-xs {
+            font-size: 11.5px !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #page-wrapper .grid > aside .p-6 .font-bold:not(.login-trigger) {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-size: 17.5px !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd .rd-sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
+        /* ---- Reading progress ------------------------------------------------------------------------ */
+        .rd-progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 80;
+            height: 2px;
+            background: #f7be26;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            pointer-events: none;
+        }
+
+        /* ---- Cursor: a gold highlighter over headings, a ring over cards (as on DetailedSector) ----- */
+        .rd-cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 9998;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .rd-cursor-dot {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 72px;
+            height: 72px;
+            margin: -36px 0 0 -36px;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            background: var(--rd-green);
+            transform: scale(0);
+            transition: transform .5s cubic-bezier(.22, 1, .36, 1), width .5s cubic-bezier(.22, 1, .36, 1),
+                height .5s cubic-bezier(.22, 1, .36, 1), margin .5s cubic-bezier(.22, 1, .36, 1),
+                background-color .35s ease, border-color .35s ease;
+        }
+
+        .rd-cursor[data-mode="ring"] .rd-cursor-dot {
+            width: 40px;
+            height: 40px;
+            margin: -20px 0 0 -20px;
+            background: transparent;
+            border-color: rgba(0, 66, 37, .4);
+            transform: scale(1);
+        }
+
+        .rd-cursor[data-look="text"] { mix-blend-mode: multiply; }
+
+        .rd-cursor[data-look="text"] .rd-cursor-dot {
+            width: 96px;
+            height: 96px;
+            margin: -48px 0 0 -48px;
+            background: #f7be26;
+            transition-property: transform, width, height, margin;
+        }
+
+        .rd-cursor[data-mode="text"] .rd-cursor-dot { transform: scale(1); }
+
+        /* The header waits for its entrance; see the flag script in <head>. */
+        html.rd-intro nav[aria-label="Breadcrumb"],
+        html.rd-intro #page-wrapper main > section:first-of-type h1,
+        html.rd-intro #page-wrapper main > section:first-of-type h1 + p,
+        html.rd-intro #page-wrapper main > section:first-of-type span.uppercase.tracking-widest {
+            opacity: 0 !important;
+        }
+
+        /* ---- Small screens and reduced motion ----------------------------------------------------------- */
+        @media (max-width: 639px) {
+            .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .text-right { text-align: left !important; }
+            .rd #page-wrapper main > section > div.space-y-4 { font-size: 17px !important; }
+            .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p:first-of-type { font-size: 24px !important; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html.rd-intro nav[aria-label="Breadcrumb"],
+            html.rd-intro #page-wrapper main > section:first-of-type h1,
+            html.rd-intro #page-wrapper main > section:first-of-type h1 + p,
+            html.rd-intro #page-wrapper main > section:first-of-type span.uppercase.tracking-widest {
+                opacity: 1 !important;
+            }
+        }
+    
+        /* ---- Type: Inter throughout (14 Sep 2026) --------------------------------------
+           Inter replaces Newsreader on the opportunity detail pages, to match
+           Opportunities.html and the homepage; the theme, layout, colours and motion are
+           untouched. Every rule above that set the serif now sets Inter held to the
+           serif's x-height (font-size-adjust), so each heading and paragraph keeps the
+           visual size, line length and rhythm it had. Icons keep their own size. The
+           previous type is kept in OSIP/Backups/<page>/. */
+        :root {
+            --rd-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rd-type-adjust: 0.515;
+        }
+
+        .rd [class*="material-symbols"],
+        .rd [class*="material-icons"] {
+            font-size-adjust: none !important;
+        }
+
+        /* the shared header and footer, as on Opportunities.html */
+        .rd .nesp-header .nesp-menu-item .t,
+        .rd .nesp-header .nesp-menu-item .d,
+        .rd .nesp-header .nesp-state,
+        .rd .nesp-header .nesp-m-link,
+        .rd .nesp-header .nesp-m-sublist a:not(.nesp-m-subhead),
+        .rd .nesp-header .nesp-m-profile-t b,
+        .rd .nesp-header .nesp-dropdown--resources .nesp-menu-head,
+        .rd .nesp-header .nesp-res-foot-h,
+        .rd .nesp-footer h3,
+        .rd .nesp-footer .nesp-foot-brand p,
+        .rd .nesp-footer a,
+        .rd .nesp-footer .nesp-foot-contact li,
+        .rd .nesp-foot-soon {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: var(--rd-type-adjust) !important;
+        }
+
+        .rd .nesp-header .nesp-cta {
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+        }
+
+        /* the footer column headings still name Manrope in this page's own base styles */
+        .rd .nesp-footer h4 {
+            font-family: var(--rd-sans) !important;
+        }
+
+        /* ---- Heading weight (14 Sep 2026) ----------------------------------------------
+           In Inter the headings read better one step heavier than they sat in the serif,
+           as on Opportunities.html. */
+        .rd #page-wrapper main h1,
+        .rd #page-wrapper main h2,
+        .rd #page-wrapper main h3,
+        .rd #page-wrapper .grid > aside h3 {
+            font-weight: 500 !important;
+        }
+
+        .rd #page-wrapper main h4 {
+            font-weight: 600 !important;
+        }
+
+        .rd .nesp-footer h3 {
+            font-weight: 500 !important;
+        }
+    </style>
+    <style id="rd-profile">
+        /* ---- Profile page (16 Sep 2026) -------------------------------------------------
+           This page was still on its own mint-and-shadow styling while every other page
+           had moved to the redesign. It now loads the same layer as the opportunity
+           detail pages, so the ground, type, cards, headings and rules match; what is
+           left here is the handful of things only this page has: the avatar, the field
+           edit controls, the sign-out button, and the grid the saved cards sit in. */
+        /* an account name, not a project title: the shared layer sets the h1 for a
+           long project name, which is a size too far for an email address */
+        .rd #page-wrapper main > section:first-of-type h1 {
+            font-size: clamp(28px, 2.6vw, 38px) !important;
+        }
+
+        .rd .icon-btn { color: var(--rd-ink-3, #6b716c); }
+
+        .rd .icon-btn:hover {
+            background-color: rgba(0, 66, 37, .08);
+            color: var(--rd-green, #004225);
+        }
+
+        .rd .field-edit-input {
+            font-family: var(--rd-sans, Inter, sans-serif);
+            font-weight: 500;
+            color: var(--rd-ink, #13201b);
+            border-color: var(--rd-line-2, #cfc9bd);
+            background: #fff;
+        }
+
+        .rd .field-edit-input:focus { box-shadow: 0 0 0 2px rgba(217, 165, 32, .35); }
+
+        .rd .field-btn { font-family: var(--rd-sans, Inter, sans-serif); font-weight: 500; }
+
+        .rd .field-btn-save { background: var(--rd-green, #004225); }
+        .rd .field-btn-save:hover { background: var(--rd-green-2, #0b6b45); }
+        .rd .field-btn-cancel { background: var(--rd-card-2, #f1eee8); color: var(--rd-green, #004225); }
+
+        /* the avatar: a quiet disc on the paper, not a shadowed badge */
+        .rd .osip-avatar {
+            background: var(--rd-green, #004225) !important;
+            box-shadow: none !important;
+            --tw-ring-color: var(--rd-card, #fbfaf7);
+        }
+
+        /* the two identity chips read as labels, in the card's own hairline */
+        .rd #profile-role-badge,
+        .rd #profile-orgtype-badge {
+            border-radius: 999px !important;
+            border: 1px solid var(--rd-line-2, #cfc9bd) !important;
+            background: transparent !important;
+            color: var(--rd-green-2, #0b6b45) !important;
+            font-family: var(--rd-sans, Inter, sans-serif) !important;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .14em !important;
+        }
+
+        .rd #profile-role-badge .material-symbols-outlined,
+        .rd #profile-orgtype-badge .material-symbols-outlined { color: var(--rd-gold, #d9a520) !important; }
+
+        /* The one call to action on this page, drawn as the site's: the same pill as
+           "View all opportunities" on homepage.html - 50px tall, sentence case, the
+           arrow stepping forward on hover - rather than a small uppercase chip that
+           matched nothing else the reader has seen. */
+        .osip-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            height: 50px;
+            padding: 0 22px 0 26px;
+            border-radius: 999px;
+            flex: 0 0 auto;
+            font-family: var(--rd-sans, Inter, sans-serif);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: .005em;
+            text-transform: none;
+            text-decoration: none;
+            color: #ffffff;
+            background: var(--rd-green, #004225);
+            /* .6s on a power3-out curve, which is what gsap.quickTo runs the
+               homepage's magnetic pull on. */
+            transition: background-color .35s ease, transform .6s cubic-bezier(.215, .61, .355, 1);
+        }
+
+        .osip-cta:hover { background: #062f1f; }
+
+        .osip-cta:focus-visible { outline: 2px solid var(--rd-green-2, #0b6b45); outline-offset: 3px; }
+
+        .osip-cta .material-symbols-outlined {
+            font-size: 18px;
+            transition: transform .35s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .osip-cta:hover .material-symbols-outlined { transform: translateX(3px); }
+
+        /* ---- Saved opportunities -------------------------------------------------------- */
+        .rd .osip-saved-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+        }
+
+        .rd .osip-saved-note {
+            margin: 14px 0 0;
+            padding-left: 15px;
+            border-left: 1px solid var(--rd-gold, #d9a520);
+            font-family: var(--rd-sans, Inter, sans-serif);
+            font-size: 13px;
+            line-height: 1.75;
+            color: var(--rd-ink-3, #6b716c);
+            max-width: 46rem;
+        }
+
+
+</style>
 </head>
 
-<body class="bg-brand-bg text-brand-green min-h-screen">
+<body class="bg-brand-bg text-brand-green min-h-screen rd">
     <div id="page-wrapper">
         <div id="site-nav"></div>
         <!-- BEGIN: MainContainer -->
         <div class="max-w-[1440px] mx-auto px-6 lg:px-8 py-6 md:py-10">
+            <!-- BEGIN: Breadcrumbs -->
+            <nav aria-label="Breadcrumb" class="mb-6">
+                <ol class="flex list-none p-0 text-sm font-medium text-gray-500">
+                    <li class="flex items-center">
+                        <a class="hover:text-brand-green" href="../homepage.html">Home</a>
+                        <svg class="w-4 h-4 mx-2" fill="currentColor" viewbox="0 0 20 20">
+                            <path
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z">
+                            </path>
+                        </svg>
+                    </li>
+                    <li class="text-brand-green font-semibold">My Profile</li>
+                </ol>
+            </nav>
+            <!-- END: Breadcrumbs -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- BEGIN: ProfileMainContent -->
                 <main class="lg:col-span-2 space-y-8">
 
                     <!-- BEGIN: ProfileHero -->
                     <section class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                        <!-- Straight band, no curve, no SVG. -->
-                        <div class="relative h-24 bg-gradient-to-r from-brand-green via-brand-container to-brand-green">
-                            <div class="absolute inset-0 opacity-[0.07]"
-                                style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0px); background-size: 18px 18px;">
+                        <div class="px-8 pt-8 pb-8">
+                            <!-- The action sits on the eyebrow's line, at the card's top right.
+                                 It used to share the row with the account name, which left it
+                                 wrapping onto a line of its own and hanging off the right of
+                                 nothing once the name was a full email address. -->
+                            <div class="flex items-center justify-between gap-4 flex-wrap">
+                                <span
+                                    class="text-xs font-inter font-bold text-gray-400 uppercase tracking-widest">Your
+                                    account</span>
+                                <a href="Opportunities.html" class="osip-cta">Browse opportunities
+                                    <span class="material-symbols-outlined">arrow_forward</span></a>
                             </div>
-                        </div>
-
-                        <div class="px-8 pt-6 pb-8">
-                            <div class="flex items-end justify-between gap-5 flex-wrap">
+                            <div class="flex items-end gap-5 flex-wrap mt-4">
                                 <div class="flex items-end gap-5 min-w-0">
                                     <!-- No negative margin — avatar sits entirely below the band, so nothing hides it. -->
                                     <div
-                                        class="w-24 h-24 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shrink-0 shadow-md">
+                                        class="osip-avatar w-24 h-24 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shrink-0 shadow-md">
                                         <span class="material-symbols-outlined text-white text-[44px]">person</span>
                                     </div>
                                     <div class="min-w-0 pb-1">
-                                        <h1 id="profile-username"
+                                        <h1 id="profile-account"
                                             class="text-2xl md:text-3xl font-extrabold text-brand-green truncate">—</h1>
                                         <div class="flex items-center gap-2 mt-2.5 flex-wrap">
                                             <span id="profile-role-badge"
@@ -209,17 +1005,37 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <a href="Opportunities.html"
-                                    class="inline-flex items-center gap-2 bg-brand-green text-white px-5 py-2.5 rounded-full text-[12px] font-bold uppercase tracking-wider hover:bg-brand-container transition-colors shrink-0">
-                                    <span class="material-symbols-outlined text-[16px]">explore</span>
-                                    Browse Opportunities
-                                </a>
                             </div>
                         </div>
                     </section>
                     <!-- END: ProfileHero -->
 
+                    <!-- BEGIN: SavedOpportunities -->
+                    <!-- The shortlist pages/oppsave.js keeps: what this account holds, as
+                         three figures and a line per project rather than a wall of the
+                         Opportunities cards - nine of those is the listing page again.
+                         The copy says what the section holds and nothing about where a save
+                         is kept: this prototype has no account table to write to yet, and
+                         telling the reader which browser store stands in for one is both
+                         noise to them and a promise that changes when it lands. -->
+                    <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
+                        <div class="osip-saved-head">
+                            <div class="flex items-center gap-3">
+                                <span class="w-1.5 h-6 bg-brand-gold rounded-full"></span>
+                                <h2 class="text-xl font-manrope font-extrabold text-brand-green">Saved Opportunities
+                                </h2>
+                            </div>
+                        </div>
+                        <p class="osip-saved-note">Your saved opportunities and their related sectors.</p>
+
+                        <div id="osip-saved-list" data-osip-list data-osip-label="saved opportunities"
+                             data-osip-empty="[data-saved-empty]"></div>
+
+                        <p class="osip-saved-empty" data-saved-empty hidden>You have not saved anything yet. Open an
+                            opportunity and choose <span class="font-semibold">Save opportunity</span> to keep it here
+                            &mdash; start from <a href="Opportunities.html">Active Opportunities</a>.</p>
+                    </section>
+                    <!-- END: SavedOpportunities -->
                     <!-- BEGIN: AccountDetails -->
                     <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
                         <div class="flex items-center gap-3 mb-6">
@@ -227,22 +1043,6 @@
                             <h2 class="text-xl font-manrope font-extrabold text-brand-green">Account Details</h2>
                         </div>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-6">
-                            <!-- Username -->
-                            <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item"
-                                data-field="username" data-field-type="text">
-                                <div class="flex items-start justify-between gap-2">
-                                    <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Username</h4>
-                                    <div class="field-actions shrink-0">
-                                        <span class="icon-btn" data-action="edit" title="Edit"><span
-                                                class="material-symbols-outlined">edit</span></span>
-                                        <span class="icon-btn icon-btn-danger" data-action="delete" title="Delete"><span
-                                                class="material-symbols-outlined">delete</span></span>
-                                    </div>
-                                </div>
-                                <div data-purpose="field-display">
-                                    <p id="detail-username" class="font-manrope font-bold text-brand-green">—</p>
-                                </div>
-                            </div>
                             <!-- Role -->
                             <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item"
                                 data-field="identity" data-field-type="select"
@@ -265,7 +1065,7 @@
                                 data-field="orgType" data-field-type="select"
                                 data-options="individual:Individual,private:Private,government:Government">
                                 <div class="flex items-start justify-between gap-2">
-                                    <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Organization Type
+                                    <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-1">Organisation Type
                                     </h4>
                                     <div class="field-actions shrink-0">
                                         <span class="icon-btn" data-action="edit" title="Edit"><span
@@ -332,7 +1132,6 @@
                         </div>
                     </section>
                     <!-- END: AccountDetails -->
-
                 </main>
                 <!-- END: ProfileMainContent -->
 
@@ -344,8 +1143,10 @@
                             <h3 class="font-manrope font-bold text-sm text-brand-green">Email</h3>
                         </div>
                         <div class="p-6 bg-white">
-                            <div class="flex items-start gap-3" data-purpose="meta-item" data-field="email"
-                                data-field-type="text">
+                            <!-- No edit or delete here: this address is what the account signs
+                                 in with, so it cannot be cleared, and changing it is a
+                                 re-verification rather than an inline edit. -->
+                            <div class="flex items-start gap-3">
                                 <span class="material-symbols-outlined text-brand-gold text-[22px] mt-0.5">mail</span>
                                 <div class="min-w-0 flex-1">
                                     <div class="flex items-start justify-between gap-2">
@@ -356,13 +1157,6 @@
                                                 <span class="material-symbols-outlined text-[12px]">verified</span>
                                                 Verified
                                             </span>
-                                        </div>
-                                        <div class="field-actions shrink-0">
-                                            <span class="icon-btn" data-action="edit" title="Edit"><span
-                                                    class="material-symbols-outlined">edit</span></span>
-                                            <span class="icon-btn icon-btn-danger" data-action="delete"
-                                                title="Delete"><span
-                                                    class="material-symbols-outlined">delete</span></span>
                                         </div>
                                     </div>
                                 </div>
@@ -412,7 +1206,10 @@
                     <!-- END: SupportCard -->
 
                     <!-- BEGIN: SignOutCard -->
-                    <button type="button"
+                    <!-- Wired 16 Sep 2026: clears the session flag nav.js reads, so
+                         the header goes back to showing Log in instead of this
+                         profile mark, here and on every other page. -->
+                    <button type="button" id="osip-signout"
                         class="w-full inline-flex items-center justify-center gap-2 border border-red-300 bg-red-50 text-red-700 px-4 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-wider hover:bg-red-800 hover:border-red-800 hover:text-white transition-colors">
                         <span class="material-symbols-outlined text-[16px]">logout</span>
                         Sign out
@@ -477,12 +1274,14 @@
         // endpoint when wiring this page up to the backend.
         // ============================================================
         const profile = {
-            username: 'adaeze_invest',
+            /* UX-LOG-05: no username. Login.html signs people in with their email
+               address, so that is what identifies the account here too - in the
+               heading, in the session the header reads, and in the Email card. */
             identity: 'investor',        // investor | developer | consultant | vendor
             orgType: 'private',          // individual | private | government
             companyName: 'Meridian Capital Partners',
             country: 'NG',
-            email: 'adaeze.okoye@com',
+            email: 'adaeze.okoye@meridiancap.ng',
             emailVerified: true,
             phone: '+234 802 345 6789',
             memberSince: '2026-03-14',
@@ -511,12 +1310,11 @@
             const orgInfo = ORG_TYPE[profile.orgType] || { label: '—', icon: 'person' };
             const countryLabel = COUNTRY_LABELS[profile.country] || '—';
 
-            document.getElementById('profile-username').textContent = profile.username ? '@' + profile.username : '—';
+            document.getElementById('profile-account').textContent = profile.email || '—';
             document.getElementById('profile-role-text').textContent = roleLabel;
             document.getElementById('profile-orgtype-text').textContent = orgInfo.label;
             document.getElementById('profile-orgtype-icon').textContent = orgInfo.icon;
 
-            document.getElementById('detail-username').textContent = profile.username || '—';
             document.getElementById('detail-role').textContent = roleLabel;
             document.getElementById('detail-orgtype').textContent = orgInfo.label;
             document.getElementById('detail-country').textContent = countryLabel;
@@ -660,7 +1458,57 @@
     </script>
 
     <!-- Shared site scripts (nav/footer injection) -->
+    <script>
+        /*
+          The call to action leans toward the cursor, the way every primary
+          button on homepage.html does. There it is gsap.quickTo - 0.28 of the
+          pointer's horizontal offset from the centre, 0.35 of the vertical, over
+          0.6s on power3 - and this page loads no gsap, so the same two numbers
+          ride the CSS transition above, which settles the same way.
+
+          Pointer devices only, and never for a reader who has asked for less
+          motion: on a touch screen there is no hover to lean into, and the pull
+          would only fire as the finger lands.
+        */
+        (function () {
+            var cta = document.querySelector('.osip-cta');
+            if (!cta || !window.matchMedia) return;
+            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            cta.addEventListener('pointermove', function (event) {
+                var box = cta.getBoundingClientRect();
+                cta.style.transform = 'translate(' +
+                    ((event.clientX - box.left - box.width / 2) * 0.28).toFixed(2) + 'px, ' +
+                    ((event.clientY - box.top - box.height / 2) * 0.35).toFixed(2) + 'px)';
+            });
+
+            cta.addEventListener('pointerleave', function () { cta.style.transform = ''; });
+        })();
+
+        // Sign out (prototype): there is no session on a server to end, so this
+        // clears the flag in localStorage that the header reads, then goes home.
+        (function () {
+            var btn = document.getElementById('osip-signout');
+            if (!btn) return;
+            btn.addEventListener('click', function () {
+                try {
+                    if (window.OSIPSession) window.OSIPSession.signOut();
+                    else window.localStorage.removeItem('osip_session');
+                } catch (e) { /* storage blocked: nothing to clear */ }
+                window.location.href = '../homepage.html';
+            });
+        })();
+    </script>
+    <script src="oppdata.js"></script>
+    <script src="oppsave.js"></script>
     <script src="footer.js"></script>
+    <!-- UX-FRM-07: loading, empty, error and success states. The lists on this page
+         are marked data-osip-list; osipstate.js gives each one the loader while it
+         is working, a message when a filter matches nothing, an error state when
+         its data does not arrive, and the confirmations the page shows after an
+         action. -->
+    <script src="osipstate.js"></script>
     <script src="nav.js"></script>
 </body>
 

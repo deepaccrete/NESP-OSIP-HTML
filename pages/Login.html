@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Login | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Sign in or create a free OSIP account to follow published opportunities, regulatory guidance and partner agencies." />
+    <title>Log In or Register | OSIP, One-Stop Investment Platform</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <!-- Type: Inter only (14 Sep 2026). Manrope and Newsreader are no longer used on this page. -->
     <link
@@ -374,6 +375,30 @@
         select.form-input:focus,
         input[type=checkbox]:focus {
             --tw-ring-color: rgba(0, 52, 43, 0.18);
+        }
+
+        /* UX-A11-01: the site's focus ring. nav.js carries this rule for every
+           page that shows the header, but this page also runs inside the sign-in
+           modal's iframe, where it loads no header at all - and that is exactly
+           where a keyboard user is typing a password. Keep it in step with the
+           copy in nav.js. */
+        html body:not(#osip-a11y-a):not(#osip-a11y-b) :focus-visible {
+            outline: 3px solid #0b2a1f !important;
+            outline-offset: 2px !important;
+            box-shadow: 0 0 0 2px #f7be26 !important;
+        }
+
+        html body:not(#osip-a11y-a):not(#osip-a11y-b) [tabindex="-1"]:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        @media (forced-colors: active) {
+            html body:not(#osip-a11y-a):not(#osip-a11y-b) :focus-visible {
+                outline: 3px solid Highlight !important;
+                outline-offset: 2px !important;
+                box-shadow: none !important;
+            }
         }
     </style>
     <style id="rd-style">
@@ -822,6 +847,12 @@
 </head>
 
 <body class="bg-surface text-on-surface h-screen overflow-hidden rd">
+    <!-- Opened as a page, this is a page: the site header and footer are put
+         around it by the script at the end of the body, and .osip-standalone
+         releases the full-height, no-scroll layout the modal needs. Inside the
+         opportunity page's iframe neither mount is filled and nothing changes. -->
+    <div id="site-nav"></div>
+
     <main class="flex h-screen w-full flex-col md:flex-row">
         <!-- Left: Brand showcase -->
         <section class="brand-panel relative hidden md:flex md:flex-col justify-between md:basis-[44%] p-7 lg:p-9">
@@ -907,13 +938,16 @@
                     </div>
 
                     <form class="space-y-4" onsubmit="event.preventDefault(); osipAuth();">
-                        <!-- Username -->
+                        <!-- UX-LOG-05: the account is the email address. It was a
+                             username, which is a second credential to invent and to
+                             remember for an audience that already identifies itself by
+                             work email, and which nothing on the site ever displayed. -->
                         <div>
-                            <label class="form-label" for="login-username">Username</label>
+                            <label class="form-label" for="login-email">Email</label>
                             <div class="form-control">
-                                <span class="material-symbols-outlined form-icon">person</span>
-                                <input class="form-input pl-11" id="login-username" placeholder="Enter your username"
-                                    type="text" />
+                                <span class="material-symbols-outlined form-icon">mail</span>
+                                <input class="form-input pl-11" id="login-email" placeholder="you@company.com"
+                                    type="email" autocomplete="email" inputmode="email" />
                             </div>
                         </div>
 
@@ -1001,7 +1035,7 @@
 
                         <!-- Org Type chips -->
                         <div>
-                            <label class="form-label">Organization type</label>
+                            <label class="form-label">Organisation type</label>
                             <div class="grid grid-cols-3 gap-2">
                                 <label class="org-chip">
                                     <input class="peer sr-only" name="org_type" type="radio" value="individual"
@@ -1036,7 +1070,7 @@
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">domain</span>
                                 <input class="form-input pl-11" id="company_name"
-                                    placeholder="Enter your organization's name" type="text" />
+                                    placeholder="Enter your organisation's name" type="text" />
                             </div>
                         </div>
 
@@ -1062,11 +1096,13 @@
 
                         <!-- Email + Verify -->
                         <div>
-                            <label class="form-label" for="email">Email</label>
+                            <label class="form-label" for="email">Email <span
+                                    class="font-normal normal-case tracking-normal text-on-surface-variant">&mdash; you
+                                    sign in with this</span></label>
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">mail</span>
                                 <input class="form-input pl-11 pr-24" id="email" placeholder="you@company.com"
-                                    type="email" />
+                                    type="email" autocomplete="email" inputmode="email" />
                                 <button
                                     class="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 px-3.5 rounded-lg bg-[#ffdf9e] text-[#5b4300] text-[11px] font-bold tracking-[0.06em] hover:brightness-95 transition-all"
                                     type="button">VERIFY</button>
@@ -1081,16 +1117,6 @@
                                 <input class="form-input pl-11" id="reg-phone" name="phone"
                                     placeholder="+234 800 000 0000" type="tel" autocomplete="tel"
                                     inputmode="tel" pattern="[+0-9\s\-()]{7,}" />
-                            </div>
-                        </div>
-
-                        <!-- Username -->
-                        <div>
-                            <label class="form-label" for="reg-username">Username</label>
-                            <div class="form-control">
-                                <span class="material-symbols-outlined form-icon">alternate_email</span>
-                                <input class="form-input pl-11" id="reg-username" placeholder="Choose a username"
-                                    type="text" />
                             </div>
                         </div>
 
@@ -1162,6 +1188,31 @@
         </section>
     </main>
 
+    <div id="site-footer"></div>
+
+    <style>
+        /* Standalone only. The modal keeps the locked full-height split. */
+        body.osip-standalone {
+            height: auto !important;
+            overflow: visible !important;
+        }
+
+        body.osip-standalone main {
+            height: auto !important;
+            min-height: calc(100vh - 64px);
+        }
+
+        body.osip-standalone .brand-panel {
+            min-height: 640px;
+        }
+
+        body.osip-standalone section.flex-1 {
+            overflow: visible !important;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+    </style>
+
     <script>
         // Toggle between Login and Register views without reloading the iframe.
         function showAuthView(view) {
@@ -1219,10 +1270,38 @@
             else if (e.data === 'osip-show-login') showAuthView('login');
         });
 
-        // Click-through auth: no fields required. Tell the parent page (the
-        // detailedOppNew iframe modal host) to mark the user as signed in.
-        // Standalone fallback: redirect to homepage so the button still does
-        // something visible when this page is opened directly.
+        // Click-through auth: no fields required, because there is no account
+        // system behind this prototype yet. What it does do is remember the
+        // choice - window.OSIPSession (defined in nav.js) writes a flag to
+        // localStorage, which is what makes the header show the profile mark
+        // instead of Log in, on this page and every other, after a refresh too.
+        //
+        // In the opportunity page's modal there is no header to change, so it
+        // still just tells the parent, which stores the same flag.
+        // Neither form asks for a personal name, and the profile page is the one
+        // mock identity this prototype has, so the session carries whatever was
+        // typed and lets nav.js fill in that name.
+        function osipSignedInAs() {
+            /* Whichever view was used: the sign-in field, else the one the
+               registration form asks for. One identifier now, so there is no
+               username to carry alongside it. */
+            var signIn = document.getElementById('login-email');
+            var register = document.getElementById('email');
+            return {
+                email: (((signIn && signIn.value) || (register && register.value) || '')).trim()
+            };
+        }
+
+        // Only a path inside the site is followed, never a full URL someone
+        // could put in the address bar.
+        function osipNext() {
+            try {
+                var next = new URLSearchParams(window.location.search).get('next') || '';
+                if (!next || /^[a-z][a-z0-9+.-]*:/i.test(next) || next.indexOf('//') === 0) return '';
+                return /^[A-Za-z0-9._~\-\/?#=&%+]+$/.test(next) ? next : '';
+            } catch (_) { return ''; }
+        }
+
         function osipAuth() {
             try {
                 if (window.parent && window.parent !== window) {
@@ -1230,7 +1309,19 @@
                     return;
                 }
             } catch (_) { /* cross-origin parent — fall through */ }
-            window.location.href = '../homepage.html';
+            if (window.OSIPSession) window.OSIPSession.signIn(osipSignedInAs());
+            window.location.href = osipNext() || '../homepage.html';
+        }
+
+        // The header and footer are loaded here rather than in the markup so the
+        // iframe copy stays exactly as heavy as it was.
+        if (window.self === window.top) {
+            document.body.classList.add('osip-standalone');
+            ['footer.js', 'nav.js'].forEach(function (src) {
+                var tag = document.createElement('script');
+                tag.src = src;
+                document.body.appendChild(tag);
+            });
         }
 
         // Subtle parallax movement on the brand image

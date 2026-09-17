@@ -1,0 +1,17 @@
+{
+  "_notice": "OSIP sample file. This file is not sourced from any real or official source. It is provided solely for representational and illustrative purposes.",
+  "dataset": "osip-open-data-api",
+  "version": "sample-2026-06-30",
+  "as_at": "2026-06-30",
+  "endpoints": [
+    { "path": "/v1/opportunities", "returns": "published investment opportunities" },
+    { "path": "/v1/capacity", "returns": "installed and commissioned capacity by technology" },
+    { "path": "/v1/investment", "returns": "investment by state, sector and year" }
+  ],
+  "sample": [
+    { "id": "2025-WND-02", "title": "Katsina Wind Farm Phase I", "sector": "Wind",
+      "state": "Katsina", "cost_usd_m": 201, "stage": "Under Implementation" },
+    { "id": "2024-SOL-11", "title": "Solar Power Naija - Phase II", "sector": "Solar",
+      "state": "Multi-State", "cost_usd_m": 420, "stage": "Under Development" }
+  ]
+}

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="Raise a support ticket with the Nigeria SE4ALL team, without leaving OSIP." />
+    <title>OSIP Help Desk | OSIP, One-Stop Investment Platform</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        /* Redesign: hold the heading back for its entrance. The motion layer lifts
+           this as soon as its start states are applied, and lifts itself after 3.5s
+           whatever happens, so a slow or blocked CDN never leaves the page empty.
+           Not set when reduced motion is asked for. */
+        (function () {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                var root = document.documentElement;
+                root.classList.add('rd-intro');
+                setTimeout(function () { root.classList.remove('rd-intro'); }, 3500);
+            } catch (e) { }
+        })();
+    </script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#001d17",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00342b",
+                        "on-primary-container": "#709e91",
+                        "secondary": "#1b6d24",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#211600",
+                        "tertiary-fixed-dim": "#f7be26",
+                        "background": "#f9f9f7",
+                        "surface": "#f9f9f7",
+                        "surface-bright": "#f9f9f7",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f3f4f2",
+                        "surface-container": "#edeeec",
+                        "surface-container-high": "#e8e8e6",
+                        "on-surface": "#1a1c1b",
+                        "on-surface-variant": "#404846",
+                        "outline": "#717976",
+                        "outline-variant": "#c0c8c4",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "margin-tablet": "32px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Manrope"],
+                        "h2": ["Manrope"],
+                        "h3": ["Manrope"],
+                        "h4": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "nav-link": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+                        "h2": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "h3": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+                        "h4": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "nav-link": ["15px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        /* =====================================================================
+           OSIP Help Desk (15 Sep 2026)
+
+           Ported from the React app's /help-desk route
+           (OSIP-Frontend/src/pages/help-desk/HelpDeskPage.jsx) and set in this
+           prototype's redesign: warm paper ground, Inter, a gold-ruled eyebrow.
+
+           There is no backend behind this page. The help desk is the Nigeria
+           SE4ALL Support Portal on its own domain; the page hosts it inside the
+           site's own header and footer so a visitor raising a ticket does not
+           appear to leave OSIP. The nav's Support menu and the footer's
+           "OSIP Help Desk" link point here, not at the external URL.
+           ===================================================================== */
+        :root {
+            --hd-paper: #f5f3ee;
+            --hd-card: #fbfaf7;
+            --hd-line: #e2ded5;
+            --hd-line-2: #cfc9bd;
+            --hd-ink: #13201b;
+            --hd-ink-2: #3d4742;
+            --hd-ink-3: #6b716c;
+            --hd-green: #004225;
+            --hd-green-2: #0b6b45;
+            --hd-gold: #d9a520;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body.hd {
+            background: var(--hd-paper);
+            color: var(--hd-ink-2);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .hd-main {
+            width: 100%;
+            max-width: 1296px;
+            margin: 0 auto;
+            padding: clamp(40px, 5vw, 72px) clamp(16px, 4vw, 48px) clamp(64px, 7vw, 104px);
+        }
+
+        .hd-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+            color: var(--hd-green-2);
+        }
+
+        .hd-eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            flex: 0 0 auto;
+            background: var(--hd-gold);
+        }
+
+        .hd-title {
+            margin: 0 0 clamp(18px, 2vw, 26px);
+            font-family: 'Inter', system-ui, sans-serif;
+            /* 17 Sep 2026: the same scale, weight and tracking as the News and
+               Opportunities titles, so the page titles across the site agree. */
+            font-size: clamp(42px, 5.2vw, 76px);
+            font-weight: 500;
+            line-height: 1.02;
+            letter-spacing: -0.032em;
+            color: var(--hd-ink);
+        }
+
+        /* The way out, and not decoration. The form runs on another origin, so its
+           session cookies are third-party ones; where a browser blocks those, the
+           embed still renders and fails only on submit. This link opens the portal
+           directly, so it stays in view above the frame. */
+        .hd-lede {
+            position: relative;
+            max-width: 52rem;
+            margin: 0 0 clamp(28px, 3vw, 40px);
+            padding-left: 23px;
+            font-size: 17.5px;
+            line-height: 1.7;
+            color: var(--hd-ink-2);
+        }
+
+        .hd-lede::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .35em;
+            bottom: .35em;
+            width: 1px;
+            background: #f7be26;
+        }
+
+        .hd-lede a {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+            color: var(--hd-green);
+            text-decoration: underline;
+            text-decoration-color: rgba(217, 165, 32, .7);
+            text-underline-offset: 4px;
+        }
+
+        .hd-lede a:hover {
+            color: var(--hd-green-2);
+            text-decoration-color: currentColor;
+        }
+
+        .hd-lede a .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        /* The card draws the boundary between this page and the embedded service. */
+        .hd-card {
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid var(--hd-line);
+            border-radius: 22px;
+        }
+
+        .hd-frame-holder {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hd-frame {
+            display: block;
+            border: 0;
+            transform-origin: 0 0;
+        }
+
+        /* ---- Motion (17 Sep 2026): the page arrives like the rest of the site ----
+           The gold rules draw, the title rises, the card opens. Everything held back
+           here is released by the motion layer at the foot of the page, and by the
+           3.5s fallback above if the animation libraries never arrive. */
+        .hd-eyebrow::before {
+            transform: scaleX(var(--rd-eyebrow, 1));
+            transform-origin: 0 50%;
+        }
+
+        .hd-lede::before {
+            transform: scaleY(var(--rd-draw, 1));
+            transform-origin: 50% 0;
+        }
+
+        html.rd-intro .hd-eyebrow,
+        html.rd-intro .hd-title,
+        html.rd-intro .hd-lede,
+        html.rd-intro .hd-card {
+            opacity: 0;
+        }
+
+        .rd-progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 80;
+            height: 2px;
+            background: #f7be26;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            pointer-events: none;
+        }
+
+        /* the way out of the frame: the arrow steps across on hover, as links do
+           elsewhere on the site */
+        .hd-lede a .material-symbols-outlined {
+            transition: transform .35s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .hd-lede a:hover .material-symbols-outlined {
+            transform: translate(2px, -2px);
+        }
+
+        .hd-card {
+            transition: border-color .4s ease, box-shadow .4s ease;
+        }
+
+        .hd-card:hover {
+            border-color: var(--hd-line-2);
+            box-shadow: 0 18px 40px -28px rgba(19, 32, 27, .35);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hd-lede a .material-symbols-outlined,
+            .hd-card { transition: none; }
+        }
+
+        @media (max-width: 639px) {
+            .hd-lede {
+                font-size: 16px;
+            }
+
+            .hd-card {
+                border-radius: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body class="hd rd">
+    <div id="site-nav"></div>
+
+    <main class="hd-main">
+        <p class="hd-eyebrow">Support</p>
+        <h1 class="hd-title">OSIP Help Desk</h1>
+        <p class="hd-lede">Raise a support ticket with the Nigeria SE4ALL team. Having trouble with the form below?
+            <a href="https://helpdesk.nigeriase4all.gov.ng/public-ticket/new" target="_blank"
+                rel="noopener noreferrer">Open it in a new tab <span class="material-symbols-outlined"
+                    aria-hidden="true">open_in_new</span></a>
+        </p>
+
+        <div class="hd-card">
+            <div class="hd-frame-holder" id="hd-holder">
+                <!-- No sandbox attribute, deliberately: sandboxing a cross-origin frame
+                     drops its cookies and form posting, which would break the ticket
+                     form outright. The URL is a fixed, trusted government address. -->
+                <iframe class="hd-frame" id="hd-frame" src="https://helpdesk.nigeriase4all.gov.ng/public-ticket/new"
+                    title="OSIP Help Desk: raise a new support ticket" width="1400" height="1450"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script>
+        /* The frame is laid out at a fixed width and scaled to fit (as in the React page).
+
+           The portal is a responsive web form, so the size of the iframe is the viewport
+           its media queries read, and below 1200px it removes the form's side padding
+           so every field runs flush to the card's edge. A cross-origin frame cannot be
+           restyled from here, so instead of handing it a narrow viewport the frame is
+           laid out at 1400px - inside its widest tier - and scaled down to the width
+           this card actually has. The form keeps its padding and stops reflowing while
+           someone fills it in; transforms do not affect typing, focus or clicks.
+
+           Heights are estimates (a cross-origin frame's content height cannot be read):
+           too small brings back an inner scrollbar, too large leaves white space. Below
+           900px of available width the frame stops scaling and uses the portal's own
+           stacked mobile layout, which reads far better than a desktop form at a
+           quarter of its size. */
+        (function () {
+            var LOGICAL_WIDTH = 1400;
+            var LOGICAL_HEIGHT = 1180;      /* 17 Sep 2026: was 1450, which left a band of
+                                               empty page below the form */
+            var NATIVE_BELOW = 900;
+            var NATIVE_HEIGHT = 1500;
+            var MIN_HEIGHT = 520;
+
+            var box = document.getElementById('hd-holder');
+            var frame = document.getElementById('hd-frame');
+            if (!box || !frame) return;
+
+            function apply() {
+                var available = box.clientWidth;
+                if (!available) return;
+                /* the card is never taller than the screen it sits on: past that the
+                   form scrolls inside its own frame rather than stretching the page */
+                var room = Math.max(MIN_HEIGHT, Math.round(window.innerHeight * 0.82));
+
+                if (available < NATIVE_BELOW) {
+                    /* on a phone the form keeps its full height and the page scrolls:
+                       a small window scrolling inside another scroll is worse than a
+                       long page */
+                    frame.style.width = '100%';
+                    frame.style.height = NATIVE_HEIGHT + 'px';
+                    frame.style.transform = 'none';
+                    box.style.height = NATIVE_HEIGHT + 'px';
+                    return;
+                }
+
+                /* never scale up past 1:1 on a very wide screen */
+                var scale = Math.min(1, available / LOGICAL_WIDTH);
+                var logical = Math.min(LOGICAL_HEIGHT, Math.round(room / scale));
+                frame.style.width = LOGICAL_WIDTH + 'px';
+                frame.style.height = logical + 'px';
+                frame.style.transform = 'scale(' + scale + ')';
+                /* a transform does not change layout, so the holder takes the scaled height */
+                box.style.height = Math.round(logical * scale) + 'px';
+            }
+
+            apply();
+            if (typeof ResizeObserver !== 'undefined') new ResizeObserver(apply).observe(box);
+            else window.addEventListener('resize', apply);
+            window.addEventListener('resize', apply);
+        })();
+    </script>
+
+    <script src="footer.js"></script>
+    <script src="nav.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script>
+        /* =====================================================================
+           REDESIGN MOTION LAYER - HelpDesk.html
+
+           The DetailedSector motion layer, cut down to the one screen this page
+           has, and built to fail open the same way: nothing is hidden until the
+           libraries are confirmed present, everything hidden is tracked so an
+           error can put it back, and with reduced motion asked for it does
+           nothing at all.
+
+           The embedded ticket form is another site inside a frame. Smooth
+           scrolling is told to keep its hands off it (data-lenis-prevent), so a
+           wheel over the form behaves exactly as it would on the portal itself.
+           ===================================================================== */
+        (function () {
+            var html = document.documentElement;
+            var hidden = [];
+            var drawn = [];
+
+            function releaseIntro() { html.classList.remove('rd-intro'); }
+
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !window.gsap || !window.ScrollTrigger) { releaseIntro(); return; }
+
+            function start() {
+                try { run(); }
+                catch (err) {
+                    if (window.console) console.warn('[rd] motion layer stopped:', err);
+                    releaseIntro();
+                    if (hidden.length) gsap.set(hidden, { clearProps: 'opacity,transform,visibility,clipPath' });
+                    drawn.forEach(function (el) {
+                        el.style.removeProperty('--rd-draw');
+                        el.style.removeProperty('--rd-eyebrow');
+                    });
+                }
+            }
+
+            var started = false;
+            function once() { if (!started) { started = true; start(); } }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function () {
+                    if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+                    setTimeout(once, 900);
+                });
+            } else {
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+                setTimeout(once, 900);
+            }
+
+            function run() {
+                gsap.registerPlugin(ScrollTrigger);
+                var hasSplit = !!window.SplitText;
+                if (hasSplit) gsap.registerPlugin(SplitText);
+
+                var main = document.querySelector('.hd-main');
+                if (!main) { releaseIntro(); return; }
+                var eyebrow = main.querySelector('.hd-eyebrow');
+                var title = main.querySelector('.hd-title');
+                var lede = main.querySelector('.hd-lede');
+                var card = main.querySelector('.hd-card');
+                var EASE = 'expo.out';
+
+                /* ---- Smooth scroll, as on the rest of the site --------------------- */
+                if (window.Lenis) {
+                    var lenis = new Lenis({
+                        lerp: 0.09, smoothWheel: true, syncTouch: false,
+                        allowNestedScroll: true,
+                        prevent: function (node) {
+                            return !!(node.classList && (node.classList.contains('nesp-dropdown') || node.classList.contains('nesp-mnav')));
+                        }
+                    });
+                    lenis.on('scroll', ScrollTrigger.update);
+                    gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+                    gsap.ticker.lagSmoothing(0);
+                    window.__rdLenis = lenis;
+
+                    var mnav = document.getElementById('mobile-nav');
+                    if (mnav) mnav.setAttribute('data-lenis-prevent', '');
+                    var holder = document.getElementById('hd-holder');
+                    if (holder) holder.setAttribute('data-lenis-prevent', '');
+                }
+
+                /* ---- Reading progress --------------------------------------------- */
+                var bar = document.createElement('div');
+                bar.className = 'rd-progress';
+                bar.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(bar);
+                gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.4 } });
+
+                /* ---- The header arrives: rule, title, lede ------------------------- */
+                var intro = gsap.timeline({ defaults: { ease: EASE } });
+
+                if (eyebrow) {
+                    drawn.push(eyebrow);
+                    hidden.push(eyebrow);
+                    gsap.set(eyebrow, { opacity: 1 });
+                    intro.fromTo(eyebrow, { '--rd-eyebrow': 0 }, { '--rd-eyebrow': 1, duration: 1.2, ease: 'expo.inOut' }, 0);
+                    intro.from(eyebrow.querySelector('*') ? eyebrow : eyebrow, { opacity: 0, duration: 0.8 }, 0);
+                }
+
+                if (title) {
+                    hidden.push(title);
+                    gsap.set(title, { opacity: 1 });
+                    if (hasSplit) {
+                        var split = SplitText.create(title, { type: 'lines', mask: 'lines', linesClass: 'rd-line' });
+                        intro.from(split.lines, {
+                            yPercent: 130, duration: 1.15, stagger: 0.09,
+                            onComplete: function () { split.revert(); }
+                        }, 0.12);
+                    } else {
+                        intro.from(title, { opacity: 0, y: 26, duration: 1.1 }, 0.12);
+                    }
+                }
+
+                if (lede) {
+                    drawn.push(lede);
+                    hidden.push(lede);
+                    gsap.set(lede, { opacity: 1 });
+                    intro.fromTo(lede, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.3, ease: 'expo.inOut' }, 0.35);
+                    intro.from(lede, { opacity: 0, y: 18, duration: 1 }, 0.4);
+                }
+
+                /* ---- The card opens as it comes into view -------------------------- */
+                if (card) {
+                    hidden.push(card);
+                    gsap.set(card, { opacity: 1 });
+                    gsap.from(card, {
+                        opacity: 0, y: 34, duration: 1.2, ease: EASE, delay: 0.25,
+                        scrollTrigger: { trigger: card, start: 'top 92%', once: true }
+                    });
+                }
+
+                releaseIntro();
+                ScrollTrigger.refresh();
+            }
+        })();
+    </script>
+</body>
+
+</html>

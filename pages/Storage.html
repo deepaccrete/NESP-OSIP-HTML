@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Storage | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Critical enabler for grid stability and renewable integration, unlocking reliable power supply through batteries and hybrid systems." />
+    <title>Storage | OSIP, One-Stop Investment Platform</title>
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -902,10 +903,13 @@
             background: var(--rd-paper-2) !important;
         }
 
+        /* 17 Sep 2026: the sections sat 288px apart, which read as gaps between pages
+           rather than one page. Closer now - about 168px on a desktop - so the page holds
+           together without the sections touching. Same as DetailedSector.html. */
         .rd main > section.py-12,
         .rd main > section.ovw {
-            padding-top: clamp(76px, 10vw, 148px) !important;
-            padding-bottom: clamp(76px, 10vw, 148px) !important;
+            padding-top: clamp(46px, 5.8vw, 86px) !important;
+            padding-bottom: clamp(46px, 5.8vw, 86px) !important;
         }
 
         .rd main > section.border-b {
@@ -2878,6 +2882,257 @@
         @keyframes kfMarch { to { stroke-dashoffset: -16; } }
         @keyframes kfGlow { 0%, 100% { filter: drop-shadow(0 0 0 rgba(247, 190, 38, 0)); } 50% { filter: drop-shadow(0 0 5px rgba(247, 190, 38, .9)); } }
     </style>
+    <style id="rd-sector-opps">
+        /* ---- Featured Investment Areas: the Opportunities card (15 Sep 2026) -------------------
+           These are the Active Opportunities card rules from pages/Opportunities.html - its base
+           card styles, its redesign layer and its shared card action - scoped to this page's
+           #opportunities-grid, so the cards here and there are the same component. The first
+           block restates the Opportunities page's Tailwind type and colour tokens the card uses,
+           which this page's own config does not define the same way. Change the card there,
+           change it here. */
+        #opportunities-grid .text-label-sm { font-family: 'Inter', sans-serif; font-size: 12px; line-height: 16px; letter-spacing: 0.05em; font-weight: 600; }
+        #opportunities-grid .text-label-md { font-family: 'Inter', sans-serif; font-size: 14px; line-height: 20px; letter-spacing: 0.01em; }
+        #opportunities-grid .text-headline-lg-mobile { font-size: 24px; line-height: 32px; }
+        #opportunities-grid .text-base { font-size: 1rem; line-height: 1.5rem; }
+        #opportunities-grid .leading-tight { line-height: 1.25; }
+        #opportunities-grid .text-on-surface-variant { color: #3f4945; }
+        #opportunities-grid .text-on-surface { color: #161d1b; }
+        #opportunities-grid .text-primary { color: #00342b; }
+        #opportunities-grid .border-outline-variant { border-color: #bfc9c4; }
+        #opportunities-grid .font-semibold { font-weight: 600; }
+        #opportunities-grid .font-normal { font-weight: 400; }
+        #opportunities-grid .tracking-wider { letter-spacing: 0.05em; }
+        #opportunities-grid .tracking-tight { letter-spacing: -0.025em; }
+
+        /* base card (Opportunities.html head) */
+        #opportunities-grid .opportunity-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 380px;
+            max-width: 314px;
+            width: 100%;
+            margin-inline: auto;
+            border-top: 4px solid #dfa800 !important;
+            background: linear-gradient(180deg, #ffffff 0%, #fcfdfc 100%) !important;
+            transition: box-shadow .3s ease, transform .3s ease, border-color .3s ease;
+        }
+
+        #opportunities-grid .opportunity-card::before {
+            content: "";
+            position: absolute;
+            top: -4px;
+            left: -1px;
+            right: -1px;
+            height: 4px;
+            background: linear-gradient(90deg, #f7be26, #ffd873, #f7be26);
+            opacity: 0;
+            transition: opacity .3s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #opportunities-grid .opportunity-card h3 { transition: color .22s ease; }
+
+        #opportunities-grid .opportunity-card .inv-box {
+            background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
+            border: 1px solid rgba(0, 52, 43, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+            transition: background .3s ease, border-color .3s ease;
+        }
+
+        #opportunities-grid .sector-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            background: rgba(223, 168, 0, 0.14);
+            border: 1px solid rgba(223, 168, 0, 0.35);
+            color: #5b4300;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1.45;
+        }
+
+        #opportunities-grid .sector-badge .material-symbols-outlined { font-size: 14px; color: #c98a00; }
+
+        #opportunities-grid .opp-grid,
+        .opp-grid#opportunities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0, 314px));
+            justify-content: start;
+            gap: 24px;
+        }
+
+        #opportunities-grid .readiness-tag {
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 3px 10px 3px 8px;
+            border-radius: 9999px;
+            background: #fbfcfb;
+            border: 1px solid #e2e8e5;
+            color: #55635c;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        #opportunities-grid .readiness-tag[data-readiness="concept"] { background: #f2f5f8; border-color: #dde5ec; color: #4a5a68; }
+        #opportunities-grid .readiness-tag[data-readiness="preparation"] { background: #fdf6e8; border-color: #f0e0bb; color: #85631a; }
+        #opportunities-grid .readiness-tag[data-readiness="interest"] { background: #eaf7f0; border-color: #c3e7d4; color: #1a7047; }
+        #opportunities-grid .readiness-tag[data-readiness="tender"] { background: #eef4fd; border-color: #cde0f7; color: #2b5da3; }
+        #opportunities-grid .readiness-tag[data-readiness="financing"] { background: #f4f1fd; border-color: #ded5f6; color: #5a46a3; }
+        #opportunities-grid .readiness-tag[data-readiness="validation"] { background: #fdf2ed; border-color: #f6dacd; color: #a3532f; }
+
+        #opportunities-grid .readiness-dot { width: 6px; height: 6px; border-radius: 50%; background: #9aa8a1; flex: 0 0 auto; }
+        #opportunities-grid .readiness-tag[data-readiness="concept"] .readiness-dot { background: #94a3b8; }
+        #opportunities-grid .readiness-tag[data-readiness="preparation"] .readiness-dot { background: #d19a2e; }
+        #opportunities-grid .readiness-tag[data-readiness="interest"] .readiness-dot { background: #1f9d5f; }
+        #opportunities-grid .readiness-tag[data-readiness="tender"] .readiness-dot { background: #3b7dd8; }
+        #opportunities-grid .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
+        #opportunities-grid .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
+
+        #opportunities-grid .card-watermark {
+            position: absolute;
+            right: -26px;
+            top: -18px;
+            z-index: 0;
+            font-size: 106px;
+            line-height: 1;
+            color: #00342b;
+            opacity: .04;
+            pointer-events: none;
+            user-select: none;
+            transition: transform .5s cubic-bezier(.22, .61, .36, 1), opacity .5s ease;
+        }
+
+        #opportunities-grid .opportunity-card:hover .card-watermark { transform: translate(-5px, 3px) rotate(-5deg); opacity: .07; }
+        #opportunities-grid .opportunity-card > *:not(.card-watermark) { position: relative; z-index: 1; }
+
+        #opportunities-grid .opportunity-card .opp-btn-arrow { font-size: 15px; transition: transform .28s cubic-bezier(.22, .61, .36, 1); }
+
+        /* redesign layer (Opportunities.html rd-style) */
+        .rd #opportunities-grid .opportunity-card {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top: 2px solid #dfa800 !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card::before { display: none !important; }
+
+        .rd #opportunities-grid .opportunity-card:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+            border-color: var(--rd-line-2) !important;
+            border-top-color: #dfa800 !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card h3 {
+            margin: 0 0 4px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-optical-sizing: auto;
+            font-size: 21px !important;
+            line-height: 1.22 !important;
+            letter-spacing: -0.012em !important;
+            color: var(--rd-ink) !important;
+            text-wrap: wrap !important;
+            display: -webkit-box !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card:not(.is-pending):hover h3 { color: var(--rd-green) !important; }
+
+        .rd #opportunities-grid .inv-box,
+        .rd #opportunities-grid .opportunity-card:hover .inv-box {
+            background: var(--rd-card-2) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 14px !important;
+        }
+
+        .rd #opportunities-grid .text-headline-lg-mobile {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 32px !important;
+            line-height: 1.1 !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #opportunities-grid .border-y.border-outline-variant { border-color: var(--rd-line) !important; }
+
+        .rd #opportunities-grid .sector-badge,
+        .rd #opportunities-grid .readiness-tag { font-weight: 500 !important; }
+
+        @media (min-width: 640px) {
+            .rd .opp-grid#opportunities-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important; }
+            .rd #opportunities-grid .opportunity-card { max-width: none !important; }
+        }
+
+        /* the shared card action (Opportunities.html rd-card-actions) */
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 {
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 0 !important;
+            padding-top: 16px !important;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a) {
+            flex: 1 1 auto !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            width: 100% !important;
+            min-height: 44px;
+            padding: 11px 20px !important;
+            border: 1px solid transparent !important;
+            border-radius: 999px !important;
+            background: #edf3ef !important;
+            color: var(--rd-green, #004225) !important;
+            font-family: var(--rd-sans, 'Inter'), sans-serif !important;
+            font-size-adjust: none !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0 !important;
+            white-space: nowrap !important;
+            text-decoration: none !important;
+            box-shadow: none !important;
+            transition: background-color .35s ease, color .35s ease !important;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a):hover {
+            background: var(--rd-green, #004225) !important;
+            color: #ffffff !important;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a):focus-visible {
+            outline: 2px solid var(--rd-green-2, #0b6b45);
+            outline-offset: 3px;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 .opp-btn-arrow {
+            display: inline-block !important;
+            font-size: 17px !important;
+            transition: transform .45s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a):hover .opp-btn-arrow {
+            transform: translateX(4px);
+        }
+    </style>
 </head>
 
 <body class="font-body-md overflow-x-hidden rd">
@@ -3124,7 +3379,7 @@
                 <div class="ovw-media">
                     <div class="ovw-sticky">
                         <figure class="ovw-photo">
-                            <img alt="Battery energy storage system in Nigeria" decoding="async" src="sector-Storage-2.jpg" />
+                            <img alt="Aerial view of a large solar farm, its rows of panels laid across grassland beside a railway line" decoding="async" src="sector-Storage-2.jpg" />
                         </figure>
                         <!-- Floating stat card -->
                         <div class="ovw-stat">
@@ -3449,7 +3704,7 @@
                     Plan (REMP), Energy Transition Plan (ETP) 2022, National Energy Policy (2025), and Nigeria's updated
                     Nationally Determined Contributions (NDCs). These policies support grid modernisation, renewable
                     energy integration, electricity reliability, private-sector participation, and long-term
-                    decarbonization objectives.</p>
+                    decarbonisation objectives.</p>
                 <div class="flex flex-wrap gap-2 mt-5">
                     <span
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electricity
@@ -3516,47 +3771,47 @@
                     style="font-family: Manrope, sans-serif;">Key Regulatory Agencies</h3>
                 <div class="rd-cards grid" data-no-glossary>
                     <a href="https://www.power.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="logoNESP.png" alt="Federal Ministry of Power logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="logoNESP.png" alt="Federal Ministry of Power" /></span>
                         <span class="rd-card-title">Federal Ministry of Power</span>
                         <span class="rd-card-text">Sets electricity sector policy, including the National Integrated Electricity Policy.</span>
                     </a>
                     <a href="https://nerc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="Nigerian Electricity Regulatory Commission logo.png" alt="Nigerian Electricity Regulatory Commission (NERC)" /></span>
                         <span class="rd-card-title">Nigerian Electricity Regulatory Commission (NERC)</span>
                         <span class="rd-card-text">Licenses generation, distribution, embedded generation and mini-grids, and sets tariffs.</span>
                     </a>
                     <a href="https://rea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="REA-logo.png" alt="REA logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="REA-logo.png" alt="Rural Electrification Agency (REA)" /></span>
                         <span class="rd-card-title">Rural Electrification Agency (REA)</span>
                         <span class="rd-card-text">Runs off-grid, mini-grid and rural electrification programmes.</span>
                     </a>
                     <a href="https://nipc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="nipc-logo.png" alt="NIPC logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="nipc-logo.png" alt="Nigerian Investment Promotion Commission (NIPC)" /></span>
                         <span class="rd-card-title">Nigerian Investment Promotion Commission (NIPC)</span>
                         <span class="rd-card-text">Registers investors and administers incentives such as Pioneer Status.</span>
                     </a>
                     <a href="https://environment.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="FMEnew.png" alt="Federal Ministry of Environment logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="FMEnew.png" alt="Federal Ministry of Environment" /></span>
                         <span class="rd-card-title">Federal Ministry of Environment</span>
                         <span class="rd-card-text">Sets environmental policy and approves Environmental Impact Assessments.</span>
                     </a>
                     <a href="https://nesrea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="nesrea.jpeg" alt="NESREA logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="nesrea.jpeg" alt="National Environmental Standards and Regulations Enforcement Agency (NESREA)" /></span>
                         <span class="rd-card-title">National Environmental Standards and Regulations Enforcement Agency (NESREA)</span>
                         <span class="rd-card-text">Enforces environmental standards and monitors compliance.</span>
                     </a>
                     <a href="https://son.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="son_png.png" alt="SON logo" /></span>
-                        <span class="rd-card-title">Standards Organization of Nigeria (SON)</span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="son_png.png" alt="Standards Organisation of Nigeria (SON)" /></span>
+                        <span class="rd-card-title">Standards Organisation of Nigeria (SON)</span>
                         <span class="rd-card-text">Sets product standards, with SONCAP for imports and MANCAP for local manufacture.</span>
                     </a>
                     <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="NEMSA.png" alt="NEMSA logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="NEMSA.png" alt="Nigerian Electricity Management Services Agency (NEMSA)" /></span>
                         <span class="rd-card-title">Nigerian Electricity Management Services Agency (NEMSA)</span>
                         <span class="rd-card-text">Inspects and certifies electrical installations and equipment for safety.</span>
                     </a>
                     <a href="https://www.tcn.org.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="TCN.png" alt="TCN logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="TCN.png" alt="Transmission Company of Nigeria (TCN)" /></span>
                         <span class="rd-card-title">Transmission Company of Nigeria (TCN)</span>
                         <span class="rd-card-text">Operates the transmission grid and handles interconnection and grid-impact studies.</span>
                     </a>
@@ -4397,7 +4652,7 @@
                             data-video-id="aqz-KE-bpKQ" data-video-title="storage technical and safety walkthrough">
                             <button type="button" aria-label="Play the storage technical and safety walkthrough"
                                 class="facade-cover absolute inset-0 group cursor-pointer w-full h-full">
-                                <img alt="Battery storage system installed at a commercial facility"
+                                <img alt="Someone holding a bank card at a laptop, paying online"
                                     class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity"
                                     loading="lazy" src="sector-Storage.jpg" />
                                 <span class="absolute inset-0 flex items-center justify-center">
@@ -4544,7 +4799,7 @@
                         proven electricity demand and clear revenue streams. Investors that can demonstrate predictable
                         energy consumption, measurable diesel displacement, strong customer creditworthiness, and
                         long-term service agreements are typically best positioned to secure financing. As grid
-                        modernization accelerates and renewable energy deployment expands, utility-scale battery storage
+                        modernisation accelerates and renewable energy deployment expands, utility-scale battery storage
                         and grid-support applications are also expected to attract increasing investor and lender
                         interest.</p>
                 </div>
@@ -4565,69 +4820,205 @@
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's energy storage market is expanding rapidly as businesses, communities, and infrastructure operators seek more reliable and cost-effective power solutions. Falling battery costs, growing solar deployment, increasing diesel prices, and strong demand for energy reliability are driving adoption across commercial, industrial, telecom, healthcare, education, and mini-grid sectors.</p>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Storage is increasingly viewed not only as a backup solution, but as a core enabler of renewable energy integration, grid stability, energy cost reduction, and energy access.</p>
 
-                <div class="rd-sub" id="opportunities-1">
-                    <div class="rd-sub-no" aria-hidden="true">01</div>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-                        <div>
-                            <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4" style="font-family: Manrope, sans-serif;">Behind-the-Meter Storage (Residential &amp; C&amp;I)</h3>
-                            <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's commercial and industrial sector presents one of the largest opportunities for battery storage deployment in Africa. Businesses are increasingly adopting solar-plus-storage systems to reduce diesel consumption, improve power reliability, and lower operating costs.</p>
-                            <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Key target markets include manufacturing facilities, hospitals, universities, cold-chain operators, telecom infrastructure, estates, hotels, shopping centres, and data centres.</p>
+                <!-- Featured Investment Areas (15 Sep 2026): the Active Opportunities card, as on
+                     DetailedSector.html. Each opens its own project page, detailedOppNew.html?id=... (records in oppdata.js). -->
+                <div id="opportunities-grid" class="opp-grid mt-16 lg:mt-20">
+                    <!-- Featured area 1 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-1" data-sector="storage" data-readiness="interest">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">battery_charging_full</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-STG-21</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Behind-the-Meter Storage (Residential &amp; C&amp;I)</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Storage</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Seeking investor interest</span>
                         </div>
-                        <div class="relative">
-                            <div class="overflow-hidden rounded-2xl shadow-xl">
-                                <img alt="Battery bank for energy storage" class="w-full h-72 sm:h-80 lg:h-[26rem] object-cover" src="sector-Storage-ng.jpg" loading="lazy" decoding="async" />
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 160 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Lagos State</span>
                             </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">20 Jan 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Behind-the-Meter Storage (Residential &amp; C&amp;I)"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                         </div>
                     </div>
-                    <p class="rd-sub-label">Market Indicators</p>
-                    <ul class="rd-list">
-                        <li>Nigeria is one of Africa's fastest-growing battery storage markets.</li>
-                        <li>Estimated annual solar-plus-storage investment opportunity exceeds US$3 billion.</li>
-                        <li>Growing demand from customers seeking energy independence and protection from grid disruptions.</li>
-                    </ul>
+                    <!-- Featured area 2 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-2" data-sector="storage" data-readiness="tender">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">hub</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-STG-22</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Mini-Grid Storage Integration</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Storage</span>
+                            <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Tender / procurement</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 230 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Multi-State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">18 Feb 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Mini-Grid Storage Integration"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        </div>
+                    </div>
+                    <!-- Featured area 3 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-3" data-sector="storage" data-readiness="concept">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">precision_manufacturing</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-STG-23</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Battery Assembly &amp; Manufacturing</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Storage</span>
+                            <span class="readiness-tag" data-readiness="concept"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Concept</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 110 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Ogun State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">07 Apr 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Battery Assembly &amp; Manufacturing"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        </div>
+                    </div>
+                    <!-- Featured area 4 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-4" data-sector="storage" data-readiness="preparation">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">flag</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-STG-24</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Strongest Entry Points</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Storage</span>
+                            <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Under preparation</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 300 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">State:</span>
+                                <span class="font-semibold">Multi-State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">25 May 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Strongest Entry Points"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        </div>
+                    </div>
                 </div>
+                <script>
+                    /* The same behaviour as the Active Opportunities cards on Opportunities.html:
+                       the whole card and its View in Detail button open the project, and the
+                       investment amount counts up from 0 as the card comes into view. */
+                    (function () {
+                        var cards = Array.prototype.slice.call(document.querySelectorAll('#opportunities-grid .opportunity-card'));
+                        if (!cards.length) return;
+                        function href(card) {
+                            var line = card.querySelector('p');
+                            var m = line ? line.textContent.match(/ID:\s*([A-Za-z0-9-]+)/) : null;
+                            return 'detailedOppNew.html' + (m ? '?id=' + encodeURIComponent(m[1].toUpperCase()) : '');
+                        }
+                        cards.forEach(function (card) {
+                            card.style.cursor = 'pointer';
+                            card.setAttribute('role', 'link');
+                            card.setAttribute('tabindex', '0');
+                            card.addEventListener('click', function () { location.href = href(card); });
+                            card.addEventListener('keydown', function (e) {
+                                if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('button, a')) {
+                                    e.preventDefault();
+                                    location.href = href(card);
+                                }
+                            });
+                        });
 
-                <div class="rd-sub" id="opportunities-2">
-                    <div class="rd-sub-no" aria-hidden="true">02</div>
-                    <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4" style="font-family: Manrope, sans-serif;">Mini-Grid Storage Integration</h3>
-                    <p class="text-[#404846] text-base sm:text-[17px] leading-8">Battery storage is becoming a standard component of modern mini-grid systems, helping improve reliability, increase renewable energy utilisation, and reduce fuel costs.</p>
-                    <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">The DARES programme targets approximately 1,225 mini-grids, creating a significant pipeline for battery suppliers, storage integrators, EPC contractors, and project developers.</p>
-                    <p class="rd-sub-label">Market Indicators</p>
-                    <ul class="rd-list">
-                        <li>Typical storage deployment: 20 kWh–2 MWh per mini-grid.</li>
-                        <li>Strong demand from rural communities, agricultural clusters, commercial hubs, and productive-use energy projects.</li>
-                        <li>Supported by REA, DARES, and other rural electrification programmes.</li>
-                    </ul>
-                </div>
+                        var amounts = document.querySelectorAll('#opportunities-grid .inv-box p.text-headline-lg-mobile');
+                        function ease(t) { return 1 - Math.pow(1 - t, 3); }
+                        amounts.forEach(function (p) {
+                            var node = p.firstChild;
+                            if (!node || node.nodeType !== 3) return;
+                            var m = node.nodeValue.match(/([^\d-]*)(-?\d+(?:\.\d+)?)(.*)/);
+                            if (!m) return;
+                            p.dataset.cuPrefix = m[1];
+                            p.dataset.cuTarget = m[2];
+                            p.dataset.cuSuffix = m[3];
+                            p.dataset.cuDecimals = (m[2].split('.')[1] || '').length;
+                            node.nodeValue = m[1] + (0).toFixed(p.dataset.cuDecimals) + m[3];
+                        });
+                        function run(p) {
+                            if (p.dataset.cuDone === '1' || !p.dataset.cuTarget) return;
+                            p.dataset.cuDone = '1';
+                            var node = p.firstChild, target = parseFloat(p.dataset.cuTarget), dec = parseInt(p.dataset.cuDecimals, 10), start = null;
+                            function step(ts) {
+                                if (start === null) start = ts;
+                                var t = Math.min(1, (ts - start) / 1100);
+                                node.nodeValue = p.dataset.cuPrefix + (ease(t) * target).toFixed(dec) + p.dataset.cuSuffix;
+                                if (t < 1) requestAnimationFrame(step);
+                            }
+                            requestAnimationFrame(step);
+                        }
+                        if ('IntersectionObserver' in window) {
+                            var io = new IntersectionObserver(function (entries) {
+                                entries.forEach(function (entry) {
+                                    if (entry.isIntersecting) { run(entry.target); io.unobserve(entry.target); }
+                                });
+                            }, { threshold: 0.25 });
+                            amounts.forEach(function (p) { io.observe(p); });
+                        } else {
+                            amounts.forEach(run);
+                        }
+                    })();
+                </script>
 
-                <div class="rd-sub" id="opportunities-3">
-                    <div class="rd-sub-no" aria-hidden="true">03</div>
-                    <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4" style="font-family: Manrope, sans-serif;">Battery Assembly &amp; Manufacturing</h3>
-                    <p class="text-[#404846] text-base sm:text-[17px] leading-8">Local battery assembly and manufacturing represent an emerging investment opportunity as Nigeria seeks to strengthen domestic energy and electric mobility supply chains.</p>
-                    <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Government policy increasingly supports local content development, technology transfer, and industrialisation, creating opportunities for battery pack assembly, component manufacturing, and energy storage value-chain development.</p>
-                    <p class="rd-sub-label">Market Indicators</p>
-                    <ul class="rd-list">
-                        <li>High battery import volumes continue to drive market growth.</li>
-                        <li>Local content requirements under emerging industrial and electric mobility policies are expected to stimulate domestic manufacturing.</li>
-                        <li>Opportunities exist for partnerships with NASENI, technology providers, and international battery manufacturers.</li>
-                    </ul>
-                </div>
-
-                <div class="rd-sub" id="opportunities-4">
-                    <div class="rd-sub-no" aria-hidden="true">04</div>
-                    <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4" style="font-family: Manrope, sans-serif;">Strongest Entry Points</h3>
-                    <p class="text-[#404846] text-base sm:text-[17px] leading-8">The strongest near-term opportunities include:</p>
-                    <ul class="rd-list">
-                        <li>Commercial &amp; industrial solar-plus-storage systems</li>
-                        <li>Mini-grid battery integration</li>
-                        <li>Telecom tower energy systems</li>
-                        <li>Healthcare and educational facility electrification</li>
-                        <li>Data centre and critical infrastructure backup systems</li>
-                        <li>Battery assembly and local manufacturing</li>
-                        <li>Energy-as-a-Service (EaaS) and storage leasing models</li>
-                    </ul>
-                    <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">For investors, the most attractive projects are those with predictable electricity demand, measurable diesel displacement, and long-term customer contracts, as these typically provide the clearest path to financing and scalable growth.</p>
-                </div>
             </div>
         </section>
 
@@ -5757,6 +6148,7 @@
             setTimeout(function () { charts.forEach(function (c) { c.classList.add('is-in'); }); }, 8000);
         })();
     </script>
+    <script src="cardrail.js"></script>
 </body>
 
 </html>

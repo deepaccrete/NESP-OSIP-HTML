@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Solar | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Nigeria's largest clean energy opportunity, driven by abundant sunlight and strong demand for reliable off-grid and backup power." />
+    <title>Solar | OSIP, One-Stop Investment Platform</title>
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -1008,10 +1009,13 @@
             background: var(--rd-paper-2) !important;
         }
 
+        /* 17 Sep 2026: the eight sections sat 288px apart, which read as gaps between
+           pages rather than one page. Closer now - about 167px on a desktop, against the
+           homepage's 192 - so the page holds together without the sections touching. */
         .rd main > section.py-12,
         .rd main > section.ovw {
-            padding-top: clamp(76px, 10vw, 148px) !important;
-            padding-bottom: clamp(76px, 10vw, 148px) !important;
+            padding-top: clamp(46px, 5.8vw, 86px) !important;
+            padding-bottom: clamp(46px, 5.8vw, 86px) !important;
         }
 
         .rd main > section.border-b {
@@ -2422,6 +2426,257 @@
             max-width: none !important;
         }
     </style>
+    <style id="rd-sector-opps">
+        /* ---- Featured Investment Areas: the Opportunities card (15 Sep 2026) -------------------
+           These are the Active Opportunities card rules from pages/Opportunities.html - its base
+           card styles, its redesign layer and its shared card action - scoped to this page's
+           #opportunities-grid, so the cards here and there are the same component. The first
+           block restates the Opportunities page's Tailwind type and colour tokens the card uses,
+           which this page's own config does not define the same way. Change the card there,
+           change it here. */
+        #opportunities-grid .text-label-sm { font-family: 'Inter', sans-serif; font-size: 12px; line-height: 16px; letter-spacing: 0.05em; font-weight: 600; }
+        #opportunities-grid .text-label-md { font-family: 'Inter', sans-serif; font-size: 14px; line-height: 20px; letter-spacing: 0.01em; }
+        #opportunities-grid .text-headline-lg-mobile { font-size: 24px; line-height: 32px; }
+        #opportunities-grid .text-base { font-size: 1rem; line-height: 1.5rem; }
+        #opportunities-grid .leading-tight { line-height: 1.25; }
+        #opportunities-grid .text-on-surface-variant { color: #3f4945; }
+        #opportunities-grid .text-on-surface { color: #161d1b; }
+        #opportunities-grid .text-primary { color: #00342b; }
+        #opportunities-grid .border-outline-variant { border-color: #bfc9c4; }
+        #opportunities-grid .font-semibold { font-weight: 600; }
+        #opportunities-grid .font-normal { font-weight: 400; }
+        #opportunities-grid .tracking-wider { letter-spacing: 0.05em; }
+        #opportunities-grid .tracking-tight { letter-spacing: -0.025em; }
+
+        /* base card (Opportunities.html head) */
+        #opportunities-grid .opportunity-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 380px;
+            max-width: 314px;
+            width: 100%;
+            margin-inline: auto;
+            border-top: 4px solid #dfa800 !important;
+            background: linear-gradient(180deg, #ffffff 0%, #fcfdfc 100%) !important;
+            transition: box-shadow .3s ease, transform .3s ease, border-color .3s ease;
+        }
+
+        #opportunities-grid .opportunity-card::before {
+            content: "";
+            position: absolute;
+            top: -4px;
+            left: -1px;
+            right: -1px;
+            height: 4px;
+            background: linear-gradient(90deg, #f7be26, #ffd873, #f7be26);
+            opacity: 0;
+            transition: opacity .3s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #opportunities-grid .opportunity-card h3 { transition: color .22s ease; }
+
+        #opportunities-grid .opportunity-card .inv-box {
+            background: linear-gradient(135deg, rgba(0, 52, 43, 0.05), rgba(148, 211, 193, 0.10));
+            border: 1px solid rgba(0, 52, 43, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+            transition: background .3s ease, border-color .3s ease;
+        }
+
+        #opportunities-grid .sector-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            background: rgba(223, 168, 0, 0.14);
+            border: 1px solid rgba(223, 168, 0, 0.35);
+            color: #5b4300;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1.45;
+        }
+
+        #opportunities-grid .sector-badge .material-symbols-outlined { font-size: 14px; color: #c98a00; }
+
+        #opportunities-grid .opp-grid,
+        .opp-grid#opportunities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0, 314px));
+            justify-content: start;
+            gap: 24px;
+        }
+
+        #opportunities-grid .readiness-tag {
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 3px 10px 3px 8px;
+            border-radius: 9999px;
+            background: #fbfcfb;
+            border: 1px solid #e2e8e5;
+            color: #55635c;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        #opportunities-grid .readiness-tag[data-readiness="concept"] { background: #f2f5f8; border-color: #dde5ec; color: #4a5a68; }
+        #opportunities-grid .readiness-tag[data-readiness="preparation"] { background: #fdf6e8; border-color: #f0e0bb; color: #85631a; }
+        #opportunities-grid .readiness-tag[data-readiness="interest"] { background: #eaf7f0; border-color: #c3e7d4; color: #1a7047; }
+        #opportunities-grid .readiness-tag[data-readiness="tender"] { background: #eef4fd; border-color: #cde0f7; color: #2b5da3; }
+        #opportunities-grid .readiness-tag[data-readiness="financing"] { background: #f4f1fd; border-color: #ded5f6; color: #5a46a3; }
+        #opportunities-grid .readiness-tag[data-readiness="validation"] { background: #fdf2ed; border-color: #f6dacd; color: #a3532f; }
+
+        #opportunities-grid .readiness-dot { width: 6px; height: 6px; border-radius: 50%; background: #9aa8a1; flex: 0 0 auto; }
+        #opportunities-grid .readiness-tag[data-readiness="concept"] .readiness-dot { background: #94a3b8; }
+        #opportunities-grid .readiness-tag[data-readiness="preparation"] .readiness-dot { background: #d19a2e; }
+        #opportunities-grid .readiness-tag[data-readiness="interest"] .readiness-dot { background: #1f9d5f; }
+        #opportunities-grid .readiness-tag[data-readiness="tender"] .readiness-dot { background: #3b7dd8; }
+        #opportunities-grid .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
+        #opportunities-grid .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
+
+        #opportunities-grid .card-watermark {
+            position: absolute;
+            right: -26px;
+            top: -18px;
+            z-index: 0;
+            font-size: 106px;
+            line-height: 1;
+            color: #00342b;
+            opacity: .04;
+            pointer-events: none;
+            user-select: none;
+            transition: transform .5s cubic-bezier(.22, .61, .36, 1), opacity .5s ease;
+        }
+
+        #opportunities-grid .opportunity-card:hover .card-watermark { transform: translate(-5px, 3px) rotate(-5deg); opacity: .07; }
+        #opportunities-grid .opportunity-card > *:not(.card-watermark) { position: relative; z-index: 1; }
+
+        #opportunities-grid .opportunity-card .opp-btn-arrow { font-size: 15px; transition: transform .28s cubic-bezier(.22, .61, .36, 1); }
+
+        /* redesign layer (Opportunities.html rd-style) */
+        .rd #opportunities-grid .opportunity-card {
+            background: var(--rd-card) !important;
+            border-color: var(--rd-line) !important;
+            border-top: 2px solid #dfa800 !important;
+            border-radius: 22px !important;
+            box-shadow: none !important;
+            transition: border-color .45s ease, background-color .45s ease !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card::before { display: none !important; }
+
+        .rd #opportunities-grid .opportunity-card:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+            border-color: var(--rd-line-2) !important;
+            border-top-color: #dfa800 !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card h3 {
+            margin: 0 0 4px !important;
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 500 !important;
+            font-optical-sizing: auto;
+            font-size: 21px !important;
+            line-height: 1.22 !important;
+            letter-spacing: -0.012em !important;
+            color: var(--rd-ink) !important;
+            text-wrap: wrap !important;
+            display: -webkit-box !important;
+        }
+
+        .rd #opportunities-grid .opportunity-card:not(.is-pending):hover h3 { color: var(--rd-green) !important; }
+
+        .rd #opportunities-grid .inv-box,
+        .rd #opportunities-grid .opportunity-card:hover .inv-box {
+            background: var(--rd-card-2) !important;
+            border-color: var(--rd-line) !important;
+            border-radius: 14px !important;
+        }
+
+        .rd #opportunities-grid .text-headline-lg-mobile {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 32px !important;
+            line-height: 1.1 !important;
+            letter-spacing: -0.02em !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #opportunities-grid .border-y.border-outline-variant { border-color: var(--rd-line) !important; }
+
+        .rd #opportunities-grid .sector-badge,
+        .rd #opportunities-grid .readiness-tag { font-weight: 500 !important; }
+
+        @media (min-width: 640px) {
+            .rd .opp-grid#opportunities-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important; }
+            .rd #opportunities-grid .opportunity-card { max-width: none !important; }
+        }
+
+        /* the shared card action (Opportunities.html rd-card-actions) */
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 {
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 0 !important;
+            padding-top: 16px !important;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a) {
+            flex: 1 1 auto !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            width: 100% !important;
+            min-height: 44px;
+            padding: 11px 20px !important;
+            border: 1px solid transparent !important;
+            border-radius: 999px !important;
+            background: #edf3ef !important;
+            color: var(--rd-green, #004225) !important;
+            font-family: var(--rd-sans, 'Inter'), sans-serif !important;
+            font-size-adjust: none !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0 !important;
+            white-space: nowrap !important;
+            text-decoration: none !important;
+            box-shadow: none !important;
+            transition: background-color .35s ease, color .35s ease !important;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a):hover {
+            background: var(--rd-green, #004225) !important;
+            color: #ffffff !important;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a):focus-visible {
+            outline: 2px solid var(--rd-green-2, #0b6b45);
+            outline-offset: 3px;
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 .opp-btn-arrow {
+            display: inline-block !important;
+            font-size: 17px !important;
+            transition: transform .45s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        html body:not(#rd-ca-a):not(#rd-ca-b) #opportunities-grid .opportunity-card .flex.gap-2 > :is(button, a):hover .opp-btn-arrow {
+            transform: translateX(4px);
+        }
+    </style>
 </head>
 
 <body class="font-body-md overflow-x-hidden rd">
@@ -3026,7 +3281,7 @@
                     2025, National Renewable Energy and Energy Efficiency Policy (NREEEP) 2015, Renewable Energy Master
                     Plan (REMP), Energy Transition Plan (ETP) 2022, and Nigeria's updated Nationally Determined
                     Contributions (NDCs). These policies support private-sector participation, renewable energy
-                    deployment, and long-term decarbonization objectives. Land acquisition and site development are governed by the Land Use Act 1978 and applicable state-level land administration procedures.</p>
+                    deployment, and long-term decarbonisation objectives. Land acquisition and site development are governed by the Land Use Act 1978 and applicable state-level land administration procedures.</p>
                 <div class="flex flex-wrap gap-2 mt-5">
                     <span
                         class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Electricity
@@ -3080,47 +3335,47 @@
                     style="font-family: Manrope, sans-serif;">Key Regulatory Agencies</h3>
                 <div class="rd-cards grid" data-no-glossary>
                     <a href="https://www.power.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="logoNESP.png" alt="Federal Ministry of Power logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="logoNESP.png" alt="Federal Ministry of Power" /></span>
                         <span class="rd-card-title">Federal Ministry of Power</span>
                         <span class="rd-card-text">Sets electricity sector policy, including the National Integrated Electricity Policy.</span>
                     </a>
                     <a href="https://nerc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="Nigerian Electricity Regulatory Commission logo.png" alt="NERC logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="Nigerian Electricity Regulatory Commission logo.png" alt="Nigerian Electricity Regulatory Commission (NERC)" /></span>
                         <span class="rd-card-title">Nigerian Electricity Regulatory Commission (NERC)</span>
                         <span class="rd-card-text">Licenses generation, distribution, embedded generation and mini-grids, and sets tariffs.</span>
                     </a>
                     <a href="https://rea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="REA-logo.png" alt="REA logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="REA-logo.png" alt="Rural Electrification Agency (REA)" /></span>
                         <span class="rd-card-title">Rural Electrification Agency (REA)</span>
                         <span class="rd-card-text">Runs off-grid, mini-grid and rural electrification programmes.</span>
                     </a>
                     <a href="https://nipc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="nipc-logo.png" alt="NIPC logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="nipc-logo.png" alt="Nigerian Investment Promotion Commission (NIPC)" /></span>
                         <span class="rd-card-title">Nigerian Investment Promotion Commission (NIPC)</span>
                         <span class="rd-card-text">Registers investors and administers incentives such as Pioneer Status.</span>
                     </a>
                     <a href="https://environment.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="FMEnew.png" alt="Federal Ministry of Environment logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="FMEnew.png" alt="Federal Ministry of Environment" /></span>
                         <span class="rd-card-title">Federal Ministry of Environment</span>
                         <span class="rd-card-text">Sets environmental policy and approves Environmental Impact Assessments.</span>
                     </a>
                     <a href="https://nesrea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="nesrea.jpeg" alt="NESREA logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="nesrea.jpeg" alt="National Environmental Standards and Regulations Enforcement Agency (NESREA)" /></span>
                         <span class="rd-card-title">National Environmental Standards and Regulations Enforcement Agency (NESREA)</span>
                         <span class="rd-card-text">Enforces environmental standards and monitors compliance.</span>
                     </a>
                     <a href="https://son.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="son_png.png" alt="SON logo" /></span>
-                        <span class="rd-card-title">Standards Organization of Nigeria (SON)</span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="son_png.png" alt="Standards Organisation of Nigeria (SON)" /></span>
+                        <span class="rd-card-title">Standards Organisation of Nigeria (SON)</span>
                         <span class="rd-card-text">Sets product standards, with SONCAP for imports and MANCAP for local manufacture.</span>
                     </a>
                     <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="NEMSA.png" alt="NEMSA logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="NEMSA.png" alt="Nigerian Electricity Management Services Agency (NEMSA)" /></span>
                         <span class="rd-card-title">Nigerian Electricity Management Services Agency (NEMSA)</span>
                         <span class="rd-card-text">Inspects and certifies electrical installations and equipment for safety.</span>
                     </a>
                     <a href="https://www.tcn.org.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                        <span class="rd-card-mark" aria-hidden="true"><img src="TCN.png" alt="TCN logo" /></span>
+                        <span class="rd-card-mark" aria-hidden="true"><img src="TCN.png" alt="Transmission Company of Nigeria (TCN)" /></span>
                         <span class="rd-card-title">Transmission Company of Nigeria (TCN)</span>
                         <span class="rd-card-text">Operates the transmission grid and handles interconnection and grid-impact studies.</span>
                     </a>
@@ -3848,7 +4103,7 @@
                             data-video-id="aqz-KE-bpKQ" data-video-title="Solar technical and safety walkthrough">
                             <button type="button" aria-label="Play the Solar technical and safety walkthrough"
                                 class="facade-cover absolute inset-0 group cursor-pointer w-full h-full">
-                                <img alt="Nigerian solar landscape"
+                                <img alt="Long rows of ground-mounted solar panels stretching across a grass field under a bright, cloud-scattered sky"
                                     class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity"
                                     loading="lazy" src="sector-Solar-hero.jpg" />
                                 <span class="absolute inset-0 flex items-center justify-center">
@@ -3997,7 +4252,7 @@
                 <div class="rd-cards grid mt-8">
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark is-letter" aria-hidden="true">a</span>
-                        <h4 class="rd-card-title">Decentralized Mini-Grid Concessions</h4>
+                        <h4 class="rd-card-title">Decentralised Mini-Grid Concessions</h4>
                         <p class="rd-card-text">Over 125 solar mini-grids already deployed under the Nigeria Electrification Project, operating under exclusive service-area concessions.</p>
                     </div>
                     <div class="rd-card rounded-xl">
@@ -4081,64 +4336,205 @@
                     Visit Nigeria SE4ALL <span class="material-symbols-outlined text-lg">open_in_new</span>
                 </a>
 
-                <div class="rd-sub" id="opportunities-1">
-                    <div class="rd-sub-no" aria-hidden="true">01</div>
-                <!-- Mini-Grid Development -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
-                    <div>
-                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                            style="font-family: Manrope, sans-serif;">Mini-Grid Development</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">One of the largest immediate
-                            opportunities is the Distributed Access through Renewable Energy Scale-up (DARES)
-                            programme, supported by a US$750 million World Bank facility and implemented by the Rural
-                            Electrification Agency (REA). The programme targets the deployment of approximately 1,225
-                            mini-grids, 465 MW of new generation capacity, and electricity access for 17.5 million
-                            beneficiaries.</p>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-4">Private developers can
-                            participate through multiple windows, including isolated mini-grids, interconnected
-                            mini-grids, minimum subsidy tenders, and Solar for Business programmes. Performance-based
-                            subsidies are available upon successful project delivery and verified customer
-                            connections.</p>
-                    </div>
-
-                    <div class="relative">
-                        <!-- Video walkthrough — lazy-loads the YouTube iframe on click and plays in-page.
-                             Swap data-video-id with the real video id when available. -->
-                        <div class="video-facade relative overflow-hidden rounded-2xl shadow-xl w-full h-72 sm:h-80 bg-black"
-                            data-video-id="aqz-KE-bpKQ">
-                            <button type="button" aria-label="Play mini-grid walkthrough"
-                                class="facade-cover absolute inset-0 group cursor-pointer w-full h-full">
-                                <img alt="Solar mini-grid installation serving a Nigerian community"
-                                    class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity"
-                                    src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&amp;w=1200&amp;auto=format&amp;fit=crop"
-                                    loading="lazy" />
-                                <span class="absolute inset-0 flex items-center justify-center">
-                                    <span
-                                        class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600 flex items-center justify-center shadow-2xl group-hover:scale-105 transition-transform"
-                                        aria-hidden="true">
-                                        <span class="material-symbols-outlined text-white text-[40px]"
-                                            style="font-variation-settings: 'FILL' 1;">play_arrow</span>
-                                    </span>
-                                </span>
-                            </button>
+                <!-- Featured Investment Areas (15 Sep 2026): the Active Opportunities card from
+                     Opportunities.html, markup for markup, so the two pages read as one. Each opens its
+                     own project page, detailedOppNew.html?id=2026-SOL-2N (records in oppdata.js). -->
+                <div id="opportunities-grid" class="opp-grid mt-16 lg:mt-20">
+                    <!-- Featured area 1 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-1" data-sector="solar" data-readiness="tender">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">hub</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-SOL-21</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Mini-Grid Development</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Solar</span>
+                            <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Tender / procurement</span>
                         </div>
-
-                        <!-- Floating Badge -->
-                        <div
-                            class="absolute -bottom-5 left-3 sm:left-6 bg-white border border-outline-variant rounded-xl shadow-lg px-5 py-3 flex items-center gap-4 z-10">
-                            <span
-                                class="w-10 h-10 bg-primary-container text-white rounded-lg flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined"
-                                    style="font-variation-settings: 'FILL' 1;">hub</span>
-                            </span>
-                            <div>
-                                <p class="font-h4 text-[20px] font-extrabold text-primary leading-none">1,225</p>
-                                <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-1">
-                                    Mini-grids targeted</p>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 750 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">Location:</span>
+                                <span class="font-semibold">Multi-State</span>
                             </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">12 Jan 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Mini-Grid Development"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        </div>
+                    </div>
+                    <!-- Featured area 2 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-2" data-sector="solar" data-readiness="interest">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">factory</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-SOL-22</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Commercial &amp; Industrial Solar</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Solar</span>
+                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Seeking investor interest</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 180 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">Location:</span>
+                                <span class="font-semibold">Lagos State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">03 Mar 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Commercial &amp; Industrial Solar"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        </div>
+                    </div>
+                    <!-- Featured area 3 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-3" data-sector="solar" data-readiness="concept">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">precision_manufacturing</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-SOL-23</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Manufacturing &amp; Local Assembly</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Solar</span>
+                            <span class="readiness-tag" data-readiness="concept"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Concept</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 95 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">Location:</span>
+                                <span class="font-semibold">Ogun State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">20 Apr 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Manufacturing &amp; Local Assembly"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
+                        </div>
+                    </div>
+                    <!-- Featured area 4 -->
+                    <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                        id="opportunities-4" data-sector="solar" data-readiness="preparation">
+                        <span class="material-symbols-outlined card-watermark" aria-hidden="true">location_on</span>
+                        <div class="mb-6">
+                            <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
+                                2026-SOL-24</p>
+                            <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
+                                Geographic Hotspots</h3>
+                            <span class="sector-badge"><span
+                                    class="material-symbols-outlined">category</span>Sector: Solar</span>
+                            <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot"
+                                    aria-hidden="true"></span>Under preparation</span>
+                        </div>
+                        <div class="mb-4 inv-box">
+                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 320 <span
+                                    class="text-label-md font-normal text-on-surface-variant">m</span></p>
+                        </div>
+                        <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
+                            <div class="flex justify-between text-label-sm">
+                                <span class="text-on-surface-variant">Location:</span>
+                                <span class="font-semibold">Multi-State</span>
+                            </div>
+                            <div class="flex justify-between text-label-sm"><span
+                                    class="text-on-surface-variant">Published:</span><span
+                                    class="font-semibold">28 May 2026</span></div>
+                        </div>
+                        <div class="flex gap-2 mt-auto pt-2">
+                            <button aria-label="View project details: Geographic Hotspots"
+                                class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
                         </div>
                     </div>
                 </div>
+                <script>
+                    /* The same behaviour as the Active Opportunities cards on Opportunities.html:
+                       the whole card and its View in Detail button open the project, and the
+                       investment amount counts up from 0 as the card comes into view. */
+                    (function () {
+                        var cards = Array.prototype.slice.call(document.querySelectorAll('#opportunities-grid .opportunity-card'));
+                        if (!cards.length) return;
+                        function href(card) {
+                            var line = card.querySelector('p');
+                            var m = line ? line.textContent.match(/ID:\s*([A-Za-z0-9-]+)/) : null;
+                            return 'detailedOppNew.html' + (m ? '?id=' + encodeURIComponent(m[1].toUpperCase()) : '');
+                        }
+                        cards.forEach(function (card) {
+                            card.style.cursor = 'pointer';
+                            card.setAttribute('role', 'link');
+                            card.setAttribute('tabindex', '0');
+                            card.addEventListener('click', function () { location.href = href(card); });
+                            card.addEventListener('keydown', function (e) {
+                                if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('button, a')) {
+                                    e.preventDefault();
+                                    location.href = href(card);
+                                }
+                            });
+                        });
+
+                        var amounts = document.querySelectorAll('#opportunities-grid .inv-box p.text-headline-lg-mobile');
+                        function ease(t) { return 1 - Math.pow(1 - t, 3); }
+                        amounts.forEach(function (p) {
+                            var node = p.firstChild;
+                            if (!node || node.nodeType !== 3) return;
+                            var m = node.nodeValue.match(/([^\d-]*)(-?\d+(?:\.\d+)?)(.*)/);
+                            if (!m) return;
+                            p.dataset.cuPrefix = m[1];
+                            p.dataset.cuTarget = m[2];
+                            p.dataset.cuSuffix = m[3];
+                            p.dataset.cuDecimals = (m[2].split('.')[1] || '').length;
+                            node.nodeValue = m[1] + (0).toFixed(p.dataset.cuDecimals) + m[3];
+                        });
+                        function run(p) {
+                            if (p.dataset.cuDone === '1' || !p.dataset.cuTarget) return;
+                            p.dataset.cuDone = '1';
+                            var node = p.firstChild, target = parseFloat(p.dataset.cuTarget), dec = parseInt(p.dataset.cuDecimals, 10), start = null;
+                            function step(ts) {
+                                if (start === null) start = ts;
+                                var t = Math.min(1, (ts - start) / 1100);
+                                node.nodeValue = p.dataset.cuPrefix + (ease(t) * target).toFixed(dec) + p.dataset.cuSuffix;
+                                if (t < 1) requestAnimationFrame(step);
+                            }
+                            requestAnimationFrame(step);
+                        }
+                        if ('IntersectionObserver' in window) {
+                            var io = new IntersectionObserver(function (entries) {
+                                entries.forEach(function (entry) {
+                                    if (entry.isIntersecting) { run(entry.target); io.unobserve(entry.target); }
+                                });
+                            }, { threshold: 0.25 });
+                            amounts.forEach(function (p) { io.observe(p); });
+                        } else {
+                            amounts.forEach(run);
+                        }
+                    })();
+                </script>
 
                 <!-- Lazy YouTube facade — swaps the thumbnail for an inline iframe on first click. -->
                 <style>
@@ -4164,115 +4560,6 @@
                         });
                     })();
                 </script>
-
-                <div class="rd-stats mt-14 lg:mt-16">
-                    <div class="rd-stat">
-                        <p class="rd-stat-v">$750M</p>
-                        <p class="rd-stat-l">World Bank facility backing the DARES programme.</p>
-                    </div>
-                    <div class="rd-stat">
-                        <p class="rd-stat-v">465 MW</p>
-                        <p class="rd-stat-l">New generation capacity targeted under DARES.</p>
-                    </div>
-                    <div class="rd-stat">
-                        <p class="rd-stat-v">17.5M</p>
-                        <p class="rd-stat-l">Beneficiaries targeted for electricity access.</p>
-                    </div>
-                </div>
-                <p class="text-[#9aa39e] text-[11px] leading-5 mt-4">Source: Distributed Access through Renewable Energy Scale-up (DARES) programme &mdash; US$750 million World Bank facility, implemented by the Rural Electrification Agency (REA). Programme targets, not figures achieved to date. Data as at: January 2026.</p>
-                </div>
-
-                <div class="rd-sub" id="opportunities-2">
-                    <div class="rd-sub-no" aria-hidden="true">02</div>
-                <!-- Commercial & Industrial Solar -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
-                    <div class="relative lg:order-2">
-                        <div class="overflow-hidden rounded-2xl shadow-xl">
-                            <img alt="Rooftop commercial and industrial solar installation"
-                                class="w-full h-72 sm:h-80 object-cover"
-                                src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" />
-                        </div>
-                    </div>
-                    <div class="lg:order-1">
-                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                            style="font-family: Manrope, sans-serif;">Commercial &amp; Industrial Solar</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Commercial and industrial (C&amp;I)
-                            solar remains one of the fastest-growing segments of the market. Rising diesel costs,
-                            energy-security concerns, and sustainability commitments are driving demand for solar and
-                            solar-plus-storage solutions across manufacturing, agriculture, telecommunications,
-                            healthcare, education, and commercial real estate sectors.</p>
-                        <div class="flex flex-wrap gap-2 mt-5">
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Manufacturing</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Agriculture</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Telecommunications</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Healthcare</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Education</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Commercial
-                                Real Estate</span>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-                <div class="rd-sub" id="opportunities-3">
-                    <div class="rd-sub-no" aria-hidden="true">03</div>
-                <!-- Manufacturing & Local Assembly -->
-                <div class="mt-16 lg:mt-20">
-                    <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                        style="font-family: Manrope, sans-serif;">Manufacturing &amp; Local Assembly</h3>
-                    <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar manufacturing, component
-                        assembly, and clean energy supply chains are emerging as strategic growth areas. Ongoing
-                        policy discussions around domestic industrialization, regional value chains, and local
-                        content development are creating opportunities for investors interested in module assembly,
-                        battery systems, mounting structures, inverters, and related clean-energy technologies.</p>
-                </div>
-                </div>
-
-                <div class="rd-sub" id="opportunities-4">
-                    <div class="rd-sub-no" aria-hidden="true">04</div>
-                <!-- Geographic Hotspots -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-16 lg:mt-20">
-                    <div class="relative lg:order-2">
-                        <div class="overflow-hidden rounded-2xl shadow-xl">
-                            <img alt="Aerial view of a major Nigerian city skyline"
-                                class="w-full h-72 sm:h-80 object-cover"
-                                src="GeographicHotspots.jfif" />
-                        </div>
-                    </div>
-                    <div class="lg:order-1">
-                        <h3 class="text-[22px] lg:text-[24px] font-bold text-[#111827] mb-4"
-                            style="font-family: Manrope, sans-serif;">Geographic Hotspots</h3>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">High-opportunity markets continue
-                            to emerge across Lagos, Abuja, Kano, Kaduna, and key agricultural corridors in
-                            North-Central Nigeria, where strong electricity demand, productive-use activities, and
-                            electrification need support project viability.</p>
-                        <div class="flex flex-wrap gap-2 mt-5">
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>Lagos</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>Abuja</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>Kano</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>Kaduna</span>
-                            <span
-                                class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full inline-flex items-center gap-1"><span
-                                    class="material-symbols-outlined text-[15px]">location_on</span>North-Central
-                                Agricultural Corridors</span>
-                        </div>
-                    </div>
-                </div>
-                </div>
 
             </div>
         </section>
@@ -4341,7 +4628,7 @@
                         </div>
                         <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                             <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
+                                <span class="text-on-surface-variant">Location:</span>
                                 <span class="font-semibold">Multi-State Off-grid</span>
                             </div>
                             <div class="flex justify-between text-label-sm"><span
@@ -4375,7 +4662,7 @@
                         </div>
                         <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                             <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
+                                <span class="text-on-surface-variant">Location:</span>
                                 <span class="font-semibold">Rivers State</span>
                             </div>
                             <div class="flex justify-between text-label-sm"><span
@@ -4410,7 +4697,7 @@
                         </div>
                         <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                             <div class="flex justify-between text-label-sm">
-                                <span class="text-on-surface-variant">State:</span>
+                                <span class="text-on-surface-variant">Location:</span>
                                 <span class="font-semibold">Nasarawa State</span>
                             </div>
                             <div class="flex justify-between text-label-sm"><span
@@ -4981,7 +5268,7 @@
 
                 /* ---- Headings: lines rise out of a mask ------------------------------- */
                 inRest('h2, h3').forEach(function (h) {
-                    if (h.closest('.ovw')) return;
+                    if (h.closest('.ovw, .opportunity-card')) return;
                     if (!hasSplit || h.querySelector('abbr, .osip-term')) {
                         gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
                         hidden.push(h);
@@ -5199,6 +5486,7 @@
             }
         })();
     </script>
+    <script src="cardrail.js"></script>
 </body>
 
 </html>

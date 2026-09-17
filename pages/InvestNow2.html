@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>User Identity &amp; Account Details | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Your identity and contact details for an OSIP account." />
+    <title>User Identity &amp; Account Details | OSIP, One-Stop Investment Platform</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -157,6 +158,29 @@
             width: 0;
             height: 0;
             display: none;
+        }
+    </style>
+    <!-- UX-A11-01: the site's focus ring. These two steps load in the Invest Now
+         modal without the header, so nav.js (which carries this rule for every
+         other page) never runs here. Keep the two copies in step. -->
+    <style>
+        html body:not(#osip-a11y-a):not(#osip-a11y-b) :focus-visible {
+            outline: 3px solid #0b2a1f !important;
+            outline-offset: 2px !important;
+            box-shadow: 0 0 0 2px #f7be26 !important;
+        }
+
+        html body:not(#osip-a11y-a):not(#osip-a11y-b) [tabindex="-1"]:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        @media (forced-colors: active) {
+            html body:not(#osip-a11y-a):not(#osip-a11y-b) :focus-visible {
+                outline: 3px solid Highlight !important;
+                outline-offset: 2px !important;
+                box-shadow: none !important;
+            }
         }
     </style>
 </head>
@@ -315,7 +339,7 @@
                             <div class="space-y-2">
                                 <label
                                     class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Full
-                                    Name / Authorized Signatory</label>
+                                    Name / Authorised Signatory</label>
                                 <input
                                     class="w-full bg-transparent border border-outline px-4 py-2.5 text-body-md form-input-focus outline-none"
                                     placeholder="e.g. Chinelo Okoro" type="text" />

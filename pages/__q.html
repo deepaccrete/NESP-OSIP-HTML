@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+<script>window.__log=[];window.addEventListener('error',function(e){window.__log.push('ONERROR '+e.message);});var oe=console.error;console.error=function(){window.__log.push('ERROR '+Array.prototype.map.call(arguments,String).join(' '));oe.apply(console,arguments);};</script>
 
     <meta charset="UTF-8">
     <link
@@ -15,8 +16,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Answer a few questions and see the sectors, business models and published opportunities that fit. It runs in your browser only." />
-    <title>Find Your Investment Fit | OSIP, One-Stop Investment Platform</title>
+    <title>Find Your Investment Fit | One-Stop Investment Platform (OSIP)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -900,6 +900,22 @@
             color: var(--rd-green-2) !important;
         }
 
+        .rd #quiz-states-toggle {
+            height: 48px;
+            border-radius: 999px !important;
+            border-color: var(--rd-line-2) !important;
+            background: transparent !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            color: var(--rd-green) !important;
+        }
+
+        .rd #quiz-states-toggle:hover {
+            border-style: solid !important;
+            border-color: var(--rd-green) !important;
+        }
+
         /* ---- The controls ---------------------------------------------------------------- */
         .rd #quiz-step .border-t.border-\[\#e8ebe9\] {
             margin-top: 48px !important;
@@ -1571,216 +1587,52 @@
         }
 
         /* the state picker: zones on hairlines, states as pills */
-        /* ---- Lenis, from lenis@1.3.26/dist/lenis.css ---------------------------
-           The same smooth scrolling the sector pages run, so this page moves like
-           the rest of the site - and, with allowNestedScroll, so does the states
-           panel on the region question. */
-        html.lenis,
-        html.lenis body {
-            height: auto;
-        }
+        .rd .quiz-zones { border-top: 1px solid var(--rd-line); }
 
-        .lenis:not(.lenis-autoToggle).lenis-stopped {
-            overflow: clip;
-        }
-
-        .lenis [data-lenis-prevent],
-        .lenis [data-lenis-prevent-wheel],
-        .lenis [data-lenis-prevent-touch],
-        .lenis [data-lenis-prevent-vertical],
-        .lenis [data-lenis-prevent-horizontal] {
-            overscroll-behavior: contain;
-        }
-
-        .lenis.lenis-scrolling iframe {
-            pointer-events: none;
-        }
-
-        .lenis.lenis-autoToggle {
-            transition-property: overflow;
-            transition-duration: 1ms;
-            transition-behavior: allow-discrete;
-        }
-
-        /* the search box: one line above the list, the same hairline and radius as
-           the cards under it, so it reads as part of the same block */
-        .rd .quiz-search {
-            position: relative;
-            margin-bottom: 12px;
-        }
-
-        .rd .quiz-search input {
-            width: 100%;
-            height: 46px;
-            padding: 0 40px 0 44px;
-            border: 1px solid var(--rd-line);
-            border-radius: 999px;
-            background: var(--rd-card);
-            font-family: var(--rd-sans);
-            font-size: 14.5px;
-            color: var(--rd-ink);
-            transition: border-color .3s ease, background-color .3s ease;
-        }
-
-        /* A search input comes with the browser's own furniture - an inset field and
-           its own clear button - which sat under ours and read as two of each. */
-        .rd .quiz-search input::-webkit-search-decoration,
-        .rd .quiz-search input::-webkit-search-cancel-button,
-        .rd .quiz-search input::-webkit-search-results-button,
-        .rd .quiz-search input::-webkit-search-results-decoration {
-            -webkit-appearance: none;
-            appearance: none;
-            display: none;
-        }
-
-        .rd .quiz-search input {
-            -webkit-appearance: none;
-            appearance: none;
-            box-shadow: none;
-        }
-
-        .rd .quiz-search input::placeholder { color: var(--rd-ink-3); }
-
-        .rd .quiz-search input:hover { border-color: var(--rd-line-2); }
-
-        .rd .quiz-search input:focus {
-            outline: none;
-            border-color: var(--rd-green);
-            background: #ffffff;
-        }
-
-        .rd .quiz-search .quiz-search-icon {
-            position: absolute;
-            top: 50%;
-            left: 16px;
-            transform: translateY(-50%);
-            font-size: 19px;
-            color: var(--rd-ink-3);
-            pointer-events: none;
-        }
-
-        .rd .quiz-search-clear {
-            position: absolute;
-            top: 50%;
-            right: 8px;
-            transform: translateY(-50%);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            padding: 0;
-            border: 0;
-            border-radius: 999px;
-            background: var(--rd-green);
-            color: #ffffff;
-            cursor: pointer;
-            transition: background-color .25s ease;
-        }
-
-        .rd .quiz-search-clear:hover { background: var(--rd-green-2); }
-
-        .rd .quiz-search-clear:focus-visible {
-            outline: 2px solid var(--rd-green-2);
-            outline-offset: 2px;
-        }
-
-        .rd .quiz-search.has-text .quiz-search-clear { display: inline-flex; }
-
-        .rd .quiz-search-clear .material-symbols-outlined { font-size: 18px; }
-
-        /* nothing matched: say so where the list would have been */
-        .rd .quiz-empty {
-            display: none;
-            padding: 26px 4px;
-            font-family: var(--rd-sans);
-            font-size: 14.5px;
-            color: var(--rd-ink-3);
-        }
-
-        .rd .quiz-states-wrap.is-empty .quiz-empty { display: block; }
-        .rd .quiz-states-wrap.is-empty .quiz-cue { opacity: 0; }
-
-        /* The states are the same option card as every other question, one to a
-           row, four on screen at a time. The panel scrolls rather than the page, so
-           the question and the controls never move; the scrollbar, the fade at the
-           foot and the arrow under it are the three things saying there is more. */
-        .rd .quiz-states-wrap { position: relative; }
-
-        .rd .quiz-states {
+        .rd .quiz-zone-row {
             display: grid;
             grid-template-columns: minmax(0, 1fr);
-            gap: 12px;
+            gap: 10px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--rd-line);
         }
 
-        .rd .quiz-states.quiz-scroll {
-            max-height: 432px;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-            padding: 2px 14px 2px 2px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--rd-line-2) transparent;
-            overscroll-behavior: contain;
+        @media (min-width: 768px) {
+            .rd .quiz-zone-row { grid-template-columns: 150px minmax(0, 1fr); align-items: baseline; gap: 24px; }
         }
 
-        .rd .quiz-states.quiz-scroll::-webkit-scrollbar { width: 6px; }
-
-        .rd .quiz-states.quiz-scroll::-webkit-scrollbar-track {
-            background: var(--rd-paper-2);
-            border-radius: 999px;
+        .rd .quiz-zone-name {
+            margin: 0;
+            padding-top: 9px;
+            font-family: var(--rd-sans);
+            font-size: 10.5px;
+            font-weight: 500;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--rd-ink-3);
         }
 
-        .rd .quiz-states.quiz-scroll::-webkit-scrollbar-thumb {
-            background: var(--rd-line-2);
-            border-radius: 999px;
-        }
+        .rd .quiz-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 
-        .rd .quiz-states.quiz-scroll:focus-visible {
-            outline: 2px solid var(--rd-green-2);
-            outline-offset: 4px;
-            border-radius: 18px;
-        }
-
-        .rd .quiz-cue {
-            position: absolute;
-            left: 50%;
-            bottom: 6px;
-            display: flex;
+        .rd .quiz-chip {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 34px;
-            height: 34px;
-            margin-left: -17px;
+            height: 36px;
+            padding: 0 15px;
             border: 1px solid var(--rd-line-2);
             border-radius: 999px;
-            background: var(--rd-card);
-            color: var(--rd-green);
-            pointer-events: none;
-            transition: opacity .35s ease;
-            animation: quiz-cue-nudge 1.9s ease-in-out infinite;
+            background: transparent;
+            font-family: var(--rd-sans);
+            font-size: 14px;
+            color: var(--rd-ink-2);
+            cursor: pointer;
+            user-select: none;
+            transition: background-color .25s ease, border-color .25s ease, color .25s ease;
         }
 
-        .rd .quiz-cue .material-symbols-outlined { font-size: 20px; }
-
-        @keyframes quiz-cue-nudge {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(4px); }
-        }
-
-        /* nothing below: the nudge and the fade have nothing left to say */
-        .rd .quiz-states-wrap.is-end .quiz-cue { opacity: 0; }
-
-        @media (prefers-reduced-motion: reduce) {
-            .rd .quiz-cue { animation: none; }
-            .rd .quiz-states.quiz-scroll { scroll-behavior: auto; }
-        }
-
-        /* the nationwide answer, under a rule of its own at the foot */
-        .rd .quiz-any {
-            margin-top: 26px;
-            padding-top: 20px;
-            border-top: 1px solid var(--rd-line);
-        }
+        .rd .quiz-chip:hover { border-color: var(--rd-green-2); color: var(--rd-green); }
+        .rd .quiz-chip:has(input:checked) { background: var(--rd-green); border-color: var(--rd-green); color: #ffffff; }
+        .rd .quiz-chip:has(input:focus-visible) { outline: 2px solid var(--rd-green-2); outline-offset: 2px; }
 
         /* the result: the full page width, as on the sector pages, with plain sections */
         .rd #quiz-result > div {
@@ -1830,7 +1682,7 @@
         .rd #quiz-opps .opportunity-card { max-width: none; }
     </style>
     <style id="rd-card-actions">
-        /* Opportunity card action (15 Sep 2026): one "View project details" button, centred,
+        /* Opportunity card action (15 Sep 2026): one "View in Detail" button, centred,
            on a soft green tint that fills in on hover. Shared by homepage.html,
            pages/Opportunities.html and pages/InvestorMatch.html so the cards match. */
         html body:not(#rd-ca-a):not(#rd-ca-b) :is(#opportunities-grid, .osip-opp-grid, #quiz-opps) .opportunity-card .flex.gap-2 {
@@ -1881,65 +1733,6 @@
         html body:not(#rd-ca-a):not(#rd-ca-b) :is(#opportunities-grid, .osip-opp-grid, #quiz-opps) .opportunity-card .flex.gap-2 > :is(button, a):hover .opp-btn-arrow {
             transform: translateX(4px);
         }
-    </style>
-    <style id="rd-result-cards">
-        /* ---- Result cards: one box, one size (17 Sep 2026) ---------------------------
-           The sector pages set every card in the same box - 28px of padding, an 18px
-           radius, the warm card ground on a hairline, and 252px tall whatever the text
-           runs to (pages/DetailedSector.html, .rd main .rd-card). The result page's
-           cards were each their own height: an agency card 147px, a requirement 213px,
-           a business model 121px, so a row of them read as loose boxes rather than one
-           set. They take the same box here. Only the box - what sits inside each card
-           is untouched. */
-        /* the sector card and the Opportunities card are components of their own and
-           keep their own box; this is for the plain cards the result builds */
-        .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > a,
-        .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > div {
-            padding: 28px !important;
-            border-radius: 18px !important;
-            background: var(--rd-card, #fbfaf7) !important;
-            border: 1px solid var(--rd-line, #e2ded5) !important;
-        }
-
-        @media (min-width: 640px) {
-            .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > * {
-                min-height: 252px;
-            }
-        }
-
-        @media (max-width: 639px) {
-            .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > a,
-            .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > div {
-                padding: 24px !important;
-            }
-        }
-
-        /* the sector card's picture was sized off the card's own width, so a row of
-           them was 551px tall; pinned, the card is one height on every screen */
-        .rd #quiz-sectors .sec-media {
-            height: 200px !important;
-            aspect-ratio: auto !important;
-        }
-
-        @media (min-width: 640px) {
-            .rd #quiz-sectors > .sector-card { min-height: 420px; }
-        }
-
-        /* Every other card here has padding, so a button at the row's edge sits over
-           dead space. The sector card's title runs to its own edge, so for that row the
-           buttons sit over the picture band instead - centred on the 200px image, inset
-           from the row's edge. Nothing is covered but photograph, and they stay inside
-           the column at every width. */
-        @media (min-width: 640px) {
-            .rd-rail-wrap:has(#quiz-sectors) .rd-rail-btn {
-                top: 100px;
-                transform: translateY(-50%);
-            }
-
-            .rd-rail-wrap:has(#quiz-sectors) .rd-rail-btn[data-dir="-1"] { left: 10px; }
-            .rd-rail-wrap:has(#quiz-sectors) .rd-rail-btn[data-dir="1"] { right: 10px; }
-        }
-
     </style>
 </head>
 
@@ -2085,7 +1878,7 @@
                 OSIP sector pages already name, alongside the national climate change body. <strong class="text-on-surface">OSIP does not administer any of them, and this is
                 not an approved-source list</strong> &ndash; it is what the sector pages themselves cite.
                 Each one is run by the organisation named on the card, and this page only shows you where to go.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-no-glossary data-cardrail>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-no-glossary>
                     <div aria-disabled="true"
                         class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3">
                         <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">public</span></span>
@@ -2378,11 +2171,11 @@
                        state picker rather than the plain two-column grid, because
                        thirty-seven cards laid out flat would push the buttons off
                        the screen. `featured` is what shows before the reader asks
-                       for the rest: the four states carrying most of the published
+                       for the rest: the six states carrying most of the published
                        pipeline. */
                     layout: 'states',
                     pinned: 'any',
-                    featured: ['lagos', 'fct', 'kano', 'rivers'],
+                    featured: ['lagos', 'fct', 'kano', 'rivers', 'kaduna', 'ogun'],
                     options: stateOptions()
                 },
                 {
@@ -2610,6 +2403,10 @@
                 }).join('');
             }
 
+            /* Whether the full state list is open. It lives outside render() so a
+               reader who opens it, goes on and steps back finds it as they left it. */
+            var statesOpen = false;
+
             function optionByKey(item, key) {
                 for (var i = 0; i < item.options.length; i++) {
                     if (item.options[i].key === key) return item.options[i];
@@ -2617,121 +2414,47 @@
                 return null;
             }
 
-            /* What has been typed into the search box. It lives outside render() so a
-               reader who types, ticks a state and comes back finds the list as it was. */
-            var stateQuery = '';
-
             /*
               THE STATE PICKER.
 
-              Every question in the quiz is a column of the same option card, so this
-              one is too. All thirty-seven states are here from the first draw, four on
-              screen at a time in a panel that scrolls on its own - so the question,
-              Back and Next keep their place on the page however long the list is. The
-              scrollbar and the arrow under the last visible card say there is more;
-              the arrow goes once the reader reaches the end. The nationwide answer is
-              the last card, below the panel, in the same box as the rest.
+              Closed: the nationwide answer on its own row, then six states, then
+              the button. Open: the same nationwide row above every state grouped
+              under its geopolitical zone, inside a panel that scrolls by itself so
+              the question, the Back button and Next never move down the page.
 
-              What is ticked is read from `answers` on every draw, so the list can be
-              rebuilt freely; refreshStates() puts the panel back where it was.
+              Only one of the two lists is ever in the DOM, so no state is drawn
+              twice and no id is used twice. What is ticked is read from `answers`
+              on every draw, which is why the panel can be rebuilt freely.
             */
             function renderStates(item, animate) {
-                var states = item.options.filter(function (option) { return option.key !== item.pinned; });
+                var chosen = selected(item.id);
+                var html = '';
 
-                var html = '<p class="font-label-md text-label-md uppercase text-on-surface-variant font-bold mb-3">' +
-                    'Pick the states you are interested in' + '</p>';
+                /* Nationwide sits apart, full width: it answers the question a
+                   different way from a list of states, and it is the way past
+                   thirty-seven cards for a reader who has no region in mind. */
+                html += '<div class="mb-5">' + optionCard(item, optionByKey(item, item.pinned), 0, false, animate) + '</div>';
 
-                /* the zone under the name, in the hint line every other question uses */
-                html += '<div class="quiz-search' + (stateQuery ? ' has-text' : '') + '">' +
-                    '<span class="material-symbols-outlined quiz-search-icon" aria-hidden="true">search</span>' +
-                    '<input type="search" id="quiz-state-search" autocomplete="off" ' +
-                    'placeholder="Search a state" aria-label="Search the states" value="' + stateQuery + '">' +
-                    '<button type="button" class="quiz-search-clear" aria-label="Clear the search">' +
-                    '<span class="material-symbols-outlined" aria-hidden="true">close</span></button>' +
-                    '</div>';
+                html += '<p class="font-label-md text-label-md uppercase text-on-surface-variant font-bold mb-3">' +
+                    'Or pick the states you are interested in' + '</p>';
 
-                html += '<div class="quiz-states-wrap">' +
-                    '<div class="quiz-states quiz-scroll" tabindex="0">' +
-                    states.map(function (option, index) {
-                        return optionCard(item, { key: option.key, label: option.label, hint: option.zone },
-                            index, false, animate);
-                    }).join('') + '</div>' +
-                    '<p class="quiz-empty">No state matches that. Clear the search to see all ' +
-                    states.length + ', or pick <span class="font-semibold">No preference</span> below.</p>' +
-                    '<span class="quiz-cue" aria-hidden="true">' +
-                    '<span class="material-symbols-outlined">keyboard_arrow_down</span></span>' +
-                    '</div>';
-
-                /* Nationwide sits at the foot, in the same card as everything above it:
-                   it answers the question a different way from a list of states, and it
-                   reads as the way past them rather than as the first thing to weigh. */
-                html += '<div class="quiz-any">' +
-                    optionCard(item, optionByKey(item, item.pinned), 0, false, animate) + '</div>';
+                /* Every state as a one-click pill, grouped by zone on hairlines: no
+                   list to open, no panel to scroll, nothing hidden. */
+                html += '<div class="quiz-zones">' + NG_ZONES.map(function (zone) {
+                    return '<div class="quiz-zone-row">' +
+                        '<p class="quiz-zone-name">' + zone.zone + '</p>' +
+                        '<div class="quiz-chips">' + zone.states.map(function (state) {
+                            var id = item.id + '-' + state.key;
+                            var on = chosen.indexOf(state.key) > -1;
+                            return '<label class="quiz-chip" for="' + id + '">' +
+                                '<input class="sr-only" type="checkbox" name="' + item.id + '" id="' + id + '" value="' +
+                                state.key + '"' + (on ? ' checked' : '') + '>' + state.label + '</label>';
+                        }).join('') + '</div></div>';
+                }).join('') + '</div>';
 
                 els.options.className = '';
                 els.options.innerHTML = html;
-                watchStateScroll();
-                filterStates();
             }
-
-            /* Filtering hides cards rather than redrawing the list: the box keeps the
-               focus and the caret, which a rebuild on every keystroke would throw away.
-               A state already ticked stays visible whatever is typed, so a pick can
-               always be undone. */
-            function filterStates() {
-                var wrap = els.options.querySelector('.quiz-states-wrap');
-                if (!wrap) return;
-                var panel = wrap.querySelector('.quiz-scroll');
-                var needle = stateQuery.trim().toLowerCase();
-                var shown = 0;
-
-                Array.prototype.forEach.call(panel.children, function (card) {
-                    var input = card.querySelector('input');
-                    var name = card.textContent.toLowerCase();
-                    var keep = !needle || name.indexOf(needle) > -1 || (input && input.checked);
-                    card.hidden = !keep;
-                    if (keep) shown++;
-                });
-
-                wrap.classList.toggle('is-empty', shown === 0);
-                var box = els.options.querySelector('.quiz-search');
-                if (box) box.classList.toggle('has-text', !!stateQuery);
-                panel.scrollTop = 0;
-                if (panel.__railSync) panel.__railSync();
-                wrap.classList.toggle('is-end', panel.scrollHeight <= panel.clientHeight + 8);
-            }
-
-            /* The nudge is only true while there is something below: it goes at the
-               foot of the list and comes back if the reader scrolls up again. */
-            function watchStateScroll() {
-                var wrap = els.options.querySelector('.quiz-states-wrap');
-                if (!wrap) return;
-                var panel = wrap.querySelector('.quiz-scroll');
-
-                function sync() {
-                    var atEnd = panel.scrollTop + panel.clientHeight >= panel.scrollHeight - 8;
-                    wrap.classList.toggle('is-end', atEnd);
-                }
-
-                panel.addEventListener('scroll', sync, { passive: true });
-                sync();
-            }
-
-            /* One listener for the life of the page: the box is rebuilt with the list,
-               so binding to it directly would be lost on every redraw. */
-            els.options.addEventListener('input', function (event) {
-                if (!event.target.matches || !event.target.matches('#quiz-state-search')) return;
-                stateQuery = event.target.value || '';
-                filterStates();
-            });
-
-            els.options.addEventListener('click', function (event) {
-                if (!event.target.closest || !event.target.closest('.quiz-search-clear')) return;
-                stateQuery = '';
-                var box = els.options.querySelector('#quiz-state-search');
-                if (box) { box.value = ''; box.focus(); }
-                filterStates();
-            });
 
             /* Redraw the picker in place: the panel keeps where it was scrolled to
                and the control the reader was on keeps the focus, which a plain
@@ -2750,6 +2473,35 @@
                     if (back) back.focus({ preventScroll: true });
                 }
             }
+
+            /* The list opens and closes on its own, without re-rendering the
+               question above it, so nothing else animates in again.
+
+               The page must not move under the reader while it does. Two things
+               would move it: the button is rebuilt, so focus has to be put back
+               on the new one, and focus() scrolls its target into view unless
+               told not to; and opening the panel changes the height of what sits
+               above the button, which the browser resolves by shifting the
+               document. So the window scroll is read before the redraw and put
+               back after it, and the focus is restored with preventScroll. */
+            els.options.addEventListener('click', function (event) {
+                if (!event.target.closest || !event.target.closest('#quiz-states-toggle')) return;
+                var pageTop = window.pageYOffset;
+                statesOpen = !statesOpen;
+                renderStates(QUESTIONS[step], true);
+                var toggle = document.getElementById('quiz-states-toggle');
+                if (toggle) toggle.focus({ preventScroll: true });
+                if (window.pageYOffset !== pageTop) {
+                    /* html carries scroll-behavior: smooth, which would turn
+                       putting the page back into a visible slide. Off for the
+                       one line that does it. */
+                    var root = document.documentElement;
+                    var behaviour = root.style.scrollBehavior;
+                    root.style.scrollBehavior = 'auto';
+                    window.scrollTo(0, pageTop);
+                    root.style.scrollBehavior = behaviour;
+                }
+            });
 
             var autoNext = null;
 
@@ -2841,7 +2593,7 @@
             els.restart.addEventListener('click', function () {
                 answers = {};
                 step = 0;
-                stateQuery = '';
+                statesOpen = false;
                 els.resultSection.classList.add('hidden');
                 els.stepSection.classList.remove('hidden');
                 render();
@@ -2950,7 +2702,7 @@
 
                 /* business frameworks and models */
                 html += detailBlock('Business models in ' + name,
-                    '<div class="grid gap-6 sm:grid-cols-2" data-cardrail>' +
+                    '<div class="grid gap-6 sm:grid-cols-2">' +
                     path.models.map(function (m) {
                         return '<a href="' + page + '#participate" class="bg-white border border-outline-variant ' +
                             'rounded-xl p-5 block hover:border-primary transition-colors">' +
@@ -2966,7 +2718,7 @@
                    block: white card, 24px padding, brand-green icon on the left and
                    the requirement beside it at 15px/28. */
                 html += detailBlock('Regulatory guidance',
-                    '<div class="grid grid-cols-1 sm:grid-cols-2 gap-6" data-cardrail>' +
+                    '<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">' +
                     path.requirements.map(function (r) {
                         return '<div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">' +
                             '<span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">' +
@@ -2996,7 +2748,7 @@
                    half step on hover. data-no-glossary matches the sector pages,
                    which keep the glossary out of agency names. */
                 html += detailBlock('Agencies you would deal with',
-                    '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-no-glossary data-cardrail>' +
+                    '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-no-glossary>' +
                     path.agencies.map(function (a) {
                         var logo = AGENCY_LOGOS[a.name];
                         var mark = logo
@@ -3179,7 +2931,7 @@
                         '<div class="sec-body">' +
                         '<h3>' + sector.name + '</h3>' +
                         '<p class="sec-lede">' + sector.blurb + '</p>' +
-                        '<span class="sec-more">View project details <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>' +
+                        '<span class="sec-more">View in Detail <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>' +
                         '</div>' +
                         '</a>';
                 }).join('');
@@ -3234,7 +2986,7 @@
                         '<span class="text-on-surface-variant">Published:</span><span class="font-semibold">' + opportunity.published + '</span></div>' +
                         '</div>' +
                         '<div class="flex gap-2 mt-auto pt-2">' +
-                        '<a href="detailedOppNew.html?id=' + encodeURIComponent(opportunity.id) + '" class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold ' + labelMd + ' hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></a>' +
+                        '<a href="detailedOppNew.html?id=' + encodeURIComponent(opportunity.id) + '" class="flex-1 text-center py-2 border border-outline-variant text-primary font-semibold ' + labelMd + ' hover:bg-surface-container-high transition-all rounded">View in Detail <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></a>' +
                         '</div>' +
                         '</div>';
                 }).join('');
@@ -3309,35 +3061,36 @@
     <script src="nav.js"></script>
     <script src="footer.js"></script>
     <script src="cardrail.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
-    <script>
-        /* The smooth scrolling the rest of the site runs, on the same settings as the
-           sector pages. allowNestedScroll hands a box that scrolls by itself - the
-           states panel on the region question, the header's dropdowns - the same
-           easing rather than moving the page behind it. Nothing here is required for
-           the quiz to work: if the library does not load, the page scrolls natively. */
-        (function () {
-            if (!window.Lenis) return;
-            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-            var lenis = new Lenis({
-                lerp: 0.09, smoothWheel: true, syncTouch: false,
-                allowNestedScroll: true,
-                prevent: function (node) {
-                    return !!(node.classList && (node.classList.contains('nesp-dropdown') ||
-                        node.classList.contains('nesp-mnav')));
-                }
-            });
-
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-            window.__rdLenis = lenis;
-        })();
-    </script>
-</body>
+<script>window.addEventListener('load',function(){setTimeout(function(){
+ var out={};
+ var opts=document.getElementById('quiz-options');
+ var next=document.getElementById('quiz-next');
+ var result=document.getElementById('quiz-result');
+ for (var i=0;i<14 && result.classList.contains('hidden');i++){
+   [].forEach.call(opts.querySelectorAll('button,[role="button"],label,div[data-value]'),function(o){o.click();});
+   if(next) next.click();
+ }
+ out.resultShown=!result.classList.contains('hidden');
+ setTimeout(function(){
+   function info(id){
+     var el=document.getElementById(id);
+     if(!el) return 'missing';
+     var wrap=el.closest('.rd-rail-wrap');
+     var pager=wrap?wrap.nextElementSibling:null;
+     var o={cards:el.children.length, railed:el.hasAttribute('data-rail'),
+       cardW:el.children[0]?Math.round(el.children[0].getBoundingClientRect().width):0,
+       rowH:Math.round(el.getBoundingClientRect().height),
+       count:pager&&pager.querySelector('.rd-rail-count')?pager.querySelector('.rd-rail-count').textContent.trim():'-'};
+     if(wrap){ var n=wrap.querySelector('[data-dir="1"]'); var b=el.scrollLeft; n.click();
+       o.moved=Math.round(el.scrollLeft)-b;
+       o.countAfter=pager.querySelector('.rd-rail-count').textContent.trim(); }
+     return o;
+   }
+   out.sectors=info('quiz-sectors'); out.opps=info('quiz-opps');
+   out.overflow=document.documentElement.scrollWidth-document.documentElement.clientWidth;
+   out.log=(window.__log||[]).filter(function(l){return !/tailwind|favicon/.test(l);}).slice(0,3);
+   document.title='Q '+JSON.stringify(out);
+ },1000);
+},3000);});</script></body>
 
 </html>

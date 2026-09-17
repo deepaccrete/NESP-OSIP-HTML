@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Katsina Wind Farm Phase I | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="A published investment opportunity on OSIP: stage, location, figures, documents and the agency behind it." />
+    <title>Katsina Wind Farm Phase I | OSIP, One-Stop Investment Platform</title>
     <!-- Google Fonts: Manrope & Inter -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -905,6 +906,72 @@
             font-weight: 500 !important;
         }
     </style>
+    <style id="rd-next">
+        /* ---- Where to go next (16 Sep 2026) -----------------------------------------
+           A quiet list of four routes out of the project, in the sidebar's card shell.
+           The column is sticky from lg up, so it travels with the long main column
+           instead of leaving the right side of the page empty halfway down. */
+        @media (min-width: 1024px) {
+            .rd #page-wrapper .grid.lg\:grid-cols-3 > aside {
+                position: sticky;
+                top: 24px;
+                align-self: start;
+            }
+        }
+
+        .osip-next {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .osip-next > li + li {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--rd-line, #e2ded5);
+        }
+
+        .osip-next a {
+            display: flex;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .osip-next a > .material-symbols-outlined {
+            flex: 0 0 auto;
+            margin-top: 1px;
+            font-size: 19px;
+            color: var(--rd-gold, #d9a520);
+        }
+
+        .rd .osip-next .osip-next-t {
+            display: block;
+            font-family: var(--rd-sans, Inter, sans-serif);
+            font-size: 13.5px;
+            font-weight: 500;
+            line-height: 1.35;
+            color: var(--rd-green, #004225);
+            transition: color .3s ease;
+        }
+
+        .rd .osip-next .osip-next-d {
+            display: block;
+            margin-top: 3px;
+            font-family: var(--rd-sans, Inter, sans-serif);
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--rd-ink-3, #6b716c);
+        }
+
+        .osip-next a:hover .osip-next-t { color: var(--rd-green-2, #0b6b45); }
+
+        .osip-next a:focus-visible {
+            outline: 2px solid var(--rd-green-2, #0b6b45);
+            outline-offset: 4px;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 
 <body class="bg-brand-bg text-brand-green min-h-screen rd">
@@ -932,8 +999,8 @@
                 <main class="lg:col-span-2 space-y-8">
                     <!-- BEGIN: ProjectHero -->
                     <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 relative">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
+                        <div class="flex flex-wrap sm:flex-nowrap justify-between items-start gap-y-4 gap-x-6 mb-2">
+                            <div class="min-w-0">
                                 <span
                                     class="text-xs font-inter font-bold text-gray-400 uppercase tracking-widest">Project
                                     ID: 2025-WND-02</span>
@@ -943,6 +1010,20 @@
                                 </h1>
                                 <p class="text-xs text-gray-500 mt-2">Last Updated on: <span
                                         class="font-bold">05-May-2026</span></p>
+                            </div>
+
+                            <!-- Save: the shortlist pages/oppsave.js keeps, listed again on the
+                                 profile page. It stands in localStorage until there is an
+                                 account table behind it (Phase 2, D9); the note says where the
+                                 save turns up, which is the part the reader needs. -->
+                            <!-- below the title on a phone, beside it from sm up -->
+                            <div class="w-full sm:w-auto sm:shrink-0 flex flex-col items-start sm:items-end">
+                                <button type="button" class="osip-save-btn" data-save-opp aria-pressed="false">
+                                    <span class="material-symbols-outlined" aria-hidden="true">bookmark_add</span>
+                                    <span data-save-label>Save</span>
+                                </button>
+                                <p class="osip-save-note">Saved opportunities show on
+                                    <a href="AboutMe.html">your profile</a>.</p>
                             </div>
                         </div>
 
@@ -959,7 +1040,7 @@
                                         <span
                                             class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-accent"></span>
                                     </span>
-                                    Under Development
+                                    Tender / procurement
                                 </span>
                                 <div class="text-right leading-none">
                                     <span class="text-2xl font-manrope font-extrabold text-brand-green">Stage 2</span>
@@ -987,7 +1068,7 @@
                                     </div>
                                     <p
                                         class="mt-3 text-[11px] font-bold text-brand-green text-center leading-tight px-1">
-                                        Under<br>Conceptualization</p>
+                                        Under<br>Conceptualisation</p>
                                     <span
                                         class="mt-1 text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">Done</span>
                                 </div>
@@ -1052,7 +1133,7 @@
                                     </div>
                                     <div class="pt-1 min-w-0">
                                         <p class="text-sm font-bold text-brand-green leading-tight">Under
-                                            Conceptualization</p>
+                                            Conceptualisation</p>
                                         <span
                                             class="mt-1 inline-block text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">Done</span>
                                     </div>
@@ -1388,7 +1469,7 @@
                                     </span>
                                     <span
                                         class="absolute left-3 bottom-3 right-3 flex items-center justify-between text-white text-xs sm:text-sm pointer-events-none">
-                                        <span class="bg-black/55 px-2.5 py-1 rounded">Katsina Wind Farm : Site Walkthrough</span>
+                                        <span class="bg-black/55 px-2.5 py-1 rounded">Katsina Wind Farm: Site Walkthrough</span>
                                         <span class="bg-red-600 px-2.5 py-1 rounded inline-flex items-center gap-1">
                                             <span class="material-symbols-outlined text-[14px]">play_circle</span>
                                             Play here
@@ -1402,44 +1483,44 @@
                         <div>
                             <h3 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-3">Documents</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                <a href="#" download="Katsina-Wind-Investment-Memorandum.pdf"
+                                <a href="docs/sample-project-investment-memorandum.pdf" download="Katsina-Wind-Investment-Memorandum.pdf"
                                     class="flex items-center gap-4 p-4 border border-gray-200 rounded-md hover:bg-gray-50 hover:border-brand-green transition-colors">
                                     <span class="material-symbols-outlined text-red-600 text-[36px] shrink-0"
                                         style="font-variation-settings: 'FILL' 1;">picture_as_pdf</span>
                                     <div class="flex-1 min-w-0">
                                         <p class="font-bold text-brand-green truncate">Investment Memorandum</p>
-                                        <p class="text-xs text-gray-500 mt-0.5">PDF · 2.4 MB · 48 pages</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">PDF &middot; 2.0 KB &middot; sample</p>
                                     </div>
                                     <span
                                         class="material-symbols-outlined text-gray-400 group-hover:text-brand-green">download</span>
                                 </a>
-                                <a href="#" download="Katsina-Wind-Technical-Feasibility.pdf"
+                                <a href="docs/sample-project-technical-study.pdf" download="Katsina-Wind-Technical-Feasibility.pdf"
                                     class="flex items-center gap-4 p-4 border border-gray-200 rounded-md hover:bg-gray-50 hover:border-brand-green transition-colors">
                                     <span class="material-symbols-outlined text-red-600 text-[36px] shrink-0"
                                         style="font-variation-settings: 'FILL' 1;">picture_as_pdf</span>
                                     <div class="flex-1 min-w-0">
                                         <p class="font-bold text-brand-green truncate">Technical Feasibility Report</p>
-                                        <p class="text-xs text-gray-500 mt-0.5">PDF · 5.8 MB · 112 pages</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">PDF &middot; 2.0 KB &middot; sample</p>
                                     </div>
                                     <span class="material-symbols-outlined text-gray-400">download</span>
                                 </a>
-                                <a href="#" download="Katsina-Wind-EIA-Summary.pdf"
+                                <a href="docs/sample-project-environmental-summary.pdf" download="Katsina-Wind-EIA-Summary.pdf"
                                     class="flex items-center gap-4 p-4 border border-gray-200 rounded-md hover:bg-gray-50 hover:border-brand-green transition-colors">
                                     <span class="material-symbols-outlined text-red-600 text-[36px] shrink-0"
                                         style="font-variation-settings: 'FILL' 1;">picture_as_pdf</span>
                                     <div class="flex-1 min-w-0">
                                         <p class="font-bold text-brand-green truncate">Environmental Impact Summary</p>
-                                        <p class="text-xs text-gray-500 mt-0.5">PDF · 1.7 MB · 32 pages</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">PDF &middot; 2.0 KB &middot; sample</p>
                                     </div>
                                     <span class="material-symbols-outlined text-gray-400">download</span>
                                 </a>
-                                <a href="#" download="Katsina-Wind-Term-Sheet.pdf"
+                                <a href="docs/sample-project-term-sheet.pdf" download="Katsina-Wind-Term-Sheet.pdf"
                                     class="flex items-center gap-4 p-4 border border-gray-200 rounded-md hover:bg-gray-50 hover:border-brand-green transition-colors">
                                     <span class="material-symbols-outlined text-red-600 text-[36px] shrink-0"
                                         style="font-variation-settings: 'FILL' 1;">picture_as_pdf</span>
                                     <div class="flex-1 min-w-0">
                                         <p class="font-bold text-brand-green truncate">Indicative Term Sheet</p>
-                                        <p class="text-xs text-gray-500 mt-0.5">PDF · 0.6 MB · 8 pages</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">PDF &middot; 2.0 KB &middot; sample</p>
                                     </div>
                                     <span class="material-symbols-outlined text-gray-400">download</span>
                                 </a>
@@ -1484,7 +1565,7 @@
                                         d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
                                         fill-rule="evenodd"></path>
                                 </svg>
-                                <span>Connect</span>
+                                <span>Contact the project promoter</span>
                             </button>
                         </div>
                     </section> -->
@@ -1541,6 +1622,63 @@
                         </div>
                     </div>
                     <!-- END: ContactDetails -->
+
+                    <!-- BEGIN: WhereNext -->
+                    <!-- The column used to stop here, leaving the page's right side empty
+                         beside the overview. This fills it with the step the UX audit asks
+                         for: from a project, out to the sector, state and regulatory
+                         guidance behind it (audit part 1, Opportunities). oppdetail.js
+                         points the first two rows at this project's own sector and state. -->
+                    <div class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                        <div class="px-4 py-3 bg-brand-green/5 border-b border-brand-green/10">
+                            <h3 class="font-manrope font-bold text-sm text-brand-green">Where to go next</h3>
+                        </div>
+                        <div class="p-6 bg-white">
+                            <ul class="osip-next">
+                                <li>
+                                    <a href="Wind.html" data-purpose="next-sector">
+                                        <span class="material-symbols-outlined" aria-hidden="true">category</span>
+                                        <span>
+                                            <span class="osip-next-t">Wind sector guide</span>
+                                            <span class="osip-next-d">Market, regulation, finance and incentives for
+                                                the sector this project sits in.</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="States.html#katsina" data-purpose="next-state">
+                                        <span class="material-symbols-outlined" aria-hidden="true">map</span>
+                                        <span>
+                                            <span class="osip-next-t">Katsina state profile</span>
+                                            <span class="osip-next-d">Who to deal with in the state, and what it
+                                                already has on the ground.</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="Regulation.html#osip-pathway">
+                                        <span class="material-symbols-outlined" aria-hidden="true">gavel</span>
+                                        <span>
+                                            <span class="osip-next-t">Licences and permits</span>
+                                            <span class="osip-next-d">Answer six questions and get the regulatory
+                                                pathway for a project like this one.</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="Opportunities.html">
+                                        <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+                                        <span>
+                                            <span class="osip-next-t">All active opportunities</span>
+                                            <span class="osip-next-d">Every listed project, filtered by sector, state
+                                                and readiness.</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END: WhereNext -->
                 </aside>
                 <!-- END: Sidebar -->
             </div>
@@ -1550,6 +1688,7 @@
              this page from ?id= (detailedOppNew.html?id=2025-HYD-01). -->
         <script src="oppdata.js"></script>
         <script src="oppdetail.js"></script>
+        <script src="oppsave.js"></script>
         <div id="site-footer"></div>
     </div>
     <!-- /page-wrapper -->
@@ -1628,12 +1767,29 @@
 
             // Lets Login.html close the modal after auth (window.parent.postMessage)
             // and — on 'osip-login-success' — also reveals the Investor Data Room
-            // sections via a body class. State is in-memory only: a hard refresh
-            // wipes it and the page returns to its locked state by design.
+            // sections via a body class.
+            //
+            // 16 Sep 2026: the sign-in is now remembered. window.OSIPSession
+            // (nav.js) writes the same flag the header reads, so a refresh no
+            // longer re-locks these sections and the profile mark and the data
+            // room agree with each other.
             window.addEventListener('message', (e) => {
                 if (e.data === 'osip-close' || e.data === 'osip-login-success') closeModal();
-                if (e.data === 'osip-login-success') unlockMembers();
+                if (e.data === 'osip-login-success') {
+                    if (window.OSIPSession) window.OSIPSession.signIn();
+                    unlockMembers();
+                }
             });
+
+            // Already signed in when the page opens: unlocked from the start,
+            // with no toast and no scroll — nothing has just happened. Read
+            // straight out of storage, since this block runs before nav.js and
+            // window.OSIPSession does not exist yet.
+            try {
+                if (window.localStorage.getItem('osip_session')) {
+                    document.body.classList.add('is-authenticated');
+                }
+            } catch (_) { /* storage blocked: stays locked */ }
 
             function unlockMembers() {
                 if (document.body.classList.contains('is-authenticated')) return;
@@ -1924,6 +2080,9 @@
     <!-- Invest Now popup flow -->
     <script src="footer.js"></script>
     <script src="investflow.js"></script>
+    <!-- UX-FRM-07: the error state this page shows when the address names something
+         that is not published, and the confirmations after an action. -->
+    <script src="osipstate.js"></script>
 <script src="nav.js"></script>
     <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>

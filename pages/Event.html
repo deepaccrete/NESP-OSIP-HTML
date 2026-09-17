@@ -34,7 +34,8 @@
     }
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events &amp; Engagements | One-Stop Investment Platform (OSIP)</title>
+    <meta name="description" content="Conferences, investor forums, workshops and engagements connecting investors, regulators and developers across Nigeria's clean energy sector." />
+  <title>Events &amp; Engagements | OSIP, One-Stop Investment Platform</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script id="tailwind-config">
@@ -660,9 +661,17 @@
             box-shadow: none !important;
         }
 
+        /* The date panel carries the event's own photograph - the same one the
+           event's page opens with - under a deep green wash. The wash is what
+           keeps the white date legible whatever the crop lands on, and the dot
+           texture below still sits over the top. */
         .rd .osip-featured-panel {
-            background: var(--rd-deep) !important;
-            background-image: none !important;
+            background-color: var(--rd-deep) !important;
+            background-image:
+                linear-gradient(160deg, rgba(11, 42, 31, .90) 0%, rgba(0, 66, 37, .78) 52%, rgba(11, 42, 31, .93) 100%),
+                url('hero-event-detail.jpg') !important;
+            background-size: cover !important;
+            background-position: center !important;
             padding: 48px 32px !important;
         }
 
@@ -1370,7 +1379,7 @@
 
                 <!-- mt-auto: the button sits on the bottom edge of the card
                      whatever length the description runs to. -->
-                <a href="Contact.html"
+                <a aria-label="Register interest: Nigeria Renewable Energy Investment Forum 2027" href="Contact.html"
                   class="osip-shine mt-auto self-start inline-flex items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-6 sm:px-7 py-3 text-sm font-medium tracking-wide transition-all duration-300 w-full sm:w-auto rounded-sm">
                   <span class="material-symbols-outlined text-[18px]">how_to_reg</span>Register Interest</a>
               </div>
@@ -1394,10 +1403,12 @@
               control depends on how many types there are. See the comment on
               .osip-typefilter in the stylesheet, and EVENT_TYPES below.
             -->
-            <div id="event-filters" class="flex flex-wrap items-center gap-2.5 lg:justify-end"></div>
+            <div id="event-filters" class="flex flex-wrap items-center gap-2.5 lg:justify-end"
+              data-osip-filters="#event-grid"></div>
           </div>
 
-          <div id="event-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-14">
+          <div id="event-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-14"
+            data-osip-list data-osip-label="events" data-osip-empty="#event-empty">
 
             <div class="osip-event-card osip-lift relative h-[27rem] bg-white border border-[#e5e7eb] rounded-sm overflow-hidden flex flex-col"
               data-category="forum" data-state="enugu">
@@ -1424,7 +1435,7 @@
                     class="truncate">Enugu, Nigeria</span></p>
                 <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">A state-level session introducing investors to Enugu's clean energy pipeline, incentives, and licensing fast-track.</p>
                 <div class="mt-auto pt-4 pb-5 relative z-10">
-                  <a href="Contact.html"
+                  <a aria-label="Register interest: Enugu State Investment Roadshow" href="Contact.html"
                   class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
                   <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
                 </div>
@@ -1456,7 +1467,7 @@
                     class="truncate">Lagos, Nigeria</span></p>
                 <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">Hands-on session covering structuring, blended finance, and available development-partner facilities for project sponsors.</p>
                 <div class="mt-auto pt-4 pb-5 relative z-10">
-                  <a href="Contact.html"
+                  <a aria-label="Register interest: Clean Energy Project Financing Workshop" href="Contact.html"
                   class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
                   <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
                 </div>
@@ -1488,7 +1499,7 @@
                     class="truncate">Virtual</span></p>
                 <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">A walkthrough of NERC licensing, environmental approvals, and the documentation investors need before financial close.</p>
                 <div class="mt-auto pt-4 pb-5 relative z-10">
-                  <a href="Contact.html"
+                  <a aria-label="Register interest: Regulatory Compliance Masterclass" href="Contact.html"
                   class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
                   <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
                 </div>
@@ -1520,7 +1531,7 @@
                     class="truncate">Kano, Nigeria</span></p>
                 <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">Focused briefing on wind resource data, grid balancing needs, and battery storage opportunities across the northern states.</p>
                 <div class="mt-auto pt-4 pb-5 relative z-10">
-                  <a href="Contact.html"
+                  <a aria-label="Register interest: Northern Corridor Wind &amp; Storage Forum" href="Contact.html"
                   class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
                   <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
                 </div>
@@ -1552,7 +1563,7 @@
                     class="truncate">Port Harcourt, Nigeria</span></p>
                 <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">A working session pairing investors with clean cooking and productive-use-of-energy developers seeking early-stage capital.</p>
                 <div class="mt-auto pt-4 pb-5 relative z-10">
-                  <a href="Contact.html"
+                  <a aria-label="Register interest: Clean Cooking &amp; PUE Investor Clinic" href="Contact.html"
                   class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
                   <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
                 </div>
@@ -1584,7 +1595,7 @@
                     class="truncate">Virtual</span></p>
                 <p class="text-[13px] text-[#5f6368] leading-relaxed mt-2.5 line-clamp-3">Live session on qualifying criteria, application steps, and how EDTI and Pioneer Status affect project returns.</p>
                 <div class="mt-auto pt-4 pb-5 relative z-10">
-                  <a href="Contact.html"
+                  <a aria-label="Register interest: Understanding Pioneer Status &amp; Tax Incentives" href="Contact.html"
                   class="osip-shine inline-flex w-full items-center justify-center gap-2 bg-[#004225] hover:bg-[#1a5c3a] text-white px-5 py-2.5 text-[13px] font-medium tracking-wide rounded-sm transition-all duration-300">
                   <span class="material-symbols-outlined text-[16px] shrink-0">how_to_reg</span><span class="truncate">Register Interest</span></a>
                 </div>
@@ -2071,6 +2082,12 @@
     })();
   </script>
 
+    <!-- UX-FRM-07: loading, empty, error and success states. The lists on this page
+         are marked data-osip-list; osipstate.js gives each one the loader while it
+         is working, a message when a filter matches nothing, an error state when
+         its data does not arrive, and the confirmations the page shows after an
+         action. -->
+    <script src="osipstate.js"></script>
   <script src="nav.js"></script>
   <script src="footer.js"></script>
     <!-- Redesign motion layer: Lenis for smooth scroll, GSAP with ScrollTrigger and SplitText. Versions pinned. -->
