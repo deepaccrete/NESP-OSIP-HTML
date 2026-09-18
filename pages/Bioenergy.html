@@ -1055,7 +1055,7 @@
         }
 
         .rd main > section:first-of-type h1 ~ p {
-            max-width: 34rem !important;
+            max-width: none !important;  /* full width: the hero band has no second column */
             margin-bottom: 44px !important;
             position: relative;
             padding-left: 23px !important;
@@ -4449,21 +4449,21 @@
                     grants for off-grid and mini-grid bioenergy projects. The NSIA-backed Fund supports RE-linked
                     bioenergy projects.</p>
                 <div class="rd-cards grid mt-8">
-                    <div class="rd-card rounded-xl">
+                    <a href="https://www.boi.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
                         <h4 class="rd-card-title">Bank of Industry (BOI)</h4>
                         <p class="rd-card-text">Concessional loans for biogas and biomass project development.</p>
-                    </div>
-                    <div class="rd-card rounded-xl">
+                    </a>
+                    <a href="https://rea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">payments</span></span>
                         <h4 class="rd-card-title">REA / Rural Electrification Fund</h4>
                         <p class="rd-card-text">Subsidies and grants for off-grid and mini-grid bioenergy projects.</p>
-                    </div>
-                    <div class="rd-card rounded-xl">
+                    </a>
+                    <a href="https://nsia.com.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">savings</span></span>
                         <h4 class="rd-card-title">NSIA-backed Fund</h4>
                         <p class="rd-card-text">Supports RE-linked bioenergy projects through NSIA investment vehicles.</p>
-                    </div>
+                    </a>
                 </div>
                 </div>
 
@@ -4476,27 +4476,47 @@
                     Lotus — are active in renewable energy lending. AfDB, IFC, and Africa Finance Corporation provide
                     debt and equity participation. InfraCredit guarantees and green bonds are available for
                     well-structured transactions.</p>
-                <div class="flex flex-wrap gap-2 mt-5">
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">FCMB</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Sterling
-                        Bank</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Access
-                        Bank</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Lotus
-                        Bank</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">AfDB</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">IFC</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Africa
-                        Finance Corporation</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">InfraCredit</span>
+                <div class="rd-cards grid" data-no-glossary>
+                    <a href="https://www.fcmb.com" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">FCMB</span>
+                        <span class="rd-card-text">Commercial bank. Renewable energy and productive-use financing for developers and businesses.</span>
+                    </a>
+                    <a href="https://sterling.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Sterling Bank</span>
+                        <span class="rd-card-text">Commercial bank. Renewable energy and agriculture-linked lending.</span>
+                    </a>
+                    <a href="https://www.accessbankplc.com" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Access Bank</span>
+                        <span class="rd-card-text">Commercial bank. Renewable energy financing for project developers, businesses and end users.</span>
+                    </a>
+                    <a href="https://lotusbank.com" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Lotus Bank</span>
+                        <span class="rd-card-text">Non-interest bank. Counterpart financing for DARES-qualified developers under its revolving facility with the REA.</span>
+                    </a>
+                    <a href="https://www.afdb.org" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">public</span></span>
+                        <span class="rd-card-title">AfDB</span>
+                        <span class="rd-card-text">African Development Bank. Sovereign and private-sector finance for African energy projects, including SEFA.</span>
+                    </a>
+                    <a href="https://www.ifc.org" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">public</span></span>
+                        <span class="rd-card-title">IFC</span>
+                        <span class="rd-card-text">The World Bank Group’s private-sector arm. Debt and equity for private energy projects.</span>
+                    </a>
+                    <a href="https://www.africafc.org" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">public</span></span>
+                        <span class="rd-card-title">Africa Finance Corporation</span>
+                        <span class="rd-card-text">Pan-African infrastructure financier. Debt and equity for power and industrial infrastructure.</span>
+                    </a>
+                    <a href="https://infracredit.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">verified_user</span></span>
+                        <span class="rd-card-title">InfraCredit</span>
+                        <span class="rd-card-text">Guarantee company. Local-currency credit guarantees that open domestic institutional capital to infrastructure issuers.</span>
+                    </a>
                 </div>
                 </div>
 

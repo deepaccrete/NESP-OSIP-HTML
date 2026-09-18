@@ -264,6 +264,22 @@
             box-shadow: none !important;
         }
 
+        /* The account card used to be padded twice: the rule above, plus an inner
+           div carrying px-8 pt-8 pb-8, which put 78px between the card's edge and
+           its first line where every other card on the page has 46px. The inner
+           padding goes and the avatar comes down a size, so the card holds the
+           same content in about a quarter less height. */
+        .rd #page-wrapper main > section:first-of-type.bg-white > div {
+            padding: 0 !important;
+        }
+
+        .rd .osip-avatar {
+            width: 80px !important;
+            height: 80px !important;
+        }
+
+        .rd .osip-avatar .material-symbols-outlined { font-size: 36px !important; }
+
         /* ---- Headings ---------------------------------------------------------------- */
         .rd #page-wrapper main h1,
         .rd #page-wrapper main h2,
@@ -888,25 +904,33 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            height: 50px;
-            padding: 0 22px 0 26px;
+            gap: 9px;
+            height: 42px;
+            padding: 0 18px 0 22px;
             border-radius: 999px;
             flex: 0 0 auto;
             font-family: var(--rd-sans, Inter, sans-serif);
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 500;
             letter-spacing: .005em;
             text-transform: none;
             text-decoration: none;
-            color: #ffffff;
-            background: var(--rd-green, #004225);
+            /* A way out of an empty list, not the point of the page: paper ground
+               and a hairline rather than the solid deep green, which is kept for
+               the site's primary actions. */
+            color: var(--rd-green, #004225);
+            background: var(--rd-paper, #f5f3ee);
+            border: 1px solid var(--rd-line-2, #cfc9bd);
             /* .6s on a power3-out curve, which is what gsap.quickTo runs the
                homepage's magnetic pull on. */
-            transition: background-color .35s ease, transform .6s cubic-bezier(.215, .61, .355, 1);
+            transition: background-color .35s ease, border-color .35s ease,
+                transform .6s cubic-bezier(.215, .61, .355, 1);
         }
 
-        .osip-cta:hover { background: #062f1f; }
+        .osip-cta:hover {
+            background: #eef3ef;
+            border-color: var(--rd-green, #004225);
+        }
 
         .osip-cta:focus-visible { outline: 2px solid var(--rd-green-2, #0b6b45); outline-offset: 3px; }
 
@@ -920,7 +944,7 @@
         /* ---- Saved opportunities -------------------------------------------------------- */
         .rd .osip-saved-head {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 10px 20px;
@@ -968,17 +992,14 @@
                     <!-- BEGIN: ProfileHero -->
                     <section class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
                         <div class="px-8 pt-8 pb-8">
-                            <!-- The action sits on the eyebrow's line, at the card's top right.
-                                 It used to share the row with the account name, which left it
-                                 wrapping onto a line of its own and hanging off the right of
-                                 nothing once the name was a full email address. -->
-                            <div class="flex items-center justify-between gap-4 flex-wrap">
-                                <span
-                                    class="text-xs font-inter font-bold text-gray-400 uppercase tracking-widest">Your
-                                    account</span>
-                                <a href="Opportunities.html" class="osip-cta">Browse opportunities
-                                    <span class="material-symbols-outlined">arrow_forward</span></a>
-                            </div>
+                            <!-- The eyebrow stands on its own now. "Browse opportunities" used
+                                 to sit at the right of this line, a solid deep-green pill at the
+                                 top of a page about the reader's own account, next to nothing
+                                 that needed it. It has moved to the saved list below, which is
+                                 where a reader actually runs out of things to look at. -->
+                            <span
+                                class="text-xs font-inter font-bold text-gray-400 uppercase tracking-widest">Your
+                                account</span>
                             <div class="flex items-end gap-5 flex-wrap mt-4">
                                 <div class="flex items-end gap-5 min-w-0">
                                     <!-- No negative margin — avatar sits entirely below the band, so nothing hides it. -->
@@ -1025,6 +1046,8 @@
                                 <h2 class="text-xl font-manrope font-extrabold text-brand-green">Saved Opportunities
                                 </h2>
                             </div>
+                            <a href="Opportunities.html" class="osip-cta">Browse opportunities
+                                <span class="material-symbols-outlined">arrow_forward</span></a>
                         </div>
                         <p class="osip-saved-note">Your saved opportunities and their related sectors.</p>
 

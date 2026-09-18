@@ -557,7 +557,7 @@
 
         /* ---- Hero: the dark photograph band ---------------------------------------- */
         .rd #page-wrapper > section:first-of-type { min-height: min(86vh, 800px) !important; }
-        .rd #page-wrapper > section:first-of-type .max-w-3xl { max-width: 52rem !important; }
+        .rd #page-wrapper > section:first-of-type .max-w-3xl { max-width: none !important; }  /* full width: the hero band has no second column */
 
         .rd #page-wrapper > section:first-of-type .max-w-3xl > div.flex {
             gap: 14px !important;
@@ -589,7 +589,7 @@
 
         .rd #page-wrapper > section:first-of-type h1 ~ p {
             position: relative;
-            max-width: 36rem !important;
+            max-width: none !important;  /* full width: the hero band has no second column */
             padding-left: 23px !important;
             border-left-width: 0 !important;
             font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;

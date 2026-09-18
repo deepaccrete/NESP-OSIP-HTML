@@ -224,58 +224,6 @@
             }
         }
 
-        /* ---- Position / jump control -------------------------------------- */
-        .hero-dots {
-            position: absolute;
-            right: 24px;
-            bottom: 22px;
-            z-index: 12;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hero-dot {
-            width: 22px;
-            height: 4px;
-            padding: 0;
-            border: 0;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, .34);
-            cursor: pointer;
-            transition: background-color .3s ease, width .3s ease;
-        }
-
-        .hero-dot:hover {
-            background: rgba(255, 255, 255, .6);
-        }
-
-        .hero-dot.is-on {
-            width: 34px;
-            background: #f7be26;
-        }
-
-        .hero-dot:focus-visible {
-            outline: 2px solid #ffffff;
-            outline-offset: 3px;
-        }
-
-        @media (max-width: 640px) {
-            .hero-dots {
-                right: 16px;
-                bottom: 16px;
-                gap: 6px;
-            }
-
-            .hero-dot {
-                width: 16px;
-            }
-
-            .hero-dot.is-on {
-                width: 26px;
-            }
-        }
-
         /* Reduced motion: the pictures still change, they just cut rather than
            travel, and the drift is off. */
         @media (prefers-reduced-motion: reduce) {
@@ -1327,30 +1275,6 @@
                     </p>
                 </div>
             </div>
-            <!-- Where you are in the run, and a way to jump. Bottom right, over the
-                 lightest part of the scrim, where no copy sits. -->
-            <div class="hero-dots" role="group" aria-label="Hero images">
-                <button type="button" class="hero-dot is-on" data-go="0"
-                    aria-label="Show image 1 of 10"></button>
-                <button type="button" class="hero-dot" data-go="1"
-                    aria-label="Show image 2 of 10"></button>
-                <button type="button" class="hero-dot" data-go="2"
-                    aria-label="Show image 3 of 10"></button>
-                <button type="button" class="hero-dot" data-go="3"
-                    aria-label="Show image 4 of 10"></button>
-                <button type="button" class="hero-dot" data-go="4"
-                    aria-label="Show image 5 of 10"></button>
-                <button type="button" class="hero-dot" data-go="5"
-                    aria-label="Show image 6 of 10"></button>
-                <button type="button" class="hero-dot" data-go="6"
-                    aria-label="Show image 7 of 10"></button>
-                <button type="button" class="hero-dot" data-go="7"
-                    aria-label="Show image 8 of 10"></button>
-                <button type="button" class="hero-dot" data-go="8"
-                    aria-label="Show image 9 of 10"></button>
-                <button type="button" class="hero-dot" data-go="9"
-                    aria-label="Show image 10 of 10"></button>
-            </div>
             <div class="sec-hero-fade" aria-hidden="true"></div>
         </section>
         <!-- Intro Text Block -->
@@ -1587,10 +1511,14 @@
             if (!strip) return;
 
             var slides = Array.prototype.slice.call(strip.querySelectorAll('.hero-slide'));
-            var dots = Array.prototype.slice.call(document.querySelectorAll('.hero-dot'));
             if (slides.length < 2) return;
 
-            var HOLD = 5200;   // time between one picture and the next
+            /* The run had ten little bars in the corner, one per picture, to say
+               where it was and to jump. They are gone: the hero is decorative,
+               the copy carries the meaning, and a reader has no reason to want
+               picture seven. The pictures just turn over, a second slower than
+               they did. */
+            var HOLD = 6200;   // time between one picture and the next
             var TRAVEL = 1400;  // must match the dissolve above
             var at = 0, timer = null;
             var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1619,7 +1547,6 @@
 
                 var spent = at;
                 at = next;
-                dots.forEach(function (d, i) { d.classList.toggle('is-on', i === at); });
 
                 /* Park every slide that is not the current one, with transitions
                    off so nothing slides backwards across the picture. They are
@@ -1644,26 +1571,11 @@
             fetchAt(0);
             fetchAt(1);
 
-            dots.forEach(function (d) {
-                d.addEventListener('click', function () {
-                    go(parseInt(d.dataset.go, 10));
-                    if (!still) play();               // a click restarts the clock
-                });
-            });
+            if (still) return;                        // the first picture, and no run
 
-            if (still) return;                        // no auto-run, but the dots still work
-
-            /* Hovering anywhere on the hero used to stop it, and the hero is
-               the first thing under the pointer when the page opens - so the
-               run often never started. Only the controls hold it now, which is
-               the one place a pause is actually wanted. */
-            var pad = document.querySelector('.hero-dots');
-            pad.addEventListener('mouseenter', stop);
-            pad.addEventListener('mouseleave', play);
-            pad.addEventListener('focusin', stop);
-            pad.addEventListener('focusout', play);
-            /* A backgrounded tab throttles timers and the queue arrives all at
-               once on return. */
+            /* Nothing pauses it by hand any more - there is nothing to hover.
+               A backgrounded tab still stops it: timers are throttled there and
+               the queue would otherwise arrive all at once on return. */
             document.addEventListener('visibilitychange', function () {
                 if (document.hidden) stop(); else play();
             });
@@ -1991,7 +1903,6 @@
                     var eyebrow = copy ? copy.querySelector('.sec-eyebrow') : null;
                     var h1 = hero.querySelector('h1');
                     var lede = hero.querySelector('h1 ~ p');
-                    var dots = hero.querySelector('.hero-dots');
                     var intro = gsap.timeline({ defaults: { ease: EASE } });
 
                     if (slides) intro.fromTo(slides, { scale: 1.14 }, { scale: 1, duration: 2.6, ease: 'power3.out' }, 0);
@@ -2014,7 +1925,6 @@
                         drawn.push(lede);
                         intro.fromTo(lede, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.6, ease: 'expo.inOut' }, 0.8);
                     }
-                    if (dots) intro.from(dots, { opacity: 0, duration: 1 }, 1.1);
                     /* The start states above are already applied, so lifting the
                        pre-hide now cannot flash the finished hero first. */
                     releaseIntro();

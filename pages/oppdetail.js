@@ -78,6 +78,25 @@
 
     /* ---- Page title and breadcrumb --------------------------------------------- */
     document.title = opp.title + ' | OSIP, One-Stop Investment Platform';
+
+    /* GOPA-OPP-03: who owns this project, whether its information has been
+       cleared, and how to reach the agency without an account. The clearance
+       list lives in oppdata.js and is illustrative - see the note there. */
+    (function () {
+        var cleared = (window.OSIP_OPPORTUNITY_CLEARED || []).indexOf(opp.id) > -1;
+        var agency = opp.ministry || 'the responsible agency';
+        setText(document.getElementById('agency-name'), agency);
+        var mark = document.getElementById('agency-clear');
+        if (mark) {
+            mark.setAttribute('data-clear', cleared ? 'cleared' : 'pending');
+            var icon = mark.querySelector('.material-symbols-outlined');
+            var words = mark.querySelector('span:last-child');
+            if (icon) icon.textContent = cleared ? 'verified_user' : 'hourglass_empty';
+            if (words) words.textContent = cleared ? 'Cleared by ' + agency : 'Clearance pending';
+        }
+        var go = document.getElementById('agency-contact');
+        if (go) go.setAttribute('aria-label', 'Contact ' + agency + ' about ' + opp.title);
+    })();
     setText(one(wrap, 'nav[aria-label="Breadcrumb"] li:last-child'), opp.title);
 
     /* ---- Hero ------------------------------------------------------------------ */
@@ -365,6 +384,23 @@
     if (nextSector) {
         nextSector.setAttribute('href', SECTOR_PAGES[opp.sector] || 'Sector.html');
         setText(one(nextSector, '.osip-next-t'), opp.sector + ' sector guide');
+    }
+
+    /* GOPA-OPP-02: the row goes to this project's own sector, at the section that
+       holds the incentives - not to the top of the sector guide, and not to a copy
+       of the incentives on this page. A project in a sector the platform does not
+       publish a page for has nowhere to send anybody, so the row goes rather than
+       pointing at a hub that does not answer the question. */
+    var nextFinance = one(wrap, '[data-purpose="next-finance"]');
+    if (nextFinance) {
+        var sectorPage = SECTOR_PAGES[opp.sector];
+        if (sectorPage) {
+            nextFinance.setAttribute('href', sectorPage + '#finance');
+            setText(one(nextFinance, '.osip-next-t'), opp.sector + ' finance and incentives');
+        } else {
+            var row = nextFinance.closest('[data-purpose="next-finance-row"]');
+            if (row && row.parentNode) row.parentNode.removeChild(row);
+        }
     }
 
     var nextState = one(wrap, '[data-purpose="next-state"]');

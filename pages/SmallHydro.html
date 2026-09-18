@@ -1085,7 +1085,7 @@
         }
 
         .rd main > section:first-of-type h1 ~ p {
-            max-width: 34rem !important;
+            max-width: none !important;  /* full width: the hero band has no second column */
             margin-bottom: 44px !important;
             position: relative;
             padding-left: 23px !important;
@@ -4905,6 +4905,23 @@
                     concessional funding and technical assistance for feasibility studies and rural energy
                     infrastructure. NSIA and other public-backed infrastructure vehicles may support scalable hydro
                     assets linked to broader renewable energy portfolios.</p>
+                                    <div class="rd-cards grid mt-8" data-no-glossary>
+                        <a href="https://rea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                            <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                            <span class="rd-card-title">REA / Rural Electrification Fund</span>
+                            <span class="rd-card-text">Grants, subsidies and performance-based incentives for mini-grid and energy access projects.</span>
+                        </a>
+                        <a href="https://www.worldbank.org" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                            <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">public</span></span>
+                            <span class="rd-card-title">World Bank Group</span>
+                            <span class="rd-card-text">Concessional finance, guarantees and technical assistance for energy access programmes, including DARES.</span>
+                        </a>
+                        <a href="https://nsia.com.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                            <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">savings</span></span>
+                            <span class="rd-card-title">NSIA</span>
+                            <span class="rd-card-text">Nigeria Sovereign Investment Authority. Anchor investor in the DRE Nigeria Fund and other infrastructure vehicles.</span>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="rd-sub" id="finance-2">
@@ -4917,25 +4934,42 @@
                     small hydro remains underfunded due to higher upfront civil works and longer payback periods.
                     DFIs, including IFC, Africa Finance Corporation (AFC), and AfDB, remain key sources of debt and
                     blended investment for hydro projects that meet their appraisal criteria.</p>
-                <div class="flex flex-wrap gap-2 mt-5">
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Access
-                        Bank</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Zenith
-                        Bank</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">FCMB</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Sterling
-                        Bank</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">IFC</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Africa
-                        Finance Corporation (AFC)</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">AfDB</span>
+                <div class="rd-cards grid" data-no-glossary>
+                    <a href="https://www.accessbankplc.com" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Access Bank</span>
+                        <span class="rd-card-text">Commercial bank. Renewable energy financing for project developers, businesses and end users.</span>
+                    </a>
+                    <a href="https://www.zenithbank.com" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Zenith Bank</span>
+                        <span class="rd-card-text">Commercial bank. Corporate and project lending, including energy infrastructure.</span>
+                    </a>
+                    <a href="https://www.fcmb.com" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">FCMB</span>
+                        <span class="rd-card-text">Commercial bank. Renewable energy and productive-use financing for developers and businesses.</span>
+                    </a>
+                    <a href="https://sterling.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Sterling Bank</span>
+                        <span class="rd-card-text">Commercial bank. Renewable energy and agriculture-linked lending.</span>
+                    </a>
+                    <a href="https://www.ifc.org" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">public</span></span>
+                        <span class="rd-card-title">IFC</span>
+                        <span class="rd-card-text">The World Bank Group’s private-sector arm. Debt and equity for private energy projects.</span>
+                    </a>
+                    <a href="https://www.africafc.org" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">public</span></span>
+                        <span class="rd-card-title">Africa Finance Corporation (AFC)</span>
+                        <span class="rd-card-text">Pan-African infrastructure financier. Debt and equity for power and industrial infrastructure.</span>
+                    </a>
+                    <a href="https://www.afdb.org" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">public</span></span>
+                        <span class="rd-card-title">AfDB</span>
+                        <span class="rd-card-text">African Development Bank. Sovereign and private-sector finance for African energy projects, including SEFA.</span>
+                    </a>
                 </div>
                 </div>
 

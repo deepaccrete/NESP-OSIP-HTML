@@ -706,8 +706,111 @@
             box-shadow: inset 0 0 0 1px var(--rd-line-2);
         }
 
-        /* Buttons: shape and colour only - their fonts are left as they are. */
-        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green,
+        /* The portal button: the page's primary call to action, shaped like the
+           agency contact button in the sidebar. This rule had lost its block and
+           its selector was hanging on the comma below, which handed the button
+           the caption styling of .contact-half-label - 10px grey on dark green. */
+        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green {
+            padding: 11px 20px !important;
+            border-radius: 999px !important;
+            background: var(--rd-green, #004225) !important;
+            color: #ffffff !important;
+            font-family: var(--rd-sans) !important;
+            font-size-adjust: none !important;
+            font-size: 12.5px !important;
+            font-weight: 600 !important;
+            letter-spacing: .05em !important;
+            box-shadow: none !important;
+            transition: background-color .3s ease, box-shadow .3s ease,
+                transform .3s cubic-bezier(.22, 1, .36, 1) !important;
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:hover {
+            background: var(--rd-green-2, #0b6b45) !important;
+            box-shadow: 0 12px 24px -14px rgba(0, 66, 37, .6) !important;
+            transform: translateY(-1px);
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:active { transform: translateY(0); }
+
+        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:focus-visible {
+            outline: 2px solid var(--rd-green-2, #0b6b45);
+            outline-offset: 3px;
+        }
+
+        /* it opens the portal in another tab, so the mark travels that way */
+        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green .material-symbols-outlined {
+            font-size: 15px !important;
+            transition: transform .3s cubic-bezier(.22, .61, .36, 1);
+        }
+
+        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:hover .material-symbols-outlined { transform: translate(2px, -2px); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green,
+            .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green .material-symbols-outlined { transition: none !important; }
+            .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:hover { transform: none; }
+            .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:hover .material-symbols-outlined { transform: none; }
+        }
+
+        /* Which half of the contact card you are reading. */
+        .contact-half-label {
+            /* above the login veil, so the reader can see what is behind it */
+            position: relative;
+            z-index: 2;
+            margin-bottom: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #6b716c;
+        }
+
+        .rd #page-wrapper .grid > aside .p-6 p.contact-half-label {
+            font-size: 10px !important;
+            letter-spacing: 0.16em !important;
+            color: var(--rd-green-2, #0b6b45) !important;
+        }
+
+        /* The clearance mark, drawn as the Opportunities cards draw it. */
+        .agency-clear {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            padding: 3px 10px 3px 7px;
+            border: 1px solid #dbe7e0;
+            border-radius: 999px;
+            background: #f1f8f4;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: #0b5033;
+        }
+
+        .agency-clear .material-symbols-outlined { font-size: 15px; }
+
+        /* The redesign layer repaints links on this page, so the agency button
+           states its own colours. */
+        .rd #page-wrapper .grid > aside .p-6 a#agency-contact,
+        .rd #page-wrapper .grid > aside .p-6 a#agency-contact:hover,
+        .rd #page-wrapper .grid > aside .p-6 a#agency-contact .material-symbols-outlined {
+            background: var(--rd-green, #004225) !important;
+            color: #ffffff !important;
+            border-radius: 999px !important;
+            font-weight: 600 !important;
+        }
+
+        .rd #page-wrapper .grid > aside .p-6 a#agency-contact .material-symbols-outlined {
+            background: transparent !important;
+        }
+
+        .agency-clear[data-clear="pending"] {
+            border-color: #e2ded5;
+            background: #f4f2ed;
+            color: #55605a;
+        }
+
         .rd #connect-btn {
             border-radius: 999px !important;
             background: var(--rd-green) !important;
@@ -1575,11 +1678,34 @@
                 <!-- BEGIN: Sidebar -->
                 <aside class="space-y-6">
                     <!-- BEGIN: ContactDetails -->
-                    <div class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                    <!-- One card, two halves. GOPA-OPP-03 asks for the responsible
+                         agency to be the route in, so that half is open to anyone and
+                         comes first; the promoter's own details stay behind the
+                         account. The gate's overlay lives in the second half only, or
+                         it would cover the agency too. oppdetail.js fills the agency
+                         from the record's `ministry` and the clearance list. -->
+                    <div id="project-contact"
+                        class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
                         <div class="px-4 py-3 bg-brand-green/5 border-b border-brand-green/10">
-                            <h3 class="font-manrope font-bold text-sm text-brand-green">Contact Details</h3>
+                            <h3 class="font-manrope font-bold text-sm text-brand-green">Who to contact</h3>
+                        </div>
+                        <div id="responsible-agency" class="p-6 bg-white border-b border-gray-100">
+                            <p class="contact-half-label">Related agency</p>
+                            <p id="agency-name" class="font-bold text-brand-green">&mdash;</p>
+                            <p id="agency-clear" class="agency-clear" data-clear="pending">
+                                <span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>
+                                <span>Clearance pending</span>
+                            </p>
+                            <a id="agency-contact" href="Contact.html"
+                                class="mt-5 inline-flex items-center justify-center gap-2 w-full bg-brand-green text-white px-4 py-2.5 rounded-full text-[12.5px] font-semibold uppercase tracking-wider hover:opacity-90 transition-opacity">
+                                <span class="material-symbols-outlined text-[16px]" aria-hidden="true">mail</span>
+                                Contact this agency
+                            </a>
+                            <p class="mt-3 text-[11.5px] leading-relaxed text-gray-500">OSIP routes the message to the
+                                agency named above. Clearance marks on this prototype are illustrative.</p>
                         </div>
                         <div class="p-6 bg-white relative">
+                            <p class="contact-half-label">Project promoter</p>
                             <!-- Contact Info — blurred until member login click. -->
                             <div class="gated-content space-y-4 filter blur-sm select-none opacity-50">
                                 <div>
@@ -1640,7 +1766,7 @@
                                         <span class="material-symbols-outlined" aria-hidden="true">category</span>
                                         <span>
                                             <span class="osip-next-t">Wind sector guide</span>
-                                            <span class="osip-next-d">Market, regulation, finance and incentives for
+                                            <span class="osip-next-d">The market, the rules and how to take part in
                                                 the sector this project sits in.</span>
                                         </span>
                                     </a>
@@ -1652,6 +1778,37 @@
                                             <span class="osip-next-t">Katsina state profile</span>
                                             <span class="osip-next-d">Who to deal with in the state, and what it
                                                 already has on the ground.</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <!-- GOPA-OPP-02: incentives are written once, on the sector
+                                     page, and routed to from here. A project is where an
+                                     investor asks what relief applies to it, and the page
+                                     had no way through to the answer: the sector row above
+                                     lands at the top of the sector guide, and nothing on
+                                     this page names finance at all. Restating Pioneer
+                                     Status or the duty relief here would be a second copy
+                                     to keep in step, which is the thing the item rules out.
+                                     oppdetail.js points the first row at this project's own
+                                     sector, and drops it for a project whose sector has no
+                                     page on the platform. -->
+                                <li data-purpose="next-finance-row">
+                                    <a href="DetailedSector.html#finance" data-purpose="next-finance">
+                                        <span class="material-symbols-outlined" aria-hidden="true">savings</span>
+                                        <span>
+                                            <span class="osip-next-t">Finance and incentives</span>
+                                            <span class="osip-next-d">Funding routes, Pioneer Status and the reliefs
+                                                the sector page publishes.</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="Regulation.html#tax">
+                                        <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+                                        <span>
+                                            <span class="osip-next-t">Tax and fiscal policy</span>
+                                            <span class="osip-next-d">The rates, exemptions and duty treatment that
+                                                apply whatever the sector.</span>
                                         </span>
                                     </a>
                                 </li>

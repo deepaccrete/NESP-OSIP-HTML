@@ -165,6 +165,12 @@
           property, so animating it reflows the page on every frame of the
           transition; a transform is composited.
         */
+        /* GOPA-INV-01: on its own address the route keeps the section's own words
+           but not its heading - the page heading above is already that heading,
+           and one screen saying "Climate finance" twice reads as a mistake. */
+        #climate-route #climate-finance { margin-top: 28px; }
+        #climate-route #climate-finance > div:first-child { display: none; }
+
         .quiz-progress {
             transform-origin: left center;
             transition: transform .45s cubic-bezier(.2, .7, .2, 1);
@@ -1571,6 +1577,80 @@
         }
 
         /* the state picker: zones on hairlines, states as pills */
+        /* ---- GOPA-INV-02: the page scrolls, and now says so ----------------------
+           Same object as the nudge under the states list, moved up to the page: a
+           round button at the foot of the screen while the reader is at the top of
+           a page that has more below. It goes the moment they scroll, so it is
+           never in the way of what it pointed at. */
+        .osip-scroll-cue {
+            position: fixed;
+            left: 50%;
+            bottom: 22px;
+            z-index: 40;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            height: 40px;
+            padding: 0 16px 0 14px;
+            border: 1px solid var(--rd-line-2, #cfc9bd);
+            border-radius: 999px;
+            background: var(--rd-card, #fbfaf7);
+            color: var(--rd-green, #004225);
+            font-family: var(--rd-sans, Inter, system-ui, sans-serif);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            /* centred on the screen whatever the label measures, rather than on a
+               guess at its width */
+            transform: translate(-50%, 6px);
+            transition: opacity .4s ease, transform .4s ease, border-color .3s ease, background-color .3s ease;
+        }
+
+        .osip-scroll-cue.is-on {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, 0);
+        }
+
+        .osip-scroll-cue:hover {
+            border-color: var(--rd-green, #004225);
+            background: #ffffff;
+        }
+
+        .osip-scroll-cue:focus-visible {
+            outline: 2px solid var(--rd-green-2, #0b6b45);
+            outline-offset: 3px;
+        }
+
+        .osip-scroll-cue .material-symbols-outlined {
+            font-size: 19px;
+            animation: osip-cue-nudge 1.9s ease-in-out infinite;
+        }
+
+        @keyframes osip-cue-nudge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(3px); }
+        }
+
+        @media (max-width: 480px) {
+            .osip-scroll-cue {
+                bottom: 16px;
+                height: 36px;
+                padding: 0 14px 0 12px;
+                font-size: 11px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .osip-scroll-cue,
+            .osip-scroll-cue.is-on { transition: opacity .2s ease; transform: translate(-50%, 0); }
+            .osip-scroll-cue .material-symbols-outlined { animation: none; }
+        }
+
         /* ---- Lenis, from lenis@1.3.26/dist/lenis.css ---------------------------
            The same smooth scrolling the sector pages run, so this page moves like
            the rest of the site - and, with allowNestedScroll, so does the states
@@ -1894,7 +1974,9 @@
         /* the sector card and the Opportunities card are components of their own and
            keep their own box; this is for the plain cards the result builds */
         .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > a,
-        .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > div {
+        .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > div,
+        .rd #climate-route [data-cardrail] > a,
+        .rd #climate-route [data-cardrail] > div {
             padding: 28px !important;
             border-radius: 18px !important;
             background: var(--rd-card, #fbfaf7) !important;
@@ -1902,16 +1984,148 @@
         }
 
         @media (min-width: 640px) {
-            .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > * {
+            .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > *,
+            .rd #climate-route [data-cardrail] > * {
                 min-height: 252px;
             }
         }
 
         @media (max-width: 639px) {
             .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > a,
-            .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > div {
+            .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > div,
+            .rd #climate-route [data-cardrail] > a,
+            .rd #climate-route [data-cardrail] > div {
                 padding: 24px !important;
             }
+        }
+
+        /* ---- and one card inside the box (18 Sep 2026) -------------------------------
+           The box above was the same for every group; what sat in it was not. A
+           business model card had no mark and a 16px label, a requirement had a bare
+           24px icon beside 15px text, an agency and a climate source had a 40px tinted
+           tile beside a 14px name and a 12.5px line. Three marks, three type scales,
+           two layouts.
+
+           These are the sector pages' own card内, rule for rule (pages/DetailedSector.html,
+           .rd main .rd-card): the mark is a 44px white tile on a hairline at the top of
+           the card, the title is 17px/600 under it, the text 14.5px/1.6 under that, and
+           the gold rule draws across the top on hover. Every group in the result uses
+           it, so a row reads as one set. */
+        .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > a,
+        .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > div,
+        .rd #climate-route [data-cardrail] > a,
+        .rd #climate-route [data-cardrail] > div {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+            overflow: hidden;
+            color: inherit;
+            text-decoration: none;
+            transform: none !important;
+            box-shadow: none !important;
+            transition: border-color .4s ease, background-color .4s ease;
+        }
+
+        /* the gold rule, drawn left to right as the pointer arrives */
+        .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > a::before,
+        .rd #climate-route [data-cardrail] > a::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 2px;
+            background: var(--rd-gold, #d9a520);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform .6s cubic-bezier(.22, .61, .36, 1);
+            pointer-events: none;
+        }
+
+        .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > a:hover,
+        .rd #climate-route [data-cardrail] > a:hover {
+            border-color: var(--rd-line-2, #cfc9bd) !important;
+            background: #ffffff !important;
+        }
+
+        .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > a:hover::before,
+        .rd #climate-route [data-cardrail] > a:hover::before { transform: scaleX(1); }
+
+        .rd #quiz-result .rd-card-mark,
+        .rd #climate-route .rd-card-mark {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+            width: 44px;
+            height: 44px;
+            margin-bottom: 22px;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: inset 0 0 0 1px var(--rd-line, #e2ded5);
+            color: var(--rd-green, #004225);
+            overflow: hidden;
+        }
+
+        .rd #quiz-result .rd-card-mark .material-symbols-outlined,
+        .rd #climate-route .rd-card-mark .material-symbols-outlined {
+            font-size: 22px !important;
+            color: var(--rd-green, #004225) !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+        }
+
+        .rd #quiz-result .rd-card-mark img,
+        .rd #climate-route .rd-card-mark img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .rd #quiz-result .rd-card-title,
+        .rd #climate-route .rd-card-title {
+            display: block;
+            margin: 0 0 8px !important;
+            font-family: var(--rd-sans, Inter, sans-serif) !important;
+            font-size-adjust: none !important;
+            font-size: 17px !important;
+            font-weight: 600 !important;
+            line-height: 1.35 !important;
+            letter-spacing: -0.01em !important;
+            color: var(--rd-ink, #13201b) !important;
+            text-wrap: balance;
+        }
+
+        .rd #quiz-result .rd-card-text,
+        .rd #climate-route .rd-card-text {
+            display: block;
+            margin: 0 !important;
+            font-family: var(--rd-sans, Inter, sans-serif) !important;
+            font-size-adjust: none !important;
+            font-size: 14.5px !important;
+            line-height: 1.6 !important;
+            color: var(--rd-ink-3, #6b716c) !important;
+        }
+
+        /* where a card cites where it came from, the line sits on the card's floor so
+           the six of them agree whatever the text above runs to */
+        .rd #quiz-result .rd-card-note,
+        .rd #climate-route .rd-card-note {
+            display: block;
+            margin: 18px 0 0 !important;
+            padding-top: 14px;
+            border-top: 1px solid var(--rd-line, #e2ded5);
+            width: 100%;
+            font-family: var(--rd-sans, Inter, sans-serif) !important;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .14em !important;
+            text-transform: uppercase;
+            color: var(--rd-ink-3, #6b716c) !important;
+        }
+
+        @media (min-width: 640px) {
+            .rd #quiz-result [data-cardrail]:not(#quiz-sectors):not(#quiz-opps) > * > .rd-card-note,
+            .rd #climate-route [data-cardrail] > * > .rd-card-note { margin-top: auto !important; }
         }
 
         /* the sector card's picture was sized off the card's own width, so a row of
@@ -2012,6 +2226,11 @@
                 <p class="font-body-sm text-body-sm text-on-surface-variant mt-7">
                     Nothing here is stored or sent anywhere. It runs in your browser to point you at the
                     right part of the platform.
+                    <!-- GOPA-INV-01: the way out for a reader who came only for climate
+                         finance. It is one line under the questions rather than a second
+                         button beside Next, which would compete with the flow. -->
+                    <a class="text-secondary font-semibold hover:underline" href="#climate-finance"
+                        data-climate-open>Looking for climate finance?</a>
                 </p>
             </div>
         </section>
@@ -2086,59 +2305,46 @@
                 not an approved-source list</strong> &ndash; it is what the sector pages themselves cite.
                 Each one is run by the organisation named on the card, and this page only shows you where to go.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-no-glossary data-cardrail>
-                    <div aria-disabled="true"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3">
-                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">public</span></span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">National Council on Climate Change (NCCC)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Nigeria&rsquo;s national climate change body.</span>
-                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Official link being confirmed</span>
-                        </span>
-                    </div>
-                    <a href="GreenHydrogen.html#finance"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">eco</span></span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Global Clean Hydrogen Programme</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">A GEF, UNIDO and ECN initiative supporting hydrogen sector development in Nigeria.</span>
-                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Named on the Green Hydrogen page</span>
-                        </span>
+                    <!-- GOPA-INV-01: the NCCC card carries the council's own address.
+                         climatecouncil.gov.ng is the live site of the body the Climate
+                         Change Act 2021 establishes; natccc.gov.ng, the other name it
+                         has been published under, redirects there. It opens in a new
+                         tab, like every other external link on the platform. -->
+                    <a href="https://climatecouncil.gov.ng/" target="_blank" rel="noopener" class="bg-white border border-[#e5e7eb] rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">public</span></span>
+                        <span class="rd-card-title">National Council on Climate Change (NCCC)</span>
+                        <span class="rd-card-text">Nigeria&rsquo;s national climate change body, established by the Climate Change Act 2021.</span>
+                        <span class="rd-card-note">climatecouncil.gov.ng &middot; opens in a new tab</span>
                     </a>
-                    <a href="GreenHydrogen.html#finance"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">account_balance</span></span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">AfDB Sustainable Energy Fund for Africa (SEFA)</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Supports clean energy transition projects, including green hydrogen.</span>
-                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Named on the Green Hydrogen page</span>
-                        </span>
+                    <a href="GreenHydrogen.html#finance" class="bg-white border border-[#e5e7eb] rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">eco</span></span>
+                        <span class="rd-card-title">Global Clean Hydrogen Programme</span>
+                        <span class="rd-card-text">A GEF, UNIDO and ECN initiative supporting hydrogen sector development in Nigeria.</span>
+                        <span class="rd-card-note">Named on the Green Hydrogen page</span>
                     </a>
-                    <a href="Wind.html#finance"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">savings</span></span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Green bonds and InfraCredit guarantees</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Available for well-structured transactions alongside hybrid capital instruments.</span>
-                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Named on the Wind and Bioenergy pages</span>
-                        </span>
+                    <a href="GreenHydrogen.html#finance" class="bg-white border border-[#e5e7eb] rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">AfDB Sustainable Energy Fund for Africa (SEFA)</span>
+                        <span class="rd-card-text">Supports clean energy transition projects, including green hydrogen.</span>
+                        <span class="rd-card-note">Named on the Green Hydrogen page</span>
                     </a>
-                    <a href="CleanCooking.html#finance"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">co2</span></span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Carbon and results-based finance</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Concessional capital, carbon finance and RBF mechanisms underpin most clean cooking models.</span>
-                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Named on the Clean Cooking page</span>
-                        </span>
+                    <a href="Wind.html#finance" class="bg-white border border-[#e5e7eb] rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">savings</span></span>
+                        <span class="rd-card-title">Green bonds and InfraCredit guarantees</span>
+                        <span class="rd-card-text">Available for well-structured transactions alongside hybrid capital instruments.</span>
+                        <span class="rd-card-note">Named on the Wind and Bioenergy pages</span>
                     </a>
-                    <a href="Sector.html"
-                        class="bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
-                        <span class="w-10 h-10 rounded-[10px] bg-[#e9f2ec] flex items-center justify-center flex-shrink-0 overflow-hidden"><span class="material-symbols-outlined text-[#004225]">handshake</span></span>
-                        <span class="min-w-0">
-                            <span class="block text-[#111827] text-[14px] font-medium">Concessional and blended finance</span>
-                            <span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">Grants, concessional debt and development finance combined with private capital.</span>
-                            <span class="block text-[#8a9490] text-[11px] uppercase tracking-[0.08em] mt-2">Named on all ten sector pages</span>
-                        </span>
+                    <a href="CleanCooking.html#finance" class="bg-white border border-[#e5e7eb] rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">co2</span></span>
+                        <span class="rd-card-title">Carbon and results-based finance</span>
+                        <span class="rd-card-text">Concessional capital, carbon finance and RBF mechanisms underpin most clean cooking models.</span>
+                        <span class="rd-card-note">Named on the Clean Cooking page</span>
+                    </a>
+                    <a href="Sector.html" class="bg-white border border-[#e5e7eb] rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">handshake</span></span>
+                        <span class="rd-card-title">Concessional and blended finance</span>
+                        <span class="rd-card-text">Grants, concessional debt and development finance combined with private capital.</span>
+                        <span class="rd-card-note">Named on all ten sector pages</span>
                     </a>
                 </div>
                 <p class="font-body-sm text-body-sm text-on-surface-variant mt-6">Eligibility, terms and whether a
@@ -2168,6 +2374,38 @@
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <!-- ========================================= CLIMATE FINANCE ==== -->
+        <!-- GOPA-INV-01 asks for a Climate Finance tab to the NCCC. A route that
+             exists only at the end of a ten-question flow is not a tab, so the
+             route also has an address of its own: InvestorMatch.html#climate-finance,
+             which the header's Resources menu points at under Financing. The section
+             below is the shell; the route itself is the #climate-finance block from
+             the result, moved in here when that address is opened. Same markup, one
+             copy, whichever way the reader arrives. -->
+        <section id="climate-route" class="bg-background hidden">
+            <div class="max-w-[1118px] mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+                <div class="max-w-3xl">
+                    <p class="font-label-md text-label-md uppercase text-tertiary-fixed-dim font-bold mb-3">Optional
+                        route</p>
+                    <h1 class="font-h1 text-[28px] leading-[36px] md:text-[40px] md:leading-[48px] text-primary">
+                        Climate finance</h1>
+                </div>
+
+                <div data-climate-mount></div>
+
+                <div
+                    class="mt-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border border-[#e5e7eb] rounded-xl p-6">
+                    <p class="font-body-md text-body-md text-on-surface-variant">Not sure which sector or which
+                        projects fit? Ten questions put the rest of the platform in front of you.</p>
+                    <button type="button" id="climate-to-quiz"
+                        class="inline-flex items-center justify-center gap-2 shrink-0 bg-primary-container hover:bg-primary text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors">
+                        Find my investment fit
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -2950,28 +3188,30 @@
 
                 /* business frameworks and models */
                 html += detailBlock('Business models in ' + name,
-                    '<div class="grid gap-6 sm:grid-cols-2" data-cardrail>' +
+                    '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-cardrail>' +
                     path.models.map(function (m) {
-                        return '<a href="' + page + '#participate" class="bg-white border border-outline-variant ' +
-                            'rounded-xl p-5 block hover:border-primary transition-colors">' +
-                            '<span class="block font-body-md text-body-md font-semibold text-on-surface">' +
-                            m.label + '</span>' +
-                            '<span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">' +
+                        return '<a href="' + page + '#participate" class="bg-white border border-outline-variant rounded-xl">' +
+                            '<span class="rd-card-mark" aria-hidden="true">' +
+                            '<span class="material-symbols-outlined">route</span></span>' +
+                            '<span class="rd-card-title">' + m.label + '</span>' +
+                            '<span class="rd-card-text">' +
                             m.steps.length + ' published steps, from ' + m.steps[0].label + ' to ' +
                             m.steps[m.steps.length - 1].label.toLowerCase() + '.</span></a>';
                     }).join('') + '</div>');
 
                 /* regulatory guidance */
-                /* Card for card, this is the sector pages' own Regulatory Requirements
-                   block: white card, 24px padding, brand-green icon on the left and
-                   the requirement beside it at 15px/28. */
+                /* The sector pages' card, like every other group here: the mark on top,
+                   the requirement under it. pathwaydata gives a requirement as one
+                   sentence, so the card carries no title line - splitting the sentence
+                   to invent one would put words on the page the sector page never
+                   published. */
                 html += detailBlock('Regulatory guidance',
-                    '<div class="grid grid-cols-1 sm:grid-cols-2 gap-6" data-cardrail>' +
+                    '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-cardrail>' +
                     path.requirements.map(function (r) {
-                        return '<div class="bg-white border border-[#e5e7eb] rounded-xl p-6 flex gap-4">' +
-                            '<span class="material-symbols-outlined text-[#004225] text-[24px] flex-shrink-0">' +
-                            reqIcon(r.text) + '</span>' +
-                            '<p class="text-[#404846] text-[15px] leading-7">' + r.text + '</p>' +
+                        return '<div class="bg-white border border-[#e5e7eb] rounded-xl">' +
+                            '<span class="rd-card-mark" aria-hidden="true">' +
+                            '<span class="material-symbols-outlined">' + reqIcon(r.text) + '</span></span>' +
+                            '<p class="rd-card-text">' + r.text + '</p>' +
                             '</div>';
                     }).join('') + '</div>' +
                     '<p class="font-body-sm text-body-sm text-on-surface-variant mt-4">Published on the ' + name +
@@ -2991,29 +3231,24 @@
                     ' below.</p>', 'res-finance');
 
                 /* relevant MDAs */
-                /* And this is those pages' Key Regulatory Agencies card: logo or mark
-                   in a 40px tinted tile, name at 14px, role underneath, lifting a
-                   half step on hover. data-no-glossary matches the sector pages,
-                   which keep the glossary out of agency names. */
+                /* Key Regulatory Agencies, in the same card as the rest: the logo in
+                   the 44px mark tile, the agency in the title, its role under it.
+                   data-no-glossary matches the sector pages, which keep the glossary
+                   out of agency names. */
                 html += detailBlock('Agencies you would deal with',
                     '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-no-glossary data-cardrail>' +
                     path.agencies.map(function (a) {
                         var logo = AGENCY_LOGOS[a.name];
                         var mark = logo
-                            ? '<img src="' + logo + '" alt="' + a.name + ' logo" class="w-8 h-8 object-contain" />'
-                            : '<span class="material-symbols-outlined text-[#004225]">account_balance</span>';
+                            ? '<img src="' + logo + '" alt="' + a.name + ' logo" />'
+                            : '<span class="material-symbols-outlined">account_balance</span>';
                         var body =
-                            '<span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center ' +
-                            'flex-shrink-0 overflow-hidden">' + mark + '</span>' +
-                            '<span class="min-w-0">' +
-                            '<span class="block text-[#111827] text-[14px] font-medium">' + a.name + '</span>' +
-                            '<span class="osip-role block text-[#5f6368] text-[12.5px] leading-5 mt-1">' +
-                            a.role + '</span>' +
-                            '</span>';
-                        var base = 'bg-white border border-[#e5e7eb] rounded-xl px-4 py-3.5 flex items-start gap-3';
+                            '<span class="rd-card-mark" aria-hidden="true">' + mark + '</span>' +
+                            '<span class="rd-card-title">' + a.name + '</span>' +
+                            '<span class="osip-role rd-card-text">' + a.role + '</span>';
+                        var base = 'bg-white border border-[#e5e7eb] rounded-xl';
                         return /^https?:/.test(a.href)
-                            ? '<a href="' + a.href + '" target="_blank" rel="noopener" class="' + base +
-                              ' hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">' + body + '</a>'
+                            ? '<a href="' + a.href + '" target="_blank" rel="noopener" class="' + base + '">' + body + '</a>'
                             : '<div class="' + base + '">' + body + '</div>';
                     }).join('') + '</div>');
 
@@ -3249,7 +3484,79 @@
                 }
             }
 
+            /*
+              GOPA-INV-01. The climate finance route, on its own address.
+
+              #climate-finance shows the route by itself: the questions step aside,
+              the block moves into the section built for it, and the ten-question
+              match is offered under it instead of demanded before it. Leaving the
+              address (Start over, or the link back) puts the block where the
+              result expects to find it, so a reader who then takes the quiz gets
+              the same one card-for-card.
+            */
+            var climateSection = document.getElementById('climate-route');
+            var climateMount = climateSection && climateSection.querySelector('[data-climate-mount]');
+            var climateHome = document.getElementById('climate-finance');
+            var climateParent = climateHome && climateHome.parentNode;
+            var climateNext = climateHome && climateHome.nextSibling;
+
+            function climateRoute(on) {
+                if (!climateSection || !climateMount || !climateHome) return;
+                if (on) {
+                    climateMount.appendChild(climateHome);
+                    els.stepSection.classList.add('hidden');
+                    els.resultSection.classList.add('hidden');
+                    climateSection.classList.remove('hidden');
+                    progress(1);
+                } else {
+                    /* back where the result's own renderer moves it from */
+                    if (climateParent) climateParent.insertBefore(climateHome, climateNext);
+                    climateSection.classList.add('hidden');
+                }
+            }
+
+            function climateWanted() {
+                return (window.location.hash || '').toLowerCase() === '#climate-finance';
+            }
+
+            var toQuiz = document.getElementById('climate-to-quiz');
+            if (toQuiz) {
+                toQuiz.addEventListener('click', function () {
+                    if (window.location.hash) {
+                        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+                    }
+                    climateRoute(false);
+                    els.stepSection.classList.remove('hidden');
+                    step = 0;
+                    answers = {};
+                    render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            /* The line under the questions opens the route rather than jumping to
+               an element that is not on screen yet. */
+            var openLink = document.querySelector('[data-climate-open]');
+            if (openLink) {
+                openLink.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    window.location.hash = 'climate-finance';
+                });
+            }
+
+            /* Arriving on the address, and moving to or from it in the same visit.
+               Inside a result the same address is what it has always been - an
+               anchor to the block further down the page, which the result puts
+               after Finance and market information. Swapping the view out from
+               under someone reading their result would lose the result. */
+            window.addEventListener('hashchange', function () {
+                if (!els.resultSection.classList.contains('hidden')) return;
+                climateRoute(climateWanted());
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
             render();
+            if (climateWanted()) climateRoute(true);
         })();
     </script>
 
@@ -3336,6 +3643,67 @@
             }
             requestAnimationFrame(raf);
             window.__rdLenis = lenis;
+        })();
+    </script>
+    <!-- GOPA-INV-02: the scroll affordance. A button, not an ornament - pressing it
+         goes down one screen - and it is only ever shown when there is something
+         below to go to. -->
+    <button type="button" class="osip-scroll-cue" id="osip-scroll-cue" aria-label="Scroll down for more">
+        <span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_down</span>
+        <span>Scroll</span>
+    </button>
+
+    <script>
+        (function () {
+            var cue = document.getElementById('osip-scroll-cue');
+            if (!cue) return;
+
+            var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            /* Shown while the reader is at the top of a page with a screenful or more
+               still below. Anything less is not worth a cue, and one shown after they
+               have started reading is just something in the way. */
+            /* The question's own controls sit at the foot of the page, and on a small
+               screen they are already in view while the cue is showing. Rather than
+               sit on top of Skip and Next, the cue lifts to just above them. */
+            function clear() {
+                var row = document.getElementById('quiz-next');
+                row = row ? row.parentElement : null;
+                if (!row || row.offsetParent === null) { cue.style.bottom = ''; return; }
+                var r = row.getBoundingClientRect();
+                var gap = window.innerHeight - r.top + 14;
+                cue.style.bottom = (r.top < window.innerHeight - 40 && gap > 22) ? gap + 'px' : '';
+            }
+
+            function sync() {
+                var top = window.pageYOffset || document.documentElement.scrollTop || 0;
+                var left = document.documentElement.scrollHeight - window.innerHeight - top;
+                var show = top < 60 && left > 160;
+                cue.classList.toggle('is-on', show);
+                if (show) clear();
+            }
+
+            cue.addEventListener('click', function () {
+                var to = Math.round(window.innerHeight * 0.82);
+                if (window.__rdLenis && !still) window.__rdLenis.scrollTo(to);
+                else window.scrollTo({ top: to, behavior: still ? 'auto' : 'smooth' });
+            });
+
+            window.addEventListener('scroll', sync, { passive: true });
+            window.addEventListener('resize', sync);
+
+            /* The quiz redraws itself - a new question, then the result - and each
+               draw changes how much there is below. */
+            if (typeof MutationObserver !== 'undefined') {
+                var watch = document.getElementById('quiz-step');
+                var result = document.getElementById('quiz-result');
+                var observer = new MutationObserver(function () { setTimeout(sync, 60); });
+                if (watch) observer.observe(watch, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+                if (result) observer.observe(result, { childList: true, attributes: true, attributeFilter: ['class'] });
+            }
+
+            sync();
+            setTimeout(sync, 400);
         })();
     </script>
 </body>

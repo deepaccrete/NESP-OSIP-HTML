@@ -1032,7 +1032,7 @@
         }
 
         .rd main > section:first-of-type h1 ~ p {
-            max-width: 34rem !important;
+            max-width: none !important;  /* full width: the hero band has no second column */
             margin-bottom: 44px !important;
             position: relative;
             padding-left: 23px !important;
@@ -4695,16 +4695,16 @@
                     includes support for solar-plus-storage systems through grants, results-based financing (RBF),
                     minimum subsidy tenders, and private-sector participation mechanisms.</p>
                 <div class="rd-cards grid mt-8">
-                    <div class="rd-card rounded-xl">
+                    <a href="https://rea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
                         <h4 class="rd-card-title">Rural Electrification Agency (REA)</h4>
                         <p class="rd-card-text">Supports storage linked to mini-grids, distributed renewable energy, and rural electrification projects.</p>
-                    </div>
-                    <div class="rd-card rounded-xl">
+                    </a>
+                    <a href="https://rea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">payments</span></span>
                         <h4 class="rd-card-title">DARES Programme</h4>
                         <p class="rd-card-text">World Bank-funded support for solar-plus-storage systems and productive-use energy applications.</p>
-                    </div>
+                    </a>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">diversity_3</span></span>
                         <h4 class="rd-card-title">Development Partners</h4>
@@ -4727,23 +4727,37 @@
                     expanding rapidly, particularly where storage is paired with solar generation. Local financial
                     institutions including Access Bank, FCMB, Sterling Bank, Fidelity Bank, Ecobank, and Lotus Bank are
                     increasingly active in financing solar-plus-storage and commercial energy projects.</p>
-                <div class="flex flex-wrap gap-2 mt-5">
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Access
-                        Bank</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">FCMB</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Sterling
-                        Bank</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Fidelity
-                        Bank</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Ecobank</span>
-                    <span
-                        class="bg-white border border-[#dfe4e1] text-[#004225] text-[13px] font-semibold px-3.5 py-1.5 rounded-full">Lotus
-                        Bank</span>
+                <div class="rd-cards grid" data-no-glossary>
+                    <a href="https://www.accessbankplc.com" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Access Bank</span>
+                        <span class="rd-card-text">Commercial bank. Renewable energy financing for project developers, businesses and end users.</span>
+                    </a>
+                    <a href="https://www.fcmb.com" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">FCMB</span>
+                        <span class="rd-card-text">Commercial bank. Renewable energy and productive-use financing for developers and businesses.</span>
+                    </a>
+                    <a href="https://sterling.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Sterling Bank</span>
+                        <span class="rd-card-text">Commercial bank. Renewable energy and agriculture-linked lending.</span>
+                    </a>
+                    <a href="https://www.fidelitybank.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Fidelity Bank</span>
+                        <span class="rd-card-text">Commercial bank. Financing for renewable energy equipment and commercial energy projects.</span>
+                    </a>
+                    <a href="https://ecobank.com" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Ecobank</span>
+                        <span class="rd-card-text">Pan-African commercial bank. Financing for commercial and industrial energy projects in Nigeria.</span>
+                    </a>
+                    <a href="https://lotusbank.com" target="_blank" rel="noopener" class="rd-card rounded-xl">
+                        <span class="rd-card-mark" aria-hidden="true"><span class="material-symbols-outlined">account_balance</span></span>
+                        <span class="rd-card-title">Lotus Bank</span>
+                        <span class="rd-card-text">Non-interest bank. Counterpart financing for DARES-qualified developers under its revolving facility with the REA.</span>
+                    </a>
                 </div>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-6">Development finance institutions
                     including the Bank of Industry (BOI), IFC, AfDB, and the Africa Finance Corporation (AFC) also

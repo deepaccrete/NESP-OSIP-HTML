@@ -3712,6 +3712,41 @@
     .osip-live-item:focus-visible .osip-live-title { color: #FFDDB4; }
     .osip-live-item:hover .osip-live-go { transform: translateX(4px); color: #FFDDB4; }
 
+    /* Step back and step on (18 Sep 2026). Same glass as the rail, gold on hover,
+       and they sit either side of the dots so the group reads as one control. */
+    .osip-live-nav {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(255, 255, 255, .78);
+      cursor: pointer;
+      transition: background-color .3s ease, border-color .3s ease, color .3s ease,
+        transform .3s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .osip-live-nav:hover {
+      background: rgba(255, 255, 255, .12);
+      border-color: #FFDDB4;
+      color: #FFDDB4;
+    }
+
+    .osip-live-nav:active { transform: scale(.94); }
+
+    .osip-live-nav:focus-visible {
+      outline: 2px solid #FFDDB4;
+      outline-offset: 3px;
+      color: #FFDDB4;
+    }
+
+    .osip-live-nav .material-symbols-outlined { font-size: 18px; }
+
     .osip-live-dots {
       display: flex;
       align-items: center;
@@ -3776,9 +3811,12 @@
       .osip-live-go { position: absolute; right: 0; top: 50%; margin: 0; transform: translateY(-50%); }
       .osip-live-item:hover .osip-live-go { transform: translateY(-50%) translateX(3px); }
       .osip-live-dot { width: 16px; }
+      .osip-live-nav { width: 28px; height: 28px; }
+      .osip-live-nav .material-symbols-outlined { font-size: 16px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
+      .osip-live-nav { transition: none; }
       .osip-live-kind i { animation: none; }
       .osip-live-item { transition: opacity .01ms; }
       .osip-live-dot.is-current b { animation: none; transform: scaleX(1); }
@@ -4527,6 +4565,26 @@
 
     .rd #root .osip-opp-grid .sector-badge,
     .rd #root .osip-opp-grid .readiness-tag { font-weight: 500 !important; }
+
+    .rd #root .osip-opp-grid .stage-tag {
+      margin-top: 6px !important;
+      border-color: var(--rd-line-2) !important;
+      /* Square-ish where the readiness tag is a pill: the shape alone says
+         which of the two lists this card is on. */
+      border-radius: 8px !important;
+      background: var(--rd-card) !important;
+      font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+      font-weight: 500 !important;
+      color: var(--rd-ink-2) !important;
+    }
+
+    .rd #root .osip-opp-grid .clear-tag {
+      border-color: #cfe0d6 !important;
+      font-family: var(--rd-sans) !important; font-size-adjust: none !important;
+      font-weight: 500 !important;
+      letter-spacing: .02em !important;
+      color: var(--rd-green) !important;
+    }
 
     .rd #root .osip-opp-grid .opportunity-card .flex.gap-2 button {
       border-radius: 999px !important;
@@ -5295,6 +5353,46 @@
       transform: rotate(180deg);
     }
 
+
+    /* The sector routes under the Investor Guide's Finance item (GOPA-LP-03).
+       Ten quiet links on one line, inside an item that is closed until it is
+       opened, so the landing page is unchanged until someone asks for it. */
+    .osip-guide-sectors {
+      flex: 1 1 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 16px;
+      margin: 4px 0 0;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    .rd #root .osip-guide-sectors { color: #6b716c; }
+
+    .osip-guide-sectors > span {
+      color: #6b716c;
+      letter-spacing: .01em;
+    }
+
+    .rd #root .osip-guide-sectors a {
+      padding: 0;
+      border: 0;
+      background: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #0b6b45;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s ease, color .3s ease;
+    }
+
+    .rd #root .osip-guide-sectors a:hover { color: #004225; border-bottom-color: #cfc9bd; }
+
+    @media (max-width: 640px) {
+      .osip-guide-sectors { gap: 4px 12px; font-size: 13px; }
+    }
+
     .osip-guide-body {
       display: flex;
       flex-wrap: wrap;
@@ -5684,6 +5782,94 @@
         .readiness-tag[data-readiness="tender"] .readiness-dot { background: #3b7dd8; }
         .readiness-tag[data-readiness="financing"] .readiness-dot { background: #7c5cd6; }
         .readiness-tag[data-readiness="validation"] .readiness-dot { background: #d97757; }
+
+        /* The stage tag: the other axis a card can carry, same as on the
+           listing page. A project's stage says where the project itself has got
+           to; a readiness tag says what it needs from an investor now. A card
+           shows one or the other, so the two are drawn differently - the
+           readiness tag a pale pill with a coloured dot, the stage tag a plain
+           outline with a track icon - and nobody has to read the words to tell
+           which list they are looking at. */
+        .stage-tag {
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 10px 3px 7px;
+            border-radius: 6px;
+            background: #ffffff;
+            border: 1px solid #d8ded9;
+            color: #44504a;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        .stage-tag .material-symbols-outlined {
+            font-size: 14px;
+            color: #6b7f74;
+        }
+
+        .stage-tag[data-stage="conceptualization"] .material-symbols-outlined { color: #94a3b8; }
+        .stage-tag[data-stage="development"] .material-symbols-outlined { color: #d19a2e; }
+        .stage-tag[data-stage="implementation"] .material-symbols-outlined { color: #1f9d5f; }
+        .stage-tag[data-stage="completed"] .material-symbols-outlined { color: #3b7dd8; }
+
+        /* The clearance mark (GOPA-OPP-03). Two states, one shape: cleared reads
+           in the platform's green, awaiting clearance in quiet ink, so a reader
+           can tell them apart without colour alone - the icon and the word
+           differ too. */
+        .clear-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 9px 3px 7px;
+            border: 1px solid #dbe7e0;
+            border-radius: 999px;
+            background: #f1f8f4;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: #0b5033;
+            line-height: 1.4;
+        }
+
+        .clear-tag .material-symbols-outlined { font-size: 14px; }
+
+        .clear-tag[data-clear="pending"] {
+            border-color: #e2ded5;
+            background: #f4f2ed;
+            color: #55605a;
+        }
+
+        /* A third of a row is not much for a clearance line that names a
+           ministry, so on these cards it wraps rather than running off the
+           edge. */
+        .osip-opp-grid .clear-tag {
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.5;
+        }
+
+        .osip-opp-grid .clear-tag .material-symbols-outlined { margin-top: 1px; }
+
+        /* Card headers are free-height, so a two-line title or a ministry name
+           that wraps used to push one card's amount box below its neighbours'.
+           From 40rem up - where the cards start sharing a row - the title keeps
+           the two lines it is clamped to, and the header keeps the height of the
+           tallest of the three, so every row inside the cards lines up. */
+        @media (width >= 40rem) {
+          .osip-opp-grid .opportunity-card > .mb-6 { min-height: 11.5rem; }
+
+          .osip-opp-grid .opportunity-card > .mb-6 > h3 {
+            min-height: 3.2rem;
+            margin-bottom: 0;
+          }
+        }
 
         .osip-opp-grid .font-title-md {
           font-family: 'Manrope', 'Inter', sans-serif !important;
@@ -6124,7 +6310,7 @@
           <div class="osip-opp-grid">
             <div
               class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
-              data-sector="solar" data-state="" data-readiness="preparation" data-href="pages/detailedOppNew.html?id=2024-SOL-11"
+              data-sector="solar" data-state="" data-clear="cleared" data-stage="development" data-href="pages/detailedOppNew.html?id=2024-SOL-11"
               style="transform: scale(1);">
               <span class="material-symbols-outlined card-watermark" aria-hidden="true">solar_power</span>
               <div class="mb-6">
@@ -6134,8 +6320,9 @@
                   Solar Power Naija - Phase II</h3>
                 <span class="sector-badge"><span
                     class="material-symbols-outlined">category</span>Sector: Solar</span>
-                <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot"
-                    aria-hidden="true"></span>Under preparation</span>
+                <span class="stage-tag" data-stage="development"><span
+                    class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 2: Under Development</span>
+                <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
               </div>
               <div class="mb-4 inv-box">
                 <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -6144,7 +6331,7 @@
               </div>
               <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                 <div class="flex justify-between text-label-sm">
-                  <span class="text-on-surface-variant">State:</span>
+                  <span class="text-on-surface-variant">Location:</span>
                   <span class="font-semibold">Multi-State</span>
                 </div>
                 <div class="flex justify-between text-label-sm"><span
@@ -6152,14 +6339,14 @@
                     class="font-semibold">18 Feb 2026</span></div>
               </div>
               <div class="flex gap-2 mt-auto pt-2">
-                <button
+                <button aria-label="View project details: Solar Power Naija - Phase II"
                   class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
               </div>
             </div>
 
             <div
-              class="opportunity-card is-pending min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm transition-all duration-300"
-              data-sector="wind" data-state="katsina" data-readiness="tender" aria-disabled="true"
+              class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+              data-sector="wind" data-state="katsina" data-clear="cleared" data-stage="implementation" data-href="pages/detailedOppNew.html?id=2025-WND-02"
               style="transform: scale(1);">
               <span class="material-symbols-outlined card-watermark" aria-hidden="true">wind_power</span>
               <div class="mb-6">
@@ -6169,8 +6356,9 @@
                   Katsina Wind Farm Phase I</h3>
                 <span class="sector-badge"><span
                     class="material-symbols-outlined">category</span>Sector: Wind</span>
-                <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot"
-                    aria-hidden="true"></span>Tender / procurement</span>
+                <span class="stage-tag" data-stage="implementation"><span
+                    class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 3: Under Implementation</span>
+                <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
               </div>
               <div class="mb-4 inv-box">
                 <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -6179,7 +6367,7 @@
               </div>
               <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                 <div class="flex justify-between text-label-sm">
-                  <span class="text-on-surface-variant">State:</span>
+                  <span class="text-on-surface-variant">Location:</span>
                   <span class="font-semibold">Katsina State</span>
                 </div>
                 <div class="flex justify-between text-label-sm"><span
@@ -6187,13 +6375,14 @@
                     class="font-semibold">05 May 2026</span></div>
               </div>
               <div class="flex gap-2 mt-auto pt-2">
-                <span class="osip-opp-pending">Listing in preparation</span>
+                <button aria-label="View project details: Katsina Wind Farm Phase I"
+                  class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
               </div>
             </div>
 
             <div
-              class="opportunity-card is-pending min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm transition-all duration-300"
-              data-sector="storage" data-state="nasarawa" data-readiness="interest" aria-disabled="true"
+              class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+              data-sector="storage" data-state="nasarawa" data-clear="cleared" data-readiness="interest" data-href="pages/detailedOppNew.html?id=2024-STG-07"
               style="transform: scale(1);">
               <span class="material-symbols-outlined card-watermark" aria-hidden="true">battery_charging_full</span>
               <div class="mb-6">
@@ -6205,6 +6394,7 @@
                     class="material-symbols-outlined">category</span>Sector: Storage</span>
                 <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot"
                     aria-hidden="true"></span>Seeking investor interest</span>
+                <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Solid Minerals Development</span>
               </div>
               <div class="mb-4 inv-box">
                 <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -6213,7 +6403,7 @@
               </div>
               <div class="mb-2 space-y-2 border-y border-outline-variant py-4">
                 <div class="flex justify-between text-label-sm">
-                  <span class="text-on-surface-variant">State:</span>
+                  <span class="text-on-surface-variant">Location:</span>
                   <span class="font-semibold">Nasarawa State</span>
                 </div>
                 <div class="flex justify-between text-label-sm"><span
@@ -6221,7 +6411,8 @@
                     class="font-semibold">14 Jan 2026</span></div>
               </div>
               <div class="flex gap-2 mt-auto pt-2">
-                <span class="osip-opp-pending">Listing in preparation</span>
+                <button aria-label="View project details: Nasarawa Lithium Processing Hub"
+                  class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
               </div>
             </div>
           </div>
@@ -6246,10 +6437,11 @@
             card.addEventListener('mouseleave', function () { card.style.transform = 'scale(1)'; });
 
             card.querySelectorAll('button').forEach(function (b) {
-              // The label carries a trailing arrow glyph ("view in detail
-              // arrow_forward"), so this tests rather than compares.
+              // The label carries a trailing arrow glyph ("view project details
+              // arrow_forward"), so this tests rather than compares. Both wordings
+              // are matched: the button was renamed along with the listing page.
               var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
-              if (/view\s*in\s*detail/.test(t)) b.addEventListener('click', go);
+              if (/view\s*(project\s*details|in\s*detail)/.test(t)) b.addEventListener('click', go);
               if (/invest\s*now/.test(t)) b.addEventListener('click', function (e) {
                 e.stopPropagation();
                 location.href = 'pages/InvestorMatch.html';
@@ -7651,6 +7843,21 @@
               <div class="osip-guide-body">
                 <p>Tax holidays, customs incentives, EDTI, Pioneer Status, and financing support.</p>
                 <a href="pages/Regulation.html#tax">See tax and fiscal incentives <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+                <!-- GOPA-LP-03: the money for a project is set out on its own sector
+                     page, under "Capital & Investment Finance". Rather than repeat any
+                     of it here, this line goes straight to each one. -->
+                <p class="osip-guide-sectors"><span>Finance by sector:</span>
+                  <a href="pages/DetailedSector.html#finance">Solar</a>
+                  <a href="pages/Wind.html#finance">Wind</a>
+                  <a href="pages/Storage.html#finance">Storage</a>
+                  <a href="pages/SmallHydro.html#finance">Small Hydro</a>
+                  <a href="pages/GreenMobility.html#finance">Green Mobility</a>
+                  <a href="pages/EnergyEfficiency.html#finance">Energy Efficiency</a>
+                  <a href="pages/CleanCooking.html#finance">Clean Cooking</a>
+                  <a href="pages/Bioenergy.html#finance">Bioenergy</a>
+                  <a href="pages/AgriculturePUE.html#finance">Agriculture PUE</a>
+                  <a href="pages/GreenHydrogen.html#finance">Green Hydrogen</a>
+                </p>
               </div>
             </details>
             <details class="osip-guide-item">
@@ -8196,6 +8403,107 @@
             outline: 2px solid #047857;
             outline-offset: 6px;
             border-radius: 18px;
+          }
+
+          /* ---- Side by side (18 Sep 2026) ---------------------------------------
+             News and Events share one row from 1024px up, a column each, with a
+             hairline between them instead of under them. In half the width a
+             photograph cannot sit beside a paragraph and leave either enough
+             room, so the card stacks: a smaller picture with the words beneath
+             it. One story on show per column, as before; the arrows and the
+             "View all" link share the last line. Below 1024px the two fall back
+             to the stack they already were. */
+          @media (min-width: 1024px) {
+            .osip-nw {
+              grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+              column-gap: clamp(40px, 4.4vw, 68px);
+              align-items: start;
+            }
+
+            .osip-nw-col--events {
+              margin-top: 0;
+              padding-top: 0;
+              border-top: 0;
+              padding-left: clamp(40px, 4.4vw, 68px);
+              border-left: 1px solid var(--rd-line, #e2ded5);
+            }
+
+            .osip-nw > .osip-nw-col {
+              grid-template-columns: minmax(0, 1fr) auto;
+              grid-template-areas:
+                "head head"
+                "lede lede"
+                "story story"
+                "nav  all";
+              /* the story row takes up the slack, so the arrows and the link sit
+                 on the same line in both columns however long the two stories
+                 happen to run */
+              grid-template-rows: auto auto 1fr auto;
+              height: 100%;
+              align-items: start;
+              column-gap: 20px;
+            }
+
+            /* the link leaves the heading row and closes the column instead,
+               level with the arrows */
+            .rd .osip-news-sec .osip-nw-col > a.osip-nw-all[href],
+            .rd .osip-news-sec .osip-nw-col > a.osip-ev-all[href] {
+              grid-area: all;
+              align-self: center;
+              justify-self: end;
+              margin: clamp(26px, 2.6vw, 36px) 0 0 !important;
+            }
+
+            .osip-nw-col > .osip-nw-scrollnav { justify-content: flex-start; }
+
+            .osip-nw-col > .osip-nw-scroll,
+            .osip-nw-col > .osip-nw-scrollnav { max-width: none; }
+
+            /* a heading sized for half a row, and a lede that stops before the
+               hairline rather than running up to it */
+            .rd #root .min-h-screen > section.osip-news-sec .osip-nw-col > h2 {
+              font-size: clamp(26px, 2.05vw, 32px) !important;
+              white-space: normal;
+            }
+
+            .osip-nw-col > h2 + p {
+              max-width: 34rem;
+              margin-bottom: clamp(24px, 2.4vw, 32px);
+            }
+
+            /* the card: picture over words */
+            .osip-nw-scroll > .osip-nw-story {
+              display: block;
+              gap: 0;
+            }
+
+            .osip-nw-media {
+              aspect-ratio: auto;
+              height: clamp(168px, 14.5vw, 210px);
+              border-radius: 14px;
+            }
+
+            .osip-nw-scroll > .osip-nw-story .osip-nw-body { padding-top: 18px; }
+
+            .rd #root .osip-news-sec .osip-nw-title,
+            .rd #root .osip-news-sec .osip-ev .osip-nw-title {
+              font-size: clamp(19px, 1.5vw, 22px) !important;
+            }
+
+            .osip-nw-excerpt,
+            .osip-ev-desc { font-size: 15px; }
+
+            .osip-nw-scroll > .osip-nw-story .osip-nw-excerpt { -webkit-line-clamp: 2; }
+
+            .osip-nw-more { margin-top: 14px; }
+          }
+
+          /* Between 1024 and 1280 a column is narrow enough that the meta line
+             wraps; spacing carries it there, so no dot is left hanging at the
+             end of a line. */
+          @media (min-width: 1024px) and (max-width: 1279px) {
+            .osip-nw-dot { display: none; }
+            .osip-nw-meta { gap: 4px 14px; }
           }
 
           .osip-nw-scrollnav {
@@ -9167,6 +9475,28 @@
       var at = 0;
       var timer = 0;
       var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      /* Step back, step on. Built here rather than written into the page, so a rail
+         with nothing to rotate never shows controls it cannot use. Stepping also
+         restarts the clock, so the item someone asked for gets its full turn. */
+      function step(by, label, icon) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'osip-live-nav';
+        b.setAttribute('aria-label', label);
+        b.setAttribute('aria-controls', 'osip-live');
+        b.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">' + icon + '</span>';
+        b.addEventListener('click', function () {
+            show(at + by);
+            play();
+        });
+        return b;
+      }
+
+      var back = step(-1, 'Previous item', 'chevron_left');
+      var on = step(1, 'Next item', 'chevron_right');
+      dots.parentNode.insertBefore(back, dots);
+      dots.parentNode.insertBefore(on, dots.nextSibling);
 
       function show(i) {
         at = (i + slides.length) % slides.length;

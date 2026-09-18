@@ -160,14 +160,30 @@
     '#osip-pathway .pf-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}',
     '#osip-pathway .pf-list li{border:1px solid #e5e7eb;border-radius:10px;padding:13px 15px;',
     'font-family:Inter,sans-serif;font-size:14px;line-height:1.6;color:#404846;background:#f9f9f7}',
-    '#osip-pathway .pf-ag{display:grid;gap:10px;grid-template-columns:1fr}',
+    /* ---- who you would be dealing with ----------------------------------------
+       Nine to twelve agencies, and each one used to be a bordered box in a
+       two-column grid 10px apart: a wall of little boxes under a result that is
+       already a diagram, a list and a note. They are a list now, on the pattern
+       the sector pages use for Useful Resources and Data (DetailedSector.html,
+       .rd-list.rd-links): hairlines instead of boxes, the count in its own
+       column, the agency and then its role, and room to breathe between rows. */
+    '#osip-pathway .pf-ag{display:grid;grid-template-columns:1fr;column-gap:48px;',
+    'border-top:1px solid var(--pf-line);counter-reset:pf-ag}',
     '@media (min-width:768px){#osip-pathway .pf-ag{grid-template-columns:1fr 1fr}}',
-    '#osip-pathway .pf-ag a{border:1px solid #e5e7eb;border-radius:10px;padding:13px 15px;',
-    'text-decoration:none;background:#fff;display:block}',
-    '#osip-pathway .pf-ag a[href]:hover{border-color:#004225}',
-    '#osip-pathway .pf-ag .n{display:block;font-family:Inter,sans-serif;font-size:14px;font-weight:600;color:#1a1c1b}',
-    '#osip-pathway .pf-ag .r{display:block;font-family:Inter,sans-serif;font-size:12.5px;line-height:1.5;',
-    'color:#5f6368;margin-top:3px}',
+    '#osip-pathway .pf-ag a{counter-increment:pf-ag;display:grid;grid-template-columns:40px 1fr;',
+    'align-items:baseline;padding:16px 0;border-bottom:1px solid #e8ebe9;background:none;',
+    'border-radius:0;text-decoration:none;color:inherit}',
+    '#osip-pathway .pf-ag a::before{content:counter(pf-ag,decimal-leading-zero);',
+    'font-family:Inter,sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;',
+    'font-variant-numeric:tabular-nums;color:var(--pf-mute);transition:color .35s ease}',
+    '#osip-pathway .pf-ag a[href]:hover::before{color:#d9a520}',
+    '#osip-pathway .pf-ag .n{display:block;font-family:Inter,sans-serif;font-size:15px;font-weight:500;',
+    'line-height:1.4;color:#1a1c1b;transition:color .35s ease}',
+    '#osip-pathway .pf-ag a[href]:hover .n{color:var(--pf-deep)}',
+    /* the count holds column one, so the name and the role both sit in column two */
+    '#osip-pathway .pf-ag .n{grid-column:2}',
+    '#osip-pathway .pf-ag .r{grid-column:2;display:block;font-family:Inter,sans-serif;font-size:13px;',
+    'line-height:1.55;color:#5f6368;margin-top:4px}',
     '#osip-pathway .pf-note{margin-top:28px;border-top:1px solid #e8ebe9;padding-top:18px;',
     'font-family:Inter,sans-serif;font-size:12.5px;line-height:1.65;color:#5f6368}',
     '#osip-pathway .pf-note p{margin:0}',

@@ -1285,9 +1285,19 @@
         .rd main > section.osip-band.is-white { background: var(--rd-paper) !important; }
         .rd main > section.osip-band.is-grey { background: var(--rd-paper-2) !important; }
 
+        /* 18 Sep 2026: with the bands closer together, each one opens on a hairline, so
+           the change of subject is stated rather than left to the change of tone. The
+           first band needs none - the hero is above it. */
+        .rd main > section.osip-band + section.osip-band {
+            border-top: 1px solid var(--rd-line) !important;
+        }
+
+        /* 18 Sep 2026: the bands sat 288px apart, which read as gaps between pages
+           rather than one page. Closer now - about 168px on a desktop - matching the
+           sector pages. */
         .rd main > section.osip-band {
-            padding-top: clamp(76px, 10vw, 148px) !important;
-            padding-bottom: clamp(76px, 10vw, 148px) !important;
+            padding-top: clamp(46px, 5.8vw, 86px) !important;
+            padding-bottom: clamp(46px, 5.8vw, 86px) !important;
         }
 
         .rd main .text-on-surface-variant { color: var(--rd-ink-2) !important; }
@@ -1361,7 +1371,7 @@
         }
 
         .rd main > section:first-of-type h1 ~ p {
-            max-width: 34rem !important;
+            max-width: none !important;  /* full width: the hero band has no second column */
             margin-bottom: 44px !important;
             position: relative;
             padding-left: 23px !important;

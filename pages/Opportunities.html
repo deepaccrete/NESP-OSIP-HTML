@@ -903,6 +903,33 @@
             flex: 0 0 auto;
         }
 
+        /* The clearance mark (GOPA-OPP-03). Two states, one shape: cleared reads in
+           the platform's green, awaiting clearance in quiet ink, so a reader can
+           tell them apart without colour alone - the icon and the word differ too. */
+        .clear-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 3px 9px 3px 7px;
+            border: 1px solid #dbe7e0;
+            border-radius: 999px;
+            background: #f1f8f4;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: #0b5033;
+            line-height: 1.4;
+        }
+
+        .clear-tag .material-symbols-outlined { font-size: 14px; }
+
+        .clear-tag[data-clear="pending"] {
+            border-color: #e2ded5;
+            background: #f4f2ed;
+            color: #55605a;
+        }
+
         /* ---- Search -----------------------------------------------------
            It read as a disabled box: one flat border, no focus state worth the
            name, and a magnifier that never did anything. Now the whole field
@@ -3367,9 +3394,10 @@
                 <p id="projects-count" class="opp-count" role="status" aria-live="polite"></p>
                 <div class="opp-provenance">
                     <span class="material-symbols-outlined">verified_user</span>
-                    <span>Only projects whose information has been approved by the Federal Ministry of Power, GIZ or the
-                        relevant state government are listed here. Where a project is not yet listed, the opportunity
-                        area above is the route in.</span>
+                    <span>Every project below is demo content for this design, and none of it has been approved by
+                        anyone yet. The mark on each card shows how clearance will be displayed once the Federal
+                        Ministry of Power, GIZ or the relevant state government has cleared a project's information.
+                        Each project page names the agency responsible for it and how to reach them.</span>
                 </div>
             <!-- Opportunities Grid. PLACEHOLDER RECORDS.
                  Every project below is demo content and none of it is an approved
@@ -3389,7 +3417,7 @@
             <div id="opportunities-grid" class="opp-grid" data-osip-list data-osip-label="opportunities"
                 data-osip-empty="#no-results" data-osip-reset="#no-results-reset">
                 <!-- Opportunity Card 1 -->
-                <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                <div data-clear="cleared" class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                     data-sector="solar" data-state="" data-scheme="" data-stage="development"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">solar_power</span>
@@ -3402,6 +3430,7 @@
                                 class="material-symbols-outlined">category</span>Sector: Solar</span>
                         <span class="stage-tag" data-stage="development"><span
                                 class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 2: Under Development</span>
+                    <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3423,7 +3452,7 @@
                     </div>
                 </div>
                 <!-- Opportunity Card 2 -->
-                <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                <div data-clear="cleared" class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                     data-sector="wind" data-state="katsina" data-scheme="" data-stage="implementation"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">wind_power</span>
@@ -3436,6 +3465,7 @@
                                 class="material-symbols-outlined">category</span>Sector: Wind</span>
                         <span class="stage-tag" data-stage="implementation"><span
                                 class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 3: Under Implementation</span>
+                    <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3457,7 +3487,7 @@
                     </div>
                 </div>
                 <!-- Opportunity Card 3 -->
-                <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                <div data-clear="cleared" class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                     data-sector="storage" data-state="nasarawa" data-scheme="" data-readiness="interest"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">battery_charging_full</span>
@@ -3470,6 +3500,7 @@
                                 class="material-symbols-outlined">category</span>Sector: Storage</span>
                         <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot"
                                 aria-hidden="true"></span>Seeking investor interest</span>
+                    <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Solid Minerals Development</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3491,7 +3522,7 @@
                     </div>
                 </div>
                 <!-- Opportunity Card 4 -->
-                <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                <div data-clear="pending" class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                     data-sector="small-hydro" data-state="cross-river" data-scheme="" data-stage="conceptualization"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">water</span>
@@ -3504,6 +3535,7 @@
                                 class="material-symbols-outlined">category</span>Sector: Small Hydro</span>
                         <span class="stage-tag" data-stage="conceptualization"><span
                                 class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 1: Under Conceptualisation</span>
+                    <span class="clear-tag" data-clear="pending"><span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>Clearance pending</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3525,7 +3557,7 @@
                     </div>
                 </div>
                 <!-- Opportunity Card 5 -->
-                <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                <div data-clear="pending" class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                     data-sector="green-mobility" data-state="lagos" data-scheme="" data-stage="development"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">electric_car</span>
@@ -3538,6 +3570,7 @@
                                 class="material-symbols-outlined">category</span>Sector: Green Mobility</span>
                         <span class="stage-tag" data-stage="development"><span
                                 class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 2: Under Development</span>
+                    <span class="clear-tag" data-clear="pending"><span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>Clearance pending</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3559,7 +3592,7 @@
                     </div>
                 </div>
                 <!-- Opportunity Card 6 -->
-                <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                <div data-clear="pending" class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                     data-sector="energy-efficiency" data-state="ogun" data-scheme="" data-readiness="financing"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">energy_savings_leaf</span>
@@ -3572,6 +3605,7 @@
                                 class="material-symbols-outlined">category</span>Sector: Energy Efficiency</span>
                         <span class="readiness-tag" data-readiness="financing"><span class="readiness-dot"
                                 aria-hidden="true"></span>Financing sought</span>
+                    <span class="clear-tag" data-clear="pending"><span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>Clearance pending</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3593,7 +3627,7 @@
                     </div>
                 </div>
                 <!-- Opportunity Card 7 -->
-                <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                <div data-clear="pending" class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                     data-sector="clean-cooking" data-state="kano" data-scheme="" data-readiness="validation"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">local_fire_department</span>
@@ -3606,6 +3640,7 @@
                                 class="material-symbols-outlined">category</span>Sector: Clean Cooking</span>
                         <span class="readiness-tag" data-readiness="validation"><span class="readiness-dot"
                                 aria-hidden="true"></span>Requires validation</span>
+                    <span class="clear-tag" data-clear="pending"><span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>Clearance pending</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3627,7 +3662,7 @@
                     </div>
                 </div>
                 <!-- Opportunity Card 8 -->
-                <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                <div data-clear="cleared" class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                     data-sector="bioenergy" data-state="benue" data-scheme="" data-readiness="preparation"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">compost</span>
@@ -3640,6 +3675,7 @@
                                 class="material-symbols-outlined">category</span>Sector: Bioenergy</span>
                         <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot"
                                 aria-hidden="true"></span>Under preparation</span>
+                    <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3661,7 +3697,7 @@
                     </div>
                 </div>
                 <!-- Opportunity Card 9 -->
-                <div class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
+                <div data-clear="pending" class="opportunity-card min-h-[380px] bg-white border border-outline-variant rounded-lg p-6 flex flex-col shadow-sm hover:shadow-md hover:bg-surface-container-lowest transition-all duration-300"
                     data-sector="green-hydrogen" data-state="rivers" data-scheme="" data-stage="conceptualization"
                     style="transform: scale(1);">
                     <span class="material-symbols-outlined card-watermark" aria-hidden="true">science</span>
@@ -3674,6 +3710,7 @@
                                 class="material-symbols-outlined">category</span>Sector: Green Hydrogen</span>
                         <span class="stage-tag" data-stage="conceptualization"><span
                                 class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 1: Under Conceptualisation</span>
+                    <span class="clear-tag" data-clear="pending"><span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>Clearance pending</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -4456,8 +4493,9 @@
         (function () {
             document.querySelectorAll('#opportunities-grid button').forEach(function (b) {
                 var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
-                if (t === 'view in detail') b.addEventListener('click', function () { location.href = window.oppDetailHref(b); });
-                else if (t === 'invest now') b.addEventListener('click', function () { location.href = '#'; });
+                if (t.indexOf('view project details') === 0 || t === 'view in detail') {
+                    b.addEventListener('click', function () { location.href = window.oppDetailHref(b); });
+                }
             });
 
             // Make the whole opportunity card clickable (excluding inner buttons/links)

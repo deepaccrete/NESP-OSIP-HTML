@@ -255,13 +255,21 @@
         .rd main #contactForm select:hover,
         .rd main #contactForm textarea:hover { border-color: var(--rd-line-3) !important; }
 
+        /* One border, and it is the field's own: green and a shade thicker. The
+           padding gives back the pixel the border takes, so nothing inside moves.
+           No outer ring - see the note in nav.js for why these fields opt out of
+           the site-wide pair. */
         .rd main #contactForm input:not([type=checkbox]):not([type=radio]):not([type=file]):focus,
         .rd main #contactForm select:focus,
         .rd main #contactForm textarea:focus {
             outline: none !important;
             border-color: var(--rd-green-2) !important;
-            box-shadow: 0 0 0 4px rgba(11, 107, 69, .12) !important;
+            border-width: 2px !important;
+            padding: 12px 17px !important;
+            box-shadow: none !important;
         }
+
+        .rd main #contactForm select:focus { padding-right: 45px !important; }
 
 
         .rd main #contactForm .items-baseline > p,
@@ -763,7 +771,9 @@
         .rd main #contactForm [aria-invalid="true"]:focus,
         .rd main #contactForm input[aria-invalid="true"]:not([type=checkbox]):not([type=radio]):not([type=file]):focus {
             border-color: #b3261e !important;
-            box-shadow: 0 0 0 4px rgba(179, 38, 30, .12) !important;
+            border-width: 2px !important;
+            padding: 12px 17px !important;
+            box-shadow: none !important;
         }
 
         .rd main #contactForm .osip-clear {
@@ -860,9 +870,11 @@
 
         .rd main #contactForm .osip-select-wrap.is-open .osip-select-btn,
         .rd main #contactForm .osip-select-btn:focus-visible {
-            outline: none;
-            border-color: var(--rd-green-2);
-            box-shadow: 0 0 0 4px rgba(11, 107, 69, .12);
+            outline: none !important;
+            border-color: var(--rd-green-2) !important;
+            border-width: 2px !important;
+            padding: 12px 17px !important;
+            box-shadow: none !important;
         }
 
         .rd main #contactForm .osip-select-wrap.is-empty .osip-select-value { color: var(--rd-ink-3); }

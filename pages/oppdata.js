@@ -35,6 +35,23 @@
      docs               four documents: [title, size in MB, pages]
      contact            [name, designation, phone, email]
    ============================================================================= */
+/* Clearance (GOPA-OPP-03) --------------------------------------------------
+   Which records are shown as cleared by the Federal Ministry of Power, GIZ or
+   the relevant state government, and therefore open a full project page. The
+   rest route to the responsible agency instead.
+
+   REPRESENTATIONAL. Nothing here has been approved by anyone: the list shows
+   how clearance will be marked once real approvals exist. The agency named on
+   a card is that record's own `ministry` field. Replace this map with the
+   clearance register when there is one - no other file needs changing.
+   ------------------------------------------------------------------------ */
+window.OSIP_OPPORTUNITY_CLEARED = [
+    '2024-SOL-11',
+    '2025-WND-02',
+    '2024-STG-07',
+    '2025-BIO-05',
+];
+
 window.OSIP_OPPORTUNITY_DEFAULT = '2025-WND-02';
 
 window.OSIP_OPPORTUNITIES = [

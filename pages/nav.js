@@ -266,6 +266,11 @@
             { t: 'Open Data Downloads', d: 'Planned datasets, and where to get data today.', href: base + 'Data.html#downloads' }
           ]
         },
+        // Financing has no page, so it stays a coming-soon strip rather than a
+        // link: a menu entry that opens something else is a promise the platform
+        // does not keep. The climate finance route GOPA-INV-01 asks for is on
+        // Invest Now, where the reader is already being routed.
+        { head: 'Financing', soon: true },
       ]
     },
     // Newsroom (17 Sep 2026): News and Events. Announcements was the third item
@@ -973,6 +978,56 @@
       // opportunity cards' buttons do) then still leaves a ring behind, and so
       // does a page that suppresses the outline. Either survives alone.
       'html body:not(#osip-a11y-a):not(#osip-a11y-b) :focus-visible{outline:3px solid #0b2a1f!important;outline-offset:2px!important;box-shadow:0 0 0 2px #f7be26!important}',
+      // A control that already has an edge of its own does not want a ring around
+      // it: an audit of eight pages found a border or a rounded ground on almost
+      // every field, dropdown and icon button, so the pair drew a second and a
+      // third line outside one control. These take a single green edge instead -
+      // their own border turns green and a 2px outline sits flush against it,
+      // reading as one thicker line. #0b6b45 clears 6:1 on the white and cream
+      // grounds these controls sit on, past the 3:1 the pair is there to
+      // guarantee.
+      //
+      // Not listed, and so still on the pair: links, the filled green buttons and
+      // the controls on dark ground (the hero rail's arrows, the alert button),
+      // where green would vanish into the fill or fail against the ground.
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) input:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) select:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) textarea:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) [role="combobox"]:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) .osip-select-btn:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) .nesp-icon-btn:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) .d-lb-btn:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) .rd-filters-hide:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) .osip-sx-arrow:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) .osip-states-arrow:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) .osip-nw-scrollbtn:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) .sr-go:focus-visible' +
+      '{outline:2px solid #0b6b45!important;outline-offset:0!important;box-shadow:none!important;border-color:#0b6b45!important}',
+
+      // The search field is the one place the two rings are not needed, and the
+      // one place they showed as a fault: the field has no border of its own, so
+      // the dark ring and the gold one drew a double edge inside a pill that
+      // already has an edge. The two exist because no single colour clears 3:1
+      // against every ground on the site - but this ground is known. The ring
+      // goes on the pill instead, in the site's green: #0b6b45 on the pill's
+      // #fbfaf7 is 5.9:1, well past the 3:1 the pair is there to guarantee.
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) .nesp-search-input:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) .nesp-header .nesp-m-search input:focus-visible' +
+      '{outline:0!important;outline-offset:0!important;box-shadow:none!important}',
+      // The contact form is the second known ground, and for the same reason: a
+      // white field that already carries its own border, so the dark ring and the
+      // gold one drew a third and fourth edge around one control. The field turns
+      // its own border green and thickens it instead - #0b6b45 on #ffffff is
+      // 6.1:1, past the 3:1 the pair is there to guarantee. Every other focusable
+      // thing on the page, links and buttons included, keeps the two rings.
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) #contactForm input:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) #contactForm select:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) #contactForm textarea:focus-visible,' +
+      'html body:not(#osip-a11y-a):not(#osip-a11y-b) #contactForm .osip-select-btn:focus-visible' +
+      '{outline:0!important;outline-offset:0!important;box-shadow:none!important}',
+      '.nesp-header .nesp-search:focus-within,.nesp-search-layer .nesp-search:focus-within{border-color:' + GREEN2 +
+      ';box-shadow:0 0 0 2px rgba(11,107,69,.34),0 2px 6px rgba(19,32,27,.06),0 40px 80px -40px rgba(19,32,27,.55)}',
+      '.nesp-header .nesp-m-search:focus-within{border-color:' + GREEN2 + ';box-shadow:0 0 0 2px rgba(11,107,69,.3)}',
       // Containers that are focused programmatically (a panel, a dialog, a
       // scroll target) are not a place the user has navigated to.
       'html body:not(#osip-a11y-a):not(#osip-a11y-b) [tabindex="-1"]:focus-visible{outline:none!important;box-shadow:none!important}',
@@ -1346,6 +1401,18 @@
     window.addEventListener('resize', function () {
       if (window.matchMedia('(min-width: 1152px)').matches) setOpen(false);
     });
+  }
+
+  // ---- Alerts (UX-SUP-04) -------------------------------------------------
+  // The bell in the bottom-right corner lives in notify.js and is loaded from
+  // here so that every page carrying the header carries it too, without another
+  // script tag in thirty-eight files.
+  if (!document.getElementById('osip-alerts-js')) {
+    var alerts = document.createElement('script');
+    alerts.id = 'osip-alerts-js';
+    alerts.src = base + 'notify.js';
+    alerts.defer = true;
+    document.body.appendChild(alerts);
   }
 
   // ---- Skip to content (UX-A11-07) ---------------------------------------
