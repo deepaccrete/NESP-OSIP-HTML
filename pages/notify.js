@@ -52,6 +52,18 @@
         }
     ];
 
+    // The featured story in the left rail of the card. Like ALERTS it is a mock
+    // that mirrors real site content: the newest record in newsdata.js. Point it
+    // at that feed when there is one; nothing else has to change.
+    var FEATURED = {
+        kicker: 'Project Update',
+        title: 'Govt upbeat on Nyerere Hydropower Project completion',
+        when: '08 Sep 2026',
+        image: base + 'news-hydro.jpg',
+        alt: 'Aerial view of a hydropower dam and its reservoir',
+        href: base + 'NewsInDetail.html?id=nyerere-hydropower'
+    };
+
     var SEEN_KEY = 'osip_alerts_seen';
     // These mirror nav.js's tokens so the bell reads as part of the header.
     var GREEN = '#004225';
@@ -99,9 +111,26 @@
             '.osip-alert-count{position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:#d92d20;border:2px solid ' + CARD + ';color:#fff;font-size:10.5px;font-weight:600;line-height:15px;text-align:center;box-sizing:border-box;font-family:' + SANS + '}',
             '.osip-alert-count[hidden]{display:none}',
             // the card — drops down from the top-right corner, under the header
-            '.osip-alert-card{position:fixed;top:70px;right:24px;z-index:65;width:340px;max-width:calc(100vw - 32px);background:' + CARD + ';border:1px solid ' + LINE + ';border-radius:20px;box-shadow:0 1px 2px rgba(19,32,27,.04),0 28px 60px -30px rgba(19,32,27,.45);padding:.375rem;transform-origin:top right;opacity:0;transform:translateY(-10px) scale(.985);transition:opacity .24s ease,transform .34s cubic-bezier(.16,1,.3,1);font-family:' + SANS + '}',
+            '.osip-alert-card{position:fixed;top:70px;right:24px;z-index:65;width:600px;max-width:calc(100vw - 32px);background:' + CARD + ';border:1px solid ' + LINE + ';border-radius:20px;box-shadow:0 1px 2px rgba(19,32,27,.04),0 28px 60px -30px rgba(19,32,27,.45);padding:.375rem;transform-origin:top right;opacity:0;transform:translateY(-10px) scale(.985);transition:opacity .24s ease,transform .34s cubic-bezier(.16,1,.3,1);font-family:' + SANS + '}',
             '.osip-alert-card[hidden]{display:none}',
             '.osip-alert-card.is-open{opacity:1;transform:none}',
+            // body: two columns — the Latest News rail on the left, the alerts on the right
+            '.osip-alert-body{display:flex;align-items:stretch}',
+            '.osip-alert-main{flex:1 1 auto;min-width:0;display:flex;flex-direction:column}',
+            // the left rail: a column header, one featured story with a photo
+            '.osip-alert-news{flex:0 0 224px;width:224px;box-sizing:border-box;padding:.75rem .875rem .875rem;border-right:1px solid ' + LINE + ';display:flex;flex-direction:column}',
+            '.osip-alert-news-h{display:block;font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:' + GREEN2 + ';padding:0 .125rem .625rem;margin-bottom:.125rem;border-bottom:1px solid ' + LINE + '}',
+            '.osip-alert-news-card{display:flex;flex-direction:column;text-decoration:none;border-radius:12px;padding:.625rem .5rem;margin-top:.25rem;transition:background-color .25s ease}',
+            '.osip-alert-news-card:hover{background:' + TINT + '}',
+            '.osip-alert-news-card:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:2px}',
+            '.osip-alert-news-img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;background:' + TINT + ';border:1px solid ' + LINE + '}',
+            '.osip-alert-news-k{display:block;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:' + GREEN2 + ';margin:.625rem 0 .25rem}',
+            '.osip-alert-news-k em{font-style:normal;color:' + INK3 + '}',
+            '.osip-alert-news-t{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;font-size:14px;font-weight:500;line-height:1.35;color:' + INK + ';transition:color .25s ease}',
+            '.osip-alert-news-card:hover .osip-alert-news-t{color:' + GREEN + '}',
+            '.osip-alert-news-more{display:inline-flex;align-items:center;gap:.375rem;margin-top:.625rem;font-size:12px;font-weight:600;color:' + GREEN + '}',
+            '.osip-alert-news-more span{width:6px;height:6px;border-right:1.5px solid currentColor;border-top:1.5px solid currentColor;transform:translateX(-2px) rotate(45deg);opacity:.7;transition:transform .3s ease}',
+            '.osip-alert-news-card:hover .osip-alert-news-more span{transform:translateX(1px) rotate(45deg)}',
             '.osip-alert-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.75rem .5rem .625rem .875rem;margin:0 .125rem;border-bottom:1px solid ' + LINE + '}',
             '.osip-alert-head span{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:' + GREEN2 + '}',
             '.osip-alert-close{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;border:0;border-radius:999px;background:transparent;color:' + INK3 + ';cursor:pointer;transition:background-color .25s ease,color .25s ease}',
@@ -123,7 +152,8 @@
             '.osip-alert-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
             // out of the way of the phone menu and of the search layer
             'body:has(.nesp-mnav.is-open) .osip-alert-card{opacity:0;pointer-events:none}',
-            '@media (max-width:39.9375rem){.osip-alert-card{top:64px;right:16px}}',
+            // narrow screens: stack the news rail above the alerts
+            '@media (max-width:39.9375rem){.osip-alert-card{top:64px;right:16px;width:360px}.osip-alert-body{flex-direction:column}.osip-alert-news{flex:0 0 auto;width:auto;border-right:0;border-bottom:1px solid ' + LINE + '}.osip-alert-news-card{flex-direction:row;gap:.75rem;align-items:flex-start}.osip-alert-news-img{width:96px;flex:0 0 96px;aspect-ratio:1/1}.osip-alert-news-body{min-width:0}.osip-alert-news-k{margin-top:0}}',
             '@media (prefers-reduced-motion:reduce){.osip-alert-btn,.osip-alert-card,.osip-alert-item,.osip-alert-close,.osip-alert-all span,.osip-alert-item .go,.osip-alert-item .t{transition:none!important}.osip-alert-btn svg,.osip-alert-count{animation:none!important}}'
         ].join('\n');
         (document.head || document.documentElement).appendChild(st);
@@ -155,11 +185,25 @@
     card.setAttribute('aria-modal', 'false');
     card.setAttribute('aria-label', 'Alerts');
     card.hidden = true;
+    var news =
+        '<div class="osip-alert-news">' +
+        '<span class="osip-alert-news-h">Latest News</span>' +
+        '<a class="osip-alert-news-card" href="' + esc(FEATURED.href) + '">' +
+        '<img class="osip-alert-news-img" src="' + esc(FEATURED.image) + '" alt="' + esc(FEATURED.alt) + '" loading="lazy">' +
+        '<span class="osip-alert-news-body">' +
+        '<span class="osip-alert-news-k">' + esc(FEATURED.kicker) + ' <em>· ' + esc(FEATURED.when) + '</em></span>' +
+        '<span class="osip-alert-news-t">' + esc(FEATURED.title) + '</span>' +
+        '<span class="osip-alert-news-more">Read more<span aria-hidden="true"></span></span>' +
+        '</span></a></div>';
+
     card.innerHTML =
+        '<div class="osip-alert-body">' + news +
+        '<div class="osip-alert-main">' +
         '<div class="osip-alert-head"><span>Alerts</span>' +
         '<button type="button" class="osip-alert-close" aria-label="Close alerts">' + CLOSE + '</button></div>' +
         '<div class="osip-alert-list">' + rows + '</div>' +
-        '<a class="osip-alert-all" href="' + base + 'Opportunities.html">View all opportunities<span aria-hidden="true"></span></a>';
+        '<a class="osip-alert-all" href="' + base + 'Opportunities.html">View all opportunities<span aria-hidden="true"></span></a>' +
+        '</div></div>';
 
     // A bell can appear in two slots (desktop actions, mobile bar); both drive
     // the one card. Track their badges together so opening quiets every one.

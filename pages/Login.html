@@ -855,59 +855,48 @@
 
     <main class="flex h-screen w-full flex-col md:flex-row">
         <!-- Left: Brand showcase -->
-        <section class="brand-panel relative hidden md:flex md:flex-col justify-between md:basis-[44%] p-7 lg:p-9">
+        <section class="brand-panel relative hidden md:flex md:flex-col items-center justify-center text-center gap-9 lg:gap-11 md:basis-[44%] lg:basis-[46%] p-8 lg:p-11 xl:p-14">
             <div class="absolute inset-0 z-0">
                 <img alt="Nigerian Energy Infrastructure" class="h-full w-full object-cover opacity-70"
                     data-alt="A wide panoramic shot of a modern solar farm in the Nigerian savannah during golden hour."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAqhuj5TcIjhVM3Jrorz2FabL5siy-LD40WL6Leod-uly2CuBRjoNL_rC1-2jD0L3Yt7gb1c9yxl02G875yYOotCrlbnwF0u5M8QQ5ZYn9Iu4FdUoTVxzKT_zkAGUSGgeCT1qZoRprGa_sDNd_HpeitgW9LI4rjyzgjSOU3GVYWl0UOmsVS0wbX3fKHGYBJbzCBhbDLlN8il1Or671b2QONDqkKfmQIM3mDMTzQu3jMJVdM0PSevE-PvndcvG0y3PZbU6g_5DTTTCB" />
-                <div class="absolute inset-0 bg-gradient-to-br from-[#001d17]/55 via-[#001d17]/35 to-[#00342b]/20"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-[#001d17]/65 via-[#001d17]/45 to-[#00342b]/70"></div>
             </div>
 
-            <!-- Top brand row -->
-            <div class="relative z-10 flex items-center gap-3">
-                <div class="h-10 w-10 rounded-xl bg-[#f7be26] flex items-center justify-center shadow-[0_8px_20px_-8px_rgba(247,190,38,0.6)]">
-                    <span class="material-symbols-outlined text-[#001d17] text-[22px]"
-                        style="font-variation-settings: 'FILL' 1;">bolt</span>
-                </div>
-                <div>
-                    <p class="text-white text-[22px] leading-none font-extrabold tracking-tight"
-                        style="font-family: Manrope, sans-serif;">OSIP</p>
-                    <p class="text-[#f7be26] text-[10px] font-bold uppercase tracking-[0.22em] mt-1">One-Stop Investment Platform</p>
-                </div>
+            <!-- Section eyebrow -->
+            <div class="relative z-10 inline-flex items-center gap-2.5">
+                <span class="h-px w-9 bg-[#f7be26]"></span>
+                <span class="text-[#f7be26] text-[10.5px] font-bold tracking-[0.26em] uppercase">Member Access</span>
+                <span class="h-px w-9 bg-[#f7be26]"></span>
             </div>
 
-            <!-- Middle headline -->
-            <div class="relative z-10 max-w-md">
-                <span class="inline-flex items-center gap-2 mb-4">
-                    <span class="h-px w-8 bg-[#f7be26]"></span>
-                    <span class="text-[#f7be26] text-[10.5px] font-bold tracking-[0.24em] uppercase">Member
-                        Access</span>
-                </span>
-                <h2 class="text-white text-3xl lg:text-[34px] font-extrabold leading-[1.12] tracking-tight mb-4"
+            <!-- Headline -->
+            <div class="relative z-10 max-w-md flex flex-col items-center">
+                <h2 class="text-white text-3xl lg:text-[36px] xl:text-[40px] font-extrabold leading-[1.12] tracking-tight mb-5 text-balance"
                     style="font-family: Manrope, sans-serif;">Power Nigeria's energy transition — one investment at a
                     time.</h2>
-                <p class="text-[#bdecde]/90 leading-relaxed text-sm lg:text-[15px]">
+                <p class="text-[#bdecde]/90 leading-relaxed text-sm lg:text-[15px] max-w-sm">
                     Sign in to follow published opportunities, regulatory guidance and partner agencies across Renewable
                     Energy and Energy Efficiency.
                 </p>
             </div>
 
-            <!-- Bottom value chips -->
-            <div class="relative z-10 grid grid-cols-3 gap-2.5">
-                <div class="glass-chip rounded-xl p-3.5">
-                    <span class="material-symbols-outlined text-[#f7be26] text-[20px] mb-2 block"
+            <!-- Value chips -->
+            <div class="relative z-10 grid grid-cols-3 gap-3 w-full max-w-md">
+                <div class="glass-chip rounded-2xl p-4 flex flex-col items-center">
+                    <span class="material-symbols-outlined text-[#f7be26] text-[22px] mb-2.5"
                         style="font-variation-settings: 'FILL' 1;">search</span>
                     <p class="text-white text-[12px] font-bold tracking-wide">Discover</p>
                     <p class="text-[#bdecde]/70 text-[11px] leading-snug mt-0.5">Published opportunities</p>
                 </div>
-                <div class="glass-chip rounded-xl p-3.5">
-                    <span class="material-symbols-outlined text-[#f7be26] text-[20px] mb-2 block"
+                <div class="glass-chip rounded-2xl p-4 flex flex-col items-center">
+                    <span class="material-symbols-outlined text-[#f7be26] text-[22px] mb-2.5"
                         style="font-variation-settings: 'FILL' 1;">handshake</span>
                     <p class="text-white text-[12px] font-bold tracking-wide">Connect</p>
                     <p class="text-[#bdecde]/70 text-[11px] leading-snug mt-0.5">Partner agencies</p>
                 </div>
-                <div class="glass-chip rounded-xl p-3.5">
-                    <span class="material-symbols-outlined text-[#f7be26] text-[20px] mb-2 block"
+                <div class="glass-chip rounded-2xl p-4 flex flex-col items-center">
+                    <span class="material-symbols-outlined text-[#f7be26] text-[22px] mb-2.5"
                         style="font-variation-settings: 'FILL' 1;">trending_up</span>
                     <p class="text-white text-[12px] font-bold tracking-wide">Grow</p>
                     <p class="text-[#bdecde]/70 text-[11px] leading-snug mt-0.5">Backed by data</p>
@@ -1202,14 +1191,34 @@
             min-height: calc(100vh - 64px);
         }
 
-        body.osip-standalone .brand-panel {
-            min-height: 640px;
+        /* Pin the brand panel to the viewport so its centered content stays in
+           view while the (taller) form on the right scrolls the page. Without
+           this the panel stretches to the form's height and the centered block
+           drifts below the fold. Only in standalone - the modal keeps its own
+           full-height split. */
+        @media (min-width: 768px) {
+            body.osip-standalone .brand-panel {
+                position: sticky;
+                top: 64px;
+                align-self: flex-start;
+                height: calc(100vh - 64px);
+                min-height: 560px;
+            }
         }
 
         body.osip-standalone section.flex-1 {
             overflow: visible !important;
             padding-top: 3rem;
             padding-bottom: 3rem;
+        }
+
+        /* The base rule locks html to overflow:hidden / height:100% for the
+           modal. On the standalone page the document itself must scroll, or a
+           tall form (the Create account view) is trapped. Releasing body alone
+           is not enough while html still clips - free html too. */
+        html.osip-standalone {
+            height: auto !important;
+            overflow: visible !important;
         }
     </style>
 
@@ -1316,6 +1325,7 @@
         // The header and footer are loaded here rather than in the markup so the
         // iframe copy stays exactly as heavy as it was.
         if (window.self === window.top) {
+            document.documentElement.classList.add('osip-standalone');
             document.body.classList.add('osip-standalone');
             ['footer.js', 'nav.js'].forEach(function (src) {
                 var tag = document.createElement('script');

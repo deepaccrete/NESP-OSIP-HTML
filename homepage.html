@@ -3922,18 +3922,30 @@
 
     .rd #root .min-h-screen > section.bg-\[\#0d2318\] { background: var(--rd-deep) !important; }
 
-    /* Trimmed about a fifth on 17 Sep 2026: the sections still read as separate
-       chapters, with less dead paper between the end of one and the next heading. */
+    /* Trimmed about a fifth on 17 Sep 2026, then tightened again on 21 Sep 2026:
+       the sections still read as separate chapters, but the gap between the end of
+       one and the next heading no longer opens into dead paper on wide screens. */
     .rd #root .min-h-screen > section:not(.osip-hero) {
-      padding-top: clamp(52px, 6.7vw, 96px) !important;
-      padding-bottom: clamp(52px, 6.7vw, 96px) !important;
+      padding-top: clamp(40px, 4.5vw, 64px) !important;
+      padding-bottom: clamp(40px, 4.5vw, 64px) !important;
     }
 
     /* The first join is tighter than the rest: the hero ends on a hard edge rather
        than on text, so the same gap that separates two chapters reads as a hole
        there. The quick access block sits closer, and the page starts sooner. */
     .rd #root .min-h-screen > section.osip-quickaccess {
-      padding-top: clamp(40px, 5vw, 72px) !important;
+      padding-top: clamp(32px, 3.5vw, 48px) !important;
+    }
+
+    /* Data and Insights → Investor Guide is tightened further (21 Sep 2026): both
+       blocks sit on pale panels and read as one data-to-guidance run, so the full
+       chapter gap opened too much air. Trim the bottom of the first and the top of
+       the second only; the joins on either side keep the standard spacing. */
+    .rd #root .min-h-screen > section.bg-\[\#f4f3f8\] {
+      padding-bottom: clamp(28px, 3vw, 40px) !important;
+    }
+    .rd #root .min-h-screen > section.bg-\[\#f6f8f7\] {
+      padding-top: clamp(28px, 3vw, 40px) !important;
     }
 
     /* ---- Section eyebrows: a finer gold rule and a quieter label --------------- */
