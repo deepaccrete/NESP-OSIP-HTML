@@ -4468,10 +4468,12 @@
     }
 
     /* The step numbers were white at 10% on dark green and barely readable
-       (UX-SUP-05). As italic gold serif numerals they read, and still sit back. */
+       (UX-SUP-05). As gold Inter numerals, set upright, they read, and still sit back. */
     .rd section.bg-\[\#0d2318\] .grid > div > span:first-child {
-      font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
-      font-style: italic;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+      font-size-adjust: var(--rd-type-adjust, none) !important;
+      font-style: normal !important;
+      font-variant-numeric: tabular-nums;
       font-weight: 300 !important;
       font-size: clamp(40px, 3.6vw, 56px) !important;
       letter-spacing: -0.02em;

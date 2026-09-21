@@ -93,9 +93,11 @@
         st.textContent = [
             // the bell — a header icon button, sized like the search one but red,
             // to read as an alert. The bell rings (swings) while there is unread.
-            '.osip-alert-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 auto;padding:0;border:1px solid ' + RED + ';border-radius:999px;background:' + CARD + ';color:' + RED + ';cursor:pointer;transition:background-color .3s ease,color .3s ease,border-color .3s ease}',
-            '.osip-alert-btn:hover{background:' + RED + ';border-color:' + RED + ';color:#fff}',
-            '.osip-alert-btn:focus-visible{outline:2px solid ' + RED2 + ';outline-offset:2px}',
+            // A bare line icon like the search and profile ones beside it: no fill,
+            // no ring, the header green. The red is kept for the unread count only.
+            '.osip-alert-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 auto;padding:0;border:0;border-radius:999px;background:transparent;color:' + GREEN + ';cursor:pointer;transition:color .3s ease}',
+            '.osip-alert-btn:hover{color:' + GREEN2 + '}',
+            '.osip-alert-btn:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:2px}',
             '.osip-alert-btn svg{display:block;transform-origin:50% 18%}',
             // rings only while there is something unread (the badge is showing)
             '.osip-alert-btn:has(.osip-alert-count:not([hidden])) svg{animation:osip-bell-ring 2.6s ease-in-out infinite}',
@@ -105,10 +107,15 @@
             '.osip-alert-btn:has(.osip-alert-count:not([hidden])) .osip-alert-count{animation:osip-badge-pulse 2.6s ease-in-out infinite}',
             '@keyframes osip-badge-pulse{0%,100%{transform:scale(1)}45%{transform:scale(1)}50%{transform:scale(1.18)}55%{transform:scale(1)}}',
             // the mobile bell sits beside the burger; hidden once the desktop row shows
-            '.osip-alert-btn--m{margin-left:.25rem}',
+            // centred on the bar (the row stretches its items, and a fixed-height
+            // button would otherwise sit at the top), and set right against the
+            // burger: the row's 1.25rem gap and the burger's auto margin are undone
+            '.nesp-header .osip-alert-btn--m{align-self:center;margin-left:-.75rem}',
+            '.nesp-header .osip-alert-btn--m + .nesp-nav-toggle{margin-left:-1.25rem}',
             '@media (min-width:72rem){.osip-alert-btn--m{display:none}}',
             // the number on it
-            '.osip-alert-count{position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:#d92d20;border:2px solid ' + CARD + ';color:#fff;font-size:10.5px;font-weight:600;line-height:15px;text-align:center;box-sizing:border-box;font-family:' + SANS + '}',
+            // on the bell's shoulder, now that there is no ring to hang it on
+            '.osip-alert-count{position:absolute;top:2px;right:0;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:#d92d20;border:2px solid ' + CARD + ';color:#fff;font-size:10px;font-weight:600;line-height:13px;text-align:center;box-sizing:border-box;font-family:' + SANS + '}',
             '.osip-alert-count[hidden]{display:none}',
             // the card — drops down from the top-right corner, under the header
             '.osip-alert-card{position:fixed;top:70px;right:24px;z-index:65;width:600px;max-width:calc(100vw - 32px);background:' + CARD + ';border:1px solid ' + LINE + ';border-radius:20px;box-shadow:0 1px 2px rgba(19,32,27,.04),0 28px 60px -30px rgba(19,32,27,.45);padding:.375rem;transform-origin:top right;opacity:0;transform:translateY(-10px) scale(.985);transition:opacity .24s ease,transform .34s cubic-bezier(.16,1,.3,1);font-family:' + SANS + '}',
@@ -160,9 +167,9 @@
     }
 
     // ---- markup -------------------------------------------------------------
-    var BELL = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" ' +
-        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>' +
-        '<path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
+    var BELL = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 21h4"/></svg>';
     var CLOSE = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" ' +
         'stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
 
@@ -183,7 +190,7 @@
     card.id = 'osip-alert-card';
     card.setAttribute('role', 'dialog');
     card.setAttribute('aria-modal', 'false');
-    card.setAttribute('aria-label', 'Alerts');
+    card.setAttribute('aria-label', 'Notifications');
     card.hidden = true;
     var news =
         '<div class="osip-alert-news">' +
@@ -199,8 +206,8 @@
     card.innerHTML =
         '<div class="osip-alert-body">' + news +
         '<div class="osip-alert-main">' +
-        '<div class="osip-alert-head"><span>Alerts</span>' +
-        '<button type="button" class="osip-alert-close" aria-label="Close alerts">' + CLOSE + '</button></div>' +
+        '<div class="osip-alert-head"><span>Notifications</span>' +
+        '<button type="button" class="osip-alert-close" aria-label="Close notifications">' + CLOSE + '</button></div>' +
         '<div class="osip-alert-list">' + rows + '</div>' +
         '<a class="osip-alert-all" href="' + base + 'Opportunities.html">View all opportunities<span aria-hidden="true"></span></a>' +
         '</div></div>';
@@ -216,7 +223,7 @@
         btn.setAttribute('aria-controls', 'osip-alert-card');
         btn.innerHTML = BELL +
             '<span class="osip-alert-count" aria-hidden="true">' + ALERTS.length + '</span>' +
-            '<span class="osip-alert-sr">Alerts</span>';
+            '<span class="osip-alert-sr">Notifications</span>';
         return btn;
     }
 
@@ -225,7 +232,7 @@
             var c = b.querySelector('.osip-alert-count');
             if (c) c.hidden = hidden;
             var unread = hidden ? 0 : ALERTS.length;
-            var lbl = unread ? 'Alerts, ' + unread + ' unread' : 'Alerts';
+            var lbl = unread ? 'Notifications, ' + unread + ' unread' : 'Notifications';
             b.setAttribute('aria-label', lbl);
             b.setAttribute('title', lbl);
         });

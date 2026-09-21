@@ -1758,6 +1758,20 @@
             }
         }
 
+        /* Phones: one column the full width of the page. The 314px track would
+           otherwise sit at the left edge and leave a strip empty on the right. */
+        @media (max-width: 639.98px) {
+            .rd .area-grid,
+            .rd .opp-grid {
+                grid-template-columns: minmax(0, 1fr) !important;
+            }
+
+            .rd .opportunity-area,
+            .rd .opportunity-card {
+                max-width: none !important;
+            }
+        }
+
         /* ---- Filter panel: hide / show (desktop) ------------------------------------------------
            "Hide filters" sits in the panel's own header. While the panel is hidden, the
            page's Filters button (the one phones already use) appears above the title to
@@ -3912,11 +3926,13 @@
         // Each family pages independently, one row at a time, so neither section
         // buries the other and neither is written against a fixed card count.
         (function () {
-            // Opportunity areas page one row at a time: as many cards as the grid has
-            // tracks, so three with the filters open at desktop sizes and four with them
-            // hidden. Named projects page six at a time regardless of the row width, so
-            // a reader sees two rows of the pipeline before reaching for the pager.
+            // Both sections page six at a time regardless of the row width: two rows
+            // with the filters open, so a reader sees a real spread of the list before
+            // reaching for the pager. The two lists page the same way, so they read as
+            // one page rather than two widgets. (rowSize stays as the fallback for a
+            // pager given no fixed size.)
             const MIN_PER_PAGE = 3;
+            const AREAS_PER_PAGE = 6;
             const PROJECTS_PER_PAGE = 6;
             function rowSize(gridEl) {
                 if (!gridEl) return MIN_PER_PAGE;
@@ -4148,6 +4164,7 @@
                 document.getElementById('areas-pagination'),
                 document.getElementById('opportunity-areas'),
                 {
+                    perPage: AREAS_PER_PAGE,
                     countEl: document.getElementById('areas-count'),
                     noun: 'opportunity area', nounPl: 'opportunity areas'
                 });

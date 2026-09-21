@@ -26,8 +26,16 @@
   var USER = { name: 'Adaeze Okoye' };
   // One magnifier, used by the header button, the open search bar and the
   // mobile sheet's search field.
-  var SEARCH_SVG = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" ' +
-    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>';
+  var SEARCH_SVG = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.75" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.25"/><path d="m21 21-4.6-4.6"/></svg>';
+  // The signed-in mark in the bar: a person in a ring, drawn in the same line
+  // weight as the magnifier and the bell beside it.
+  var USER_SVG = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/>' +
+    '<circle cx="12" cy="10" r="3.25"/><path d="M6.4 18.6a6.2 6.2 0 0 1 11.2 0"/></svg>';
+  // The arrow on "Register your interest" in the bar, same stroke again.
+  var ARROW_SVG = '<svg class="nesp-cta-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" ' +
+    'stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>';
   var CLOSE_SVG = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" ' +
     'stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
 
@@ -68,6 +76,36 @@
     } catch (e) { /* memory only */ }
   }
 
+  // Turns a signed-out header into the signed-in one in place: Log in becomes
+  // the profile icon, and the phone menu gains the profile row and Sign out.
+  // The same markup the header is drawn with when the page loads signed in.
+  function showSignedIn(value) {
+    var header = document.querySelector('nav.nesp-header');
+    if (!header) return;
+    var name = (value && value.name) || USER.name;
+    var safe = String(name).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    var profile = base + 'AboutMe.html';
+    var login = header.querySelector('.nesp-nav-actions .nesp-login');
+    if (login) {
+      login.insertAdjacentHTML('afterend', '<a href="' + profile + '" class="nesp-icon-btn nesp-profile-btn" title="' + safe +
+        '" aria-label="My profile: ' + safe + '">' + USER_SVG + '</a>');
+      login.parentNode.removeChild(login);
+    }
+    var foot = header.querySelector('.nesp-m-foot');
+    if (foot && !foot.querySelector('.nesp-m-profile')) {
+      foot.insertAdjacentHTML('afterbegin', '<a href="' + profile + '" class="nesp-m-profile">' +
+        '<span class="nesp-avatar nesp-avatar--sm"><span aria-hidden="true">' + initialsOf(name) + '</span></span>' +
+        '<span class="nesp-m-profile-t"><b>' + safe + '</b><em>View profile</em></span></a>');
+    }
+    var mLogin = foot && foot.querySelector('a.nesp-login--m');
+    if (mLogin) {
+      mLogin.insertAdjacentHTML('afterend', '<button type="button" class="nesp-login nesp-login--m" data-osip-signout>Sign out</button>');
+      var out = mLogin.nextElementSibling;
+      mLogin.parentNode.removeChild(mLogin);
+      out.addEventListener('click', function () { writeSession(null); window.location.href = HOME; });
+    }
+  }
+
   var session = readSession();
   var USER_NAME = (session && session.name) || USER.name;
   var INITIALS = initialsOf(USER_NAME);
@@ -84,6 +122,10 @@
         at: new Date().toISOString()
       };
       writeSession(value);
+      // A sign-in from inside a page (the opportunity page's login modal) happens
+      // after the header was drawn, so the header is brought up to date here
+      // rather than on the next page load.
+      showSignedIn(value);
       return value;
     },
     signOut: function () { writeSession(null); }
@@ -566,20 +608,20 @@
     ' aria-expanded="false" aria-controls="nesp-search">' + SEARCH_SVG + '</button>' +
     // UX-08-13: the biggest label on the site used to be "Invest Now", and you
     // cannot invest here. It names what the button actually does now.
-    '<a href="' + url.invest + '" class="nesp-cta">Register your interest</a>' +
+    '<a href="' + url.invest + '" class="nesp-cta nesp-cta--bar">Register your interest' + ARROW_SVG + '</a>' +
     // One or the other, never both: the profile mark only means anything to
     // someone who is signed in, and Log in only to someone who is not.
     (session
-      ? '<a href="' + url.profile + '" class="nesp-avatar" title="' + USER_NAME + '" aria-label="My profile: ' + USER_NAME + '">' +
-      '<span aria-hidden="true">' + INITIALS + '</span></a>'
+      ? '<a href="' + url.profile + '" class="nesp-icon-btn nesp-profile-btn" title="' + USER_NAME + '" aria-label="My profile: ' + USER_NAME + '">' +
+      USER_SVG + '</a>'
       : '<a href="' + loginHref() + '" class="nesp-login">Log in</a>') +
     '</div>' +
     // UX-13: on a phone the primary action used to be buried in the menu sheet.
     // It now sits in the bar itself, next to the burger, and only shortens its
     // label on the narrowest screens.
-    '<a href="' + url.invest + '" class="nesp-cta nesp-cta--m" aria-label="Register your interest">' +
+    '<a href="' + url.invest + '" class="nesp-cta nesp-cta--bar nesp-cta--m" aria-label="Register your interest">' +
     '<span class="nesp-cta-long">Register your interest</span>' +
-    '<span class="nesp-cta-short">Register interest</span></a>' +
+    '<span class="nesp-cta-short">Register interest</span>' + ARROW_SVG + '</a>' +
     '<button id="mobile-nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"' +
     ' class="nesp-nav-toggle"><span class="nesp-burger" aria-hidden="true"><i></i><i></i><i></i></span></button>' +
     '</div>' +
@@ -725,6 +767,16 @@
       '.nesp-header .nesp-cta::before{content:"";position:absolute;top:0;bottom:0;left:-120%;width:55%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.26),transparent);transform:skewX(-22deg);transition:left .9s ease;z-index:1;pointer-events:none}',
       '.nesp-header .nesp-cta:hover::before{left:130%}',
       '.nesp-header .nesp-cta:hover{background:#062f1f}',
+      // In the bar the action is drawn like its neighbours: an outline and a line
+      // arrow, no fill until hover. The green ring (Log in's is grey) and the
+      // arrow keep it the lead. The one in the phone menu stays solid.
+      '.nesp-header .nesp-cta--bar{gap:.5rem;height:40px;padding:0 1.125rem;background:transparent;border:1px solid ' + GREEN + ';color:' + GREEN + ';transition:background-color .3s ease,color .3s ease}',
+      '.nesp-header .nesp-cta--bar::before{display:none}',
+      '.nesp-header .nesp-cta--bar:hover{background:' + GREEN + ';color:#fff}',
+      '.nesp-header .nesp-cta--bar:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:2px}',
+      '.nesp-header .nesp-nav-actions .nesp-login{height:40px}',
+      '.nesp-header .nesp-cta-arrow{display:block;flex:0 0 auto;transition:transform .3s cubic-bezier(.16,1,.3,1)}',
+      '.nesp-header .nesp-cta--bar:hover .nesp-cta-arrow{transform:translateX(3px)}',
       '.nesp-header .nesp-avatar{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 auto;border-radius:999px;background:' + CARD + ';border:1px solid ' + LINE2 + ';color:' + GREEN + ';text-decoration:none;font-family:' + SANS + ';font-size:11.5px;font-weight:600;letter-spacing:.06em;line-height:1;transition:background-color .3s ease,color .3s ease,border-color .3s ease}',
       '.nesp-header a.nesp-avatar:hover{background:' + GREEN + ';border-color:' + GREEN + ';color:#fff}',
       '.nesp-header .nesp-avatar--sm{width:36px;height:36px;font-size:11px}',
@@ -739,10 +791,13 @@
       // ask for - search, a way to log in, and the main action visible on a
       // phone - takes its place.
       '.nesp-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
-      '.nesp-header .nesp-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 auto;padding:0;border-radius:999px;background:' + CARD + ';border:1px solid ' + LINE2 + ';color:' + GREEN + ';cursor:pointer;transition:background-color .3s ease,color .3s ease,border-color .3s ease}',
-      '.nesp-header .nesp-icon-btn:hover{background:' + GREEN + ';border-color:' + GREEN + ';color:#fff}',
+      // Bare line icons: no fill, no ring. The 40px box stays as the hit area;
+      // hover only deepens the stroke colour.
+      '.nesp-header .nesp-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:0 0 auto;padding:0;border:0;border-radius:999px;background:transparent;color:' + GREEN + ';cursor:pointer;text-decoration:none;transition:color .3s ease,opacity .3s ease}',
+      '.nesp-header .nesp-icon-btn:hover{color:' + GREEN2 + '}',
       '.nesp-header .nesp-icon-btn:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:2px}',
       '.nesp-header .nesp-icon-btn svg{display:block}',
+      '.nesp-header .nesp-search-btn svg{width:20px;height:20px}',
       '.nesp-header .nesp-login{display:inline-flex;align-items:center;justify-content:center;height:42px;padding:0 1.125rem;border-radius:999px;background:transparent;border:1px solid ' + LINE2 + ';color:' + GREEN + ';font-family:' + SANS + ';font-size-adjust:none;font-size:14px;font-weight:500;letter-spacing:0;white-space:nowrap;text-decoration:none;transition:background-color .3s ease,border-color .3s ease,color .3s ease}',
       '.nesp-header .nesp-login:hover{background:' + TINT + ';border-color:' + GREEN2 + '}',
       '.nesp-header .nesp-login:focus-visible{outline:2px solid ' + GREEN2 + ';outline-offset:2px}',
@@ -1514,12 +1569,13 @@
   }
 
   // Sign out, wherever the header offers it.
-  nav.querySelectorAll('[data-osip-signout]').forEach(function (btn) {
+  function wireSignOut(btn) {
     btn.addEventListener('click', function () {
       window.OSIPSession.signOut();
       window.location.href = HOME;
     });
-  });
+  }
+  nav.querySelectorAll('[data-osip-signout]').forEach(wireSignOut);
 
   var mSearch = nav.querySelector('.nesp-m-search');
   if (mSearch) {
