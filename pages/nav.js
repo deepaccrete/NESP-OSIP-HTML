@@ -308,11 +308,19 @@
             { t: 'Open Data Downloads', d: 'Planned datasets, and where to get data today.', href: base + 'Data.html#downloads' }
           ]
         },
-        // Financing has no page, so it stays a coming-soon strip rather than a
-        // link: a menu entry that opens something else is a promise the platform
-        // does not keep. The climate finance route GOPA-INV-01 asks for is on
-        // Invest Now, where the reader is already being routed.
-        { head: 'Financing', soon: true },
+        // Financing (GOPA-INV-01 / feedback item 105). Rather than a coming-soon
+        // strip, this surfaces the climate-finance route the reviewers asked for
+        // as a dedicated entry point that links out to the National Council on
+        // Climate Change — Nigeria's climate-finance gateway — alongside the
+        // fiscal incentives. There is still no standalone financing page, so the
+        // head stays plain text; the entries route to real destinations only.
+        // `wide` lays the two entries side by side, one row / two columns.
+        {
+          head: 'Financing', wide: true, items: [
+            { t: 'Climate Finance (NCCC)', d: 'National Council on Climate Change — Nigeria’s climate-finance gateway.', href: 'https://climatechange.gov.ng/', ext: true },
+            { t: 'Incentives & Reliefs', d: 'Pioneer Status, equipment reliefs & fiscal incentives.', href: base + 'Regulation.html#tax' }
+          ]
+        },
       ]
     },
     // Newsroom (17 Sep 2026): News and Events. Announcements was the third item
@@ -393,7 +401,10 @@
         subs += sec.href
           ? '<a class="nesp-m-subhead" href="' + sec.href + '">' + sec.head + '</a>'
           : '<span class="nesp-m-subhead">' + sec.head + '</span>';
-        sec.items.forEach(function (it) { subs += '<a href="' + it.href + '">' + it.t + '</a>'; });
+        sec.items.forEach(function (it) {
+          var ext = it.ext ? ' target="_blank" rel="noopener noreferrer"' : '';
+          subs += '<a href="' + it.href + '"' + ext + '>' + it.t + (it.ext ? ' ↗' : '') + '</a>';
+        });
       });
     } else if (menu.groups) {
       // The zones survive on mobile too. 37 flat names would be a wall.
@@ -1221,7 +1232,9 @@
         }
         var rows = '';
         sec.items.forEach(function (it) {
-          rows += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
+          var ext = it.ext ? ' target="_blank" rel="noopener noreferrer" aria-label="' + it.t + ' (opens official site in a new tab)"' : '';
+          rows += '<a class="nesp-menu-item" href="' + it.href + '"' + ext + '><span class="t">' + it.t +
+            (it.ext ? ' <span aria-hidden="true">↗</span>' : '') + '</span>' +
             (it.d ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
         });
         cols += '<div class="nesp-res-sec' + (sec.wide ? ' nesp-res-sec--wide' : '') + '">' +

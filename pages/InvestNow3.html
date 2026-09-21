@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="description" content="Opportunities matched to the sectors and the institutional profile you gave." />
-    <title>Personalised Investment Opportunities | OSIP, One-Stop Investment Platform</title>
+    <title>Personalised Investment Opportunities | One-Stop Investment Platform (OSIP)</title>
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
@@ -509,7 +509,7 @@
                         <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
                             2024-MIN-15</p>
                         <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                            Nasarawa Lithium Processing Hub</h3>
+                            Nasarawa Grid-Scale Battery Storage</h3>
                         <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                             Energy Storage</span>
                             <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
@@ -528,7 +528,7 @@
                                 class="text-on-surface-variant">Published:</span><span class="font-semibold">12 Aug
                                 2024</span></div>
                     </div>
-                    <div class="flex gap-2 mt-auto pt-2"><button aria-label="View project details: Nasarawa Lithium Processing Hub"
+                    <div class="flex gap-2 mt-auto pt-2"><button aria-label="View project details: Nasarawa Grid-Scale Battery Storage"
                             class="w-full py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details</button>
                     </div>
                 </div>
@@ -645,24 +645,7 @@
                 window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
             }
         })();
-        (function () {
-            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html' };
-            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
-            const file = (location.pathname.split('/').pop() || '').toLowerCase();
-            const active = PAGE_ACTIVE[file];
-            document.querySelectorAll('nav.bg-white a').forEach(a => {
-                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
-                if (label === 'INVEST NOW') return;            // handled by investflow.js (opens popup)
-                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
-                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
-                if (active && label === active && a.className.indexOf('px-5') !== -1) {
-                    const bar = document.createElement('span');
-                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
-                    a.appendChild(bar);
-                }
-            });
-        })();
-    </script>
+            </script>
     <!-- NESP nav hover dropdowns (shared, injected) -->
     <style>
         .nesp-has-menu {

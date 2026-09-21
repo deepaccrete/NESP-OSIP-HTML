@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="description" content="Who built OSIP and why: the gateway to information on investing in renewable energy and energy efficiency in Nigeria." />
-    <title>About OSIP | OSIP, One-Stop Investment Platform</title>
+    <title>About OSIP | One-Stop Investment Platform (OSIP)</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap"
         rel="stylesheet" />
@@ -234,7 +234,7 @@
     <main class="ab">
         <!-- Hero -->
         <section class="ab-hero">
-            <img class="ab-hero-img" src="about-hero.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
+            <img loading="lazy" decoding="async" class="ab-hero-img" src="about-hero.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
             <div class="ab-hero-scrim" aria-hidden="true"></div>
             <div class="ab-wrap ab-hero-inner">
                 <div class="ab-eyebrow ab-eyebrow--light"><span></span>OSIP</div>
@@ -589,24 +589,7 @@
                     window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
                 }
             })();
-        (function () {
-            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
-            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
-            const file = (location.pathname.split('/').pop() || '').toLowerCase();
-            const active = PAGE_ACTIVE[file];
-            document.querySelectorAll('nav.bg-white a').forEach(a => {
-                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
-                if (label === 'INVEST NOW') return;            // handled by investflow.js (opens popup)
-                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
-                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
-                if (active && label === active && a.className.indexOf('px-5') !== -1) {
-                    const bar = document.createElement('span');
-                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
-                    a.appendChild(bar);
-                }
-            });
-        })();
-    </script>
+            </script>
 
     <!-- NESP nav hover dropdowns (shared, injected) -->
     <style>

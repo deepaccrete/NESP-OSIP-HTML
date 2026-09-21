@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="description" content="Your identity and contact details for an OSIP account." />
-    <title>User Identity &amp; Account Details | OSIP, One-Stop Investment Platform</title>
+    <title>User Identity &amp; Account Details | One-Stop Investment Platform (OSIP)</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
@@ -192,13 +192,13 @@
     <main class="flex-grow grid grid-cols-1 md:grid-cols-2 md:min-h-0">
         <!-- LEFT: Visual panel with auto-rotating imagery -->
         <aside class="relative overflow-hidden bg-primary-container min-h-[200px] md:min-h-full">
-            <img class="invest-slide absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000"
+            <img loading="lazy" decoding="async" class="invest-slide absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000"
                 src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
                 alt="Energy landscape" />
-            <img class="invest-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+            <img loading="lazy" decoding="async" class="invest-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
                 src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
                 alt="Solar energy field" />
-            <img class="invest-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+            <img loading="lazy" decoding="async" class="invest-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
                 src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
                 alt="Wind turbines" />
             <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/60 to-primary/30"></div>
@@ -472,6 +472,41 @@
             let sectors = '';
             try { sectors = localStorage.getItem('osip_sectors') || ''; } catch (e) { }
             link.setAttribute('href', 'Opportunities.html' + (sectors ? ('?sector=' + encodeURIComponent(sectors)) : ''));
+        })();
+    </script>
+    <!-- GOPA-INV (item 108): the step panel hides its scrollbar for a clean look,
+         which hid the fact that it scrolls. This adds a visible "scroll for more"
+         cue that bobs at the foot of the panel and fades out once the bottom is
+         reached (desktop, where the panel is the scroll container). -->
+    <script>
+        (function () {
+            var panel = document.querySelector('section.md\\:overflow-y-auto');
+            if (!panel) {
+                panel = Array.prototype.filter.call(document.querySelectorAll('section'), function (s) {
+                    return /overflow-y-auto/.test(s.className);
+                })[0];
+            }
+            if (!panel) return;
+            var css = document.createElement('style');
+            css.textContent = '.invest-scrollcue{position:sticky;bottom:12px;align-self:center;margin:8px auto -6px;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:9999px;background:#004225;color:#fff;border:none;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:20;transition:opacity .25s ease,transform .25s ease;animation:investCueBob 1.6s ease-in-out infinite}.invest-scrollcue:focus-visible{outline:2px solid #f7be26;outline-offset:2px}.invest-scrollcue.is-hidden{opacity:0;pointer-events:none;transform:translateY(6px)}@keyframes investCueBob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}';
+            document.head.appendChild(css);
+            var cue = document.createElement('button');
+            cue.type = 'button';
+            cue.className = 'invest-scrollcue';
+            cue.setAttribute('aria-label', 'Scroll down for more');
+            cue.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_down</span>';
+            panel.appendChild(cue);
+            function update() {
+                var more = (panel.scrollHeight - panel.clientHeight - panel.scrollTop) > 24;
+                cue.classList.toggle('is-hidden', !more);
+            }
+            cue.addEventListener('click', function () {
+                panel.scrollBy({ top: Math.round(panel.clientHeight * 0.7), behavior: 'smooth' });
+            });
+            panel.addEventListener('scroll', update, { passive: true });
+            window.addEventListener('resize', update);
+            window.addEventListener('load', update);
+            update();
         })();
     </script>
 </body>

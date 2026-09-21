@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="description" content="Sign in or create a free OSIP account to follow published opportunities, regulatory guidance and partner agencies." />
-    <title>Log In or Register | OSIP, One-Stop Investment Platform</title>
+    <title>Log In or Register | One-Stop Investment Platform (OSIP)</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <!-- Type: Inter only (14 Sep 2026). Manrope and Newsreader are no longer used on this page. -->
     <link
@@ -854,10 +854,14 @@
     <div id="site-nav"></div>
 
     <main class="flex h-screen w-full flex-col md:flex-row">
+        <!-- UX-A11-06 (item 84): a single page-level h1. The visible panel headings
+             are h2s that change with the view, so this persistent, screen-reader-only
+             h1 gives the page one stable top-level heading. -->
+        <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Sign in or create your OSIP account</h1>
         <!-- Left: Brand showcase -->
         <section class="brand-panel relative hidden md:flex md:flex-col items-center justify-center text-center gap-9 lg:gap-11 md:basis-[44%] lg:basis-[46%] p-8 lg:p-11 xl:p-14">
             <div class="absolute inset-0 z-0">
-                <img alt="Nigerian Energy Infrastructure" class="h-full w-full object-cover opacity-70"
+                <img loading="lazy" decoding="async" alt="Nigerian Energy Infrastructure" class="h-full w-full object-cover opacity-70"
                     data-alt="A wide panoramic shot of a modern solar farm in the Nigerian savannah during golden hour."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAqhuj5TcIjhVM3Jrorz2FabL5siy-LD40WL6Leod-uly2CuBRjoNL_rC1-2jD0L3Yt7gb1c9yxl02G875yYOotCrlbnwF0u5M8QQ5ZYn9Iu4FdUoTVxzKT_zkAGUSGgeCT1qZoRprGa_sDNd_HpeitgW9LI4rjyzgjSOU3GVYWl0UOmsVS0wbX3fKHGYBJbzCBhbDLlN8il1Or671b2QONDqkKfmQIM3mDMTzQu3jMJVdM0PSevE-PvndcvG0y3PZbU6g_5DTTTCB" />
                 <div class="absolute inset-0 bg-gradient-to-b from-[#001d17]/65 via-[#001d17]/45 to-[#00342b]/70"></div>
@@ -945,7 +949,7 @@
                             <div class="flex justify-between items-center mb-1.5">
                                 <label class="form-label" style="margin-bottom:0;" for="login-password">Password</label>
                                 <a class="text-[11px] font-bold text-on-tertiary-fixed-variant tracking-wide hover:underline"
-                                    href="#">Forgot password?</a>
+                                    href="ForgotPassword.html" target="_top">Forgot password?</a>
                             </div>
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">lock</span>

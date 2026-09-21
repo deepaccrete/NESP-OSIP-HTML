@@ -305,6 +305,29 @@
     every(main, '[data-purpose="meta-item"] p').forEach(function (p, i) { setText(p, details[i]); });
     setText(one(main, 'p.text-2xl .text-brand-accent'), opp.cost);
 
+    /* ---- Investment details block (item 33) -----------------------------------
+       Standard investor terms per project. Qualitative fields come from the
+       record's `terms`; the minimum investment reuses the members-only ticket,
+       the financing status reuses the project's own status, and the currency
+       falls back to whatever the cost is quoted in. */
+    (function () {
+        var t = opp.terms || {};
+        var costCur = (String(opp.cost || '').match(/^[A-Za-z$]+/) || [''])[0];
+        var vals = {
+            min: t.min || (opp.gated && opp.gated[2]) || '—',
+            type: t.type || 'Equity and/or debt',
+            share: t.share || '—',
+            financing: t.financing || opp.status || '—',
+            deadline: t.deadline || 'Rolling — register to be notified',
+            currency: t.currency || costCur || '—',
+            eligibility: t.eligibility || 'Open to local and foreign investors; NIPC registration applies'
+        };
+        every(main, '[data-purpose="invest-details"] [data-inv]').forEach(function (el) {
+            var k = el.getAttribute('data-inv');
+            if (vals[k] != null) el.textContent = vals[k];
+        });
+    })();
+
     /* ---- Members-only figures (blurred until sign-in) -------------------------- */
     every(main, '.gated-content .grid > div').forEach(function (tile, i) {
         setText(every(tile, 'p')[1], opp.gated ? opp.gated[i] : null);
@@ -365,10 +388,21 @@
         var rows = every(contact, ':scope > div');
         setText(every(rows[0], 'p')[1], opp.contact[0]);
         setText(every(rows[1], 'p')[1], opp.contact[1]);
+        // UX-TRU (item 78): only render a tel:/mailto when the value is a real
+        // phone/email. Prototype records carry "Provided to registered investors"
+        // rather than a fabricated number, so those show as plain text.
         var tel = one(rows[2], 'a');
-        if (tel) { tel.textContent = opp.contact[2]; tel.setAttribute('href', 'tel:' + opp.contact[2].replace(/[^+\d]/g, '')); }
+        if (tel) {
+            var phone = opp.contact[2] || '';
+            if (/\d/.test(phone)) { tel.textContent = phone; tel.setAttribute('href', 'tel:' + phone.replace(/[^+\d]/g, '')); }
+            else { tel.textContent = phone; tel.removeAttribute('href'); tel.removeAttribute('class'); }
+        }
         var mail = one(rows[3], 'a');
-        if (mail) { mail.textContent = opp.contact[3]; mail.setAttribute('href', 'mailto:' + opp.contact[3]); }
+        if (mail) {
+            var email = opp.contact[3] || '';
+            if (email.indexOf('@') > -1) { mail.textContent = email; mail.setAttribute('href', 'mailto:' + email); }
+            else { mail.textContent = email; mail.removeAttribute('href'); mail.removeAttribute('class'); }
+        }
     }
 
     /* ---- Where to go next: this project's sector and state --------------------- */

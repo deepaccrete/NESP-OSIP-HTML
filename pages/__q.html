@@ -2255,7 +2255,7 @@
             var OPPORTUNITIES = [
                 { id: '2024-SOL-11', title: 'Solar Power Naija - Phase II', sectorLabel: 'Solar', icon: 'solar_power', amount: 'USD 420', unit: 'm', state: 'Multi-State', published: '18 Feb 2026', readiness: 'preparation', slugs: ['solar'] },
                 { id: '2025-WND-02', title: 'Katsina Wind Farm Phase I', sectorLabel: 'Wind', icon: 'wind_power', amount: 'USD 210', unit: 'm', state: 'Katsina State', published: '05 May 2026', readiness: 'tender', slugs: ['wind'] },
-                { id: '2024-STG-07', title: 'Nasarawa Lithium Processing Hub', sectorLabel: 'Storage', icon: 'battery_charging_full', amount: 'USD 350', unit: 'm', state: 'Nasarawa State', published: '14 Jan 2026', readiness: 'interest', slugs: ['storage'] },
+                { id: '2024-STG-07', title: 'Nasarawa Grid-Scale Battery Storage', sectorLabel: 'Storage', icon: 'battery_charging_full', amount: 'USD 350', unit: 'm', state: 'Nasarawa State', published: '14 Jan 2026', readiness: 'interest', slugs: ['storage'] },
                 { id: '2025-HYD-01', title: 'Cross River Small Hydro Cluster', sectorLabel: 'Small Hydro', icon: 'water', amount: 'USD 140', unit: 'm', state: 'Cross River State', published: '22 Jun 2026', readiness: 'concept', slugs: ['small-hydro'] },
                 { id: '2025-MOB-04', title: 'Lagos EV Charging Network', sectorLabel: 'Green Mobility', icon: 'electric_car', amount: 'USD 90', unit: 'm', state: 'Lagos State', published: '09 Apr 2026', readiness: 'interest', slugs: ['green-mobility'] },
                 { id: '2025-EEF-03', title: 'Ogun Industrial Efficiency Programme', sectorLabel: 'Energy Efficiency', icon: 'energy_savings_leaf', amount: 'USD 60', unit: 'm', state: 'Ogun State', published: '30 Jul 2026', readiness: 'financing', slugs: ['energy-efficiency'] },
@@ -2752,7 +2752,7 @@
                     path.agencies.map(function (a) {
                         var logo = AGENCY_LOGOS[a.name];
                         var mark = logo
-                            ? '<img src="' + logo + '" alt="' + a.name + ' logo" class="w-8 h-8 object-contain" />'
+                            ? '<img loading="lazy" decoding="async" src="' + logo + '" alt="' + a.name + ' logo" class="w-8 h-8 object-contain" />'
                             : '<span class="material-symbols-outlined text-[#004225]">account_balance</span>';
                         var body =
                             '<span class="w-10 h-10 rounded-[10px] bg-[#f3f4f2] flex items-center justify-center ' +

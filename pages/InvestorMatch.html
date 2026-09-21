@@ -16,7 +16,7 @@
         rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Answer a few questions and see the sectors, business models and published opportunities that fit. It runs in your browser only." />
-    <title>Find Your Investment Fit | OSIP, One-Stop Investment Platform</title>
+    <title>Find Your Investment Fit | One-Stop Investment Platform (OSIP)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -2173,6 +2173,7 @@
     </div>
 
     <main>
+        <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Find your investment fit</h1>
 
         <!-- ============================================== QUESTIONS ==== -->
         <section id="quiz-step" class="bg-background">
@@ -2188,8 +2189,8 @@
                 <div id="quiz-live" aria-live="polite">
                     <p id="quiz-count"
                         class="font-label-md text-label-md uppercase text-tertiary-fixed-dim font-bold mb-2"></p>
-                    <h1 id="quiz-question"
-                        class="font-h1 text-[28px] leading-[36px] md:text-[40px] md:leading-[48px] text-primary max-w-3xl mb-6"></h1>
+                    <h2 id="quiz-question"
+                        class="font-h1 text-[28px] leading-[36px] md:text-[40px] md:leading-[48px] text-primary max-w-3xl mb-6"></h2>
                 </div>
 
                 <!-- Options are injected here. A <fieldset> so the question is
@@ -2246,8 +2247,8 @@
                 <div class="max-w-3xl">
                     <p class="font-label-md text-label-md uppercase text-tertiary-fixed-dim font-bold mb-3">Your
                         result</p>
-                    <h1 class="font-h1 text-[28px] leading-[36px] md:text-[40px] md:leading-[48px] text-primary mb-4">
-                        Where you fit in Nigeria&rsquo;s clean energy pipeline</h1>
+                    <h2 class="font-h1 text-[28px] leading-[36px] md:text-[40px] md:leading-[48px] text-primary mb-4">
+                        Where you fit in Nigeria&rsquo;s clean energy pipeline</h2>
                     <p id="quiz-summary" class="font-body-lg text-body-lg text-on-surface-variant"></p>
                 </div>
 
@@ -2390,8 +2391,8 @@
                 <div class="max-w-3xl">
                     <p class="font-label-md text-label-md uppercase text-tertiary-fixed-dim font-bold mb-3">Optional
                         route</p>
-                    <h1 class="font-h1 text-[28px] leading-[36px] md:text-[40px] md:leading-[48px] text-primary">
-                        Climate finance</h1>
+                    <h2 class="font-h1 text-[28px] leading-[36px] md:text-[40px] md:leading-[48px] text-primary">
+                        Climate finance</h2>
                 </div>
 
                 <div data-climate-mount></div>
@@ -2700,7 +2701,7 @@
             var OPPORTUNITIES = [
                 { id: '2024-SOL-11', title: 'Solar Power Naija - Phase II', sectorLabel: 'Solar', icon: 'solar_power', amount: 'USD 420', unit: 'm', state: 'Multi-State', published: '18 Feb 2026', readiness: 'preparation', slugs: ['solar'] },
                 { id: '2025-WND-02', title: 'Katsina Wind Farm Phase I', sectorLabel: 'Wind', icon: 'wind_power', amount: 'USD 210', unit: 'm', state: 'Katsina State', published: '05 May 2026', readiness: 'tender', slugs: ['wind'] },
-                { id: '2024-STG-07', title: 'Nasarawa Lithium Processing Hub', sectorLabel: 'Storage', icon: 'battery_charging_full', amount: 'USD 350', unit: 'm', state: 'Nasarawa State', published: '14 Jan 2026', readiness: 'interest', slugs: ['storage'] },
+                { id: '2024-STG-07', title: 'Nasarawa Grid-Scale Battery Storage', sectorLabel: 'Storage', icon: 'battery_charging_full', amount: 'USD 350', unit: 'm', state: 'Nasarawa State', published: '14 Jan 2026', readiness: 'interest', slugs: ['storage'] },
                 { id: '2025-HYD-01', title: 'Cross River Small Hydro Cluster', sectorLabel: 'Small Hydro', icon: 'water', amount: 'USD 140', unit: 'm', state: 'Cross River State', published: '22 Jun 2026', readiness: 'concept', slugs: ['small-hydro'] },
                 { id: '2025-MOB-04', title: 'Lagos EV Charging Network', sectorLabel: 'Green Mobility', icon: 'electric_car', amount: 'USD 90', unit: 'm', state: 'Lagos State', published: '09 Apr 2026', readiness: 'interest', slugs: ['green-mobility'] },
                 { id: '2025-EEF-03', title: 'Ogun Industrial Efficiency Programme', sectorLabel: 'Energy Efficiency', icon: 'energy_savings_leaf', amount: 'USD 60', unit: 'm', state: 'Ogun State', published: '30 Jul 2026', readiness: 'financing', slugs: ['energy-efficiency'] },
@@ -3240,7 +3241,7 @@
                     path.agencies.map(function (a) {
                         var logo = AGENCY_LOGOS[a.name];
                         var mark = logo
-                            ? '<img src="' + logo + '" alt="' + a.name + ' logo" />'
+                            ? '<img loading="lazy" decoding="async" src="' + logo + '" alt="' + a.name + ' logo" />'
                             : '<span class="material-symbols-outlined">account_balance</span>';
                         var body =
                             '<span class="rd-card-mark" aria-hidden="true">' + mark + '</span>' +

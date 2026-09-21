@@ -41,17 +41,28 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Nigeria's federal gateway for clean energy investment: the rules and licences for your project, the incentives open to it, and the agencies behind them." />
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KVTQG71B9P"></script>
+  <!-- Analytics (item 93): Google Analytics is NOT fetched until the visitor
+       accepts on the consent banner. gtag is stubbed so early events queue, and
+       the real tag loads only via osipLoadAnalytics() once consent is granted. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-KVTQG71B9P');
+    window.OSIP_GA_ID = 'G-KVTQG71B9P';
+    window.osipLoadAnalytics = function () {
+      if (window.__osipGaLoaded) return; window.__osipGaLoaded = true;
+      gtag('js', new Date());
+      gtag('config', window.OSIP_GA_ID);
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.OSIP_GA_ID;
+      document.head.appendChild(s);
+    };
+    try {
+      if (localStorage.getItem('osip_consent') === 'granted') window.osipLoadAnalytics();
+    } catch (e) { /* storage blocked: stay opted out */ }
   </script>
-  <title>Invest in Nigeria&#39;s Clean Energy Future | OSIP, One-Stop Investment Platform</title>
-  <style type="text/css"
-    data-vite-dev-id="D:/OneDrive - Accrete Infosolution Technologies llp/Desktop/NESP/NESP-OSIP-Frontend/Frontend/src/index.css">
+  <title>Invest in Nigeria&#39;s Clean Energy Future | One-Stop Investment Platform (OSIP)</title>
+  <style type="text/css">
     /*! tailwindcss v4.3.0 | MIT License | https://tailwindcss.com */
     @layer properties;
     @layer theme, base, components, utilities;
@@ -1660,11 +1671,11 @@
         color: var(--color-gray-200);
       }
 
-      .text-gray-300 {
+      .text-gray-500 {
         color: var(--color-gray-300);
       }
 
-      .text-gray-400 {
+      .text-gray-500 {
         color: var(--color-gray-400);
       }
 
@@ -1983,7 +1994,7 @@
         }
       }
 
-      .hover\:text-gray-300 {
+      .hover\:text-gray-500 {
         &:hover {
           @media (hover: hover) {
             color: var(--color-gray-300);
@@ -5268,14 +5279,14 @@
         <!-- Top ticker bar (live market data + GMT clock) — hidden per request
         <div class="bg-[#061410] border-b border-white/5 overflow-hidden relative h-[34px] flex items-center">
           <div class="ticker-track whitespace-nowrap flex items-center">
-            <div class="ticker-content flex items-center gap-8 pr-8 text-[11px] text-gray-400 tracking-wide">
+            <div class="ticker-content flex items-center gap-8 pr-8 text-[11px] text-gray-500 tracking-wide">
               <div class="flex items-center"><span><span class="mr-1">LIVE MARKET DATA:</span><span
                     class="text-white font-medium mr-1"> BRENT $84.22 </span><span class="text-green-400">▲
                     1.2%</span></span></div>
               <div class="flex items-center"><span class="text-gray-600 mr-8">|</span><span><span class="mr-1">GAS
                     EXPORT INDEX:</span><span class="text-red-400">▼ 0.4%</span></span></div>
             </div>
-            <div class="ticker-content flex items-center gap-8 pr-8 text-[11px] text-gray-400 tracking-wide">
+            <div class="ticker-content flex items-center gap-8 pr-8 text-[11px] text-gray-500 tracking-wide">
               <div class="flex items-center"><span><span class="mr-1">LIVE MARKET DATA:</span><span
                     class="text-white font-medium mr-1"> BRENT $84.22 </span><span class="text-green-400">▲
                     1.2%</span></span></div>
@@ -5310,7 +5321,7 @@
 
       <section class="osip-hero relative overflow-hidden" style="font-family: Inter, sans-serif;">
         <div class="absolute inset-0">
-          <div class="absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100"><img alt=""
+          <div class="absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100"><img loading="lazy" decoding="async" alt=""
               class="w-full h-full object-cover"
               src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80">
           </div>
@@ -6155,12 +6166,12 @@
                 <p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID:
                   2024-STG-07</p>
                 <h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">
-                  Nasarawa Lithium Processing Hub</h3>
+                  Nasarawa Grid-Scale Battery Storage</h3>
                 <span class="sector-badge"><span
                     class="material-symbols-outlined">category</span>Sector: Storage</span>
                 <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot"
                     aria-hidden="true"></span>Seeking investor interest</span>
-                <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Solid Minerals Development</span>
+                <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
               </div>
               <div class="mb-4 inv-box">
                 <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -6177,7 +6188,7 @@
                     class="font-semibold">14 Jan 2026</span></div>
               </div>
               <div class="flex gap-2 mt-auto pt-2">
-                <button aria-label="View project details: Nasarawa Lithium Processing Hub"
+                <button aria-label="View project details: Nasarawa Grid-Scale Battery Storage"
                   class="flex-1 py-2 border border-outline-variant text-primary font-semibold text-label-md hover:bg-surface-container-high transition-all rounded">View project details <span class="material-symbols-outlined opp-btn-arrow">arrow_forward</span></button>
               </div>
             </div>
@@ -7063,27 +7074,27 @@
               <div class="osip-states-track">
                 <div class="osip-states-set">
                 <a href="pages/Enugu.html" class="osip-state-card is-live">
-                  <img class="osip-state-emblem" src="pages/state-enugu.jpg" alt="Enugu State emblem">
+                  <img loading="lazy" decoding="async" class="osip-state-emblem" src="pages/state-enugu.jpg" alt="Enugu State emblem">
                   <span class="osip-state-name">Enugu</span>
                   <span class="osip-state-tag">View profile</span>
                 </a>
                 <div class="osip-state-card is-pending" aria-disabled="true">
-                  <img class="osip-state-emblem" src="pages/state-lagos.png" alt="Lagos State emblem">
+                  <img loading="lazy" decoding="async" class="osip-state-emblem" src="pages/state-lagos.png" alt="Lagos State emblem">
                   <span class="osip-state-name">Lagos</span>
                   <span class="osip-state-tag">Profile in preparation</span>
                 </div>
                 <div class="osip-state-card is-pending" aria-disabled="true">
-                  <img class="osip-state-emblem" src="pages/state-rivers.png" alt="Rivers State emblem">
+                  <img loading="lazy" decoding="async" class="osip-state-emblem" src="pages/state-rivers.png" alt="Rivers State emblem">
                   <span class="osip-state-name">Rivers</span>
                   <span class="osip-state-tag">Profile in preparation</span>
                 </div>
                 <div class="osip-state-card is-pending" aria-disabled="true">
-                  <img class="osip-state-emblem" src="pages/state-kano.png" alt="Kano State emblem">
+                  <img loading="lazy" decoding="async" class="osip-state-emblem" src="pages/state-kano.png" alt="Kano State emblem">
                   <span class="osip-state-name">Kano</span>
                   <span class="osip-state-tag">Profile in preparation</span>
                 </div>
                 <div class="osip-state-card is-pending" aria-disabled="true">
-                  <img class="osip-state-emblem" src="pages/state-anambra.png" alt="Anambra State emblem">
+                  <img loading="lazy" decoding="async" class="osip-state-emblem" src="pages/state-anambra.png" alt="Anambra State emblem">
                   <span class="osip-state-name">Anambra</span>
                   <span class="osip-state-tag">Profile in preparation</span>
                 </div>
@@ -7146,7 +7157,7 @@
 
           function card(name) {
             var mark = EMBLEM[name]
-              ? '<img class="osip-state-emblem" src="' + EMBLEM[name] + '" alt="' + name + ' State emblem">'
+              ? '<img loading="lazy" decoding="async" class="osip-state-emblem" src="' + EMBLEM[name] + '" alt="' + name + ' State emblem">'
               : '<span class="osip-state-mark" aria-hidden="true">' + code(name) + '</span>';
             var body = mark +
               '<span class="osip-state-name">' + name + '</span>';
@@ -7476,24 +7487,24 @@
               <span class="osip-data-label">RE &amp; EE Investment Deployed</span>
               <span class="osip-data-value">$12.4B+</span>
               <span class="osip-data-note">Toward $20B+ by 2030</span>
-              <span class="osip-data-cite">Source pending validation · as at June 2026</span>
+              <span class="osip-data-cite">OSIP compilation, Federal Ministry of Power &amp; partners · as at June 2026 · indicative, pending validation</span>
             </div>
 
             <div class="osip-data-tile">
               <span class="osip-data-label">Tracked Projects</span>
               <span class="osip-data-value">140+</span>
               <span class="osip-data-note">Across all 6 geopolitical zones</span>
-              <span class="osip-data-cite">Source pending validation · as at June 2026</span>
+              <span class="osip-data-cite">OSIP compilation, Federal Ministry of Power &amp; partners · as at June 2026 · indicative, pending validation</span>
             </div>
 
-            <div class="osip-data-tile">
+            <div class="osip-data-tile osip-data-tile--sm-hide">
               <span class="osip-data-label">RE Installed Capacity</span>
               <span class="osip-data-value">2.1 GW</span>
               <span class="osip-data-note">Grid-tied and off-grid combined</span>
-              <span class="osip-data-cite">Source pending validation · as at June 2026</span>
+              <span class="osip-data-cite">OSIP compilation, Federal Ministry of Power &amp; partners · as at June 2026 · indicative, pending validation</span>
             </div>
 
-            <div class="osip-data-tile">
+            <div class="osip-data-tile osip-data-tile--sm-hide">
               <span class="osip-data-label">States Covered</span>
               <span class="osip-data-value">36 + FCT</span>
               <span class="osip-data-note">Federal Capital Territory included</span>
@@ -7501,6 +7512,9 @@
             </div>
 
           </div>
+          <!-- LP-05 (item 6): only two headline figures on small screens; the full
+               set is on the Data tab. -->
+          <style>@media (max-width:640px){.osip-data-tile--sm-hide{display:none}}</style>
           <!-- DAT-01 / GOPA-LP-05: every figure says where it came from and when. The same
                four figures, with the same notes, are on the Data tab under National indicators. -->
           <p class="osip-data-source">National totals for Nigeria as a whole. Investment, tracked projects and
@@ -8304,7 +8318,7 @@
         </style>
         <div class="max-w-7xl mx-auto osip-nw">
           <div class="osip-nw-col osip-nw-col--news">
-            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900" style="font-family: Manrope, sans-serif;">News &amp; Updates</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900" style="font-family: Manrope, sans-serif;">News</h2>
             <p class="text-[#5f6368] text-[14px] sm:text-[15px] leading-7">Stay updated with the latest developments shaping Nigeria's energy investment landscape.</p>
             <div class="osip-nw-scroll" data-nw-scroll tabindex="0" role="group" aria-label="News and updates, side-scrolling list">
   <a href="pages/NewsInDetail.html?id=nyerere-hydropower" class="osip-nw-story">
@@ -8370,7 +8384,7 @@
           </div>
 
           <div class="osip-nw-col osip-nw-col--events">
-            <h2 class="text-3xl sm:text-4xl font-bold text-[#1f2333]" style="font-family: Manrope, sans-serif;">Events &amp; Engagements</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold text-[#1f2333]" style="font-family: Manrope, sans-serif;">Events</h2>
             <p class="text-[#5f6368] text-[14px] sm:text-[15px] leading-7">Stay informed about upcoming conferences, investor forums, workshops, and stakeholder engagements.</p>
             <div class="osip-nw-scroll" data-nw-scroll tabindex="0" role="group" aria-label="Events and engagements, side-scrolling list">
   <a href="pages/IndividualEvent.html" class="osip-nw-story">
@@ -8511,7 +8525,7 @@
             <div class="osip-about-img osip-video relative overflow-hidden shadow-sm"
               data-video-id="aqz-KE-bpKQ">
               <button type="button" class="osip-video-cover" aria-label="Play the OSIP overview film">
-                <img alt="Rooftop solar array at sunrise"
+                <img loading="lazy" decoding="async" alt="Rooftop solar array at sunrise"
                   src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=1200&q=80">
                 <span class="osip-video-play" aria-hidden="true">
                   <span class="material-symbols-outlined">play_arrow</span>
@@ -8662,58 +8676,58 @@
               <div class="partner-item">
                 <a href="https://www.power.gov.ng/" target="_blank" rel="noopener noreferrer"
                   class="partner-card group" aria-label="Nigerian Energy Support Programme (NESP)">
-                  <img src="pages/logoNESP.png" alt="Federal Ministry of Power" class="partner-logo">
+                  <img loading="lazy" decoding="async" src="pages/logoNESP.png" alt="Federal Ministry of Power" class="partner-logo">
                 </a>
               </div>
               <div class="partner-item">
                 <a href="https://nerc.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   aria-label="Nigerian Electricity Regulatory Commission (NERC)">
-                  <img src="pages/Nigerian Electricity Regulatory Commission logo.png" alt="Nigerian Electricity Regulatory Commission (NERC)"
+                  <img loading="lazy" decoding="async" src="pages/Nigerian Electricity Regulatory Commission logo.png" alt="Nigerian Electricity Regulatory Commission (NERC)"
                     class="partner-logo" style="--logo-scale: 2.4">
                 </a>
               </div>
               <div class="partner-item">
                 <a href="https://rea.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   aria-label="Rural Electrification Agency (REA)">
-                  <img src="pages/REA-logo.png" alt="Rural Electrification Agency (REA)" class="partner-logo" style="--logo-scale: 1.7">
+                  <img loading="lazy" decoding="async" src="pages/REA-logo.png" alt="Rural Electrification Agency (REA)" class="partner-logo" style="--logo-scale: 1.7">
                 </a>
               </div>
               <div class="partner-item">
                 <a href="https://nipc.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   aria-label="Nigerian Investment Promotion Commission (NIPC)">
-                  <img src="pages/nipc-logo.png" alt="Nigerian Investment Promotion Commission (NIPC)" class="partner-logo">
+                  <img loading="lazy" decoding="async" src="pages/nipc-logo.png" alt="Nigerian Investment Promotion Commission (NIPC)" class="partner-logo">
                 </a>
               </div>
               <div class="partner-item">
                 <a href="https://son.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   aria-label="Standards Organisation of Nigeria (SON)">
-                  <img src="pages/son_png.png" alt="Standards Organisation of Nigeria (SON)" class="partner-logo">
+                  <img loading="lazy" decoding="async" src="pages/son_png.png" alt="Standards Organisation of Nigeria (SON)" class="partner-logo">
                 </a>
               </div>
               <div class="partner-item">
                 <a href="https://nesrea.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   aria-label="National Environmental Standards and Regulations Enforcement Agency (NESREA)">
-                  <img src="pages/nesrea.jpeg" alt="National Environmental Standards and Regulations Enforcement Agency (NESREA)" class="partner-logo">
+                  <img loading="lazy" decoding="async" src="pages/nesrea.jpeg" alt="National Environmental Standards and Regulations Enforcement Agency (NESREA)" class="partner-logo">
                 </a>
               </div>
               <div class="partner-item">
                 <a href="https://energy.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   aria-label="Energy Commission of Nigeria (ECN)">
-                  <img src="pages/ECN.png" alt="Energy Commission of Nigeria (ECN)" class="partner-logo"
+                  <img loading="lazy" decoding="async" src="pages/ECN.png" alt="Energy Commission of Nigeria (ECN)" class="partner-logo"
                     style="--logo-scale: 2.5;">
                 </a>
               </div>
               <div class="partner-item">
                 <a href="https://www.giz.de/en/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   aria-label="GIZ (Deutsche Gesellschaft für Internationale Zusammenarbeit)">
-                  <img src="pages/giz.png" alt="Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ)" class="partner-logo" style="--logo-scale: 2.5;">
+                  <img loading="lazy" decoding="async" src="pages/giz.png" alt="Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ)" class="partner-logo" style="--logo-scale: 2.5;">
                 </a>
               </div>
               <div class="partner-item">
                 <a href="https://www.giz.de/en/projects/nigerian-energy-support-programme-nesp" target="_blank"
                   rel="noopener noreferrer" class="partner-card group"
                   aria-label="Nigerian Energy Support Programme (NESP)">
-                  <img src="pages/NESP.png" alt="Nigerian Energy Support Programme (NESP)" class="partner-logo" style="--logo-scale: 1.5;">
+                  <img loading="lazy" decoding="async" src="pages/NESP.png" alt="Nigerian Energy Support Programme (NESP)" class="partner-logo" style="--logo-scale: 1.5;">
                 </a>
               </div>
 
@@ -8721,56 +8735,56 @@
               <div class="partner-item" aria-hidden="true">
                 <a href="https://www.power.gov.ng/" target="_blank" rel="noopener noreferrer"
                   class="partner-card group" tabindex="-1">
-                  <img src="pages/logoNESP.png" alt="" class="partner-logo">
+                  <img loading="lazy" decoding="async" src="pages/logoNESP.png" alt="" class="partner-logo">
                 </a>
               </div>
               <div class="partner-item" aria-hidden="true">
                 <a href="https://nerc.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   tabindex="-1">
-                  <img src="pages/Nigerian Electricity Regulatory Commission logo.png" alt="" class="partner-logo"
+                  <img loading="lazy" decoding="async" src="pages/Nigerian Electricity Regulatory Commission logo.png" alt="" class="partner-logo"
                     style="--logo-scale: 2.4">
                 </a>
               </div>
               <div class="partner-item" aria-hidden="true">
                 <a href="https://rea.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   tabindex="-1">
-                  <img src="pages/REA-logo.png" alt="" class="partner-logo" style="--logo-scale: 1.7">
+                  <img loading="lazy" decoding="async" src="pages/REA-logo.png" alt="" class="partner-logo" style="--logo-scale: 1.7">
                 </a>
               </div>
               <div class="partner-item" aria-hidden="true">
                 <a href="https://nipc.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   tabindex="-1">
-                  <img src="pages/nipc-logo.png" alt="" class="partner-logo">
+                  <img loading="lazy" decoding="async" src="pages/nipc-logo.png" alt="" class="partner-logo">
                 </a>
               </div>
               <div class="partner-item" aria-hidden="true">
                 <a href="https://son.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   tabindex="-1">
-                  <img src="pages/son_png.png" alt="" class="partner-logo">
+                  <img loading="lazy" decoding="async" src="pages/son_png.png" alt="" class="partner-logo">
                 </a>
               </div>
               <div class="partner-item" aria-hidden="true">
                 <a href="https://nesrea.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   tabindex="-1">
-                  <img src="pages/nesrea.jpeg" alt="" class="partner-logo">
+                  <img loading="lazy" decoding="async" src="pages/nesrea.jpeg" alt="" class="partner-logo">
                 </a>
               </div>
               <div class="partner-item" aria-hidden="true">
                 <a href="https://energy.gov.ng/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   tabindex="-1">
-                  <img src="pages/ECN.png" alt="" class="partner-logo" style="--logo-scale: 2.5;">
+                  <img loading="lazy" decoding="async" src="pages/ECN.png" alt="" class="partner-logo" style="--logo-scale: 2.5;">
                 </a>
               </div>
               <div class="partner-item" aria-hidden="true">
                 <a href="https://www.giz.de/en/" target="_blank" rel="noopener noreferrer" class="partner-card group"
                   tabindex="-1">
-                  <img src="pages/giz.png" alt="" class="partner-logo" style="--logo-scale: 2.5;">
+                  <img loading="lazy" decoding="async" src="pages/giz.png" alt="" class="partner-logo" style="--logo-scale: 2.5;">
                 </a>
               </div>
               <div class="partner-item" aria-hidden="true">
                 <a href="https://www.giz.de/en/projects/nigerian-energy-support-programme-nesp" target="_blank"
                   rel="noopener noreferrer" class="partner-card group" tabindex="-1">
-                  <img src="pages/NESP.png" alt="" class="partner-logo" style="--logo-scale: 1.5;">
+                  <img loading="lazy" decoding="async" src="pages/NESP.png" alt="" class="partner-logo" style="--logo-scale: 1.5;">
                 </a>
               </div>
             </div>
@@ -9487,6 +9501,54 @@
         window.addEventListener('load', function () { ScrollTrigger.refresh(); });
         ScrollTrigger.refresh();
       }
+    })();
+  </script>
+  <!-- Cookie / analytics consent banner (item 93). Self-contained: injects its
+       own styles because homepage.html ships a frozen Tailwind build. Analytics
+       stay off until the visitor accepts; the choice is remembered in
+       localStorage under 'osip_consent'. -->
+  <script>
+    (function () {
+      var KEY = 'osip_consent';
+      var stored = null;
+      try { stored = localStorage.getItem(KEY); } catch (e) { }
+      if (stored === 'granted' || stored === 'denied') return;   // already chosen
+
+      var css = '#osip-consent{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:2000;max-width:44rem;margin:0 auto;'
+        + 'background:#001d17;color:#f3efe6;border:1px solid rgba(247,190,38,.35);border-radius:14px;'
+        + 'box-shadow:0 24px 50px -24px rgba(0,0,0,.6);padding:1.1rem 1.25rem;font-family:Inter,system-ui,sans-serif;'
+        + 'display:flex;flex-wrap:wrap;align-items:center;gap:.85rem 1.25rem}'
+        + '#osip-consent p{margin:0;font-size:.9rem;line-height:1.6;color:rgba(243,239,230,.85);flex:1 1 18rem}'
+        + '#osip-consent a{color:#f7be26;text-decoration:underline}'
+        + '#osip-consent .osip-consent-actions{display:flex;gap:.6rem;flex:0 0 auto;margin-left:auto}'
+        + '#osip-consent button{font:600 .85rem Inter,system-ui,sans-serif;border-radius:9px;padding:.55rem 1.1rem;cursor:pointer;border:1px solid transparent}'
+        + '#osip-consent .osip-accept{background:#f7be26;color:#1a1200}'
+        + '#osip-consent .osip-accept:hover{background:#ffcf4d}'
+        + '#osip-consent .osip-decline{background:transparent;color:#f3efe6;border-color:rgba(243,239,230,.4)}'
+        + '#osip-consent .osip-decline:hover{border-color:#f3efe6}'
+        + '#osip-consent button:focus-visible{outline:2px solid #f7be26;outline-offset:2px}';
+      var st = document.createElement('style'); st.textContent = css;
+      document.head.appendChild(st);
+
+      var bar = document.createElement('div');
+      bar.id = 'osip-consent';
+      bar.setAttribute('role', 'dialog');
+      bar.setAttribute('aria-label', 'Cookie consent');
+      bar.innerHTML = '<p>We use essential cookies to run this site, and — only with your consent — analytics '
+        + 'cookies to understand how it is used, in line with the Nigeria Data Protection Act 2023. '
+        + 'See our <a href="pages/Privacy.html">Privacy Policy</a>.</p>'
+        + '<div class="osip-consent-actions">'
+        + '<button type="button" class="osip-decline">Decline</button>'
+        + '<button type="button" class="osip-accept">Accept analytics</button></div>';
+      document.body.appendChild(bar);
+
+      function choose(v) {
+        try { localStorage.setItem(KEY, v); } catch (e) { }
+        if (v === 'granted' && typeof window.osipLoadAnalytics === 'function') window.osipLoadAnalytics();
+        bar.remove();
+      }
+      bar.querySelector('.osip-accept').addEventListener('click', function () { choose('granted'); });
+      bar.querySelector('.osip-decline').addEventListener('click', function () { choose('denied'); });
     })();
   </script>
 </body>

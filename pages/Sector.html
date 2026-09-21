@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="description" content="All ten priority sectors of Nigeria's clean energy transition, with the business models, regulations and finance routes open in each." />
-    <title>Investment Sectors | OSIP, One-Stop Investment Platform</title>
+    <title>Investment Sectors | One-Stop Investment Platform (OSIP)</title>
     <!-- Fonts & Icons -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Manrope:wght@600;700;800&amp;display=swap"
@@ -1318,7 +1318,7 @@
                     data-osip-empty="#sector-empty">
                     <a href="DetailedSector.html" class="sector-card sec-reveal" data-name="solar" aria-label="View Solar in detail" style="--accent: #f7be26">
                         <div class="sec-media">
-                            <img alt="Long rows of ground-mounted solar panels stretching across a grass field under a bright, cloud-scattered sky" decoding="async"  src="sector-Solar-hero.jpg">
+                            <img loading="lazy" decoding="async" alt="Long rows of ground-mounted solar panels stretching across a grass field under a bright, cloud-scattered sky" decoding="async"  src="sector-Solar-hero.jpg">
                         </div>
                         <span class="sec-stripe" aria-hidden="true"></span>
                         <div class="sec-body">
@@ -1329,7 +1329,7 @@
                     </a>
                     <a href="Wind.html" class="sector-card sec-reveal" data-name="wind" aria-label="View Wind in detail" style="--accent: #7cc6ec">
                         <div class="sec-media">
-                            <img alt="Five wind turbines along a ridge above rolling green hills, with mountains in the distance" decoding="async"  src="sector-Wind-2.jpg">
+                            <img loading="lazy" decoding="async" alt="Five wind turbines along a ridge above rolling green hills, with mountains in the distance" decoding="async"  src="sector-Wind-2.jpg">
                         </div>
                         <span class="sec-stripe" aria-hidden="true"></span>
                         <div class="sec-body">
@@ -1340,7 +1340,7 @@
                     </a>
                     <a href="Storage.html" class="sector-card sec-reveal" data-name="storage" aria-label="View Storage in detail" style="--accent: #a78bfa">
                         <div class="sec-media">
-                            <img alt="A wall-mounted inverter and switchgear above four stacked battery cabinets in a small plant room" decoding="async"  style="object-position: 50% 30%" src="sector-Storage-ng.jpg">
+                            <img loading="lazy" decoding="async" alt="A wall-mounted inverter and switchgear above four stacked battery cabinets in a small plant room" decoding="async"  style="object-position: 50% 30%" src="sector-Storage-ng.jpg">
                         </div>
                         <span class="sec-stripe" aria-hidden="true"></span>
                         <div class="sec-body">
@@ -1351,7 +1351,7 @@
                     </a>
                     <a href="SmallHydro.html" class="sector-card sec-reveal" data-name="small hydro" aria-label="View Small Hydro in detail" style="--accent: #38b2ac">
                         <div class="sec-media">
-                            <img alt="Water spilling in sheets over a long, low weir, with wooded hills beyond the reservoir" decoding="async"  src="sector-SmallHydro-ng.jpg">
+                            <img loading="lazy" decoding="async" alt="Water spilling in sheets over a long, low weir, with wooded hills beyond the reservoir" decoding="async"  src="sector-SmallHydro-ng.jpg">
                         </div>
                         <span class="sec-stripe" aria-hidden="true"></span>
                         <div class="sec-body">
@@ -1592,23 +1592,7 @@
                 window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
             }
         })();
-        (function () {
-            const NAV_HREF = { 'SECTORS': 'Sector.html', 'OPPORTUNITIES': 'Opportunities.html', 'REGULATIONS': 'Regulation.html', 'DATA': 'Data.html', 'NEWS': 'News.html', 'CONTACT': 'Contact.html', 'INVEST NOW': 'Opportunities.html' };
-            const PAGE_ACTIVE = { 'sector.html': 'SECTORS', 'detailedsector.html': 'SECTORS', 'regulation.html': 'REGULATIONS', 'data.html': 'DATA', 'news.html': 'NEWS', 'newsindetail.html': 'NEWS', 'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES', 'detailedoppnew.html': 'OPPORTUNITIES' };
-            const file = (location.pathname.split('/').pop() || '').toLowerCase();
-            const active = PAGE_ACTIVE[file];
-            document.querySelectorAll('nav.bg-white a').forEach(a => {
-                const label = a.textContent.replace(/\s+/g, ' ').trim().toUpperCase();
-                if (NAV_HREF[label]) a.setAttribute('href', NAV_HREF[label]); else { var h = a.getAttribute('href') || ''; if (h === '' || h === '#' || h === 'Sector.html') a.setAttribute('href', 'notDecided.html'); }
-                a.querySelectorAll('span').forEach(s => { if ((s.className || '').indexOf('FFB955') !== -1) s.remove(); });
-                if (active && label === active && a.className.indexOf('px-5') !== -1) {
-                    const bar = document.createElement('span');
-                    bar.className = 'absolute left-0 bottom-4 w-full h-[2px] bg-[#FFB955]';
-                    a.appendChild(bar);
-                }
-            });
-        })();
-    </script>
+            </script>
     <!-- NESP nav hover dropdowns (shared, injected) -->
     <style>
         .nesp-has-menu {

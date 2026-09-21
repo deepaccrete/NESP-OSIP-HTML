@@ -153,6 +153,17 @@
         }
     });
 
+    /* ---- Last-reviewed stamp (UX-SUP-05): every record carries the date it was
+       last checked, printed at the foot of the article so the reader knows how
+       current the content is. */
+    if (story.reviewedDisplay) {
+        var stamp = document.createElement('p');
+        stamp.className = 'mt-10 pt-4 text-sm text-on-surface-variant';
+        stamp.style.borderTop = '1px solid #c0c8c4';
+        stamp.textContent = 'Last reviewed: ' + story.reviewedDisplay;
+        article.appendChild(stamp);
+    }
+
     /* ---- Most Read: the other stories, newest first, each linking to its own page - */
     mostRead(story);
 

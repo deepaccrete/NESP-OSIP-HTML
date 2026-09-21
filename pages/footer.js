@@ -44,9 +44,16 @@
                   class="text-sm sm:text-base hover:text-white transition-colors">Events</a></li>
               <li><a href="{{base}}HelpDesk.html" class="text-sm sm:text-base hover:text-white transition-colors">OSIP Help
                   Desk</a></li>
-              <li class="nesp-foot-soon"><span>Privacy Policy</span><em>Coming soon</em></li>
-              <li class="nesp-foot-soon"><span>Terms of Use</span><em>Coming soon</em></li>
-              <li class="nesp-foot-soon"><span>Disclaimer</span><em>Coming soon</em></li>
+              <!-- UX-LOG-01 (item 51): account entry point in the footer as well as
+                   the header, so Log in / Register is reachable from every page. -->
+              <li><a href="{{base}}Login.html" class="text-sm sm:text-base hover:text-white transition-colors">Log in
+                  / Register</a></li>
+              <!-- Legal pages (item 93): now published, no longer "coming soon". -->
+              <li><a href="{{base}}Privacy.html" class="text-sm sm:text-base hover:text-white transition-colors">Privacy
+                  Policy</a></li>
+              <li><a href="{{base}}Terms.html" class="text-sm sm:text-base hover:text-white transition-colors">Terms of
+                  Use</a></li>
+              <li><a href="{{base}}Disclaimer.html" class="text-sm sm:text-base hover:text-white transition-colors">Disclaimer</a></li>
             </ul>
           </div>
           <div>

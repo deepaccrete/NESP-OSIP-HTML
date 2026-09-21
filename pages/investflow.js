@@ -55,12 +55,19 @@
     var closeBtn = modal.querySelector('#investflow-close');
     var backdrop = modal.querySelector('#investflow-backdrop');
 
+    // UX-A11-05 (item 88): remember what had focus before the modal opened so it
+    // can be restored on close, and keep Tab within the dialog.
+    var lastFocus = null;
+
     function openModal(e) {
         if (e) e.preventDefault();
+        lastFocus = document.activeElement;
         var src = frame.getAttribute('src');
         if (!src || src === 'about:blank') frame.setAttribute('src', STEP1_URL);
         modal.classList.add('open');
         document.body.classList.add('investflow-open');
+        // Move focus into the dialog so a keyboard user is not left behind it.
+        setTimeout(function () { try { closeBtn.focus(); } catch (e) { } }, 0);
     }
 
     function closeModal() {
@@ -68,12 +75,25 @@
         document.body.classList.remove('investflow-open');
         // Reset so the next open always starts back at step 1.
         frame.setAttribute('src', 'about:blank');
+        // Return focus to the trigger that opened the modal.
+        if (lastFocus && typeof lastFocus.focus === 'function') { try { lastFocus.focus(); } catch (e) { } }
+        lastFocus = null;
     }
 
     closeBtn.addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') { closeModal(); return; }
+        // Focus trap across the two host-level focusables (close button + iframe).
+        // Tab inside the iframe is handled by its own document; this keeps the
+        // close button tethered to the dialog rather than the blurred page.
+        if (e.key === 'Tab') {
+            var f = [closeBtn, frame];
+            var first = f[0], last = f[f.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
     });
     // Lets the embedded pages close the popup: window.parent.postMessage('investflow-close','*')
     window.addEventListener('message', function (e) {
