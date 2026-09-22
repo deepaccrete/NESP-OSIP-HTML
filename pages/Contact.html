@@ -434,11 +434,16 @@
             background: rgba(255, 255, 255, .04) !important;
             border-color: rgba(255, 255, 255, .12) !important;
             border-radius: 14px;
+            /* Each box is its own size container, so the figure can be held to the
+               box's width (cqi) and never spill over its border (22 Sep 2026). */
+            container-type: inline-size;
+            min-width: 0;
         }
 
         .rd main .lg\:col-span-5 .grid-cols-3 > div > p:first-child {
             font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
-            font-size: clamp(22px, 1.85vw, 28px) !important;
+            /* "$12.4B+" is about 3.6em wide; 26cqi keeps it inside the box at any width. */
+            font-size: min(clamp(22px, 1.85vw, 28px), 26cqi) !important;
             font-weight: 400 !important;
             white-space: nowrap;
             line-height: 1 !important;
@@ -633,7 +638,12 @@
         /* ---- Small screens ---------------------------------------------------------- */
         @media (max-width: 639px) {
             .rd main .lg\:col-span-5 > div:first-child p.font-h3 { font-size: 40px !important; }
-            .rd main .lg\:col-span-5 .grid-cols-3 > div > p + p { letter-spacing: .14em !important; }
+            .rd main .lg\:col-span-5 .grid-cols-3 > div { padding: 16px 4px 14px !important; }
+            /* "INVESTMENT" at 10px and .14em needed 80px in a 56px box at 320. */
+            .rd main .lg\:col-span-5 .grid-cols-3 > div > p + p {
+                font-size: min(10px, 13cqi) !important;
+                letter-spacing: .08em !important;
+            }
         }
 
         /* ---- Buttons in Newsreader ----------------------------------------------------
@@ -824,6 +834,62 @@
         }
 
         .rd main #contactForm .osip-clear-yes:hover { background: #b3261e; color: #ffffff; }
+
+        /* Phones (22 Sep 2026): under a full-width Submit pill, a 14px grey underline in
+           the left corner read as a stray footnote and was a 33px tap target. Below the
+           sm breakpoint it becomes a full-width outlined pill in the Submit button's
+           shape: clearly a button, still quieter than Submit. The confirm step follows:
+           question centred, "Yes, clear" and "Keep" side by side at equal width. */
+        @media (max-width: 639.98px) {
+            .rd main #contactForm .osip-clear {
+                display: block;
+                width: 100%;
+            }
+
+            .rd main #contactForm .osip-clear-link,
+            .rd main #contactForm .osip-clear-no,
+            .rd main #contactForm .osip-clear-yes {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                min-height: 48px;
+                padding: 0 18px;
+                border: 1px solid var(--rd-line-2);
+                border-radius: 999px;
+                background: #ffffff;
+                font-size: 15px !important;
+                color: var(--rd-green);
+                text-decoration: none;
+                transition: background-color .3s ease, border-color .3s ease, color .3s ease;
+            }
+
+            .rd main #contactForm .osip-clear-link:hover,
+            .rd main #contactForm .osip-clear-no:hover {
+                background: #eef3ef;
+                border-color: var(--rd-green);
+                color: var(--rd-green);
+            }
+
+            .rd main #contactForm .osip-clear-yes { border-color: #b3261e; color: #b3261e; }
+            .rd main #contactForm .osip-clear-yes:hover { background: #b3261e; color: #ffffff; }
+
+            .rd main #contactForm .osip-clear-confirm {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+                width: 100%;
+            }
+
+            .rd main #contactForm .osip-clear-confirm[hidden] { display: none; }
+
+            .rd main #contactForm .osip-clear-confirm > span {
+                grid-column: 1 / -1;
+                text-align: center;
+                font-size: 14.5px;
+                padding-bottom: 2px;
+            }
+        }
 
 
         /* ---- Dropdowns (16 Sep 2026) ---------------------------------------------------

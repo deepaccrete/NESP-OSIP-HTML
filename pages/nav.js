@@ -410,7 +410,13 @@
       // The zones survive on mobile too. 37 flat names would be a wall.
       menu.groups.forEach(function (g) {
         subs += '<a class="nesp-m-subhead" href="' + g.href + '">' + g.head + '</a>';
-        g.items.forEach(function (it) { subs += '<a href="' + it.href + '">' + it.t + '</a>'; });
+        // A published profile carries the same "Live" badge as in the desktop menu.
+        g.items.forEach(function (it) {
+          subs += it.live
+            ? '<a class="nesp-m-live" href="' + it.href + '">' + it.t +
+              '<span class="nesp-state-live" title="Profile published">Live</span></a>'
+            : '<a href="' + it.href + '">' + it.t + '</a>';
+        });
       });
     } else {
       menu.items.forEach(function (it) {
@@ -649,7 +655,8 @@
       '<span class="nesp-avatar nesp-avatar--sm"><span aria-hidden="true">' + INITIALS + '</span></span>' +
       '<span class="nesp-m-profile-t"><b>' + USER_NAME + '</b><em>View profile</em></span></a>'
       : '') +
-    '<a href="' + url.invest + '" class="nesp-cta">Register your interest</a>' +
+    // No "Register your interest" in here: the bar above already shows it on a
+    // phone, beside the burger, so the menu would only repeat it.
     (session
       ? '<button type="button" class="nesp-login nesp-login--m" data-osip-signout>Sign out</button>'
       : '<a href="' + loginHref() + '" class="nesp-login nesp-login--m">Log in or register</a>') +
@@ -949,6 +956,7 @@
       '.nesp-header .nesp-m-sublist{margin:.25rem 0 .625rem 1rem;padding-left:.875rem;border-left:1px solid ' + LINE + '}',
       '.nesp-header .nesp-m-sublist a{display:block;padding:.5rem .625rem;border-radius:10px;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:16.5px;font-weight:400;color:' + INK2 + ';text-decoration:none;transition:background-color .25s ease,color .25s ease}',
       '.nesp-header .nesp-m-sublist a:hover{background:' + TINT + ';color:' + GREEN + '}',
+      '.nesp-header .nesp-m-sublist a.nesp-m-live{display:flex;align-items:center;gap:.5rem}',
       '.nesp-header .nesp-m-sublist a.nesp-m-subhead{font-family:' + SANS + ';font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:' + GREEN2 + ';padding:.75rem .625rem .25rem}',
       '.nesp-header .nesp-m-sublist a.nesp-m-subhead:hover{background:transparent;color:' + GREEN + '}',
       '.nesp-header .nesp-m-foot{margin-top:.75rem;padding-top:1rem;border-top:1px solid ' + LINE + ';display:flex;flex-direction:column;gap:.625rem}',

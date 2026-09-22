@@ -973,6 +973,51 @@
             transform: translateX(4px);
         }
 
+        /* On a phone the row used to wrap wherever it ran out of room: Back alone on
+           one line, then Skip and Next on the next, left-aligned, so Back and Next
+           never lined up. Below 640px it is laid out on purpose instead - Back and
+           Next on one line at either edge, the same height, and Skip centred under
+           them as the quiet option it is. The inner wrapper steps aside
+           (display: contents) so Skip and Next can take their own places. */
+        @media (max-width: 639px) {
+            .rd .quiz-controls {
+                display: grid !important;
+                grid-template-columns: auto minmax(0, 1fr) auto;
+                grid-template-areas:
+                    "back . next"
+                    "skip skip skip";
+                align-items: center;
+                column-gap: 12px !important;
+                row-gap: 18px !important;
+            }
+
+            .rd .quiz-controls-end { display: contents; }
+
+            .rd #quiz-back {
+                grid-area: back;
+                height: 48px;
+            }
+
+            .rd #quiz-next {
+                grid-area: next;
+                height: 48px;
+                padding: 0 20px 0 24px !important;
+                white-space: nowrap;
+            }
+
+            .rd #quiz-skip {
+                grid-area: skip;
+                justify-self: center;
+            }
+        }
+
+        /* the smallest phones: "See my result" and Back still share one line */
+        @media (max-width: 359px) {
+            .rd .quiz-controls { column-gap: 8px !important; }
+            .rd #quiz-back { padding: 0 14px 0 10px !important; }
+            .rd #quiz-next { padding: 0 14px 0 16px !important; gap: 6px !important; }
+        }
+
         .rd #quiz-step > div > p.font-body-sm {
             margin-top: 32px !important;
             font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
@@ -1682,6 +1727,13 @@
             transition-behavior: allow-discrete;
         }
 
+        /* The search hides the states it does not match with the hidden attribute,
+           but each card also carries Tailwind's `flex`, which outranks it - so the
+           filter ran and nothing left the screen. This puts hidden back in charge. */
+        .rd .quiz-states > .quiz-option[hidden] {
+            display: none !important;
+        }
+
         /* the search box: one line above the list, the same hairline and radius as
            the cards under it, so it reads as part of the same block */
         .rd .quiz-search {
@@ -1793,6 +1845,11 @@
             gap: 12px;
         }
 
+        /* overscroll-behavior: auto, not contain. With contain, a wheel or a swipe that
+           reached the last state stopped dead: the page did not move on, and the buttons
+           and everything under the list were out of reach until the pointer was moved off
+           the panel. Now the scroll carries on into the page at either end - the same
+           rule as the filter lists on Opportunities and News. */
         .rd .quiz-states.quiz-scroll {
             max-height: 432px;
             overflow-y: auto;
@@ -1800,7 +1857,7 @@
             padding: 2px 14px 2px 2px;
             scrollbar-width: thin;
             scrollbar-color: var(--rd-line-2) transparent;
-            overscroll-behavior: contain;
+            overscroll-behavior: auto;
         }
 
         .rd .quiz-states.quiz-scroll::-webkit-scrollbar { width: 6px; }
@@ -2206,12 +2263,12 @@
                      put the two halves of the same decision at opposite ends of the
                      screen. Next stays disabled until something is chosen, because a
                      question with no answer narrows nothing; Skip is the way past it. -->
-                <div class="mt-9 pt-6 border-t border-[#e8ebe9] flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
+                <div class="quiz-controls mt-9 pt-6 border-t border-[#e8ebe9] flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
                     <button id="quiz-back" type="button"
                         class="inline-flex items-center gap-1.5 bg-white border border-[#e5e7eb] rounded-full pl-2.5 pr-4 py-2 text-[#55635c] hover:text-primary hover:border-[#cfd8d2] text-[13px] font-medium transition-colors">
                         <span class="material-symbols-outlined text-[18px]">arrow_back</span>Back
                     </button>
-                    <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+                    <div class="quiz-controls-end flex flex-wrap items-center gap-x-5 gap-y-3">
                         <button id="quiz-skip" type="button"
                             class="text-[#55635c] hover:text-primary underline underline-offset-4 decoration-[#cfd8d2] hover:decoration-current text-[13px] font-medium transition-colors">
                             Skip this question

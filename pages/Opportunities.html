@@ -2108,6 +2108,149 @@
             transform: translateX(4px);
         }
     </style>
+    <style id="rd-filter-sections">
+        /* ---- Filter groups (22 Sep 2026) ----------------------------------------------------
+           Every group shows five values before "View more" (it was three), and no group is
+           ever squeezed below that: pressed to share one screen, the four of them had
+           shrunk to a value or two each, which is no use as a filter.
+
+           A group that has been opened out becomes a box of its own - at most 42% of the
+           screen, its title and line fixed, its values scrolling under the line - so States
+           opened to all 37 stays a compact window rather than a page of names. Four groups
+           at five values do not fit a phone's drawer, so the list of groups scrolls when it
+           has to; the panel's own header stays pinned above it either way. */
+        .rd #sidebar .sidebar-sticky > div:nth-child(2) {
+            display: flex !important;
+            flex-direction: column;
+            overflow-y: auto !important;
+            overscroll-behavior: contain;
+        }
+
+        /* five showing, not three: the fourth and fifth values come out of "View more" */
+        .rd #sidebar .filter-group:not(.show-extra) > .space-y-2\.5 > label.filter-extra:nth-child(-n+5) {
+            display: flex !important;
+        }
+
+        /* and "View more" goes where five is all there is (Project stage has four) */
+        .rd #sidebar .filter-group:not(:has(> .space-y-2\.5 > label:nth-child(6))) > .view-more-btn {
+            display: none !important;
+        }
+
+        .rd #sidebar .filter-group {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 auto;
+            max-height: 42vh;
+            max-height: 42dvh;
+        }
+
+        .rd #sidebar .filter-group > div:first-child {
+            flex: 0 0 auto;
+            margin-bottom: 0 !important;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--rd-line, #e2ded5);
+        }
+
+        /* overscroll-behavior: auto, not contain. An opened group sits inside a list that
+           scrolls too, and contain made the group swallow the scroll at its ends: reach
+           the last state and the finger or wheel stopped dead, with Readiness, Project
+           stage and Reset All still below and no way to them. Now the scroll carries on
+           into the list at either end. The list itself still contains, so nothing behind
+           the drawer moves. */
+        .rd #sidebar .filter-group > .space-y-2\.5 {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overscroll-behavior: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 12px 0 6px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--rd-line-2, #cfc9bd) transparent;
+        }
+
+        .rd #sidebar .filter-group > .space-y-2\.5::-webkit-scrollbar { width: 6px; }
+        .rd #sidebar .filter-group > .space-y-2\.5::-webkit-scrollbar-thumb {
+            background: var(--rd-line-2, #cfc9bd);
+            border-radius: 999px;
+        }
+
+        .rd #sidebar .filter-group > .view-more-btn,
+        .rd #sidebar .sidebar-sticky > div:nth-child(2) > :not(.filter-group) { flex: 0 0 auto; }
+
+        /* On a phone four groups and Reset All have to share one drawer, so the spacing
+           between them tightens: squeezed at the desktop spacing, every group showed a
+           row and a half. At this spacing each shows its title and about three values,
+           with the arrow saying there are more. */
+        @media (max-width: 1023px) {
+            .rd #sidebar .sidebar-sticky > div:nth-child(2) > * + * { margin-top: 14px !important; }
+            .rd #sidebar .filter-group > div:first-child { padding-bottom: 8px; }
+            .rd #sidebar .filter-group > .space-y-2\.5 { padding: 8px 0 4px; }
+            .rd #sidebar .filter-group > .view-more-btn { margin-top: 4px !important; }
+            .rd #sidebar .sidebar-sticky > div:nth-child(2) > :not(.filter-group) { padding-top: 12px !important; }
+        }
+
+        /* "More below": a group whose values run past its box fades its last row into
+           the rail and shows a small down arrow over it, which nudges the list along
+           when tapped and goes the moment the last value is in view. Added by the script
+           at the foot of the page; it sits on the bottom edge of the values, above
+           "View more". */
+        .rd #sidebar .filter-more-cue {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 44px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 4px;
+            background: linear-gradient(to bottom, rgba(237, 234, 227, 0), var(--rd-paper-2, #edeae3) 72%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
+
+        .rd #sidebar .filter-group.has-more-below > .filter-more-cue { opacity: 1; }
+
+        .rd #sidebar .filter-more-cue button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            border: 1px solid var(--rd-line-2, #cfc9bd);
+            border-radius: 999px;
+            background: var(--rd-card, #fbfaf7);
+            color: var(--rd-green, #004225);
+            box-shadow: 0 2px 8px rgba(19, 32, 27, .1);
+            cursor: pointer;
+            pointer-events: none;
+        }
+
+        /* The fade answers any hidden sliver, so a row cut by the box's edge reads as more
+           to come rather than as broken; the arrow waits until a whole row is hidden. */
+        .rd #sidebar .filter-more-cue button { visibility: hidden; }
+
+        .rd #sidebar .filter-group.has-more-rows > .filter-more-cue button {
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .rd #sidebar .filter-more-cue button:hover { background: var(--rd-green, #004225); color: #ffffff; }
+        .rd #sidebar .filter-more-cue .material-symbols-outlined { font-size: 20px; }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .rd #sidebar .filter-group.has-more-rows > .filter-more-cue button {
+                animation: filter-cue-nudge 1.8s ease-in-out infinite;
+            }
+
+            @keyframes filter-cue-nudge {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(3px); }
+            }
+        }
+    </style>
 </head>
 
 <body class="text-on-surface rd">
@@ -3414,10 +3557,12 @@
                         Each project page names the agency responsible for it and how to reach them.</span>
                 </div>
                 <!-- OPP-04 (item 34): a working sort control for the project list. -->
-                <div class="opp-sort-row" style="display:flex;align-items:center;gap:.5rem;margin:0 0 1.25rem">
+                <!-- Sort by is the pathway finder's listbox (pages/listbox.js): the native
+                     select below stays as the value the sort code reads, and the row is
+                     lifted over the rising cards while its list is open. -->
+                <div class="opp-sort-row" data-listbox-lift style="display:flex;align-items:center;gap:.75rem;margin:0 0 1.25rem">
                     <label for="opp-sort" style="font-size:13px;color:#404846;font-weight:600">Sort by</label>
-                    <select id="opp-sort" aria-label="Sort projects"
-                        style="font:600 13px Inter,system-ui,sans-serif;color:#001d17;border:1px solid #c0c8c4;border-radius:8px;padding:.4rem 2rem .4rem .65rem;background:#fff;cursor:pointer">
+                    <select id="opp-sort" aria-label="Sort projects" data-listbox>
                         <option value="featured">Featured (default)</option>
                         <option value="newest">Newest first</option>
                         <option value="oldest">Oldest first</option>
@@ -4943,6 +5088,48 @@
             }
         })();
     </script>
+    <script>
+        /* "More below" cue for the filter groups (22 Sep 2026), as on News.html. Decorative:
+           the lists scroll by wheel, touch and keyboard as before, so the cue is hidden
+           from assistive tech and kept out of the tab order. It sits on the bottom edge
+           of the values box, which is above "View more", so its offset is measured. */
+        (function () {
+            var groups = document.querySelectorAll('#sidebar .filter-group');
+            Array.prototype.forEach.call(groups, function (group) {
+                var box = group.querySelector(':scope > .space-y-2\\.5');
+                if (!box) return;
+
+                var cue = document.createElement('div');
+                cue.className = 'filter-more-cue';
+                cue.setAttribute('aria-hidden', 'true');
+                cue.innerHTML = '<button type="button" tabindex="-1">' +
+                    '<span class="material-symbols-outlined">keyboard_arrow_down</span></button>';
+                group.appendChild(cue);
+
+                function sync() {
+                    var left = box.scrollHeight - box.clientHeight - box.scrollTop;
+                    group.classList.toggle('has-more-below', left > 4);    // anything hidden: the fade
+                    group.classList.toggle('has-more-rows', left > 18);    // a row or more: the arrow
+                    var gap = group.getBoundingClientRect().bottom - box.getBoundingClientRect().bottom;
+                    cue.style.bottom = Math.max(0, Math.round(gap)) + 'px';
+                }
+
+                box.addEventListener('scroll', sync, { passive: true });
+                /* "View more" / "View less" change how long the list is */
+                group.addEventListener('click', function () { window.setTimeout(sync, 0); });
+                /* the drawer opening, the desktop rail showing again, a rotated phone */
+                if (window.ResizeObserver) new ResizeObserver(sync).observe(box);
+                else window.addEventListener('resize', sync);
+
+                cue.querySelector('button').addEventListener('click', function () {
+                    box.scrollBy({ top: Math.max(80, Math.round(box.clientHeight * 0.6)), behavior: 'smooth' });
+                });
+
+                sync();
+            });
+        })();
+    </script>
+    <script src="listbox.js"></script>
 </body>
 
 </html>

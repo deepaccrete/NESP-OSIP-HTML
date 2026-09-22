@@ -517,6 +517,86 @@
 
         /* Sector hotspots are published by zone, not by state, so the pairing has
            to be stated rather than implied by a state-level control. */
+        /* ---- Geospatial filter on phones (22 Sep 2026) ----------------------------
+           The bar wraps as a flex row, which on a phone broke raggedly: legend and one
+           dropdown on a line, the other alone at a different width, the button hanging
+           below. Under 640px it is one column, every control the full width; Apply and
+           Reset share the last row once Reset is showing. */
+        @media (max-width: 639px) {
+            .d-filter {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                gap: 10px;
+                padding: 14px;
+            }
+
+            .d-filter > .d-filter-legend,
+            .d-filter > .d-lb,
+            .d-filter > #filter-apply,
+            .d-filter > .d-filter-status,
+            .d-filter > .d-filter-hint {
+                grid-column: 1 / -1;
+            }
+
+            .d-filter:has(#filter-reset:not([hidden])) > #filter-apply { grid-column: auto; }
+
+            .d-filter-legend { padding-left: 2px; }
+            .d-filter .d-lb-btn { min-width: 0; }
+            .d-filter > .d-btn { width: 100%; height: 42px; }
+        }
+
+        /* ---- Map legend: minimisable (22 Sep 2026) ---------------------------------
+           The header keeps the title and a small button; minimised, the body folds
+           away and the card is just that header, so the map underneath is clear. */
+        .d-map-legend-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .d-map-legend-head .d-h4 { margin: 0; }
+
+        .d-map-legend-toggle {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            margin: -3px -4px 0 0;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            background: transparent;
+            color: #404846;
+            cursor: pointer;
+            transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+        }
+
+        .d-map-legend-toggle:hover {
+            background: rgba(0, 52, 43, .06);
+            border-color: rgba(0, 52, 43, .12);
+            color: #00342b;
+        }
+
+        .d-map-legend-toggle .material-symbols-outlined { font-size: 18px; }
+
+        .d-map-legend-body { margin-top: 6px; }
+
+        .d-map-legend.is-min { padding-top: 10px; padding-bottom: 10px; }
+        .d-map-legend.is-min .d-map-legend-body { display: none; }
+        .d-map-legend.is-min .d-map-legend-head { align-items: center; }
+
+        /* Minimised on a wider screen, the title keeps to one line: a slim bar. */
+        @media (min-width: 640px) {
+            .d-map-legend.is-min { max-width: none !important; }
+            .d-map-legend.is-min .d-h4 { white-space: nowrap; }
+        }
+
+        @media (max-width: 639px) {
+            .d-map-legend { top: 12px !important; left: 12px !important; max-width: calc(100% - 24px - 64px) !important; }
+        }
+
         .d-filter-hint {
             width: 100%; margin: 0; padding: 0 6px 2px;
             font-size: 11.5px; line-height: 1.5; color: #717976;
@@ -1732,6 +1812,29 @@
 
         .rd main #map button.bg-white:hover { background: #ffffff !important; }
 
+        /* True circles (22 Sep 2026): the buttons were padding round an icon whose
+           line height made them taller than wide, so the full radius drew ovals.
+           A fixed square, with the icon centred in it, makes the radius a circle. */
+        #map .absolute.bottom-6.right-6 > button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            padding: 0 !important;
+            border-radius: 50% !important;
+            aspect-ratio: 1;
+        }
+
+        #map .absolute.bottom-6.right-6 > button .material-symbols-outlined {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        /* A popup moved off its marker (below it, or sideways to clear an edge or
+           the legend) loses its tip, which would otherwise point at nothing. */
+        .leaflet-popup.d-pop-moved .leaflet-popup-tip-container { display: none; }
+
         /* Phone: the serif legend needs a little more room than the 300px map gave it */
         @media (max-width: 639px) {
             .rd main #map > div.rounded-2xl { height: 380px !important; }
@@ -2276,9 +2379,18 @@
                 class="reveal bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden h-[300px] sm:h-[360px] lg:h-[420px] relative flex items-center justify-center shadow-[0_10px_30px_-20px_rgba(0,29,23,.5)]">
                 <div id="nigeria-map" class="absolute inset-0 z-0"></div>
                 <!-- Map UI Overlays -->
-                <div
-                    class="absolute top-4 left-4 z-10 glass-card p-4 border border-outline-variant rounded-xl max-w-[15rem] shadow-lg">
-                    <h4 class="d-h4 mb-1.5">RE &amp; EE Project Hotspots</h4>
+                <div id="map-legend"
+                    class="d-map-legend absolute top-4 left-4 z-10 glass-card p-4 border border-outline-variant rounded-xl max-w-[15rem] shadow-lg">
+                    <div class="d-map-legend-head">
+                        <h4 class="d-h4">RE &amp; EE Project Hotspots</h4>
+                        <!-- Minimise: folds the card to this header so the map is clear.
+                             Open by default on desktop, minimised on phones (script below). -->
+                        <button type="button" class="d-map-legend-toggle" aria-expanded="true"
+                            aria-controls="map-legend-body" aria-label="Minimise map legend">
+                            <span class="material-symbols-outlined" aria-hidden="true">collapse_content</span>
+                        </button>
+                    </div>
+                    <div id="map-legend-body" class="d-map-legend-body">
                     <p class="text-[12.5px] leading-5 text-on-surface-variant mb-3">Hover a marker for
                         state-level details, technology mix, and open investment opportunities.</p>
                     <div class="space-y-2">
@@ -2298,6 +2410,7 @@
                     <p class="text-outline text-[10.5px] leading-4 mt-3 pt-2.5 border-t border-outline-variant">The
                         filter above narrows these markers by state. They are not broken down by sector yet, so a
                         sector choice leaves the map as it is.</p>
+                    </div>
                 </div>
                 <div class="absolute bottom-6 right-6 z-10 flex flex-col gap-2">
                     <button id="map-zoom-in" aria-label="Zoom in"
@@ -3250,10 +3363,104 @@
             var loc = document.getElementById('map-locate');
             if (zin) zin.addEventListener('click', function () { map.zoomIn(); });
             if (zout) zout.addEventListener('click', function () { map.zoomOut(); });
-            if (loc) loc.addEventListener('click', function () { map.setView(NIGERIA_VIEW.center, NIGERIA_VIEW.zoom); });
+            if (loc) loc.addEventListener('click', function () { fitSites(); });
 
-            // Ensure correct sizing once layout settles.
-            setTimeout(function () { map.invalidateSize(); }, 200);
+            /* ---- Keep every popup in view (22 Sep 2026) --------------------------
+               A popup opens above its marker. If that would cut it off at an edge of
+               the map or put it under the legend card, it is moved: below the marker
+               when there is no room above, in from a side edge, and clear of the
+               legend. The map never pans, so a hover popup stays under the cursor. */
+            var legend = document.getElementById('map-legend');
+            var GAP = 8, BASE_OFFSET = [0, -4];
+
+            function overlaps(a, b) {
+                return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+            }
+
+            function place(popup) {
+                var box = popup.getElement();
+                if (!box) return;
+                popup.options.offset = BASE_OFFSET.slice();
+                box.classList.remove('d-pop-moved');
+                popup.update();
+
+                var mapR = el.getBoundingClientRect();
+                var r = box.getBoundingClientRect();
+                var h = r.height, dx = 0, dy = 0;
+
+                // no room above: open below the marker instead
+                if (r.top < mapR.top + GAP) dy = h + 26;
+                var top = r.top + dy, bottom = r.bottom + dy;
+                if (bottom > mapR.bottom - GAP) dy -= bottom - (mapR.bottom - GAP);
+
+                // in from the side edges
+                if (r.left < mapR.left + GAP) dx = mapR.left + GAP - r.left;
+                if (r.right > mapR.right - GAP) dx = (mapR.right - GAP) - r.right;
+
+                // clear of the legend card: to its right if there is room, else below it
+                if (legend && legend.offsetParent) {
+                    var L_ = legend.getBoundingClientRect();
+                    var moved = { left: r.left + dx, right: r.right + dx, top: r.top + dy, bottom: r.bottom + dy };
+                    if (overlaps(moved, L_)) {
+                        var toRight = L_.right + GAP - moved.left;
+                        if (moved.right + toRight <= mapR.right - GAP) dx += toRight;
+                        else dy += L_.bottom + GAP - moved.top;
+                    }
+                }
+
+                if (dx || dy) {
+                    popup.options.offset = [BASE_OFFSET[0] + dx, BASE_OFFSET[1] + dy];
+                    box.classList.add('d-pop-moved');
+                    popup.update();
+                }
+            }
+
+            map.on('popupopen', function (e) { place(e.popup); });
+
+            /* ---- Start (and reset) with every marker in the free part of the map --
+               The legend card sits top-left and the zoom buttons bottom-right, so the
+               view is fitted to the markers inside what those two leave open. */
+            function fitSites() {
+                var pts = SITES.map(function (x) { return x.ll; });
+                var padTL = [24, 24], padBR = [24, 24];
+                if (legend && legend.offsetParent) {
+                    var mapR = el.getBoundingClientRect(), L_ = legend.getBoundingClientRect();
+                    padTL = [Math.max(24, L_.right - mapR.left + 16), 24];
+                    // a card taller than half the map takes the left side, not the top
+                    if (L_.height < mapR.height / 2) padTL = [24, Math.max(24, L_.bottom - mapR.top + 16)];
+                }
+                var ctr = document.querySelector('#map .absolute.bottom-6.right-6');
+                if (ctr) padBR = [Math.max(24, el.getBoundingClientRect().right - ctr.getBoundingClientRect().left + 12), 24];
+                // Too little free map to fit into (a map not laid out yet, or a very
+                // small one): fall back to the plain Nigeria view rather than zooming
+                // out to the whole world.
+                var sz = map.getSize();
+                if (sz.x - padTL[0] - padBR[0] < 140 || sz.y - padTL[1] - padBR[1] < 140) {
+                    map.setView(NIGERIA_VIEW.center, NIGERIA_VIEW.zoom);
+                    return;
+                }
+                map.fitBounds(pts, { paddingTopLeft: padTL, paddingBottomRight: padBR, maxZoom: 7 });
+                if (map.getZoom() < 5) map.setView(NIGERIA_VIEW.center, NIGERIA_VIEW.zoom);
+            }
+
+            // Re-fit once everything has loaded, and when the width changes.
+            window.addEventListener('load', function () { map.invalidateSize(); fitSites(); });
+            var fitTimer = 0, lastW = window.innerWidth;
+            window.addEventListener('resize', function () {
+                if (window.innerWidth === lastW) return;   // phone address-bar resizes
+                lastW = window.innerWidth;
+                clearTimeout(fitTimer);
+                fitTimer = setTimeout(function () { map.invalidateSize(); fitSites(); }, 150);
+            });
+
+            if (legend) {
+                var legendBtn = legend.querySelector('.d-map-legend-toggle');
+                if (legendBtn) legendBtn.addEventListener('click', function () { map.closePopup(); });
+            }
+
+            // Ensure correct sizing once layout settles, then fit the markers into
+            // the space the legend card and the buttons leave free.
+            setTimeout(function () { map.invalidateSize(); fitSites(); }, 200);
         })();
     </script>
 
@@ -4067,6 +4274,24 @@
                 window.addEventListener('load', function () { ScrollTrigger.refresh(); });
                 ScrollTrigger.refresh();
             }
+        })();
+    </script>
+    <script>
+        /* Map legend minimise (22 Sep 2026). Open on desktop; minimised on phones,
+           where the open card covers most of the map. */
+        (function () {
+            var card = document.getElementById('map-legend');
+            if (!card) return;
+            var btn = card.querySelector('.d-map-legend-toggle');
+            var icon = btn.querySelector('.material-symbols-outlined');
+            function set(min) {
+                card.classList.toggle('is-min', min);
+                btn.setAttribute('aria-expanded', min ? 'false' : 'true');
+                btn.setAttribute('aria-label', min ? 'Show map legend' : 'Minimise map legend');
+                icon.textContent = min ? 'expand_content' : 'collapse_content';
+            }
+            set(window.matchMedia('(max-width: 639px)').matches);
+            btn.addEventListener('click', function () { set(!card.classList.contains('is-min')); });
         })();
     </script>
 </body>

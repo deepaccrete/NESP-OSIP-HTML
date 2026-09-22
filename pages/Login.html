@@ -844,6 +844,112 @@
             font-size-adjust: none !important;
         }
     </style>
+    <style id="osip-listbox">
+        /* ---- Register dropdowns: the pathway finder's listbox (22 Sep 2026) ------------
+           A native <select> opens a list the operating system draws - a wheel on an
+           iPhone, a dialog on Android - that no CSS can reach, which is what made
+           these two fields look broken on a phone. They now use the same control as
+           Find Your Regulatory Pathway on Regulation.html: the field, the popup and
+           the option rows take that component's measurements, in this form's own
+           tokens. The native select is still in the form, hidden, holding the value. */
+        .lb-native {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            border: 0 !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .lb-trigger {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lb-trigger.is-placeholder { color: #a39d91 !important; }
+
+        .form-control .form-trailing-static { transition: transform .18s ease; }
+
+        .form-control.is-open .form-trailing-static {
+            transform: translateY(-50%) rotate(180deg);
+            color: var(--rd-green-2, #0b6b45);
+        }
+
+        .form-control.is-open .lb-trigger {
+            border-color: var(--rd-green-2, #0b6b45) !important;
+            background: #ffffff !important;
+            box-shadow: 0 0 0 4px rgba(11, 107, 69, .12) !important;
+        }
+
+        /* the row whose list is open sits above the rows after it (see the script) */
+        .lb-row-open {
+            position: relative;
+            z-index: 60;
+        }
+
+        .lb-list {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            z-index: 40;
+            max-height: 240px;
+            margin: 0;
+            padding: 6px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            list-style: none;
+            background: #ffffff;
+            border: 1px solid var(--rd-line-2, #d6dcd9);
+            border-radius: 14px;
+            box-shadow: 0 18px 40px -16px rgba(6, 20, 16, .28);
+        }
+
+        .lb-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            min-height: 42px;
+            padding: 9px 12px;
+            border-radius: 9px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14.5px;
+            font-weight: 500;
+            color: var(--rd-ink, #1a1c1b);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lb-option.is-active {
+            background: #f1f8f4;
+            color: var(--rd-green, #00342b);
+        }
+
+        .lb-option.is-selected {
+            font-weight: 600;
+            color: var(--rd-green, #00342b);
+        }
+
+        .lb-option .lb-check {
+            font-size: 18px !important;
+            color: var(--rd-green-2, #0b6b45);
+            visibility: hidden;
+        }
+
+        .lb-option.is-selected .lb-check { visibility: visible; }
+
+        /* a thumb needs a bigger row than a pointer does */
+        @media (max-width: 639px) {
+            .lb-option { min-height: 46px; font-size: 15px; }
+        }
+    </style>
 </head>
 
 <body class="bg-surface text-on-surface h-screen overflow-hidden rd">
@@ -1148,10 +1254,14 @@
                                 id="terms" type="checkbox" />
                             <span class="text-on-surface-variant text-[12.5px] leading-snug">
                                 By registering you agree to OSIP's
-                                <a class="text-on-tertiary-fixed-variant font-bold hover:underline" href="#">Terms &amp;
-                                    Conditions</a> and
-                                <a class="text-on-tertiary-fixed-variant font-bold hover:underline" href="#">Privacy
-                                    Policy</a>.
+                                <!-- New tab: a reader halfway through this form keeps it, and inside
+                                     the sign-in pop-up the policy does not load in the pop-up. -->
+                                <a class="text-on-tertiary-fixed-variant font-bold hover:underline" href="Terms.html"
+                                    target="_blank" rel="noopener">Terms &amp;
+                                    Conditions<span class="sr-only"> (opens in a new tab)</span></a> and
+                                <a class="text-on-tertiary-fixed-variant font-bold hover:underline" href="Privacy.html"
+                                    target="_blank" rel="noopener">Privacy
+                                    Policy<span class="sr-only"> (opens in a new tab)</span></a>.
                             </span>
                         </label>
 
@@ -1347,6 +1457,168 @@
                 img.style.transform = `scale(1.08) translate(${x}px, ${y}px)`;
             }
         });
+    </script>
+    <script>
+        /* The register form's dropdowns, as listboxes - the same control as the
+           pathway finder on Regulation.html (pages/pathwayfinder.js), with the same
+           keyboard behaviour: arrows move, Home/End jump, Enter or Space picks,
+           Escape and Tab close. */
+        (function () {
+            var form = document.getElementById('registrationForm');
+            if (!form) return;
+
+            Array.prototype.forEach.call(form.querySelectorAll('select.form-input'), function (select, n) {
+                var control = select.closest('.form-control');
+                if (!control) return;
+
+                var options = Array.prototype.filter.call(select.options, function (o) { return !o.disabled && o.value; });
+                var placeholderOpt = Array.prototype.filter.call(select.options, function (o) { return o.disabled || !o.value; })[0];
+                var placeholder = placeholderOpt ? placeholderOpt.textContent.trim() : 'Select';
+                var id = (select.id || 'lb' + n) + '-lb';
+
+                var label = document.querySelector('label[for="' + select.id + '"]');
+                if (label) { label.id = label.id || id + '-label'; label.setAttribute('for', id); }
+
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.id = id;
+                button.className = select.className.replace('appearance-none', '') + ' lb-trigger is-placeholder';
+                button.setAttribute('role', 'combobox');
+                button.setAttribute('aria-haspopup', 'listbox');
+                button.setAttribute('aria-expanded', 'false');
+                if (label) button.setAttribute('aria-labelledby', label.id + ' ' + id);
+                button.textContent = placeholder;
+
+                select.classList.add('lb-native');
+                select.setAttribute('tabindex', '-1');
+                select.setAttribute('aria-hidden', 'true');
+                select.parentNode.insertBefore(button, select);
+
+                var list = null;
+                var active = 0;
+
+                /* Each row of the form rises in on load (lgRise, fill-mode both), and an
+                   element holding an animated transform is a stacking layer of its own -
+                   so every row after this one painted over the open list, whatever its
+                   z-index. While the list is open, its row is lifted above the rows
+                   after it, and put back when it closes. */
+                var row = control.closest('form > *') || control;
+
+                function current() {
+                    for (var i = 0; i < options.length; i++) if (options[i].value === select.value) return i;
+                    return -1;
+                }
+
+                function paint() {
+                    if (!list) return;
+                    var sel = current();
+                    Array.prototype.forEach.call(list.children, function (li, i) {
+                        li.className = 'lb-option' + (i === active ? ' is-active' : '') + (i === sel ? ' is-selected' : '');
+                        li.setAttribute('aria-selected', i === sel ? 'true' : 'false');
+                    });
+                    var row = list.children[active];
+                    if (row) {
+                        var top = row.offsetTop, bottom = top + row.offsetHeight;
+                        if (top < list.scrollTop) list.scrollTop = top - 6;
+                        else if (bottom > list.scrollTop + list.clientHeight) list.scrollTop = bottom - list.clientHeight + 6;
+                    }
+                }
+
+                function close() {
+                    if (!list) return;
+                    list.parentNode.removeChild(list);
+                    list = null;
+                    row.classList.remove('lb-row-open');
+                    control.classList.remove('is-open');
+                    button.setAttribute('aria-expanded', 'false');
+                    button.removeAttribute('aria-activedescendant');
+                }
+
+                function show() {
+                    var i = current();
+                    button.textContent = i > -1 ? options[i].textContent.trim() : placeholder;
+                    button.classList.toggle('is-placeholder', i === -1);
+                }
+
+                function pick(i) {
+                    if (!options[i]) return;
+                    select.value = options[i].value;
+                    select.dispatchEvent(new Event('input', { bubbles: true }));
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                    show();
+                    close();
+                    button.focus();
+                }
+
+                function open() {
+                    if (list) return;
+                    list = document.createElement('ul');
+                    list.className = 'lb-list';
+                    list.id = id + '-list';
+                    list.setAttribute('role', 'listbox');
+                    if (label) list.setAttribute('aria-labelledby', label.id);
+                    options.forEach(function (o, i) {
+                        var li = document.createElement('li');
+                        li.id = id + '-opt-' + i;
+                        li.setAttribute('role', 'option');
+                        li.innerHTML = '<span></span><span class="material-symbols-outlined lb-check" aria-hidden="true">check</span>';
+                        li.firstChild.textContent = o.textContent.trim();
+                        /* mousedown, so the pick lands before the button loses focus;
+                           a touch that scrolls the list never sends one */
+                        li.addEventListener('mousedown', function (e) { e.preventDefault(); pick(i); });
+                        li.addEventListener('mouseenter', function () { active = i; paint(); });
+                        list.appendChild(li);
+                    });
+                    control.appendChild(list);
+                    row.classList.add('lb-row-open');
+                    control.classList.add('is-open');
+                    button.setAttribute('aria-expanded', 'true');
+                    button.setAttribute('aria-controls', list.id);
+                    active = Math.max(0, current());
+                    paint();
+                    button.setAttribute('aria-activedescendant', id + '-opt-' + active);
+
+                    /* inside the scrolling form panel, bring the whole list into view */
+                    var r = list.getBoundingClientRect();
+                    var panel = control.closest('.overflow-y-auto');
+                    if (panel && r.bottom > window.innerHeight - 8) {
+                        panel.scrollTop += r.bottom - window.innerHeight + 16;
+                    }
+                }
+
+                button.addEventListener('click', function () { if (list) close(); else open(); });
+
+                button.addEventListener('keydown', function (e) {
+                    var k = e.key;
+                    if (k === 'ArrowDown' || k === 'ArrowUp') {
+                        e.preventDefault();
+                        if (!list) { open(); return; }
+                        active = (active + (k === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
+                        paint();
+                        button.setAttribute('aria-activedescendant', id + '-opt-' + active);
+                    } else if (k === 'Home' || k === 'End') {
+                        if (!list) return;
+                        e.preventDefault();
+                        active = k === 'Home' ? 0 : options.length - 1;
+                        paint();
+                    } else if (k === 'Enter' || k === ' ') {
+                        e.preventDefault();
+                        if (list) pick(active); else open();
+                    } else if (k === 'Escape' || k === 'Tab') {
+                        close();
+                    }
+                });
+
+                document.addEventListener('mousedown', function (e) {
+                    if (list && !control.contains(e.target)) close();
+                });
+
+                /* a reset or a programmatic change still shows on the button */
+                select.addEventListener('change', show);
+                form.addEventListener('reset', function () { setTimeout(show, 0); });
+                show();
+            });
+        })();
     </script>
 </body>
 

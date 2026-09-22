@@ -3078,7 +3078,17 @@
         .rd #opportunities-grid .readiness-tag { font-weight: 500 !important; }
 
         @media (min-width: 640px) {
-            .rd .opp-grid#opportunities-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important; }
+            /* auto-fit, not auto-fill: with three cards and room for four, auto-fill kept an
+               empty fourth track and the row sat off to the left. auto-fit folds the empty
+               track away, so the cards share the full width, edge to edge with the text. */
+            .rd .opp-grid#opportunities-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important; }
+            .rd #opportunities-grid .opportunity-card { max-width: none !important; }
+        }
+
+        /* Phones: one column, and the card fills it. The 314px track stopped a few pixels
+           short of the column, so the card sat against the left edge, off centre. */
+        @media (max-width: 639px) {
+            .rd .opp-grid#opportunities-grid { grid-template-columns: minmax(0, 1fr) !important; }
             .rd #opportunities-grid .opportunity-card { max-width: none !important; }
         }
 
@@ -4211,6 +4221,21 @@
                         .wf-item-text {
                             padding-top: 4px;
                         }
+
+                        /* Phone list (22 Sep 2026): the step number used to sit inside the
+                           44px circle beside the icon, which pushed the icon off centre and the
+                           number out through the ring. It now reads as a small eyebrow over the
+                           step's label, and the circle holds the icon alone. */
+                        .wf-item .wf-badge .wf-num {
+                            position: absolute;
+                            top: 2px;
+                            left: calc(100% + 16px);
+                            transform: none;
+                            margin: 0;
+                            line-height: 1;
+                        }
+
+                        .wf-item .wf-item-text { padding-top: 20px; }
 
                         .wf-item-label {
                             font-size: 13px;

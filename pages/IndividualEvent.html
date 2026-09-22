@@ -521,11 +521,22 @@
         /* ---- Event film: the facade in the layer's colours --------------------------- */
         .rd main .video-facade { border-radius: 18px !important; }
 
+        /* A true circle: a card-corner rule elsewhere was rounding this at 12px,
+           which drew it as a rounded square. */
         .rd main .facade-cover span.rounded-full.bg-red-600 {
             width: 76px !important;
             height: 76px !important;
+            border-radius: 50% !important;
+            aspect-ratio: 1 / 1;
+            flex: none;
             background: rgba(251, 250, 247, .95) !important;
             box-shadow: none !important;
+        }
+
+        /* Phones: the thumbnail keeps the centre play button only. The heading
+           above already names the film, and the button's label says what it plays. */
+        @media (max-width: 767px) {
+            .rd main .facade-cover > span.absolute.bottom-3 { display: none !important; }
         }
 
         .rd main .facade-cover span.rounded-full.bg-red-600 .material-symbols-outlined { color: var(--rd-green) !important; font-size: 36px !important; }

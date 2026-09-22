@@ -56,9 +56,13 @@
     '#osip-pathway{--pf-ink:#1a1c1b;--pf-line:#d6dcd9;--pf-deep:#00342b;--pf-mute:#717976}',
 
     /* ---- field grid ---- */
-    '#osip-pathway .pf-grid{display:grid;grid-template-columns:1fr;gap:18px}',
-    '@media (min-width:768px){#osip-pathway .pf-grid{grid-template-columns:1fr 1fr}}',
-    '@media (min-width:1024px){#osip-pathway .pf-grid{grid-template-columns:repeat(3,1fr)}}',
+    // minmax(0, ...) rather than plain 1fr: a plain 1fr track will not shrink
+    // below its item's min-content, and the answer buttons are nowrap, so a long
+    // answer pushed the column - and the page - wider than a small phone.
+    '#osip-pathway .pf-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}',
+    '#osip-pathway .pf-field{min-width:0}',
+    '@media (min-width:768px){#osip-pathway .pf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}',
+    '@media (min-width:1024px){#osip-pathway .pf-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}',
 
     /* ---- one field ---- */
     '#osip-pathway .pf-label{display:block;font-family:Inter,sans-serif;font-size:11.5px;font-weight:700;',
@@ -150,6 +154,14 @@
     '#osip-pathway .wf-item .wf-badge svg{width:19px;height:19px}',
     '#osip-pathway .wf-item .wf-num{position:static;background:none;padding:0;display:block;margin-bottom:2px}',
     '#osip-pathway .wf-item-text{padding-top:4px}',
+    // The number used to sit inside the 44px ring beside the icon, jammed on its
+    // left edge and pushing the icon off centre. As on the sector pages (22 Sep
+    // 2026), the ring now holds the icon alone and the number is a small eyebrow
+    // over the label - positioned from the ring, so the markup does not change.
+    '#osip-pathway .wf-item .wf-badge{position:relative}',
+    '#osip-pathway .wf-item .wf-badge .wf-num{position:absolute;top:2px;left:calc(100% + 16px);' +
+      'transform:none;margin:0;line-height:1}',
+    '#osip-pathway .wf-item .wf-item-text{padding-top:20px}',
     '#osip-pathway .wf-item-label{font-family:Inter,sans-serif;font-size:13px;font-weight:700;',
     'color:#111827;line-height:1.4}',
     '#osip-pathway .wf-connector{width:2px;min-height:28px;margin-left:21px;',

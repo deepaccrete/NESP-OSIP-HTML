@@ -116,6 +116,19 @@
             }
         }
 
+        /* Phones (22 Sep 2026): one column, and the card fills it. The 314px track
+           stopped short of the column and started at its left edge, so the card sat
+           off centre with a gap on the right only. */
+        @media (max-width: 639px) {
+            .opp-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .opp-grid .opportunity-card {
+                max-width: none;
+            }
+        }
+
         /* OPP-02: readiness tag. Six values share one neutral pill and only the
            dot changes colour, so a card can carry both the gold sector badge and
            a readiness state without turning into a row of traffic lights. Change

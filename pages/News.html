@@ -227,6 +227,15 @@
             }
         }
 
+        /* Phones and tablets (22 Sep 2026): the cards stand 44px apart, but the last one
+           sat 16px above the footer - the main column's own padding and nothing more,
+           since the pager hides when every story fits on one page. 64px below whatever
+           comes last, the last card or the pager, so the list ends with more room than
+           it has between its cards, as it does on desktop. */
+        @media (max-width: 1023px) {
+            .rd main { padding-bottom: 64px !important; }
+        }
+
         /* ---- Headings ------------------------------------------------------------ */
         .rd main h1,
         .rd main h2,
@@ -862,8 +871,24 @@
             .rd.rd-filters-closed #filter-open { display: inline-flex !important; }
         }
 
+        /* Phones and tablets: the drawer. It used to scroll as one piece, so once a
+           list was opened out - "Show all" on States is thirty-seven rows - the
+           panel's own header went up and off the screen with the list, taking the
+           close button with it. As on Opportunities, the drawer now holds still and
+           only the list inside it scrolls: the header stays at the top however far
+           down the reader goes. */
         @media (max-width: 1023px) {
-            .rd #filter-sidebar > .filter-sticky { display: flex; flex-direction: column; gap: 24px; }
+            .rd #filter-sidebar { overflow: hidden !important; }
+
+            .rd #filter-sidebar > .filter-sticky {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                flex: 1 1 auto;
+                min-height: 0;
+            }
+
+            .rd #filter-sidebar > .filter-sticky > div:first-child { flex: 0 0 auto; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -912,7 +937,144 @@
         }
 
         @media (max-width: 1023px) {
-            .rd #filter-sidebar .filter-scroll { display: flex; flex-direction: column; gap: 24px; }
+            .rd #filter-sidebar .filter-scroll {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+
+            .rd #filter-sidebar .filter-scroll::-webkit-scrollbar { display: none; }
+        }
+
+        /* ---- Filter sections (22 Sep 2026), as on Opportunities.html -------------------------
+           Every section shows five values before "View more" (it was three), and no section
+           is ever squeezed below that: pressed to share one screen, they had shrunk to a
+           value or two each.
+
+           A section that has been opened out becomes a box of its own - at most 42% of the
+           screen, its title and line fixed, its values scrolling under the line - so States
+           opened to all 37 stays a compact window rather than a page of names. When the
+           sections do not all fit, the list of them scrolls; the panel's own header stays
+           pinned above it. The opened box hands the scroll on to the list at both ends
+           (overscroll-behavior: auto), so reaching the last state carries on to Timeline
+           and the reset button instead of stopping dead. The list itself contains, so the
+           page behind the drawer never moves. */
+        .rd #filter-sidebar .filter-scroll {
+            overflow-y: auto !important;
+            overscroll-behavior: contain;
+        }
+
+        .rd #filter-sidebar .filter-scroll > section {
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 auto;
+            max-height: 42vh;
+            max-height: 42dvh;
+        }
+
+        /* five showing, not three: the first two of the hidden extras come out of "View more" */
+        .rd #filter-sidebar .filter-scroll .more-options.hidden { display: block !important; }
+        .rd #filter-sidebar .filter-scroll .more-options.hidden > label:nth-child(n+3) { display: none !important; }
+
+        /* and "View more" goes where five is all there is (Timeline has four) */
+        .rd #filter-sidebar .filter-scroll > section:not(:has(.more-options > label:nth-child(3))) .filter-more-btn {
+            display: none !important;
+        }
+
+        .rd #filter-sidebar .filter-scroll > section > div:first-child {
+            flex: 0 0 auto;
+            margin-bottom: 0 !important;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--rd-line, #e2ded5);
+        }
+
+        .rd #filter-sidebar .filter-scroll > section > .space-y-3 {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overscroll-behavior: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 12px 0 6px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--rd-line-2, #cfc9bd) transparent;
+        }
+
+        .rd #filter-sidebar .filter-scroll > section > .space-y-3::-webkit-scrollbar { width: 6px; }
+        .rd #filter-sidebar .filter-scroll > section > .space-y-3::-webkit-scrollbar-thumb {
+            background: var(--rd-line-2, #cfc9bd);
+            border-radius: 999px;
+        }
+
+        .rd #filter-sidebar .filter-scroll > section > .filter-more-btn { flex: 0 0 auto; }
+
+        /* ---- "More below" cue ------------------------------------------------------------
+           A thin scrollbar says a list scrolls; it does not say so loudly enough, and on a
+           phone it is not there until the list is touched. So a section whose values run
+           on past its bottom edge fades its last row into the panel and shows a small
+           down arrow over it. The arrow nudges the list along when tapped, and the whole
+           cue goes the moment the last value is in view. It is added by the script at the
+           foot of the page, one per section, and only shows while there is more to see. */
+        .rd #filter-sidebar .filter-scroll > section { position: relative; }
+
+        .rd #filter-sidebar .filter-more-cue {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 44px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 4px;
+            background: linear-gradient(to bottom, rgba(237, 234, 227, 0), var(--rd-paper-2, #edeae3) 72%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
+
+        .rd #filter-sidebar .filter-scroll > section.has-more-below > .filter-more-cue { opacity: 1; }
+
+        .rd #filter-sidebar .filter-more-cue button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            border: 1px solid var(--rd-line-2, #cfc9bd);
+            border-radius: 999px;
+            background: var(--rd-card, #fbfaf7);
+            color: var(--rd-green, #004225);
+            box-shadow: 0 2px 8px rgba(19, 32, 27, .1);
+            cursor: pointer;
+            pointer-events: none;
+        }
+
+        /* The fade answers any hidden sliver; the arrow waits until a whole row is hidden. */
+        .rd #filter-sidebar .filter-more-cue button { visibility: hidden; }
+
+        .rd #filter-sidebar .filter-scroll > section.has-more-rows > .filter-more-cue button {
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .rd #filter-sidebar .filter-more-cue button:hover { background: var(--rd-green, #004225); color: #ffffff; }
+        .rd #filter-sidebar .filter-more-cue .material-symbols-outlined { font-size: 20px; }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .rd #filter-sidebar .filter-scroll > section.has-more-rows > .filter-more-cue button {
+                animation: filter-cue-nudge 1.8s ease-in-out infinite;
+            }
+
+            @keyframes filter-cue-nudge {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(3px); }
+            }
         }
 
         /* the result pager: built by the filter script, hidden when everything fits on one page */
@@ -2303,6 +2465,45 @@
                 window.addEventListener('load', function () { ScrollTrigger.refresh(); });
                 ScrollTrigger.refresh();
             }
+        })();
+    </script>
+    <script>
+        /* "More below" cue for the filter sections (22 Sep 2026). See the CSS note of the
+           same name. Decorative: the lists scroll by wheel, touch and keyboard as before,
+           so the cue is hidden from assistive tech and kept out of the tab order. */
+        (function () {
+            var sections = document.querySelectorAll('#filter-sidebar .filter-scroll > section');
+            Array.prototype.forEach.call(sections, function (section) {
+                var box = section.querySelector(':scope > .space-y-3');
+                if (!box) return;
+
+                var cue = document.createElement('div');
+                cue.className = 'filter-more-cue';
+                cue.setAttribute('aria-hidden', 'true');
+                cue.innerHTML = '<button type="button" tabindex="-1">' +
+                    '<span class="material-symbols-outlined">keyboard_arrow_down</span></button>';
+                section.appendChild(cue);
+
+                /* more below = the list runs past the box and the end is not in view */
+                function sync() {
+                    var left = box.scrollHeight - box.clientHeight - box.scrollTop;
+                    section.classList.toggle('has-more-below', left > 4);    // anything hidden: the fade
+                    section.classList.toggle('has-more-rows', left > 18);    // a row or more: the arrow
+                }
+
+                box.addEventListener('scroll', sync, { passive: true });
+                /* "View more" and "View less" change how long the list is */
+                section.addEventListener('click', function () { window.setTimeout(sync, 0); });
+                /* the drawer opening, the desktop panel showing again, a rotated phone */
+                if (window.ResizeObserver) new ResizeObserver(sync).observe(box);
+                else window.addEventListener('resize', sync);
+
+                cue.querySelector('button').addEventListener('click', function () {
+                    box.scrollBy({ top: Math.max(80, Math.round(box.clientHeight * 0.6)), behavior: 'smooth' });
+                });
+
+                sync();
+            });
         })();
     </script>
 </body>

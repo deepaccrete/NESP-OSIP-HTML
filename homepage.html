@@ -4584,8 +4584,24 @@
       .rd .osip-states-arrow--next { right: 6px !important; }
       .rd .osip-states-arrow .material-symbols-outlined { font-size: 19px !important; }
 
-      .rd .osip-states-marquee { scroll-snap-type: x mandatory; }
-      .rd .osip-states-track .osip-state-card { scroll-snap-align: start; }
+      /* The card in view sits in the middle of the screen, with the same slice of
+         its neighbours showing either side, as in Sectors. The rail runs edge to
+         edge, so its sizes are in vw; the padding is half of what the card leaves
+         over, so the first and the last state centre too. */
+      .rd .osip-states-marquee {
+        --st-card: 70vw;
+        margin-inline: -16px;
+        padding-inline: calc((100vw - var(--st-card)) / 2);
+        scroll-padding-inline: 0;
+        scroll-snap-type: x mandatory;
+      }
+
+      .rd .osip-states-set { gap: 16px; padding-right: 0; }
+
+      .rd .osip-states-track .osip-state-card {
+        flex: 0 0 var(--st-card);
+        scroll-snap-align: center;
+      }
     }
 
     .rd .osip-states-foot { border-top-color: var(--rd-line) !important; }
@@ -6231,7 +6247,7 @@
       <section class="osip-sectors-sec bg-[#f3f1f7] py-12 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8"
         style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
-          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-6 lg:mb-8">
+          <div class="osip-sx-head flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-6 lg:mb-8">
             <div class="max-w-2xl">
               <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-[#004225]"
                 style="font-family: Manrope, sans-serif;">Sectors</h2>
@@ -6485,21 +6501,39 @@
 
             /* ---- Phone: one swipeable row of cards ------------------------------------- */
             @media (max-width: 767px) {
+              /* The card in view sits in the middle of the screen, with the same slice
+                 of its neighbours showing either side. The padding is half of what the
+                 card leaves over, so the first and the last card centre too. */
+              /* In vw, not %: the row runs edge to edge (the -16px below), so the
+                 screen is its width, while a % would be read off the narrower
+                 section. The track is as wide as its cards, or the end padding
+                 would not count and the last card could not reach the middle. */
               .osip-sx-viewport {
+                --sx-card: 82vw;
                 margin-inline: -16px;
-                padding-inline: 16px;
-                scroll-padding-inline: 16px;
+                padding-inline: calc((100vw - var(--sx-card)) / 2);
+                scroll-padding-inline: 0;
               }
 
-              .osip-sx-track { gap: 12px; }
+              .osip-sx-track { gap: 12px; width: max-content; }
 
               .osip-sx-page { display: contents; }
 
               .osip-sx-card {
-                flex: 0 0 80%;
+                flex: 0 0 var(--sx-card);
                 aspect-ratio: 4 / 5;
-                scroll-snap-align: start;
+                scroll-snap-align: center;
               }
+
+              /* "View All Sectors" beside the heading, not on a line of its own */
+              .osip-sectors-sec .osip-sx-head {
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: space-between;
+                gap: 16px;
+              }
+
+              .osip-sectors-sec .osip-sx-head > a { flex: none; margin-bottom: 4px; }
 
               .osip-sx-card .osip-sx-body,
               .osip-sx-card.is-big .osip-sx-body { padding: 22px; }
@@ -7175,15 +7209,22 @@
           // Manual paging: each arrow moves the viewport by roughly one screenful of
           // cards, and stops making sense once you reach an edge, so we disable the
           // arrow that can no longer move and re-check after every scroll.
+          // The gap is read, not assumed: it is 24px on a wide screen and 16px on
+          // a phone. So is the width a card has to fill, which on a phone leaves
+          // out the padding that lets the first and last state sit in the middle.
           function step() {
             var first = track.querySelector('.osip-state-card');
-            var card = first ? first.getBoundingClientRect().width + 24 : 260; // 24 = gap
-            var perView = Math.max(1, Math.floor(viewport.clientWidth / card));
+            var set = track.querySelector('.osip-states-set');
+            var gap = set ? parseFloat(getComputedStyle(set).columnGap) || 0 : 24;
+            var card = first ? first.getBoundingClientRect().width + gap : 260;
+            var cs = getComputedStyle(viewport);
+            var room = viewport.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+            var perView = Math.max(1, Math.floor((room + gap) / card));
             return card * perView;
           }
 
           function sync() {
-            var max = track.scrollWidth - viewport.clientWidth;
+            var max = viewport.scrollWidth - viewport.clientWidth;
             var x = viewport.scrollLeft;
             if (prev) prev.disabled = x <= 1;
             if (next) next.disabled = x >= max - 1;
@@ -8142,6 +8183,51 @@
           @media (min-width: 768px) {
             .rd .osip-news-sec .osip-nw .osip-nw-col > a.osip-nw-all[href],
             .rd .osip-news-sec .osip-nw .osip-nw-col > a.osip-ev-all[href] { margin: 0 0 6px !important; }
+          }
+
+          /* ---- Phones: even spacing (22 Sep 2026) ---------------------------------
+             Every story in a row is the same height - the title is held to two
+             lines and always keeps room for two - so the gap under "Read More"
+             no longer changes from one story to the next. The arrows and the
+             "View all" link share the closing line, as they do on a desktop,
+             instead of the arrows floating centred with the link pressed under
+             them. */
+          @media (max-width: 767px) {
+            .osip-nw > .osip-nw-col {
+              display: grid;
+              grid-template-columns: minmax(0, 1fr) auto;
+              grid-template-areas: "head head" "lede lede" "story story" "nav all";
+              align-items: center;
+              column-gap: 16px;
+            }
+
+            .osip-nw-col > h2 { grid-area: head; }
+            .osip-nw-col > h2 + p { grid-area: lede; }
+            .osip-nw-col > .osip-nw-scroll { grid-area: story; }
+
+            .osip-nw-col > .osip-nw-scrollnav {
+              grid-area: nav;
+              justify-content: flex-start;
+              margin-top: 28px;
+            }
+
+            .rd .osip-news-sec .osip-nw .osip-nw-col > a.osip-nw-all[href],
+            .rd .osip-news-sec .osip-nw .osip-nw-col > a.osip-ev-all[href] {
+              grid-area: all;
+              justify-self: end;
+              align-self: center;
+              height: 44px !important;
+              padding: 0 18px 0 22px !important;
+              margin: 28px 0 0 !important;
+            }
+
+            .rd #root .osip-news-sec .osip-nw-scroll .osip-nw-title {
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              min-height: 2lh;
+            }
           }
 
           @media (prefers-reduced-motion: reduce) {

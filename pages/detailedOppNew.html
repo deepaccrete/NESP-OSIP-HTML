@@ -230,6 +230,14 @@
         /* ===== Video facade (lazy YouTube swap) ===== */
         .video-facade.is-playing > .facade-cover { display: none; }
         .video-facade iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+        /* Phones: the thumbnail keeps the centre play button only. The title and
+           "Play here" chips along the bottom squeeze into two-line blocks there
+           and crowd the button; the heading above already names the video, and
+           the button's label still says what it plays. */
+        @media (max-width: 767px) {
+            .video-facade .facade-cover > span.absolute.bottom-3 { display: none; }
+        }
     </style>
     <!-- Redesign: Newsreader for headings and reading text -->
     <link
@@ -439,6 +447,51 @@
 
         .rd #page-wrapper main > section:first-of-type h1 + p span { font-weight: 500 !important; color: var(--rd-ink-2) !important; }
 
+        /* ---- Project title on one line, full width (21 Sep 2026) -----------------------
+           The Save block used to share the title's row, which halved the title's width
+           and broke a short name over three lines. From 640px up the header is a grid:
+           Project ID and Save on the first row, the title across the whole card under
+           them. The title does not wrap; the fitter at the foot of the page steps its
+           size down to fit the line. */
+        .rd #page-wrapper main > section:first-of-type h1 {
+            white-space: nowrap;
+        }
+
+        .rd #page-wrapper main > section:first-of-type h1.osip-title-wrap {
+            white-space: normal;
+            text-wrap: balance;
+        }
+
+        /* A grid at every width: its minmax(0, 1fr) track is what holds a
+           one-line title to the card instead of letting it widen the page. On a
+           phone Save sits under the date, as before. */
+        .osip-hero-head {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-areas: "eyebrow" "title" "updated" "save";
+            row-gap: 0 !important;
+        }
+
+        .osip-hero-title { display: contents; }
+        .osip-hero-title > span { grid-area: eyebrow; }
+        .osip-hero-title > h1 { grid-area: title; min-width: 0; }
+        .osip-hero-title > p { grid-area: updated; }
+        .osip-hero-save { grid-area: save; margin-top: 16px; }
+
+        @media (min-width: 640px) {
+            .osip-hero-head {
+                grid-template-columns: minmax(0, 1fr) auto;
+                grid-template-areas:
+                    "eyebrow save"
+                    "title   title"
+                    "updated updated";
+                align-items: start;
+            }
+
+            .osip-hero-title > span { align-self: center; }
+            .osip-hero-save { margin-top: 0; }
+        }
+
         .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) {
             margin-top: clamp(28px, 3vw, 40px) !important;
             background: var(--rd-card-2) !important;
@@ -568,6 +621,127 @@
             line-height: 1.25 !important;
             color: var(--rd-ink) !important;
         }
+
+        /* The amount is one figure: "USD" never sits on a line of its own. */
+        .rd #page-wrapper main p.text-2xl.text-gray-500 .text-brand-accent { white-space: nowrap; }
+
+        /* Investment details is the heading of the block below it, so it is set as
+           one - sentence case, ink, a size up - and its terms are set the way the
+           project details above are: a spaced small label, the value under it. */
+        .rd #page-wrapper [data-purpose="invest-details"] > .osip-invest-h {
+            margin: 0 0 18px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 20px !important;
+            font-weight: 600 !important;
+            line-height: 1.25 !important;
+            letter-spacing: -0.01em !important;
+            text-transform: none !important;
+            color: var(--rd-ink) !important;
+        }
+
+        .rd #page-wrapper [data-purpose="invest-details"] dt {
+            margin-bottom: 6px !important;
+            font-family: var(--rd-sans) !important;
+            font-size: 10.5px !important;
+            font-weight: 500 !important;
+            letter-spacing: .18em !important;
+            color: var(--rd-ink-3) !important;
+        }
+
+        .rd #page-wrapper [data-purpose="invest-details"] dd {
+            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
+            font-weight: 400 !important;
+            font-size: 18px !important;
+            line-height: 1.35 !important;
+            color: var(--rd-ink) !important;
+        }
+
+        @media (max-width: 639px) {
+            /* Save: the bookmark alone, in the card's top-right corner, on the
+               Project ID line. The word stays in the button for screen readers. */
+            .osip-hero-head {
+                grid-template-columns: minmax(0, 1fr) auto;
+                grid-template-areas:
+                    "eyebrow save"
+                    "title   title"
+                    "updated updated";
+                align-items: center;
+                column-gap: 12px !important;
+            }
+
+            /* the Project ID stays on one line beside the bookmark */
+            .rd #page-wrapper main > section:first-of-type .osip-hero-title > span.uppercase.tracking-widest {
+                white-space: nowrap;
+                letter-spacing: .12em !important;
+                gap: 10px;
+                min-width: 0;
+            }
+
+            .osip-hero-save { margin-top: 0; width: auto !important; }
+
+            /* rows of project details sit closer on a phone */
+            .rd #page-wrapper .grid:has(> [data-purpose="meta-item"]) { row-gap: 28px !important; }
+            .osip-hero-save .osip-save-note { display: none; }
+
+            .osip-hero-save .osip-save-btn {
+                justify-content: center;
+                width: 42px;
+                min-height: 42px;
+                height: 42px;
+                padding: 0;
+                gap: 0;
+                border-radius: 999px;
+            }
+
+            .osip-hero-save .osip-save-btn [data-save-label] {
+                position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+                overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+            }
+
+            /* Project details, two to a row. A label or value wraps inside its own
+               column instead of running into the next one; a lone item on the
+               last row has nothing beside it, so it takes the whole row. */
+            .rd #page-wrapper [data-purpose="meta-item"] { min-width: 0; padding-left: 14px !important; }
+
+            .rd #page-wrapper [data-purpose="meta-item"] h4 {
+                letter-spacing: .12em !important;
+                overflow-wrap: break-word;
+            }
+
+            .rd #page-wrapper [data-purpose="meta-item"] p {
+                font-size: 17px !important;
+                overflow-wrap: break-word;
+            }
+
+            .rd #page-wrapper [data-purpose="meta-item"]:last-child:nth-child(odd) { grid-column: 1 / -1; }
+        }
+
+        /* the narrowest phones: the eyebrow's gold dash goes, so the full ID still
+           fits beside the bookmark */
+        @media (max-width: 400px) {
+            .rd #page-wrapper main > section:first-of-type .osip-hero-title > span.uppercase.tracking-widest::before { display: none; }
+
+            /* the stage tracker keeps more of the card's width. Its status pill stays on
+               one line where it fits, and wraps inside the card where it does not
+               (22 Sep 2026: nowrap pushed "Seeking investor interest", 252px, out of a
+               198-288px card on phones, and the page 2px wider than the screen). */
+            .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) { padding: 20px 18px !important; }
+            .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) > div:first-child > span.rounded-full {
+                white-space: normal;
+                max-width: 100%;
+                line-height: 1.35;
+                border-radius: 16px !important;
+                padding: 8px 12px !important;
+                gap: 8px !important;
+                font-size: 11px !important;
+                letter-spacing: .03em !important;
+            }
+            .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) > div:first-child > span.rounded-full > * {
+                flex-shrink: 0;
+            }
+
+        }
+
 
         .rd #page-wrapper main p.text-2xl.text-gray-500 {
             padding-top: 28px;
@@ -934,7 +1108,14 @@
         @media (max-width: 639px) {
             .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .text-right { text-align: left !important; }
             .rd #page-wrapper main > section > div.space-y-4 { font-size: 17px !important; }
-            .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p:first-of-type { font-size: 24px !important; }
+            /* key figures: sized with the screen - see the phone block by the
+               project details grid */
+            .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center { padding-left: 10px !important; padding-right: 10px !important; }
+            .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p:first-of-type {
+                font-size: clamp(17px, 5vw, 26px) !important;
+                line-height: 1.2 !important;
+                text-wrap: balance;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1102,8 +1283,8 @@
                 <main class="lg:col-span-2 space-y-8">
                     <!-- BEGIN: ProjectHero -->
                     <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 relative">
-                        <div class="flex flex-wrap sm:flex-nowrap justify-between items-start gap-y-4 gap-x-6 mb-2">
-                            <div class="min-w-0">
+                        <div class="osip-hero-head flex flex-wrap sm:flex-nowrap justify-between items-start gap-y-4 gap-x-6 mb-2">
+                            <div class="osip-hero-title min-w-0">
                                 <span
                                     class="text-xs font-inter font-bold text-gray-500 uppercase tracking-widest">Project
                                     ID: 2025-WND-02</span>
@@ -1120,7 +1301,7 @@
                                  account table behind it (Phase 2, D9); the note says where the
                                  save turns up, which is the part the reader needs. -->
                             <!-- below the title on a phone, beside it from sm up -->
-                            <div class="w-full sm:w-auto sm:shrink-0 flex flex-col items-start sm:items-end">
+                            <div class="osip-hero-save w-full sm:w-auto sm:shrink-0 flex flex-col items-start sm:items-end">
                                 <button type="button" class="osip-save-btn" data-save-opp aria-pressed="false">
                                     <span class="material-symbols-outlined" aria-hidden="true">bookmark_add</span>
                                     <span data-save-label>Save</span>
@@ -1364,17 +1545,17 @@
                             <!-- Start Date -->
                             <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
                                 <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Project Start Date</h4>
-                                <p class="font-manrope font-bold text-brand-green">01-Sep-2026</p>
+                                <p class="font-manrope font-bold text-brand-green whitespace-nowrap">01-Sep-2026</p>
                             </div>
                             <!-- End Date -->
                             <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
                                 <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Project Completion Date
                                 </h4>
-                                <p class="font-manrope font-bold text-brand-green">30-Jun-2029</p>
+                                <p class="font-manrope font-bold text-brand-green whitespace-nowrap">30-Jun-2029</p>
                             </div>
                             <!-- Promoter -->
                             <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
-                                <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Promoter/Sponsor Type
+                                <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Promoter/<wbr>Sponsor Type
                                 </h4>
                                 <p class="font-manrope font-bold text-brand-green">Public-Private Partnership</p>
                             </div>
@@ -1402,7 +1583,7 @@
                         <!-- OPP-05 (item 33): the standard investment-details block,
                              filled by oppdetail.js from each project's own record. -->
                         <div class="mt-8 pt-6 border-t border-gray-100" data-purpose="invest-details">
-                            <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-4">Investment details</h4>
+                            <h3 class="osip-invest-h text-[11px] font-bold text-gray-500 uppercase mb-4">Investment details</h3>
                             <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
                                 <div>
                                     <dt class="text-[11px] font-bold text-gray-500 uppercase mb-0.5">Minimum investment</dt>
@@ -2529,6 +2710,34 @@
                 window.addEventListener('load', function () { ScrollTrigger.refresh(); });
                 ScrollTrigger.refresh();
             }
+        })();
+    </script>
+    <script>
+        /* Fits the project title to one line: the CSS size is the ceiling, and the
+           size steps down until the title fits the card. Below the floor it is let
+           wrap instead, so a very long name is never cut off. Re-fits when the
+           fonts land and when the window changes width. */
+        (function () {
+            function fit() {
+                var h = document.querySelector('#page-wrapper main > section:first-of-type h1');
+                if (!h) return;
+                h.classList.remove('osip-title-wrap');
+                h.style.removeProperty('font-size');
+                var size = parseFloat(getComputedStyle(h).fontSize);
+                var floor = window.innerWidth < 640 ? 24 : 30;
+                while (h.scrollWidth > h.clientWidth + 1 && size > floor) {
+                    size -= 1;
+                    h.style.setProperty('font-size', size + 'px', 'important');
+                }
+                if (h.scrollWidth > h.clientWidth + 1) h.classList.add('osip-title-wrap');
+            }
+            var t = 0;
+            function later() { clearTimeout(t); t = setTimeout(fit, 80); }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fit);
+            else fit();
+            window.addEventListener('load', fit);
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+            window.addEventListener('resize', later);
         })();
     </script>
 </body>

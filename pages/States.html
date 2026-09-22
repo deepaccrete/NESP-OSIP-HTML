@@ -1213,6 +1213,49 @@
             .rd .osip-map-figs dt { letter-spacing: .1em; }
         }
 
+        /* Phones (22 Sep 2026): a third of the card is narrower than "36 + FCT", which
+           ran across the divider into "Profile live". The headline figure takes its
+           own row across the card; the two profile counts sit side by side under it. */
+        @media (max-width: 480px) {
+            .rd .osip-map-figs {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                row-gap: 18px;
+            }
+
+            .rd .osip-map-figs > div:first-child {
+                grid-column: 1 / -1;
+                padding: 0 0 18px;
+                border-bottom: 1px solid var(--rd-line);
+            }
+
+            .rd .osip-map-figs > div:nth-child(2) {
+                padding-left: 0;
+                border-left: 0;
+            }
+        }
+
+        /* Zone filter on phones (22 Sep 2026): seven chips wrapped 3, 3, 1 with a ragged
+           gap at the end of every row. As a grid they fill the width: "All zones"
+           across the top, the six zones in two even columns under it. */
+        @media (max-width: 639px) {
+            .osip-st-chips {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                /* the toolbar is a wrapping flex row, which sized the grid to its
+                   content; this gives it the whole row */
+                flex: 1 1 100%;
+                width: 100%;
+            }
+
+            .osip-st-chips button[data-filter="all"] { grid-column: 1 / -1; }
+
+            .osip-st-chips button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
         .rd .osip-map-status {
             font-weight: 500 !important;
             letter-spacing: .16em !important;

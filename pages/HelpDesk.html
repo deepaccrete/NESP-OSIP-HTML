@@ -352,7 +352,14 @@
             var LOGICAL_HEIGHT = 1180;      /* 17 Sep 2026: was 1450, which left a band of
                                                empty page below the form */
             var NATIVE_BELOW = 900;
-            var NATIVE_HEIGHT = 1500;
+            /* 22 Sep 2026: was a flat 1500px, which left ~550px of empty card (the
+               portal's pale background, then white) under the form on phones.
+               Measured inside this frame: the portal's Submit button ends at 944px
+               while the frame is under 768px wide and at 823px from there on; below
+               it there is only background. The frame stops ~28px under the button. */
+            function nativeHeight(w) {
+                return w < 768 ? 972 : 852;
+            }
             var MIN_HEIGHT = 520;
 
             var box = document.getElementById('hd-holder');
@@ -370,10 +377,11 @@
                     /* on a phone the form keeps its full height and the page scrolls:
                        a small window scrolling inside another scroll is worse than a
                        long page */
+                    var h = nativeHeight(available);
                     frame.style.width = '100%';
-                    frame.style.height = NATIVE_HEIGHT + 'px';
+                    frame.style.height = h + 'px';
                     frame.style.transform = 'none';
-                    box.style.height = NATIVE_HEIGHT + 'px';
+                    box.style.height = h + 'px';
                     return;
                 }
 

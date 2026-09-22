@@ -1923,6 +1923,44 @@
             margin-top: 4px !important;
         }
 
+        /* ---- Key Facts on a phone (22 Sep 2026) ---------------------------------------
+           803 MW: the bar chart sat beside the words and squeezed them into a narrow
+           ragged column; it now goes under them, across the card, as the diesel /
+           solar comparison does. 140 Million+: the ten figures are one row whatever
+           the width, instead of nine and a stray tenth. 30 GW+: the pill over 2060
+           is set against the right edge, so it no longer hangs past the line. */
+        @media (max-width: 639px) {
+            .rd #facts .kf-card > .flex.items-start.justify-between {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 24px;
+            }
+
+            .rd #facts .kf-card .kf-bars {
+                width: 100%;
+                height: 110px !important;
+                gap: 16px;
+            }
+
+            .rd #facts .kf-card .kf-bar-col { flex: 1 1 0; }
+            .rd #facts .kf-card .kf-bar-track { width: 100%; }
+
+            .rd #facts .kf-people {
+                display: grid !important;
+                grid-template-columns: repeat(10, minmax(0, 1fr));
+                gap: 0 !important;
+                justify-items: center;
+            }
+
+            .rd #facts .kf-people .kf-person { font-size: clamp(20px, 6.4vw, 26px) !important; }
+
+            .rd #facts .kf-tl-stop.is-key .kf-tl-pill {
+                left: auto;
+                right: 0;
+                translate: none;
+            }
+        }
+
         .rd main p.text-\[28px\].font-extrabold,
         .rd main p.font-h4.font-extrabold {
             font-family: var(--rd-serif) !important;
@@ -2884,14 +2922,25 @@
             margin-left: 0;
         }
 
-        /* A gold hairline down the leading edge, and a soft top glow. */
+        /* A gold hairline down the leading edge. Drawn as the left border of a layer
+           the full size of the card, sharing its radius, so the line bends round the
+           top and bottom corners with the card. (It was a straight 3px strip, whose
+           square ends stuck out past the rounded corners wherever the card stopped
+           clipping, as it does in the stacked layout below 900px.) */
         .rd main .rd-fan-card::before {
             content: "";
             position: absolute;
-            inset: 0 auto 0 0;
-            width: 3px;
-            background: var(--rd-gold);
+            inset: 0;
+            border-left: 3px solid var(--rd-gold);
+            border-radius: inherit;
             opacity: .85;
+            pointer-events: none;
+        }
+
+        /* The scroll reveal lifts the card with `translate`, not `transform`, so the
+           rise does not wipe out the fan's rotateY while it plays. */
+        .rd main .rd-fan-card {
+            translate: 0 var(--fan-rise, 0px);
         }
 
         .rd main .rd-fan-card:hover,
@@ -2899,7 +2948,11 @@
             transform: rotateY(0deg) scale(1.06) translateZ(160px);
             box-shadow: 0 42px 64px -24px rgba(0, 0, 0, .6);
             z-index: 6;
-            overflow: auto;
+            /* visible, not auto: the glossary's hidden definition bubbles
+               (glossary.js ::after) count as content, so a scrolling card drew
+               scrollbars on hover. Lifted clear of its neighbours it needs no
+               clip, and a term's definition can open in full. */
+            overflow: visible;
         }
 
         .rd main .rd-fan-no {
@@ -3433,8 +3486,23 @@
         }
 
         @media (min-width: 640px) {
+            /* auto-fit, not auto-fill: with three cards and room for four, auto-fill kept an
+               empty fourth track and the row sat off to the left. auto-fit folds the empty
+               track away, so the cards share the full width, edge to edge with the text. */
             .rd .opp-grid#opportunities-grid {
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+            }
+
+            .rd #opportunities-grid .opportunity-card {
+                max-width: none !important;
+            }
+        }
+
+        /* Phones: one column, and the card fills it. The 314px track stopped a few pixels
+           short of the column, so the card sat against the left edge, off centre. */
+        @media (max-width: 639px) {
+            .rd .opp-grid#opportunities-grid {
+                grid-template-columns: minmax(0, 1fr) !important;
             }
 
             .rd #opportunities-grid .opportunity-card {
@@ -3495,6 +3563,48 @@
             transform: translateX(4px);
         }
     </style>
+    <style id="rd-justify">
+        /* ---- Justified copy on phones (22 Sep 2026) -------------------------------
+           On a narrow column the body copy ran ragged: text-wrap: pretty ends lines
+           early on purpose to avoid a short last line, so one line stopped at the
+           right edge and the next well short of it. Below 768px every description
+           on the page - paragraphs, list items, card text - runs to the same edge
+           on both sides: justified, wrapped normally, and hyphenated so the space
+           between words stays even on a column this narrow. Browsers that
+           hyphenate by themselves use hyphens: auto; for those that do not, the
+           copy carries soft hyphens at the break points (invisible unless a line
+           breaks there). Wider screens keep the ragged right, where the measure is
+           long enough not to need it.
+
+           Left alone: headings (one or two lines each - justifying them stretches
+           the gaps rather than evening them), anything centred or right-aligned,
+           the Opportunities card (a shared component), and every block whose line
+           is too short to justify - justified, a line of three or four words opens
+           holes between them instead of drawing an edge:
+             - Key Facts and Useful Resources (columns beside a chart or a web address);
+             - the Key Message and Investor Outlook statements (large type beside an icon);
+             - Regulations (agency cards in two columns; its copy feeds pathwaydata.js,
+               so it carries no soft hyphens either);
+             - the incentive notes, the hero line and the finance card bullet lines. */
+        @media (max-width: 767px) {
+            .rd main :is(p, li, .rd-card-text):not(.text-center):not(.text-right):not(.text-center *):not(#opportunities-grid *):not(#facts *):not(#resources *):not(#regulations *):not(.bg-\[\#004225\] *):not(.osip-note *):not(.border-amber-400):not(.rd-fan-list li) {
+                text-align: justify;
+                text-justify: inter-word;
+                text-wrap: wrap !important;
+                -webkit-hyphens: auto;
+                hyphens: auto;
+                hyphenate-limit-chars: 7 2 3;
+            }
+
+            /* the left-aligned blocks keep their words whole - a ragged edge needs no
+               hyphen, and a broken word in large type reads as a mistake */
+            .rd main :is(.bg-\[\#004225\], .osip-note, .rd-fan-list) :is(p, li),
+            .rd main p.border-amber-400 {
+                -webkit-hyphens: none;
+                hyphens: none;
+            }
+        }
+    </style>
 </head>
 
 <body class="font-body-md overflow-x-hidden rd">
@@ -3545,8 +3655,8 @@
                     <!-- Minimalist Description (From Docs) -->
                     <p
                         class="text-base sm:text-lg text-white/80 mb-10 leading-relaxed max-w-2xl border-l-4 border-amber-400 pl-6">
-                        Nigeria’s largest clean energy opportunity, driven by abundant sunlight and strong demand for
-                        reliable off-grid and embedded power solutions.
+                        Nigeria’s largest clean en&shy;ergy op&shy;por&shy;tu&shy;nity, driven by abun&shy;dant sun&shy;light and strong de&shy;mand for
+                        re&shy;li&shy;able off-grid and em&shy;bed&shy;ded power so&shy;lu&shy;tions.
                     </p>
 
                     <!-- Quick Navigation Tabs (From Docs) -->
@@ -3599,30 +3709,30 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-outline-variant">
                 <div class="px-10 py-4">
                     <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">Solar
-                        Potential</p>
+                        Po&shy;ten&shy;tial</p>
                     <div class="flex items-baseline gap-2">
                         <h3 class="font-h3 text-h3 text-primary">427</h3>
                         <span class="text-on-surface-variant font-bold text-sm">GW</span>
                     </div>
-                    <p class="text-[11px] text-secondary mt-2 font-bold uppercase tracking-wider">Unrealized Asset</p>
+                    <p class="text-[11px] text-secondary mt-2 font-bold uppercase tracking-wider">Un&shy;re&shy;al&shy;ized Asset</p>
                 </div>
                 <div class="px-10 py-4">
                     <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">
-                        Installed Capacity</p>
+                        In&shy;stalled Ca&shy;pac&shy;ity</p>
                     <div class="flex items-baseline gap-2">
                         <h3 class="font-h3 text-h3 text-primary">2.1</h3>
                         <span class="text-on-surface-variant font-bold text-sm">GW</span>
                     </div>
-                    <p class="text-[11px] text-on-surface-variant mt-2">Active Grid Contribution</p>
+                    <p class="text-[11px] text-on-surface-variant mt-2">Ac&shy;tive Grid Con&shy;tri&shy;bu&shy;tion</p>
                 </div>
                 <div class="px-10 py-4">
                     <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">
-                        Investment Gap</p>
+                        In&shy;vest&shy;ment Gap</p>
                     <div class="flex items-baseline gap-2">
                         <h3 class="font-h3 text-h3 text-primary">$10.4</h3>
                         <span class="text-on-surface-variant font-bold text-sm">BN</span>
                     </div>
-                    <p class="text-[11px] text-error font-bold mt-2 uppercase tracking-wider">Capital Required</p>
+                    <p class="text-[11px] text-error font-bold mt-2 uppercase tracking-wider">Cap&shy;i&shy;tal Re&shy;quired</p>
                 </div>
                 <div class="px-10 py-4">
                     <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.1em] mb-3">2030
@@ -3631,7 +3741,7 @@
                         <h3 class="font-h3 text-h3 text-primary">9.0</h3>
                         <span class="text-on-surface-variant font-bold text-sm">GW</span>
                     </div>
-                    <p class="text-[11px] text-on-surface-variant mt-2">Policy Benchmark</p>
+                    <p class="text-[11px] text-on-surface-variant mt-2">Pol&shy;icy Bench&shy;mark</p>
                 </div>
             </div>
         </section> -->
@@ -3648,7 +3758,7 @@
                             style="font-family: Manrope, sans-serif;">Solar Potential</h3>
                         <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
                                 class="font-bold text-[#111827]">427 GW</span> &middot;
-                            Unrealized Asset</p>
+                            Un&shy;re&shy;al&shy;ized Asset</p>
                     </div>
                     <div
                         class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
@@ -3658,7 +3768,7 @@
                             style="font-family: Manrope, sans-serif;">Installed Capacity</h3>
                         <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
                                 class="font-bold text-[#111827]">2.1 GW</span> &middot;
-                            Active Grid Contribution</p>
+                            Ac&shy;tive Grid Con&shy;tri&shy;bu&shy;tion</p>
                     </div>
                     <div
                         class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
@@ -3668,7 +3778,7 @@
                             style="font-family: Manrope, sans-serif;">Investment Gap</h3>
                         <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
                                 class="font-bold text-[#111827]">$10.4 BN</span> &middot;
-                            Capital Required</p>
+                            Cap&shy;i&shy;tal Re&shy;quired</p>
                     </div>
                     <div
                         class="group border border-[#e5e7eb] p-6 lg:p-7 rounded-sm hover:border-[#004225] hover:shadow-lg transition-all duration-300 flex flex-col">
@@ -3678,7 +3788,7 @@
                             style="font-family: Manrope, sans-serif;">2030 Target</h3>
                         <p class="text-[#5f6368] text-[14px] lg:text-[15px] leading-7"><span
                                 class="font-bold text-[#111827]">9.0 GW</span> &middot;
-                            Policy Benchmark</p>
+                            Pol&shy;icy Bench&shy;mark</p>
                     </div>
                 </div>
             </div>
@@ -3694,39 +3804,39 @@
                     <h2 class="ovw-title ovw-rise" style="--o:1">Powering Nigeria's Renewable Future</h2>
                     <div class="ovw-body">
                         <p class="ovw-lede ovw-rise" style="--o:2">
-                            Nigeria has one of Africa’s strongest solar energy potentials due to its high solar
-                            radiation
-                            levels and growing demand for reliable electricity. Nigeria's solar market is the country's
-                            largest clean energy opportunity, driven by abundant sunlight and strong demand for reliable
-                            off-grid and embedded power solutions. The rising energy costs are accelerating the adoption
+                            Nige&shy;ria has one of Africa’s strong&shy;est solar en&shy;ergy po&shy;ten&shy;tials due to its high solar
+                            ra&shy;di&shy;a&shy;tion
+                            lev&shy;els and grow&shy;ing de&shy;mand for re&shy;li&shy;able elec&shy;tric&shy;ity. Nigeria's solar mar&shy;ket is the country's
+                            largest clean en&shy;ergy op&shy;por&shy;tu&shy;nity, driven by abun&shy;dant sun&shy;light and strong de&shy;mand for re&shy;li&shy;able
+                            off-grid and em&shy;bed&shy;ded power so&shy;lu&shy;tions. The ris&shy;ing en&shy;ergy costs are ac&shy;cel&shy;er&shy;at&shy;ing the adop&shy;tion
                             of
-                            solar technologies across residential, commercial, industrial, and public-sector
-                            applications.
+                            solar tech&shy;nolo&shy;gies across res&shy;i&shy;den&shy;tial, com&shy;mer&shy;cial, in&shy;dus&shy;trial, and pub&shy;lic-sec&shy;tor
+                            ap&shy;pli&shy;ca&shy;tions.
                         </p>
                         <p class="ovw-rise" style="--o:3">
-                            Solar projects in Nigeria span utility-scale generation, mini-grids, solar home systems, and
-                            commercial and industrial installations. The sector continues to attract local and
-                            international
-                            investors as the country expands access to clean and reliable energy.
+                            Solar projects in Nige&shy;ria span util&shy;ity-scale gen&shy;er&shy;a&shy;tion, mini-grids, solar home sys&shy;tems, and
+                            com&shy;mer&shy;cial and in&shy;dus&shy;trial in&shy;stal&shy;la&shy;tions. The sec&shy;tor con&shy;tin&shy;ues to at&shy;tract local and
+                            in&shy;ter&shy;na&shy;tional
+                            in&shy;vestors as the coun&shy;try ex&shy;pands ac&shy;cess to clean and re&shy;li&shy;able en&shy;ergy.
                         </p>
                     </div>
                     <!-- <ul class="space-y-4 mb-10">
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-secondary"
-                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                            <span class="text-body-md text-on-surface">100% foreign ownership permitted under the NIPC
+                                style="font-variation-settings: 'FILL' 1;">check_cir&shy;cle</span>
+                            <span class="text-body-md text-on-surface">100% for&shy;eign own&shy;er&shy;ship per&shy;mit&shy;ted under the NIPC
                                 Act.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-secondary"
-                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                            <span class="text-body-md text-on-surface">Pioneer Status tax holidays for qualifying
+                                style="font-variation-settings: 'FILL' 1;">check_cir&shy;cle</span>
+                            <span class="text-body-md text-on-surface">Pi&shy;o&shy;neer Sta&shy;tus tax hol&shy;i&shy;days for qual&shy;i&shy;fy&shy;ing
                                 projects.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-secondary"
-                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                            <span class="text-body-md text-on-surface">Streamlined NERC licensing for generation &amp;
+                                style="font-variation-settings: 'FILL' 1;">check_cir&shy;cle</span>
+                            <span class="text-body-md text-on-surface">Stream&shy;lined NERC li&shy;cens&shy;ing for gen&shy;er&shy;a&shy;tion &amp;
                                 mini-grids.</span>
                         </li>
                     </ul> -->
@@ -3962,49 +4072,49 @@
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-4"
                     style="font-family: Manrope, sans-serif;">How Investors Can Participate</h2>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's solar market supports
-                    multiple investment pathways:</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's solar mar&shy;ket sup&shy;ports
+                    mul&shy;ti&shy;ple in&shy;vest&shy;ment path&shy;ways:</p>
                 <div class="rd-cards grid">
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">solar_power</span></span>
                         <h4 class="rd-card-title">Utility-Scale Solar</h4>
-                        <p class="rd-card-text">Grid-connected projects supplying electricity to the national grid or
-                            eligible customers.</p>
+                        <p class="rd-card-text">Grid-con&shy;nected projects sup&shy;ply&shy;ing elec&shy;tric&shy;ity to the na&shy;tional grid or
+                            el&shy;i&shy;gi&shy;ble cus&shy;tomers.</p>
                     </div>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">factory</span></span>
                         <h4 class="rd-card-title">Commercial &amp; Industrial (C&amp;I) Solar</h4>
-                        <p class="rd-card-text">Captive and embedded generation for commercial and industrial energy
+                        <p class="rd-card-text">Cap&shy;tive and em&shy;bed&shy;ded gen&shy;er&shy;a&shy;tion for com&shy;mer&shy;cial and in&shy;dus&shy;trial en&shy;ergy
                             users.</p>
                     </div>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">hub</span></span>
                         <h4 class="rd-card-title">Mini-Grids</h4>
-                        <p class="rd-card-text">Isolated and interconnected systems serving communities, businesses, and
-                            productive-use customers.</p>
+                        <p class="rd-card-text">Iso&shy;lated and in&shy;ter&shy;con&shy;nected sys&shy;tems serv&shy;ing com&shy;mu&shy;ni&shy;ties, busi&shy;nesses, and
+                            pro&shy;duc&shy;tive-use cus&shy;tomers.</p>
                     </div>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">home</span></span>
                         <h4 class="rd-card-title">Solar Home Systems (SHS)</h4>
-                        <p class="rd-card-text">Standalone systems for residential and small-business users.</p>
+                        <p class="rd-card-text">Stand&shy;alone sys&shy;tems for res&shy;i&shy;den&shy;tial and small-busi&shy;ness users.</p>
                     </div>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">battery_charging_full</span></span>
                         <h4 class="rd-card-title">Solar-Plus-Storage</h4>
-                        <p class="rd-card-text">Hybrid projects combining solar generation with battery energy storage.
+                        <p class="rd-card-text">Hy&shy;brid projects com&shy;bin&shy;ing solar gen&shy;er&shy;a&shy;tion with bat&shy;tery en&shy;ergy stor&shy;age.
                         </p>
                     </div>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">precision_manufacturing</span></span>
                         <h4 class="rd-card-title">Manufacturing &amp; Local Assembly</h4>
-                        <p class="rd-card-text">Module assembly, inverters, mounting structures and battery systems
-                            built in country.</p>
+                        <p class="rd-card-text">Mod&shy;ule as&shy;sem&shy;bly, in&shy;vert&shy;ers, mount&shy;ing struc&shy;tures and bat&shy;tery sys&shy;tems
+                            built in coun&shy;try.</p>
                     </div>
                 </div>
             </div>
@@ -4025,29 +4135,29 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
                     <!-- Body copy -->
                     <div class="lg:col-span-7 space-y-5 text-[#404846] text-base sm:text-[17px] leading-8">
-                        <p>Nigeria offers one of Africa's most accessible solar investment environments, supported by
-                            strong market demand, improving regulatory clarity, and favourable investment policies.
-                            Company incorporation through the Corporate Affairs Commission (CAC) is typically completed
-                            within 1–7 days, while 100% foreign ownership is permitted across the solar value chain.
-                            Investors may register with the Nigerian Investment Promotion Commission (NIPC) to access
-                            fiscal incentives, investment facilitation services, and other government-backed investment
-                            support programmes.</p>
-                        <p>The Electricity Act 2023 has expanded opportunities for private-sector participation in
-                            electricity generation, distribution, mini-grids, embedded generation, and distributed
-                            energy systems. Solar projects can be developed under multiple business models, including
-                            utility-scale projects, commercial and industrial (C&amp;I) installations, mini-grids, solar
-                            home systems, and solar-plus-storage solutions.</p>
-                        <p>Nigeria's investment framework also provides attractive fiscal incentives for renewable
-                            energy
-                            projects. Eligible investors may access a 3–5-year Pioneer Status tax holiday, which may be
-                            extended subject to performance conditions. Renewable energy equipment may also benefit from
-                            VAT incentives and import-duty concessions under applicable renewable energy policies and
-                            ECOWAS Common External Tariff (CET) provisions, helping to reduce project development
+                        <p>Nige&shy;ria of&shy;fers one of Africa's most ac&shy;ces&shy;si&shy;ble solar in&shy;vest&shy;ment en&shy;vi&shy;ron&shy;ments, sup&shy;ported by
+                            strong mar&shy;ket de&shy;mand, im&shy;prov&shy;ing reg&shy;u&shy;la&shy;tory clar&shy;ity, and favourable in&shy;vest&shy;ment poli&shy;cies.
+                            Com&shy;pany in&shy;cor&shy;po&shy;ra&shy;tion through the Cor&shy;po&shy;rate Af&shy;fairs Com&shy;mis&shy;sion (CAC) is typ&shy;i&shy;cally com&shy;pleted
+                            within 1–7 days, while 100% for&shy;eign own&shy;er&shy;ship is per&shy;mit&shy;ted across the solar value chain.
+                            In&shy;vestors may reg&shy;is&shy;ter with the Nige&shy;rian In&shy;vest&shy;ment Pro&shy;mo&shy;tion Com&shy;mis&shy;sion (NIPC) to ac&shy;cess
+                            fis&shy;cal in&shy;cen&shy;tives, in&shy;vest&shy;ment fa&shy;cil&shy;i&shy;ta&shy;tion ser&shy;vices, and other gov&shy;ern&shy;ment-backed in&shy;vest&shy;ment
+                            sup&shy;port pro&shy;grammes.</p>
+                        <p>The Elec&shy;tric&shy;ity Act 2023 has ex&shy;panded op&shy;por&shy;tu&shy;ni&shy;ties for pri&shy;vate-sec&shy;tor par&shy;tic&shy;i&shy;pa&shy;tion in
+                            elec&shy;tric&shy;ity gen&shy;er&shy;a&shy;tion, dis&shy;tri&shy;bu&shy;tion, mini-grids, em&shy;bed&shy;ded gen&shy;er&shy;a&shy;tion, and dis&shy;trib&shy;uted
+                            en&shy;ergy sys&shy;tems. Solar projects can be de&shy;vel&shy;oped under mul&shy;ti&shy;ple busi&shy;ness mod&shy;els, in&shy;clud&shy;ing
+                            util&shy;ity-scale projects, com&shy;mer&shy;cial and in&shy;dus&shy;trial (C&amp;I) in&shy;stal&shy;la&shy;tions, mini-grids, solar
+                            home sys&shy;tems, and solar-plus-stor&shy;age so&shy;lu&shy;tions.</p>
+                        <p>Nigeria's in&shy;vest&shy;ment frame&shy;work also pro&shy;vides at&shy;trac&shy;tive fis&shy;cal in&shy;cen&shy;tives for re&shy;new&shy;able
+                            en&shy;ergy
+                            projects. El&shy;i&shy;gi&shy;ble in&shy;vestors may ac&shy;cess a 3–5-year Pi&shy;o&shy;neer Sta&shy;tus tax hol&shy;i&shy;day, which may be
+                            ex&shy;tended sub&shy;ject to per&shy;for&shy;mance con&shy;di&shy;tions. Re&shy;new&shy;able en&shy;ergy equip&shy;ment may also ben&shy;e&shy;fit from
+                            VAT in&shy;cen&shy;tives and im&shy;port-duty con&shy;ces&shy;sions under ap&shy;pli&shy;ca&shy;ble re&shy;new&shy;able en&shy;ergy poli&shy;cies and
+                            ECOWAS Com&shy;mon Ex&shy;ter&shy;nal Tar&shy;iff (CET) pro&shy;vi&shy;sions, help&shy;ing to re&shy;duce project de&shy;vel&shy;op&shy;ment
                             costs.</p>
-                        <p>Nigeria further benefits from established regulatory frameworks for grid-connected and
-                            off-grid projects, growing local technical capacity, increasing availability of project
-                            financing, and active support from development partners such as REA, GIZ, AfDB, the World
-                            Bank, IFC, and other climate-finance institutions.</p>
+                        <p>Nige&shy;ria fur&shy;ther ben&shy;e&shy;fits from es&shy;tab&shy;lished reg&shy;u&shy;la&shy;tory frame&shy;works for grid-con&shy;nected and
+                            off-grid projects, grow&shy;ing local tech&shy;ni&shy;cal ca&shy;pac&shy;ity, in&shy;creas&shy;ing avail&shy;abil&shy;ity of project
+                            fi&shy;nanc&shy;ing, and ac&shy;tive sup&shy;port from de&shy;vel&shy;op&shy;ment part&shy;ners such as REA, GIZ, AfDB, the World
+                            Bank, IFC, and other cli&shy;mate-fi&shy;nance in&shy;sti&shy;tu&shy;tions.</p>
                     </div>
 
                     <!-- Investor Advantages -->
@@ -4062,35 +4172,35 @@
                             </div>
                             <ul class="space-y-4">
                                 <li class="flex gap-3"><span
-                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">CAC incorporation typically
-                                        completed within 1–7 days</span></li>
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">CAC in&shy;cor&shy;po&shy;ra&shy;tion typ&shy;i&shy;cally
+                                        com&shy;pleted within 1–7 days</span></li>
                                 <li class="flex gap-3"><span
-                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">100% foreign ownership
-                                        permitted</span></li>
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">100% for&shy;eign own&shy;er&shy;ship
+                                        per&shy;mit&shy;ted</span></li>
                                 <li class="flex gap-3"><span
-                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">May be eligible for Pioneer Status
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">May be el&shy;i&shy;gi&shy;ble for Pi&shy;o&shy;neer Sta&shy;tus
                                         and
-                                        other investment incentives</span></li>
+                                        other in&shy;vest&shy;ment in&shy;cen&shy;tives</span></li>
                                 <li class="flex gap-3"><span
-                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Multiple market entry models
-                                        (utility-scale, C&amp;I, mini-grids, distributed solar)</span></li>
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Mul&shy;ti&shy;ple mar&shy;ket entry mod&shy;els
+                                        (util&shy;ity-scale, C&amp;I, mini-grids, dis&shy;trib&shy;uted solar)</span></li>
                                 <li class="flex gap-3"><span
-                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Strong demand driven by electricity
-                                        supply gaps and diesel replacement</span></li>
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Strong de&shy;mand driven by elec&shy;tric&shy;ity
+                                        sup&shy;ply gaps and diesel re&shy;place&shy;ment</span></li>
                                 <li class="flex gap-3"><span
-                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Established regulatory framework
-                                        under the Electricity Act 2023</span></li>
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Es&shy;tab&shy;lished reg&shy;u&shy;la&shy;tory frame&shy;work
+                                        under the Elec&shy;tric&shy;ity Act 2023</span></li>
                                 <li class="flex gap-3"><span
-                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_circle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Growing availability of
-                                        concessional
-                                        finance and blended-finance support</span></li>
+                                        class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
+                                        class="text-[#404846] text-[15px] leading-6">Grow&shy;ing avail&shy;abil&shy;ity of
+                                        con&shy;ces&shy;sional
+                                        fi&shy;nance and blended-fi&shy;nance sup&shy;port</span></li>
                             </ul>
                         </div>
                     </div>
@@ -4103,8 +4213,8 @@
                 <div class="mt-8 lg:mt-10 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
                     <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
                         style="font-variation-settings:'FILL' 1;">lightbulb</span>
-                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Key Message:</span>
-                        Solar is one of the most mature, scalable, and investor-ready clean energy sectors in Nigeria.
+                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Key Mes&shy;sage:</span>
+                        Solar is one of the most ma&shy;ture, scal&shy;able, and in&shy;vestor-ready clean en&shy;ergy sec&shy;tors in Nige&shy;ria.
                     </p>
                 </div>
             </div>
@@ -4554,6 +4664,21 @@
                                 .wf-item-text {
                                     padding-top: 4px;
                                 }
+
+                                /* Phone list (22 Sep 2026): the step number used to sit inside the
+                                   44px circle beside the icon, which pushed the icon off centre and the
+                                   number out through the ring. It now reads as a small eyebrow over the
+                                   step's label, and the circle holds the icon alone. */
+                                .wf-item .wf-badge .wf-num {
+                                    position: absolute;
+                                    top: 2px;
+                                    left: calc(100% + 16px);
+                                    transform: none;
+                                    margin: 0;
+                                    line-height: 1;
+                                }
+
+                                .wf-item .wf-item-text { padding-top: 20px; }
 
                                 .wf-item-label {
                                     font-size: 13px;
@@ -5064,13 +5189,13 @@
                         </div>
                         <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-6"
                             style="font-family: Manrope, sans-serif;">Technical &amp; Safety</h2>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar equipment imported into
-                            Nigeria must comply with applicable SON standards and certification requirements, including
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar equip&shy;ment im&shy;ported into
+                            Nige&shy;ria must com&shy;ply with ap&shy;pli&shy;ca&shy;ble SON stan&shy;dards and cer&shy;ti&shy;fi&shy;ca&shy;tion re&shy;quire&shy;ments, in&shy;clud&shy;ing
                             SONCAP
-                            where applicable. Electrical installations are subject to NEMSA inspection and certification
-                            requirements. Grid-connected projects must comply with the NERC Grid Code and TCN
-                            interconnection
-                            standards.</p>
+                            where ap&shy;pli&shy;ca&shy;ble. Elec&shy;tri&shy;cal in&shy;stal&shy;la&shy;tions are sub&shy;ject to NEMSA in&shy;spec&shy;tion and cer&shy;ti&shy;fi&shy;ca&shy;tion
+                            re&shy;quire&shy;ments. Grid-con&shy;nected projects must com&shy;ply with the NERC Grid Code and TCN
+                            in&shy;ter&shy;con&shy;nec&shy;tion
+                            stan&shy;dards.</p>
                     </div>
 
                     <!-- Video walkthrough. The thumbnail is the page's own sector photo and
@@ -5120,13 +5245,13 @@
                             style="--fan-bg:#0b6b45;">
                             <div class="rd-fan-no" aria-hidden="true">01</div>
                             <h3 class="rd-fan-title">Public Finance</h3>
-                            <p class="rd-fan-sum">Growing public and development-finance support, led by the
-                                US$750&nbsp;million DARES Programme for isolated and interconnected mini-grids,
-                                Solar-for-Business, and productive-use projects.</p>
+                            <p class="rd-fan-sum">Grow&shy;ing pub&shy;lic and de&shy;vel&shy;op&shy;ment-fi&shy;nance sup&shy;port, led by the
+                                US$750&nbsp;million DARES Pro&shy;gramme for iso&shy;lated and in&shy;ter&shy;con&shy;nected mini-grids,
+                                Solar-for-Busi&shy;ness, and pro&shy;duc&shy;tive-use projects.</p>
                             <ul class="rd-fan-list">
-                                <li>REA / Rural Electrification Fund — grants &amp; performance-based incentives</li>
-                                <li>Bank of Industry (BOI) — concessional RE financing</li>
-                                <li>DRE Nigeria Fund — NSIA-anchored US$500&nbsp;million fund</li>
+                                <li>REA / Rural Elec&shy;tri&shy;fi&shy;ca&shy;tion Fund — grants &amp; per&shy;for&shy;mance-based in&shy;cen&shy;tives</li>
+                                <li>Bank of In&shy;dus&shy;try (BOI) — con&shy;ces&shy;sional RE fi&shy;nanc&shy;ing</li>
+                                <li>DRE Nige&shy;ria Fund — NSIA-an&shy;chored US$500&nbsp;million fund</li>
                             </ul>
                         </article>
 
@@ -5134,12 +5259,12 @@
                             style="--fan-bg:#075e3b;">
                             <div class="rd-fan-no" aria-hidden="true">02</div>
                             <h3 class="rd-fan-title">Commercial Finance</h3>
-                            <p class="rd-fan-sum">Bank financing for developers, businesses and end-users is
-                                expanding rapidly, alongside rising international debt and equity participation.</p>
+                            <p class="rd-fan-sum">Bank fi&shy;nanc&shy;ing for de&shy;vel&shy;op&shy;ers, busi&shy;nesses and end-users is
+                                ex&shy;pand&shy;ing rapidly, along&shy;side ris&shy;ing in&shy;ter&shy;na&shy;tional debt and eq&shy;uity par&shy;tic&shy;i&shy;pa&shy;tion.</p>
                             <ul class="rd-fan-list">
-                                <li>Access, FCMB, Sterling, Fidelity, Ecobank, Lotus Bank RE products</li>
-                                <li>Lotus Bank–REA ₦100&nbsp;billion revolving credit facility</li>
-                                <li>IFC, AfDB, Africa Finance Corporation, Africa50</li>
+                                <li>Ac&shy;cess, FCMB, Ster&shy;ling, Fi&shy;delity, Ecobank, Lotus Bank RE prod&shy;ucts</li>
+                                <li>Lotus Bank–REA ₦100&nbsp;billion re&shy;volv&shy;ing credit fa&shy;cil&shy;ity</li>
+                                <li>IFC, AfDB, Africa Fi&shy;nance Cor&shy;po&shy;ra&shy;tion, Africa50</li>
                             </ul>
                         </article>
 
@@ -5147,12 +5272,12 @@
                             style="--fan-bg:#00543a;">
                             <div class="rd-fan-no" aria-hidden="true">03</div>
                             <h3 class="rd-fan-title">Guarantees &amp; Risk Instruments</h3>
-                            <p class="rd-fan-sum">De-risking tools that unlock local-currency financing and reduce
-                                project risk for infrastructure, mini-grid and distributed RE investments.</p>
+                            <p class="rd-fan-sum">De-risk&shy;ing tools that un&shy;lock local-cur&shy;rency fi&shy;nanc&shy;ing and re&shy;duce
+                                project risk for in&shy;fra&shy;struc&shy;ture, mini-grid and dis&shy;trib&shy;uted RE in&shy;vest&shy;ments.</p>
                             <ul class="rd-fan-list">
-                                <li>InfraCredit guarantees</li>
-                                <li>NSIA-backed de-risking &amp; political risk insurance</li>
-                                <li>MIGA, IFC, AfDB, World Bank Group support</li>
+                                <li>In&shy;fra&shy;Credit guar&shy;an&shy;tees</li>
+                                <li>NSIA-backed de-risk&shy;ing &amp; po&shy;lit&shy;i&shy;cal risk in&shy;sur&shy;ance</li>
+                                <li>MIGA, IFC, AfDB, World Bank Group sup&shy;port</li>
                             </ul>
                         </article>
 
@@ -5160,13 +5285,13 @@
                             style="--fan-bg:#004225;">
                             <div class="rd-fan-no" aria-hidden="true">04</div>
                             <h3 class="rd-fan-title">Blended Finance</h3>
-                            <p class="rd-fan-sum">The dominant funding structure — grants, concessional finance,
-                                private capital and risk-sharing combined to improve bankability and crowd in
-                                private investment.</p>
+                            <p class="rd-fan-sum">The dom&shy;i&shy;nant fund&shy;ing struc&shy;ture — grants, con&shy;ces&shy;sional fi&shy;nance,
+                                pri&shy;vate cap&shy;i&shy;tal and risk-shar&shy;ing com&shy;bined to im&shy;prove bank&shy;a&shy;bil&shy;ity and crowd in
+                                pri&shy;vate in&shy;vest&shy;ment.</p>
                             <ul class="rd-fan-list">
-                                <li>DARES, REF and the DRE Nigeria Fund</li>
-                                <li>Emerging Renewable Energy Blended Finance Facility (REBF)</li>
-                                <li>Long-term capital for mini-grids, PUE, agri &amp; storage</li>
+                                <li>DARES, REF and the DRE Nige&shy;ria Fund</li>
+                                <li>Emerg&shy;ing Re&shy;new&shy;able En&shy;ergy Blended Fi&shy;nance Fa&shy;cil&shy;ity (REBF)</li>
+                                <li>Long-term cap&shy;i&shy;tal for mini-grids, PUE, agri &amp; stor&shy;age</li>
                             </ul>
                         </article>
 
@@ -5174,13 +5299,13 @@
                             style="--fan-bg:#0b3a2a;">
                             <div class="rd-fan-no" aria-hidden="true">05</div>
                             <h3 class="rd-fan-title">Infrastructure Concession Arrangements</h3>
-                            <p class="rd-fan-sum">Concession models that hand development, financing and operations
-                                to private investors while they retain ownership and control cash flows over long
-                                durations.</p>
+                            <p class="rd-fan-sum">Con&shy;ces&shy;sion mod&shy;els that hand de&shy;vel&shy;op&shy;ment, fi&shy;nanc&shy;ing and op&shy;er&shy;a&shy;tions
+                                to pri&shy;vate in&shy;vestors while they re&shy;tain own&shy;er&shy;ship and con&shy;trol cash flows over long
+                                du&shy;ra&shy;tions.</p>
                             <ul class="rd-fan-list">
-                                <li>Build–Own–Operate (BOO) mini-grid concessions — 125+ deployed</li>
+                                <li>Build–Own–Op&shy;er&shy;ate (BOO) mini-grid con&shy;ces&shy;sions — 125+ de&shy;ployed</li>
                                 <li>Utility-scale IPP PPPs on long-term PPAs</li>
-                                <li>Franchise distributed solar (e.g. Solar Power Naija)</li>
+                                <li>Fran&shy;chise dis&shy;trib&shy;uted solar (e.g. Solar Power Naija)</li>
                             </ul>
                         </article>
 
@@ -5188,11 +5313,11 @@
                             style="--fan-bg:#0b2a1f;">
                             <div class="rd-fan-no" aria-hidden="true">06</div>
                             <h3 class="rd-fan-title">Infrastructure &amp; Revenue Opportunities</h3>
-                            <p class="rd-fan-sum">Financing tied to established demand and predictable revenue; the
-                                Electricity Act 2023 and state markets further improve commercial viability.</p>
+                            <p class="rd-fan-sum">Fi&shy;nanc&shy;ing tied to es&shy;tab&shy;lished de&shy;mand and pre&shy;dictable rev&shy;enue; the
+                                Elec&shy;tric&shy;ity Act 2023 and state mar&shy;kets fur&shy;ther im&shy;prove com&shy;mer&shy;cial vi&shy;a&shy;bil&shy;ity.</p>
                             <ul class="rd-fan-list">
-                                <li>C&amp;I solar, embedded &amp; captive power</li>
-                                <li>Telecom towers, agri PUE, campuses, hospitals, estates</li>
+                                <li>C&amp;I solar, em&shy;bed&shy;ded &amp; cap&shy;tive power</li>
+                                <li>Tele&shy;com tow&shy;ers, agri PUE, cam&shy;puses, hos&shy;pi&shy;tals, es&shy;tates</li>
                                 <li>DARES/REA mini-grids and solar-plus-storage</li>
                             </ul>
                         </article>
@@ -5206,11 +5331,11 @@
                 <div class="mt-12 lg:mt-16 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
                     <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
                         style="font-variation-settings:'FILL' 1;">insights</span>
-                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Investor
-                            Outlook:</span> For investors able to solve financing, distribution, aggregation,
-                        energy-service delivery, or productive-use integration at scale, Nigeria's solar market remains
-                        significantly underpenetrated relative to long-term demand potential, offering substantial room
-                        for growth across both grid-connected and off-grid segments.</p>
+                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">In&shy;vestor
+                            Out&shy;look:</span> For in&shy;vestors able to solve fi&shy;nanc&shy;ing, dis&shy;tri&shy;bu&shy;tion, ag&shy;gre&shy;ga&shy;tion,
+                        en&shy;ergy-ser&shy;vice de&shy;liv&shy;ery, or pro&shy;duc&shy;tive-use in&shy;te&shy;gra&shy;tion at scale, Nigeria's solar mar&shy;ket re&shy;mains
+                        sig&shy;nif&shy;i&shy;cantly un&shy;der&shy;pen&shy;e&shy;trated rel&shy;a&shy;tive to long-term de&shy;mand po&shy;ten&shy;tial, of&shy;fer&shy;ing sub&shy;stan&shy;tial room
+                        for growth across both grid-con&shy;nected and off-grid seg&shy;ments.</p>
                 </div>
             </div>
         </section>
@@ -5226,18 +5351,18 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-8"
                     style="font-family: Manrope, sans-serif;">Featured Investment Areas</h2>
 
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's solar market presents
-                    one of the clearest investment entry points within the country's energy sector. Demand is already
-                    established across households, businesses, industries, agricultural value chains, and public
-                    institutions, while declining technology costs continue to improve project economics.</p>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">Investors can access a
-                    growing pipeline of opportunities through national programmes and market intelligence platforms
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's solar mar&shy;ket presents
+                    one of the clear&shy;est in&shy;vest&shy;ment entry points within the country's en&shy;ergy sec&shy;tor. De&shy;mand is al&shy;ready
+                    es&shy;tab&shy;lished across house&shy;holds, busi&shy;nesses, in&shy;dus&shy;tries, agri&shy;cul&shy;tural value chains, and pub&shy;lic
+                    in&shy;sti&shy;tu&shy;tions, while de&shy;clin&shy;ing tech&shy;nol&shy;ogy costs con&shy;tinue to im&shy;prove project eco&shy;nom&shy;ics.</p>
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">In&shy;vestors can ac&shy;cess a
+                    grow&shy;ing pipe&shy;line of op&shy;por&shy;tu&shy;ni&shy;ties through na&shy;tional pro&shy;grammes and mar&shy;ket in&shy;tel&shy;li&shy;gence plat&shy;forms
                     such as
                     <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
-                        class="text-[#004225] font-semibold underline decoration-[#f7be26] decoration-2 underline-offset-2 hover:text-[#00301f]">Nigeria
-                        SE4ALL</a>, which provide information on electrification gaps, renewable energy demand centres,
-                    project pipelines, and priority investment locations. Detailed datasets, maps, and planning
-                    resources are available through the platform's Data &amp; Resources section.
+                        class="text-[#004225] font-semibold underline decoration-[#f7be26] decoration-2 underline-offset-2 hover:text-[#00301f]">Nige&shy;ria
+                        SE4ALL</a>, which pro&shy;vide in&shy;for&shy;ma&shy;tion on elec&shy;tri&shy;fi&shy;ca&shy;tion gaps, re&shy;new&shy;able en&shy;ergy de&shy;mand cen&shy;tres,
+                    project pipe&shy;lines, and pri&shy;or&shy;ity in&shy;vest&shy;ment lo&shy;ca&shy;tions. De&shy;tailed datasets, maps, and plan&shy;ning
+                    re&shy;sources are avail&shy;able through the platform's Data &amp; Re&shy;sources sec&shy;tion.
                 </p>
                 <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
                     class="inline-flex items-center gap-2 mt-6 bg-primary-container text-white px-6 py-3 rounded-sm font-bold text-sm uppercase tracking-wider hover:bg-primary transition-colors">
@@ -5541,7 +5666,7 @@
                     <div>
                         <h2 class="font-h2 text-h3 sm:text-h2 text-primary">Major Projects</h2>
                         <p class="text-on-surface-variant text-body-sm mt-1 uppercase tracking-widest font-semibold">
-                            Active Capital Opportunities</p>
+                            Ac&shy;tive Cap&shy;i&shy;tal Op&shy;por&shy;tu&shy;ni&shy;ties</p>
                     </div>
                     <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
                         <label for="proj-status-filter" class="text-body-sm text-on-surface-variant font-medium">Filter
@@ -5568,7 +5693,7 @@
                             <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot" aria-hidden="true"></span>Under preparation</span>
                         </div>
                         <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-on-surface-variant text-label-sm mb-1">In&shy;vest&shy;ment Amount</p>
                             <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.24 <span
                                     class="text-label-md font-normal text-on-surface-variant">bn</span></p>
                         </div>
@@ -5599,7 +5724,7 @@
                             <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot" aria-hidden="true"></span>Tender / procurement</span>
                         </div>
                         <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-on-surface-variant text-label-sm mb-1">In&shy;vest&shy;ment Amount</p>
                             <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.40 <span
                                     class="text-label-md font-normal text-on-surface-variant">bn</span></p>
                         </div>
@@ -5631,7 +5756,7 @@
                             <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                         </div>
                         <div class="mb-4 inv-box">
-                            <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
+                            <p class="text-on-surface-variant text-label-sm mb-1">In&shy;vest&shy;ment Amount</p>
                             <p class="text-headline-lg-mobile font-bold text-primary tracking-tight">USD 0.15 <span
                                     class="text-label-md font-normal text-on-surface-variant">bn</span></p>
                         </div>
@@ -6280,6 +6405,10 @@
                     });
                 }
                 batch(cards, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09 });
+                // The Finance fan is not a grid, so the line above never reached it. Same
+                // rise and timing, carried on --fan-rise (see .rd-fan-card in #rd-style)
+                // because the cards' own transform holds the fan's tilt.
+                batch(inRest('.rd-fan-card'), { opacity: 0, '--fan-rise': '36px' }, { opacity: 1, '--fan-rise': '0px', duration: 1.1, ease: EASE, stagger: 0.09 });
                 batch(inRest('span.rounded-full.border'), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: EASE, stagger: 0.04 });
                 batch(inRest('ul.space-y-4 > li'), { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.9, ease: EASE, stagger: 0.07 });
 
