@@ -339,15 +339,20 @@
   });
 
   // ---- Hover-dropdown menu data (single source) --------------------------
-  // Every menu renders identically: one column, capped at 340px, scrolling with
-  // a visible bar once it holds more than fits. A short menu never reaches the
-  // cap, so DATA and REGULATIONS never scroll while NEWS and SECTORS do instead
-  // of running down the page.
+  // A menu is one column, capped at 340px, scrolling with a visible bar once it
+  // holds more than fits. A short menu never reaches the cap, so DATA and
+  // REGULATIONS never scroll.
+  //
+  // `cols: 2` instead lays the entries out two abreast in a wider panel and
+  // never scrolls - for a menu that should be read at a glance rather than
+  // paged through. SECTORS uses it: ten sectors in one column put four of them
+  // behind a scrollbar, which is the same thing the client objected to on the
+  // homepage rail ("All ten at a glance", Further 6).
   //
   // `compact: true` is still honoured: it drops the item descriptions.
   var MENU = {
     'SECTORS': {
-      head: 'Strategic Priority Sectors', items: [
+      head: 'Strategic Priority Sectors', cols: 2, items: [
         { t: 'Solar', d: 'Utility-scale and distributed solar PV generation projects.', href: base + 'DetailedSector.html' },
         { t: 'Bioenergy', d: 'Biomass, biogas & waste-to-energy power generation.', href: base + 'Bioenergy.html' },
         { t: 'Wind', d: 'Onshore wind generation across high-potential corridors.', href: base + 'Wind.html' },
@@ -981,6 +986,10 @@
       '.nesp-header .nesp-menu-list{display:grid;grid-template-columns:1fr}',
       '.nesp-header .nesp-dropdown--compact .nesp-menu-item{padding-top:.5rem;padding-bottom:.5rem}',
       '.nesp-header .nesp-dropdown--scroll .nesp-menu-list{max-height:340px;overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin;scrollbar-color:' + LINE2 + ' transparent}',
+      /* cols: 2 - every entry on screen at once, nothing to scroll */
+      '.nesp-header .nesp-dropdown--grid{min-width:min(620px,calc(100vw - 2rem));max-width:min(620px,calc(100vw - 2rem))}',
+      '.nesp-header .nesp-dropdown--grid .nesp-menu-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 .375rem}',
+      '@media (max-width:719px){.nesp-header .nesp-dropdown--grid .nesp-menu-list{grid-template-columns:minmax(0,1fr)}}',
       '.nesp-header .nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar{width:6px}',
       '.nesp-header .nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-track{background:transparent;margin:6px 0}',
       '.nesp-header .nesp-dropdown--scroll .nesp-menu-list::-webkit-scrollbar-thumb{background:' + LINE2 + ';border-radius:999px}',
@@ -1384,7 +1393,9 @@
         items += '<a class="nesp-menu-item" href="' + it.href + '"><span class="t">' + it.t + '</span>' +
           (it.d && !menu.compact ? '<span class="d">' + it.d + '</span>' : '') + '</a>';
       });
-      panel.className = 'nesp-dropdown nesp-dropdown--scroll' + (menu.compact ? ' nesp-dropdown--compact' : '');
+      panel.className = 'nesp-dropdown ' +
+        (menu.cols === 2 ? 'nesp-dropdown--grid' : 'nesp-dropdown--scroll') +
+        (menu.compact ? ' nesp-dropdown--compact' : '');
       body = '<div class="nesp-menu-list">' + items + '</div>';
     }
     // A panel only carries a title where one says something the tab does not.
