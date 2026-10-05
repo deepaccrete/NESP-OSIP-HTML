@@ -4562,7 +4562,18 @@
     }
 
     .rd .osip-states-arrow:focus-visible { outline: 2px solid var(--rd-green-2); outline-offset: 3px; }
-    .rd .osip-states-arrow:disabled { opacity: 0 !important; pointer-events: none; cursor: default !important; }
+    /* A disabled arrow stays plainly there. At opacity 0 the rail had no left
+       arrow at all until it was scrolled, so it read as though there were none.
+       Muted, not gone: the ring and the chevron go light and it stops responding. */
+    .rd .osip-states-arrow:disabled {
+      opacity: 1 !important;
+      pointer-events: none;
+      cursor: default !important;
+      background: var(--rd-card) !important;
+      border-color: var(--rd-line) !important;
+      color: var(--rd-ink-3) !important;
+      box-shadow: none !important;
+    }
 
     @media (max-width: 767px) {
       .rd .osip-states-carousel { margin-top: 0; padding-top: 0; }
@@ -5347,6 +5358,14 @@
         <div class="osip-hero-inner relative z-20 flex items-center w-full px-6 lg:px-8">
           <div class="w-full max-w-7xl mx-auto">
             <div class="osip-hero-copy">
+              <!-- GIZ feedback #10: "Official status in the first line -> trust lever,
+                   show Federal Ministry of Power". It reads before the headline, so who
+                   stands behind the platform is the first thing on the page. -->
+              <p class="osip-hero-promoter" style="animation: 0.5s ease 0s 1 normal forwards running fadeUp;">
+                <span class="osip-hero-promoter-mark" aria-hidden="true">
+                  <span class="material-symbols-outlined">verified</span>
+                </span>Promoted by the Federal Ministry of Power, Federal Republic of Nigeria
+              </p>
               <h1 class="osip-hero-title text-white"
                 style="font-family: Manrope, sans-serif; animation: 0.6s ease 0s 1 normal forwards running fadeUp;">
                 Invest in Nigeria's Clean <br class="osip-hero-break">Energy Future</h1>
@@ -5364,6 +5383,43 @@
           </div>
         </div>
         <style>
+          /* The official line above the hero title (GIZ feedback #10). Quiet enough
+             that the headline still leads, bright enough to be read first. */
+          .osip-hero-promoter {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin: 0 0 18px;
+            font-family: Inter, sans-serif;
+            font-size: 12.5px;
+            font-weight: 500;
+            letter-spacing: .04em;
+            line-height: 1.45;
+            color: rgba(255, 255, 255, .92);
+            text-shadow: 0 1px 10px rgba(0, 0, 0, .35);
+          }
+
+          .osip-hero-promoter-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .14);
+            border: 1px solid rgba(255, 255, 255, .34);
+          }
+
+          .osip-hero-promoter-mark .material-symbols-outlined {
+            font-size: 14px;
+            color: #ffddb4;
+          }
+
+          @media (max-width: 639px) {
+            .osip-hero-promoter { font-size: 11.5px; gap: 8px; margin-bottom: 14px; }
+          }
+
           @keyframes fadeUp {
             from {
               opacity: 0;
@@ -5377,6 +5433,76 @@
           }
         </style>
       </section>
+
+      <!-- GIZ feedback #3/#4 (2 Oct 2026): "The purpose of the website is not so clear
+           ... Why OSIP comes almost at last, it should be on the very top" and "I'd put a
+           trust-builder directly on top". Moved here from second-from-last, unchanged.
+           What the platform is now answers the hero, before the reader is asked to choose
+           anything. -->
+      <section class="bg-white py-12 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+        style="font-family: Inter, sans-serif;">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div>
+            <div class="flex items-center gap-3 mb-5 sm:mb-6"><span
+                class="w-8 sm:w-10 h-[3px] bg-[#ffb955]"></span><span
+                class="text-[#1f5840] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">ABOUT OSIP
+              </span></div>
+
+            <h2 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-[#111827] leading-tight mb-4"
+              style="font-family: Manrope, sans-serif;">Why OSIP?</h2>
+            <div class="flex flex-col gap-4 mb-8 max-w-2xl">
+              <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8">The One-Stop Investment
+                Platform (OSIP) is Nigeria's data and information gateway for investing in renewable energy and energy
+                efficiency.</p>
+              <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8">It exists to give
+                investors a single, reliable entry point into a market where the opportunity is clear but the
+                information has been scattered.</p>
+            </div><a href="pages/AboutOSIP.html"
+              class="inline-flex items-center justify-center bg-[#004225] hover:bg-[#1a5c3a] text-white px-6 sm:px-7 py-3 text-sm font-medium tracking-wide transition-all duration-300 w-full sm:w-auto">Read
+              More</a>
+          </div>
+          <div>
+            <!-- Video walkthrough. Same facade the sector pages use under Technical
+                 and Safety: the thumbnail is this section's own photograph and the
+                 YouTube iframe is only built on the first click, so nothing is
+                 requested from youtube.com until a visitor asks for it. Swap
+                 data-video-id once the real overview film is cut. -->
+            <div class="osip-about-img osip-video relative overflow-hidden shadow-sm"
+              data-video-id="aqz-KE-bpKQ">
+              <button type="button" class="osip-video-cover" aria-label="Play the OSIP overview film">
+                <img loading="lazy" decoding="async" alt="Rooftop solar array at sunrise"
+                  src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=1200&q=80">
+                <span class="osip-video-play" aria-hidden="true">
+                  <span class="material-symbols-outlined">play_arrow</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        // Why OSIP film. The iframe is created on click and never before, so the
+        // homepage makes no request to youtube.com unless a reader asks for it.
+        (function () {
+          document.querySelectorAll('.osip-video').forEach(function (holder) {
+            var id = holder.getAttribute('data-video-id');
+            var cover = holder.querySelector('.osip-video-cover');
+            if (!id || !cover) return;
+            cover.addEventListener('click', function () {
+              if (holder.classList.contains('is-playing')) return;
+              var iframe = document.createElement('iframe');
+              iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) +
+                '?autoplay=1&rel=0&modestbranding=1';
+              iframe.title = 'OSIP overview';
+              iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+              iframe.setAttribute('allowfullscreen', '');
+              holder.appendChild(iframe);
+              holder.classList.add('is-playing');
+            });
+          });
+        })();
+      </script>
 
       <section class="osip-quickaccess px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
@@ -6321,6 +6447,25 @@
             .osip-sx-page > .is-big { grid-column: 1 / span 2; grid-row: 1 / span 2; }
             .osip-sx-page.is-flip > .is-big { grid-column: 3 / span 2; }
 
+
+            @media (max-width: 1023px) {
+              .osip-sx-track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            }
+
+            @media (max-width: 639px) {
+              .osip-sx { --sx-gap: 12px; }
+              .osip-sx-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+              .osip-sx-page > .osip-sx-card,
+              .osip-sx-page > .is-big {
+                height: 150px;
+              }
+
+              .osip-sx-body { padding: 14px 15px; }
+              .osip-sx-name { font-size: 15.5px; }
+              .osip-sx-name::before { width: 20px; margin-bottom: 8px; }
+            }
+
             /* ---- The card ------------------------------------------------------------ */
             .osip-sx-card {
               position: relative;
@@ -6493,7 +6638,14 @@
               color: #ffffff;
             }
 
-            .osip-sx-arrow:disabled { opacity: .35; cursor: default; }
+            /* A disabled arrow stays plainly there - at .35 it read as missing, so
+               the row looked as though it had no way back. Muted, not faded. */
+            .osip-sx-arrow:disabled {
+              opacity: 1;
+              cursor: default;
+              border-color: var(--rd-line, #e2ded5);
+              color: var(--rd-ink-3, #6b716c);
+            }
 
             .osip-sx-arrow:focus-visible { outline: 2px solid #047857; outline-offset: 3px; }
 
@@ -6545,6 +6697,97 @@
               .osip-sx-card.is-big .osip-sx-desc { max-height: 5em; opacity: 1; margin-top: 8px; font-size: 14.5px; }
 
               .osip-sx-controls { margin-top: 20px; }
+            }
+
+            /* ---- All ten sectors at a glance (GIZ feedback #15, 2 Oct 2026) ---------
+               "All ten at a glance, i.e. a compact grid should show the full scope ...
+               instead of a paged raid that hides 5 out of 10."
+
+               The rail paged five at a time on a desktop and swiped one card at a time on
+               a phone, so half the scope - or nine tenths of it - sat off-screen. The two
+               pages dissolve into one grid of all ten: five across on a desktop, three on
+               a tablet, two on a phone. Last in the sheet so it settles the rules the rail
+               set for each width.
+
+               The pager's arrows, counter and progress bar are hidden rather than deleted:
+               with every card on screen they have nothing left to do. The two cards that
+               used to lead a page ("is-big") read like the other eight - at one card size
+               their larger name and open description no longer fit. */
+            .osip-sx-viewport {
+              overflow: visible;
+              scroll-snap-type: none;
+            }
+
+            .osip-sx-track {
+              display: grid !important;
+              grid-template-columns: repeat(5, minmax(0, 1fr));
+              gap: var(--sx-gap);
+              width: auto !important;
+            }
+
+            .osip-sx-page { display: contents; }
+
+            .osip-sx-page > .osip-sx-card,
+            .osip-sx-page > .is-big,
+            .osip-sx-page.is-flip > .is-big {
+              grid-column: auto;
+              grid-row: auto;
+              flex: initial;
+              aspect-ratio: auto;
+              height: clamp(168px, 15vw, 212px);
+            }
+
+            .osip-sx-controls { display: none !important; }
+
+            .osip-sx-card.is-big .osip-sx-body { padding: 22px 24px; }
+            .osip-sx-card.is-big .osip-sx-name { font-size: 20px; letter-spacing: -0.01em; }
+
+            .osip-sx-card.is-big .osip-sx-desc {
+              max-height: 0;
+              opacity: 0;
+              margin-top: 0;
+              font-size: 14.5px;
+            }
+
+            .osip-sx-card.is-big:hover .osip-sx-desc,
+            .osip-sx-card.is-big:focus-visible .osip-sx-desc { max-height: 5em; opacity: 1; margin-top: 10px; }
+
+            @media (max-width: 1023px) {
+              .osip-sx-track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            }
+
+            @media (max-width: 639px) {
+              .osip-sx { --sx-gap: 12px; }
+              .osip-sx-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+              .osip-sx-page > .osip-sx-card,
+              .osip-sx-page > .osip-sx-card.is-big {
+                height: 150px;
+                min-height: 0;
+              }
+
+              .osip-sx-card .osip-sx-body,
+              .osip-sx-card.is-big .osip-sx-body { padding: 14px 15px; }
+
+              .osip-sx-card .osip-sx-name,
+              .osip-sx-card.is-big .osip-sx-name { font-size: 15.5px; }
+
+              .osip-sx-card .osip-sx-name::before { width: 20px; margin-bottom: 8px; }
+
+              /* two to a row leaves a narrow card, so the link reads on one line */
+              .osip-sx-card .osip-sx-more { font-size: 12px; margin-top: 10px; white-space: nowrap; }
+              .osip-sx-card .osip-sx-more .material-symbols-outlined { font-size: 15px; }
+
+              /* The rail left every description open on a phone, because a finger has no
+                 hover. At grid size that text does not fit the card - it pushed the sector's
+                 own name out of sight - so a phone shows the name, which is what "at a
+                 glance" needs; the description is on the sector's page, one tap away. */
+              .osip-sx-card .osip-sx-desc,
+              .osip-sx-card.is-big .osip-sx-desc {
+                max-height: 0;
+                opacity: 0;
+                margin-top: 0;
+              }
             }
 
             @media (prefers-reduced-motion: reduce) {
@@ -6878,9 +7121,10 @@
         }
 
         .osip-states-arrow:disabled {
-          opacity: .35;
+          opacity: 1;
           cursor: default;
           box-shadow: none;
+          color: #9aa39e;
         }
 
         .osip-states-arrow--prev {
@@ -7639,10 +7883,11 @@
               understand Nigeria's clean energy market, regulatory environment, financing landscape, and project
               development process.</p>
           </div>
-          <!-- Investor guide topics (15 Sep 2026): an FAQ-style list, as on pages/FAQs.html.
-               Resting the pointer on a topic opens it and moving away closes it; a click keeps
-               it open. On touch screens and from the keyboard they are plain <details>. Topic
-               wording is the Federal Content brief's; each links to where the topic lives. -->
+          <!-- Investor guide topics (15 Sep 2026; opening changed 2 Oct 2026): an FAQ-style
+               list. A topic opens when it is clicked and stays open until it is clicked again -
+               GIZ feedback: "Section 'Investor Guide' is very irritating to navigate through",
+               which was the pointer opening topics merely by passing over them. Topic wording is
+               the Federal Content brief's; each links to where the topic lives. -->
           <div class="osip-guide-list">
             <details class="osip-guide-item">
               <summary>
@@ -7720,17 +7965,20 @@
         </div>
       </section>
       <script>
-        /* Investor guide topics open on hover (15 Sep 2026), the same behaviour as the
-           answers on pages/FAQs.html. Where there is a real pointer, resting on a topic
-           opens it and moving away closes it; a click keeps it open until clicked again.
-           On touch screens and from the keyboard they are plain <details>. Opening and
-           closing ease the height unless reduced motion is asked for, and the scroll
-           animations below re-measure once the page has changed height. */
+        /* Investor guide topics open on click (2 Oct 2026).
+
+           They used to open when the pointer rested on them and close when it moved
+           away, so dragging the pointer down the list set topic after topic opening and
+           shutting - "Section 'Investor Guide' is very irritating to navigate through"
+           in the GIZ feedback. A topic now opens when it is clicked and stays open until
+           it is clicked again, which is also what it already did on a touch screen and
+           from the keyboard. Opening and closing still ease the height unless reduced
+           motion is asked for, and the scroll animations re-measure once the page has
+           changed height. */
         (function () {
           var items = Array.prototype.slice.call(document.querySelectorAll('.osip-guide-item'));
           if (!items.length) return;
           var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          var hover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
           var EASE = 'cubic-bezier(.22, 1, .36, 1)';
 
           function body(d) { return d.querySelector(':scope > .osip-guide-body'); }
@@ -7780,30 +8028,8 @@
 
             summary.addEventListener('click', function (e) {
               e.preventDefault();
-              clearTimeout(d._timer);
-              var isOpen = d.open && !d._closing;
-              if (isOpen && hover && !d._pinned) { d._pinned = true; return; }
-              if (isOpen) {
-                d._pinned = false;
-                d._quiet = hover;
-                closeItem(d);
-              } else {
-                d._pinned = true;
-                openItem(d);
-              }
-            });
-
-            if (!hover) return;
-            d.addEventListener('mouseenter', function () {
-              clearTimeout(d._timer);
-              if (d._quiet) return;
-              d._timer = setTimeout(function () { openItem(d); }, 120);
-            });
-            d.addEventListener('mouseleave', function () {
-              clearTimeout(d._timer);
-              d._quiet = false;
-              if (d._pinned) return;
-              d._timer = setTimeout(function () { closeItem(d); }, 160);
+              if (d.open && !d._closing) closeItem(d);
+              else openItem(d);
             });
           });
         })();
@@ -8580,71 +8806,6 @@
       </section>
 
 
-      <section class="bg-white py-12 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
-        style="font-family: Inter, sans-serif;">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div>
-            <div class="flex items-center gap-3 mb-5 sm:mb-6"><span
-                class="w-8 sm:w-10 h-[3px] bg-[#ffb955]"></span><span
-                class="text-[#1f5840] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">ABOUT OSIP
-              </span></div>
-
-            <h2 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-[#111827] leading-tight mb-4"
-              style="font-family: Manrope, sans-serif;">Why OSIP?</h2>
-            <div class="flex flex-col gap-4 mb-8 max-w-2xl">
-              <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8">The One-Stop Investment
-                Platform (OSIP) is Nigeria's data and information gateway for investing in renewable energy and energy
-                efficiency.</p>
-              <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8">It exists to give
-                investors a single, reliable entry point into a market where the opportunity is clear but the
-                information has been scattered.</p>
-            </div><a href="pages/AboutOSIP.html"
-              class="inline-flex items-center justify-center bg-[#004225] hover:bg-[#1a5c3a] text-white px-6 sm:px-7 py-3 text-sm font-medium tracking-wide transition-all duration-300 w-full sm:w-auto">Read
-              More</a>
-          </div>
-          <div>
-            <!-- Video walkthrough. Same facade the sector pages use under Technical
-                 and Safety: the thumbnail is this section's own photograph and the
-                 YouTube iframe is only built on the first click, so nothing is
-                 requested from youtube.com until a visitor asks for it. Swap
-                 data-video-id once the real overview film is cut. -->
-            <div class="osip-about-img osip-video relative overflow-hidden shadow-sm"
-              data-video-id="aqz-KE-bpKQ">
-              <button type="button" class="osip-video-cover" aria-label="Play the OSIP overview film">
-                <img loading="lazy" decoding="async" alt="Rooftop solar array at sunrise"
-                  src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=1200&q=80">
-                <span class="osip-video-play" aria-hidden="true">
-                  <span class="material-symbols-outlined">play_arrow</span>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <script>
-        // Why OSIP film. The iframe is created on click and never before, so the
-        // homepage makes no request to youtube.com unless a reader asks for it.
-        (function () {
-          document.querySelectorAll('.osip-video').forEach(function (holder) {
-            var id = holder.getAttribute('data-video-id');
-            var cover = holder.querySelector('.osip-video-cover');
-            if (!id || !cover) return;
-            cover.addEventListener('click', function () {
-              if (holder.classList.contains('is-playing')) return;
-              var iframe = document.createElement('iframe');
-              iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) +
-                '?autoplay=1&rel=0&modestbranding=1';
-              iframe.title = 'OSIP overview';
-              iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-              iframe.setAttribute('allowfullscreen', '');
-              holder.appendChild(iframe);
-              holder.classList.add('is-playing');
-            });
-          });
-        })();
-      </script>
-
       <section class="bg-white py-12 lg:py-16 px-6 lg:px-8 overflow-hidden" style="font-family: Inter, sans-serif;">
         <style>
           /* One-line auto-rotating marquee. The track holds two identical copies
@@ -9327,7 +9488,16 @@
         all(page, '.osip-reveal').forEach(function (el) { el.classList.remove('osip-reveal'); });
         all(page, '.osip-stagger').forEach(function (el) { el.classList.remove('osip-stagger'); });
 
-        /* ---- Smooth scroll ---------------------------------------------------- */
+        /* ---- Smooth scroll (2 Oct 2026) ----------------------------------------
+           GIZ feedback #5 called the "hooked" scrolling irritating, and the reply
+           agreed to drop it. Kept on Adarsh's decision, because what made it
+           irritating was the motion layer riding on the scroll - text fading in
+           and out, headings rising out of masks, the second cursor - and all of
+           that is gone. The wheel keeps the eased feel, with the same settings
+           the React build uses on /sectors/solar (lerp 0.09, smooth wheel, native
+           touch), so the prototype and the build behave alike. A reader who asks
+           for reduced motion gets the browser's own scrolling: this whole layer
+           stands down for them. */
         var lenis = null;
         if (window.Lenis) {
           lenis = new Lenis({ lerp: 0.09, smoothWheel: true, syncTouch: false });
@@ -9339,22 +9509,23 @@
           /* Panels that scroll on their own keep their own wheel: the mobile
              menu, and the header dropdowns that cap at 340px and scroll. */
           all(document, '#mobile-nav, .nesp-dropdown').forEach(function (el) { el.setAttribute('data-lenis-prevent', ''); });
-
-          /* In-page jumps glide and park clear of the sticky header, using the
-             offset nav.js measures (a pixel target, so it is not applied twice). */
-          document.addEventListener('click', function (e) {
-            var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
-            if (!a) return;
-            var hash = a.getAttribute('href');
-            var target = hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
-            if (!target) return;
-            e.preventDefault();
-            var offset = parseInt(getComputedStyle(html).getPropertyValue('--osip-nav-offset'), 10) || 100;
-            var y = target.getBoundingClientRect().top + window.scrollY - offset;
-            lenis.scrollTo(Math.max(0, y), { duration: 1.5, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
-            if (history.replaceState) history.replaceState(null, '', hash);
-          });
         }
+
+        /* In-page jumps park clear of the sticky header, using the offset nav.js
+           measures (a pixel target, so it is not applied twice). */
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+          if (!a) return;
+          var hash = a.getAttribute('href');
+          var target = hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+          if (!target) return;
+          e.preventDefault();
+          var offset = parseInt(getComputedStyle(html).getPropertyValue('--osip-nav-offset'), 10) || 100;
+          var y = Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset);
+          if (lenis) lenis.scrollTo(y, { duration: 1.1, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
+          else window.scrollTo({ top: y, behavior: 'smooth' });
+          if (history.replaceState) history.replaceState(null, '', hash);
+        });
 
         /* ---- Reading progress ------------------------------------------------- */
         var bar = document.createElement('div');
@@ -9395,7 +9566,8 @@
           releaseIntro();
 
           if (img) gsap.to(img, { yPercent: 10, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
-          if (copy) gsap.to(copy, { yPercent: -18, opacity: 0.25, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+          /* The hero copy used to drift up and fade to a quarter while scrolling off;
+             it now simply scrolls away with the page (GIZ feedback #8). */
 
           var cue = document.createElement('div');
           cue.className = 'rd-scrollcue';
@@ -9423,59 +9595,23 @@
         /* ---- Headings: lines rise out of a mask -------------------------------
            Opportunity titles are line-clamped, and a line split would undo the
            clamp, so those arrive with their card instead. */
-        inRest('h2, h3').forEach(function (h) {
-          if (h.closest('.osip-opp-grid')) return;
-          if (!hasSplit) {
-            gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
-            hidden.push(h);
-            return;
-          }
-          SplitText.create(h, {
-            type: 'lines',
-            mask: 'lines',
-            linesClass: 'rd-line',
-            autoSplit: true,
-            onSplit: function (self) {
-              return gsap.from(self.lines, {
-                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
-                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
-              });
-            }
-          });
-        });
+        /* GIZ feedback #8: headings used to rise line by line out of a mask as
+           they came into view. They are now simply there when the reader gets to
+           them - nothing to wait for, nothing moving under the eye. */
 
         /* ---- Reading text: the words light up in reading order ---------------
            As on DetailedSector: words wait faint rather than invisible and are
            fully lit a third of the way up the screen; words only, no masks, and
            no aria rewriting, so screen readers get the text as it was. */
-        unique(inRest('h2 + p, .osip-qa-head p, .osip-states-headrow + p, p.text-gray-600')).forEach(function (t) {
-          if (t.closest('.bg-\\[\\#0d2318\\]')) return;
-          if (!hasSplit) {
-            gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
-            hidden.push(t);
-            return;
-          }
-          var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
-          hidden = hidden.concat(words);
-          gsap.fromTo(words, { opacity: 0.2 }, {
-            opacity: 1, ease: 'none', stagger: 0.1,
-            scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-          });
-        });
+        /* GIZ feedback #8: the reading text used to light up word by word, tied to
+           the scroll position, which meant a paragraph was half-faded for as long
+           as it took to scroll past it. The words are at full strength from the
+           start. */
 
         /* ---- Gold rules draw down as the text beside them is read ------------
            The same scroll range as the words, so rule and text arrive together. */
-        unique(inRest('h2 + p, .osip-qa-head p, .osip-states-headrow + p').concat(
-          inRest('p.text-gray-600').map(function (para) { return para.parentElement; })
-        )).forEach(function (el) {
-          var sec = el.closest('section');
-          if (sec && sec.classList.contains('bg-[#0d2318]')) return;
-          drawn.push(el);
-          gsap.fromTo(el, { '--rd-draw': 0 }, {
-            '--rd-draw': 1, ease: 'none',
-            scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-          });
-        });
+        /* The gold rules beside that text were drawn on the same scroll range, so
+           they go with it (GIZ feedback #8); the rules are drawn in full. */
 
         /* ---- Cards arrive in the order they sit --------------------------------
            The transform is cleared once each has landed, so a hover or the
@@ -9525,49 +9661,9 @@
           });
         });
 
-        /* ---- Cursor ----------------------------------------------------------- */
-        if (fine) {
-          var cursor = document.createElement('div');
-          cursor.className = 'rd-cursor';
-          cursor.setAttribute('aria-hidden', 'true');
-          var dot = document.createElement('div');
-          dot.className = 'rd-cursor-dot';
-          var label = document.createElement('span');
-          label.className = 'rd-cursor-label';
-          dot.appendChild(label);
-          cursor.appendChild(dot);
-          document.body.appendChild(cursor);
-          html.classList.add('rd-cursor-on');
-
-          var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
-          var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
-          var placed = false;
-          window.addEventListener('pointermove', function (e) {
-            if (e.pointerType && e.pointerType !== 'mouse') return;
-            if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
-            toX(e.clientX);
-            toY(e.clientY);
-          }, { passive: true });
-
-          var off = function () { cursor.removeAttribute('data-mode'); };
-          function target(el, mode, text) {
-            el.setAttribute('data-rd-cursor', mode);
-            el.addEventListener('pointerenter', function () {
-              cursor.setAttribute('data-mode', mode);
-              cursor.setAttribute('data-look', mode);
-              label.textContent = text || '';
-            });
-            el.addEventListener('pointerleave', off);
-          }
-          inRest('a.partner-card[target="_blank"]').forEach(function (a) { target(a, 'label', 'Open'); });
-          inRest('.osip-video').forEach(function (v) {
-            target(v, 'play', 'Play');
-            v.addEventListener('click', off);
-          });
-          inRest('h2').forEach(function (h) { target(h, 'text'); });
-          cards.forEach(function (c) { if (c.tagName !== 'A') target(c, 'ring'); });
-          document.documentElement.addEventListener('mouseleave', off);
-        }
+        /* ---- Cursor (removed 2 Oct 2026) --------------------------------------
+           GIZ feedback #6: "A second cursor is not needed (the yellow spot that
+           jumps in and out)". The page uses the reader's own pointer. */
 
         /* ---- Magnetic buttons ------------------------------------------------- */
         if (fine) {

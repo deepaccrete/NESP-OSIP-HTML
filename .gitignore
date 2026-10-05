@@ -1,2 +1,11 @@
 /backup
 /Change-Review
+# OneDrive sync conflict copies.
+# When OneDrive hits a conflict it keeps one version under the real filename
+# and parks the other as "<name>-<COMPUTERNAME>.<ext>". Those are never source:
+# committing one would put a stale duplicate of a real file in the tree, next
+# to the file it duplicates. This repo lives inside a synced OneDrive folder,
+# which is the underlying problem; this only stops the symptom reaching git.
+*-DESKTOP-*
+*-LAPTOP-*
+*[-_]conflicted[-_]copy*

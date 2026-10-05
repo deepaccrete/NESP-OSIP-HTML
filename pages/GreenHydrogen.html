@@ -555,6 +555,15 @@
             outline-offset: 3px;
         }
 
+        /* Text no longer animates on scroll (GIZ feedback, 5 Oct 2026): headings
+
+           used to rise line by line out of a mask, paragraphs lit up word by word as
+
+           they were read, and the gold rules drew alongside them. The words are simply
+
+           there. Cards, photographs and the hero keep their one-off arrival. */
+
+
         /* ---- Photograph ---------------------------------------------------- */
         .ovw-sticky {
             position: relative;
@@ -689,8 +698,10 @@
         }
 
         /* ---- Reveal (opt-in; the script sets .ovw-armed) ------------------- */
-        .ovw-armed:not(.is-in) .ovw-rise { opacity: 0; transform: translateY(16px); }
-        .ovw-armed.is-in .ovw-rise { animation: ovwRise .7s cubic-bezier(.22, .61, .36, 1) calc(var(--o, 0) * 90ms) backwards; }
+        /* The overview's eyebrow, title, lede and paragraphs used to wait hidden and
+   run up one by one when the section was reached. They are simply there
+   (GIZ feedback, 5 Oct 2026); the picture beside them still arrives. */
+        
         .ovw-armed:not(.is-in) .ovw-lede::before { transform: scaleY(0); }
         .ovw-armed.is-in .ovw-lede::before { animation: ovwDraw .8s cubic-bezier(.22, .61, .36, 1) .45s backwards; }
         /* the photograph wipes in right to left, the direction the hero moves */
@@ -5731,22 +5742,9 @@
                 inRest('h2, h3').forEach(function (h) {
                     if (h.closest('.ovw')) return;
                     if (!hasSplit || h.querySelector('abbr, .osip-term')) {
-                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
                         hidden.push(h);
                         return;
                     }
-                    SplitText.create(h, {
-                        type: 'lines',
-                        mask: 'lines',
-                        linesClass: 'rd-line',
-                        autoSplit: true,
-                        onSplit: function (self) {
-                            return gsap.from(self.lines, {
-                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
-                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
-                            });
-                        }
-                    });
                 });
 
                 /* ---- Reading text: the words light up in reading order ---------------
@@ -5763,16 +5761,9 @@
                     if (!targets.length) targets = [el];
                     targets.forEach(function (t) {
                         if (!hasSplit) {
-                            gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
                             hidden.push(t);
                             return;
                         }
-                        var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
-                        hidden = hidden.concat(words);
-                        gsap.fromTo(words, { opacity: 0.2 }, {
-                            opacity: 1, ease: 'none', stagger: 0.1,
-                            scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                        });
                     });
                 });
 
@@ -5780,10 +5771,6 @@
                    The same scroll range as the words, so rule and text arrive together. */
                 inRest('.ovw-lede, #technical h2 + p, #opportunities h2 + p, .osip-note').forEach(function (el) {
                     drawn.push(el);
-                    gsap.fromTo(el, { '--rd-draw': 0 }, {
-                        '--rd-draw': 1, ease: 'none',
-                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                 });
 
                 /* ---- Statements: the words light up as you read down to them -------- */
@@ -5794,11 +5781,6 @@
                     });
                     var p = box.querySelector('p');
                     if (!p || !hasSplit) return;
-                    var words = SplitText.create(p, { type: 'words', wordsClass: 'rd-word', aria: 'none' }).words;
-                    gsap.fromTo(words, { opacity: 0.14 }, {
-                        opacity: 1, ease: 'none', stagger: 0.08,
-                        scrollTrigger: { trigger: box, start: 'top 78%', end: 'bottom 60%', scrub: 0.6 }
-                    });
                 });
 
                 /* ---- Cards, chips and list rows arrive in the order they sit ---------
@@ -5882,50 +5864,10 @@
                     ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: function () { countUp(el); } });
                 });
 
-                /* ---- Cursor ----------------------------------------------------------- */
-                if (fine) {
-                    var cursor = document.createElement('div');
-                    cursor.className = 'rd-cursor';
-                    cursor.setAttribute('aria-hidden', 'true');
-                    var dot = document.createElement('div');
-                    dot.className = 'rd-cursor-dot';
-                    var label = document.createElement('span');
-                    label.className = 'rd-cursor-label';
-                    dot.appendChild(label);
-                    cursor.appendChild(dot);
-                    document.body.appendChild(cursor);
-                    html.classList.add('rd-cursor-on');
+                /* ---- Cursor (removed 5 Oct 2026) --------------------------------------
+                   GIZ feedback: "A second curser is not needed (the yellow spot that jumps
+                   in and out)". The page uses the reader's own pointer. */
 
-                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
-                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
-                    var placed = false;
-                    window.addEventListener('pointermove', function (e) {
-                        if (e.pointerType && e.pointerType !== 'mouse') return;
-                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
-                        toX(e.clientX);
-                        toY(e.clientY);
-                    }, { passive: true });
-
-                    var off = function () { cursor.removeAttribute('data-mode'); };
-                    function target(el, mode, text) {
-                        el.setAttribute('data-rd-cursor', mode);
-                        el.addEventListener('pointerenter', function () {
-                            cursor.setAttribute('data-mode', mode);
-                            cursor.setAttribute('data-look', mode);
-                            label.textContent = text || '';
-                        });
-                        el.addEventListener('pointerleave', off);
-                    }
-                    inRest('a[target="_blank"].rounded-xl, a[target="_blank"].rounded-lg').forEach(function (a) { target(a, 'label', 'Open'); });
-                    inRest('.video-facade').forEach(function (v) {
-                        target(v, 'play', 'Play');
-                        v.addEventListener('click', off);
-                    });
-                    inRest('h2').forEach(function (h) { target(h, 'text'); });
-                    all(main, '.ovw-title').forEach(function (h) { target(h, 'text'); });
-                    cards.forEach(function (c) { if (c.tagName !== 'A') target(c, 'ring'); });
-                    document.documentElement.addEventListener('mouseleave', off);
-                }
 
                 /* ---- Magnetic buttons ------------------------------------------------- */
                 if (fine) {

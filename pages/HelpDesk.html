@@ -491,6 +491,15 @@
                     if (holder) holder.setAttribute('data-lenis-prevent', '');
                 }
 
+                /* Text no longer animates on scroll (GIZ feedback, 5 Oct 2026): headings
+
+                   used to rise line by line out of a mask, paragraphs lit up word by word as
+
+                   they were read, and the gold rules drew alongside them. The words are simply
+
+                   there. Cards, photographs and the hero keep their one-off arrival. */
+
+
                 /* ---- Reading progress --------------------------------------------- */
                 var bar = document.createElement('div');
                 bar.className = 'rd-progress';
@@ -513,8 +522,7 @@
                     hidden.push(title);
                     gsap.set(title, { opacity: 1 });
                     if (hasSplit) {
-                        var split = SplitText.create(title, { type: 'lines', mask: 'lines', linesClass: 'rd-line' });
-                        intro.from(split.lines, {
+                        var split =                         intro.from(split.lines, {
                             yPercent: 130, duration: 1.15, stagger: 0.09,
                             onComplete: function () { split.revert(); }
                         }, 0.12);

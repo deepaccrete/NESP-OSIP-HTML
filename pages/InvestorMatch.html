@@ -225,6 +225,33 @@
             box-shadow: inset 0 0 0 3px #ffffff;
         }
 
+        /* Other 2.2: the primary objective, named on its card. */
+        .quiz-primary {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 1px 8px;
+            border-radius: 999px;
+            background-color: #047857;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 18px;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            vertical-align: 2px;
+        }
+
+        .quiz-primary[hidden] {
+            display: none;
+        }
+
+        .quiz-note {
+            margin: -8px 0 4px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #55635c;
+        }
+
         .quiz-box {
             position: relative;
             width: 20px;
@@ -2491,6 +2518,12 @@
 
               `key` is what the scoring below reads; `chip` is the short form
               shown back to them on the results screen.
+
+              Every question takes several answers except ticket size (Other 2.2:
+              "except for size of investment"). An option marked `only` is an
+              answer that rules out the rest - "Not sure yet", "Open to any
+              stage" - so ticking it clears the others, and ticking another
+              clears it.
             */
             /*
               THE THIRTY-SIX STATES AND THE FEDERAL CAPITAL TERRITORY, in the
@@ -2589,6 +2622,7 @@
                 {
                     id: 'investor',
                     q: 'Who are you as an investor?',
+                    multi: true,
                     options: [
                         { key: 'individual', label: 'Individual investor', hint: 'Investing personal capital' },
                         { key: 'company', label: 'Private company or project developer', hint: 'Building or operating assets' },
@@ -2599,7 +2633,7 @@
                 },
                 {
                     id: 'sector',
-                    q: 'Which sector interests you most?',
+                    q: 'Which sectors interest you?',
                     multi: true,
                     options: [
                         { key: 'solar', label: 'Solar' },
@@ -2612,19 +2646,26 @@
                         { key: 'energy-efficiency', label: 'Energy efficiency' },
                         { key: 'agriculture-pue', label: 'Agriculture &amp; productive use' },
                         { key: 'green-mobility', label: 'Green mobility' },
-                        { key: 'open', label: 'Not decided, show me what fits', hint: 'We will pick from your other answers' }
+                        { key: 'open', label: 'Not decided, show me what fits', hint: 'We will pick from your other answers', only: true }
                     ]
                 },
                 {
                     id: 'objective',
-                    q: 'What is your primary investment objective?',
+                    q: 'What are your investment objectives?',
+                    multi: true,
+                    /* Several objectives, one of them primary (Other 2.2). The first
+                       one ticked is the primary: the order is already kept in
+                       `answers`, and BY_OBJECTIVE reads [0], so the card says
+                       which one that is rather than asking a second question. */
+                    primary: true,
+                    note: 'Tick all that apply. The first one you tick is your primary objective.',
                     options: [
                         { key: 'returns', label: 'Commercial returns', hint: 'Risk-adjusted yield comes first' },
                         { key: 'diversify', label: 'Entering a new market', hint: 'Building exposure to West Africa' },
                         { key: 'strategic', label: 'A strategic or industrial footprint', hint: 'Manufacturing, supply chain, offtake' },
                         { key: 'impact', label: 'Development impact', hint: 'Energy access, jobs, emissions' },
                         { key: 'supply', label: 'Supplying technology or services', hint: 'EPC, equipment, advisory' },
-                        { key: 'unsure', label: 'Not sure yet', hint: 'We will suggest from your other answers' }
+                        { key: 'unsure', label: 'Not sure yet', hint: 'We will suggest from your other answers', only: true }
                     ]
                 },
                 {
@@ -2641,7 +2682,7 @@
                         { key: 'fund', label: 'Through a fund or co-investment vehicle' },
                         { key: 'epc', label: 'An EPC or supply contract' },
                         { key: 'blended', label: 'Grant or blended finance alongside others' },
-                        { key: 'unsure', label: 'Still deciding' }
+                        { key: 'unsure', label: 'Still deciding', only: true }
                     ]
                 },
                 {
@@ -2658,12 +2699,13 @@
                 {
                     id: 'timeline',
                     q: 'What is your deployment timeline?',
+                    multi: true,
                     options: [
                         { key: 'now', label: 'Ready to commit now', hint: 'Within six months' },
                         { key: 'year', label: 'Six to twelve months' },
                         { key: 'two', label: 'One to two years' },
-                        { key: 'watch', label: 'Researching for now' },
-                        { key: 'unsure', label: 'Not sure yet' }
+                        { key: 'watch', label: 'Researching for now', only: true },
+                        { key: 'unsure', label: 'Not sure yet', only: true }
                     ]
                 },
                 {
@@ -2684,27 +2726,29 @@
                 {
                     id: 'presence',
                     q: 'What presence do you already have in Nigeria?',
+                    multi: true,
                     options: [
                         { key: 'operating', label: 'A registered entity and active operations' },
                         { key: 'registered', label: 'A registered entity, not yet operating' },
                         { key: 'partner', label: 'A local partner, but no entity of our own' },
-                        { key: 'none', label: 'None yet' }
+                        { key: 'none', label: 'None yet', only: true }
                     ]
                 },
                 {
                     id: 'stage',
-                    q: 'Which project stage suits your risk appetite?',
+                    q: 'Which project stages suit your risk appetite?',
+                    multi: true,
                     options: [
                         { key: 'early', label: 'Early stage', hint: 'Planning and design, the highest risk and the highest upside' },
                         { key: 'mid', label: 'Development stage', hint: 'Approvals, tendering, under development' },
                         { key: 'build', label: 'Construction ready', hint: 'Permits secured, breaking ground' },
                         { key: 'operating', label: 'Operating assets', hint: 'Commissioned and generating' },
-                        { key: 'any', label: 'Open to any stage' }
+                        { key: 'any', label: 'Open to any stage', only: true }
                     ]
                 },
                 {
                     id: 'concern',
-                    q: 'What is your biggest concern about investing here?',
+                    q: 'What concerns you most about investing here?',
                     multi: true,
                     options: [
                         { key: 'regulatory', label: 'Regulatory and licensing clarity' },
@@ -2886,11 +2930,19 @@
                     '<input class="sr-only" type="' + (item.multi ? 'checkbox' : 'radio') + '" name="' + item.id + '" id="' + id + '" value="' + option.key + '"' +
                     (chosen ? ' checked' : '') + '>' +
                     '<span class="flex-1 min-w-0">' +
-                    '<span class="block font-body-md ' + (compact ? 'text-[14px] leading-5 sm:text-[15px]' : 'text-body-md') + ' text-[#111827] font-medium">' + option.label + '</span>' +
+                    '<span class="block font-body-md ' + (compact ? 'text-[14px] leading-5 sm:text-[15px]' : 'text-body-md') + ' text-[#111827] font-medium">' + option.label +
+                    (item.primary ? '<span class="quiz-primary"' + (isPrimary(item, option.key) ? '' : ' hidden') + '>Primary</span>' : '') + '</span>' +
                     (option.hint ? '<span class="block font-body-sm text-body-sm text-on-surface-variant mt-0.5">' + option.hint + '</span>' : '') +
                     '</span>' +
                     '<span class="' + (item.multi ? 'quiz-box' : 'quiz-dot') + '" aria-hidden="true"></span>' +
                     '</label>';
+            }
+
+            /* The primary tag only says something once there is a choice to
+               make: with one objective ticked, that one is the primary anyway. */
+            function isPrimary(item, key) {
+                var list = selected(item.id);
+                return list.length > 1 && list[0] === key;
             }
 
             /* Two layouts, one question at a time: the plain grid every question
@@ -2901,9 +2953,23 @@
                     return;
                 }
                 els.options.className = 'grid gap-3 sm:grid-cols-2';
-                els.options.innerHTML = item.options.map(function (option, index) {
-                    return optionCard(item, option, index, false, true);
-                }).join('');
+                els.options.innerHTML =
+                    (item.note ? '<p class="quiz-note sm:col-span-2">' + item.note + '</p>' : '') +
+                    item.options.map(function (option, index) {
+                        return optionCard(item, option, index, false, true);
+                    }).join('');
+            }
+
+            /* After a tick, put the grid back in line with `answers` without
+               redrawing it (a redraw would replay the entry animation): an `only`
+               answer may have cleared others, and the primary tag may have moved. */
+            function syncGrid(item) {
+                var list = selected(item.id);
+                Array.prototype.forEach.call(els.options.querySelectorAll('input[name="' + item.id + '"]'), function (input) {
+                    input.checked = list.indexOf(input.value) > -1;
+                    var tag = input.parentNode.querySelector('.quiz-primary');
+                    if (tag) tag.hidden = !isPrimary(item, input.value);
+                });
             }
 
             function optionByKey(item, key) {
@@ -3082,6 +3148,21 @@
                         list.splice(at, 1);
                     }
                     answers[id] = list;
+
+                    /* An `only` answer and the rest cannot both stand. */
+                    var current = QUESTIONS[step];
+                    if (current.layout !== 'states') {
+                        if (input.checked) {
+                            var picked = optionByKey(current, input.value);
+                            answers[id] = picked && picked.only
+                                ? [input.value]
+                                : list.filter(function (key) {
+                                    var other = optionByKey(current, key);
+                                    return !(other && other.only);
+                                });
+                        }
+                        syncGrid(current);
+                    }
                 }
 
                 /* "Nationwide" and a list of states are the same question answered
@@ -3346,14 +3427,14 @@
             var ANSWER_LABELS = {
                 investor: 'Investor type',
                 sector: 'Sector',
-                objective: 'Objective',
+                objective: 'Objectives',
                 entry: 'Market entry',
                 ticket: 'Ticket size',
                 timeline: 'Timeline',
                 region: 'Region',
                 presence: 'Presence in Nigeria',
                 stage: 'Project stage',
-                concern: 'Main concern'
+                concern: 'Main concerns'
             };
 
             function labelsFor(questionId, keys) {
@@ -3433,9 +3514,10 @@
                                and still be read at a glance. Someone who ticked
                                twenty states gets six and a count, not a column
                                taller than the card beside it. */
-                            labelsFor(item.id, values.slice(0, 6)).map(function (text) {
+                            labelsFor(item.id, values.slice(0, 6)).map(function (text, index) {
                                 return '<span class="block text-[#111827] text-[14px] font-medium leading-5 mt-1.5">' +
-                                    text + '</span>';
+                                    text + (item.primary && index === 0 && values.length > 1
+                                        ? '<span class="quiz-primary">Primary</span>' : '') + '</span>';
                             }).join('') +
                             (values.length > 6
                                 ? '<span class="block text-[#8a9490] text-[13px] leading-5 mt-1.5">and ' +

@@ -1034,6 +1034,15 @@
             white-space: nowrap;
         }
 
+        /* Text no longer animates on scroll (GIZ feedback, 5 Oct 2026): headings
+
+           used to rise line by line out of a mask, paragraphs lit up word by word as
+
+           they were read, and the gold rules drew alongside them. The words are simply
+
+           there. Cards, photographs and the hero keep their one-off arrival. */
+
+
         /* ---- Reading progress ------------------------------------------------------------------------ */
         .rd-progress {
             position: fixed;
@@ -2101,6 +2110,7 @@
             const wrapper = document.getElementById('page-wrapper');
             const closeBtn = document.getElementById('login-close');
             const backdrop = document.getElementById('login-backdrop');
+            const dialog = modal && modal.querySelector('[role="dialog"]');
 
             function openModal(e, view) {
                 if (e) e.preventDefault();
@@ -2119,16 +2129,22 @@
                 modal.classList.remove('hidden');
                 wrapper.classList.add('content-blurred');
                 document.body.style.overflow = 'hidden';
-                // UX-A11-05 (item 88): move focus into the dialog on open.
-                setTimeout(() => { try { closeBtn && closeBtn.focus(); } catch (e) { } }, 0);
+                // Item 88: the focus moves into the dialog, Tab and Shift+Tab
+                // cycle inside it, and the page behind goes inert - there is
+                // nothing back there to tab into any more. release() undoes it.
+                release = window.OSIPModal
+                    ? window.OSIPModal.trap(dialog, { returnTo: lastFocus, focus: closeBtn })
+                    : null;
             }
             let lastFocus = null;
+            let release = null;
             function closeModal() {
                 modal.classList.add('hidden');
                 wrapper.classList.remove('content-blurred');
                 document.body.style.overflow = '';
-                // Return focus to whatever opened the modal.
-                if (lastFocus && typeof lastFocus.focus === 'function') { try { lastFocus.focus(); } catch (e) { } }
+                // Guards out, the page behind live again, and the focus back on
+                // whatever opened the modal.
+                if (release) { release(); release = null; }
                 lastFocus = null;
             }
 
@@ -2141,18 +2157,12 @@
 
             if (closeBtn) closeBtn.addEventListener('click', closeModal);
             if (backdrop) backdrop.addEventListener('click', closeModal);
+            // Esc from the page around the dialog. Esc pressed inside the frame
+            // belongs to the frame's own document and never arrives here, so
+            // Login.html posts 'osip-close' for it instead.
             document.addEventListener('keydown', (e) => {
                 if (modal.classList.contains('hidden')) return;
-                if (e.key === 'Escape') { closeModal(); return; }
-                // Focus trap across the host-level focusables (close button + iframe);
-                // Tab inside the iframe is handled by the Login page's own document.
-                if (e.key === 'Tab') {
-                    const f = [closeBtn, frame].filter(Boolean);
-                    if (!f.length) return;
-                    const first = f[0], last = f[f.length - 1];
-                    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-                    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-                }
+                if (e.key === 'Escape' || e.key === 'Esc') closeModal();
             });
 
             // Lets Login.html close the modal after auth (window.parent.postMessage)
@@ -2404,6 +2414,7 @@
             const triggers = Array.from(document.querySelectorAll('[data-lightbox-src]'));
             if (!triggers.length) return;
             let idx = 0;
+            let release = null;
             function show(i) {
                 idx = (i + triggers.length) % triggers.length;
                 const btn = triggers[idx];
@@ -2412,11 +2423,16 @@
                 cap.textContent = btn.dataset.caption || '';
                 lb.classList.add('is-open');
                 document.body.style.overflow = 'hidden';
+                // Item 88: Tab stays on the viewer's own three buttons, and the
+                // focus goes back to the thumbnail when it closes. Only the first
+                // open arms it - stepping to a neighbour keeps the same trap.
+                if (!release && window.OSIPModal) release = window.OSIPModal.trap(lb, { returnTo: btn });
             }
             function close() {
                 lb.classList.remove('is-open');
                 img.removeAttribute('src');
                 document.body.style.overflow = '';
+                if (release) { release(); release = null; }
             }
             triggers.forEach((b, i) => b.addEventListener('click', () => show(i)));
             lb.querySelector('.lightbox-close').addEventListener('click', close);
@@ -2512,7 +2528,7 @@
                 var wrap = document.getElementById('page-wrapper');
                 var main = wrap ? wrap.querySelector('main') : null;
                 if (!main) { releaseIntro(); return; }
-                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                
                 var EASE = 'expo.out';
                 function all(root, sel) { return root ? Array.prototype.slice.call(root.querySelectorAll(sel)) : []; }
                 function open(el) { return el && !el.closest('.show-when-unlocked'); }
@@ -2584,37 +2600,17 @@
                 all(main, ':scope > section h2').forEach(function (h) {
                     if (!open(h) || (hero && hero.contains(h))) return;
                     if (!hasSplit || h.children.length) {
-                        gsap.from(h, { opacity: 0, y: 22, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
                         hidden.push(h);
                         return;
                     }
-                    SplitText.create(h, {
-                        type: 'lines', mask: 'lines', linesClass: 'rd-line', autoSplit: true,
-                        onSplit: function (self) {
-                            return gsap.from(self.lines, {
-                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
-                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
-                            });
-                        }
-                    });
                 });
 
                 /* ---- Overview: words light up, the gold rule draws alongside ----------- */
                 all(main, ':scope > section > div.space-y-4').forEach(function (block) {
                     if (!open(block)) return;
                     drawn.push(block);
-                    gsap.fromTo(block, { '--rd-draw': 0 }, {
-                        '--rd-draw': 1, ease: 'none',
-                        scrollTrigger: { trigger: block, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                     if (!hasSplit) return;
                     all(block, ':scope > p').forEach(function (p) {
-                        var words = SplitText.create(p, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
-                        hidden = hidden.concat(words);
-                        gsap.fromTo(words, { opacity: 0.2 }, {
-                            opacity: 1, ease: 'none', stagger: 0.1,
-                            scrollTrigger: { trigger: p, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                        });
                     });
                 });
 
@@ -2669,36 +2665,10 @@
                     ScrollTrigger.create({ trigger: el, start: 'top 92%', once: true, onEnter: function () { countUp(el); } });
                 });
 
-                /* ---- Cursor: a gold highlighter over headings, a ring over cards --------- */
-                if (fine) {
-                    var cursor = document.createElement('div');
-                    cursor.className = 'rd-cursor';
-                    cursor.setAttribute('aria-hidden', 'true');
-                    var dot = document.createElement('div');
-                    dot.className = 'rd-cursor-dot';
-                    cursor.appendChild(dot);
-                    document.body.appendChild(cursor);
-                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
-                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
-                    var placed = false;
-                    window.addEventListener('pointermove', function (e) {
-                        if (e.pointerType && e.pointerType !== 'mouse') return;
-                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
-                        toX(e.clientX);
-                        toY(e.clientY);
-                    }, { passive: true });
-                    var off = function () { cursor.removeAttribute('data-mode'); };
-                    function target(el, mode) {
-                        el.addEventListener('pointerenter', function () {
-                            cursor.setAttribute('data-mode', mode);
-                            cursor.setAttribute('data-look', mode);
-                        });
-                        el.addEventListener('pointerleave', off);
-                    }
-                    keep([h1]).concat(all(main, 'h2')).forEach(function (h) { target(h, 'text'); });
-                    all(main, 'div.rounded-lg.bg-brand-sidebar.text-center, [data-purpose="meta-item"]').forEach(function (c) { target(c, 'ring'); });
-                    document.documentElement.addEventListener('mouseleave', off);
-                }
+                /* ---- Cursor (removed 5 Oct 2026) --------------------------------------
+                   GIZ feedback: "A second curser is not needed (the yellow spot that jumps
+                   in and out)". The page uses the reader's own pointer. */
+
 
                 /* ---- Sign-in reveals the data room: re-measure the page below it -------- */
                 if (window.MutationObserver) {

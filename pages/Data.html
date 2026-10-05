@@ -1552,6 +1552,15 @@
             overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
         }
 
+        /* Text no longer animates on scroll (GIZ feedback, 5 Oct 2026): headings
+
+           used to rise line by line out of a mask, paragraphs lit up word by word as
+
+           they were read, and the gold rules drew alongside them. The words are simply
+
+           there. Cards, photographs and the hero keep their one-off arrival. */
+
+
         /* ---- Figures: set in the serif ---------------------------------------------- */
         .rd main .kf2-value {
             font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important; font-weight: 400 !important;
@@ -4122,43 +4131,15 @@
                 /* ---- Headings: lines rise out of a mask ------------------------------- */
                 inRest('h2, h3').forEach(function (h) {
                     if (!hasSplit) {
-                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
                         hidden.push(h);
                         return;
                     }
-                    SplitText.create(h, {
-                        type: 'lines', mask: 'lines', linesClass: 'rd-line', autoSplit: true,
-                        onSplit: function (self) {
-                            return gsap.from(self.lines, {
-                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
-                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
-                            });
-                        }
-                    });
                 });
 
-                /* ---- Reading text: the words light up in reading order --------------- */
-                inRest('.rd-read').forEach(function (t) {
-                    if (!hasSplit) {
-                        gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
-                        hidden.push(t);
-                        return;
-                    }
-                    var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
-                    hidden = hidden.concat(words);
-                    gsap.fromTo(words, { opacity: 0.2 }, {
-                        opacity: 1, ease: 'none', stagger: 0.1,
-                        scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
-                });
 
                 /* ---- Gold rules draw down as the text beside them is read ------------ */
                 inRest('.rd-rule, .osip-note').forEach(function (el) {
                     drawn.push(el);
-                    gsap.fromTo(el, { '--rd-draw': 0 }, {
-                        '--rd-draw': 1, ease: 'none',
-                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                 });
 
                 /* ---- Cards arrive in the order they sit --------------------------------
@@ -4178,6 +4159,14 @@
                 }
                 batch(cards, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09 });
                 batch(inRest('.osip-note-grid > .osip-note'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1, ease: EASE, stagger: 0.08 });
+
+                /* The map, the charts and the webfonts all land after this ran, and each
+                   one moves everything below it. Without a recount the triggers keep the
+                   positions the page had while it was still loading, which is the other
+                   way a block lights up late - or, once its start has been scrolled past
+                   unnoticed, not at all. */
+                window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+                setTimeout(function () { ScrollTrigger.refresh(); }, 1600);
 
                 /* ---- Figures count up to their value ----------------------------------
                    The real figure stays in a screen-reader copy while the digits run,
@@ -4215,46 +4204,10 @@
                     ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: function () { countUp(el); } });
                 });
 
-                /* ---- Cursor ----------------------------------------------------------- */
-                if (fine) {
-                    var cursor = document.createElement('div');
-                    cursor.className = 'rd-cursor';
-                    cursor.setAttribute('aria-hidden', 'true');
-                    var dot = document.createElement('div');
-                    dot.className = 'rd-cursor-dot';
-                    var label = document.createElement('span');
-                    label.className = 'rd-cursor-label';
-                    dot.appendChild(label);
-                    cursor.appendChild(dot);
-                    document.body.appendChild(cursor);
-                    html.classList.add('rd-cursor-on');
+                /* ---- Cursor (removed 5 Oct 2026) --------------------------------------
+                   GIZ feedback: "A second curser is not needed (the yellow spot that jumps
+                   in and out)". The page uses the reader's own pointer. */
 
-                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
-                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
-                    var placed = false;
-                    window.addEventListener('pointermove', function (e) {
-                        if (e.pointerType && e.pointerType !== 'mouse') return;
-                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
-                        toX(e.clientX);
-                        toY(e.clientY);
-                    }, { passive: true });
-
-                    var off = function () { cursor.removeAttribute('data-mode'); };
-                    function target(el, mode, text) {
-                        el.setAttribute('data-rd-cursor', mode);
-                        el.addEventListener('pointerenter', function () {
-                            cursor.setAttribute('data-mode', mode);
-                            cursor.setAttribute('data-look', mode);
-                            label.textContent = text || '';
-                        });
-                        el.addEventListener('pointerleave', off);
-                    }
-                    inRest('a[target="_blank"].rounded-lg').forEach(function (a) { target(a, 'label', 'Open'); });
-                    inRest('h2').forEach(function (h) { target(h, 'text'); });
-                    cards.forEach(function (c) { target(c, 'ring'); });
-                    inRest('.kf2-card').forEach(function (c) { target(c, 'ring'); });
-                    document.documentElement.addEventListener('mouseleave', off);
-                }
 
                 /* ---- Magnetic buttons ------------------------------------------------- */
                 if (fine) {

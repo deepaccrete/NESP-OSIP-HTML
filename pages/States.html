@@ -1476,6 +1476,15 @@
             white-space: nowrap;
         }
 
+        /* Text no longer animates on scroll (GIZ feedback, 5 Oct 2026): headings
+
+           used to rise line by line out of a mask, paragraphs lit up word by word as
+
+           they were read, and the gold rules drew alongside them. The words are simply
+
+           there. Cards, photographs and the hero keep their one-off arrival. */
+
+
         /* ---- Reading progress ------------------------------------------------------ */
         .rd-progress {
             position: fixed;
@@ -3228,38 +3237,12 @@
                 });
 
                 /* ---- Headings: lines rise out of a mask; zone names simply arrive --- */
-                inRest('h2').forEach(function (h) {
-                    var zoneName = h.classList.contains('osip-st-zonename');
-                    if (!hasSplit || zoneName) {
-                        gsap.from(h, { opacity: 0, y: zoneName ? 16 : 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 90%', once: true } });
-                        hidden.push(h);
-                        return;
-                    }
-                    SplitText.create(h, {
-                        type: 'lines', mask: 'lines', linesClass: 'rd-line', autoSplit: true,
-                        onSplit: function (self) {
-                            return gsap.from(self.lines, {
-                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
-                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
-                            });
-                        }
-                    });
-                });
+                /* Headings, including the zone names, are simply there (GIZ feedback). */
 
                 /* ---- Section intros: words light up, the gold rule draws alongside --- */
                 inRest('.mb-8 > h2 + p, .max-w-2xl > h2 + p').forEach(function (p) {
                     drawn.push(p);
-                    gsap.fromTo(p, { '--rd-draw': 0 }, {
-                        '--rd-draw': 1, ease: 'none',
-                        scrollTrigger: { trigger: p, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                     if (!hasSplit) return;
-                    var words = SplitText.create(p, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
-                    hidden = hidden.concat(words);
-                    gsap.fromTo(words, { opacity: 0.2 }, {
-                        opacity: 1, ease: 'none', stagger: 0.1,
-                        scrollTrigger: { trigger: p, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                 });
 
                 /* ---- Things arrive in the order they sit -------------------------------- */
@@ -3276,7 +3259,7 @@
                 var rise = { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.08 };
                 batch(inRest('.osip-st-coverage, div.mt-8.border.rounded-xl, .osip-st-legend, .osip-map-panel, .osip-map-key, .osip-map-credit'), { opacity: 0, y: 32 }, rise);
                 batch(inRest('div.mt-8.border.rounded-xl li'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.08 });
-                batch(inRest('.osip-st-toolbar, .osip-st-count'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.08 });
+                batch(inRest('.osip-st-toolbar'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.08 });
                 batch(inRest('.osip-state-card'), { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 1, ease: EASE, stagger: 0.05 });
                 batch(inRest('section:last-of-type a.bg-\\[\\#004225\\]'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 1, ease: EASE });
 
@@ -3351,48 +3334,10 @@
                 all(document, '.osip-st-chips button').forEach(function (chip) { chip.addEventListener('click', refreshSoon); });
                 window.addEventListener('hashchange', refreshSoon);
 
-                /* ---- Cursor ------------------------------------------------------------------ */
-                if (fine) {
-                    var cursor = document.createElement('div');
-                    cursor.className = 'rd-cursor';
-                    cursor.setAttribute('aria-hidden', 'true');
-                    var dot = document.createElement('div');
-                    dot.className = 'rd-cursor-dot';
-                    var label = document.createElement('span');
-                    label.className = 'rd-cursor-label';
-                    dot.appendChild(label);
-                    cursor.appendChild(dot);
-                    document.body.appendChild(cursor);
-                    html.classList.add('rd-cursor-on');
+                /* ---- Cursor (removed 5 Oct 2026) --------------------------------------
+                   GIZ feedback: "A second curser is not needed (the yellow spot that jumps
+                   in and out)". The page uses the reader's own pointer. */
 
-                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
-                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
-                    var placed = false;
-                    window.addEventListener('pointermove', function (e) {
-                        if (e.pointerType && e.pointerType !== 'mouse') return;
-                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
-                        toX(e.clientX);
-                        toY(e.clientY);
-                    }, { passive: true });
-
-                    var off = function () { cursor.removeAttribute('data-mode'); };
-                    function target(el, mode, text) {
-                        el.setAttribute('data-rd-cursor', mode);
-                        el.addEventListener('pointerenter', function () {
-                            cursor.setAttribute('data-mode', mode);
-                            cursor.setAttribute('data-look', mode);
-                            label.textContent = text || '';
-                        });
-                        el.addEventListener('pointerleave', off);
-                    }
-                    inRest('h2').forEach(function (h) { target(h, 'text'); });
-                    inRest('.osip-state-card.is-live').forEach(function (c) { target(c, 'label', 'Open'); });
-                    inRest('.osip-state-card.is-pending').forEach(function (c) {
-                        target(c, 'ring');
-                        c.addEventListener('click', off);
-                    });
-                    document.documentElement.addEventListener('mouseleave', off);
-                }
 
                 /* ---- Magnetic buttons ------------------------------------------------------ */
                 if (fine) {

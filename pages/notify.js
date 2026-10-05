@@ -16,7 +16,11 @@
 // The unread mark is per tab (sessionStorage), so opening the card quiets the
 // badge for that visit and a fresh visit shows it again.
 (function () {
-    if (window.self !== window.top) return;          // not inside the login modal
+    // No iframe guard: nav.js only loads this file once it has drawn the header,
+    // and the pages that are embedded in a frame (Login.html in the login modal,
+    // the InvestNow steps) never draw one. Refusing to run in a frame only hid
+    // the bell from the phone-simulator extensions, which show a page in an
+    // iframe at phone width.
     if (document.getElementById('osip-alert-card')) return;
 
     var base = 'pages/';

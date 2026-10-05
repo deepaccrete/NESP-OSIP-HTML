@@ -790,7 +790,7 @@
                     var EASE = 'expo.out';
 
                     if (window.Lenis) {
-                        var lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+                        var lenis = new Lenis({ lerp: 0.09, smoothWheel: true, syncTouch: false });  /* the settings the rest of the site uses (Overall 4, 5 Oct 2026) */
                         window.__rdLenis = lenis;
                         lenis.on('scroll', ScrollTrigger.update);
                         gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
@@ -841,22 +841,11 @@
                             onEnter: function (els) { gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09, clearProps: 'transform' }); } });
                     }
                     var lead = document.querySelector('.ab-cards-lead');
-                    if (lead) gsap.from(lead, { y: 20, opacity: 0, duration: 1, ease: EASE, scrollTrigger: { trigger: lead, start: 'top 90%', once: true } });
 
                     /* closing band: heading rises, the text lights up word by word as it is read */
                     var invite = document.querySelector('.ab-invite');
                     if (invite) {
-                        gsap.from([invite.querySelector('.ab-eyebrow'), invite.querySelector('h2')], { y: 30, opacity: 0, duration: 1.2, ease: EASE, stagger: 0.1,
-                            scrollTrigger: { trigger: invite, start: 'top 75%', once: true } });
                         var text = invite.querySelector('.ab-invite-text');
-                        if (window.SplitText && text) {
-                            var ws = SplitText.create(text, { type: 'words', wordsClass: 'rd-word', aria: 'none' });
-                            text.setAttribute('aria-label', text.textContent.replace(/\s+/g, ' ').trim());
-                            gsap.fromTo(ws.words, { opacity: 0.22 }, { opacity: 1, ease: 'none', stagger: 0.1,
-                                scrollTrigger: { trigger: text, start: 'top 80%', end: 'bottom 50%', scrub: 0.5 } });
-                        }
-                        gsap.from(invite.querySelector('.ab-invite-close'), { y: 16, opacity: 0, duration: 1, ease: EASE,
-                            scrollTrigger: { trigger: invite.querySelector('.ab-invite-close'), start: 'top 92%', once: true } });
                     }
 
                     window.addEventListener('load', function () { ScrollTrigger.refresh(); });

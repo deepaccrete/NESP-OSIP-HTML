@@ -604,6 +604,15 @@
             pointer-events: none;
         }
 
+        /* Text no longer animates on scroll (GIZ feedback, 5 Oct 2026): headings
+
+           used to rise line by line out of a mask, paragraphs lit up word by word as
+
+           they were read, and the gold rules drew alongside them. The words are simply
+
+           there. Cards, photographs and the hero keep their one-off arrival. */
+
+
         /* ---- Reading progress ---------------------------------------------------------- */
         .rd-progress {
             position: fixed; left: 0; top: 0; right: 0; z-index: 80;
@@ -1345,44 +1354,23 @@
                     if (CFG.headingSkip && h.closest(CFG.headingSkip)) return;
                     if (!h.getClientRects().length) return; // not rendered (hidden panel)
                     if (!hasSplit) {
-                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
                         hidden.push(h);
                         return;
                     }
-                    SplitText.create(h, {
-                        type: 'lines', mask: 'lines', linesClass: 'rd-line', autoSplit: true,
-                        onSplit: function (self) {
-                            return gsap.from(self.lines, {
-                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
-                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
-                            });
-                        }
-                    });
                 });
 
                 /* ---- Reading text: the words light up in reading order ----------------
                    Words wait faint rather than invisible; words only, no aria rewriting. */
                 inRest(CFG.read).forEach(function (t) {
                     if (!hasSplit) {
-                        gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
                         hidden.push(t);
                         return;
                     }
-                    var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
-                    hidden = hidden.concat(words);
-                    gsap.fromTo(words, { opacity: 0.2 }, {
-                        opacity: 1, ease: 'none', stagger: 0.1,
-                        scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                 });
 
                 /* ---- Gold rules draw down as the text beside them is read ------------ */
                 inRest(CFG.rules).forEach(function (el) {
                     drawn.push(el);
-                    gsap.fromTo(el, { '--rd-draw': 0 }, {
-                        '--rd-draw': 1, ease: 'none',
-                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                 });
 
                 /* ---- Cards arrive in the order they sit -------------------------------- */
@@ -1441,45 +1429,10 @@
                     ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: function () { countUp(el); } });
                 });
 
-                /* ---- Cursor ----------------------------------------------------------- */
-                if (fine) {
-                    var cursor = document.createElement('div');
-                    cursor.className = 'rd-cursor';
-                    cursor.setAttribute('aria-hidden', 'true');
-                    var dot = document.createElement('div');
-                    dot.className = 'rd-cursor-dot';
-                    var label = document.createElement('span');
-                    label.className = 'rd-cursor-label';
-                    dot.appendChild(label);
-                    cursor.appendChild(dot);
-                    document.body.appendChild(cursor);
-                    html.classList.add('rd-cursor-on');
+                /* ---- Cursor (removed 5 Oct 2026) --------------------------------------
+                   GIZ feedback: "A second curser is not needed (the yellow spot that jumps
+                   in and out)". The page uses the reader's own pointer. */
 
-                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
-                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
-                    var placed = false;
-                    window.addEventListener('pointermove', function (e) {
-                        if (e.pointerType && e.pointerType !== 'mouse') return;
-                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
-                        toX(e.clientX);
-                        toY(e.clientY);
-                    }, { passive: true });
-
-                    var off = function () { cursor.removeAttribute('data-mode'); };
-                    function target(el, mode, text) {
-                        el.setAttribute('data-rd-cursor', mode);
-                        el.addEventListener('pointerenter', function () {
-                            cursor.setAttribute('data-mode', mode);
-                            cursor.setAttribute('data-look', mode);
-                            label.textContent = text || '';
-                        });
-                        el.addEventListener('pointerleave', off);
-                    }
-                    (CFG.cursorLabel || []).forEach(function (c) { inRest(c.sel).forEach(function (el) { target(el, 'label', c.text); }); });
-                    inRest('h2').forEach(function (h) { target(h, 'text'); });
-                    cardEls.forEach(function (c) { if (c.cursor) target(c.el, c.cursor, c.label); });
-                    document.documentElement.addEventListener('mouseleave', off);
-                }
 
                 /* ---- Magnetic buttons ------------------------------------------------- */
                 if (fine && CFG.magnetic) {

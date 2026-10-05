@@ -423,6 +423,16 @@
             update();
         })();
     </script>
+    <!-- Item 88: inside the invest-flow popup, Esc is this document's own event
+         and never reaches the page holding the frame, so the frame says so. -->
+    <script>
+        if (window.parent && window.parent !== window) {
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Escape' && e.key !== 'Esc') return;
+                try { window.parent.postMessage('investflow-close', '*'); } catch (err) { }
+            });
+        }
+    </script>
 </body>
 
 </html>

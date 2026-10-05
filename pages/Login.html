@@ -690,6 +690,30 @@
             font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
         }
 
+        /* Phones: "Government" is half as long again as "Private", and three chips
+           across a phone leave about 100px each - at 360px the word ran past the
+           edge of its chip, and at 390px it sat hard against it. The icon moves
+           above the label, which gives the word the chip's whole width, and the
+           label is sized with the screen so it still fits at 320px. */
+        @media (max-width: 480px) {
+            .org-chip-face,
+            .rd .org-chip-face {
+                flex-direction: column;
+                gap: 4px;
+                height: auto;
+                min-height: 62px;
+                padding: 8px 6px;
+                font-size: clamp(11.5px, 3.3vw, 13.5px);
+                line-height: 1.2;
+                text-align: center;
+            }
+
+            .org-chip-face > span:last-child { min-width: 0; }
+
+            .org-chip-face .material-symbols-outlined,
+            .rd .org-chip-face .material-symbols-outlined { font-size: 19px !important; }
+        }
+
         .rd .org-chip:hover .org-chip-face {
             border-color: var(--rd-green-2);
             color: var(--rd-green);
@@ -1042,25 +1066,25 @@
                              remember for an audience that already identifies itself by
                              work email, and which nothing on the site ever displayed. -->
                         <div>
-                            <label class="form-label" for="login-email">Email</label>
+                            <label class="form-label" for="login-email">Email <span class="text-error" aria-hidden="true">*</span></label>
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">mail</span>
                                 <input class="form-input pl-11" id="login-email" placeholder="you@company.com"
-                                    type="email" autocomplete="email" inputmode="email" />
+                                    type="email" autocomplete="email" inputmode="email" required aria-required="true" />
                             </div>
                         </div>
 
                         <!-- Password -->
                         <div>
                             <div class="flex justify-between items-center mb-1.5">
-                                <label class="form-label" style="margin-bottom:0;" for="login-password">Password</label>
+                                <label class="form-label" style="margin-bottom:0;" for="login-password">Password <span class="text-error" aria-hidden="true">*</span></label>
                                 <a class="text-[11px] font-bold text-on-tertiary-fixed-variant tracking-wide hover:underline"
                                     href="ForgotPassword.html" target="_top">Forgot password?</a>
                             </div>
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">lock</span>
                                 <input class="form-input pl-11 pr-12" id="login-password" placeholder="Enter your password"
-                                    type="password" />
+                                    type="password" autocomplete="current-password" required aria-required="true" />
                                 <button class="form-trailing" onclick="togglePassword('login-password','login-eye-icon')"
                                     type="button">
                                     <span class="material-symbols-outlined" id="login-eye-icon">visibility_off</span>
@@ -1070,7 +1094,7 @@
 
                         <!-- Captcha -->
                         <div>
-                            <label class="form-label">Security check</label>
+                            <label class="form-label" for="login-captcha">Security check <span class="text-error" aria-hidden="true">*</span></label>
                             <div class="grid grid-cols-[1fr_auto] gap-2 mb-2">
                                 <div class="captcha-tile h-12 rounded-xl border border-outline-variant flex items-center justify-center select-none">
                                     <span class="captcha-text">NEDEA</span>
@@ -1084,7 +1108,9 @@
                             </div>
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">verified_user</span>
-                                <input class="form-input pl-11" placeholder="Type the characters above" type="text" />
+                                <input class="form-input pl-11" id="login-captcha" name="captcha"
+                                    placeholder="Type the characters above" type="text"
+                                    autocomplete="off" required aria-required="true" />
                             </div>
                         </div>
 
@@ -1118,10 +1144,10 @@
                     <form class="space-y-4" id="registrationForm" onsubmit="event.preventDefault(); osipAuth();">
                         <!-- Identity -->
                         <div>
-                            <label class="form-label" for="identity">Who are you?</label>
+                            <label class="form-label" for="identity">Who are you? <span class="text-error" aria-hidden="true">*</span></label>
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">badge</span>
-                                <select class="form-input pl-11 pr-10 appearance-none cursor-pointer" id="identity">
+                                <select class="form-input pl-11 pr-10 appearance-none cursor-pointer" id="identity" name="identity" required aria-required="true">
                                     <option disabled selected value="">Please select your role</option>
                                     <option value="investor">Institutional Investor</option>
                                     <option value="developer">Project Developer</option>
@@ -1134,27 +1160,28 @@
 
                         <!-- Org Type chips -->
                         <div>
-                            <label class="form-label">Organisation type</label>
-                            <div class="grid grid-cols-3 gap-2">
+                            <span class="form-label" id="org-type-label">Organisation type <span class="text-error" aria-hidden="true">*</span></span>
+                            <div class="grid grid-cols-3 gap-2" role="radiogroup"
+                                aria-labelledby="org-type-label" aria-required="true">
                                 <label class="org-chip">
-                                    <input class="peer sr-only" name="org_type" type="radio" value="individual"
-                                        onchange="toggleCompanyName()" />
+                                    <input class="peer sr-only" name="org_type" type="radio" value="individual" id="org-type-individual"
+                                        onchange="toggleCompanyName()" required aria-required="true" />
                                     <span class="org-chip-face">
                                         <span class="material-symbols-outlined">person</span>
                                         <span>Individual</span>
                                     </span>
                                 </label>
                                 <label class="org-chip">
-                                    <input class="peer sr-only" name="org_type" type="radio" value="private"
-                                        onchange="toggleCompanyName()" />
+                                    <input class="peer sr-only" name="org_type" type="radio" value="private" id="org-type-private"
+                                        onchange="toggleCompanyName()" required aria-required="true" />
                                     <span class="org-chip-face">
                                         <span class="material-symbols-outlined">corporate_fare</span>
                                         <span>Private</span>
                                     </span>
                                 </label>
                                 <label class="org-chip">
-                                    <input class="peer sr-only" name="org_type" type="radio" value="government"
-                                        onchange="toggleCompanyName()" />
+                                    <input class="peer sr-only" name="org_type" type="radio" value="government" id="org-type-government"
+                                        onchange="toggleCompanyName()" required aria-required="true" />
                                     <span class="org-chip-face">
                                         <span class="material-symbols-outlined">account_balance</span>
                                         <span>Government</span>
@@ -1165,20 +1192,21 @@
 
                         <!-- Company / Ministry name -->
                         <div id="company-name-field" class="hidden">
-                            <label id="company-name-label" class="form-label" for="company_name">Company Name</label>
+                            <label id="company-name-label" class="form-label" for="company_name">Company Name <span class="text-error" aria-hidden="true">*</span></label>
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">domain</span>
-                                <input class="form-input pl-11" id="company_name"
-                                    placeholder="Enter your organisation's name" type="text" />
+                                <input class="form-input pl-11" id="company_name" name="company_name"
+                                    placeholder="Enter your organisation's name" type="text"
+                                    aria-required="true" />
                             </div>
                         </div>
 
                         <!-- Country -->
                         <div>
-                            <label class="form-label" for="country">Country</label>
+                            <label class="form-label" for="country">Country <span class="text-error" aria-hidden="true">*</span></label>
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">public</span>
-                                <select class="form-input pl-11 pr-10 appearance-none cursor-pointer" id="country">
+                                <select class="form-input pl-11 pr-10 appearance-none cursor-pointer" id="country" name="country" required aria-required="true">
                                     <option disabled selected value="">Please select your country</option>
                                     <option value="NG">Nigeria</option>
                                     <option value="US">United States</option>
@@ -1195,13 +1223,13 @@
 
                         <!-- Email + Verify -->
                         <div>
-                            <label class="form-label" for="email">Email <span
+                            <label class="form-label" for="email">Email <span class="text-error" aria-hidden="true">*</span> <span
                                     class="font-normal normal-case tracking-normal text-on-surface-variant">&mdash; you
                                     sign in with this</span></label>
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">mail</span>
-                                <input class="form-input pl-11 pr-24" id="email" placeholder="you@company.com"
-                                    type="email" autocomplete="email" inputmode="email" />
+                                <input class="form-input pl-11 pr-24" id="email" name="email" placeholder="you@company.com"
+                                    type="email" autocomplete="email" inputmode="email" required aria-required="true" />
                                 <button
                                     class="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 px-3.5 rounded-lg bg-[#ffdf9e] text-[#5b4300] text-[11px] font-bold tracking-[0.06em] hover:brightness-95 transition-all"
                                     type="button">VERIFY</button>
@@ -1210,23 +1238,23 @@
 
                         <!-- Contact Number -->
                         <div>
-                            <label class="form-label" for="reg-phone">Contact Number</label>
+                            <label class="form-label" for="reg-phone">Contact Number <span class="text-error" aria-hidden="true">*</span></label>
                             <div class="form-control">
                                 <span class="material-symbols-outlined form-icon">call</span>
                                 <input class="form-input pl-11" id="reg-phone" name="phone"
                                     placeholder="+234 800 000 0000" type="tel" autocomplete="tel"
-                                    inputmode="tel" pattern="[+0-9\s\-()]{7,}" />
+                                    inputmode="tel" pattern="[+0-9\s\-()]{7,}" required aria-required="true" />
                             </div>
                         </div>
 
                         <!-- Passwords -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
-                                <label class="form-label" for="reg-password">Password</label>
+                                <label class="form-label" for="reg-password">Password <span class="text-error" aria-hidden="true">*</span></label>
                                 <div class="form-control">
                                     <span class="material-symbols-outlined form-icon">lock</span>
-                                    <input class="form-input pl-11 pr-12" id="reg-password" placeholder="Create password"
-                                        type="password" />
+                                    <input class="form-input pl-11 pr-12" id="reg-password" name="password" placeholder="Create password"
+                                        type="password" autocomplete="new-password" required aria-required="true" />
                                     <button class="form-trailing"
                                         onclick="togglePassword('reg-password','eye-icon-1')" type="button">
                                         <span class="material-symbols-outlined" id="eye-icon-1">visibility_off</span>
@@ -1234,11 +1262,12 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="form-label" for="confirm_password">Confirm</label>
+                                <label class="form-label" for="confirm_password">Confirm <span class="text-error" aria-hidden="true">*</span></label>
                                 <div class="form-control">
                                     <span class="material-symbols-outlined form-icon">lock_reset</span>
-                                    <input class="form-input pl-11 pr-12" id="confirm_password"
-                                        placeholder="Repeat password" type="password" />
+                                    <input class="form-input pl-11 pr-12" id="confirm_password" name="confirm_password"
+                                        placeholder="Repeat password" type="password"
+                                        autocomplete="new-password" required aria-required="true" />
                                     <button class="form-trailing"
                                         onclick="togglePassword('confirm_password','eye-icon-2')" type="button">
                                         <span class="material-symbols-outlined" id="eye-icon-2">visibility_off</span>
@@ -1251,7 +1280,7 @@
                         <label class="flex items-start gap-3 cursor-pointer pt-1">
                             <input
                                 class="mt-0.5 w-[18px] h-[18px] rounded-md text-primary-container border-outline-variant focus:ring-primary-fixed cursor-pointer"
-                                id="terms" type="checkbox" />
+                                id="terms" name="terms" type="checkbox" required aria-required="true" />
                             <span class="text-on-surface-variant text-[12.5px] leading-snug">
                                 By registering you agree to OSIP's
                                 <!-- New tab: a reader halfway through this form keeps it, and inside
@@ -1373,6 +1402,10 @@
             const label = document.getElementById('company-name-label');
             const showField = selected && (selected.value === 'private' || selected.value === 'government');
             field.classList.toggle('hidden', !showField);
+            /* Required only while it is on screen: a required field inside a hidden
+               block cannot be filled or focused, and the browser would refuse to
+               submit the form without ever saying why (Detail 11). */
+            input.required = !!showField;
             if (showField) {
                 const isGov = selected.value === 'government';
                 label.textContent = isGov ? 'Ministry Name' : 'Company Name';
@@ -1392,6 +1425,15 @@
             if (e.data === 'osip-show-register') showAuthView('register');
             else if (e.data === 'osip-show-login') showAuthView('login');
         });
+
+        // Item 88: inside the popup, Esc is this document's own event and never
+        // reaches the page holding the frame, so the frame says so itself.
+        if (window.parent && window.parent !== window) {
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Escape' && e.key !== 'Esc') return;
+                try { window.parent.postMessage('osip-close', '*'); } catch (err) { }
+            });
+        }
 
         // Click-through auth: no fields required, because there is no account
         // system behind this prototype yet. What it does do is remember the
@@ -1605,6 +1647,9 @@
                         e.preventDefault();
                         if (list) pick(active); else open();
                     } else if (k === 'Escape' || k === 'Tab') {
+                        // An Esc that shut this list is spent: it must not also
+                        // close the login popup this page sits in (item 88).
+                        if (list && k === 'Escape') e.stopPropagation();
                         close();
                     }
                 });

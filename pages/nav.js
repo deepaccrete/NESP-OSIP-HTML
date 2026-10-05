@@ -130,6 +130,113 @@
     },
     signOut: function () { writeSession(null); }
   };
+  // ---- Modal focus (GIZ feedback, item 88) --------------------------------
+  // A box that only looks as if it is on top is not on top for the keyboard.
+  // Tab used to walk straight out of the login popup and on through the page
+  // behind the blur, where the reader can neither see the focus ring nor find
+  // the way back in. Every popup on the site goes through this instead.
+  //
+  // trap(dialog, opts) does four things and hands back the undo: the focus
+  // moves into the dialog, Tab and Shift+Tab cycle inside it, the rest of the
+  // page is made inert, and on release the focus goes home to whatever opened
+  // it. Esc stays with each dialog, all of which already had one.
+  //
+  // A popup holding an iframe (login, the invest flow) cannot be kept in by
+  // watching keys: a key pressed inside the frame is the frame's own event and
+  // never reaches this document, which is why the trap written here before let
+  // go the moment the reader reached the form. Two one-pixel guards sit at
+  // either end of the dialog instead - whichever one the frame hands the focus
+  // to sends it straight back to the far end of the dialog.
+  var FOCUSABLE = 'a[href],area[href],button:not([disabled]),input:not([disabled]),' +
+    'select:not([disabled]),textarea:not([disabled]),iframe,audio[controls],video[controls],' +
+    '[contenteditable]:not([contenteditable="false"]),[tabindex]:not([tabindex="-1"])';
+
+  function modalGuard() {
+    var g = document.createElement('span');
+    g.tabIndex = 0;
+    g.setAttribute('data-osip-guard', '');
+    g.setAttribute('aria-hidden', 'true');
+    g.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none';
+    return g;
+  }
+
+  window.OSIPModal = {
+    // What a reader can actually reach: on screen, not disabled, not a guard.
+    focusable: function (root) {
+      if (!root) return [];
+      return Array.prototype.filter.call(root.querySelectorAll(FOCUSABLE), function (el) {
+        if (el.hasAttribute('data-osip-guard') || el.type === 'hidden') return false;
+        return el.offsetWidth || el.offsetHeight || el.getClientRects().length;
+      });
+    },
+
+    trapTab: function (e, list) {
+      if (e.key !== 'Tab' || !list.length) return;
+      var at = list.indexOf(document.activeElement);
+      if (e.shiftKey && at <= 0) { e.preventDefault(); list[list.length - 1].focus(); }
+      else if (!e.shiftKey && (at === -1 || at === list.length - 1)) { e.preventDefault(); list[0].focus(); }
+    },
+
+    // opts.returnTo  what the focus goes back to (default: whatever had it)
+    // opts.focus     what takes the focus on open (default: the first control)
+    // opts.restore   false to leave the focus where it is on release
+    trap: function (dialog, opts) {
+      var self = this, o = opts || {};
+      if (!dialog) return function () { };
+      var home = o.returnTo || document.activeElement;
+
+      // Everything else at the top of the page goes inert: out of the tab order
+      // and out of the screen reader, so there is nothing behind to escape to.
+      var host = dialog;
+      while (host.parentNode && host.parentNode !== document.body) host = host.parentNode;
+      var inerted = [];
+      Array.prototype.forEach.call(document.body.children, function (el) {
+        if (el === host || el.contains(dialog)) return;
+        if (/^(SCRIPT|STYLE|LINK|TEMPLATE|NOSCRIPT)$/.test(el.tagName)) return;
+        if (el.hasAttribute('inert')) return;        // already held by something else
+        el.setAttribute('inert', '');
+        try { el.inert = true; } catch (err) { }
+        inerted.push(el);
+      });
+
+      var head = modalGuard(), tail = modalGuard();
+      var bounce = function (end) {
+        return function () {
+          var list = self.focusable(dialog);
+          if (!list.length) return;
+          (end === 'last' ? list[list.length - 1] : list[0]).focus();
+        };
+      };
+      head.addEventListener('focus', bounce('last'));
+      tail.addEventListener('focus', bounce('first'));
+      dialog.insertBefore(head, dialog.firstChild);
+      dialog.appendChild(tail);
+
+      var onKey = function (e) { self.trapTab(e, self.focusable(dialog)); };
+      dialog.addEventListener('keydown', onKey);
+
+      // A beat later: the dialog is shown in the same breath as this call, and
+      // a control cannot take the focus until it is on screen.
+      window.setTimeout(function () {
+        var el = o.focus || self.focusable(dialog)[0];
+        try { el && el.focus(); } catch (err) { }
+      }, 0);
+
+      return function release() {
+        dialog.removeEventListener('keydown', onKey);
+        if (head.parentNode) head.parentNode.removeChild(head);
+        if (tail.parentNode) tail.parentNode.removeChild(tail);
+        inerted.forEach(function (el) {
+          el.removeAttribute('inert');
+          try { el.inert = false; } catch (err) { }
+        });
+        inerted = [];
+        if (o.restore === false) return;
+        if (home && typeof home.focus === 'function') { try { home.focus(); } catch (err) { } }
+      };
+    }
+  };
+
   var url = {
     sectors: base + 'Sector.html',
     // NAV-03: the state overview. Live profiles are links there, every state
@@ -257,7 +364,7 @@
     // else in the file needs to know which shape a menu is: both renderers
     // branch on it once.
     'STATES': {
-      head: 'States & Territories', mega: true, groups: STATE_GROUPS
+      mega: true, groups: STATE_GROUPS
     },
     // 16 Sep 2026: three of five entries used to open the same unfiltered
     // Opportunities page, and Grid Infrastructure had nothing behind it at all -
@@ -286,7 +393,7 @@
     // links to its page. `wide: true` lays a section's entries out in two
     // columns. A `soon: true` section has no page yet and shows as coming soon.
     'RESOURCES': {
-      head: 'Investment Resources', sections: [
+      sections: [
         // UX-NAV-04: all four entries used to open Regulation.html itself, so the
         // menu promised detail and delivered a general page. Each entry now opens
         // the section it names, which REG-01 gave the page.
@@ -870,6 +977,7 @@
       '.nesp-header .nesp-menu-item .d{display:block;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:14px;line-height:1.45;color:' + INK3 + ';margin-top:2px}',
       '.nesp-header .nesp-menu-item::after{content:"";position:absolute;right:.875rem;top:50%;width:5px;height:5px;border-right:1.5px solid ' + GREEN2 + ';border-top:1.5px solid ' + GREEN2 + ';transform:translate(-5px,-50%) rotate(45deg);opacity:0;transition:transform .3s ease,opacity .3s ease}',
       '.nesp-header .nesp-menu-item:hover::after{transform:translate(0,-50%) rotate(45deg);opacity:.8}',
+      '.nesp-header .nesp-dropdown--nohead{padding-top:.875rem}',
       '.nesp-header .nesp-menu-list{display:grid;grid-template-columns:1fr}',
       '.nesp-header .nesp-dropdown--compact .nesp-menu-item{padding-top:.5rem;padding-bottom:.5rem}',
       '.nesp-header .nesp-dropdown--scroll .nesp-menu-list{max-height:340px;overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin;scrollbar-color:' + LINE2 + ' transparent}',
@@ -938,6 +1046,10 @@
       '@keyframes nespSheetIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}',
       '.nesp-header .nesp-mnav ul{list-style:none;margin:0;padding:0}',
       '.nesp-header .nesp-m-row{display:flex;align-items:center;border-radius:14px;transition:background-color .25s ease}',
+      // A tinted row is a rounded pill (the open section, and the tab for the page
+      // you are on). Two of them next to each other met edge to edge and read as one
+      // torn block, so the rows are held a few pixels apart.
+      '.nesp-header .nesp-mnav > ul > .nesp-m-item + .nesp-m-item{margin-top:5px}',
       // Hover tints only where there is a real pointer: on a phone a tap leaves
       // :hover stuck on the row you touched, which read as a second open section.
       '@media (hover:hover){.nesp-header .nesp-m-row:hover{background:' + TINT + '}}',
@@ -1275,7 +1387,11 @@
       panel.className = 'nesp-dropdown nesp-dropdown--scroll' + (menu.compact ? ' nesp-dropdown--compact' : '');
       body = '<div class="nesp-menu-list">' + items + '</div>';
     }
-    panel.innerHTML = '<div class="nesp-menu-head">' + menu.head + '</div>' + body;
+    // A panel only carries a title where one says something the tab does not.
+    // States and Resources repeated their own tab, so they have none, and the
+    // panel opens straight onto its entries.
+    if (!menu.head) panel.className += ' nesp-dropdown--nohead';
+    panel.innerHTML = (menu.head ? '<div class="nesp-menu-head">' + menu.head + '</div>' : '') + body;
     li.appendChild(panel);
 
     // ---- keyboard (UX-12) ------------------------------------------------
@@ -1407,20 +1523,11 @@
   // out of reach of the Esc that would have closed the thing on top. Tab now
   // cycles within whichever of the two is open, and Esc hands the focus back to
   // the button that opened it.
-  function focusable(root) {
-    return Array.prototype.filter.call(
-      root.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'),
-      function (el) {
-        return el.offsetWidth || el.offsetHeight || el.getClientRects().length;
-      });
-  }
+  // Both of these moved into OSIPModal, so the mobile sheet, the search layer
+  // and every popup on the site agree on what a reader can reach.
+  function focusable(root) { return window.OSIPModal.focusable(root); }
 
-  function trapTab(e, list) {
-    if (e.key !== 'Tab' || !list.length) return;
-    var at = list.indexOf(document.activeElement);
-    if (e.shiftKey && at <= 0) { e.preventDefault(); list[list.length - 1].focus(); }
-    else if (!e.shiftKey && (at === -1 || at === list.length - 1)) { e.preventDefault(); list[0].focus(); }
-  }
+  function trapTab(e, list) { return window.OSIPModal.trapTab(e, list); }
 
   // ---- Mobile sheet open/close -------------------------------------------
   // Panel, button icon and aria-expanded all route through setOpen() so they

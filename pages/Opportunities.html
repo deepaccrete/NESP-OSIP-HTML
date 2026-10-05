@@ -1840,6 +1840,15 @@
             }
         }
 
+        /* Text no longer animates on scroll (GIZ feedback, 5 Oct 2026): headings
+
+           used to rise line by line out of a mask, paragraphs lit up word by word as
+
+           they were read, and the gold rules drew alongside them. The words are simply
+
+           there. Cards, photographs and the hero keep their one-off arrival. */
+
+
         /* ---- Reading progress ------------------------------------------------------------------ */
         .rd-progress {
             position: fixed;
@@ -2183,9 +2192,16 @@
            row and a half. At this spacing each shows its title and about three values,
            with the arrow saying there are more. */
         @media (max-width: 1023px) {
+            /* Phones keep the window - the heading fixed, the values scrolling under
+               it - but the cue is drawn smaller and to one side. At 44px tall and
+               centred it washed the last visible row and put a round arrow over it,
+               which read as a blurred band torn across the panel. The list now ends
+               in a little clear space, the fade is half as deep, and the arrow sits
+               in the corner. */
+
             .rd #sidebar .sidebar-sticky > div:nth-child(2) > * + * { margin-top: 14px !important; }
             .rd #sidebar .filter-group > div:first-child { padding-bottom: 8px; }
-            .rd #sidebar .filter-group > .space-y-2\.5 { padding: 8px 0 4px; }
+            .rd #sidebar .filter-group > .space-y-2\.5 { padding: 8px 0 24px; }
             .rd #sidebar .filter-group > .view-more-btn { margin-top: 4px !important; }
             .rd #sidebar .sidebar-sticky > div:nth-child(2) > :not(.filter-group) { padding-top: 12px !important; }
         }
@@ -2231,6 +2247,26 @@
 
         /* The fade answers any hidden sliver, so a row cut by the box's edge reads as more
            to come rather than as broken; the arrow waits until a whole row is hidden. */
+        /* Phones: the cue drawn smaller and to one side. At 44px tall and centred it
+           washed the last visible row and put a round arrow over it, which read as a
+           blurred band torn across the panel. Set here, after the rules it overrides. */
+        @media (max-width: 1023px) {
+            .rd #sidebar .filter-more-cue {
+                height: 30px;
+                justify-content: flex-end;
+                padding: 0 6px 3px 0;
+                background: linear-gradient(to bottom, rgba(237, 234, 227, 0), var(--rd-paper-2, #edeae3) 88%);
+            }
+
+            .rd #sidebar .filter-more-cue button {
+                width: 24px;
+                height: 24px;
+                box-shadow: 0 1px 5px rgba(19, 32, 27, .12);
+            }
+
+            .rd #sidebar .filter-more-cue .material-symbols-outlined { font-size: 17px; }
+        }
+
         .rd #sidebar .filter-more-cue button { visibility: hidden; }
 
         .rd #sidebar .filter-group.has-more-rows > .filter-more-cue button {
@@ -4940,7 +4976,6 @@
 
                 var main = document.querySelector('main');
                 if (!main) { releaseIntro(); return; }
-                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
                 var EASE = 'expo.out';
                 function all(root, sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
                 function keep(list) { return list.filter(function (el) { return !!el; }); }
@@ -4978,8 +5013,7 @@
                 }
                 if (h1) {
                     if (hasSplit) {
-                        var title = SplitText.create(h1, { type: 'lines', mask: 'lines', linesClass: 'rd-line' });
-                        intro.from(title.lines, { yPercent: 144, duration: 1.2, stagger: 0.09, onComplete: function () { title.revert(); } }, 0.15);
+                        var title =                         intro.from(title.lines, { yPercent: 144, duration: 1.2, stagger: 0.09, onComplete: function () { title.revert(); } }, 0.15);
                     } else {
                         intro.from(h1, { opacity: 0, y: 24, duration: 1.1 }, 0.15);
                     }
@@ -5000,19 +5034,9 @@
                 /* ---- Section headings: lines rise out of a mask ----------------------- */
                 all(main, 'section > h2').forEach(function (h) {
                     if (!hasSplit) {
-                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
                         hidden.push(h);
                         return;
                     }
-                    SplitText.create(h, {
-                        type: 'lines', mask: 'lines', linesClass: 'rd-line', autoSplit: true,
-                        onSplit: function (self) {
-                            return gsap.from(self.lines, {
-                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
-                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
-                            });
-                        }
-                    });
                 });
 
                 /* ---- Reading text: the words light up in reading order ---------------- */
@@ -5021,57 +5045,17 @@
                 var provenanceText = provenance ? provenance.querySelector('span:last-child') : null;
                 keep([areasIntro, provenanceText]).forEach(function (t) {
                     if (!hasSplit) return;
-                    var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
-                    hidden = hidden.concat(words);
-                    gsap.fromTo(words, { opacity: 0.2 }, {
-                        opacity: 1, ease: 'none', stagger: 0.1,
-                        scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                 });
 
                 /* ---- Gold rules draw down as the text beside them is read ------------ */
                 keep([areasIntro, provenance]).forEach(function (el) {
                     drawn.push(el);
-                    gsap.fromTo(el, { '--rd-draw': 0 }, {
-                        '--rd-draw': 1, ease: 'none',
-                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                 });
 
-                /* ---- Cursor: a gold highlighter over headings, a ring over cards ---------
-                   Listeners sit on the cards themselves, so paging and filtering do not
-                   need to re-bind anything. */
-                if (fine) {
-                    var cursor = document.createElement('div');
-                    cursor.className = 'rd-cursor';
-                    cursor.setAttribute('aria-hidden', 'true');
-                    var dot = document.createElement('div');
-                    dot.className = 'rd-cursor-dot';
-                    cursor.appendChild(dot);
-                    document.body.appendChild(cursor);
-
-                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
-                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
-                    var placed = false;
-                    window.addEventListener('pointermove', function (e) {
-                        if (e.pointerType && e.pointerType !== 'mouse') return;
-                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
-                        toX(e.clientX);
-                        toY(e.clientY);
-                    }, { passive: true });
-
-                    var off = function () { cursor.removeAttribute('data-mode'); };
-                    function target(el, mode) {
-                        el.addEventListener('pointerenter', function () {
-                            cursor.setAttribute('data-mode', mode);
-                            cursor.setAttribute('data-look', mode);
-                        });
-                        el.addEventListener('pointerleave', off);
-                    }
-                    keep([h1]).concat(all(main, 'section > h2')).forEach(function (h) { target(h, 'text'); });
-                    all(main, '.opportunity-card, .opportunity-area').forEach(function (c) { target(c, 'ring'); });
-                    document.documentElement.addEventListener('mouseleave', off);
-                }
+                /* ---- Cursor (removed 2 Oct 2026) --------------------------------------
+                   GIZ feedback: "A second curser is not needed (the yellow spot that jumps
+                   in and out)". The page uses the reader's own pointer; the gold dot that
+                   highlighted headings and ringed the cards is gone. */
 
                 /* ---- Filters, search and paging change the page's height ---------------- */
                 var refreshTimer = null;

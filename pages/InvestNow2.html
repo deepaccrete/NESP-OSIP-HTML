@@ -277,12 +277,14 @@
                 <form class="space-y-6">
                     <!-- User Identity Section -->
                     <section>
-                        <h2 class="font-h4 text-h4 text-primary mb-4 border-b border-outline-variant pb-3">User Identity
+                        <h2 class="font-h4 text-h4 text-primary mb-4 border-b border-outline-variant pb-3"
+                            id="in2-identity-label">User Identity
                         </h2>
-                        <div class="space-y-3">
+                        <div class="space-y-3" role="radiogroup" aria-labelledby="in2-identity-label"
+                            aria-required="true">
                             <label
                                 class="relative flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:bg-surface-container-low transition-colors">
-                                <input class="sr-only" name="identity" type="radio" value="individual" />
+                                <input class="sr-only" name="identity" type="radio" value="individual" id="in2-identity-individual" required aria-required="true" />
                                 <span class="material-symbols-outlined text-primary text-[26px] shrink-0">person</span>
                                 <div class="flex-grow">
                                     <span class="block font-label-md text-label-md text-primary">Individual</span>
@@ -292,7 +294,7 @@
                             </label>
                             <label
                                 class="relative flex items-center gap-4 p-4 border-2 border-primary bg-surface-container-low cursor-pointer transition-colors">
-                                <input checked="" class="sr-only" name="identity" type="radio" value="private" />
+                                <input checked="" class="sr-only" name="identity" type="radio" value="private" id="in2-identity-private" required aria-required="true" />
                                 <span class="material-symbols-outlined text-primary text-[26px] shrink-0">business</span>
                                 <div class="flex-grow">
                                     <span class="block font-label-md text-label-md text-primary">Private Company</span>
@@ -302,7 +304,7 @@
                             </label>
                             <label
                                 class="relative flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:bg-surface-container-low transition-colors">
-                                <input class="sr-only" name="identity" type="radio" value="government" />
+                                <input class="sr-only" name="identity" type="radio" value="government" id="in2-identity-government" required aria-required="true" />
                                 <span
                                     class="material-symbols-outlined text-primary text-[26px] shrink-0">account_balance</span>
                                 <div class="flex-grow">
@@ -320,36 +322,36 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-end">
                             <!-- Conditional: Company Name (Private Company) -->
                             <div id="field-company" class="md:col-span-2 space-y-2 hidden">
-                                <label
+                                <label for="in2-company"
                                     class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Company
-                                    Name</label>
+                                    Name <span class="text-error" aria-hidden="true">*</span></label>
                                 <input
                                     class="w-full bg-transparent border border-outline px-4 py-2.5 text-body-md form-input-focus outline-none"
-                                    placeholder="e.g. Sahara Power Group Ltd." type="text" />
+                                    placeholder="e.g. Sahara Power Group Ltd." type="text" / id="in2-company" name="in2-company" aria-required="true">
                             </div>
                             <!-- Conditional: Ministry / Agency (Government) -->
                             <div id="field-ministry" class="md:col-span-2 space-y-2 hidden">
-                                <label
+                                <label for="in2-ministry"
                                     class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Ministry
-                                    / Agency</label>
+                                    / Agency <span class="text-error" aria-hidden="true">*</span></label>
                                 <input
                                     class="w-full bg-transparent border border-outline px-4 py-2.5 text-body-md form-input-focus outline-none"
-                                    placeholder="e.g. Federal Ministry of Power" type="text" />
+                                    placeholder="e.g. Federal Ministry of Power" type="text" / id="in2-ministry" name="in2-ministry" aria-required="true">
                             </div>
                             <div class="space-y-2">
-                                <label
+                                <label for="in2-fullname"
                                     class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Full
-                                    Name / Authorised Signatory</label>
+                                    Name / Authorised Signatory <span class="text-error" aria-hidden="true">*</span></label>
                                 <input
                                     class="w-full bg-transparent border border-outline px-4 py-2.5 text-body-md form-input-focus outline-none"
-                                    placeholder="e.g. Chinelo Okoro" type="text" />
+                                    placeholder="e.g. Chinelo Okoro" type="text" / id="in2-fullname" name="in2-fullname" required aria-required="true">
                             </div>
                             <div class="space-y-2">
-                                <label
+                                <label for="in2-country"
                                     class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Country
-                                    of Operations</label>
+                                    of Operations <span class="text-error" aria-hidden="true">*</span></label>
                                 <select
-                                    class="w-full bg-transparent border border-outline px-4 py-2.5 text-body-md form-input-focus outline-none appearance-none">
+                                    class="w-full bg-transparent border border-outline px-4 py-2.5 text-body-md form-input-focus outline-none appearance-none" id="in2-country" name="in2-country" required aria-required="true">
                                     <option>Nigeria</option>
                                     <option>United Kingdom</option>
                                     <option>United States</option>
@@ -358,37 +360,37 @@
                                 </select>
                             </div>
                             <div class="md:col-span-2 space-y-2">
-                                <label
+                                <label for="in2-email"
                                     class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Professional
-                                    Email Address</label>
+                                    Email Address <span class="text-error" aria-hidden="true">*</span></label>
                                 <input
                                     class="w-full bg-transparent border border-outline px-4 py-2.5 text-body-md form-input-focus outline-none"
-                                    placeholder="name@company.com" type="email" />
+                                    placeholder="name@company.com" type="email" / id="in2-email" name="in2-email" required aria-required="true">
                             </div>
                             <div class="md:col-span-2 space-y-2">
-                                <label
+                                <label for="in2-phone"
                                     class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Contact
-                                    Number</label>
+                                    Number <span class="text-error" aria-hidden="true">*</span></label>
                                 <input
                                     class="w-full bg-transparent border border-outline px-4 py-2.5 text-body-md form-input-focus outline-none"
                                     placeholder="+234 800 000 0000" type="tel" autocomplete="tel"
-                                    inputmode="tel" pattern="[+0-9\s\-()]{7,}" />
+                                    inputmode="tel" pattern="[+0-9\s\-()]{7,}" / id="in2-phone" name="in2-phone" required aria-required="true">
                             </div>
                             <div class="space-y-2">
-                                <label
+                                <label for="in2-password"
                                     class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Create
-                                    Password</label>
+                                    Password <span class="text-error" aria-hidden="true">*</span></label>
                                 <input
                                     class="w-full bg-transparent border border-outline px-4 py-2.5 text-body-md form-input-focus outline-none"
-                                    placeholder="••••••••" type="password" />
+                                    placeholder="••••••••" type="password" / id="in2-password" name="in2-password" required aria-required="true">
                             </div>
                             <div class="space-y-2">
-                                <label
+                                <label for="in2-confirm"
                                     class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Confirm
-                                    Password</label>
+                                    Password <span class="text-error" aria-hidden="true">*</span></label>
                                 <input
                                     class="w-full bg-transparent border border-outline px-4 py-2.5 text-body-md form-input-focus outline-none"
-                                    placeholder="••••••••" type="password" />
+                                    placeholder="••••••••" type="password" / id="in2-confirm" name="in2-confirm" required aria-required="true">
                             </div>
                         </div>
                     </section>
@@ -440,6 +442,12 @@
             // Show Company Name only for a private company, Ministry only for government.
             fieldCompany.classList.toggle('hidden', value !== 'private');
             fieldMinistry.classList.toggle('hidden', value !== 'government');
+            /* Required only while on screen: the browser cannot ask a reader to fill
+               a field inside a hidden block (Detail 11). */
+            var company = document.getElementById('in2-company');
+            var ministry = document.getElementById('in2-ministry');
+            if (company) company.required = value === 'private';
+            if (ministry) ministry.required = value === 'government';
         }
 
         function highlight(selected) {
@@ -508,6 +516,16 @@
             window.addEventListener('load', update);
             update();
         })();
+    </script>
+    <!-- Item 88: inside the invest-flow popup, Esc is this document's own event
+         and never reaches the page holding the frame, so the frame says so. -->
+    <script>
+        if (window.parent && window.parent !== window) {
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Escape' && e.key !== 'Esc') return;
+                try { window.parent.postMessage('investflow-close', '*'); } catch (err) { }
+            });
+        }
     </script>
 </body>
 

@@ -978,6 +978,15 @@
             color: var(--rd-ink-3);
         }
 
+        /* Text no longer animates on scroll (GIZ feedback, 5 Oct 2026): headings
+
+           used to rise line by line out of a mask, paragraphs lit up word by word as
+
+           they were read, and the gold rules drew alongside them. The words are simply
+
+           there. Cards, photographs and the hero keep their one-off arrival. */
+
+
         /* ---- Reading progress ------------------------------------------------------ */
         .rd-progress {
             position: fixed;
@@ -1839,7 +1848,7 @@
                 var sections = Array.prototype.filter.call(main.children, function (el) { return el.tagName === 'SECTION'; });
                 var hero = sections[0];
                 var rest = sections.slice(1);
-                var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                
                 var EASE = 'expo.out';
                 function all(root, sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
                 function inRest(sel) { return rest.reduce(function (out, s) { return out.concat(all(s, sel)); }, []); }
@@ -1936,22 +1945,9 @@
                 inRest('h2, h3').forEach(function (h) {
                     if (h.closest('.sector-card')) return;
                     if (!hasSplit) {
-                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
                         hidden.push(h);
                         return;
                     }
-                    SplitText.create(h, {
-                        type: 'lines',
-                        mask: 'lines',
-                        linesClass: 'rd-line',
-                        autoSplit: true,
-                        onSplit: function (self) {
-                            return gsap.from(self.lines, {
-                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
-                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
-                            });
-                        }
-                    });
                 });
 
                 /* ---- The statement: its words light up in reading order ----------------
@@ -1959,25 +1955,14 @@
                    the way up the screen; words only, no masks, no aria rewriting. */
                 inRest('.sec-statement p').forEach(function (t) {
                     if (!hasSplit) {
-                        gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
                         hidden.push(t);
                         return;
                     }
-                    var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
-                    hidden = hidden.concat(words);
-                    gsap.fromTo(words, { opacity: 0.2 }, {
-                        opacity: 1, ease: 'none', stagger: 0.1,
-                        scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                 });
 
                 /* ---- Its gold rule draws down with the words --------------------------- */
                 inRest('.sec-statement').forEach(function (el) {
                     drawn.push(el);
-                    gsap.fromTo(el, { '--rd-draw': 0 }, {
-                        '--rd-draw': 1, ease: 'none',
-                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                 });
 
                 /* ---- The filter, then the cards in the order they sit ------------------
@@ -1996,44 +1981,10 @@
                 batch(inRest('.sec-toolbar'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 1, ease: EASE });
                 batch(cards, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.09 });
 
-                /* ---- Cursor ----------------------------------------------------------- */
-                if (fine) {
-                    var cursor = document.createElement('div');
-                    cursor.className = 'rd-cursor';
-                    cursor.setAttribute('aria-hidden', 'true');
-                    var dot = document.createElement('div');
-                    dot.className = 'rd-cursor-dot';
-                    var label = document.createElement('span');
-                    label.className = 'rd-cursor-label';
-                    dot.appendChild(label);
-                    cursor.appendChild(dot);
-                    document.body.appendChild(cursor);
-                    html.classList.add('rd-cursor-on');
+                /* ---- Cursor (removed 5 Oct 2026) --------------------------------------
+                   GIZ feedback: "A second curser is not needed (the yellow spot that jumps
+                   in and out)". The page uses the reader's own pointer. */
 
-                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
-                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
-                    var placed = false;
-                    window.addEventListener('pointermove', function (e) {
-                        if (e.pointerType && e.pointerType !== 'mouse') return;
-                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
-                        toX(e.clientX);
-                        toY(e.clientY);
-                    }, { passive: true });
-
-                    var off = function () { cursor.removeAttribute('data-mode'); };
-                    function target(el, mode, text) {
-                        el.setAttribute('data-rd-cursor', mode);
-                        el.addEventListener('pointerenter', function () {
-                            cursor.setAttribute('data-mode', mode);
-                            cursor.setAttribute('data-look', mode);
-                            label.textContent = text || '';
-                        });
-                        el.addEventListener('pointerleave', off);
-                    }
-                    inRest('h2').forEach(function (h) { target(h, 'text'); });
-                    cards.forEach(function (c) { target(c, 'label', 'View'); });
-                    document.documentElement.addEventListener('mouseleave', off);
-                }
 
                 window.addEventListener('load', function () { ScrollTrigger.refresh(); });
                 ScrollTrigger.refresh();

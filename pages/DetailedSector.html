@@ -1003,6 +1003,15 @@
             outline-offset: 3px;
         }
 
+        /* Text no longer animates on scroll (GIZ feedback, 5 Oct 2026): headings
+
+           used to rise line by line out of a mask, paragraphs lit up word by word as
+
+           they were read, and the gold rules drew alongside them. The words are simply
+
+           there. Cards, photographs and the hero keep their one-off arrival. */
+
+
         /* ---- Photograph ---------------------------------------------------- */
         .ovw-sticky {
             position: relative;
@@ -1137,22 +1146,11 @@
         }
 
         /* ---- Reveal (opt-in; the script sets .ovw-armed) ------------------- */
-        .ovw-armed:not(.is-in) .ovw-rise {
-            opacity: 0;
-            transform: translateY(16px);
-        }
+        /* The overview's eyebrow, title, lede and paragraphs used to wait hidden
+           and run up one by one when the section was reached. They are simply
+           there (GIZ feedback, 5 Oct 2026). */
 
-        .ovw-armed.is-in .ovw-rise {
-            animation: ovwRise .7s cubic-bezier(.22, .61, .36, 1) calc(var(--o, 0) * 90ms) backwards;
-        }
-
-        .ovw-armed:not(.is-in) .ovw-lede::before {
-            transform: scaleY(0);
-        }
-
-        .ovw-armed.is-in .ovw-lede::before {
-            animation: ovwDraw .8s cubic-bezier(.22, .61, .36, 1) .45s backwards;
-        }
+        /* …and the gold rule beside the lede is drawn, not drawing itself. */
 
         /* the photograph wipes in right to left, the direction the hero moves */
         .ovw-armed:not(.is-in) .ovw-photo {
@@ -1930,7 +1928,7 @@
            the width, instead of nine and a stray tenth. 30 GW+: the pill over 2060
            is set against the right edge, so it no longer hangs past the line. */
         @media (max-width: 639px) {
-            .rd #facts .kf-card > .flex.items-start.justify-between {
+            .rd #facts .kf-card>.flex.items-start.justify-between {
                 flex-direction: column;
                 align-items: stretch;
                 gap: 24px;
@@ -1942,8 +1940,13 @@
                 gap: 16px;
             }
 
-            .rd #facts .kf-card .kf-bar-col { flex: 1 1 0; }
-            .rd #facts .kf-card .kf-bar-track { width: 100%; }
+            .rd #facts .kf-card .kf-bar-col {
+                flex: 1 1 0;
+            }
+
+            .rd #facts .kf-card .kf-bar-track {
+                width: 100%;
+            }
 
             .rd #facts .kf-people {
                 display: grid !important;
@@ -1952,7 +1955,9 @@
                 justify-items: center;
             }
 
-            .rd #facts .kf-people .kf-person { font-size: clamp(20px, 6.4vw, 26px) !important; }
+            .rd #facts .kf-people .kf-person {
+                font-size: clamp(20px, 6.4vw, 26px) !important;
+            }
 
             .rd #facts .kf-tl-stop.is-key .kf-tl-pill {
                 left: auto;
@@ -3486,6 +3491,7 @@
         }
 
         @media (min-width: 640px) {
+
             /* auto-fit, not auto-fill: with three cards and room for four, auto-fill kept an
                empty fourth track and the row sat off to the left. auto-fit folds the empty
                track away, so the cards share the full width, edge to edge with the text. */
@@ -3655,7 +3661,8 @@
                     <!-- Minimalist Description (From Docs) -->
                     <p
                         class="text-base sm:text-lg text-white/80 mb-10 leading-relaxed max-w-2xl border-l-4 border-amber-400 pl-6">
-                        Nigeria’s largest clean en&shy;ergy op&shy;por&shy;tu&shy;nity, driven by abun&shy;dant sun&shy;light and strong de&shy;mand for
+                        Nigeria’s largest clean en&shy;ergy op&shy;por&shy;tu&shy;nity, driven by abun&shy;dant
+                        sun&shy;light and strong de&shy;mand for
                         re&shy;li&shy;able off-grid and em&shy;bed&shy;ded power so&shy;lu&shy;tions.
                     </p>
 
@@ -3682,7 +3689,7 @@
                             </a>
                             <a href="#technical"
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
-                                Technical
+                                Technical &amp; Safety
                             </a>
                             <a href="#finance"
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
@@ -3690,11 +3697,11 @@
                             </a>
                             <a href="#opportunities"
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
-                                Featured Areas
+                                Featured Investment Areas
                             </a>
                             <a href="#resources"
                                 class="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-amber-500 hover:text-slate-950 border border-white/10 hover:border-amber-500 rounded-full transition-all duration-300 backdrop-blur-sm">
-                                Resources
+                                Useful Resources &amp; Data
                             </a>
                         </div>
                     </div>
@@ -3804,20 +3811,28 @@
                     <h2 class="ovw-title ovw-rise" style="--o:1">Powering Nigeria's Renewable Future</h2>
                     <div class="ovw-body">
                         <p class="ovw-lede ovw-rise" style="--o:2">
-                            Nige&shy;ria has one of Africa’s strong&shy;est solar en&shy;ergy po&shy;ten&shy;tials due to its high solar
+                            Nige&shy;ria has one of Africa’s strong&shy;est solar en&shy;ergy po&shy;ten&shy;tials due
+                            to its high solar
                             ra&shy;di&shy;a&shy;tion
-                            lev&shy;els and grow&shy;ing de&shy;mand for re&shy;li&shy;able elec&shy;tric&shy;ity. Nigeria's solar mar&shy;ket is the country's
-                            largest clean en&shy;ergy op&shy;por&shy;tu&shy;nity, driven by abun&shy;dant sun&shy;light and strong de&shy;mand for re&shy;li&shy;able
-                            off-grid and em&shy;bed&shy;ded power so&shy;lu&shy;tions. The ris&shy;ing en&shy;ergy costs are ac&shy;cel&shy;er&shy;at&shy;ing the adop&shy;tion
+                            lev&shy;els and grow&shy;ing de&shy;mand for re&shy;li&shy;able elec&shy;tric&shy;ity.
+                            Nigeria's solar mar&shy;ket is the country's
+                            largest clean en&shy;ergy op&shy;por&shy;tu&shy;nity, driven by abun&shy;dant sun&shy;light
+                            and strong de&shy;mand for re&shy;li&shy;able
+                            off-grid and em&shy;bed&shy;ded power so&shy;lu&shy;tions. The ris&shy;ing en&shy;ergy costs
+                            are ac&shy;cel&shy;er&shy;at&shy;ing the adop&shy;tion
                             of
-                            solar tech&shy;nolo&shy;gies across res&shy;i&shy;den&shy;tial, com&shy;mer&shy;cial, in&shy;dus&shy;trial, and pub&shy;lic-sec&shy;tor
+                            solar tech&shy;nolo&shy;gies across res&shy;i&shy;den&shy;tial, com&shy;mer&shy;cial,
+                            in&shy;dus&shy;trial, and pub&shy;lic-sec&shy;tor
                             ap&shy;pli&shy;ca&shy;tions.
                         </p>
                         <p class="ovw-rise" style="--o:3">
-                            Solar projects in Nige&shy;ria span util&shy;ity-scale gen&shy;er&shy;a&shy;tion, mini-grids, solar home sys&shy;tems, and
-                            com&shy;mer&shy;cial and in&shy;dus&shy;trial in&shy;stal&shy;la&shy;tions. The sec&shy;tor con&shy;tin&shy;ues to at&shy;tract local and
+                            Solar projects in Nige&shy;ria span util&shy;ity-scale gen&shy;er&shy;a&shy;tion,
+                            mini-grids, solar home sys&shy;tems, and
+                            com&shy;mer&shy;cial and in&shy;dus&shy;trial in&shy;stal&shy;la&shy;tions. The sec&shy;tor
+                            con&shy;tin&shy;ues to at&shy;tract local and
                             in&shy;ter&shy;na&shy;tional
-                            in&shy;vestors as the coun&shy;try ex&shy;pands ac&shy;cess to clean and re&shy;li&shy;able en&shy;ergy.
+                            in&shy;vestors as the coun&shy;try ex&shy;pands ac&shy;cess to clean and re&shy;li&shy;able
+                            en&shy;ergy.
                         </p>
                     </div>
                     <!-- <ul class="space-y-4 mb-10">
@@ -3851,7 +3866,8 @@
                 <div class="ovw-media">
                     <div class="ovw-sticky">
                         <figure class="ovw-photo">
-                            <img loading="lazy" decoding="async" alt="Utility-scale solar farm in Nigeria" decoding="async"
+                            <img loading="lazy" decoding="async" alt="Utility-scale solar farm in Nigeria"
+                                decoding="async"
                                 src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&amp;w=1740&amp;auto=format&amp;fit=crop" />
                         </figure>
                         <!-- Floating stat card -->
@@ -4072,48 +4088,55 @@
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-4"
                     style="font-family: Manrope, sans-serif;">How Investors Can Participate</h2>
-                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's solar mar&shy;ket sup&shy;ports
+                <p class="text-[#404846] text-base sm:text-[17px] leading-8 mb-6">Nigeria's solar mar&shy;ket
+                    sup&shy;ports
                     mul&shy;ti&shy;ple in&shy;vest&shy;ment path&shy;ways:</p>
                 <div class="rd-cards grid">
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">solar_power</span></span>
                         <h4 class="rd-card-title">Utility-Scale Solar</h4>
-                        <p class="rd-card-text">Grid-con&shy;nected projects sup&shy;ply&shy;ing elec&shy;tric&shy;ity to the na&shy;tional grid or
+                        <p class="rd-card-text">Grid-con&shy;nected projects sup&shy;ply&shy;ing elec&shy;tric&shy;ity
+                            to the na&shy;tional grid or
                             el&shy;i&shy;gi&shy;ble cus&shy;tomers.</p>
                     </div>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">factory</span></span>
                         <h4 class="rd-card-title">Commercial &amp; Industrial (C&amp;I) Solar</h4>
-                        <p class="rd-card-text">Cap&shy;tive and em&shy;bed&shy;ded gen&shy;er&shy;a&shy;tion for com&shy;mer&shy;cial and in&shy;dus&shy;trial en&shy;ergy
+                        <p class="rd-card-text">Cap&shy;tive and em&shy;bed&shy;ded gen&shy;er&shy;a&shy;tion for
+                            com&shy;mer&shy;cial and in&shy;dus&shy;trial en&shy;ergy
                             users.</p>
                     </div>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">hub</span></span>
                         <h4 class="rd-card-title">Mini-Grids</h4>
-                        <p class="rd-card-text">Iso&shy;lated and in&shy;ter&shy;con&shy;nected sys&shy;tems serv&shy;ing com&shy;mu&shy;ni&shy;ties, busi&shy;nesses, and
+                        <p class="rd-card-text">Iso&shy;lated and in&shy;ter&shy;con&shy;nected sys&shy;tems
+                            serv&shy;ing com&shy;mu&shy;ni&shy;ties, busi&shy;nesses, and
                             pro&shy;duc&shy;tive-use cus&shy;tomers.</p>
                     </div>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">home</span></span>
                         <h4 class="rd-card-title">Solar Home Systems (SHS)</h4>
-                        <p class="rd-card-text">Stand&shy;alone sys&shy;tems for res&shy;i&shy;den&shy;tial and small-busi&shy;ness users.</p>
+                        <p class="rd-card-text">Stand&shy;alone sys&shy;tems for res&shy;i&shy;den&shy;tial and
+                            small-busi&shy;ness users.</p>
                     </div>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">battery_charging_full</span></span>
                         <h4 class="rd-card-title">Solar-Plus-Storage</h4>
-                        <p class="rd-card-text">Hy&shy;brid projects com&shy;bin&shy;ing solar gen&shy;er&shy;a&shy;tion with bat&shy;tery en&shy;ergy stor&shy;age.
+                        <p class="rd-card-text">Hy&shy;brid projects com&shy;bin&shy;ing solar gen&shy;er&shy;a&shy;tion
+                            with bat&shy;tery en&shy;ergy stor&shy;age.
                         </p>
                     </div>
                     <div class="rd-card rounded-xl">
                         <span class="rd-card-mark" aria-hidden="true"><span
                                 class="material-symbols-outlined">precision_manufacturing</span></span>
                         <h4 class="rd-card-title">Manufacturing &amp; Local Assembly</h4>
-                        <p class="rd-card-text">Mod&shy;ule as&shy;sem&shy;bly, in&shy;vert&shy;ers, mount&shy;ing struc&shy;tures and bat&shy;tery sys&shy;tems
+                        <p class="rd-card-text">Mod&shy;ule as&shy;sem&shy;bly, in&shy;vert&shy;ers, mount&shy;ing
+                            struc&shy;tures and bat&shy;tery sys&shy;tems
                             built in coun&shy;try.</p>
                     </div>
                 </div>
@@ -4135,28 +4158,46 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
                     <!-- Body copy -->
                     <div class="lg:col-span-7 space-y-5 text-[#404846] text-base sm:text-[17px] leading-8">
-                        <p>Nige&shy;ria of&shy;fers one of Africa's most ac&shy;ces&shy;si&shy;ble solar in&shy;vest&shy;ment en&shy;vi&shy;ron&shy;ments, sup&shy;ported by
-                            strong mar&shy;ket de&shy;mand, im&shy;prov&shy;ing reg&shy;u&shy;la&shy;tory clar&shy;ity, and favourable in&shy;vest&shy;ment poli&shy;cies.
-                            Com&shy;pany in&shy;cor&shy;po&shy;ra&shy;tion through the Cor&shy;po&shy;rate Af&shy;fairs Com&shy;mis&shy;sion (CAC) is typ&shy;i&shy;cally com&shy;pleted
-                            within 1–7 days, while 100% for&shy;eign own&shy;er&shy;ship is per&shy;mit&shy;ted across the solar value chain.
-                            In&shy;vestors may reg&shy;is&shy;ter with the Nige&shy;rian In&shy;vest&shy;ment Pro&shy;mo&shy;tion Com&shy;mis&shy;sion (NIPC) to ac&shy;cess
-                            fis&shy;cal in&shy;cen&shy;tives, in&shy;vest&shy;ment fa&shy;cil&shy;i&shy;ta&shy;tion ser&shy;vices, and other gov&shy;ern&shy;ment-backed in&shy;vest&shy;ment
+                        <p>Nige&shy;ria of&shy;fers one of Africa's most ac&shy;ces&shy;si&shy;ble solar
+                            in&shy;vest&shy;ment en&shy;vi&shy;ron&shy;ments, sup&shy;ported by
+                            strong mar&shy;ket de&shy;mand, im&shy;prov&shy;ing reg&shy;u&shy;la&shy;tory clar&shy;ity,
+                            and favourable in&shy;vest&shy;ment poli&shy;cies.
+                            Com&shy;pany in&shy;cor&shy;po&shy;ra&shy;tion through the Cor&shy;po&shy;rate Af&shy;fairs
+                            Com&shy;mis&shy;sion (CAC) is typ&shy;i&shy;cally com&shy;pleted
+                            within 1–7 days, while 100% for&shy;eign own&shy;er&shy;ship is per&shy;mit&shy;ted across
+                            the solar value chain.
+                            In&shy;vestors may reg&shy;is&shy;ter with the Nige&shy;rian In&shy;vest&shy;ment
+                            Pro&shy;mo&shy;tion Com&shy;mis&shy;sion (NIPC) to ac&shy;cess
+                            fis&shy;cal in&shy;cen&shy;tives, in&shy;vest&shy;ment fa&shy;cil&shy;i&shy;ta&shy;tion
+                            ser&shy;vices, and other gov&shy;ern&shy;ment-backed in&shy;vest&shy;ment
                             sup&shy;port pro&shy;grammes.</p>
-                        <p>The Elec&shy;tric&shy;ity Act 2023 has ex&shy;panded op&shy;por&shy;tu&shy;ni&shy;ties for pri&shy;vate-sec&shy;tor par&shy;tic&shy;i&shy;pa&shy;tion in
-                            elec&shy;tric&shy;ity gen&shy;er&shy;a&shy;tion, dis&shy;tri&shy;bu&shy;tion, mini-grids, em&shy;bed&shy;ded gen&shy;er&shy;a&shy;tion, and dis&shy;trib&shy;uted
-                            en&shy;ergy sys&shy;tems. Solar projects can be de&shy;vel&shy;oped under mul&shy;ti&shy;ple busi&shy;ness mod&shy;els, in&shy;clud&shy;ing
-                            util&shy;ity-scale projects, com&shy;mer&shy;cial and in&shy;dus&shy;trial (C&amp;I) in&shy;stal&shy;la&shy;tions, mini-grids, solar
+                        <p>The Elec&shy;tric&shy;ity Act 2023 has ex&shy;panded op&shy;por&shy;tu&shy;ni&shy;ties for
+                            pri&shy;vate-sec&shy;tor par&shy;tic&shy;i&shy;pa&shy;tion in
+                            elec&shy;tric&shy;ity gen&shy;er&shy;a&shy;tion, dis&shy;tri&shy;bu&shy;tion, mini-grids,
+                            em&shy;bed&shy;ded gen&shy;er&shy;a&shy;tion, and dis&shy;trib&shy;uted
+                            en&shy;ergy sys&shy;tems. Solar projects can be de&shy;vel&shy;oped under mul&shy;ti&shy;ple
+                            busi&shy;ness mod&shy;els, in&shy;clud&shy;ing
+                            util&shy;ity-scale projects, com&shy;mer&shy;cial and in&shy;dus&shy;trial (C&amp;I)
+                            in&shy;stal&shy;la&shy;tions, mini-grids, solar
                             home sys&shy;tems, and solar-plus-stor&shy;age so&shy;lu&shy;tions.</p>
-                        <p>Nigeria's in&shy;vest&shy;ment frame&shy;work also pro&shy;vides at&shy;trac&shy;tive fis&shy;cal in&shy;cen&shy;tives for re&shy;new&shy;able
+                        <p>Nigeria's in&shy;vest&shy;ment frame&shy;work also pro&shy;vides at&shy;trac&shy;tive
+                            fis&shy;cal in&shy;cen&shy;tives for re&shy;new&shy;able
                             en&shy;ergy
-                            projects. El&shy;i&shy;gi&shy;ble in&shy;vestors may ac&shy;cess a 3–5-year Pi&shy;o&shy;neer Sta&shy;tus tax hol&shy;i&shy;day, which may be
-                            ex&shy;tended sub&shy;ject to per&shy;for&shy;mance con&shy;di&shy;tions. Re&shy;new&shy;able en&shy;ergy equip&shy;ment may also ben&shy;e&shy;fit from
-                            VAT in&shy;cen&shy;tives and im&shy;port-duty con&shy;ces&shy;sions under ap&shy;pli&shy;ca&shy;ble re&shy;new&shy;able en&shy;ergy poli&shy;cies and
-                            ECOWAS Com&shy;mon Ex&shy;ter&shy;nal Tar&shy;iff (CET) pro&shy;vi&shy;sions, help&shy;ing to re&shy;duce project de&shy;vel&shy;op&shy;ment
+                            projects. El&shy;i&shy;gi&shy;ble in&shy;vestors may ac&shy;cess a 3–5-year
+                            Pi&shy;o&shy;neer Sta&shy;tus tax hol&shy;i&shy;day, which may be
+                            ex&shy;tended sub&shy;ject to per&shy;for&shy;mance con&shy;di&shy;tions.
+                            Re&shy;new&shy;able en&shy;ergy equip&shy;ment may also ben&shy;e&shy;fit from
+                            VAT in&shy;cen&shy;tives and im&shy;port-duty con&shy;ces&shy;sions under
+                            ap&shy;pli&shy;ca&shy;ble re&shy;new&shy;able en&shy;ergy poli&shy;cies and
+                            ECOWAS Com&shy;mon Ex&shy;ter&shy;nal Tar&shy;iff (CET) pro&shy;vi&shy;sions, help&shy;ing
+                            to re&shy;duce project de&shy;vel&shy;op&shy;ment
                             costs.</p>
-                        <p>Nige&shy;ria fur&shy;ther ben&shy;e&shy;fits from es&shy;tab&shy;lished reg&shy;u&shy;la&shy;tory frame&shy;works for grid-con&shy;nected and
-                            off-grid projects, grow&shy;ing local tech&shy;ni&shy;cal ca&shy;pac&shy;ity, in&shy;creas&shy;ing avail&shy;abil&shy;ity of project
-                            fi&shy;nanc&shy;ing, and ac&shy;tive sup&shy;port from de&shy;vel&shy;op&shy;ment part&shy;ners such as REA, GIZ, AfDB, the World
+                        <p>Nige&shy;ria fur&shy;ther ben&shy;e&shy;fits from es&shy;tab&shy;lished
+                            reg&shy;u&shy;la&shy;tory frame&shy;works for grid-con&shy;nected and
+                            off-grid projects, grow&shy;ing local tech&shy;ni&shy;cal ca&shy;pac&shy;ity,
+                            in&shy;creas&shy;ing avail&shy;abil&shy;ity of project
+                            fi&shy;nanc&shy;ing, and ac&shy;tive sup&shy;port from de&shy;vel&shy;op&shy;ment
+                            part&shy;ners such as REA, GIZ, AfDB, the World
                             Bank, IFC, and other cli&shy;mate-fi&shy;nance in&shy;sti&shy;tu&shy;tions.</p>
                     </div>
 
@@ -4173,32 +4214,40 @@
                             <ul class="space-y-4">
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">CAC in&shy;cor&shy;po&shy;ra&shy;tion typ&shy;i&shy;cally
+                                        class="text-[#404846] text-[15px] leading-6">CAC
+                                        in&shy;cor&shy;po&shy;ra&shy;tion typ&shy;i&shy;cally
                                         com&shy;pleted within 1–7 days</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">100% for&shy;eign own&shy;er&shy;ship
+                                        class="text-[#404846] text-[15px] leading-6">100% for&shy;eign
+                                        own&shy;er&shy;ship
                                         per&shy;mit&shy;ted</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">May be el&shy;i&shy;gi&shy;ble for Pi&shy;o&shy;neer Sta&shy;tus
+                                        class="text-[#404846] text-[15px] leading-6">May be el&shy;i&shy;gi&shy;ble for
+                                        Pi&shy;o&shy;neer Sta&shy;tus
                                         and
                                         other in&shy;vest&shy;ment in&shy;cen&shy;tives</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Mul&shy;ti&shy;ple mar&shy;ket entry mod&shy;els
-                                        (util&shy;ity-scale, C&amp;I, mini-grids, dis&shy;trib&shy;uted solar)</span></li>
+                                        class="text-[#404846] text-[15px] leading-6">Mul&shy;ti&shy;ple mar&shy;ket
+                                        entry mod&shy;els
+                                        (util&shy;ity-scale, C&amp;I, mini-grids, dis&shy;trib&shy;uted solar)</span>
+                                </li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Strong de&shy;mand driven by elec&shy;tric&shy;ity
+                                        class="text-[#404846] text-[15px] leading-6">Strong de&shy;mand driven by
+                                        elec&shy;tric&shy;ity
                                         sup&shy;ply gaps and diesel re&shy;place&shy;ment</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Es&shy;tab&shy;lished reg&shy;u&shy;la&shy;tory frame&shy;work
+                                        class="text-[#404846] text-[15px] leading-6">Es&shy;tab&shy;lished
+                                        reg&shy;u&shy;la&shy;tory frame&shy;work
                                         under the Elec&shy;tric&shy;ity Act 2023</span></li>
                                 <li class="flex gap-3"><span
                                         class="material-symbols-outlined text-[#1b6d24] text-[20px] mt-0.5 flex-shrink-0">check_cir&shy;cle</span><span
-                                        class="text-[#404846] text-[15px] leading-6">Grow&shy;ing avail&shy;abil&shy;ity of
+                                        class="text-[#404846] text-[15px] leading-6">Grow&shy;ing avail&shy;abil&shy;ity
+                                        of
                                         con&shy;ces&shy;sional
                                         fi&shy;nance and blended-fi&shy;nance sup&shy;port</span></li>
                             </ul>
@@ -4213,8 +4262,10 @@
                 <div class="mt-8 lg:mt-10 bg-[#004225] rounded-2xl p-7 lg:p-8 flex items-start gap-4">
                     <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
                         style="font-variation-settings:'FILL' 1;">lightbulb</span>
-                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Key Mes&shy;sage:</span>
-                        Solar is one of the most ma&shy;ture, scal&shy;able, and in&shy;vestor-ready clean en&shy;ergy sec&shy;tors in Nige&shy;ria.
+                    <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">Key
+                            Mes&shy;sage:</span>
+                        Solar is one of the most ma&shy;ture, scal&shy;able, and in&shy;vestor-ready clean en&shy;ergy
+                        sec&shy;tors in Nige&shy;ria.
                     </p>
                 </div>
             </div>
@@ -4339,8 +4390,8 @@
                         <div class="rd-cards grid" data-no-glossary>
                             <a href="https://www.power.gov.ng" target="_blank" rel="noopener"
                                 class="rd-card rounded-xl">
-                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async" src="logoNESP.png"
-                                        alt="Federal Ministry of Power" /></span>
+                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async"
+                                        src="logoNESP.png" alt="Federal Ministry of Power" /></span>
                                 <span class="rd-card-title">Federal Ministry of Power</span>
                                 <span class="rd-card-text">Sets electricity sector policy, including the National
                                     Integrated Electricity Policy.</span>
@@ -4354,14 +4405,15 @@
                                     mini-grids, and sets tariffs.</span>
                             </a>
                             <a href="https://rea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async" src="REA-logo.png"
-                                        alt="Rural Electrification Agency (REA)" /></span>
+                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async"
+                                        src="REA-logo.png" alt="Rural Electrification Agency (REA)" /></span>
                                 <span class="rd-card-title">Rural Electrification Agency (REA)</span>
                                 <span class="rd-card-text">Runs off-grid, mini-grid and rural electrification
                                     programmes.</span>
                             </a>
                             <a href="https://nipc.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async" src="nipc-logo.png"
+                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async"
+                                        src="nipc-logo.png"
                                         alt="Nigerian Investment Promotion Commission (NIPC)" /></span>
                                 <span class="rd-card-title">Nigerian Investment Promotion Commission (NIPC)</span>
                                 <span class="rd-card-text">Registers investors and administers incentives such as
@@ -4369,14 +4421,15 @@
                             </a>
                             <a href="https://environment.gov.ng" target="_blank" rel="noopener"
                                 class="rd-card rounded-xl">
-                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async" src="FMEnew.png"
-                                        alt="Federal Ministry of Environment" /></span>
+                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async"
+                                        src="FMEnew.png" alt="Federal Ministry of Environment" /></span>
                                 <span class="rd-card-title">Federal Ministry of Environment</span>
                                 <span class="rd-card-text">Sets environmental policy and approves Environmental Impact
                                     Assessments.</span>
                             </a>
                             <a href="https://nesrea.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async" src="nesrea.jpeg"
+                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async"
+                                        src="nesrea.jpeg"
                                         alt="National Environmental Standards and Regulations Enforcement Agency (NESREA)" /></span>
                                 <span class="rd-card-title">National Environmental Standards and Regulations Enforcement
                                     Agency (NESREA)</span>
@@ -4384,15 +4437,16 @@
                                     compliance.</span>
                             </a>
                             <a href="https://son.gov.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async" src="son_png.png"
-                                        alt="Standards Organisation of Nigeria (SON)" /></span>
+                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async"
+                                        src="son_png.png" alt="Standards Organisation of Nigeria (SON)" /></span>
                                 <span class="rd-card-title">Standards Organisation of Nigeria (SON)</span>
                                 <span class="rd-card-text">Sets product standards, with SONCAP for imports and MANCAP
                                     for local manufacture.</span>
                             </a>
                             <a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"
                                 class="rd-card rounded-xl">
-                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async" src="NEMSA.png"
+                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async"
+                                        src="NEMSA.png"
                                         alt="Nigerian Electricity Management Services Agency (NEMSA)" /></span>
                                 <span class="rd-card-title">Nigerian Electricity Management Services Agency
                                     (NEMSA)</span>
@@ -4400,8 +4454,8 @@
                                     for safety.</span>
                             </a>
                             <a href="https://www.tcn.org.ng" target="_blank" rel="noopener" class="rd-card rounded-xl">
-                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async" src="TCN.png"
-                                        alt="Transmission Company of Nigeria (TCN)" /></span>
+                                <span class="rd-card-mark" aria-hidden="true"><img loading="lazy" decoding="async"
+                                        src="TCN.png" alt="Transmission Company of Nigeria (TCN)" /></span>
                                 <span class="rd-card-title">Transmission Company of Nigeria (TCN)</span>
                                 <span class="rd-card-text">Operates the transmission grid and handles interconnection
                                     and grid-impact studies.</span>
@@ -4678,7 +4732,9 @@
                                     line-height: 1;
                                 }
 
-                                .wf-item .wf-item-text { padding-top: 20px; }
+                                .wf-item .wf-item-text {
+                                    padding-top: 20px;
+                                }
 
                                 .wf-item-label {
                                     font-size: 13px;
@@ -5189,11 +5245,15 @@
                         </div>
                         <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-6"
                             style="font-family: Manrope, sans-serif;">Technical &amp; Safety</h2>
-                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar equip&shy;ment im&shy;ported into
-                            Nige&shy;ria must com&shy;ply with ap&shy;pli&shy;ca&shy;ble SON stan&shy;dards and cer&shy;ti&shy;fi&shy;ca&shy;tion re&shy;quire&shy;ments, in&shy;clud&shy;ing
+                        <p class="text-[#404846] text-base sm:text-[17px] leading-8">Solar equip&shy;ment im&shy;ported
+                            into
+                            Nige&shy;ria must com&shy;ply with ap&shy;pli&shy;ca&shy;ble SON stan&shy;dards and
+                            cer&shy;ti&shy;fi&shy;ca&shy;tion re&shy;quire&shy;ments, in&shy;clud&shy;ing
                             SONCAP
-                            where ap&shy;pli&shy;ca&shy;ble. Elec&shy;tri&shy;cal in&shy;stal&shy;la&shy;tions are sub&shy;ject to NEMSA in&shy;spec&shy;tion and cer&shy;ti&shy;fi&shy;ca&shy;tion
-                            re&shy;quire&shy;ments. Grid-con&shy;nected projects must com&shy;ply with the NERC Grid Code and TCN
+                            where ap&shy;pli&shy;ca&shy;ble. Elec&shy;tri&shy;cal in&shy;stal&shy;la&shy;tions are
+                            sub&shy;ject to NEMSA in&shy;spec&shy;tion and cer&shy;ti&shy;fi&shy;ca&shy;tion
+                            re&shy;quire&shy;ments. Grid-con&shy;nected projects must com&shy;ply with the NERC Grid
+                            Code and TCN
                             in&shy;ter&shy;con&shy;nec&shy;tion
                             stan&shy;dards.</p>
                     </div>
@@ -5245,12 +5305,16 @@
                             style="--fan-bg:#0b6b45;">
                             <div class="rd-fan-no" aria-hidden="true">01</div>
                             <h3 class="rd-fan-title">Public Finance</h3>
-                            <p class="rd-fan-sum">Grow&shy;ing pub&shy;lic and de&shy;vel&shy;op&shy;ment-fi&shy;nance sup&shy;port, led by the
-                                US$750&nbsp;million DARES Pro&shy;gramme for iso&shy;lated and in&shy;ter&shy;con&shy;nected mini-grids,
+                            <p class="rd-fan-sum">Grow&shy;ing pub&shy;lic and de&shy;vel&shy;op&shy;ment-fi&shy;nance
+                                sup&shy;port, led by the
+                                US$750&nbsp;million DARES Pro&shy;gramme for iso&shy;lated and
+                                in&shy;ter&shy;con&shy;nected mini-grids,
                                 Solar-for-Busi&shy;ness, and pro&shy;duc&shy;tive-use projects.</p>
                             <ul class="rd-fan-list">
-                                <li>REA / Rural Elec&shy;tri&shy;fi&shy;ca&shy;tion Fund — grants &amp; per&shy;for&shy;mance-based in&shy;cen&shy;tives</li>
-                                <li>Bank of In&shy;dus&shy;try (BOI) — con&shy;ces&shy;sional RE fi&shy;nanc&shy;ing</li>
+                                <li>REA / Rural Elec&shy;tri&shy;fi&shy;ca&shy;tion Fund — grants &amp;
+                                    per&shy;for&shy;mance-based in&shy;cen&shy;tives</li>
+                                <li>Bank of In&shy;dus&shy;try (BOI) — con&shy;ces&shy;sional RE fi&shy;nanc&shy;ing
+                                </li>
                                 <li>DRE Nige&shy;ria Fund — NSIA-an&shy;chored US$500&nbsp;million fund</li>
                             </ul>
                         </article>
@@ -5259,10 +5323,13 @@
                             style="--fan-bg:#075e3b;">
                             <div class="rd-fan-no" aria-hidden="true">02</div>
                             <h3 class="rd-fan-title">Commercial Finance</h3>
-                            <p class="rd-fan-sum">Bank fi&shy;nanc&shy;ing for de&shy;vel&shy;op&shy;ers, busi&shy;nesses and end-users is
-                                ex&shy;pand&shy;ing rapidly, along&shy;side ris&shy;ing in&shy;ter&shy;na&shy;tional debt and eq&shy;uity par&shy;tic&shy;i&shy;pa&shy;tion.</p>
+                            <p class="rd-fan-sum">Bank fi&shy;nanc&shy;ing for de&shy;vel&shy;op&shy;ers,
+                                busi&shy;nesses and end-users is
+                                ex&shy;pand&shy;ing rapidly, along&shy;side ris&shy;ing in&shy;ter&shy;na&shy;tional
+                                debt and eq&shy;uity par&shy;tic&shy;i&shy;pa&shy;tion.</p>
                             <ul class="rd-fan-list">
-                                <li>Ac&shy;cess, FCMB, Ster&shy;ling, Fi&shy;delity, Ecobank, Lotus Bank RE prod&shy;ucts</li>
+                                <li>Ac&shy;cess, FCMB, Ster&shy;ling, Fi&shy;delity, Ecobank, Lotus Bank RE
+                                    prod&shy;ucts</li>
                                 <li>Lotus Bank–REA ₦100&nbsp;billion re&shy;volv&shy;ing credit fa&shy;cil&shy;ity</li>
                                 <li>IFC, AfDB, Africa Fi&shy;nance Cor&shy;po&shy;ra&shy;tion, Africa50</li>
                             </ul>
@@ -5272,11 +5339,14 @@
                             style="--fan-bg:#00543a;">
                             <div class="rd-fan-no" aria-hidden="true">03</div>
                             <h3 class="rd-fan-title">Guarantees &amp; Risk Instruments</h3>
-                            <p class="rd-fan-sum">De-risk&shy;ing tools that un&shy;lock local-cur&shy;rency fi&shy;nanc&shy;ing and re&shy;duce
-                                project risk for in&shy;fra&shy;struc&shy;ture, mini-grid and dis&shy;trib&shy;uted RE in&shy;vest&shy;ments.</p>
+                            <p class="rd-fan-sum">De-risk&shy;ing tools that un&shy;lock local-cur&shy;rency
+                                fi&shy;nanc&shy;ing and re&shy;duce
+                                project risk for in&shy;fra&shy;struc&shy;ture, mini-grid and dis&shy;trib&shy;uted RE
+                                in&shy;vest&shy;ments.</p>
                             <ul class="rd-fan-list">
                                 <li>In&shy;fra&shy;Credit guar&shy;an&shy;tees</li>
-                                <li>NSIA-backed de-risk&shy;ing &amp; po&shy;lit&shy;i&shy;cal risk in&shy;sur&shy;ance</li>
+                                <li>NSIA-backed de-risk&shy;ing &amp; po&shy;lit&shy;i&shy;cal risk in&shy;sur&shy;ance
+                                </li>
                                 <li>MIGA, IFC, AfDB, World Bank Group sup&shy;port</li>
                             </ul>
                         </article>
@@ -5285,12 +5355,15 @@
                             style="--fan-bg:#004225;">
                             <div class="rd-fan-no" aria-hidden="true">04</div>
                             <h3 class="rd-fan-title">Blended Finance</h3>
-                            <p class="rd-fan-sum">The dom&shy;i&shy;nant fund&shy;ing struc&shy;ture — grants, con&shy;ces&shy;sional fi&shy;nance,
-                                pri&shy;vate cap&shy;i&shy;tal and risk-shar&shy;ing com&shy;bined to im&shy;prove bank&shy;a&shy;bil&shy;ity and crowd in
+                            <p class="rd-fan-sum">The dom&shy;i&shy;nant fund&shy;ing struc&shy;ture — grants,
+                                con&shy;ces&shy;sional fi&shy;nance,
+                                pri&shy;vate cap&shy;i&shy;tal and risk-shar&shy;ing com&shy;bined to im&shy;prove
+                                bank&shy;a&shy;bil&shy;ity and crowd in
                                 pri&shy;vate in&shy;vest&shy;ment.</p>
                             <ul class="rd-fan-list">
                                 <li>DARES, REF and the DRE Nige&shy;ria Fund</li>
-                                <li>Emerg&shy;ing Re&shy;new&shy;able En&shy;ergy Blended Fi&shy;nance Fa&shy;cil&shy;ity (REBF)</li>
+                                <li>Emerg&shy;ing Re&shy;new&shy;able En&shy;ergy Blended Fi&shy;nance
+                                    Fa&shy;cil&shy;ity (REBF)</li>
                                 <li>Long-term cap&shy;i&shy;tal for mini-grids, PUE, agri &amp; stor&shy;age</li>
                             </ul>
                         </article>
@@ -5299,11 +5372,14 @@
                             style="--fan-bg:#0b3a2a;">
                             <div class="rd-fan-no" aria-hidden="true">05</div>
                             <h3 class="rd-fan-title">Infrastructure Concession Arrangements</h3>
-                            <p class="rd-fan-sum">Con&shy;ces&shy;sion mod&shy;els that hand de&shy;vel&shy;op&shy;ment, fi&shy;nanc&shy;ing and op&shy;er&shy;a&shy;tions
-                                to pri&shy;vate in&shy;vestors while they re&shy;tain own&shy;er&shy;ship and con&shy;trol cash flows over long
+                            <p class="rd-fan-sum">Con&shy;ces&shy;sion mod&shy;els that hand de&shy;vel&shy;op&shy;ment,
+                                fi&shy;nanc&shy;ing and op&shy;er&shy;a&shy;tions
+                                to pri&shy;vate in&shy;vestors while they re&shy;tain own&shy;er&shy;ship and
+                                con&shy;trol cash flows over long
                                 du&shy;ra&shy;tions.</p>
                             <ul class="rd-fan-list">
-                                <li>Build–Own–Op&shy;er&shy;ate (BOO) mini-grid con&shy;ces&shy;sions — 125+ de&shy;ployed</li>
+                                <li>Build–Own–Op&shy;er&shy;ate (BOO) mini-grid con&shy;ces&shy;sions — 125+
+                                    de&shy;ployed</li>
                                 <li>Utility-scale IPP PPPs on long-term PPAs</li>
                                 <li>Fran&shy;chise dis&shy;trib&shy;uted solar (e.g. Solar Power Naija)</li>
                             </ul>
@@ -5313,11 +5389,14 @@
                             style="--fan-bg:#0b2a1f;">
                             <div class="rd-fan-no" aria-hidden="true">06</div>
                             <h3 class="rd-fan-title">Infrastructure &amp; Revenue Opportunities</h3>
-                            <p class="rd-fan-sum">Fi&shy;nanc&shy;ing tied to es&shy;tab&shy;lished de&shy;mand and pre&shy;dictable rev&shy;enue; the
-                                Elec&shy;tric&shy;ity Act 2023 and state mar&shy;kets fur&shy;ther im&shy;prove com&shy;mer&shy;cial vi&shy;a&shy;bil&shy;ity.</p>
+                            <p class="rd-fan-sum">Fi&shy;nanc&shy;ing tied to es&shy;tab&shy;lished de&shy;mand and
+                                pre&shy;dictable rev&shy;enue; the
+                                Elec&shy;tric&shy;ity Act 2023 and state mar&shy;kets fur&shy;ther im&shy;prove
+                                com&shy;mer&shy;cial vi&shy;a&shy;bil&shy;ity.</p>
                             <ul class="rd-fan-list">
                                 <li>C&amp;I solar, em&shy;bed&shy;ded &amp; cap&shy;tive power</li>
-                                <li>Tele&shy;com tow&shy;ers, agri PUE, cam&shy;puses, hos&shy;pi&shy;tals, es&shy;tates</li>
+                                <li>Tele&shy;com tow&shy;ers, agri PUE, cam&shy;puses, hos&shy;pi&shy;tals, es&shy;tates
+                                </li>
                                 <li>DARES/REA mini-grids and solar-plus-storage</li>
                             </ul>
                         </article>
@@ -5332,9 +5411,12 @@
                     <span class="material-symbols-outlined text-[#f7be26] text-[28px] flex-shrink-0"
                         style="font-variation-settings:'FILL' 1;">insights</span>
                     <p class="text-white text-[17px] sm:text-lg leading-8"><span class="font-bold">In&shy;vestor
-                            Out&shy;look:</span> For in&shy;vestors able to solve fi&shy;nanc&shy;ing, dis&shy;tri&shy;bu&shy;tion, ag&shy;gre&shy;ga&shy;tion,
-                        en&shy;ergy-ser&shy;vice de&shy;liv&shy;ery, or pro&shy;duc&shy;tive-use in&shy;te&shy;gra&shy;tion at scale, Nigeria's solar mar&shy;ket re&shy;mains
-                        sig&shy;nif&shy;i&shy;cantly un&shy;der&shy;pen&shy;e&shy;trated rel&shy;a&shy;tive to long-term de&shy;mand po&shy;ten&shy;tial, of&shy;fer&shy;ing sub&shy;stan&shy;tial room
+                            Out&shy;look:</span> For in&shy;vestors able to solve fi&shy;nanc&shy;ing,
+                        dis&shy;tri&shy;bu&shy;tion, ag&shy;gre&shy;ga&shy;tion,
+                        en&shy;ergy-ser&shy;vice de&shy;liv&shy;ery, or pro&shy;duc&shy;tive-use
+                        in&shy;te&shy;gra&shy;tion at scale, Nigeria's solar mar&shy;ket re&shy;mains
+                        sig&shy;nif&shy;i&shy;cantly un&shy;der&shy;pen&shy;e&shy;trated rel&shy;a&shy;tive to long-term
+                        de&shy;mand po&shy;ten&shy;tial, of&shy;fer&shy;ing sub&shy;stan&shy;tial room
                         for growth across both grid-con&shy;nected and off-grid seg&shy;ments.</p>
                 </div>
             </div>
@@ -5352,16 +5434,22 @@
                     style="font-family: Manrope, sans-serif;">Featured Investment Areas</h2>
 
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8">Nigeria's solar mar&shy;ket presents
-                    one of the clear&shy;est in&shy;vest&shy;ment entry points within the country's en&shy;ergy sec&shy;tor. De&shy;mand is al&shy;ready
-                    es&shy;tab&shy;lished across house&shy;holds, busi&shy;nesses, in&shy;dus&shy;tries, agri&shy;cul&shy;tural value chains, and pub&shy;lic
-                    in&shy;sti&shy;tu&shy;tions, while de&shy;clin&shy;ing tech&shy;nol&shy;ogy costs con&shy;tinue to im&shy;prove project eco&shy;nom&shy;ics.</p>
+                    one of the clear&shy;est in&shy;vest&shy;ment entry points within the country's en&shy;ergy
+                    sec&shy;tor. De&shy;mand is al&shy;ready
+                    es&shy;tab&shy;lished across house&shy;holds, busi&shy;nesses, in&shy;dus&shy;tries,
+                    agri&shy;cul&shy;tural value chains, and pub&shy;lic
+                    in&shy;sti&shy;tu&shy;tions, while de&shy;clin&shy;ing tech&shy;nol&shy;ogy costs con&shy;tinue to
+                    im&shy;prove project eco&shy;nom&shy;ics.</p>
                 <p class="text-[#404846] text-base sm:text-[17px] leading-8 mt-5">In&shy;vestors can ac&shy;cess a
-                    grow&shy;ing pipe&shy;line of op&shy;por&shy;tu&shy;ni&shy;ties through na&shy;tional pro&shy;grammes and mar&shy;ket in&shy;tel&shy;li&shy;gence plat&shy;forms
+                    grow&shy;ing pipe&shy;line of op&shy;por&shy;tu&shy;ni&shy;ties through na&shy;tional
+                    pro&shy;grammes and mar&shy;ket in&shy;tel&shy;li&shy;gence plat&shy;forms
                     such as
                     <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
                         class="text-[#004225] font-semibold underline decoration-[#f7be26] decoration-2 underline-offset-2 hover:text-[#00301f]">Nige&shy;ria
-                        SE4ALL</a>, which pro&shy;vide in&shy;for&shy;ma&shy;tion on elec&shy;tri&shy;fi&shy;ca&shy;tion gaps, re&shy;new&shy;able en&shy;ergy de&shy;mand cen&shy;tres,
-                    project pipe&shy;lines, and pri&shy;or&shy;ity in&shy;vest&shy;ment lo&shy;ca&shy;tions. De&shy;tailed datasets, maps, and plan&shy;ning
+                        SE4ALL</a>, which pro&shy;vide in&shy;for&shy;ma&shy;tion on elec&shy;tri&shy;fi&shy;ca&shy;tion
+                    gaps, re&shy;new&shy;able en&shy;ergy de&shy;mand cen&shy;tres,
+                    project pipe&shy;lines, and pri&shy;or&shy;ity in&shy;vest&shy;ment lo&shy;ca&shy;tions.
+                    De&shy;tailed datasets, maps, and plan&shy;ning
                     re&shy;sources are avail&shy;able through the platform's Data &amp; Re&shy;sources sec&shy;tion.
                 </p>
                 <a href="https://nigeriase4all.gov.ng/" target="_blank" rel="noopener"
@@ -5632,27 +5720,32 @@
                     style="font-family: Manrope, sans-serif;">Useful Resources and Data</h2>
                 <ul class="rd-list rd-links">
                     <li><a href="https://www.nerc.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo"
-                                aria-hidden="true"><img loading="lazy" decoding="async" src="Nigerian Electricity Regulatory Commission logo.png"
-                                    alt="" /></span><span class="rd-link-name">NERC</span><span
-                                class="rd-link-url">www.nerc.gov.ng</span></a></li>
+                                aria-hidden="true"><img loading="lazy" decoding="async"
+                                    src="Nigerian Electricity Regulatory Commission logo.png" alt="" /></span><span
+                                class="rd-link-name">NERC</span><span class="rd-link-url">www.nerc.gov.ng</span></a>
+                    </li>
                     <li><a href="https://www.rea.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo"
-                                aria-hidden="true"><img loading="lazy" decoding="async" src="REA-logo.png" alt="" /></span><span
-                                class="rd-link-name">REA</span><span class="rd-link-url">www.rea.gov.ng</span></a></li>
+                                aria-hidden="true"><img loading="lazy" decoding="async" src="REA-logo.png"
+                                    alt="" /></span><span class="rd-link-name">REA</span><span
+                                class="rd-link-url">www.rea.gov.ng</span></a></li>
                     <li><a href="https://www.nipc.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo"
-                                aria-hidden="true"><img loading="lazy" decoding="async" src="nipc-logo.png" alt="" /></span><span
-                                class="rd-link-name">NIPC</span><span class="rd-link-url">www.nipc.gov.ng</span></a>
+                                aria-hidden="true"><img loading="lazy" decoding="async" src="nipc-logo.png"
+                                    alt="" /></span><span class="rd-link-name">NIPC</span><span
+                                class="rd-link-url">www.nipc.gov.ng</span></a>
                     </li>
                     <li><a href="https://www.son.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo"
-                                aria-hidden="true"><img loading="lazy" decoding="async" src="son_png.png" alt="" /></span><span
-                                class="rd-link-name">SON</span><span class="rd-link-url">www.son.gov.ng</span></a></li>
+                                aria-hidden="true"><img loading="lazy" decoding="async" src="son_png.png"
+                                    alt="" /></span><span class="rd-link-name">SON</span><span
+                                class="rd-link-url">www.son.gov.ng</span></a></li>
                     <li><a href="https://www.nemsa.gov.ng" target="_blank" rel="noopener"><span class="rd-link-logo"
-                                aria-hidden="true"><img loading="lazy" decoding="async" src="NEMSA.png" alt="" /></span><span
-                                class="rd-link-name">NEMSA</span><span class="rd-link-url">www.nemsa.gov.ng</span></a>
+                                aria-hidden="true"><img loading="lazy" decoding="async" src="NEMSA.png"
+                                    alt="" /></span><span class="rd-link-name">NEMSA</span><span
+                                class="rd-link-url">www.nemsa.gov.ng</span></a>
                     </li>
                     <li><a href="https://www.environment.gov.ng" target="_blank" rel="noopener"><span
-                                class="rd-link-logo" aria-hidden="true"><img loading="lazy" decoding="async" src="FMEnew.png" alt="" /></span><span
-                                class="rd-link-name">Federal Ministry of Environment</span><span
-                                class="rd-link-url">www.environment.gov.ng</span></a></li>
+                                class="rd-link-logo" aria-hidden="true"><img loading="lazy" decoding="async"
+                                    src="FMEnew.png" alt="" /></span><span class="rd-link-name">Federal Ministry of
+                                Environment</span><span class="rd-link-url">www.environment.gov.ng</span></a></li>
                 </ul>
             </div>
         </section>
@@ -5793,7 +5886,7 @@
                 window.addEventListener('resize', () => { if (window.matchMedia('(min-width: 1024px)').matches) mobileNav.classList.add('hidden'); });
             }
         })();
-            </script>
+    </script>
     <!-- NESP nav hover dropdowns (shared, injected) -->
     <style>
         .nesp-has-menu {
@@ -6318,22 +6411,9 @@
                 inRest('h2, h3').forEach(function (h) {
                     if (h.closest('.ovw, .opportunity-card')) return;
                     if (!hasSplit || h.querySelector('abbr, .osip-term')) {
-                        gsap.from(h, { opacity: 0, y: 24, duration: 1.1, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
                         hidden.push(h);
                         return;
                     }
-                    SplitText.create(h, {
-                        type: 'lines',
-                        mask: 'lines',
-                        linesClass: 'rd-line',
-                        autoSplit: true,
-                        onSplit: function (self) {
-                            return gsap.from(self.lines, {
-                                yPercent: 144, duration: 1.2, stagger: 0.09, ease: EASE,
-                                scrollTrigger: { trigger: h, start: 'top 88%', once: true }
-                            });
-                        }
-                    });
                 });
 
                 /* ---- Reading text: the words light up in reading order ---------------
@@ -6350,16 +6430,9 @@
                     if (!targets.length) targets = [el];
                     targets.forEach(function (t) {
                         if (!hasSplit) {
-                            gsap.from(t, { opacity: 0, y: 28, duration: 1.2, ease: EASE, clearProps: 'transform', scrollTrigger: { trigger: t, start: 'top 92%', once: true } });
                             hidden.push(t);
                             return;
                         }
-                        var words = SplitText.create(t, { type: 'words', wordsClass: 'rd-word', tag: 'span', aria: 'none' }).words;
-                        hidden = hidden.concat(words);
-                        gsap.fromTo(words, { opacity: 0.2 }, {
-                            opacity: 1, ease: 'none', stagger: 0.1,
-                            scrollTrigger: { trigger: t, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                        });
                     });
                 });
 
@@ -6367,10 +6440,6 @@
                    The same scroll range as the words, so rule and text arrive together. */
                 inRest('.ovw-lede, #technical h2 + p, #opportunities h2 + p, .osip-note').forEach(function (el) {
                     drawn.push(el);
-                    gsap.fromTo(el, { '--rd-draw': 0 }, {
-                        '--rd-draw': 1, ease: 'none',
-                        scrollTrigger: { trigger: el, start: 'top 92%', end: 'bottom 68%', scrub: 0.5 }
-                    });
                 });
 
                 /* ---- Statements: the words light up as you read down to them -------- */
@@ -6381,11 +6450,6 @@
                     });
                     var p = box.querySelector('p');
                     if (!p || !hasSplit) return;
-                    var words = SplitText.create(p, { type: 'words', wordsClass: 'rd-word', aria: 'none' }).words;
-                    gsap.fromTo(words, { opacity: 0.14 }, {
-                        opacity: 1, ease: 'none', stagger: 0.08,
-                        scrollTrigger: { trigger: box, start: 'top 78%', end: 'bottom 60%', scrub: 0.6 }
-                    });
                 });
 
                 /* ---- Cards, chips and list rows arrive in the order they sit ---------
@@ -6473,50 +6537,10 @@
                     ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: function () { countUp(el); } });
                 });
 
-                /* ---- Cursor ----------------------------------------------------------- */
-                if (fine) {
-                    var cursor = document.createElement('div');
-                    cursor.className = 'rd-cursor';
-                    cursor.setAttribute('aria-hidden', 'true');
-                    var dot = document.createElement('div');
-                    dot.className = 'rd-cursor-dot';
-                    var label = document.createElement('span');
-                    label.className = 'rd-cursor-label';
-                    dot.appendChild(label);
-                    cursor.appendChild(dot);
-                    document.body.appendChild(cursor);
-                    html.classList.add('rd-cursor-on');
+                /* ---- Cursor (removed 5 Oct 2026) --------------------------------------
+                   GIZ feedback: "A second curser is not needed (the yellow spot that jumps
+                   in and out)". The page uses the reader's own pointer. */
 
-                    var toX = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3' });
-                    var toY = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3' });
-                    var placed = false;
-                    window.addEventListener('pointermove', function (e) {
-                        if (e.pointerType && e.pointerType !== 'mouse') return;
-                        if (!placed) { gsap.set(cursor, { x: e.clientX, y: e.clientY }); placed = true; }
-                        toX(e.clientX);
-                        toY(e.clientY);
-                    }, { passive: true });
-
-                    var off = function () { cursor.removeAttribute('data-mode'); };
-                    function target(el, mode, text) {
-                        el.setAttribute('data-rd-cursor', mode);
-                        el.addEventListener('pointerenter', function () {
-                            cursor.setAttribute('data-mode', mode);
-                            cursor.setAttribute('data-look', mode);
-                            label.textContent = text || '';
-                        });
-                        el.addEventListener('pointerleave', off);
-                    }
-                    inRest('a[target="_blank"].rounded-xl, a[target="_blank"].rounded-lg').forEach(function (a) { target(a, 'label', 'Open'); });
-                    inRest('.video-facade').forEach(function (v) {
-                        target(v, 'play', 'Play');
-                        v.addEventListener('click', off);
-                    });
-                    inRest('h2').forEach(function (h) { target(h, 'text'); });
-                    all(main, '.ovw-title').forEach(function (h) { target(h, 'text'); });
-                    cards.forEach(function (c) { if (c.tagName !== 'A') target(c, 'ring'); });
-                    document.documentElement.addEventListener('mouseleave', off);
-                }
 
                 /* ---- Magnetic buttons ------------------------------------------------- */
                 if (fine) {
