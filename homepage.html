@@ -5094,207 +5094,175 @@
         }
     </style>
   <style id="osip-guide">
-    /* ---- Investor guide as an FAQ-style list (15 Sep 2026) ------------------------------
-       The five topic cards become rows on hairlines that open on hover, matching
-       pages/FAQs.html: the title and a round chevron, the brief's one-line summary and a
-       link to where the topic lives. Full width of the section, nothing boxed. */
-    .osip-guide-list {
-      margin-bottom: clamp(36px, 4vw, 52px);
-      border-top: 1px solid var(--rd-line-2, #cfc9bd);
+    /* ---- Investor guide as a card grid (6 Oct 2026) ------------------------------------
+       The five topics are now static, always-open cards - no collapsing. Each card shows
+       an icon badge, the title, the brief's one-line summary and a link to where the topic
+       lives. The Finance card is wider and carries the ten per-sector finance links
+       (GOPA-LP-03). Layout: one column on phones, two on tablets, three on desktop with
+       the Finance card spanning two columns so the whole thing reads as a tidy grid. */
+    .osip-guide-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(12px, 1.4vw, 16px);
+      margin-bottom: clamp(24px, 3vw, 36px);
     }
 
-    .osip-guide-item {
-      border-bottom: 1px solid var(--rd-line, #e2ded5);
+    @media (min-width: 640px) {
+      .osip-guide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    .osip-guide-item > summary {
+    @media (min-width: 1000px) {
+      .osip-guide-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .osip-guide-card--wide { grid-column: span 2; }
+    }
+
+    .osip-guide-card {
+      position: relative;
       display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 24px 0;
-      cursor: pointer;
-      list-style: none;
+      flex-direction: column;
+      gap: 10px;
+      padding: clamp(16px, 1.6vw, 22px);
+      background: #ffffff;
+      border: 1px solid var(--rd-line, #e2ded5);
+      border-radius: 14px;
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform .45s cubic-bezier(.22, 1, .36, 1), box-shadow .45s ease, border-color .45s ease;
     }
 
-    .osip-guide-item > summary::-webkit-details-marker {
-      display: none;
+    .osip-guide-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 48px -24px rgba(0, 66, 37, .45);
+      border-color: rgba(11, 107, 69, .35);
     }
 
-    .osip-guide-item > summary:focus-visible {
-      outline: 2px solid var(--rd-green-2, #0b6b45);
-      outline-offset: 4px;
-      border-radius: 6px;
+    /* the whole card is one click target: the main link is stretched over it */
+    .osip-guide-link::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
     }
 
-    .rd #root .osip-guide-item h3 {
-      flex: 1 1 auto;
-      margin: 0 !important;
-      font-family: var(--rd-sans) !important;
-      font-size: 19px !important;
-      font-weight: 500 !important;
-      line-height: 1.35 !important;
-      letter-spacing: -0.01em !important;
-      color: var(--rd-ink, #13201b) !important;
-      transition: color .3s ease;
+    /* the Finance card's sector chips sit above the stretched link so they stay
+       individually clickable */
+    .osip-guide-sectors {
+      position: relative;
+      z-index: 2;
     }
 
-    .rd #root .osip-guide-item:hover h3,
-    .rd #root .osip-guide-item[open] h3 {
-      color: var(--rd-green, #004225) !important;
-    }
-
-    .osip-guide-icon {
-      flex: 0 0 auto;
-      width: 22px;
-      font-size: 22px !important;
-      color: var(--rd-green-2, #0b6b45);
-      font-variation-settings: 'FILL' 0, 'wght' 250, 'GRAD' 0, 'opsz' 24;
-    }
-
-    .osip-guide-chev {
+    .osip-guide-badge {
       flex: 0 0 auto;
       display: inline-flex !important;
       align-items: center;
       justify-content: center;
-      width: 34px;
-      height: 34px;
-      border: 1px solid var(--rd-line-2, #cfc9bd);
-      border-radius: 999px;
-      font-size: 18px !important;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(11, 107, 69, .14), rgba(247, 190, 38, .16));
       color: var(--rd-green, #004225);
-      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
-      transition: transform .45s cubic-bezier(.22, 1, .36, 1), background-color .3s ease, color .3s ease, border-color .3s ease;
+      transition: transform .45s cubic-bezier(.22, 1, .36, 1), background-color .3s ease, color .3s ease;
     }
 
-    .osip-guide-item:hover .osip-guide-chev,
-    .osip-guide-item[open] .osip-guide-chev {
-      color: #ffffff;
+    .osip-guide-badge .material-symbols-outlined {
+      font-size: 22px !important;
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .osip-guide-card:hover .osip-guide-badge {
+      transform: scale(1.06) rotate(-3deg);
       background: var(--rd-green, #004225);
-      border-color: var(--rd-green, #004225);
+      color: #ffffff;
     }
 
-    .osip-guide-item[open] .osip-guide-chev {
-      transform: rotate(180deg);
-    }
-
-
-    /* The sector routes under the Investor Guide's Finance item (GOPA-LP-03).
-       Ten quiet links on one line, inside an item that is closed until it is
-       opened, so the landing page is unchanged until someone asks for it. */
-    .osip-guide-sectors {
-      flex: 1 1 100%;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 4px 16px;
-      margin: 4px 0 0;
-      font-size: 13.5px;
-      line-height: 1.6;
-    }
-
-    .rd #root .osip-guide-sectors { color: #6b716c; }
-
-    .osip-guide-sectors > span {
-      color: #6b716c;
-      letter-spacing: .01em;
-    }
-
-    .rd #root .osip-guide-sectors a {
-      padding: 0;
-      border: 0;
-      background: none;
-      font-size: 13.5px;
-      font-weight: 500;
-      color: #0b6b45;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color .3s ease, color .3s ease;
-    }
-
-    .rd #root .osip-guide-sectors a:hover { color: #004225; border-bottom-color: #cfc9bd; }
-
-    @media (max-width: 640px) {
-      .osip-guide-sectors { gap: 4px 12px; font-size: 13px; }
-    }
-
-    .osip-guide-body {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px 40px;
-      padding: 0 52px 26px 40px;
-    }
-
-    .rd #root .osip-guide-body p {
-      flex: 1 1 26rem;
+    .rd #root .osip-guide-card h3 {
       margin: 0 !important;
       font-family: var(--rd-sans) !important;
       font-size: 17px !important;
-      line-height: 1.65 !important;
+      font-weight: 600 !important;
+      line-height: 1.3 !important;
+      letter-spacing: -0.01em !important;
+      color: var(--rd-ink, #13201b) !important;
+    }
+
+    .rd #root .osip-guide-card > p {
+      margin: 0 !important;
+      font-family: var(--rd-sans) !important;
+      font-size: 14px !important;
+      line-height: 1.55 !important;
       color: var(--rd-ink-2, #3d4742) !important;
     }
 
-    .rd #root .osip-guide-body a {
-      flex: 0 0 auto;
+    .rd #root .osip-guide-link {
+      margin-top: auto;
+      align-self: flex-start;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      padding-top: 2px;
       font-family: var(--rd-sans) !important;
-      font-size: 14.5px !important;
-      font-weight: 500 !important;
-      white-space: nowrap;
+      font-size: 13.5px !important;
+      font-weight: 600 !important;
       text-decoration: none;
       color: var(--rd-green-2, #0b6b45) !important;
+      transition: color .3s ease;
     }
 
-    .rd #root .osip-guide-body a:hover {
+    .rd #root .osip-guide-link:hover {
       color: var(--rd-green, #004225) !important;
-      text-decoration: underline;
-      text-decoration-color: rgba(217, 165, 32, .7);
-      text-underline-offset: 4px;
     }
 
-    .osip-guide-body a .material-symbols-outlined {
-      font-size: 17px !important;
+    .osip-guide-link .material-symbols-outlined {
+      font-size: 18px !important;
       transition: transform .35s cubic-bezier(.22, 1, .36, 1);
     }
 
-    .osip-guide-body a:hover .material-symbols-outlined {
-      transform: translateX(3px);
+    .osip-guide-card:hover .osip-guide-link .material-symbols-outlined {
+      transform: translateX(4px);
     }
 
-    /* two to a row from tablet up, so the five topics read as pairs */
-    @media (min-width: 900px) {
-      .osip-guide-list {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        column-gap: clamp(40px, 4.5vw, 84px);
-      }
+    /* The ten per-sector finance routes (GOPA-LP-03), shown as quiet chips inside the
+       wider Finance card. */
+    .osip-guide-sectors {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 8px;
+      margin: 2px 0 0;
+    }
 
-      /* an odd one out runs the full width, so no hairline stops halfway */
-      .osip-guide-item:last-child:nth-child(odd) {
-        grid-column: 1 / -1;
-      }
+    .osip-guide-sectors > span {
+      width: 100%;
+      margin-bottom: 1px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #6b716c;
+    }
+
+    .rd #root .osip-guide-sectors a {
+      padding: 4px 10px;
+      border: 1px solid var(--rd-line-2, #cfc9bd);
+      border-radius: 999px;
+      background: #fcfbf8;
+      font-size: 12px;
+      font-weight: 500;
+      color: #0b6b45;
+      text-decoration: none;
+      transition: border-color .3s ease, color .3s ease, background-color .3s ease, transform .3s ease;
+    }
+
+    .rd #root .osip-guide-sectors a:hover {
+      color: #ffffff;
+      background: var(--rd-green, #004225);
+      border-color: var(--rd-green, #004225);
+      transform: translateY(-1px);
     }
 
     @media (max-width: 639px) {
-      .osip-guide-item > summary {
-        gap: 14px;
-        padding: 20px 0;
-      }
-
-      .rd #root .osip-guide-item h3 {
-        font-size: 17px !important;
-      }
-
-      .osip-guide-body {
-        padding: 0 0 22px 36px;
-      }
-
-      .rd #root .osip-guide-body p {
-        font-size: 16px !important;
-      }
+      .rd #root .osip-guide-card h3 { font-size: 18px !important; }
+      .rd #root .osip-guide-card > p { font-size: 15px !important; }
     }
   </style>
 </head>
@@ -7871,171 +7839,73 @@
         })();
       </script>
 
-      <section class="bg-[#f6f8f7] py-12 lg:py-16 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
+      <section class="bg-[#f6f8f7] px-6 lg:px-8" style="font-family: Inter, sans-serif; padding-top: 2.5rem; padding-bottom: 2.5rem;">
         <div class="max-w-7xl mx-auto">
-          <div class="max-w-3xl mb-10 lg:mb-14">
-            <div class="flex items-center gap-3 mb-5"><span class="w-8 sm:w-10 h-[3px] bg-[#ffb955]"></span><span
+          <div class="max-w-3xl" style="margin-bottom: 1.75rem;">
+            <div class="flex items-center gap-3" style="margin-bottom: 0.75rem;"><span class="w-8 sm:w-10 h-[3px] bg-[#ffb955]"></span><span
                 class="text-[#1f5840] text-[11px] sm:text-sm font-semibold tracking-[0.2em] uppercase">INVESTOR
                 GUIDE</span></div>
-            <h2 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-[#111827] leading-tight mb-4"
-              style="font-family: Manrope, sans-serif;">Investor Guide to Nigeria's Clean Energy Sector</h2>
-            <p class="text-[#5f6368] text-[15px] lg:text-[17px] leading-8">A practical guide designed to help investors
+            <h2 class="font-bold text-[#111827] leading-tight"
+              style="font-family: Manrope, sans-serif; font-size: 28px; margin-bottom: 0.625rem;">Investor Guide to Nigeria's Clean Energy Sector</h2>
+            <p class="text-[#5f6368]" style="font-size: 14px; line-height: 1.7;">A practical guide designed to help investors
               understand Nigeria's clean energy market, regulatory environment, financing landscape, and project
               development process.</p>
           </div>
-          <!-- Investor guide topics (15 Sep 2026; opening changed 2 Oct 2026): an FAQ-style
-               list. A topic opens when it is clicked and stays open until it is clicked again -
-               GIZ feedback: "Section 'Investor Guide' is very irritating to navigate through",
-               which was the pointer opening topics merely by passing over them. Topic wording is
-               the Federal Content brief's; each links to where the topic lives. -->
-          <div class="osip-guide-list">
-            <details class="osip-guide-item">
-              <summary>
-                <span class="material-symbols-outlined osip-guide-icon" aria-hidden="true">trending_up</span>
-                <h3>Why Invest in Nigeria?</h3>
-                <span class="material-symbols-outlined osip-guide-chev" aria-hidden="true">expand_more</span>
-              </summary>
-              <div class="osip-guide-body">
-                <p>Market fundamentals, demand drivers, and growth outlook.</p>
-                <a href="pages/Data.html">Explore data and insights <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-              </div>
-            </details>
-            <details class="osip-guide-item">
-              <summary>
-                <span class="material-symbols-outlined osip-guide-icon" aria-hidden="true">redeem</span>
-                <h3>Finance</h3>
-                <span class="material-symbols-outlined osip-guide-chev" aria-hidden="true">expand_more</span>
-              </summary>
-              <div class="osip-guide-body">
-                <p>Tax holidays, customs incentives, EDTI, Pioneer Status, and financing support.</p>
-                <a href="pages/Regulation.html#tax">See tax and fiscal incentives <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-                <!-- GOPA-LP-03: the money for a project is set out on its own sector
-                     page, under "Capital & Investment Finance". Rather than repeat any
-                     of it here, this line goes straight to each one. -->
-                <p class="osip-guide-sectors"><span>Finance by sector:</span>
-                  <a href="pages/DetailedSector.html#finance">Solar</a>
-                  <a href="pages/Wind.html#finance">Wind</a>
-                  <a href="pages/Storage.html#finance">Storage</a>
-                  <a href="pages/SmallHydro.html#finance">Small Hydro</a>
-                  <a href="pages/GreenMobility.html#finance">Green Mobility</a>
-                  <a href="pages/EnergyEfficiency.html#finance">Energy Efficiency</a>
-                  <a href="pages/CleanCooking.html#finance">Clean Cooking</a>
-                  <a href="pages/Bioenergy.html#finance">Bioenergy</a>
-                  <a href="pages/AgriculturePUE.html#finance">Agriculture PUE</a>
-                  <a href="pages/GreenHydrogen.html#finance">Green Hydrogen</a>
-                </p>
-              </div>
-            </details>
-            <details class="osip-guide-item">
-              <summary>
-                <span class="material-symbols-outlined osip-guide-icon" aria-hidden="true">verified</span>
-                <h3>Regulations</h3>
-                <span class="material-symbols-outlined osip-guide-chev" aria-hidden="true">expand_more</span>
-              </summary>
-              <div class="osip-guide-body">
-                <p>Licensing pathways, permits, environmental approvals, and compliance requirements.</p>
-                <a href="pages/Regulation.html#pathway">Find your regulatory pathway <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-              </div>
-            </details>
-            <details class="osip-guide-item">
-              <summary>
-                <span class="material-symbols-outlined osip-guide-icon" aria-hidden="true">solar_power</span>
-                <h3>Sectors</h3>
-                <span class="material-symbols-outlined osip-guide-chev" aria-hidden="true">expand_more</span>
-              </summary>
-              <div class="osip-guide-body">
-                <p>Technology-specific opportunities and investment entry points.</p>
-                <a href="pages/Sector.html">Browse the sectors <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-              </div>
-            </details>
-            <details class="osip-guide-item">
-              <summary>
-                <span class="material-symbols-outlined osip-guide-icon" aria-hidden="true">map</span>
-                <h3>State Investment Profiles</h3>
-                <span class="material-symbols-outlined osip-guide-chev" aria-hidden="true">expand_more</span>
-              </summary>
-              <div class="osip-guide-body">
-                <p>Subnational investment environments and state-level opportunities.</p>
-                <a href="pages/States.html">Invest by state <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-              </div>
-            </details>
+          <!-- Investor guide topics (6 Oct 2026): static cards, no collapsing. Each card
+               carries an icon badge, the title, the brief's one-line summary and a link to
+               where the topic lives. The Finance card is wider and holds the ten per-sector
+               finance routes (GOPA-LP-03). Topic wording is the Federal Content brief's. -->
+          <div class="osip-guide-grid">
+            <article class="osip-guide-card">
+              <span class="osip-guide-badge"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span></span>
+              <h3>Why Invest in Nigeria?</h3>
+              <p>Market fundamentals, demand drivers, and growth outlook.</p>
+              <a class="osip-guide-link" href="pages/Data.html">Explore data and insights <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+            </article>
+            <article class="osip-guide-card osip-guide-card--wide">
+              <span class="osip-guide-badge"><span class="material-symbols-outlined" aria-hidden="true">redeem</span></span>
+              <h3>Finance</h3>
+              <p>Tax holidays, customs incentives, EDTI, Pioneer Status, and financing support.</p>
+              <a class="osip-guide-link" href="pages/Regulation.html#tax">See tax and fiscal incentives <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+              <!-- GOPA-LP-03: the money for a project is set out on its own sector
+                   page, under "Capital & Investment Finance". Rather than repeat any
+                   of it here, these chips go straight to each one. -->
+              <p class="osip-guide-sectors"><span>Finance by sector</span>
+                <a href="pages/DetailedSector.html#finance">Solar</a>
+                <a href="pages/Wind.html#finance">Wind</a>
+                <a href="pages/Storage.html#finance">Storage</a>
+                <a href="pages/SmallHydro.html#finance">Small Hydro</a>
+                <a href="pages/GreenMobility.html#finance">Green Mobility</a>
+                <a href="pages/EnergyEfficiency.html#finance">Energy Efficiency</a>
+                <a href="pages/CleanCooking.html#finance">Clean Cooking</a>
+                <a href="pages/Bioenergy.html#finance">Bioenergy</a>
+                <a href="pages/AgriculturePUE.html#finance">Agriculture PUE</a>
+                <a href="pages/GreenHydrogen.html#finance">Green Hydrogen</a>
+              </p>
+            </article>
+            <article class="osip-guide-card">
+              <span class="osip-guide-badge"><span class="material-symbols-outlined" aria-hidden="true">verified</span></span>
+              <h3>Regulations</h3>
+              <p>Licensing pathways, permits, environmental approvals, and compliance requirements.</p>
+              <a class="osip-guide-link" href="pages/Regulation.html#pathway">Find your regulatory pathway <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+            </article>
+            <article class="osip-guide-card">
+              <span class="osip-guide-badge"><span class="material-symbols-outlined" aria-hidden="true">solar_power</span></span>
+              <h3>Sectors</h3>
+              <p>Technology-specific opportunities and investment entry points.</p>
+              <a class="osip-guide-link" href="pages/Sector.html">Browse the sectors <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+            </article>
+            <article class="osip-guide-card">
+              <span class="osip-guide-badge"><span class="material-symbols-outlined" aria-hidden="true">map</span></span>
+              <h3>State Investment Profiles</h3>
+              <p>Subnational investment environments and state-level opportunities.</p>
+              <a class="osip-guide-link" href="pages/States.html">Invest by state <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+            </article>
           </div>
           <span class="osip-cta-soon"><span class="material-symbols-outlined">download</span>Investor Guide
             <em>Coming soon</em></span>
         </div>
       </section>
-      <script>
-        /* Investor guide topics open on click (2 Oct 2026).
-
-           They used to open when the pointer rested on them and close when it moved
-           away, so dragging the pointer down the list set topic after topic opening and
-           shutting - "Section 'Investor Guide' is very irritating to navigate through"
-           in the GIZ feedback. A topic now opens when it is clicked and stays open until
-           it is clicked again, which is also what it already did on a touch screen and
-           from the keyboard. Opening and closing still ease the height unless reduced
-           motion is asked for, and the scroll animations re-measure once the page has
-           changed height. */
-        (function () {
-          var items = Array.prototype.slice.call(document.querySelectorAll('.osip-guide-item'));
-          if (!items.length) return;
-          var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          var EASE = 'cubic-bezier(.22, 1, .36, 1)';
-
-          function body(d) { return d.querySelector(':scope > .osip-guide-body'); }
-
-          function openItem(d) {
-            var a = body(d);
-            if (d._closing && d._anim) { d._anim.cancel(); return; }
-            if (d.open) return;
-            d.open = true;
-            if (!a || still || !a.animate) return;
-            var h = a.offsetHeight, pb = getComputedStyle(a).paddingBottom;
-            a.style.overflow = 'hidden';
-            d._anim = a.animate([
-              { height: '0px', paddingBottom: '0px', opacity: 0 },
-              { height: h + 'px', paddingBottom: pb, opacity: 1 }
-            ], { duration: 420, easing: EASE });
-            d._anim.onfinish = d._anim.oncancel = function () { a.style.overflow = ''; d._anim = null; };
-          }
-
-          function closeItem(d) {
-            var a = body(d);
-            if (!d.open || d._closing) return;
-            if (!a || still || !a.animate) { d.open = false; return; }
-            if (d._anim) d._anim.cancel();
-            var h = a.offsetHeight, pb = getComputedStyle(a).paddingBottom;
-            a.style.overflow = 'hidden';
-            d._closing = true;
-            var anim = a.animate([
-              { height: h + 'px', paddingBottom: pb, opacity: 1 },
-              { height: '0px', paddingBottom: '0px', opacity: 0 }
-            ], { duration: 300, easing: EASE, fill: 'forwards' });
-            d._anim = anim;
-            anim.onfinish = function () { d.open = false; anim.cancel(); };
-            anim.oncancel = function () { a.style.overflow = ''; d._closing = false; d._anim = null; };
-          }
-
-          var refreshTimer = null;
-          function refreshSoon() {
-            clearTimeout(refreshTimer);
-            refreshTimer = setTimeout(function () { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); }, 480);
-          }
-
-          items.forEach(function (d) {
-            var summary = d.querySelector(':scope > summary');
-            if (!summary) return;
-            d.addEventListener('toggle', refreshSoon);
-
-            summary.addEventListener('click', function (e) {
-              e.preventDefault();
-              if (d.open && !d._closing) closeItem(d);
-              else openItem(d);
-            });
-          });
-        })();
-      </script>
-
-
       <section class="bg-[#0d2318] py-14 lg:py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
           <h2 class="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-white text-center mb-10 lg:mb-14"

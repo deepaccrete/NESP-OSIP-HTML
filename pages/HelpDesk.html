@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta name="description" content="Raise a support ticket with the Nigeria SE4ALL team, without leaving OSIP." />
+    <meta name="description" content="Contact the OSIP support team - email, phone, address and opening hours." />
     <title>OSIP Help Desk | One-Stop Investment Platform (OSIP)</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
@@ -102,11 +102,11 @@
            (OSIP-Frontend/src/pages/help-desk/HelpDeskPage.jsx) and set in this
            prototype's redesign: warm paper ground, Inter, a gold-ruled eyebrow.
 
-           There is no backend behind this page. The help desk is the Nigeria
-           SE4ALL Support Portal on its own domain; the page hosts it inside the
-           site's own header and footer so a visitor raising a ticket does not
-           appear to leave OSIP. The nav's Support menu and the footer's
-           "OSIP Help Desk" link point here, not at the external URL.
+           There is no backend behind this page. It is a plain, self-contained help
+           desk: how to reach the OSIP support team (email, phone, address, hours).
+           The embedded Nigeria SE4ALL ticket portal (an iframe) and the "Still need
+           help?" action band were removed 6 Oct 2026. The nav's Support menu and the
+           footer's "OSIP Help Desk" link point here.
            ===================================================================== */
         :root {
             --hd-paper: #f5f3ee;
@@ -172,10 +172,7 @@
             color: var(--hd-ink);
         }
 
-        /* The way out, and not decoration. The form runs on another origin, so its
-           session cookies are third-party ones; where a browser blocks those, the
-           embed still renders and fails only on submit. This link opens the portal
-           directly, so it stays in view above the frame. */
+        /* The standfirst under the title, with a gold rule down its left edge. */
         .hd-lede {
             position: relative;
             max-width: 52rem;
@@ -216,24 +213,90 @@
             font-size: 18px;
         }
 
-        /* The card draws the boundary between this page and the embedded service. */
+        /* ---- Contact cards (6 Oct 2026) -------------------------------------------
+           The embedded ticket portal (a cross-origin iframe) is gone; this page now
+           stands on its own as a plain help desk: how to reach the OSIP support team -
+           email, phone, address and opening hours - with the ticket portal offered as a
+           link rather than a frame. */
+        .hd-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(14px, 1.6vw, 20px);
+            margin-bottom: clamp(32px, 3.6vw, 48px);
+        }
+
+        @media (min-width: 560px) {
+            .hd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (min-width: 1024px) {
+            .hd-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+
         .hd-card {
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: clamp(22px, 2.2vw, 30px);
             background: #ffffff;
             border: 1px solid var(--hd-line);
-            border-radius: 22px;
+            border-radius: 18px;
         }
 
-        .hd-frame-holder {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
+        .hd-ic {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 13px;
+            background: rgba(11, 107, 69, .10);
+            color: var(--hd-green);
+            transition: background-color .3s ease, color .3s ease, transform .4s cubic-bezier(.22, 1, .36, 1);
         }
 
-        .hd-frame {
-            display: block;
-            border: 0;
-            transform-origin: 0 0;
+        .hd-ic .material-symbols-outlined {
+            font-size: 24px;
+        }
+
+        .hd-card:hover .hd-ic {
+            background: var(--hd-green);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .hd-card h2 {
+            margin: 2px 0 0;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--hd-ink-3);
+        }
+
+        .hd-val {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--hd-ink);
+            word-break: break-word;
+        }
+
+        .hd-val a {
+            color: var(--hd-green);
+            text-decoration: none;
+        }
+
+        .hd-val a:hover {
+            text-decoration: underline;
+            text-decoration-color: rgba(217, 165, 32, .7);
+            text-underline-offset: 4px;
+        }
+
+        .hd-sub {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: var(--hd-ink-3);
         }
 
         /* ---- Motion (17 Sep 2026): the page arrives like the rest of the site ----
@@ -270,23 +333,23 @@
             pointer-events: none;
         }
 
-        /* the way out of the frame: the arrow steps across on hover, as links do
-           elsewhere on the site */
+        /* the arrow steps across on hover, as links do elsewhere on the site */
         .hd-lede a .material-symbols-outlined {
             transition: transform .35s cubic-bezier(.22, 1, .36, 1);
         }
 
         .hd-lede a:hover .material-symbols-outlined {
-            transform: translate(2px, -2px);
+            transform: translateX(3px);
         }
 
         .hd-card {
-            transition: border-color .4s ease, box-shadow .4s ease;
+            transition: border-color .4s ease, box-shadow .4s ease, transform .4s cubic-bezier(.22, 1, .36, 1);
         }
 
         .hd-card:hover {
             border-color: var(--hd-line-2);
             box-shadow: 0 18px 40px -28px rgba(19, 32, 27, .35);
+            transform: translateY(-4px);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -312,95 +375,46 @@
     <main class="hd-main">
         <p class="hd-eyebrow">Support</p>
         <h1 class="hd-title">OSIP Help Desk</h1>
-        <p class="hd-lede">Raise a support ticket with the Nigeria SE4ALL team. Having trouble with the form below?
-            <a href="https://helpdesk.nigeriase4all.gov.ng/public-ticket/new" target="_blank"
-                rel="noopener noreferrer">Open it in a new tab <span class="material-symbols-outlined"
-                    aria-hidden="true">open_in_new</span></a>
+        <p class="hd-lede">Reach the OSIP support team for help with the platform, investment opportunities or
+            regulatory guidance. Use the details below, or
+            <a href="Contact.html">send us a message <span class="material-symbols-outlined"
+                    aria-hidden="true">arrow_forward</span></a>. We aim to reply within 2 working days.
         </p>
 
-        <div class="hd-card">
-            <div class="hd-frame-holder" id="hd-holder">
-                <!-- No sandbox attribute, deliberately: sandboxing a cross-origin frame
-                     drops its cookies and form posting, which would break the ticket
-                     form outright. The URL is a fixed, trusted government address. -->
-                <iframe class="hd-frame" id="hd-frame" src="https://helpdesk.nigeriase4all.gov.ng/public-ticket/new"
-                    title="OSIP Help Desk: raise a new support ticket" width="1400" height="1450"></iframe>
+        <!-- Contact details. Email, address and hours are the site's established facts
+             (footer.js / Contact.html). The phone number below is a placeholder pending
+             a confirmed, monitored line (see UX-TEC-06) - swap the tel: href and the
+             visible number when it is available. -->
+        <div class="hd-grid">
+            <div class="hd-card">
+                <span class="hd-ic"><span class="material-symbols-outlined" aria-hidden="true">mail</span></span>
+                <h2>Email us</h2>
+                <p class="hd-val"><a href="mailto:info@osip.gov.ng">info@osip.gov.ng</a></p>
+                <p class="hd-sub">Put your enquiry topic in the subject line so it reaches the right desk.</p>
+            </div>
+            <div class="hd-card">
+                <span class="hd-ic"><span class="material-symbols-outlined" aria-hidden="true">call</span></span>
+                <h2>Call us</h2>
+                <p class="hd-val"><a href="tel:+2349000000000">+234 900 000 0000</a></p>
+                <p class="hd-sub">Available during the opening hours shown.</p>
+            </div>
+            <div class="hd-card">
+                <span class="hd-ic"><span class="material-symbols-outlined" aria-hidden="true">location_on</span></span>
+                <h2>Visit us</h2>
+                <p class="hd-val">Federal Ministry of Power</p>
+                <p class="hd-sub">Abuja, Nigeria</p>
+            </div>
+            <div class="hd-card">
+                <span class="hd-ic"><span class="material-symbols-outlined" aria-hidden="true">schedule</span></span>
+                <h2>Opening hours</h2>
+                <p class="hd-val">Mon&ndash;Fri, 09:00&ndash;17:00</p>
+                <p class="hd-sub">West Africa Time (WAT). Closed on weekends and public holidays.</p>
             </div>
         </div>
+
     </main>
 
     <div id="site-footer"></div>
-
-    <script>
-        /* The frame is laid out at a fixed width and scaled to fit (as in the React page).
-
-           The portal is a responsive web form, so the size of the iframe is the viewport
-           its media queries read, and below 1200px it removes the form's side padding
-           so every field runs flush to the card's edge. A cross-origin frame cannot be
-           restyled from here, so instead of handing it a narrow viewport the frame is
-           laid out at 1400px - inside its widest tier - and scaled down to the width
-           this card actually has. The form keeps its padding and stops reflowing while
-           someone fills it in; transforms do not affect typing, focus or clicks.
-
-           Heights are estimates (a cross-origin frame's content height cannot be read):
-           too small brings back an inner scrollbar, too large leaves white space. Below
-           900px of available width the frame stops scaling and uses the portal's own
-           stacked mobile layout, which reads far better than a desktop form at a
-           quarter of its size. */
-        (function () {
-            var LOGICAL_WIDTH = 1400;
-            var LOGICAL_HEIGHT = 1180;      /* 17 Sep 2026: was 1450, which left a band of
-                                               empty page below the form */
-            var NATIVE_BELOW = 900;
-            /* 22 Sep 2026: was a flat 1500px, which left ~550px of empty card (the
-               portal's pale background, then white) under the form on phones.
-               Measured inside this frame: the portal's Submit button ends at 944px
-               while the frame is under 768px wide and at 823px from there on; below
-               it there is only background. The frame stops ~28px under the button. */
-            function nativeHeight(w) {
-                return w < 768 ? 972 : 852;
-            }
-            var MIN_HEIGHT = 520;
-
-            var box = document.getElementById('hd-holder');
-            var frame = document.getElementById('hd-frame');
-            if (!box || !frame) return;
-
-            function apply() {
-                var available = box.clientWidth;
-                if (!available) return;
-                /* the card is never taller than the screen it sits on: past that the
-                   form scrolls inside its own frame rather than stretching the page */
-                var room = Math.max(MIN_HEIGHT, Math.round(window.innerHeight * 0.82));
-
-                if (available < NATIVE_BELOW) {
-                    /* on a phone the form keeps its full height and the page scrolls:
-                       a small window scrolling inside another scroll is worse than a
-                       long page */
-                    var h = nativeHeight(available);
-                    frame.style.width = '100%';
-                    frame.style.height = h + 'px';
-                    frame.style.transform = 'none';
-                    box.style.height = h + 'px';
-                    return;
-                }
-
-                /* never scale up past 1:1 on a very wide screen */
-                var scale = Math.min(1, available / LOGICAL_WIDTH);
-                var logical = Math.min(LOGICAL_HEIGHT, Math.round(room / scale));
-                frame.style.width = LOGICAL_WIDTH + 'px';
-                frame.style.height = logical + 'px';
-                frame.style.transform = 'scale(' + scale + ')';
-                /* a transform does not change layout, so the holder takes the scaled height */
-                box.style.height = Math.round(logical * scale) + 'px';
-            }
-
-            apply();
-            if (typeof ResizeObserver !== 'undefined') new ResizeObserver(apply).observe(box);
-            else window.addEventListener('resize', apply);
-            window.addEventListener('resize', apply);
-        })();
-    </script>
 
     <script src="footer.js"></script>
     <script src="nav.js"></script>
@@ -468,7 +482,7 @@
                 var eyebrow = main.querySelector('.hd-eyebrow');
                 var title = main.querySelector('.hd-title');
                 var lede = main.querySelector('.hd-lede');
-                var card = main.querySelector('.hd-card');
+                var cards = Array.prototype.slice.call(main.querySelectorAll('.hd-card'));
                 var EASE = 'expo.out';
 
                 /* ---- Smooth scroll, as on the rest of the site --------------------- */
@@ -487,8 +501,6 @@
 
                     var mnav = document.getElementById('mobile-nav');
                     if (mnav) mnav.setAttribute('data-lenis-prevent', '');
-                    var holder = document.getElementById('hd-holder');
-                    if (holder) holder.setAttribute('data-lenis-prevent', '');
                 }
 
                 /* Text no longer animates on scroll (GIZ feedback, 5 Oct 2026): headings
@@ -539,13 +551,13 @@
                     intro.from(lede, { opacity: 0, y: 18, duration: 1 }, 0.4);
                 }
 
-                /* ---- The card opens as it comes into view -------------------------- */
-                if (card) {
-                    hidden.push(card);
-                    gsap.set(card, { opacity: 1 });
-                    gsap.from(card, {
-                        opacity: 0, y: 34, duration: 1.2, ease: EASE, delay: 0.25,
-                        scrollTrigger: { trigger: card, start: 'top 92%', once: true }
+                /* ---- The contact cards rise in, staggered, as they come into view --- */
+                if (cards.length) {
+                    hidden.push.apply(hidden, cards);
+                    gsap.set(cards, { opacity: 1 });
+                    gsap.from(cards, {
+                        opacity: 0, y: 28, duration: 1, ease: EASE, stagger: 0.08,
+                        scrollTrigger: { trigger: cards[0], start: 'top 92%', once: true }
                     });
                 }
 
