@@ -10,3 +10,9 @@
 *-LAPTOP-*
 *[-_]conflicted[-_]copy*
 /docs
+build_changes_tracker.py
+build_tracker.py
+OSIP_Changes_Tracker V0.1.xlsx
+OSIP_Changes_Tracker.xlsx
+OSIP_Feedback_Tracker.xlsx
+__pycache__/build_tracker.cpython-313.pyc
