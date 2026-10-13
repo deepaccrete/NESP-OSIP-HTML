@@ -133,46 +133,6 @@
             }
         }
 
-        /* ===== Members-only reveal =====
-           Toggled by `body.is-authenticated` after a click-through login in the iframe modal.
-           State lives in memory only — a hard refresh clears it (by design).
-           We only force-hide while locked, so unlocked elements keep their own display
-           (block, flex, grid, ...) from the Tailwind utility classes. */
-        body:not(.is-authenticated) .show-when-unlocked { display: none !important; }
-        body.is-authenticated .gated-content {
-            filter: none !important;
-            opacity: 1 !important;
-            user-select: auto !important;
-            pointer-events: auto !important;
-        }
-        body.is-authenticated .gated-overlay { display: none !important; }
-
-        .unlocked-toast {
-            position: fixed;
-            left: 50%;
-            top: 96px;
-            transform: translateX(-50%) translateY(-10px);
-            background: #00342b;
-            color: #fff;
-            padding: 10px 18px;
-            border-radius: 9999px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            box-shadow: 0 12px 30px -10px rgba(0, 52, 43, 0.5);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity .25s ease, transform .25s ease;
-            z-index: 200;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .unlocked-toast.is-visible {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
         /* ===== Image lightbox ===== */
         .lightbox {
             position: fixed;
@@ -357,6 +317,22 @@
             box-shadow: none !important;
         }
 
+        /* The project card is the one a reader lands on, so it opens straight into
+           its contents: the ID and Save sit near the top edge instead of 41px down.
+           Every other card keeps the padding above. */
+        .rd #page-wrapper main > section:first-of-type.bg-white {
+            padding-top: clamp(16px, 1.5vw, 22px) !important;
+        }
+
+        /* "At a glance": the same interface type as the PROJECT ID line above it. */
+        .rd #page-wrapper main .osip-snap-label {
+            font-family: var(--rd-sans) !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            letter-spacing: .24em !important;
+            color: var(--rd-green-2) !important;
+        }
+
         /* ---- Headings ---------------------------------------------------------------- */
         .rd #page-wrapper main h1,
         .rd #page-wrapper main h2,
@@ -400,24 +376,11 @@
 
         /* ---- Hero: eyebrow, title with its drawn gold rule, stage tracker -------------------- */
         .rd #page-wrapper main > section:first-of-type span.uppercase.tracking-widest {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
             font-family: var(--rd-sans) !important;
             font-size: 11px !important;
             font-weight: 500 !important;
             letter-spacing: .24em !important;
             color: var(--rd-green-2) !important;
-        }
-
-        .rd #page-wrapper main > section:first-of-type span.uppercase.tracking-widest::before {
-            content: "";
-            width: 28px;
-            height: 1px;
-            flex: 0 0 auto;
-            background: var(--rd-gold);
-            transform: scaleX(var(--rd-eyebrow, 1));
-            transform-origin: 0 50%;
         }
 
         .rd #page-wrapper main > section:first-of-type h1 {
@@ -426,17 +389,6 @@
             line-height: 1.04 !important;
             letter-spacing: -0.028em !important;
             align-items: stretch !important;
-        }
-
-        .rd #page-wrapper main > section:first-of-type h1 > span {
-            flex: 0 0 auto;
-            width: 1px !important;
-            height: auto !important;
-            margin: .12em 22px .12em 0 !important;
-            border-radius: 0 !important;
-            background: #f7be26 !important;
-            transform: scaleY(var(--rd-draw, 1));
-            transform-origin: 50% 0;
         }
 
         .rd #page-wrapper main > section:first-of-type h1 + p {
@@ -488,7 +440,10 @@
                 align-items: start;
             }
 
-            .osip-hero-title > span { align-self: center; }
+            /* level with the Save button, not centred against the whole save
+               block - the note under the button made that row 67px tall and left
+               the ID sitting 26px lower than the button beside it. */
+            .osip-hero-title > span { align-self: start; margin-top: 12px; }
             .osip-hero-save { margin-top: 0; }
         }
 
@@ -535,17 +490,7 @@
 
         .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .bg-gray-200 { background: var(--rd-line) !important; }
 
-        /* ---- Overview: reading text with the scroll-drawn gold rule ----------------------------
-           As on the other redesigned pages: the 1px gold line beside the overview text
-           draws downwards over the same scroll range as its words light up. One custom
-           property, --rd-draw, scrubbed by the motion layer; without it, simply there. */
-        .rd #page-wrapper main span.w-1\.5.h-6.bg-brand-gold {
-            width: 1px !important;
-            height: 28px !important;
-            border-radius: 0 !important;
-            background: #f7be26 !important;
-        }
-
+        /* ---- Overview: reading text with the scroll-drawn gold rule ---------------------------- */
         .rd #page-wrapper main > section > div.space-y-4 {
             position: relative;
             padding-left: 23px !important;
@@ -572,33 +517,6 @@
 
         .rd #page-wrapper main > section > div.space-y-4 .font-semibold { font-weight: 500 !important; color: var(--rd-ink) !important; }
 
-        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center {
-            padding: 22px 16px !important;
-            background: var(--rd-card-2) !important;
-            border: 1px solid var(--rd-line);
-            border-radius: 18px !important;
-        }
-
-        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center .material-symbols-outlined {
-            font-size: 24px !important;
-            color: #b98a12 !important;
-            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
-        }
-
-        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p:first-of-type {
-            margin-top: 6px;
-            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
-            font-weight: 400 !important;
-            font-size: 28px !important;
-            letter-spacing: -0.02em !important;
-            color: var(--rd-green) !important;
-        }
-
-        .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p + p {
-            font-size: 12px !important;
-            color: var(--rd-ink-3) !important;
-        }
-
         /* ---- Project details grid -------------------------------------------------------------- */
         .rd #page-wrapper [data-purpose="meta-item"] {
             padding-left: 18px !important;
@@ -622,40 +540,6 @@
             color: var(--rd-ink) !important;
         }
 
-        /* The amount is one figure: "USD" never sits on a line of its own. */
-        .rd #page-wrapper main p.text-2xl.text-gray-500 .text-brand-accent { white-space: nowrap; }
-
-        /* Investment details is the heading of the block below it, so it is set as
-           one - sentence case, ink, a size up - and its terms are set the way the
-           project details above are: a spaced small label, the value under it. */
-        .rd #page-wrapper [data-purpose="invest-details"] > .osip-invest-h {
-            margin: 0 0 18px !important;
-            font-family: var(--rd-sans) !important;
-            font-size: 20px !important;
-            font-weight: 600 !important;
-            line-height: 1.25 !important;
-            letter-spacing: -0.01em !important;
-            text-transform: none !important;
-            color: var(--rd-ink) !important;
-        }
-
-        .rd #page-wrapper [data-purpose="invest-details"] dt {
-            margin-bottom: 6px !important;
-            font-family: var(--rd-sans) !important;
-            font-size: 10.5px !important;
-            font-weight: 500 !important;
-            letter-spacing: .18em !important;
-            color: var(--rd-ink-3) !important;
-        }
-
-        .rd #page-wrapper [data-purpose="invest-details"] dd {
-            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
-            font-weight: 400 !important;
-            font-size: 18px !important;
-            line-height: 1.35 !important;
-            color: var(--rd-ink) !important;
-        }
-
         @media (max-width: 639px) {
             /* Save: the bookmark alone, in the card's top-right corner, on the
                Project ID line. The word stays in the button for screen readers. */
@@ -673,7 +557,6 @@
             .rd #page-wrapper main > section:first-of-type .osip-hero-title > span.uppercase.tracking-widest {
                 white-space: nowrap;
                 letter-spacing: .12em !important;
-                gap: 10px;
                 min-width: 0;
             }
 
@@ -716,11 +599,7 @@
             .rd #page-wrapper [data-purpose="meta-item"]:last-child:nth-child(odd) { grid-column: 1 / -1; }
         }
 
-        /* the narrowest phones: the eyebrow's gold dash goes, so the full ID still
-           fits beside the bookmark */
         @media (max-width: 400px) {
-            .rd #page-wrapper main > section:first-of-type .osip-hero-title > span.uppercase.tracking-widest::before { display: none; }
-
             /* the stage tracker keeps more of the card's width. Its status pill stays on
                one line where it fits, and wraps inside the card where it does not
                (22 Sep 2026: nowrap pushed "Seeking investor interest", 252px, out of a
@@ -743,18 +622,6 @@
         }
 
 
-        .rd #page-wrapper main p.text-2xl.text-gray-500 {
-            padding-top: 28px;
-            border-top: 1px solid var(--rd-line);
-            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
-            font-weight: 400 !important;
-            font-size: clamp(26px, 2.6vw, 36px) !important;
-            letter-spacing: -0.02em !important;
-            color: var(--rd-ink-2) !important;
-        }
-
-        .rd #page-wrapper main p.text-2xl.text-gray-500 .text-brand-accent { color: var(--rd-green) !important; }
-
         /* ---- Members only: teaser, data room, portal note -------------------------------------------- */
         .rd #page-wrapper main h2 > span.w-9.h-9 {
             border-radius: 999px !important;
@@ -776,30 +643,29 @@
 
         .rd #page-wrapper main span.rounded-full.uppercase { font-weight: 500 !important; }
 
-        .rd #page-wrapper main .gated-content > .grid > div {
+        /* A stat tile is a column: the label at the top, the figure at the foot.
+           Without this a two-line label ("Minimum investment") pushed its figure
+           below the one-line tiles beside it (12 Oct 2026). */
+        .osip-figs > div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .osip-figs > div > p:last-child {
+            margin-top: auto;
+            white-space: nowrap;
+        }
+
+        .rd #page-wrapper main .osip-figs > div {
             background: var(--rd-card-2) !important;
             border-color: var(--rd-line) !important;
             border-radius: 14px !important;
         }
 
-        .rd #page-wrapper main .gated-content > .grid > div p + p {
+        .rd #page-wrapper main .osip-figs > div p + p {
             font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
             font-weight: 400 !important;
             font-size: 24px !important;
-        }
-
-        .rd #page-wrapper .gated-overlay,
-        .rd #page-wrapper .grid > aside .p-6 > div.absolute.inset-0 {
-            background: rgba(251, 250, 247, .74) !important;
-        }
-
-        .rd #page-wrapper .gated-overlay p,
-        .rd #page-wrapper .grid > aside .p-6 > div.absolute.inset-0 p {
-            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
-            font-weight: 500 !important;
-            font-size: 17px !important;
-            line-height: 1.5 !important;
-            color: var(--rd-ink) !important;
         }
 
         .rd #members-section header p,
@@ -848,7 +714,7 @@
             color: var(--rd-ink) !important;
         }
 
-        .rd #page-wrapper main aside.show-when-unlocked {
+        .rd #page-wrapper main aside.osip-portal-note {
             position: relative;
             background: var(--rd-card-2) !important;
             border: 1px solid var(--rd-line) !important;
@@ -856,7 +722,7 @@
             border-radius: 0 16px 16px 0 !important;
         }
 
-        .rd #page-wrapper main aside.show-when-unlocked::before {
+        .rd #page-wrapper main aside.osip-portal-note::before {
             content: "";
             position: absolute;
             left: -1px;
@@ -867,13 +733,13 @@
             pointer-events: none;
         }
 
-        .rd #page-wrapper main aside.show-when-unlocked > p {
+        .rd #page-wrapper main aside.osip-portal-note > p {
             font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
             font-size: 16.5px !important;
             line-height: 1.5 !important;
         }
 
-        .rd #page-wrapper main aside.show-when-unlocked > span {
+        .rd #page-wrapper main aside.osip-portal-note > span {
             border-radius: 999px !important;
             background: transparent !important;
             color: #b98a12 !important;
@@ -884,7 +750,7 @@
            agency contact button in the sidebar. This rule had lost its block and
            its selector was hanging on the comma below, which handed the button
            the caption styling of .contact-half-label - 10px grey on dark green. */
-        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green {
+        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green {
             padding: 11px 20px !important;
             border-radius: 999px !important;
             background: var(--rd-green, #004225) !important;
@@ -899,32 +765,32 @@
                 transform .3s cubic-bezier(.22, 1, .36, 1) !important;
         }
 
-        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:hover {
+        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:hover {
             background: var(--rd-green-2, #0b6b45) !important;
             box-shadow: 0 12px 24px -14px rgba(0, 66, 37, .6) !important;
             transform: translateY(-1px);
         }
 
-        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:active { transform: translateY(0); }
+        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:active { transform: translateY(0); }
 
-        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:focus-visible {
+        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:focus-visible {
             outline: 2px solid var(--rd-green-2, #0b6b45);
             outline-offset: 3px;
         }
 
         /* it opens the portal in another tab, so the mark travels that way */
-        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green .material-symbols-outlined {
+        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green .material-symbols-outlined {
             font-size: 15px !important;
             transition: transform .3s cubic-bezier(.22, .61, .36, 1);
         }
 
-        .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:hover .material-symbols-outlined { transform: translate(2px, -2px); }
+        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:hover .material-symbols-outlined { transform: translate(2px, -2px); }
 
         @media (prefers-reduced-motion: reduce) {
-            .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green,
-            .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green .material-symbols-outlined { transition: none !important; }
-            .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:hover { transform: none; }
-            .rd #page-wrapper main aside.show-when-unlocked a.bg-brand-green:hover .material-symbols-outlined { transform: none; }
+            .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green,
+            .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green .material-symbols-outlined { transition: none !important; }
+            .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:hover { transform: none; }
+            .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:hover .material-symbols-outlined { transform: none; }
         }
 
         /* Which half of the contact card you are reading. */
@@ -947,23 +813,6 @@
         }
 
         /* The clearance mark, drawn as the Opportunities cards draw it. */
-        .agency-clear {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 10px;
-            padding: 3px 10px 3px 7px;
-            border: 1px solid #dbe7e0;
-            border-radius: 999px;
-            background: #f1f8f4;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            color: #0b5033;
-        }
-
-        .agency-clear .material-symbols-outlined { font-size: 15px; }
-
         /* The redesign layer repaints links on this page, so the agency button
            states its own colours. */
         .rd #page-wrapper .grid > aside .p-6 a#agency-contact,
@@ -977,12 +826,6 @@
 
         .rd #page-wrapper .grid > aside .p-6 a#agency-contact .material-symbols-outlined {
             background: transparent !important;
-        }
-
-        .agency-clear[data-clear="pending"] {
-            border-color: #e2ded5;
-            background: #f4f2ed;
-            color: #55605a;
         }
 
         .rd #connect-btn {
@@ -1017,7 +860,7 @@
             color: var(--rd-ink-3) !important;
         }
 
-        .rd #page-wrapper .grid > aside .p-6 .font-bold:not(.login-trigger) {
+        .rd #page-wrapper .grid > aside .p-6 .font-bold {
             font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
             font-weight: 500 !important;
             font-size: 17.5px !important;
@@ -1117,13 +960,10 @@
         @media (max-width: 639px) {
             .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) .text-right { text-align: left !important; }
             .rd #page-wrapper main > section > div.space-y-4 { font-size: 17px !important; }
-            /* key figures: sized with the screen - see the phone block by the
-               project details grid */
-            .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center { padding-left: 10px !important; padding-right: 10px !important; }
-            .rd #page-wrapper main div.rounded-lg.bg-brand-sidebar.text-center p:first-of-type {
-                font-size: clamp(17px, 5vw, 26px) !important;
+            /* the figure in a stat tile is sized with the screen on a phone */
+            .rd #page-wrapper main .osip-figs > div > p + p {
+                font-size: clamp(16px, 4.6vw, 24px) !important;
                 line-height: 1.2 !important;
-                text-wrap: balance;
             }
         }
 
@@ -1199,72 +1039,6 @@
             font-weight: 500 !important;
         }
     </style>
-    <style id="rd-next">
-        /* ---- Where to go next (16 Sep 2026) -----------------------------------------
-           A quiet list of four routes out of the project, in the sidebar's card shell.
-           The column is sticky from lg up, so it travels with the long main column
-           instead of leaving the right side of the page empty halfway down. */
-        @media (min-width: 1024px) {
-            .rd #page-wrapper .grid.lg\:grid-cols-3 > aside {
-                position: sticky;
-                top: 24px;
-                align-self: start;
-            }
-        }
-
-        .osip-next {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .osip-next > li + li {
-            margin-top: 14px;
-            padding-top: 14px;
-            border-top: 1px solid var(--rd-line, #e2ded5);
-        }
-
-        .osip-next a {
-            display: flex;
-            gap: 12px;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .osip-next a > .material-symbols-outlined {
-            flex: 0 0 auto;
-            margin-top: 1px;
-            font-size: 19px;
-            color: var(--rd-gold, #d9a520);
-        }
-
-        .rd .osip-next .osip-next-t {
-            display: block;
-            font-family: var(--rd-sans, Inter, sans-serif);
-            font-size: 13.5px;
-            font-weight: 500;
-            line-height: 1.35;
-            color: var(--rd-green, #004225);
-            transition: color .3s ease;
-        }
-
-        .rd .osip-next .osip-next-d {
-            display: block;
-            margin-top: 3px;
-            font-family: var(--rd-sans, Inter, sans-serif);
-            font-size: 12px;
-            line-height: 1.6;
-            color: var(--rd-ink-3, #6b716c);
-        }
-
-        .osip-next a:hover .osip-next-t { color: var(--rd-green-2, #0b6b45); }
-
-        .osip-next a:focus-visible {
-            outline: 2px solid var(--rd-green-2, #0b6b45);
-            outline-offset: 4px;
-            border-radius: 8px;
-        }
-    </style>
 </head>
 
 <body class="bg-brand-bg text-brand-green min-h-screen rd">
@@ -1297,8 +1071,7 @@
                                 <span
                                     class="text-xs font-inter font-bold text-gray-500 uppercase tracking-widest">Project
                                     ID: 2025-WND-02</span>
-                                <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mt-2 flex items-center">
-                                    <span class="w-2 h-8 bg-brand-green mr-4 rounded-full"></span>
+                                <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mt-2">
                                     Katsina Wind Farm Phase I
                                 </h1>
                                 <p class="text-xs text-gray-500 mt-2">Last Updated on: <span
@@ -1320,175 +1093,56 @@
                             </div>
                         </div>
 
-                        <!-- BEGIN: StatusTracker (redesigned signature element) -->
-                        <div
-                            class="mt-8 rounded-xl border border-brand-gold/20 bg-gradient-to-br from-brand-sidebar via-white to-brand-gold/5 p-6 md:p-8">
-                            <!-- Header row: live status + stage count -->
-                            <div class="flex items-center justify-between flex-wrap gap-3 mb-6 sm:mb-12">
-                                <span
-                                    class="inline-flex items-center gap-2.5 bg-brand-accent/10 text-brand-green px-4 py-2 rounded-full text-xs font-bold uppercase tracking-[0.12em]">
-                                    <span class="relative flex h-2.5 w-2.5">
-                                        <span
-                                            class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
-                                        <span
-                                            class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-accent"></span>
-                                    </span>
-                                    Tender / procurement
-                                </span>
-                                <div class="text-right leading-none">
-                                    <span class="text-2xl font-manrope font-extrabold text-brand-green">Stage 2</span>
-                                    <span class="text-sm font-manrope font-bold text-gray-500"> / 4</span>
-                                    <p class="text-[10px] uppercase font-bold text-gray-500 tracking-widest mt-1">In
-                                        Progress</p>
-                                </div>
+                        <!-- What an investor screens on first: how big it is, what it takes
+                             to take part, what it returns and how ready it is (IRENA's
+                             bankability pillars; 45% of projects put to financiers are
+                             turned down on readiness alone). Every figure is this project's
+                             own record - oppdetail.js fills them - and the cards below carry
+                             the rest. -->
+                        <p
+                            class="osip-snap-label text-xs font-inter font-bold text-gray-500 uppercase tracking-widest mt-7 mb-3">
+                            At a glance: </p>
+                        <div class="osip-snap osip-figs grid grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                    Total project cost</p>
+                                <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                    data-snap="cost">USD 210 m</p>
                             </div>
-
-                            <!-- Track: Desktop (horizontal) -->
-                            <div class="relative hidden sm:flex items-start justify-between">
-                                <!-- Base track -->
-                                <div
-                                    class="absolute left-[12.5%] right-[12.5%] top-4 -translate-y-1/2 h-1.5 bg-gray-200 rounded-full">
-                                </div>
-                                <!-- Completed fill: from node 1 center to node 2 center -->
-                                <div class="osip-progress-fill absolute left-[12.5%] top-4 -translate-y-1/2 h-1.5 rounded-full"
-                                    style="width: 25%;"></div>
-
-                                <!-- Node 1: Done -->
-                                <div class="relative z-10 flex flex-col items-center" style="width:25%;">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shadow-md">
-                                        <span class="material-symbols-outlined text-white text-[18px]">check</span>
-                                    </div>
-                                    <p
-                                        class="mt-3 text-[11px] font-bold text-brand-green text-center leading-tight px-1">
-                                        Under<br>Conceptualisation</p>
-                                    <span
-                                        class="mt-1 text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">Done</span>
-                                </div>
-
-                                <!-- Node 2: Current -->
-                                <div class="relative z-10 flex flex-col items-center" style="width:25%;">
-                                    <span
-                                        class="osip-current-pill absolute -top-9 bg-brand-gold text-brand-green text-[9px] font-extrabold uppercase tracking-[0.1em] px-2.5 py-1 rounded-md shadow-md whitespace-nowrap">
-                                        Current Stage
-                                    </span>
-                                    <div
-                                        class="osip-node-current w-8 h-8 rounded-full bg-brand-gold flex items-center justify-center ring-4 ring-white shadow-lg">
-                                        <span class="material-symbols-outlined text-brand-green text-[18px]">gavel</span>
-                                    </div>
-                                    <p
-                                        class="mt-3 text-[11px] font-extrabold text-brand-green text-center leading-tight px-1">
-                                        Under<br>Development</p>
-                                    <span
-                                        class="mt-1 text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">Active</span>
-                                </div>
-
-                                <!-- Node 3: Upcoming -->
-                                <div class="relative z-10 flex flex-col items-center" style="width:25%;">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center ring-4 ring-white">
-                                        <span
-                                            class="material-symbols-outlined text-gray-500 text-[18px]">engineering</span>
-                                    </div>
-                                    <p class="mt-3 text-[11px] font-bold text-gray-500 text-center leading-tight px-1">
-                                        Under<br>Implementation</p>
-                                    <span
-                                        class="mt-1 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Upcoming</span>
-                                </div>
-
-                                <!-- Node 4: Upcoming -->
-                                <div class="relative z-10 flex flex-col items-center" style="width:25%;">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center ring-4 ring-white">
-                                        <span class="material-symbols-outlined text-gray-500 text-[18px]">flag</span>
-                                    </div>
-                                    <p class="mt-3 text-[11px] font-bold text-gray-500 text-center leading-tight px-1">
-                                        Completed</p>
-                                    <span
-                                        class="mt-1 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Upcoming</span>
-                                </div>
+                            <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                    Minimum investment</p>
+                                <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                    data-snap="min">USD 5 m</p>
                             </div>
-
-                            <!-- Track: Mobile (vertical stack) -->
-                            <ol class="sm:hidden relative space-y-6">
-                                <!-- Base vertical track -->
-                                <div class="absolute left-[16.5px] top-4 bottom-4 w-[3px] bg-gray-200 rounded-full">
-                                </div>
-                                <!-- Completed fill: from node 1 center down to node 2 center (1 of 3 segments) -->
-                                <div class="osip-progress-fill-v absolute left-[16.5px] top-4 w-[3px] rounded-full"
-                                    style="height: calc((100% - 32px) / 3);"></div>
-
-                                <!-- Node 1: Done -->
-                                <li class="relative flex items-start gap-4">
-                                    <div
-                                        class="relative z-10 w-9 h-9 rounded-full bg-brand-green flex items-center justify-center ring-4 ring-white shadow-md flex-shrink-0">
-                                        <span class="material-symbols-outlined text-white text-[20px]">check</span>
-                                    </div>
-                                    <div class="pt-1 min-w-0">
-                                        <p class="text-sm font-bold text-brand-green leading-tight">Under
-                                            Conceptualisation</p>
-                                        <span
-                                            class="mt-1 inline-block text-[10px] font-bold text-brand-green/50 uppercase tracking-wider">Done</span>
-                                    </div>
-                                </li>
-
-                                <!-- Node 2: Current -->
-                                <li class="relative flex items-start gap-4">
-                                    <div
-                                        class="osip-node-current relative z-10 w-9 h-9 rounded-full bg-brand-gold flex items-center justify-center ring-4 ring-white shadow-lg flex-shrink-0">
-                                        <span class="material-symbols-outlined text-brand-green text-[20px]">gavel</span>
-                                    </div>
-                                    <div class="pt-0.5 min-w-0">
-                                        <span
-                                            class="inline-flex items-center gap-1 mb-1 bg-brand-gold text-brand-green text-[9px] font-extrabold uppercase tracking-[0.1em] px-2 py-0.5 rounded-md shadow-sm">
-                                            Current Stage
-                                        </span>
-                                        <p class="text-sm font-extrabold text-brand-green leading-tight">Under
-                                            Development</p>
-                                        <span
-                                            class="mt-1 inline-block text-[10px] font-extrabold text-brand-gold uppercase tracking-wider">Active</span>
-                                    </div>
-                                </li>
-
-                                <!-- Node 3: Upcoming -->
-                                <li class="relative flex items-start gap-4">
-                                    <div
-                                        class="relative z-10 w-9 h-9 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center ring-4 ring-white flex-shrink-0">
-                                        <span
-                                            class="material-symbols-outlined text-gray-500 text-[20px]">engineering</span>
-                                    </div>
-                                    <div class="pt-1 min-w-0">
-                                        <p class="text-sm font-bold text-gray-500 leading-tight">Under Implementation
-                                        </p>
-                                        <span
-                                            class="mt-1 inline-block text-[10px] font-bold text-gray-500 uppercase tracking-wider">Upcoming</span>
-                                    </div>
-                                </li>
-
-                                <!-- Node 4: Upcoming -->
-                                <li class="relative flex items-start gap-4">
-                                    <div
-                                        class="relative z-10 w-9 h-9 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center ring-4 ring-white flex-shrink-0">
-                                        <span class="material-symbols-outlined text-gray-500 text-[20px]">flag</span>
-                                    </div>
-                                    <div class="pt-1 min-w-0">
-                                        <p class="text-sm font-bold text-gray-500 leading-tight">Completed</p>
-                                        <span
-                                            class="mt-1 inline-block text-[10px] font-bold text-gray-500 uppercase tracking-wider">Upcoming</span>
-                                    </div>
-                                </li>
-                            </ol>
+                            <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                    Target IRR</p>
+                                <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                    data-snap="irr">17.4%</p>
+                            </div>
+                            <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                    Payback</p>
+                                <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                    data-snap="payback">6.2 yrs</p>
+                            </div>
                         </div>
-                        <!-- END: StatusTracker -->
+
                     </section>
                     <!-- END: ProjectHero -->
 
                     <!-- BEGIN: ProjectDescription -->
                     <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
-                        <div class="flex items-center gap-3 mb-5">
-                            <span class="w-1.5 h-6 bg-brand-gold rounded-full"></span>
-                            <h2 class="text-xl font-manrope font-extrabold text-brand-green">Project Overview</h2>
-                        </div>
+                        <h2
+                            class="text-xl font-manrope font-extrabold text-brand-green flex items-center gap-3 mb-5">
+                            <span
+                                class="w-9 h-9 rounded-md bg-brand-green text-white flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[22px]" aria-hidden="true"
+                                    style="font-variation-settings: 'FILL' 1;">description</span>
+                            </span>
+                            Project Overview
+                        </h2>
                         <div class="space-y-4 text-[15px] leading-relaxed text-gray-600">
                             <p>
                                 <span class="font-semibold text-brand-green">Katsina Wind Farm Phase I</span> is a
@@ -1506,40 +1160,54 @@
                             </p>
                         </div>
 
-                        <!-- Key highlights -->
-                        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div class="rounded-lg bg-brand-sidebar p-4 text-center">
-                                <span
-                                    class="material-symbols-outlined text-brand-gold text-[26px] mb-1">wind_power</span>
-                                <p class="font-manrope font-extrabold text-brand-green text-lg leading-none">60 MW</p>
-                                <p class="text-[11px] text-gray-500 mt-1.5">Installed capacity</p>
+                        <!-- Key figures. Same tile as the four in the project card and the
+                             ones under Investment details: the label above, the figure
+                             under it. oppdetail.js fills both from the record. -->
+                        <div class="osip-figs osip-stats mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                    Installed capacity</p>
+                                <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                    data-stat>60 MW</p>
                             </div>
-                            <div class="rounded-lg bg-brand-sidebar p-4 text-center">
-                                <span
-                                    class="material-symbols-outlined text-brand-gold text-[26px] mb-1">air</span>
-                                <p class="font-manrope font-extrabold text-brand-green text-lg leading-none">7.6 m/s
-                                </p>
-                                <p class="text-[11px] text-gray-500 mt-1.5">Mean wind speed</p>
+                            <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                    Mean wind speed</p>
+                                <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                    data-stat>7.6 m/s</p>
                             </div>
-                            <div class="rounded-lg bg-brand-sidebar p-4 text-center">
-                                <span class="material-symbols-outlined text-brand-gold text-[26px] mb-1">map</span>
-                                <p class="font-manrope font-extrabold text-brand-green text-lg leading-none">1 State
-                                </p>
-                                <p class="text-[11px] text-gray-500 mt-1.5">Katsina</p>
+                            <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                    Katsina</p>
+                                <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                    data-stat>1 State</p>
                             </div>
-                            <div class="rounded-lg bg-brand-sidebar p-4 text-center">
-                                <span class="material-symbols-outlined text-brand-gold text-[26px] mb-1">payments</span>
-                                <p class="font-manrope font-extrabold text-brand-green text-lg leading-none">$210 m
-                                </p>
-                                <p class="text-[11px] text-gray-500 mt-1.5">Total investment</p>
+                            <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                    Total investment</p>
+                                <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                    data-stat>$210 m</p>
                             </div>
                         </div>
                     </section>
                     <!-- END: ProjectDescription -->
 
                     <!-- BEGIN: MetadataGrid -->
+                    <!-- The facts a reader checks first: what, where, who and when,
+                         and what the whole thing costs. Headed since 12 Oct 2026 -
+                         it used to open straight into the grid, so the card never
+                         said what it was. -->
                     <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6">
+                        <h2
+                            class="text-xl font-manrope font-extrabold text-brand-green flex items-center gap-3 mb-5">
+                            <span
+                                class="w-9 h-9 rounded-md bg-brand-green text-white flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[22px]" aria-hidden="true"
+                                    style="font-variation-settings: 'FILL' 1;">fact_check</span>
+                            </span>
+                            Project facts
+                        </h2>
+                        <div id="project-facts" class="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6">
                             <!-- Sector -->
                             <div class="border-l-2 border-brand-gold/30 pl-4" data-purpose="meta-item">
                                 <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Sector</h4>
@@ -1584,136 +1252,105 @@
                                 Project (EAP)?</h4>
                             <p class="font-manrope font-bold text-brand-green">No</p>
                         </div> -->
-                        <div class="mt-10">
-                            <p class="text-2xl font-manrope font-bold text-gray-500">
-                                Total Project Cost: <span class="text-brand-accent">USD 210 m</span>
-                            </p>
-                        </div>
-                        <!-- OPP-05 (item 33): the standard investment-details block,
-                             filled by oppdetail.js from each project's own record. -->
-                        <div class="mt-8 pt-6 border-t border-gray-100" data-purpose="invest-details">
-                            <h3 class="osip-invest-h text-[11px] font-bold text-gray-500 uppercase mb-4">Investment details</h3>
-                            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                                <div>
-                                    <dt class="text-[11px] font-bold text-gray-500 uppercase mb-0.5">Minimum investment</dt>
-                                    <dd class="font-manrope font-bold text-brand-green" data-inv="min">&mdash;</dd>
-                                </div>
-                                <div>
-                                    <dt class="text-[11px] font-bold text-gray-500 uppercase mb-0.5">Investment type</dt>
-                                    <dd class="font-manrope font-bold text-brand-green" data-inv="type">&mdash;</dd>
-                                </div>
-                                <div>
-                                    <dt class="text-[11px] font-bold text-gray-500 uppercase mb-0.5">Share on offer</dt>
-                                    <dd class="font-manrope font-bold text-brand-green" data-inv="share">&mdash;</dd>
-                                </div>
-                                <div>
-                                    <dt class="text-[11px] font-bold text-gray-500 uppercase mb-0.5">Financing status</dt>
-                                    <dd class="font-manrope font-bold text-brand-green" data-inv="financing">&mdash;</dd>
-                                </div>
-                                <div>
-                                    <dt class="text-[11px] font-bold text-gray-500 uppercase mb-0.5">Deadline</dt>
-                                    <dd class="font-manrope font-bold text-brand-green" data-inv="deadline">&mdash;</dd>
-                                </div>
-                                <div>
-                                    <dt class="text-[11px] font-bold text-gray-500 uppercase mb-0.5">Currency</dt>
-                                    <dd class="font-manrope font-bold text-brand-green" data-inv="currency">&mdash;</dd>
-                                </div>
-                                <div class="sm:col-span-2">
-                                    <dt class="text-[11px] font-bold text-gray-500 uppercase mb-0.5">Investor eligibility</dt>
-                                    <dd class="font-manrope font-bold text-brand-green" data-inv="eligibility">&mdash;</dd>
-                                </div>
-                            </dl>
-                        </div>
                     </section>
                     <!-- END: MetadataGrid -->
 
-                    <!-- BEGIN: GatedMoreDetails -->
-                    <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 relative">
-                        <div class="flex items-center justify-between mb-6 gap-4 flex-wrap">
-                            <h2 class="text-xl md:text-2xl font-extrabold text-brand-green flex items-center gap-3">
-                                <span
-                                    class="w-9 h-9 rounded-md bg-brand-accent/15 text-brand-accent flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-[22px]"
-                                        style="font-variation-settings: 'FILL' 1;">info</span>
-                                </span>
-                                More Details
-                            </h2>
+                    <!-- BEGIN: InvestmentDetails -->
+                    <!-- OPP-05 (item 33): the investor terms, filled by oppdetail.js
+                         from each project's own record. Until 12 Oct 2026 this was the
+                         unnamed second half of the facts card above, under an 11px grey
+                         label; it is its own card now. -->
+                    <section class="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
+                        <h2
+                            class="text-xl font-manrope font-extrabold text-brand-green flex items-center gap-3 mb-5">
                             <span
-                                class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-brand-accent bg-brand-accent/10 px-3 py-1 rounded-full">
-                                <span class="material-symbols-outlined text-[14px]">lock</span>
-                                Members Only
+                                class="w-9 h-9 rounded-md bg-brand-green text-white flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[22px]" aria-hidden="true"
+                                    style="font-variation-settings: 'FILL' 1;">payments</span>
                             </span>
-                        </div>
-                        <div class="relative">
-                            <div class="gated-content filter blur-sm select-none opacity-60 pointer-events-none">
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                    <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
-                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
-                                            Target IRR</p>
-                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">
-                                            17.4%</p>
-                                    </div>
-                                    <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
-                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
-                                            Payback</p>
-                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">
-                                            6.2 yrs</p>
-                                    </div>
-                                    <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
-                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
-                                            Min. Ticket</p>
-                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">
-                                            USD 5 m</p>
-                                    </div>
-                                    <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
-                                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
-                                            Lock-up</p>
-                                        <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight">5
-                                            yrs</p>
-                                    </div>
+                            Investment details
+                        </h2>
+                        <div data-purpose="invest-details">
+                            <!-- The three figures that used to sit behind the login wall.
+                                 The fourth, minimum ticket, is the "Minimum investment"
+                                 row below and is not repeated here. oppdetail.js fills
+                                 them from the project's own record. -->
+                            <div class="osip-figs grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+                                <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                        Target IRR</p>
+                                    <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                        data-fig="irr">&mdash;</p>
+                                </div>
+                                <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                        Payback</p>
+                                    <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                        data-fig="payback">&mdash;</p>
+                                </div>
+                                <div class="bg-brand-sidebar rounded-md p-4 border border-brand-green/10">
+                                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                                        Lock-up</p>
+                                    <p class="font-manrope text-xl font-extrabold text-brand-green leading-tight"
+                                        data-fig="lockup">&mdash;</p>
                                 </div>
                             </div>
-                            <div
-                                class="gated-overlay absolute inset-0 flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-[1px] rounded-md">
-                                <div class="mb-4 text-brand-accent">
-                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                                    </svg>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6 mt-8">
+                                <div class="border-l-2 border-brand-gold/30 pl-4"
+                                    data-purpose="meta-item">
+                                    <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Minimum investment</h4>
+                                    <p class="font-manrope font-bold text-brand-green" data-inv="min">&mdash;</p>
                                 </div>
-                                <p class="text-center font-bold text-brand-green text-sm leading-relaxed">
-                                    <a class="login-trigger cursor-pointer text-brand-accent border-b border-brand-accent hover:opacity-80 transition-opacity"
-                                        href="#">Login</a> /
-                                    <a class="login-trigger cursor-pointer text-brand-accent border-b border-brand-accent hover:opacity-80 transition-opacity"
-                                        href="#">Register</a>
-                                    to unlock the full investor data room.
-                                </p>
+                                <div class="border-l-2 border-brand-gold/30 pl-4"
+                                    data-purpose="meta-item">
+                                    <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Investment type</h4>
+                                    <p class="font-manrope font-bold text-brand-green" data-inv="type">&mdash;</p>
+                                </div>
+                                <div class="border-l-2 border-brand-gold/30 pl-4"
+                                    data-purpose="meta-item">
+                                    <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Share on offer</h4>
+                                    <p class="font-manrope font-bold text-brand-green" data-inv="share">&mdash;</p>
+                                </div>
+                                <div class="border-l-2 border-brand-gold/30 pl-4"
+                                    data-purpose="meta-item">
+                                    <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Financing status</h4>
+                                    <p class="font-manrope font-bold text-brand-green" data-inv="financing">&mdash;</p>
+                                </div>
+                                <div class="border-l-2 border-brand-gold/30 pl-4"
+                                    data-purpose="meta-item">
+                                    <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Deadline</h4>
+                                    <p class="font-manrope font-bold text-brand-green" data-inv="deadline">&mdash;</p>
+                                </div>
+                                <div class="border-l-2 border-brand-gold/30 pl-4"
+                                    data-purpose="meta-item">
+                                    <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Currency</h4>
+                                    <p class="font-manrope font-bold text-brand-green" data-inv="currency">&mdash;</p>
+                                </div>
+                                <div class="border-l-2 border-brand-gold/30 pl-4 col-span-2"
+                                    data-purpose="meta-item">
+                                    <h4 class="text-[11px] font-bold text-gray-500 uppercase mb-1">Investor eligibility</h4>
+                                    <p class="font-manrope font-bold text-brand-green" data-inv="eligibility">&mdash;</p>
+                                </div>
                             </div>
                         </div>
                     </section>
-                    <!-- END: GatedMoreDetails -->
+                    <!-- END: InvestmentDetails -->
 
                     <!-- BEGIN: MembersOnlyContent (revealed after iframe login click) -->
                     <section id="members-section"
-                        class="show-when-unlocked bg-white rounded-lg p-6 sm:p-8 shadow-sm border border-gray-100 space-y-10">
+                        class="bg-white rounded-lg p-6 sm:p-8 shadow-sm border border-gray-100 space-y-10">
                         <header class="flex items-start justify-between gap-4 flex-wrap">
                             <div>
                                 <h2 class="text-xl md:text-2xl font-extrabold text-brand-green flex items-center gap-3">
                                     <span class="w-9 h-9 rounded-md bg-brand-green text-white flex items-center justify-center">
                                         <span class="material-symbols-outlined text-[22px]"
-                                            style="font-variation-settings: 'FILL' 1;">lock_open</span>
+                                            style="font-variation-settings: 'FILL' 1;">folder_open</span>
                                     </span>
-                                    Investor Data Room
+                                    Project Data Room
                                 </h2>
-                                <p class="text-sm text-gray-500 mt-2 max-w-xl">Extended project brief, media, and
-                                    documents — available to signed-in members of the OSIP investor network.</p>
+                                <p class="text-sm text-gray-500 mt-2 max-w-xl">The extended brief, imagery,
+                                    walkthrough and documents behind this project.</p>
                             </div>
-                            <span
-                                class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
-                                <span class="material-symbols-outlined text-[14px]">verified</span>
-                                Access Granted
-                            </span>
                         </header>
 
                         <!-- Extended brief -->
@@ -1863,7 +1500,7 @@
                          The button opens the official State Federal Portal in a new tab.
                          Swap the `href` for the real portal URL when available. -->
                     <aside
-                        class="show-when-unlocked rounded-md border-l-4 border-brand-accent bg-brand-sidebar p-4 sm:p-5 flex items-start sm:items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap">
+                        class="osip-portal-note rounded-md border-l-4 border-brand-accent bg-brand-sidebar p-4 sm:p-5 flex items-start sm:items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap">
                         <span
                             class="w-9 h-9 rounded bg-brand-accent/15 text-brand-accent flex items-center justify-center shrink-0">
                             <span class="material-symbols-outlined text-[20px]"
@@ -1917,148 +1554,59 @@
                         <div id="responsible-agency" class="p-6 bg-white border-b border-gray-100">
                             <p class="contact-half-label">Related agency</p>
                             <p id="agency-name" class="font-bold text-brand-green">&mdash;</p>
-                            <p id="agency-clear" class="agency-clear" data-clear="pending">
-                                <span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>
-                                <span>Clearance pending</span>
-                            </p>
                             <a id="agency-contact" href="Contact.html"
                                 class="mt-5 inline-flex items-center justify-center gap-2 w-full bg-brand-green text-white px-4 py-2.5 rounded-full text-[12.5px] font-semibold uppercase tracking-wider hover:opacity-90 transition-opacity">
                                 <span class="material-symbols-outlined text-[16px]" aria-hidden="true">mail</span>
                                 Contact this agency
                             </a>
                             <p class="mt-3 text-[11.5px] leading-relaxed text-gray-500">OSIP routes the message to the
-                                agency named above. Clearance marks on this prototype are illustrative.</p>
+                                agency named above.</p>
                         </div>
-                        <div class="p-6 bg-white relative">
+                        <div class="p-6 bg-white" id="project-promoter">
                             <p class="contact-half-label">Project promoter</p>
-                            <!-- Contact Info — blurred until member login click. -->
-                            <div class="gated-content space-y-4 filter blur-sm select-none opacity-50">
+                            <div class="space-y-4 mt-1">
                                 <div>
-                                    <p class="text-xs text-gray-500">Contact Person Name</p>
-                                    <p class="font-bold text-brand-green">Adebayo Okonkwo</p>
+                                    <p class="text-xs text-gray-500">Contact person</p>
+                                    <p class="font-bold text-brand-green" data-promoter="name">&mdash;</p>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-500">Designation</p>
-                                    <p class="font-bold text-brand-green">Director of Operations</p>
+                                    <p class="font-bold text-brand-green" data-promoter="role">&mdash;</p>
                                 </div>
-                                <div>
-                                    <p class="text-xs text-gray-500">Phone</p>
-                                    <p class="font-bold text-brand-green">Provided to registered investors</p>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500">Email</p>
-                                    <p class="font-bold text-brand-green break-all">Provided to registered investors</p>
-                                </div>
-                            </div>
-                            <!-- Login/Register CTA overlay — hidden after auth. -->
-                            <div
-                                class="gated-overlay absolute inset-0 flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-[1px]">
-                                <div class="mb-4 text-brand-accent">
-                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-                                        <path
-                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                                    </svg>
-                                </div>
-                                <p class="text-center font-bold text-brand-green text-sm leading-relaxed">
-                                    <a class="login-trigger cursor-pointer text-brand-accent border-b border-brand-accent hover:opacity-80 transition-opacity"
-                                        href="#">Login</a> /
-                                    <a class="login-trigger cursor-pointer text-brand-accent border-b border-brand-accent hover:opacity-80 transition-opacity"
-                                        href="#">Register</a>
-                                    to connect <br />with the promoter.
-                                </p>
                             </div>
                         </div>
                     </div>
                     <!-- END: ContactDetails -->
 
-                    <!-- BEGIN: WhereNext -->
-                    <!-- The column used to stop here, leaving the page's right side empty
-                         beside the overview. This fills it with the step the UX audit asks
-                         for: from a project, out to the sector, state and regulatory
-                         guidance behind it (audit part 1, Opportunities). oppdetail.js
-                         points the first two rows at this project's own sector and state. -->
-                    <div class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                    <!-- BEGIN: ShareOpportunity -->
+                    <!-- The shape IndividualEvent.html uses for "Share this event", in
+                         this page's card shell. The buttons are wired at the foot of the
+                         page: the address they pass on carries this project's ?id=. -->
+                    <div id="share-opp" class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
                         <div class="px-4 py-3 bg-brand-green/5 border-b border-brand-green/10">
-                            <h3 class="font-manrope font-bold text-sm text-brand-green">Where to go next</h3>
+                            <h3 class="font-manrope font-bold text-sm text-brand-green">Share this opportunity</h3>
                         </div>
                         <div class="p-6 bg-white">
-                            <ul class="osip-next">
-                                <li>
-                                    <a href="Wind.html" data-purpose="next-sector">
-                                        <span class="material-symbols-outlined" aria-hidden="true">category</span>
-                                        <span>
-                                            <span class="osip-next-t">Wind sector guide</span>
-                                            <span class="osip-next-d">The market, the rules and how to take part in
-                                                the sector this project sits in.</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="States.html#katsina" data-purpose="next-state">
-                                        <span class="material-symbols-outlined" aria-hidden="true">map</span>
-                                        <span>
-                                            <span class="osip-next-t">Katsina state profile</span>
-                                            <span class="osip-next-d">Who to deal with in the state, and what it
-                                                already has on the ground.</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <!-- GOPA-OPP-02: incentives are written once, on the sector
-                                     page, and routed to from here. A project is where an
-                                     investor asks what relief applies to it, and the page
-                                     had no way through to the answer: the sector row above
-                                     lands at the top of the sector guide, and nothing on
-                                     this page names finance at all. Restating Pioneer
-                                     Status or the duty relief here would be a second copy
-                                     to keep in step, which is the thing the item rules out.
-                                     oppdetail.js points the first row at this project's own
-                                     sector, and drops it for a project whose sector has no
-                                     page on the platform. -->
-                                <li data-purpose="next-finance-row">
-                                    <a href="DetailedSector.html#finance" data-purpose="next-finance">
-                                        <span class="material-symbols-outlined" aria-hidden="true">savings</span>
-                                        <span>
-                                            <span class="osip-next-t">Finance and incentives</span>
-                                            <span class="osip-next-d">Funding routes, Pioneer Status and the reliefs
-                                                the sector page publishes.</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Regulation.html#tax">
-                                        <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
-                                        <span>
-                                            <span class="osip-next-t">Tax and fiscal policy</span>
-                                            <span class="osip-next-d">The rates, exemptions and duty treatment that
-                                                apply whatever the sector.</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Regulation.html#osip-pathway">
-                                        <span class="material-symbols-outlined" aria-hidden="true">gavel</span>
-                                        <span>
-                                            <span class="osip-next-t">Licences and permits</span>
-                                            <span class="osip-next-d">Answer six questions and get the regulatory
-                                                pathway for a project like this one.</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Opportunities.html">
-                                        <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
-                                        <span>
-                                            <span class="osip-next-t">All active opportunities</span>
-                                            <span class="osip-next-d">Every listed project, filtered by sector, state
-                                                and readiness.</span>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
+                            <div class="flex items-center gap-2">
+                                <a data-share="linkedin" href="#" rel="noopener" aria-label="Share on LinkedIn"
+                                    class="osip-share-btn w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">share</span>
+                                </a>
+                                <a data-share="email" href="#" aria-label="Share by email"
+                                    class="osip-share-btn w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">mail</span>
+                                </a>
+                                <button type="button" data-share="copy" aria-label="Copy link to this opportunity"
+                                    class="osip-share-btn w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">link</span>
+                                </button>
+                            </div>
+                            <p class="mt-3 text-[11.5px] leading-relaxed text-gray-500" data-share-note>The link opens
+                                this project by its ID.</p>
                         </div>
                     </div>
-                    <!-- END: WhereNext -->
+                    <!-- END: ShareOpportunity -->
+
                 </aside>
                 <!-- END: Sidebar -->
             </div>
@@ -2073,22 +1621,6 @@
     </div>
     <!-- /page-wrapper -->
 
-    <!-- BEGIN: Login Modal -->
-    <div id="login-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-        <div id="login-backdrop" class="absolute inset-0 bg-brand-green/40 backdrop-blur-sm"></div>
-        <div role="dialog" aria-modal="true" aria-label="Sign in or register"
-            class="osip-modal-in relative z-10 w-full max-w-5xl h-[88vh] bg-white rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5">
-            <button id="login-close" type="button" aria-label="Close login"
-                class="absolute top-3 right-3 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-brand-green shadow-md transition-all">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-            <div id="login-frame-box" class="absolute inset-0 overflow-hidden rounded-2xl">
-                <iframe id="login-frame" title="Login" class="absolute top-0 left-0 w-full h-full border-0"></iframe>
-            </div>
-        </div>
-    </div>
-    <!-- END: Login Modal -->
-
     <script>
             // Mobile navigation menu toggle
             (function () {
@@ -2101,114 +1633,6 @@
                     });
                 }
             })();
-
-        // Login modal: open from Connect / Login / Register, blur background behind it,
-        // close with the X button, the backdrop, or the Esc key.
-        (function () {
-            const modal = document.getElementById('login-modal');
-            const frame = document.getElementById('login-frame');
-            const wrapper = document.getElementById('page-wrapper');
-            const closeBtn = document.getElementById('login-close');
-            const backdrop = document.getElementById('login-backdrop');
-            const dialog = modal && modal.querySelector('[role="dialog"]');
-
-            function openModal(e, view) {
-                if (e) e.preventDefault();
-                // Decide which view to open: explicit arg, else infer from the
-                // trigger's own text (so the "Register" link lands on Register).
-                if (!view && e && e.currentTarget) {
-                    view = /register/i.test(e.currentTarget.textContent || '') ? 'register' : 'login';
-                }
-                if (!frame.getAttribute('src')) {
-                    // First open: load the page already on the right view.
-                    frame.setAttribute('src', 'Login.html' + (view === 'register' ? '#register' : ''));
-                } else if (view) {
-                    // Already loaded: switch in-place, no reload (no blink).
-                    frame.contentWindow.postMessage('osip-show-' + view, '*');
-                }
-                modal.classList.remove('hidden');
-                wrapper.classList.add('content-blurred');
-                document.body.style.overflow = 'hidden';
-                // Item 88: the focus moves into the dialog, Tab and Shift+Tab
-                // cycle inside it, and the page behind goes inert - there is
-                // nothing back there to tab into any more. release() undoes it.
-                release = window.OSIPModal
-                    ? window.OSIPModal.trap(dialog, { returnTo: lastFocus, focus: closeBtn })
-                    : null;
-            }
-            let lastFocus = null;
-            let release = null;
-            function closeModal() {
-                modal.classList.add('hidden');
-                wrapper.classList.remove('content-blurred');
-                document.body.style.overflow = '';
-                // Guards out, the page behind live again, and the focus back on
-                // whatever opened the modal.
-                if (release) { release(); release = null; }
-                lastFocus = null;
-            }
-
-            const connectBtn = document.getElementById('connect-btn');
-            const rememberFocus = (e) => { lastFocus = (e && e.currentTarget) || document.activeElement; };
-            if (connectBtn) connectBtn.addEventListener('click', rememberFocus);
-            document.querySelectorAll('.login-trigger').forEach(el => el.addEventListener('click', rememberFocus));
-            if (connectBtn) connectBtn.addEventListener('click', openModal);
-            document.querySelectorAll('.login-trigger').forEach(el => el.addEventListener('click', openModal));
-
-            if (closeBtn) closeBtn.addEventListener('click', closeModal);
-            if (backdrop) backdrop.addEventListener('click', closeModal);
-            // Esc from the page around the dialog. Esc pressed inside the frame
-            // belongs to the frame's own document and never arrives here, so
-            // Login.html posts 'osip-close' for it instead.
-            document.addEventListener('keydown', (e) => {
-                if (modal.classList.contains('hidden')) return;
-                if (e.key === 'Escape' || e.key === 'Esc') closeModal();
-            });
-
-            // Lets Login.html close the modal after auth (window.parent.postMessage)
-            // and — on 'osip-login-success' — also reveals the Investor Data Room
-            // sections via a body class.
-            //
-            // 16 Sep 2026: the sign-in is now remembered. window.OSIPSession
-            // (nav.js) writes the same flag the header reads, so a refresh no
-            // longer re-locks these sections and the profile mark and the data
-            // room agree with each other.
-            window.addEventListener('message', (e) => {
-                if (e.data === 'osip-close' || e.data === 'osip-login-success') closeModal();
-                if (e.data === 'osip-login-success') {
-                    if (window.OSIPSession) window.OSIPSession.signIn();
-                    unlockMembers();
-                }
-            });
-
-            // Already signed in when the page opens: unlocked from the start,
-            // with no toast and no scroll — nothing has just happened. Read
-            // straight out of storage, since this block runs before nav.js and
-            // window.OSIPSession does not exist yet.
-            try {
-                if (window.localStorage.getItem('osip_session')) {
-                    document.body.classList.add('is-authenticated');
-                }
-            } catch (_) { /* storage blocked: stays locked */ }
-
-            function unlockMembers() {
-                if (document.body.classList.contains('is-authenticated')) return;
-                document.body.classList.add('is-authenticated');
-                // Toast confirmation
-                const toast = document.createElement('div');
-                toast.className = 'unlocked-toast';
-                toast.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px">lock_open</span> Welcome — Investor Data Room unlocked';
-                document.body.appendChild(toast);
-                requestAnimationFrame(() => toast.classList.add('is-visible'));
-                setTimeout(() => {
-                    toast.classList.remove('is-visible');
-                    setTimeout(() => toast.remove(), 300);
-                }, 2600);
-                // Scroll to the unlocked section after the modal close animation.
-                const target = document.getElementById('members-section');
-                if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 250);
-            }
-        })();
 
         // Active top-nav highlight + page wiring (golden bar follows the current page).
             </script>
@@ -2488,10 +1912,7 @@
            are confirmed present, anything hidden is tracked so an error can put
            it back, and with reduced motion asked for it does nothing.
 
-           Members-only content (.show-when-unlocked) is never touched: it is
-           display:none until sign-in, and anything pre-hidden inside it would
-           stay hidden once it appears. When the page unlocks, scroll positions
-           are re-measured. Selectors below use no escaped characters.
+           Selectors below use no escaped characters.
            ===================================================================== */
         (function () {
             var html = document.documentElement;
@@ -2511,7 +1932,7 @@
                     releaseIntro();
                     html.classList.remove('rd-motion');
                     if (hidden.length) gsap.set(hidden, { clearProps: 'opacity,transform,visibility,clipPath' });
-                    drawn.forEach(function (el) { el.style.removeProperty('--rd-draw'); el.style.removeProperty('--rd-eyebrow'); });
+                    drawn.forEach(function (el) { el.style.removeProperty('--rd-draw'); });
                 }
             }
 
@@ -2531,7 +1952,7 @@
                 
                 var EASE = 'expo.out';
                 function all(root, sel) { return root ? Array.prototype.slice.call(root.querySelectorAll(sel)) : []; }
-                function open(el) { return el && !el.closest('.show-when-unlocked'); }
+                function open(el) { return !!el; }   /* nothing on the page is hidden now */
                 function keep(list) { return list.filter(function (el) { return !!el; }); }
 
                 html.classList.add('rd-motion');
@@ -2543,52 +1964,34 @@
                     gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
                     gsap.ticker.lagSmoothing(0);
                     window.__rdLenis = lenis;
-                    all(document, '#mobile-nav, .nesp-dropdown, #login-modal').forEach(function (el) {
+                    all(document, '#mobile-nav, .nesp-dropdown').forEach(function (el) {
                         el.setAttribute('data-lenis-prevent', '');
                     });
                 }
 
-                /* ---- Reading progress (on <body>, outside the wrapper the login modal blurs) */
+                /* ---- Reading progress (on <body>, outside the page wrapper) ------------- */
                 var bar = document.createElement('div');
                 bar.className = 'rd-progress';
                 bar.setAttribute('aria-hidden', 'true');
                 document.body.appendChild(bar);
                 gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.4 } });
 
-                /* ---- Header: crumbs, eyebrow rule, title and its gold rule, tracker ---- */
+                /* ---- Header: crumbs, eyebrow, title, figures -------------------------- */
                 var hero = main.querySelector(':scope > section');
                 var crumbs = wrap.querySelector('nav[aria-label="Breadcrumb"]');
                 var eyebrow = hero ? hero.querySelector('span.uppercase.tracking-widest') : null;
                 var h1 = hero ? hero.querySelector('h1') : null;
-                var titleRule = h1 ? h1.querySelector(':scope > span') : null;
                 var updated = h1 ? h1.nextElementSibling : null;
                 var intro = gsap.timeline({ defaults: { ease: EASE } });
 
                 if (crumbs) intro.from(crumbs, { opacity: 0, y: 8, duration: 0.9, clearProps: 'transform' }, 0);
-                if (eyebrow) {
-                    drawn.push(eyebrow);
-                    intro.from(eyebrow, { opacity: 0, x: -8, duration: 0.9, clearProps: 'transform' }, 0.1);
-                    intro.fromTo(eyebrow, { '--rd-eyebrow': 0 }, { '--rd-eyebrow': 1, duration: 1.1 }, 0.1);
-                }
+                if (eyebrow) intro.from(eyebrow, { opacity: 0, x: -8, duration: 0.9, clearProps: 'transform' }, 0.1);
                 if (h1) intro.from(h1, { opacity: 0, y: 26, duration: 1.2, clearProps: 'transform' }, 0.18);
-                if (titleRule) {
-                    drawn.push(titleRule);
-                    intro.fromTo(titleRule, { '--rd-draw': 0 }, { '--rd-draw': 1, duration: 1.4, ease: 'expo.inOut' }, 0.3);
-                }
                 if (updated && updated.tagName === 'P') intro.from(updated, { opacity: 0, duration: 0.9 }, 0.45);
 
-                /* The tracker's fill bars carry Tailwind's translate, so they draw with
-                   clip-path rather than a scale that would undo it. */
+                /* The four figures arrive with the title, one after the other. */
                 if (hero) {
-                    all(hero, '.osip-progress-fill').forEach(function (fill) {
-                        hidden.push(fill);
-                        intro.fromTo(fill, { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'power2.inOut', clearProps: 'clipPath' }, 0.55);
-                    });
-                    all(hero, '.osip-progress-fill-v').forEach(function (fill) {
-                        hidden.push(fill);
-                        intro.fromTo(fill, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'power2.inOut', clearProps: 'clipPath' }, 0.55);
-                    });
-                    var nodes = all(hero, '.relative.z-10.flex-col, ol li');
+                    var nodes = all(hero, '.osip-snap-label, .osip-snap > div');
                     if (nodes.length) {
                         hidden = hidden.concat(nodes);
                         intro.from(nodes, { opacity: 0, y: 10, duration: 0.8, stagger: 0.08, clearProps: 'transform' }, 0.5);
@@ -2628,7 +2031,7 @@
                 var sections = all(main, ':scope > section').filter(function (s) { return s !== hero; });
                 var sideCard = wrap.querySelector('.grid > aside > div');
                 batch(sections.concat(keep([sideCard])), { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 1.1, ease: EASE, stagger: 0.1 });
-                batch(all(main, 'div.rounded-lg.bg-brand-sidebar.text-center'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.07 });
+                batch(all(main, '.osip-stats > div'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9, ease: EASE, stagger: 0.07 });
                 batch(all(main, '[data-purpose="meta-item"]'), { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.9, ease: EASE, stagger: 0.06 });
 
                 /* ---- Figures count up to their value ------------------------------------ */
@@ -2658,9 +2061,7 @@
                         onComplete: function () { el.textContent = final; }
                     });
                 }
-                var figures = all(main, 'div.rounded-lg.bg-brand-sidebar.text-center p:first-of-type')
-                    .concat(all(main, 'p.text-2xl.text-gray-500 .text-brand-accent'))
-                    .filter(open);
+                var figures = all(main, '.osip-stats [data-stat]').filter(open);
                 figures.forEach(function (el) {
                     ScrollTrigger.create({ trigger: el, start: 'top 92%', once: true, onEnter: function () { countUp(el); } });
                 });
@@ -2669,13 +2070,6 @@
                    GIZ feedback: "A second curser is not needed (the yellow spot that jumps
                    in and out)". The page uses the reader's own pointer. */
 
-
-                /* ---- Sign-in reveals the data room: re-measure the page below it -------- */
-                if (window.MutationObserver) {
-                    new MutationObserver(function () {
-                        if (document.body.classList.contains('is-authenticated')) setTimeout(function () { ScrollTrigger.refresh(); }, 450);
-                    }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
-                }
 
                 window.addEventListener('load', function () { ScrollTrigger.refresh(); });
                 ScrollTrigger.refresh();
@@ -2708,6 +2102,65 @@
             window.addEventListener('load', fit);
             if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
             window.addEventListener('resize', later);
+        })();
+    </script>
+    <script>
+        /* The share card in the sidebar. The reference card on the events page has
+           three dead links; these do the three things they name. Nothing is sent
+           anywhere by the page itself - LinkedIn opens its own window, the mail
+           button hands the message to the reader's mail program, and the copy
+           button uses the clipboard. */
+        (function () {
+            var card = document.getElementById('share-opp');
+            if (!card) return;
+            var note = card.querySelector('[data-share-note]');
+            var said = note ? note.textContent : '';
+            function link() { return window.location.href; }
+            function name() {
+                var h = document.querySelector('#page-wrapper main h1');
+                return h ? h.textContent.replace(/\s+/g, ' ').trim() : 'An OSIP investment opportunity';
+            }
+            function tell(words) {
+                if (!note) return;
+                note.textContent = words;
+                window.setTimeout(function () { note.textContent = said; }, 2400);
+            }
+
+            var linkedin = card.querySelector('[data-share="linkedin"]');
+            if (linkedin) linkedin.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.open('https://www.linkedin.com/sharing/share-offsite/?url=' +
+                    encodeURIComponent(link()), '_blank', 'noopener,noreferrer,width=680,height=620');
+            });
+
+            var mail = card.querySelector('[data-share="email"]');
+            if (mail) mail.addEventListener('click', function () {
+                /* set on the way out, so the address is the one in the bar right now */
+                mail.setAttribute('href', 'mailto:?subject=' + encodeURIComponent(name()) +
+                    '&body=' + encodeURIComponent(name() + '\n\n' + link()));
+            });
+
+            var copy = card.querySelector('[data-share="copy"]');
+            if (copy) copy.addEventListener('click', function () {
+                var address = link();
+                function done() { tell('Link copied.'); }
+                function failed() { tell('Could not copy - the address is in the bar above.'); }
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(address).then(done, failed);
+                    return;
+                }
+                /* older browsers, and pages opened from a file:// path */
+                try {
+                    var box = document.createElement('textarea');
+                    box.value = address;
+                    box.setAttribute('readonly', '');
+                    box.style.cssText = 'position:fixed;top:0;left:-9999px';
+                    document.body.appendChild(box);
+                    box.select();
+                    document.execCommand('copy') ? done() : failed();
+                    document.body.removeChild(box);
+                } catch (err) { failed(); }
+            });
         })();
     </script>
 </body>

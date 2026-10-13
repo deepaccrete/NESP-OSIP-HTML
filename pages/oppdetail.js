@@ -83,17 +83,8 @@
        cleared, and how to reach the agency without an account. The clearance
        list lives in oppdata.js and is illustrative - see the note there. */
     (function () {
-        var cleared = (window.OSIP_OPPORTUNITY_CLEARED || []).indexOf(opp.id) > -1;
         var agency = opp.ministry || 'the responsible agency';
         setText(document.getElementById('agency-name'), agency);
-        var mark = document.getElementById('agency-clear');
-        if (mark) {
-            mark.setAttribute('data-clear', cleared ? 'cleared' : 'pending');
-            var icon = mark.querySelector('.material-symbols-outlined');
-            var words = mark.querySelector('span:last-child');
-            if (icon) icon.textContent = cleared ? 'verified_user' : 'hourglass_empty';
-            if (words) words.textContent = cleared ? 'Cleared by ' + agency : 'Clearance pending';
-        }
         var go = document.getElementById('agency-contact');
         if (go) go.setAttribute('aria-label', 'Contact ' + agency + ' about ' + opp.title);
     })();
@@ -290,20 +281,25 @@
             return '<p>' + lead + p + '</p>';
         }).join('');
     }
-    var tiles = every(overview ? overview.parentElement : null, 'div.rounded-lg.bg-brand-sidebar.text-center');
+    /* The key figures read label-then-figure, like every other stat tile on the
+       page. A record's highlight is [icon, figure, label]; the icon is no longer
+       drawn, so only the last two are used. */
+    var tiles = every(overview ? overview.parentElement : null, '.osip-stats > div');
     (opp.highlights || []).forEach(function (h, i) {
         var tile = tiles[i];
         if (!tile) return;
         var ps = every(tile, 'p');
-        setText(one(tile, '.material-symbols-outlined'), h[0]);
-        setText(ps[0], h[1]);
-        setText(ps[1], h[2]);
+        setText(ps[0], h[2]);
+        setText(ps[1], h[1]);
     });
 
     /* ---- Project details grid and total cost ----------------------------------- */
     var details = [opp.sector, opp.state, opp.start, opp.end, opp.promoter, opp.status, opp.ministry];
-    every(main, '[data-purpose="meta-item"] p').forEach(function (p, i) { setText(p, details[i]); });
-    setText(one(main, 'p.text-2xl .text-brand-accent'), opp.cost);
+    /* Scoped to the facts grid: the investment terms below use the same cell,
+       and they are filled by name from `terms`, not by position. */
+    every(one(main, '#project-facts'), '[data-purpose="meta-item"] p')
+        .forEach(function (p, i) { setText(p, details[i]); });
+
 
     /* ---- Investment details block (item 33) -----------------------------------
        Standard investor terms per project. Qualitative fields come from the
@@ -326,11 +322,29 @@
             var k = el.getAttribute('data-inv');
             if (vals[k] != null) el.textContent = vals[k];
         });
+
+        /* The four figures in the project card: the ones a deal is screened on.
+           Same numbers as below, read from the same record - the card is the
+           summary, the cards under it are the detail. */
+        var snapshot = {
+            cost: opp.cost || '—',
+            min: vals.min,
+            irr: (opp.gated && opp.gated[0]) || '—',
+            payback: (opp.gated && opp.gated[1]) || '—'
+        };
+        every(main, '[data-snap]').forEach(function (el) {
+            var k = el.getAttribute('data-snap');
+            if (snapshot[k] != null) setText(el, snapshot[k]);
+        });
     })();
 
-    /* ---- Members-only figures (blurred until sign-in) -------------------------- */
-    every(main, '.gated-content .grid > div').forEach(function (tile, i) {
-        setText(every(tile, 'p')[1], opp.gated ? opp.gated[i] : null);
+    /* ---- The figures under Investment details ---------------------------------- */
+    /* opp.gated is [target IRR, payback, minimum ticket, lock-up]. The minimum
+       ticket is the "Minimum investment" row above, so three are shown here. */
+    var FIGURE = { irr: 0, payback: 1, lockup: 3 };
+    every(main, '[data-fig]').forEach(function (el) {
+        var i = FIGURE[el.getAttribute('data-fig')];
+        if (opp.gated && opp.gated[i] != null) setText(el, opp.gated[i]);
     });
 
     /* ---- Investor data room: brief, imagery, walkthrough, documents ----------- */
@@ -382,27 +396,14 @@
         });
     }
 
-    /* ---- Contact card (blurred until sign-in) ---------------------------------- */
-    var contact = one(wrap, '.grid > aside .gated-content');
-    if (contact && opp.contact) {
-        var rows = every(contact, ':scope > div');
-        setText(every(rows[0], 'p')[1], opp.contact[0]);
-        setText(every(rows[1], 'p')[1], opp.contact[1]);
-        // UX-TRU (item 78): only render a tel:/mailto when the value is a real
-        // phone/email. Prototype records carry "Provided to registered investors"
-        // rather than a fabricated number, so those show as plain text.
-        var tel = one(rows[2], 'a');
-        if (tel) {
-            var phone = opp.contact[2] || '';
-            if (/\d/.test(phone)) { tel.textContent = phone; tel.setAttribute('href', 'tel:' + phone.replace(/[^+\d]/g, '')); }
-            else { tel.textContent = phone; tel.removeAttribute('href'); tel.removeAttribute('class'); }
-        }
-        var mail = one(rows[3], 'a');
-        if (mail) {
-            var email = opp.contact[3] || '';
-            if (email.indexOf('@') > -1) { mail.textContent = email; mail.setAttribute('href', 'mailto:' + email); }
-            else { mail.textContent = email; mail.removeAttribute('href'); mail.removeAttribute('class'); }
-        }
+    /* ---- Who to contact: the promoter named on the record ---------------------- */
+    /* The record's phone and email read "Provided to registered investors" on
+       every project - there are no numbers behind them - so the card names who
+       is responsible and the agency above it is the route in. */
+    var promoter = one(wrap, '#project-promoter');
+    if (promoter && opp.contact) {
+        setText(one(promoter, '[data-promoter="name"]'), opp.contact[0]);
+        setText(one(promoter, '[data-promoter="role"]'), opp.contact[1]);
     }
 
     /* ---- Where to go next: this project's sector and state --------------------- */
