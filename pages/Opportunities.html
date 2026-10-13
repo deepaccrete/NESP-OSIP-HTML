@@ -2500,121 +2500,6 @@
                             class="material-symbols-outlined text-[18px]">expand_more</span><span
                             class="label-text">View more</span></button>
                 </div>
-                <!-- Readiness -->
-                <!-- OPP-01 / OPP-02: the two axes, side by side.
-                     This slot once held a "Project Stages" filter (Planning /
-                     Tendering / Under Construction / Operational), which was
-                     dropped when GOPA's note warned that project stage "might be
-                     a bit difficult to maintain subsequently" and asked for the
-                     simpler readiness tags. The tags shipped as OPP-02 and are
-                     the client's own list of six.
-                     They are not, though, the same question: a stage says where
-                     the PROJECT has got to, a readiness tag says what it needs
-                     from an INVESTOR now. While the design is being reviewed both
-                     are offered here, and each project answers to one of them -
-                     `track` in oppdata.js, and the card's own data-readiness /
-                     data-stage, which is what these checkboxes read. The cards
-                     stopped showing a tag on 13 Oct 2026; the attributes stayed,
-                     so filtering is unaffected. Pick a
-                     readiness tag and you are filtering the projects listed by
-                     readiness; pick a stage and you are filtering the ones listed
-                     by stage. -->
-                <div class="filter-group">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Readiness
-                        </h3>
-                        <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">6</span>
-                    </div>
-                    <div class="space-y-2.5">
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="readiness" data-value="concept" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Concept</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="readiness" data-value="preparation" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Under
-                                preparation</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="readiness" data-value="interest" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Seeking
-                                investor interest</span>
-                        </label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="readiness" data-value="tender" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Tender /
-                                procurement</span>
-                        </label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="readiness" data-value="financing" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Financing
-                                sought</span>
-                        </label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="readiness" data-value="validation" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Requires
-                                validation</span>
-                        </label>
-                    </div>
-                    <button type="button" aria-label="Show all Readiness filters" aria-expanded="false"
-                        class="view-more-btn mt-2 flex items-center gap-2 text-primary text-[12px] font-bold hover:underline"><span
-                            class="material-symbols-outlined text-[18px]">expand_more</span><span
-                            class="label-text">View more</span></button>
-                </div>
-                <!-- Project stage: the project's own lifecycle, the axis the
-                     detail page draws as a four-step track. -->
-                <div class="filter-group">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-[13px] uppercase tracking-wider text-on-surface-variant">Project
-                            stage</h3>
-                        <span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold">4</span>
-                    </div>
-                    <div class="space-y-2.5">
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="stage" data-value="conceptualization" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Under
-                                Conceptualisation</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="stage" data-value="development" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Under
-                                Development</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="stage" data-value="implementation" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Under
-                                Implementation</span>
-                        </label>
-                        <label class="filter-extra flex items-center gap-3 cursor-pointer group">
-                            <input
-                                class="filter-checkbox rounded border-outline-variant text-primary focus:ring-primary w-4 h-4"
-                                data-group="stage" data-value="completed" type="checkbox" />
-                            <span class="text-label-md text-on-surface-variant group-hover:text-primary">Completed</span>
-                        </label>
-                    </div>
-                    <button type="button" aria-label="Show all Project stage filters" aria-expanded="false"
-                        class="view-more-btn mt-2 flex items-center gap-2 text-primary text-[12px] font-bold hover:underline"><span
-                            class="material-symbols-outlined text-[18px]">expand_more</span><span
-                            class="label-text">View more</span></button>
-                </div>
             </div>
             <!-- Reset All — the rail's third part: the groups above it scroll, this
                  stays on screen with the panel's header, so the way out of a filter
@@ -4130,14 +4015,11 @@
                     .split(/\s+/).filter(Boolean);
             }
 
-            // Readiness and stage are two answers to one question - where is this
-            // project - and a project is listed under one of them, never both. So
-            // they are OR'd with each other and AND'ed with everything else:
-            // "solar, and either under development or seeking investor interest".
-            // Treated like any other pair of groups, ticking one of each would
-            // always return nothing.
-            const AXIS_GROUPS = ['readiness', 'stage'];
-
+            /* Every group is AND'ed: a card has to answer each one that has a box
+               ticked. Readiness and Project stage used to be the exception - they
+               were OR'd with each other, because a project is listed on one axis
+               or the other and never both - and that pairing went with them when
+               the two groups were removed on 13 Oct 2026. */
             function matches(card, selected, query, only) {
                 const groups = Object.keys(selected).filter(function (group) {
                     return !only || only.indexOf(group) > -1;
@@ -4147,10 +4029,7 @@
                         return tokens(card, group).includes(val);
                     });
                 }
-                const axis = groups.filter(function (g) { return AXIS_GROUPS.indexOf(g) > -1; });
-                const rest = groups.filter(function (g) { return AXIS_GROUPS.indexOf(g) === -1; });
-                const ok = rest.every(hit) && (axis.length === 0 || axis.some(hit));
-                if (!ok) return false;
+                if (!groups.every(hit)) return false;
                 if (query) return card.textContent.toLowerCase().includes(query);
                 return true;
             }

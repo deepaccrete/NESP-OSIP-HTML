@@ -557,7 +557,23 @@
         .rd main > section:nth-of-type(4) { background: var(--rd-paper-2) !important; }
 
         /* ---- Hero ---- */
-        .rd main > section:first-of-type { min-height: min(86vh, 780px) !important; }
+        .rd main > section:first-of-type { min-height: min(62vh, 580px) !important; }
+        /* 13 Oct 2026: the band was held open to most of the screen while its
+           content needed little more than half of it. The same figures on every
+           dark green hero now, and the content's own top and bottom came down
+           with the band. */
+        .rd main > section:first-of-type > .z-10 {
+            padding-top: 36px !important;
+            padding-bottom: 36px !important;
+        }
+
+        @media (min-width: 1024px) {
+            .rd main > section:first-of-type > .z-10 {
+                padding-top: 44px !important;
+                padding-bottom: 44px !important;
+            }
+        }
+
         .rd main > section:nth-of-type(3) .max-w-\[1440px\] { padding-top: clamp(64px, 8vw, 112px) !important; padding-bottom: clamp(64px, 8vw, 112px) !important; }
         .rd main > section:first-of-type .bg-cover { background-position: center 62% !important; }
         .rd main > section:first-of-type .max-w-3xl { max-width: none !important; }  /* full width: the hero band has no second column */

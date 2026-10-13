@@ -117,7 +117,10 @@ window.OSIP_OPPORTUNITIES = [
            were added on 13 Oct 2026 (Unsplash Licence, no attribution needed). */
         images: [['Turbine array site', 'sector-Wind-opp.jpg'], ['Turbine tower and nacelle', 'opp-katsina-turbine.jpg'], ['Grid substation', 'opp-katsina-substation.jpg']],
         video: null,
-        docs: [['Investment Memorandum', '2.4', 48], ['Technical Feasibility Report', '5.8', 112]],
+        /* No documents on this project (13 Oct 2026, Adarsh): with `docs` null,
+           oppdetail.js takes the whole Documents section off this page only.
+           To bring it back, restore the `docs:` line in the comment above. */
+        docs: null,
         contact: ['Adebayo Okonkwo', 'Director of Operations', 'Provided to registered investors', 'Provided to registered investors']
     },
     {

@@ -539,7 +539,7 @@
           subs += it.live
             ? '<a class="nesp-m-live" href="' + it.href + '">' + it.t +
               '<span class="nesp-state-live" title="Profile published">Live</span></a>'
-            : '<a href="' + it.href + '">' + it.t + '</a>';
+            : '<span class="nesp-m-off">' + it.t + '</span>';
         });
       });
     } else {
@@ -1024,9 +1024,11 @@
       '.nesp-header .nesp-state{display:flex;align-items:center;gap:.375rem;padding:.3125rem .625rem;border-radius:10px;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:15px;font-weight:400;color:' + INK3 + ';text-decoration:none;transition:background-color .25s ease,color .25s ease}',
       '.nesp-header .nesp-state:hover{background:' + TINT + ';color:' + GREEN + '}',
       /* Only Enugu has a profile behind it: it sits on a quiet green, the other
-         thirty-six are set in the panel's muted ink. Hover still answers on all
-         of them - they are links, not dead ends. */
+         thirty-six are set in the panel's muted ink and are plain text, not
+         links (13 Oct 2026). */
       '.nesp-header .nesp-state--live{background:#eaf2ec;color:' + GREEN + ';font-weight:500}',
+      /* not a link: no pointer, and nothing answers a hover */
+      '.nesp-header .nesp-state--off,.nesp-header .nesp-state--off:hover{background:transparent;color:' + INK3 + ';cursor:default}',
       '.nesp-header .nesp-state--live:hover{background:#e0ebe3;color:' + GREEN + '}',
       '.nesp-header .nesp-state-live{margin-left:auto;font-family:' + SANS + ';font-size:8.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:' + GREEN + ';background:#e6efe8;border-radius:999px;padding:1px 7px}',
 
@@ -1099,6 +1101,7 @@
       '.nesp-header .nesp-m-sublist a{display:block;padding:.5rem .625rem;border-radius:10px;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:16.5px;font-weight:400;color:' + INK2 + ';text-decoration:none;transition:background-color .25s ease,color .25s ease}',
       '.nesp-header .nesp-m-sublist a:hover{background:' + TINT + ';color:' + GREEN + '}',
       '.nesp-header .nesp-m-sublist a.nesp-m-live{display:flex;align-items:center;gap:.5rem}',
+      '.nesp-header .nesp-m-sublist .nesp-m-off{display:block;padding:.5rem .625rem;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:16.5px;font-weight:400;color:' + INK3 + ';cursor:default}',
       '.nesp-header .nesp-m-sublist a.nesp-m-subhead{font-family:' + SANS + ';font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:' + GREEN2 + ';padding:.75rem .625rem .25rem}',
       '.nesp-header .nesp-m-sublist a.nesp-m-subhead:hover{background:transparent;color:' + GREEN + '}',
       '.nesp-header .nesp-m-foot{margin-top:.75rem;padding-top:1rem;border-top:1px solid ' + LINE + ';display:flex;flex-direction:column;gap:.625rem}',
@@ -1400,8 +1403,13 @@
       menu.groups.forEach(function (g) {
         var rows = '';
         g.items.forEach(function (it) {
-          rows += '<a class="nesp-state' + (it.live ? ' nesp-state--live' : '') + '" href="' + it.href + '">' + it.t +
-            (it.live ? '<span class="nesp-state-live" title="Profile published">Live</span>' : '') + '</a>';
+          // Only a state with a published profile is a link. The rest are
+          // listed, so the reader sees all 37, but they are plain text: there
+          // is no profile behind them to go to yet.
+          rows += it.live
+            ? '<a class="nesp-state nesp-state--live" href="' + it.href + '">' + it.t +
+              '<span class="nesp-state-live" title="Profile published">Live</span></a>'
+            : '<span class="nesp-state nesp-state--off">' + it.t + '</span>';
         });
         cols += '<div class="nesp-menu-group"><a class="nesp-group-head" href="' + g.href + '">' +
           g.head + '</a>' + rows + '</div>';
