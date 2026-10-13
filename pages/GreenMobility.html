@@ -5441,12 +5441,15 @@
             var down = false, startX = 0, startLeft = 0, moved = 0;
 
             rail.addEventListener('pointerdown', function (e) {
+                /* Zeroed for every press, a finger's included. It used to be reset
+                   only when a drag ended on a chip; a drag that ended on the gap
+                   between two chips left it high, and the next tap was read as the
+                   end of a drag and swallowed - which killed the jump. */
+                moved = 0;
                 if (e.pointerType === 'touch') return;   /* a real finger needs no help */
                 down = true;
-                moved = 0;
                 startX = e.clientX;
                 startLeft = rail.scrollLeft;
-                rail.setPointerCapture(e.pointerId);
             });
 
             rail.addEventListener('pointermove', function (e) {
@@ -5454,7 +5457,12 @@
                 var dx = e.clientX - startX;
                 if (Math.abs(dx) > moved) moved = Math.abs(dx);
                 rail.scrollLeft = startLeft - dx;
-                if (moved > 4) e.preventDefault();
+                if (moved > 4) {
+                    /* capture only once this is really a drag: a captured plain
+                       click can be retargeted off the link it was aimed at */
+                    if (!rail.hasPointerCapture(e.pointerId)) rail.setPointerCapture(e.pointerId);
+                    e.preventDefault();
+                }
             });
 
             function up(e) {
@@ -5465,6 +5473,10 @@
             rail.addEventListener('pointerup', up);
             rail.addEventListener('pointercancel', up);
 
+            /* A drag that finishes on a chip ends in a click, and the page's own
+               listener would jump to that section. It is stopped here - in the
+               capture phase, because that listener sits on the document - but only
+               when the pointer really travelled. */
             rail.addEventListener('click', function (e) {
                 if (moved > 4) { e.preventDefault(); e.stopPropagation(); moved = 0; }
             }, true);

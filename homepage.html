@@ -3590,8 +3590,11 @@
 
     .osip-hero-inner {
       min-height: 500px;
-      padding-top: 3rem;
-      padding-bottom: 3rem;
+      /* 13 Oct 2026: 48px top and bottom came down to the 44/36 the shared
+         heroes use. The 68px on .osip-hero above this is separate - that is
+         what clears the fixed header - and stays. */
+      padding-top: 36px;
+      padding-bottom: 36px;
     }
 
     /* The horizontal scrim carries the copy; the bottom wash seats the section
@@ -4042,7 +4045,7 @@
       font-size: clamp(50px, 6.8vw, 108px) !important;
       line-height: .96 !important;
       letter-spacing: -0.035em !important;
-      margin-bottom: 34px !important;
+      margin-bottom: 24px !important;
     }
 
     /* The lead runs as wide as the headline above it (it used to stop at 38rem and
@@ -4052,7 +4055,7 @@
       position: relative;
       max-width: 100% !important;
       text-wrap: pretty;
-      margin-bottom: 44px !important;
+      margin-bottom: 30px !important;
       padding-left: 23px !important;
       font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
       font-size: 20px !important;
@@ -7714,11 +7717,28 @@
             font-size: 42px;
           }
         }
+
+        /* The CTA sits on the heading's line, as it does over the Opportunities
+           and Sectors headings on this page. They are written the same way, and
+           for the same reason: this page ships a frozen Tailwind build with no
+           lg: utilities in it, so the lg:items-center in the markup never
+           applied and the row fell back to centring - which hung the button 43px
+           down, level with the lead paragraph instead of the heading. The 2px
+           nudge optically centres a 50px button on the 51px heading line. */
+        @media (width >= 64rem) {
+          .osip-data-head {
+            align-items: flex-start;
+          }
+
+          .osip-data-head > a {
+            margin-top: 2px;
+          }
+        }
       </style>
 
       <section class="bg-[#f4f3f8] py-14 lg:py-20 px-6 lg:px-8" style="font-family: Inter, sans-serif;">
         <div class="max-w-7xl mx-auto">
-          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
+          <div class="osip-data-head flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
             <div>
               <h2 class="text-[32px] lg:text-[42px] leading-tight font-bold text-[#111827] mb-3"
                 style="font-family: Manrope, sans-serif;">Data and Insights</h2>

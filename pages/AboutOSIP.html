@@ -80,9 +80,13 @@
                 linear-gradient(90deg, rgba(8, 28, 20, .9) 0%, rgba(8, 28, 20, .66) 45%, rgba(8, 28, 20, .18) 100%),
                 linear-gradient(0deg, rgba(8, 28, 20, .7) 0%, rgba(8, 28, 20, 0) 55%);
         }
-        .ab-hero-inner { position: relative; z-index: 1; padding-top: 140px; padding-bottom: clamp(56px, 8vw, 104px); }
+        /* 13 Oct 2026: 140px over the copy and up to 104px under it was 244px of
+           padding, against 44/36 on every other dark green hero - which is the
+           whole reason this one stood 112px taller. 104px at the top still
+           clears the fixed header. */
+        .ab-hero-inner { position: relative; z-index: 1; padding-top: 104px; padding-bottom: clamp(36px, 4.5vw, 56px); }
         .ab-hero-title {
-            margin: 0 0 30px; color: #ffffff;
+            margin: 0 0 22px; color: #ffffff;
             font-size: clamp(48px, 7vw, 112px); font-weight: 500; line-height: .98; letter-spacing: -0.035em;
         }
         .ab-hero-lead {
@@ -90,7 +94,7 @@
             font-size: clamp(17px, 1.5vw, 21px); line-height: 1.6; color: rgba(255, 255, 255, .86);
         }
         .ab-hero-lead::before { content: ""; position: absolute; left: 0; top: .35em; bottom: .35em; width: 2px; background: var(--rd-gold); }
-        .ab-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+        .ab-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
         .ab-btn {
             display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 26px;
