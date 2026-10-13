@@ -2887,122 +2887,167 @@
             max-width: none !important;
         }
 
-        /* ---- Finance: static 3D card fan (18 Sep 2026) ---------------------------------
-           The six Finance subsections are shown as one fanned deck of tilted cards,
-           in the manner of the pure-CSS 3D card slider. It is deliberately NOT a
-           `.rd-cards` group, so cardrail.js leaves it alone. There is no slider JS:
-           the deck is static, and hovering (or focusing) a card is the only motion —
-           the card swings upright and lifts forward so its full text can be read.
-           Below 900px the 3D effect is dropped for a plain stacked column. */
+        /* ---- Finance: editorial card grid (06 Oct 2026) --------------------------------
+           The six Finance subsections share the page's house card look (see .rd-card):
+           a cream card on a hairline border, a gold top-rule that sweeps in on hover,
+           and a green number chip. Lighter and calmer than the old 3D fanned green
+           deck, and consistent with the Opportunities / sector cards above.
+           It is deliberately NOT a `.rd-cards` group, so cardrail.js leaves it alone.
+           --fan-rise is the scroll-reveal hook (see the GSAP batch at page end).
+           The per-card --fan-bg inline values are now unused but left in place. */
         .rd main .rd-fan-wrap {
             margin-top: clamp(40px, 4.5vw, 56px);
-            perspective: 2000px;
         }
 
         .rd main .rd-fan {
-            display: flex;
-            justify-content: center;
-            align-items: stretch;
-            padding: 26px 0 44px;
-            transform-style: preserve-3d;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 16px;
+        }
+
+        @media (min-width: 640px) {
+            .rd main .rd-fan {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .rd main .rd-fan {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
         }
 
         .rd main .rd-fan-card {
             position: relative;
-            flex: 0 0 clamp(196px, 20vw, 248px);
-            min-height: 430px;
-            margin-left: clamp(-76px, -5vw, -52px);
-            padding: 28px 26px;
+            display: flex;
+            flex-direction: column;
+            padding: 26px 26px 24px;
             border-radius: 18px;
-            color: #f4f1e9;
-            background: var(--fan-bg, var(--rd-green));
-            box-shadow: 0 28px 44px -22px rgba(0, 0, 0, .55);
-            transform-origin: center center;
-            transform: rotateY(34deg) scale(.94);
-            transition: transform .5s cubic-bezier(.22, 1, .36, 1), box-shadow .5s ease;
+            background: var(--rd-card);
+            border: 1px solid var(--rd-line);
+            box-shadow: 0 14px 30px -26px rgba(11, 42, 31, .4);
             overflow: hidden;
+            translate: 0 var(--fan-rise, 0px);
+            transition: transform .4s cubic-bezier(.22, 1, .36, 1),
+                border-color .4s ease, background-color .4s ease, box-shadow .4s ease;
         }
 
-        .rd main .rd-fan-card:first-child {
-            margin-left: 0;
-        }
-
-        /* A gold hairline down the leading edge. Drawn as the left border of a layer
-           the full size of the card, sharing its radius, so the line bends round the
-           top and bottom corners with the card. (It was a straight 3px strip, whose
-           square ends stuck out past the rounded corners wherever the card stopped
-           clipping, as it does in the stacked layout below 900px.) */
+        /* gold top-rule, hidden until hover then sweeps across (as .rd-card does) */
         .rd main .rd-fan-card::before {
             content: "";
             position: absolute;
-            inset: 0;
-            border-left: 3px solid var(--rd-gold);
-            border-radius: inherit;
-            opacity: .85;
+            inset: 0 0 auto 0;
+            height: 2px;
+            background: var(--rd-gold);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform .6s cubic-bezier(.22, .61, .36, 1);
             pointer-events: none;
-        }
-
-        /* The scroll reveal lifts the card with `translate`, not `transform`, so the
-           rise does not wipe out the fan's rotateY while it plays. */
-        .rd main .rd-fan-card {
-            translate: 0 var(--fan-rise, 0px);
         }
 
         .rd main .rd-fan-card:hover,
         .rd main .rd-fan-card:focus-within {
-            transform: rotateY(0deg) scale(1.06) translateZ(160px);
-            box-shadow: 0 42px 64px -24px rgba(0, 0, 0, .6);
-            z-index: 6;
-            /* visible, not auto: the glossary's hidden definition bubbles
-               (glossary.js ::after) count as content, so a scrolling card drew
-               scrollbars on hover. Lifted clear of its neighbours it needs no
-               clip, and a term's definition can open in full. */
+            transform: translateY(-4px);
+            border-color: var(--rd-line-2);
+            background: #ffffff;
+            box-shadow: 0 22px 42px -28px rgba(11, 42, 31, .5);
+            /* visible, not hidden: the glossary's hidden definition bubbles
+               (glossary.js ::after) count as content, so a term's definition
+               can open past the card edge on hover. */
             overflow: visible;
         }
 
-        .rd main .rd-fan-no {
+        .rd main .rd-fan-card:hover::before,
+        .rd main .rd-fan-card:focus-within::before {
+            transform: scaleX(1);
+        }
+
+        /* a large, faint serif numeral set into the top-right corner — editorial
+           watermark behind the content. Deepens a touch on hover. */
+        .rd main .rd-fan-watermark {
+            position: absolute;
+            top: 6px;
+            right: 16px;
             font-family: var(--rd-serif) !important;
-            font-size: 38px;
-            font-weight: 400;
+            font-size: 74px;
+            font-weight: 500;
             line-height: 1;
-            color: var(--rd-gold);
-            opacity: .9;
+            color: var(--rd-green);
+            opacity: .06;
+            pointer-events: none;
+            transition: opacity .4s ease;
+        }
+
+        .rd main .rd-fan-card:hover .rd-fan-watermark,
+        .rd main .rd-fan-card:focus-within .rd-fan-watermark {
+            opacity: .1;
+        }
+
+        /* green icon chip, mirroring the sector cards' .rd-card-mark */
+        .rd main .rd-fan-ico {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 13px;
+            background: var(--rd-green);
+            color: var(--rd-gold) !important;
+            font-size: 24px !important;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24 !important;
+            box-shadow: 0 10px 20px -12px rgba(0, 66, 37, .7);
+            transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .rd main .rd-fan-card:hover .rd-fan-ico,
+        .rd main .rd-fan-card:focus-within .rd-fan-ico {
+            transform: translateY(-2px) scale(1.04);
         }
 
         .rd main .rd-fan-title {
-            margin-top: 16px;
+            position: relative;
+            z-index: 1;
+            margin-top: 18px;
             font-family: var(--rd-sans) !important;
-            font-size: 19px;
-            font-weight: 700;
-            line-height: 1.25;
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 1.3;
             letter-spacing: -0.01em;
-            color: #ffffff !important;
+            color: var(--rd-ink) !important;
+            text-wrap: balance;
         }
 
         .rd main .rd-fan-sum {
-            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+            margin-top: 9px;
             font-family: var(--rd-sans) !important;
             font-size: 13.5px;
             line-height: 1.6;
-            color: rgba(244, 241, 233, .9);
+            color: var(--rd-ink-3);
         }
 
         .rd main .rd-fan-list {
-            margin-top: 14px;
-            padding: 0;
+            position: relative;
+            z-index: 1;
+            margin-top: 16px;
+            padding-top: 15px;
+            border-top: 1px solid var(--rd-line);
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 7px;
+            gap: 8px;
         }
 
         .rd main .rd-fan-list>li {
             position: relative;
-            padding-left: 16px;
+            padding-left: 18px;
             font-family: var(--rd-sans) !important;
             font-size: 12.5px;
-            line-height: 1.45;
-            color: rgba(244, 241, 233, .82);
+            line-height: 1.5;
+            color: var(--rd-ink-2);
         }
 
         .rd main .rd-fan-list>li::before {
@@ -3014,32 +3059,6 @@
             height: 5px;
             border-radius: 50%;
             background: var(--rd-gold);
-        }
-
-        @media (max-width: 900px) {
-            .rd main .rd-fan-wrap {
-                perspective: none;
-            }
-
-            .rd main .rd-fan {
-                flex-direction: column;
-                gap: 16px;
-                padding: 8px 0 0;
-            }
-
-            .rd main .rd-fan-card {
-                flex: none;
-                width: 100%;
-                min-height: 0;
-                margin-left: 0;
-                transform: none;
-                overflow: visible;
-            }
-
-            .rd main .rd-fan-card:hover,
-            .rd main .rd-fan-card:focus-within {
-                transform: none;
-            }
         }
 
         /* ---- Regulations: accordion (18 Sep 2026) -------------------------------------
@@ -5300,14 +5319,16 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#111827] mb-10 lg:mb-12"
                     style="font-family: Manrope, sans-serif;">Finance</h2>
 
-                <!-- Finance subsections as a static 3D card fan (see .rd-fan in
-                     #rd-style). NOT a .rd-cards group, so cardrail.js leaves it be.
-                     Hovering/focusing a card swings it upright so its full text reads. -->
+                <!-- Finance subsections as an editorial card grid (see .rd-fan in
+                     #rd-style), sharing the page's house card look. NOT a .rd-cards
+                     group, so cardrail.js leaves it be. The --fan-bg inline values
+                     below are now unused (kept to avoid touching every card). -->
                 <div class="rd-fan-wrap">
                     <div class="rd-fan" role="list">
                         <article class="rd-fan-card" role="listitem" tabindex="0" id="finance-1"
                             style="--fan-bg:#0b6b45;">
-                            <div class="rd-fan-no" aria-hidden="true">01</div>
+                            <span class="rd-fan-watermark" aria-hidden="true">01</span>
+                            <span class="rd-fan-ico material-symbols-outlined" aria-hidden="true">account_balance</span>
                             <h3 class="rd-fan-title">Public Finance</h3>
                             <p class="rd-fan-sum">Grow&shy;ing pub&shy;lic and de&shy;vel&shy;op&shy;ment-fi&shy;nance
                                 sup&shy;port, led by the
@@ -5325,7 +5346,8 @@
 
                         <article class="rd-fan-card" role="listitem" tabindex="0" id="finance-2"
                             style="--fan-bg:#075e3b;">
-                            <div class="rd-fan-no" aria-hidden="true">02</div>
+                            <span class="rd-fan-watermark" aria-hidden="true">02</span>
+                            <span class="rd-fan-ico material-symbols-outlined" aria-hidden="true">payments</span>
                             <h3 class="rd-fan-title">Commercial Finance</h3>
                             <p class="rd-fan-sum">Bank fi&shy;nanc&shy;ing for de&shy;vel&shy;op&shy;ers,
                                 busi&shy;nesses and end-users is
@@ -5341,7 +5363,8 @@
 
                         <article class="rd-fan-card" role="listitem" tabindex="0" id="finance-3"
                             style="--fan-bg:#00543a;">
-                            <div class="rd-fan-no" aria-hidden="true">03</div>
+                            <span class="rd-fan-watermark" aria-hidden="true">03</span>
+                            <span class="rd-fan-ico material-symbols-outlined" aria-hidden="true">verified_user</span>
                             <h3 class="rd-fan-title">Guarantees &amp; Risk Instruments</h3>
                             <p class="rd-fan-sum">De-risk&shy;ing tools that un&shy;lock local-cur&shy;rency
                                 fi&shy;nanc&shy;ing and re&shy;duce
@@ -5357,7 +5380,8 @@
 
                         <article class="rd-fan-card" role="listitem" tabindex="0" id="finance-4"
                             style="--fan-bg:#004225;">
-                            <div class="rd-fan-no" aria-hidden="true">04</div>
+                            <span class="rd-fan-watermark" aria-hidden="true">04</span>
+                            <span class="rd-fan-ico material-symbols-outlined" aria-hidden="true">account_tree</span>
                             <h3 class="rd-fan-title">Blended Finance</h3>
                             <p class="rd-fan-sum">The dom&shy;i&shy;nant fund&shy;ing struc&shy;ture — grants,
                                 con&shy;ces&shy;sional fi&shy;nance,
@@ -5374,7 +5398,8 @@
 
                         <article class="rd-fan-card" role="listitem" tabindex="0" id="finance-5"
                             style="--fan-bg:#0b3a2a;">
-                            <div class="rd-fan-no" aria-hidden="true">05</div>
+                            <span class="rd-fan-watermark" aria-hidden="true">05</span>
+                            <span class="rd-fan-ico material-symbols-outlined" aria-hidden="true">handshake</span>
                             <h3 class="rd-fan-title">Infrastructure Concession Arrangements</h3>
                             <p class="rd-fan-sum">Con&shy;ces&shy;sion mod&shy;els that hand de&shy;vel&shy;op&shy;ment,
                                 fi&shy;nanc&shy;ing and op&shy;er&shy;a&shy;tions
@@ -5391,7 +5416,8 @@
 
                         <article class="rd-fan-card" role="listitem" tabindex="0" id="finance-6"
                             style="--fan-bg:#0b2a1f;">
-                            <div class="rd-fan-no" aria-hidden="true">06</div>
+                            <span class="rd-fan-watermark" aria-hidden="true">06</span>
+                            <span class="rd-fan-ico material-symbols-outlined" aria-hidden="true">trending_up</span>
                             <h3 class="rd-fan-title">Infrastructure &amp; Revenue Opportunities</h3>
                             <p class="rd-fan-sum">Fi&shy;nanc&shy;ing tied to es&shy;tab&shy;lished de&shy;mand and
                                 pre&shy;dictable rev&shy;enue; the
