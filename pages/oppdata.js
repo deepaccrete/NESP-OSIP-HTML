@@ -86,7 +86,24 @@ window.OSIP_OPPORTUNITIES = [
         sector: 'Wind', state: 'Katsina', start: '01-Sep-2026', end: '30-Jun-2029',
         promoter: 'Public-Private Partnership', status: 'Tender / procurement', ministry: 'Federal Ministry of Power',
         cost: 'USD 210 m',
-        terms: { type: 'Equity and/or debt', share: 'Up to 49% equity', deadline: 'Rolling — register to be notified', currency: 'USD', eligibility: 'Open to local and foreign investors; NIPC registration applies' },
+        /* ------------------------------------------------------------------
+           TEMPORARY, 13 Oct 2026 - a design study, not a content decision.
+
+           This one record is deliberately thin, to show how the detail page
+           reads when the CMS has not been filled in all the way. `financing` and
+           `deadline` are null rather than missing, which is how a record says
+           "no value for this" and takes the row off the page; the pictures, the
+           walkthrough and two of the documents are simply gone. Minimum
+           investment was withheld too at first and was put back on 13 Oct 2026.
+
+           To put the project back as it was, restore these four lines:
+
+             terms: { type: 'Equity and/or debt', share: 'Up to 49% equity', deadline: 'Rolling — register to be notified', currency: 'USD', eligibility: 'Open to local and foreign investors; NIPC registration applies' },
+             images: [['Turbine array site', 'osip-ktw-array'], ['Wind measurement mast', 'osip-ktw-mast'], ['Grid substation', 'osip-ktw-substation'], ['Site access road', 'osip-ktw-road']],
+             video: ['Katsina Wind Farm: Site Walkthrough', 'akk-walkthrough'],
+             docs: [['Investment Memorandum', '2.4', 48], ['Technical Feasibility Report', '5.8', 112], ['Environmental Impact Summary', '1.7', 32], ['Indicative Term Sheet', '0.6', 8]],
+           ------------------------------------------------------------------ */
+        terms: { type: 'Equity and/or debt', share: 'Up to 49% equity', financing: null, deadline: null, currency: 'USD', eligibility: 'Open to local and foreign investors; NIPC registration applies' },
         overview: [
             'is a planned 60&nbsp;MW onshore wind project in Nigeria\'s northern wind corridor, where measured wind speeds are among the highest recorded in the country. Phase I covers the first turbine array and its connection into the regional distribution network, with land, resource assessment and grid studies completed ahead of procurement.',
             'Structured as a public-private partnership under the Federal Ministry of Power, the project opens positions across turbine supply, balance-of-plant construction, operations and maintenance, and long-term equity. It falls in the above-1&nbsp;MW grid-connected tier, so it requires a full NERC Generation Licence, compliance with the NERC Grid Code, and a TCN Grid Connection Agreement.'
@@ -94,9 +111,13 @@ window.OSIP_OPPORTUNITIES = [
         highlights: [['wind_power', '60 MW', 'Installed capacity'], ['air', '7.6 m/s', 'Mean wind speed'], ['map', '1 State', 'Katsina'], ['payments', '$210 m', 'Total investment']],
         gated: ['17.4%', '6.2 yrs', 'USD 5 m', '5 yrs'],
         brief: 'Katsina Wind Farm Phase I is a 60&nbsp;MW onshore array in the northern wind corridor, sited on land already secured by the state and supported by a completed twelve-month wind resource campaign. Indicative capital outlay is USD&nbsp;210&nbsp;m under a public-private structure. Commercial terms, offtake and return profile are being finalised through the procurement now in preparation, and will be published here once the responsible agency confirms them.',
-        images: [['Turbine array site', 'osip-ktw-array'], ['Wind measurement mast', 'osip-ktw-mast'], ['Grid substation', 'osip-ktw-substation'], ['Site access road', 'osip-ktw-road']],
-        video: ['Katsina Wind Farm: Site Walkthrough', 'akk-walkthrough'],
-        docs: [['Investment Memorandum', '2.4', 48], ['Technical Feasibility Report', '5.8', 112], ['Environmental Impact Summary', '1.7', 32], ['Indicative Term Sheet', '0.6', 8]],
+        /* Files, not picsum seeds: pictures of a wind project rather than
+           whatever the seed happened to return. sector-Wind-opp.jpg is the
+           project's own, already used by the Wind sector page; the other two
+           were added on 13 Oct 2026 (Unsplash Licence, no attribution needed). */
+        images: [['Turbine array site', 'sector-Wind-opp.jpg'], ['Turbine tower and nacelle', 'opp-katsina-turbine.jpg'], ['Grid substation', 'opp-katsina-substation.jpg']],
+        video: null,
+        docs: [['Investment Memorandum', '2.4', 48], ['Technical Feasibility Report', '5.8', 112]],
         contact: ['Adebayo Okonkwo', 'Director of Operations', 'Provided to registered investors', 'Provided to registered investors']
     },
     {

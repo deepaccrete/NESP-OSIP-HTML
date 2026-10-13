@@ -464,34 +464,6 @@
            drawn differently - the readiness tag is a pale wash with a coloured
            dot, the stage tag a plain outline with a track icon - and nobody has
            to read the words to tell which list they are looking at. */
-        .stage-tag {
-            display: flex;
-            width: fit-content;
-            align-items: center;
-            gap: 5px;
-            margin-top: 6px;
-            padding: 3px 10px 3px 7px;
-            border-radius: 6px;
-            background: #ffffff;
-            border: 1px solid #d8ded9;
-            color: #44504a;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            line-height: 1.45;
-            white-space: nowrap;
-        }
-
-        .stage-tag .material-symbols-outlined {
-            font-size: 14px;
-            color: #6b7f74;
-        }
-
-        .stage-tag[data-stage="conceptualization"] .material-symbols-outlined { color: #94a3b8; }
-        .stage-tag[data-stage="development"] .material-symbols-outlined { color: #d19a2e; }
-        .stage-tag[data-stage="implementation"] .material-symbols-outlined { color: #1f9d5f; }
-        .stage-tag[data-stage="completed"] .material-symbols-outlined { color: #3b7dd8; }
-
         /* ------------------------------------------------------------------
            OPP-01: business models come first.
            The unit here is the BUSINESS MODEL, not the sector. Sector.html
@@ -906,30 +878,6 @@
         /* The clearance mark (GOPA-OPP-03). Two states, one shape: cleared reads in
            the platform's green, awaiting clearance in quiet ink, so a reader can
            tell them apart without colour alone - the icon and the word differ too. */
-        .clear-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 6px;
-            padding: 3px 9px 3px 7px;
-            border: 1px solid #dbe7e0;
-            border-radius: 999px;
-            background: #f1f8f4;
-            font-size: 10.5px;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            color: #0b5033;
-            line-height: 1.4;
-        }
-
-        .clear-tag .material-symbols-outlined { font-size: 14px; }
-
-        .clear-tag[data-clear="pending"] {
-            border-color: #e2ded5;
-            background: #f4f2ed;
-            color: #55605a;
-        }
-
         /* ---- Search -----------------------------------------------------
            It read as a disabled box: one flat border, no focus state worth the
            name, and a magnifier that never did anything. Now the whole field
@@ -1555,18 +1503,6 @@
         .rd #opportunities-grid .sector-badge,
         .rd #opportunities-grid .readiness-tag { font-weight: 500 !important; }
 
-        .rd #opportunities-grid .stage-tag {
-            margin-top: 6px !important;
-            border-color: var(--rd-line-2) !important;
-            /* Square-ish where the readiness tag is a pill: the shape alone says
-               which of the two lists this card is on. */
-            border-radius: 8px !important;
-            background: var(--rd-card) !important;
-            font-family: var(--rd-sans) !important; font-size-adjust: none !important;
-            font-weight: 500 !important;
-            color: var(--rd-ink-2) !important;
-        }
-
         .rd #opportunities-grid .opportunity-card .flex.gap-2 button {
             border-radius: 999px !important;
             font-family: var(--rd-sans) !important;
@@ -2187,6 +2123,14 @@
         .rd #sidebar .filter-group > .view-more-btn,
         .rd #sidebar .sidebar-sticky > div:nth-child(2) > :not(.filter-group) { flex: 0 0 auto; }
 
+        /* Reset All sits under the scrolling list, not in it. */
+        .rd #sidebar .sidebar-sticky > .reset-foot {
+            flex: 0 0 auto;
+            margin-top: 0 !important;
+            padding-top: 14px !important;
+            border-top: 1px solid var(--rd-line, #e2ded5) !important;
+        }
+
         /* On a phone four groups and Reset All have to share one drawer, so the spacing
            between them tightens: squeezed at the desktop spacing, every group showed a
            row and a half. At this spacing each shows its title and about three values,
@@ -2568,7 +2512,10 @@
                      the PROJECT has got to, a readiness tag says what it needs
                      from an INVESTOR now. While the design is being reviewed both
                      are offered here, and each project answers to one of them -
-                     `track` in oppdata.js, and the tag the card carries. Pick a
+                     `track` in oppdata.js, and the card's own data-readiness /
+                     data-stage, which is what these checkboxes read. The cards
+                     stopped showing a tag on 13 Oct 2026; the attributes stayed,
+                     so filtering is unaffected. Pick a
                      readiness tag and you are filtering the projects listed by
                      readiness; pick a stage and you are filtering the ones listed
                      by stage. -->
@@ -2668,12 +2615,14 @@
                             class="material-symbols-outlined text-[18px]">expand_more</span><span
                             class="label-text">View more</span></button>
                 </div>
-                <!-- Reset All — flows directly below the filters (height-driven, not pinned) -->
-                <div class="pt-6 border-t border-outline-variant">
-                    <button id="reset-filters"
-                        class="w-full py-2 border border-outline text-on-surface font-bold text-sm hover:bg-surface-container transition-colors">Reset
-                        All</button>
-                </div>
+            </div>
+            <!-- Reset All — the rail's third part: the groups above it scroll, this
+                 stays on screen with the panel's header, so the way out of a filter
+                 is always in reach (13 Oct 2026). -->
+            <div class="reset-foot pt-4 border-t border-outline-variant">
+                <button id="reset-filters"
+                    class="w-full py-2 border border-outline text-on-surface font-bold text-sm hover:bg-surface-container transition-colors">Reset
+                    All</button>
             </div>
             </div>
         </aside>
@@ -3587,10 +3536,13 @@
                 <p id="projects-count" class="opp-count" role="status" aria-live="polite"></p>
                 <div class="opp-provenance">
                     <span class="material-symbols-outlined">verified_user</span>
+                    <!-- The middle sentence used to describe the clearance mark the cards
+                         carried. The cards show the sector and nothing else from 13 Oct 2026,
+                         so it says where clearance can be read instead. -->
                     <span>Every project below is demo content for this design, and none of it has been approved by
-                        anyone yet. The mark on each card shows how clearance will be displayed once the Federal
-                        Ministry of Power, GIZ or the relevant state government has cleared a project's information.
-                        Each project page names the agency responsible for it and how to reach them.</span>
+                        anyone yet. Clearance by the Federal Ministry of Power, GIZ or the relevant state
+                        government is not shown on these cards. Each project page names the agency responsible
+                        for it and how to reach them.</span>
                 </div>
                 <!-- OPP-04 (item 34): a working sort control for the project list. -->
                 <!-- Sort by is the pathway finder's listbox (pages/listbox.js): the native
@@ -3636,9 +3588,6 @@
                             Solar Power Naija - Phase II</h3>
                         <span class="sector-badge"><span
                                 class="material-symbols-outlined">category</span>Sector: Solar</span>
-                        <span class="stage-tag" data-stage="development"><span
-                                class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 2: Under Development</span>
-                    <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3671,9 +3620,6 @@
                             Katsina Wind Farm Phase I</h3>
                         <span class="sector-badge"><span
                                 class="material-symbols-outlined">category</span>Sector: Wind</span>
-                        <span class="stage-tag" data-stage="implementation"><span
-                                class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 3: Under Implementation</span>
-                    <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3706,9 +3652,6 @@
                             Nasarawa Grid-Scale Battery Storage</h3>
                         <span class="sector-badge"><span
                                 class="material-symbols-outlined">category</span>Sector: Storage</span>
-                        <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot"
-                                aria-hidden="true"></span>Seeking investor interest</span>
-                    <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3741,9 +3684,6 @@
                             Cross River Small Hydro Cluster</h3>
                         <span class="sector-badge"><span
                                 class="material-symbols-outlined">category</span>Sector: Small Hydro</span>
-                        <span class="stage-tag" data-stage="conceptualization"><span
-                                class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 1: Under Conceptualisation</span>
-                    <span class="clear-tag" data-clear="pending"><span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>Clearance pending</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3776,9 +3716,6 @@
                             Lagos EV Charging Network</h3>
                         <span class="sector-badge"><span
                                 class="material-symbols-outlined">category</span>Sector: Green Mobility</span>
-                        <span class="stage-tag" data-stage="development"><span
-                                class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 2: Under Development</span>
-                    <span class="clear-tag" data-clear="pending"><span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>Clearance pending</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3811,9 +3748,6 @@
                             Ogun Industrial Efficiency Programme</h3>
                         <span class="sector-badge"><span
                                 class="material-symbols-outlined">category</span>Sector: Energy Efficiency</span>
-                        <span class="readiness-tag" data-readiness="financing"><span class="readiness-dot"
-                                aria-hidden="true"></span>Financing sought</span>
-                    <span class="clear-tag" data-clear="pending"><span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>Clearance pending</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3846,9 +3780,6 @@
                             Kano Clean Cooking Rollout</h3>
                         <span class="sector-badge"><span
                                 class="material-symbols-outlined">category</span>Sector: Clean Cooking</span>
-                        <span class="readiness-tag" data-readiness="validation"><span class="readiness-dot"
-                                aria-hidden="true"></span>Requires validation</span>
-                    <span class="clear-tag" data-clear="pending"><span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>Clearance pending</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3881,9 +3812,6 @@
                             Benue Biomass-to-Power Plant</h3>
                         <span class="sector-badge"><span
                                 class="material-symbols-outlined">category</span>Sector: Bioenergy</span>
-                        <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot"
-                                aria-hidden="true"></span>Under preparation</span>
-                    <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -3916,9 +3844,6 @@
                             Green Hydrogen Niger Delta Pilot</h3>
                         <span class="sector-badge"><span
                                 class="material-symbols-outlined">category</span>Sector: Green Hydrogen</span>
-                        <span class="stage-tag" data-stage="conceptualization"><span
-                                class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 1: Under Conceptualisation</span>
-                    <span class="clear-tag" data-clear="pending"><span class="material-symbols-outlined" aria-hidden="true">hourglass_empty</span>Clearance pending</span>
                     </div>
                     <div class="mb-4 inv-box">
                         <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>

@@ -3100,27 +3100,11 @@
                     with them before you plan around any of this.</p>
             </div>
 
-                <!-- Contacts first, then the account card. A reader who has just been
-                     told which sector and which projects fit wants the people before
-                     they want the sign-up, and the card carries Start over, which
-                     belongs at the very end of the result rather than in the middle. -->
+                <!-- Contacts last: a reader who has just been told which sector and
+                     which projects fit wants the people to speak to. The card that
+                     followed - the account pitch and the restart button - came off on
+                     13 Oct 2026. -->
                 <div id="quiz-contact"></div>
-
-                <div
-                    class="mt-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white border border-[#e5e7eb] rounded-xl p-6">
-                    <p class="font-body-md text-body-md text-on-surface-variant">Want the full project dossiers,
-                        promoter contacts and the data room? Those sit behind a free OSIP account.</p>
-                    <div class="flex flex-wrap gap-3 shrink-0">
-                        <a href="Login.html"
-                            class="inline-flex items-center justify-center gap-2 bg-primary-container hover:bg-primary text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors">
-                            <span class="material-symbols-outlined text-[17px]">how_to_reg</span>Create an account
-                        </a>
-                        <button type="button" id="quiz-restart"
-                            class="inline-flex items-center justify-center gap-2 border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-lg font-label-md text-label-md uppercase transition-colors">
-                            Start over
-                        </button>
-                    </div>
-                </div>
 
             </div>
         </section>
@@ -4098,7 +4082,9 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            els.restart.addEventListener('click', function () {
+            /* The restart button came off the result on 13 Oct 2026; the reset
+               itself stays, so putting it back needs no change here. */
+            if (els.restart) els.restart.addEventListener('click', function () {
                 answers = {};
                 step = 0;
                 stateQuery = '';
@@ -4476,8 +4462,9 @@
                         '<p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">ID: ' + opportunity.id + '</p>' +
                         '<h3 class="font-title-md text-base font-bold text-on-surface leading-tight mb-1 line-clamp-2">' + opportunity.title + '</h3>' +
                         '<span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector : ' + opportunity.sectorLabel + '</span>' +
-                        (opportunity.readiness ? '<span class="readiness-tag" data-readiness="' + opportunity.readiness + '">' +
-                            '<span class="readiness-dot" aria-hidden="true"></span>' + READINESS[opportunity.readiness] + '</span>' : '') +
+                        /* 13 Oct 2026: the readiness pill came off the cards site wide.
+                           READINESS and opportunity.readiness are still here, so the
+                           line above is all it takes to put it back. */
                         '</div>' +
                         '<div class="mb-4 inv-box">' +
                         '<p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>' +
@@ -4512,7 +4499,7 @@
               #climate-finance shows the route by itself: the questions step aside,
               the block moves into the section built for it, and the ten-question
               match is offered under it instead of demanded before it. Leaving the
-              address (Start over, or the link back) puts the block where the
+              address by the link back puts the block where the
               result expects to find it, so a reader who then takes the quiz gets
               the same one card-for-card.
             */

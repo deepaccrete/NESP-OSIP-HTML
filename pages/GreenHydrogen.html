@@ -4751,8 +4751,6 @@
                                 Green Ammonia &amp; Industrial Decarbonisation</h3>
                             <span class="sector-badge"><span
                                     class="material-symbols-outlined">category</span>Sector: Green Hydrogen</span>
-                            <span class="readiness-tag" data-readiness="concept"><span class="readiness-dot"
-                                    aria-hidden="true"></span>Concept</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -4784,8 +4782,6 @@
                                 Export-Oriented &amp; Value Chain Opportunities</h3>
                             <span class="sector-badge"><span
                                     class="material-symbols-outlined">category</span>Sector: Green Hydrogen</span>
-                            <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot"
-                                    aria-hidden="true"></span>Under preparation</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -4817,8 +4813,6 @@
                                 Geographic Hotspots</h3>
                             <span class="sector-badge"><span
                                     class="material-symbols-outlined">category</span>Sector: Green Hydrogen</span>
-                            <span class="readiness-tag" data-readiness="concept"><span class="readiness-dot"
-                                    aria-hidden="true"></span>Concept</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -4962,7 +4956,6 @@
                                 Solar Power Naija - Phase II</h3>
                             <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                                 Renewable Generation</span>
-                            <span class="readiness-tag" data-readiness="preparation"><span class="readiness-dot" aria-hidden="true"></span>Under preparation</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -4993,7 +4986,6 @@
                                 Green Hydrogen Niger Delta Pilot</h3>
                             <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                                 Renewable Generation</span>
-                            <span class="readiness-tag" data-readiness="tender"><span class="readiness-dot" aria-hidden="true"></span>Tender / procurement</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -5025,7 +5017,6 @@
                                 Nasarawa Grid-Scale Battery Storage</h3>
                             <span class="sector-badge"><span class="material-symbols-outlined">category</span>Sector :
                                 Energy Storage</span>
-                            <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot" aria-hidden="true"></span>Seeking investor interest</span>
                         </div>
                         <div class="mb-4 inv-box">
                             <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -5256,7 +5247,9 @@
             document.querySelectorAll('button').forEach(function (b) {
                 var t = (b.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
                 if (t === 'view in detail' || t.indexOf('details') === 0) b.addEventListener('click', function () { location.href = 'detailedOppNew.html'; });
-                else if (t === 'invest now') b.addEventListener('click', function () { location.href = 'Login.html'; });
+                /* 13 Oct 2026: "Invest now" used to open Login.html. While accounts
+                   are parked it goes where the header's own Invest now goes. */
+                else if (t === 'invest now') b.addEventListener('click', function () { location.href = 'InvestorMatch.html'; });
 
                 else if (t.indexOf('regulatory framework') === 0) b.addEventListener('click', function () { location.href = 'Regulation.html'; });
             });

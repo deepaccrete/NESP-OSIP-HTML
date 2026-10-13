@@ -420,7 +420,7 @@
         .osip-hero-head {
             display: grid !important;
             grid-template-columns: minmax(0, 1fr);
-            grid-template-areas: "eyebrow" "title" "updated" "save";
+            grid-template-areas: "eyebrow" "title" "updated";
             row-gap: 0 !important;
         }
 
@@ -428,15 +428,14 @@
         .osip-hero-title > span { grid-area: eyebrow; }
         .osip-hero-title > h1 { grid-area: title; min-width: 0; }
         .osip-hero-title > p { grid-area: updated; }
-        .osip-hero-save { grid-area: save; margin-top: 16px; }
 
         @media (min-width: 640px) {
             .osip-hero-head {
-                grid-template-columns: minmax(0, 1fr) auto;
+                grid-template-columns: minmax(0, 1fr);
                 grid-template-areas:
-                    "eyebrow save"
-                    "title   title"
-                    "updated updated";
+                    "eyebrow"
+                    "title"
+                    "updated";
                 align-items: start;
             }
 
@@ -444,7 +443,6 @@
                block - the note under the button made that row 67px tall and left
                the ID sitting 26px lower than the button beside it. */
             .osip-hero-title > span { align-self: start; margin-top: 12px; }
-            .osip-hero-save { margin-top: 0; }
         }
 
         .rd #page-wrapper div.rounded-xl.border:has(.osip-progress-fill) {
@@ -544,13 +542,12 @@
             /* Save: the bookmark alone, in the card's top-right corner, on the
                Project ID line. The word stays in the button for screen readers. */
             .osip-hero-head {
-                grid-template-columns: minmax(0, 1fr) auto;
+                grid-template-columns: minmax(0, 1fr);
                 grid-template-areas:
-                    "eyebrow save"
-                    "title   title"
-                    "updated updated";
+                    "eyebrow"
+                    "title"
+                    "updated";
                 align-items: center;
-                column-gap: 12px !important;
             }
 
             /* the Project ID stays on one line beside the bookmark */
@@ -560,27 +557,8 @@
                 min-width: 0;
             }
 
-            .osip-hero-save { margin-top: 0; width: auto !important; }
-
             /* rows of project details sit closer on a phone */
             .rd #page-wrapper .grid:has(> [data-purpose="meta-item"]) { row-gap: 28px !important; }
-            .osip-hero-save .osip-save-note { display: none; }
-
-            .osip-hero-save .osip-save-btn {
-                justify-content: center;
-                width: 42px;
-                min-height: 42px;
-                height: 42px;
-                padding: 0;
-                gap: 0;
-                border-radius: 999px;
-            }
-
-            .osip-hero-save .osip-save-btn [data-save-label] {
-                position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
-                overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-            }
-
             /* Project details, two to a row. A label or value wraps inside its own
                column instead of running into the next one; a lone item on the
                last row has nothing beside it, so it takes the whole row. */
@@ -712,85 +690,6 @@
             font-weight: 500 !important;
             font-size: 17px !important;
             color: var(--rd-ink) !important;
-        }
-
-        .rd #page-wrapper main aside.osip-portal-note {
-            position: relative;
-            background: var(--rd-card-2) !important;
-            border: 1px solid var(--rd-line) !important;
-            border-left-color: transparent !important;
-            border-radius: 0 16px 16px 0 !important;
-        }
-
-        .rd #page-wrapper main aside.osip-portal-note::before {
-            content: "";
-            position: absolute;
-            left: -1px;
-            top: -1px;
-            bottom: -1px;
-            width: 2px;
-            background: #f7be26;
-            pointer-events: none;
-        }
-
-        .rd #page-wrapper main aside.osip-portal-note > p {
-            font-family: var(--rd-serif) !important; font-size-adjust: var(--rd-type-adjust, none) !important;
-            font-size: 16.5px !important;
-            line-height: 1.5 !important;
-        }
-
-        .rd #page-wrapper main aside.osip-portal-note > span {
-            border-radius: 999px !important;
-            background: transparent !important;
-            color: #b98a12 !important;
-            box-shadow: inset 0 0 0 1px var(--rd-line-2);
-        }
-
-        /* The portal button: the page's primary call to action, shaped like the
-           agency contact button in the sidebar. This rule had lost its block and
-           its selector was hanging on the comma below, which handed the button
-           the caption styling of .contact-half-label - 10px grey on dark green. */
-        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green {
-            padding: 11px 20px !important;
-            border-radius: 999px !important;
-            background: var(--rd-green, #004225) !important;
-            color: #ffffff !important;
-            font-family: var(--rd-sans) !important;
-            font-size-adjust: none !important;
-            font-size: 12.5px !important;
-            font-weight: 600 !important;
-            letter-spacing: .05em !important;
-            box-shadow: none !important;
-            transition: background-color .3s ease, box-shadow .3s ease,
-                transform .3s cubic-bezier(.22, 1, .36, 1) !important;
-        }
-
-        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:hover {
-            background: var(--rd-green-2, #0b6b45) !important;
-            box-shadow: 0 12px 24px -14px rgba(0, 66, 37, .6) !important;
-            transform: translateY(-1px);
-        }
-
-        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:active { transform: translateY(0); }
-
-        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:focus-visible {
-            outline: 2px solid var(--rd-green-2, #0b6b45);
-            outline-offset: 3px;
-        }
-
-        /* it opens the portal in another tab, so the mark travels that way */
-        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green .material-symbols-outlined {
-            font-size: 15px !important;
-            transition: transform .3s cubic-bezier(.22, .61, .36, 1);
-        }
-
-        .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:hover .material-symbols-outlined { transform: translate(2px, -2px); }
-
-        @media (prefers-reduced-motion: reduce) {
-            .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green,
-            .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green .material-symbols-outlined { transition: none !important; }
-            .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:hover { transform: none; }
-            .rd #page-wrapper main aside.osip-portal-note a.bg-brand-green:hover .material-symbols-outlined { transform: none; }
         }
 
         /* Which half of the contact card you are reading. */
@@ -1078,19 +977,6 @@
                                         class="font-bold">05-May-2026</span></p>
                             </div>
 
-                            <!-- Save: the shortlist pages/oppsave.js keeps, listed again on the
-                                 profile page. It stands in localStorage until there is an
-                                 account table behind it (Phase 2, D9); the note says where the
-                                 save turns up, which is the part the reader needs. -->
-                            <!-- below the title on a phone, beside it from sm up -->
-                            <div class="osip-hero-save w-full sm:w-auto sm:shrink-0 flex flex-col items-start sm:items-end">
-                                <button type="button" class="osip-save-btn" data-save-opp aria-pressed="false">
-                                    <span class="material-symbols-outlined" aria-hidden="true">bookmark_add</span>
-                                    <span data-save-label>Save</span>
-                                </button>
-                                <p class="osip-save-note">Saved opportunities show on
-                                    <a href="AboutMe.html">your profile</a>.</p>
-                            </div>
                         </div>
 
                         <!-- What an investor screens on first: how big it is, what it takes
@@ -1496,29 +1382,6 @@
                     </section>
                     <!-- END: MembersOnlyContent -->
 
-                    <!-- BEGIN: StatePortalRedirect — informational banner.
-                         The button opens the official State Federal Portal in a new tab.
-                         Swap the `href` for the real portal URL when available. -->
-                    <aside
-                        class="osip-portal-note rounded-md border-l-4 border-brand-accent bg-brand-sidebar p-4 sm:p-5 flex items-start sm:items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap">
-                        <span
-                            class="w-9 h-9 rounded bg-brand-accent/15 text-brand-accent flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-[20px]"
-                                style="font-variation-settings: 'FILL' 1;">account_balance</span>
-                        </span>
-                        <p class="flex-1 min-w-[200px] text-sm text-brand-green leading-snug">
-                            <span class="font-bold">Administered via the State Federal Portal.</span>
-                            <span class="text-gray-600">Investment requests for this opportunity are submitted on
-                                the official portal.</span>
-                        </p>
-                        <a href="https://power.gov.ng/" target="_blank" rel="noopener"
-                            class="inline-flex items-center gap-2 bg-brand-green text-white font-semibold text-xs uppercase tracking-wider px-4 py-2.5 rounded hover:opacity-90 transition-all shrink-0">
-                            Submit Request
-                            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
-                        </a>
-                    </aside>
-                    <!-- END: StatePortalRedirect -->
-
                     <!-- BEGIN: ActionButtons -->
                     <!-- <section class="flex flex-wrap items-center justify-between pt-6 border-t border-gray-200">
                         <div class="flex items-center space-x-4 mb-4 md:mb-0">
@@ -1557,7 +1420,7 @@
                             <a id="agency-contact" href="Contact.html"
                                 class="mt-5 inline-flex items-center justify-center gap-2 w-full bg-brand-green text-white px-4 py-2.5 rounded-full text-[12.5px] font-semibold uppercase tracking-wider hover:opacity-90 transition-opacity">
                                 <span class="material-symbols-outlined text-[16px]" aria-hidden="true">mail</span>
-                                Contact this agency
+                                Enquire about this project
                             </a>
                             <p class="mt-3 text-[11.5px] leading-relaxed text-gray-500">OSIP routes the message to the
                                 agency named above.</p>
@@ -1578,34 +1441,6 @@
                     </div>
                     <!-- END: ContactDetails -->
 
-                    <!-- BEGIN: ShareOpportunity -->
-                    <!-- The shape IndividualEvent.html uses for "Share this event", in
-                         this page's card shell. The buttons are wired at the foot of the
-                         page: the address they pass on carries this project's ?id=. -->
-                    <div id="share-opp" class="bg-brand-sidebar rounded-lg overflow-hidden border border-gray-100 shadow-sm">
-                        <div class="px-4 py-3 bg-brand-green/5 border-b border-brand-green/10">
-                            <h3 class="font-manrope font-bold text-sm text-brand-green">Share this opportunity</h3>
-                        </div>
-                        <div class="p-6 bg-white">
-                            <div class="flex items-center gap-2">
-                                <a data-share="linkedin" href="#" rel="noopener" aria-label="Share on LinkedIn"
-                                    class="osip-share-btn w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors">
-                                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">share</span>
-                                </a>
-                                <a data-share="email" href="#" aria-label="Share by email"
-                                    class="osip-share-btn w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors">
-                                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">mail</span>
-                                </a>
-                                <button type="button" data-share="copy" aria-label="Copy link to this opportunity"
-                                    class="osip-share-btn w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors">
-                                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">link</span>
-                                </button>
-                            </div>
-                            <p class="mt-3 text-[11.5px] leading-relaxed text-gray-500" data-share-note>The link opens
-                                this project by its ID.</p>
-                        </div>
-                    </div>
-                    <!-- END: ShareOpportunity -->
 
                 </aside>
                 <!-- END: Sidebar -->
@@ -1616,7 +1451,6 @@
              this page from ?id= (detailedOppNew.html?id=2025-HYD-01). -->
         <script src="oppdata.js"></script>
         <script src="oppdetail.js"></script>
-        <script src="oppsave.js"></script>
         <div id="site-footer"></div>
     </div>
     <!-- /page-wrapper -->
@@ -2102,65 +1936,6 @@
             window.addEventListener('load', fit);
             if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
             window.addEventListener('resize', later);
-        })();
-    </script>
-    <script>
-        /* The share card in the sidebar. The reference card on the events page has
-           three dead links; these do the three things they name. Nothing is sent
-           anywhere by the page itself - LinkedIn opens its own window, the mail
-           button hands the message to the reader's mail program, and the copy
-           button uses the clipboard. */
-        (function () {
-            var card = document.getElementById('share-opp');
-            if (!card) return;
-            var note = card.querySelector('[data-share-note]');
-            var said = note ? note.textContent : '';
-            function link() { return window.location.href; }
-            function name() {
-                var h = document.querySelector('#page-wrapper main h1');
-                return h ? h.textContent.replace(/\s+/g, ' ').trim() : 'An OSIP investment opportunity';
-            }
-            function tell(words) {
-                if (!note) return;
-                note.textContent = words;
-                window.setTimeout(function () { note.textContent = said; }, 2400);
-            }
-
-            var linkedin = card.querySelector('[data-share="linkedin"]');
-            if (linkedin) linkedin.addEventListener('click', function (e) {
-                e.preventDefault();
-                window.open('https://www.linkedin.com/sharing/share-offsite/?url=' +
-                    encodeURIComponent(link()), '_blank', 'noopener,noreferrer,width=680,height=620');
-            });
-
-            var mail = card.querySelector('[data-share="email"]');
-            if (mail) mail.addEventListener('click', function () {
-                /* set on the way out, so the address is the one in the bar right now */
-                mail.setAttribute('href', 'mailto:?subject=' + encodeURIComponent(name()) +
-                    '&body=' + encodeURIComponent(name() + '\n\n' + link()));
-            });
-
-            var copy = card.querySelector('[data-share="copy"]');
-            if (copy) copy.addEventListener('click', function () {
-                var address = link();
-                function done() { tell('Link copied.'); }
-                function failed() { tell('Could not copy - the address is in the bar above.'); }
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(address).then(done, failed);
-                    return;
-                }
-                /* older browsers, and pages opened from a file:// path */
-                try {
-                    var box = document.createElement('textarea');
-                    box.value = address;
-                    box.setAttribute('readonly', '');
-                    box.style.cssText = 'position:fixed;top:0;left:-9999px';
-                    document.body.appendChild(box);
-                    box.select();
-                    document.execCommand('copy') ? done() : failed();
-                    document.body.removeChild(box);
-                } catch (err) { failed(); }
-            });
         })();
     </script>
 </body>

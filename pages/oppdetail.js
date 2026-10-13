@@ -86,7 +86,7 @@
         var agency = opp.ministry || 'the responsible agency';
         setText(document.getElementById('agency-name'), agency);
         var go = document.getElementById('agency-contact');
-        if (go) go.setAttribute('aria-label', 'Contact ' + agency + ' about ' + opp.title);
+        if (go) go.setAttribute('aria-label', 'Enquire about ' + opp.title + ' with ' + agency);
     })();
     setText(one(wrap, 'nav[aria-label="Breadcrumb"] li:last-child'), opp.title);
 
@@ -309,18 +309,32 @@
     (function () {
         var t = opp.terms || {};
         var costCur = (String(opp.cost || '').match(/^[A-Za-z$]+/) || [''])[0];
+
+        /* A record can say a field is not available rather than leave it out:
+           `financing: null` in its `terms` means the CMS has nothing for it, and
+           the row is taken off the page instead of falling back to a default or
+           printing a dash. Leaving the key out keeps the fallbacks below. */
+        function blank(key) {
+            return Object.prototype.hasOwnProperty.call(t, key) && (t[key] === null || t[key] === '');
+        }
         var vals = {
-            min: t.min || (opp.gated && opp.gated[2]) || '—',
-            type: t.type || 'Equity and/or debt',
-            share: t.share || '—',
-            financing: t.financing || opp.status || '—',
-            deadline: t.deadline || 'Rolling — register to be notified',
-            currency: t.currency || costCur || '—',
-            eligibility: t.eligibility || 'Open to local and foreign investors; NIPC registration applies'
+            min: blank('min') ? null : (t.min || (opp.gated && opp.gated[2]) || '—'),
+            type: blank('type') ? null : (t.type || 'Equity and/or debt'),
+            share: blank('share') ? null : (t.share || '—'),
+            financing: blank('financing') ? null : (t.financing || opp.status || '—'),
+            deadline: blank('deadline') ? null : (t.deadline || 'Rolling — register to be notified'),
+            currency: blank('currency') ? null : (t.currency || costCur || '—'),
+            eligibility: blank('eligibility') ? null
+                : (t.eligibility || 'Open to local and foreign investors; NIPC registration applies')
         };
         every(main, '[data-purpose="invest-details"] [data-inv]').forEach(function (el) {
             var k = el.getAttribute('data-inv');
-            if (vals[k] != null) el.textContent = vals[k];
+            if (vals[k] == null) {
+                var cell = el.closest ? el.closest('[data-purpose="meta-item"]') : el.parentNode;
+                if (cell && cell.parentNode) cell.parentNode.removeChild(cell);
+                return;
+            }
+            el.textContent = vals[k];
         });
 
         /* The four figures in the project card: the ones a deal is screened on.
@@ -328,7 +342,9 @@
            summary, the cards under it are the detail. */
         var snapshot = {
             cost: opp.cost || '—',
-            min: vals.min,
+            /* not vals.min: the grid row can be withheld while the headline
+               figure stays, which is the case this page is drawn for */
+            min: t.min || (opp.gated && opp.gated[2]) || '—',
             irr: (opp.gated && opp.gated[0]) || '—',
             payback: (opp.gated && opp.gated[1]) || '—'
         };
@@ -355,19 +371,37 @@
         var brief = one(blocks[0], 'p');
         if (brief && opp.brief) brief.innerHTML = opp.brief;
 
-        every(blocks[1], 'button[data-lightbox-src]').forEach(function (btn, i) {
-            var image = opp.images ? opp.images[i] : null;
-            if (!image) return;
-            var base = 'https://picsum.photos/seed/' + encodeURIComponent(image[1]);
-            btn.setAttribute('aria-label', 'Open image: ' + image[0]);
-            btn.setAttribute('data-lightbox-src', base + '/1600/1200');
-            btn.setAttribute('data-caption', image[0]);
-            var img = one(btn, 'img');
-            if (img) { img.src = base + '/800/600'; img.alt = image[0]; }
-        });
+        /* The page is written with four pictures, a walkthrough and four
+           documents. A record that carries fewer gets fewer: the slots it does
+           not reach are removed, not left showing the page's own demo content,
+           and a part of the data room with nothing behind it goes entirely. */
+        function drop(el) { if (el && el.parentNode) el.parentNode.removeChild(el); }
+
+        var hasImages = opp.images && opp.images.length;
+        if (!hasImages) {
+            drop(blocks[1]);
+        } else {
+            /* An image is either a file in this folder - 'opp-katsina-turbine.jpg' -
+               or a picsum.photos seed, which is what the projects still on
+               placeholder art carry. A name ending in an image extension is read
+               as the file; anything else is a seed, as before. */
+            every(blocks[1], 'button[data-lightbox-src]').forEach(function (btn, i) {
+                var image = opp.images[i];
+                if (!image) return drop(btn);
+                var isFile = /\.(jpe?g|png|webp|avif)$/i.test(image[1]);
+                var base = isFile ? null : 'https://picsum.photos/seed/' + encodeURIComponent(image[1]);
+                btn.setAttribute('aria-label', 'Open image: ' + image[0]);
+                btn.setAttribute('data-lightbox-src', isFile ? image[1] : base + '/1600/1200');
+                btn.setAttribute('data-caption', image[0]);
+                var img = one(btn, 'img');
+                if (img) { img.src = isFile ? image[1] : base + '/800/600'; img.alt = image[0]; }
+            });
+        }
 
         var facade = one(blocks[2], '.video-facade');
-        if (facade && opp.video) {
+        if (!opp.video) {
+            drop(blocks[2]);
+        } else if (facade) {
             var thumb = one(facade, 'img');
             if (thumb) thumb.src = 'https://picsum.photos/seed/' + encodeURIComponent(opp.video[1]) + '/1600/900';
             setText(one(facade, '.facade-cover > span:last-child > span:first-child'), opp.video[0]);
@@ -384,16 +418,33 @@
             ['docs/sample-project-environmental-summary.pdf', '2.0 KB'],
             ['docs/sample-project-term-sheet.pdf', '2.0 KB']
         ];
-        every(blocks[3], 'a[download]').forEach(function (a, i) {
-            var doc = opp.docs ? opp.docs[i] : null;
-            var sample = SAMPLES[i];
-            if (!doc || !sample) return;
-            var ps = every(a, 'p');
-            a.setAttribute('href', sample[0]);
-            a.setAttribute('download', opp.file + '-' + doc[0].replace(/[^A-Za-z0-9]+/g, '-') + '.pdf');
-            setText(ps[0], doc[0]);
-            setText(ps[1], 'PDF \u00b7 ' + sample[1] + ' \u00b7 sample');
-        });
+        if (!(opp.docs && opp.docs.length)) {
+            drop(blocks[3]);
+        } else {
+            every(blocks[3], 'a[download]').forEach(function (a, i) {
+                var doc = opp.docs[i];
+                var sample = SAMPLES[i];
+                if (!doc || !sample) return drop(a);
+                var ps = every(a, 'p');
+                a.setAttribute('href', sample[0]);
+                a.setAttribute('download', opp.file + '-' + doc[0].replace(/[^A-Za-z0-9]+/g, '-') + '.pdf');
+                setText(ps[0], doc[0]);
+                setText(ps[1], 'PDF \u00b7 ' + sample[1] + ' \u00b7 sample');
+            });
+        }
+
+        /* "The extended brief, imagery, walkthrough and documents behind this
+           project" - only the parts this project actually has. */
+        var intro = one(members, 'header p');
+        if (intro) {
+            var parts = ['the extended brief'];
+            if (hasImages) parts.push('imagery');
+            if (opp.video) parts.push('walkthrough');
+            if (opp.docs && opp.docs.length) parts.push('documents');
+            var last = parts.pop();
+            var list_ = parts.length ? parts.join(', ') + ' and ' + last : last;
+            setText(intro, list_.charAt(0).toUpperCase() + list_.slice(1) + ' behind this project.');
+        }
     }
 
     /* ---- Who to contact: the promoter named on the record ---------------------- */

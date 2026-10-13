@@ -33,7 +33,7 @@
   var USER_SVG = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" ' +
     'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/>' +
     '<circle cx="12" cy="10" r="3.25"/><path d="M6.4 18.6a6.2 6.2 0 0 1 11.2 0"/></svg>';
-  // The arrow on "Register your interest" in the bar, same stroke again.
+  // The arrow on "Invest now" in the bar, same stroke again.
   var ARROW_SVG = '<svg class="nesp-cta-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" ' +
     'stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>';
   var CLOSE_SVG = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" ' +
@@ -80,6 +80,7 @@
   // the profile icon, and the phone menu gains the profile row and Sign out.
   // The same markup the header is drawn with when the page loads signed in.
   function showSignedIn(value) {
+    if (!ACCOUNTS) return;   /* nothing to show: the profile page is parked */
     var header = document.querySelector('nav.nesp-header');
     if (!header) return;
     var name = (value && value.name) || USER.name;
@@ -106,7 +107,18 @@
     }
   }
 
-  var session = readSession();
+  /* ------------------------------------------------------------------------
+     ACCOUNTS (13 Oct 2026, temporary)
+
+     There is no way in to Login.html or AboutMe.html from anywhere in the site
+     chrome while this is false: no "Log in" in the bar, no profile mark even if
+     a session is still in this browser's storage, and neither in the phone menu.
+     The pages themselves are untouched - set this back to true and the header,
+     the menu and the sign-in mark all come back as they were.
+     ---------------------------------------------------------------------- */
+  var ACCOUNTS = false;
+
+  var session = ACCOUNTS ? readSession() : null;
   var USER_NAME = (session && session.name) || USER.name;
   var INITIALS = initialsOf(USER_NAME);
 
@@ -248,7 +260,7 @@
     news: base + 'News.html',
     contact: base + 'Contact.html',
     profile: base + 'AboutMe.html',
-    // The primary action ("Register your interest") opens the InvestorMatch
+    // The primary action ("Invest now") opens the InvestorMatch
     // quiz rather than the old InvestNow1-3 popup flow (see investflow.js).
     invest: base + 'InvestorMatch.html',
     faqs: base + 'FAQs.html',
@@ -295,7 +307,7 @@
   // Coming Soon placeholder). Inside Resources, Financing keeps that state as a
   // `soon` section.
   var TOP = [
-    { label: 'Invest', href: url.opportunities },
+    { label: 'Opportunities', href: url.opportunities },
     { label: 'Sectors', href: url.sectors },
     { label: 'States', href: url.states },
     { label: 'Resources', menuOnly: true },
@@ -378,8 +390,8 @@
     // 17 Sep 2026: down to the two halves of the Opportunities page, named as that
     // page names them. Sector-filtered views and the matcher were a second way of
     // saying the same thing; the page's own filters do the first, and the header's
-    // "Register your interest" button does the second.
-    'INVEST': {
+    // "Invest now" button does the second.
+    'OPPORTUNITIES': {
       head: 'Investment Opportunities', items: [
         { t: 'Opportunity Areas', d: 'Business models open to investors, sector by sector.', href: base + 'Opportunities.html#opportunity-areas' },
         { t: 'Active Opportunities', d: 'Published projects with figures, stage and location.', href: base + 'Opportunities.html#active-opportunities' }
@@ -459,8 +471,8 @@
     'news.html': 'NEWSROOM', 'newsindetail.html': 'NEWSROOM',
     'announcements.html': 'NEWSROOM', 'individualannouncement.html': 'NEWSROOM',
     'event.html': 'NEWSROOM', 'individualevent.html': 'NEWSROOM',
-    'opportunities.html': 'INVEST', 'opportunitiesnew.html': 'INVEST',
-    'detailedoppnew.html': 'INVEST', 'investormatch.html': 'INVEST',
+    'opportunities.html': 'OPPORTUNITIES', 'opportunitiesnew.html': 'OPPORTUNITIES',
+    'detailedoppnew.html': 'OPPORTUNITIES', 'investormatch.html': 'OPPORTUNITIES',
     'states.html': 'STATES', 'enugu.html': 'STATES',
     'contact.html': 'SUPPORT', 'faqs.html': 'SUPPORT', 'helpdesk.html': 'SUPPORT'
   };
@@ -737,20 +749,22 @@
     ' aria-expanded="false" aria-controls="nesp-search">' + SEARCH_SVG + '</button>' +
     // UX-08-13: the biggest label on the site used to be "Invest Now", and you
     // cannot invest here. It names what the button actually does now.
-    '<a href="' + url.invest + '" class="nesp-cta nesp-cta--bar">Register your interest' + ARROW_SVG + '</a>' +
+    '<a href="' + url.invest + '" class="nesp-cta nesp-cta--bar">Invest now' + ARROW_SVG + '</a>' +
     // One or the other, never both: the profile mark only means anything to
     // someone who is signed in, and Log in only to someone who is not.
-    (session
-      ? '<a href="' + url.profile + '" class="nesp-icon-btn nesp-profile-btn" title="' + USER_NAME + '" aria-label="My profile: ' + USER_NAME + '">' +
-      USER_SVG + '</a>'
-      : '<a href="' + loginHref() + '" class="nesp-login">Log in</a>') +
+    (!ACCOUNTS
+      ? ''
+      : session
+        ? '<a href="' + url.profile + '" class="nesp-icon-btn nesp-profile-btn" title="' + USER_NAME + '" aria-label="My profile: ' + USER_NAME + '">' +
+        USER_SVG + '</a>'
+        : '<a href="' + loginHref() + '" class="nesp-login">Log in</a>') +
     '</div>' +
     // UX-13: on a phone the primary action used to be buried in the menu sheet.
     // It now sits in the bar itself, next to the burger, and only shortens its
     // label on the narrowest screens.
-    '<a href="' + url.invest + '" class="nesp-cta nesp-cta--bar nesp-cta--m" aria-label="Register your interest">' +
-    '<span class="nesp-cta-long">Register your interest</span>' +
-    '<span class="nesp-cta-short">Register interest</span>' + ARROW_SVG + '</a>' +
+    '<a href="' + url.invest + '" class="nesp-cta nesp-cta--bar nesp-cta--m" aria-label="Invest now">' +
+    '<span class="nesp-cta-long">Invest now</span>' +
+    '<span class="nesp-cta-short">Invest now</span>' + ARROW_SVG + '</a>' +
     '<button id="mobile-nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"' +
     ' class="nesp-nav-toggle"><span class="nesp-burger" aria-hidden="true"><i></i><i></i><i></i></span></button>' +
     '</div>' +
@@ -762,16 +776,18 @@
     '<button type="submit">Search</button></form>' +
     '<ul>' + TOP.map(mobileItem).join('') + '</ul>' +
     '<div class="nesp-m-foot">' +
-    (session
+    (ACCOUNTS && session
       ? '<a href="' + url.profile + '" class="nesp-m-profile">' +
       '<span class="nesp-avatar nesp-avatar--sm"><span aria-hidden="true">' + INITIALS + '</span></span>' +
       '<span class="nesp-m-profile-t"><b>' + USER_NAME + '</b><em>View profile</em></span></a>'
       : '') +
-    // No "Register your interest" in here: the bar above already shows it on a
+    // No "Invest now" in here: the bar above already shows it on a
     // phone, beside the burger, so the menu would only repeat it.
-    (session
-      ? '<button type="button" class="nesp-login nesp-login--m" data-osip-signout>Sign out</button>'
-      : '<a href="' + loginHref() + '" class="nesp-login nesp-login--m">Log in or register</a>') +
+    (!ACCOUNTS
+      ? ''
+      : session
+        ? '<button type="button" class="nesp-login nesp-login--m" data-osip-signout>Sign out</button>'
+        : '<a href="' + loginHref() + '" class="nesp-login nesp-login--m">Log in or register</a>') +
     '</div></div>' +
     '</div></nav>';
 
@@ -1005,8 +1021,13 @@
       '.nesp-header .nesp-menu-group{padding-bottom:.5rem}',
       '.nesp-header .nesp-group-head{display:block;font-family:' + SANS + ';font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:' + GREEN2 + ';padding:.625rem .625rem .375rem;text-decoration:none;transition:color .25s ease}',
       '.nesp-header .nesp-group-head:hover{color:' + GREEN + '}',
-      '.nesp-header .nesp-state{display:flex;align-items:center;gap:.375rem;padding:.3125rem .625rem;border-radius:10px;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:15px;font-weight:400;color:' + INK2 + ';text-decoration:none;transition:background-color .25s ease,color .25s ease}',
+      '.nesp-header .nesp-state{display:flex;align-items:center;gap:.375rem;padding:.3125rem .625rem;border-radius:10px;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:15px;font-weight:400;color:' + INK3 + ';text-decoration:none;transition:background-color .25s ease,color .25s ease}',
       '.nesp-header .nesp-state:hover{background:' + TINT + ';color:' + GREEN + '}',
+      /* Only Enugu has a profile behind it: it sits on a quiet green, the other
+         thirty-six are set in the panel's muted ink. Hover still answers on all
+         of them - they are links, not dead ends. */
+      '.nesp-header .nesp-state--live{background:#eaf2ec;color:' + GREEN + ';font-weight:500}',
+      '.nesp-header .nesp-state--live:hover{background:#e0ebe3;color:' + GREEN + '}',
       '.nesp-header .nesp-state-live{margin-left:auto;font-family:' + SANS + ';font-size:8.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:' + GREEN + ';background:#e6efe8;border-radius:999px;padding:1px 7px}',
 
       // ---- sectioned panel (RESOURCES) ------------------------------------
@@ -1102,10 +1123,10 @@
       '@media (min-width:85rem){.nesp-header .nesp-top{padding:0 .875rem;font-size:14px}}',
       '@media (min-width:95rem){.nesp-header .nesp-top{padding:0 1.0625rem}}',
       '@media (max-width:47.9375rem){.nesp-nav-wrap{padding:0 1.5rem}}',
-      // UX-MOB-01: on a phone the action drops one word, to "Register interest".
+      // UX-MOB-01: the phone keeps its own copy of the action's words.
       // At 390px the full label made the pill 156px - two fifths of the bar -
       // which squeezed the ministry mark and left the burger on the edge. It is
-      // "Register interest" and not "Register" because this opens the investor
+      // Both say "Invest now": it is short enough for the narrowest bar. This opens the investor
       // match, not a sign-up: bare "Register" reads as create-an-account, which
       // is what Log in is for. The anchor's aria-label keeps the full phrase.
       // 30rem, not the old 23.75rem: every phone in portrait is under it.
@@ -1379,7 +1400,7 @@
       menu.groups.forEach(function (g) {
         var rows = '';
         g.items.forEach(function (it) {
-          rows += '<a class="nesp-state" href="' + it.href + '">' + it.t +
+          rows += '<a class="nesp-state' + (it.live ? ' nesp-state--live' : '') + '" href="' + it.href + '">' + it.t +
             (it.live ? '<span class="nesp-state-live" title="Profile published">Live</span>' : '') + '</a>';
         });
         cols += '<div class="nesp-menu-group"><a class="nesp-group-head" href="' + g.href + '">' +

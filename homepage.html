@@ -5748,9 +5748,13 @@
            that wraps used to push one card's amount box below its neighbours'.
            From 40rem up - where the cards start sharing a row - the title keeps
            the two lines it is clamped to, and the header keeps the height of the
-           tallest of the three, so every row inside the cards lines up. */
+           tallest of the three, so every row inside the cards lines up.
+           13 Oct 2026: the floor was 11.5rem while the header carried a stage tag
+           and a clearance tag under the sector chip. With the chip on its own the
+           header draws 102px, so a 6.5rem floor still squares the cards up without
+           leaving a band of white above the amount box. */
         @media (width >= 40rem) {
-          .osip-opp-grid .opportunity-card > .mb-6 { min-height: 11.5rem; }
+          .osip-opp-grid .opportunity-card > .mb-6 { min-height: 6.5rem; }
 
           .osip-opp-grid .opportunity-card > .mb-6 > h3 {
             min-height: 3.2rem;
@@ -6207,9 +6211,6 @@
                   Solar Power Naija - Phase II</h3>
                 <span class="sector-badge"><span
                     class="material-symbols-outlined">category</span>Sector: Solar</span>
-                <span class="stage-tag" data-stage="development"><span
-                    class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 2: Under Development</span>
-                <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
               </div>
               <div class="mb-4 inv-box">
                 <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -6243,9 +6244,6 @@
                   Katsina Wind Farm Phase I</h3>
                 <span class="sector-badge"><span
                     class="material-symbols-outlined">category</span>Sector: Wind</span>
-                <span class="stage-tag" data-stage="implementation"><span
-                    class="material-symbols-outlined" aria-hidden="true">timeline</span>Stage 3: Under Implementation</span>
-                <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
               </div>
               <div class="mb-4 inv-box">
                 <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
@@ -6279,9 +6277,6 @@
                   Nasarawa Grid-Scale Battery Storage</h3>
                 <span class="sector-badge"><span
                     class="material-symbols-outlined">category</span>Sector: Storage</span>
-                <span class="readiness-tag" data-readiness="interest"><span class="readiness-dot"
-                    aria-hidden="true"></span>Seeking investor interest</span>
-                <span class="clear-tag" data-clear="cleared"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span>Cleared by Federal Ministry of Power</span>
               </div>
               <div class="mb-4 inv-box">
                 <p class="text-on-surface-variant text-label-sm mb-1">Investment Amount</p>
