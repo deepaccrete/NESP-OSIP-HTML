@@ -57,6 +57,7 @@ Both scripts derive a `base` from their own `document.currentScript.src`, so **e
 - Keep them as separate `<script src=...>` loads. If inlined, `currentScript` is `null` and both silently fall back to a hard-coded `'pages/'` base, which breaks every nav/footer link on pages already inside `pages/`.
 - Nav content — top-level tabs, the hover-dropdown `MENU` data, and the `PAGE_ACTIVE` basename→tab map that draws the `#FFB955` underline — lives **only** in `nav.js`. Adding a page to a dropdown or giving it an active tab means editing `nav.js`, not the page.
 - Footer markup lives only in `footer.js`, using a `{{base}}` token substituted at load time.
+- `footer.js` also injects the site-wide **Back to top** button (`#osip-top`, guarded by `window.__osipTop`). It rides above anything docked at the foot of the screen (`#osip-consent`, the quiz's sticky `.quiz-controls`, or any element marked `data-osip-docked`), hides while the page is scroll-locked, and is skipped inside iframes. Don't add a per-page copy.
 
 There is no static `<nav>` markup in any page's source; the header exists only after `nav.js` runs.
 

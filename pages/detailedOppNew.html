@@ -727,6 +727,23 @@
             background: transparent !important;
         }
 
+        /* The small card's button is painted like the agency button above it: the
+           redesign layer repaints links on this page, so both have to say what
+           they are. Stated here rather than added to that rule, because that one
+           is scoped to .p-6 and this card is padded 4. */
+        .rd #page-wrapper .grid > aside a#ask-osip,
+        .rd #page-wrapper .grid > aside a#ask-osip:hover,
+        .rd #page-wrapper .grid > aside a#ask-osip .material-symbols-outlined {
+            background: var(--rd-green, #004225) !important;
+            color: #ffffff !important;
+            border-radius: 999px !important;
+            font-weight: 600 !important;
+        }
+
+        .rd #page-wrapper .grid > aside a#ask-osip .material-symbols-outlined {
+            background: transparent !important;
+        }
+
         .rd #connect-btn {
             border-radius: 999px !important;
             background: var(--rd-green) !important;
@@ -1441,6 +1458,26 @@
                     </div>
                     <!-- END: ContactDetails -->
 
+                    <!-- BEGIN: AskOsip -->
+                    <!-- The card above is about this project and routes to the agency
+                         named in it. This is the other door: anything else, to the
+                         people who run the platform.
+
+                         A card, not a banner - it says what it is for before it offers
+                         the button - but without the header strip the card above
+                         carries, so it stays the lighter of the two. -->
+                    <div class="osip-ask-card bg-white rounded-lg border border-gray-100 shadow-sm p-4">
+                        <p class="font-manrope font-bold text-sm text-brand-green leading-tight">Another
+                            question?</p>
+                        <p class="mt-1.5 text-[12px] leading-relaxed text-gray-500">Anything this page does not
+                            cover &mdash; the OSIP team can point you to the right desk.</p>
+                        <a id="ask-osip" href="Contact.html"
+                            class="mt-3.5 inline-flex items-center justify-center gap-2 w-full bg-brand-green text-white px-4 py-2.5 rounded-full text-[12px] font-semibold uppercase tracking-wider hover:opacity-90 transition-opacity">
+                            Contact us
+                            <span class="material-symbols-outlined text-[15px]" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
+                    <!-- END: AskOsip -->
 
                 </aside>
                 <!-- END: Sidebar -->

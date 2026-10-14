@@ -307,8 +307,8 @@
   // Coming Soon placeholder). Inside Resources, Financing keeps that state as a
   // `soon` section.
   var TOP = [
-    { label: 'Opportunities', href: url.opportunities },
     { label: 'Sectors', href: url.sectors },
+    { label: 'Opportunities', href: url.opportunities },
     { label: 'States', href: url.states },
     { label: 'Resources', menuOnly: true },
     // News and Events are separate pages; one tab holds both, the same way

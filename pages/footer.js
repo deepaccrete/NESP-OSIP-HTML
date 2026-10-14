@@ -222,3 +222,93 @@
 
   mount.outerHTML = HTML.replace(/\{\{base\}\}/g, base);
 })();
+
+// Back to top - on every page that loads this footer. A round button bottom
+// right, shown once the reader is a screen and a half down. It rides above
+// anything held at the foot of the screen (the consent banner, the quiz's
+// Back / Next bar), stays out of the way while a lightbox, drawer or the
+// mobile menu has locked the page, and is never drawn inside a page shown in
+// a pop-up frame. Self-contained, like the rest of this file: it injects its
+// own styles, because not every page is built the same way.
+(function () {
+  if (window.__osipTop) return;
+  window.__osipTop = true;
+  try { if (window.self !== window.top) return; } catch (e) { return; }
+
+  function start() {
+    if (document.getElementById('osip-top')) return;
+
+    var st = document.createElement('style');
+    st.textContent =
+      '#osip-top{position:fixed;right:24px;bottom:24px;z-index:1500;display:flex;align-items:center;justify-content:center;width:48px;height:48px;padding:0;border:0;border-radius:999px;background:#004225;color:#fff;cursor:pointer;box-shadow:0 10px 24px -10px rgba(0,30,20,.55);opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .25s ease,transform .25s ease,background-color .2s ease,bottom .25s ease}' +
+      '#osip-top.is-on{opacity:1;transform:none;pointer-events:auto}' +
+      '#osip-top:hover{background:#0b6b45}' +
+      '#osip-top:focus-visible{outline:2px solid #f7be26;outline-offset:3px}' +
+      '#osip-top svg{display:block}' +
+      '@media (max-width:639px){#osip-top{right:16px;bottom:16px;width:44px;height:44px}}' +
+      '@media (prefers-reduced-motion:reduce){#osip-top{transition:none}}' +
+      '@media print{#osip-top{display:none}}';
+    document.head.appendChild(st);
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'osip-top';
+    btn.setAttribute('aria-label', 'Back to top');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    document.body.appendChild(btn);
+
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var small = window.matchMedia('(max-width: 639px)');
+
+    /* what may sit at the foot of the screen; the button goes above it */
+    var DOCKED = '#osip-consent, #quiz-step:not(.hidden) .quiz-controls, [data-osip-docked]';
+
+    function locked() {
+      var h = getComputedStyle(document.documentElement).overflowY;
+      var b = getComputedStyle(document.body).overflowY;
+      return h === 'hidden' || b === 'hidden' || document.documentElement.classList.contains('lenis-stopped');
+    }
+
+    function sync() {
+      var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+      btn.classList.toggle('is-on', y > window.innerHeight * 1.5 && !locked());
+
+      var gap = small.matches ? 16 : 24;
+      var lift = 0;
+      Array.prototype.forEach.call(document.querySelectorAll(DOCKED), function (el) {
+        if (!el.getClientRects().length) return;
+        var r = el.getBoundingClientRect();
+        /* only what is actually at the foot of the screen right now */
+        if (r.top < window.innerHeight && r.bottom > window.innerHeight - 4 - r.height * 0.5 && r.bottom <= window.innerHeight + 2) {
+          lift = Math.max(lift, window.innerHeight - r.top + 12);
+        }
+      });
+      btn.style.bottom = Math.max(gap, lift) + 'px';
+    }
+
+    btn.addEventListener('click', function (e) {
+      if (window.__rdLenis && !still) window.__rdLenis.scrollTo(0);
+      else window.scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' });
+      /* A mouse or touch click leaves the focus alone. Pressed from the
+         keyboard (detail 0), the focus goes to the top of the page with it -
+         to the first header link that is not "Skip to main content", which
+         shows itself whenever it has the focus. */
+      if (e.detail !== 0) { btn.blur(); return; }
+      var first = document.querySelector('.nesp-header a:not(.nesp-skip)') ||
+        document.querySelector('header a:not(.nesp-skip)');
+      if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, still ? 0 : 600);
+    });
+
+    var frame = 0;
+    function queue() { cancelAnimationFrame(frame); frame = requestAnimationFrame(sync); }
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    /* a click can open or close a banner, a drawer, a menu */
+    document.addEventListener('click', function () { setTimeout(queue, 60); });
+    document.addEventListener('keydown', function () { setTimeout(queue, 60); });
+    sync();
+  }
+
+  if (document.body) start();
+  else document.addEventListener('DOMContentLoaded', start);
+})();
