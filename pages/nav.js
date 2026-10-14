@@ -336,19 +336,42 @@
 
   function slug(s) { return s.toLowerCase().replace(/\s+/g, '-'); }
 
-  var STATE_GROUPS = ZONES.map(function (z) {
+  function stateItem(name) {
     return {
-      head: z[0],
-      href: base + 'States.html#' + slug(z[0]),
-      items: z[1].map(function (name) {
-        return {
-          t: name,
-          href: LIVE_STATES[name] || (base + 'States.html#' + slug(name)),
-          live: !!LIVE_STATES[name]
-        };
-      })
+      t: name,
+      href: LIVE_STATES[name] || (base + 'States.html#' + slug(name)),
+      live: !!LIVE_STATES[name]
     };
-  });
+  }
+
+  /* The published profiles lead the menu (14 Oct 2026). A reader opening States
+     wants the one they can actually read, and it used to sit fourth down inside
+     South East with thirty-six it cannot read around it. They are lifted into a
+     band of their own across the top and taken out of their zone below, so no
+     state is listed twice. Zone order and contents are otherwise untouched.
+
+     This is in the data, not the renderer, so the phone menu reads the same
+     order; and a second state going live needs no code, only a line in
+     LIVE_STATES. With none live the band is skipped and the menu is the six
+     zones exactly as it was. */
+  var liveNames = Object.keys(LIVE_STATES);
+
+  var STATE_GROUPS = (liveNames.length
+    ? [{
+      head: 'Published profiles',
+      href: base + 'States.html',
+      wide: true,
+      items: liveNames.map(stateItem)
+    }]
+    : []).concat(ZONES.map(function (z) {
+      return {
+        head: z[0],
+        href: base + 'States.html#' + slug(z[0]),
+        items: z[1]
+          .filter(function (name) { return !LIVE_STATES[name]; })
+          .map(stateItem)
+      };
+    }));
 
   // ---- Hover-dropdown menu data (single source) --------------------------
   // A menu is one column, capped at 340px, scrolling with a visible bar once it
@@ -533,7 +556,8 @@
     } else if (menu.groups) {
       // The zones survive on mobile too. 37 flat names would be a wall.
       menu.groups.forEach(function (g) {
-        subs += '<a class="nesp-m-subhead" href="' + g.href + '">' + g.head + '</a>';
+        subs += '<a class="nesp-m-subhead' + (g.wide ? ' nesp-m-subhead--first' : '') +
+          '" href="' + g.href + '">' + g.head + '</a>';
         // A published profile carries the same "Live" badge as in the desktop menu.
         g.items.forEach(function (it) {
           subs += it.live
@@ -1019,6 +1043,12 @@
       '.nesp-header .nesp-menu-groups::-webkit-scrollbar-thumb{background:' + LINE2 + ';border-radius:999px}',
       '.nesp-header .nesp-menu-groups::-webkit-scrollbar-thumb:hover{background:' + GREEN2 + '}',
       '.nesp-header .nesp-menu-group{padding-bottom:.5rem}',
+      /* The published-profiles band runs the width of the panel and keeps the
+         same three columns inside it, so one live state sits in the first of
+         them rather than stretching across. The hairline is what separates the
+         states you can open from the ones you cannot. */
+      '.nesp-header .nesp-menu-group--wide{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 1rem;border-bottom:1px solid ' + LINE + ';margin-bottom:.375rem;padding-bottom:.625rem}',
+      '.nesp-header .nesp-menu-group--wide .nesp-group-head{grid-column:1/-1}',
       '.nesp-header .nesp-group-head{display:block;font-family:' + SANS + ';font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:' + GREEN2 + ';padding:.625rem .625rem .375rem;text-decoration:none;transition:color .25s ease}',
       '.nesp-header .nesp-group-head:hover{color:' + GREEN + '}',
       '.nesp-header .nesp-state{display:flex;align-items:center;gap:.375rem;padding:.3125rem .625rem;border-radius:10px;font-family:' + SANS + ';font-size-adjust:' + ADJUST + ';font-size:15px;font-weight:400;color:' + INK3 + ';text-decoration:none;transition:background-color .25s ease,color .25s ease}',
@@ -1411,7 +1441,8 @@
               '<span class="nesp-state-live" title="Profile published">Live</span></a>'
             : '<span class="nesp-state nesp-state--off">' + it.t + '</span>';
         });
-        cols += '<div class="nesp-menu-group"><a class="nesp-group-head" href="' + g.href + '">' +
+        cols += '<div class="nesp-menu-group' + (g.wide ? ' nesp-menu-group--wide' : '') +
+          '"><a class="nesp-group-head" href="' + g.href + '">' +
           g.head + '</a>' + rows + '</div>';
       });
       panel.className = 'nesp-dropdown nesp-dropdown--mega';
