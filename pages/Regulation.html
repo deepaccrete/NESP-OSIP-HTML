@@ -1261,7 +1261,7 @@
                     <div class="w-1 h-10 bg-tertiary-fixed-dim"></div>
                     <div>
                         <h1 class="font-h2 text-h3 sm:text-h2 text-primary">Regulations</h1>
-                        <p id="reg-count" class="text-body-sm text-on-surface-variant mt-0.5">Showing 6 frameworks</p>
+                        <p id="reg-count" class="text-body-sm text-on-surface-variant mt-0.5">Showing 5 frameworks</p>
                     </div>
                 </div>
                 <div class="relative w-full md:w-96">
@@ -1333,6 +1333,10 @@
                             </div>
                         </div>
                     </article>
+                    <!-- The Petroleum Industry Act card is parked here on 14 Oct 2026.
+                         Nothing is wrong with the card itself - only its PDF was still a
+                         placeholder - so uncommenting it puts it back, and the count below
+                         recalculates on load either way.
                     <article
                         class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
                         data-type="legislation" data-sector="gas">
@@ -1360,6 +1364,7 @@
                             </div>
                         </div>
                     </article>
+                    -->
                     <article
                         class="reg-card bg-surface-container-lowest border border-outline-variant border-t-4 border-t-tertiary-fixed-dim group hover:shadow-lg transition-shadow duration-300 flex flex-col"
                         data-type="policy" data-sector="renewables">
@@ -1880,6 +1885,10 @@
                     if (grid) grid.classList.toggle('hidden', shown === 0);
                 }
                 if (search) search.addEventListener('input', apply);
+                /* Count once on load too. The number was written into the markup and
+                   only ever corrected by a keystroke, so it went stale the moment a
+                   card was added or taken away. */
+                apply();
             })();
     </script>
     <!-- NESP nav wiring (mobile toggle + active golden bar) -->
