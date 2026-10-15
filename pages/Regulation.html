@@ -587,6 +587,31 @@
 
         .rd main .reg-card:hover .border-t > .material-symbols-outlined { color: var(--rd-green) !important; }
 
+        /* The two cards whose source is not settled yet wear the page's own
+           .reg-link-tbc, with the blur on the TOP LINE ONLY - nav.js's numbers for
+           a route that does not exist yet.
+
+           Only the top line, because opacity and filter apply to everything inside
+           an element and a child cannot undo them: blurring the whole label took
+           "Official link - to be confirmed" with it, and that line is the one thing
+           on the card that has to be read. So the dead route is what goes soft, and
+           the message explaining it stays crisp. */
+        .rd main #reg-grid .reg-link-tbc .reg-soon {
+            opacity: .4;
+            filter: blur(.5px);
+            user-select: none;
+        }
+
+        /* And the message itself is shown, not hinted. The page's own .reg-link-tbc
+           keeps its em at 55% and nudged 4px across, sharpening only on hover - a
+           quiet aside for the two Tax and Fiscal entries that use it. On these two
+           cards it is the point: the reader has to see that the source is not
+           settled without pointing at anything. Left alone everywhere else. */
+        .rd main #reg-grid .reg-link-tbc em {
+            opacity: 1;
+            transform: none;
+        }
+
         /* ---- One card size for the page (15 Oct 2026) ---------------------------
            The client asked for two rows at most on Technical Legislation and the TL
            for a smaller card - the same fix from two ends, since how many rows
@@ -1410,9 +1435,9 @@
                             <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">The comprehensive
                                 legislation governing the power sector value chain.</p>
                             <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                                <a aria-label="View the full PDF: Electricity Act 2023" class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                    href="docs/electricity-act-2023.pdf" target="_blank" rel="noopener">View Full PDF <span
-                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <a aria-label="View on power.gov.ng: Electricity Act 2023" class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                    href="https://power.gov.ng/download/electricity-act-2023/" target="_blank" rel="noopener">View on power.gov.ng <span
+                                        class="material-symbols-outlined text-[16px]">open_in_new</span></a>
                                 <span
                                     class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
                             </div>
@@ -1469,9 +1494,9 @@
                             <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Framework for achieving
                                 Nigeria's green energy mix targets by 2030.</p>
                             <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                                <a aria-label="View the full PDF: National Renewable Energy Policy (NREP)" class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                    href="docs/national-renewable-energy-policy-2015.pdf" target="_blank" rel="noopener">View Full PDF <span
-                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <a aria-label="View on power.gov.ng: National Renewable Energy Policy (NREP)" class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                    href="https://www.power.gov.ng/download/NREEE%20POLICY%202015-%20FEC%20APPROVED%20COPY.pdf" target="_blank" rel="noopener">View on power.gov.ng <span
+                                        class="material-symbols-outlined text-[16px]">open_in_new</span></a>
                                 <span
                                     class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
                             </div>
@@ -1497,9 +1522,9 @@
                             <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Rules for developing and
                                 operating isolated and interconnected mini-grids.</p>
                             <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                                <a aria-label="View the full PDF: NERC Mini-Grid Regulations" class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                    href="docs/sample-nerc-mini-grid-regulations.pdf" target="_blank" rel="noopener">View Full PDF <span
-                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <span class="reg-link-tbc" tabindex="0"
+                                    aria-label="NERC Mini-Grid Regulations: official link to be confirmed"><span class="reg-soon">View official source</span>
+                                    <em>Official link &mdash; to be confirmed</em></span>
                                 <span
                                     class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
                             </div>
@@ -1525,9 +1550,9 @@
                             <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">Local workforce and
                                 procurement requirements across the value chain.</p>
                             <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                                <a aria-label="View the full PDF: NOGICD Local Content Guidelines" class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                    href="docs/sample-nogicd-local-content-guidelines.pdf" target="_blank" rel="noopener">View Full PDF <span
-                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <span class="reg-link-tbc" tabindex="0"
+                                    aria-label="NOGICD Local Content Guidelines: official link to be confirmed"><span class="reg-soon">View official source</span>
+                                    <em>Official link &mdash; to be confirmed</em></span>
                                 <span
                                     class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
                             </div>
@@ -1552,9 +1577,9 @@
                             <p class="text-body-sm text-on-surface-variant leading-relaxed flex-1">The umbrella policy for
                                 the electricity sector, sitting over the Electricity Act 2023.</p>
                             <div class="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
-                                <a aria-label="View the full PDF: National Integrated Electricity Policy (NIEP)" class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
-                                    href="docs/national-integrated-electricity-policy.pdf" target="_blank" rel="noopener">View Full PDF <span
-                                        class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                                <a aria-label="View on power.gov.ng: National Integrated Electricity Policy (NIEP)" class="text-sm font-bold text-primary flex items-center gap-1 hover:gap-2 transition-all"
+                                    href="https://power.gov.ng/download/national-integrated-electricity-policy/" target="_blank" rel="noopener">View on power.gov.ng <span
+                                        class="material-symbols-outlined text-[16px]">open_in_new</span></a>
                                 <span
                                     class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">picture_as_pdf</span>
                             </div>
